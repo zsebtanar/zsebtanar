@@ -1,0 +1,12 @@
+# Set default behavior (if core.autocrlf not set):
+* text=auto
+
+# Normalize and convert text files to native line endings on checkout:
+*.php text
+
+# Binary files (not to be modified):
+*.png binary
+*.jpg binary
+*.gif binary
+*.pdf binary
+*.pptx binary
