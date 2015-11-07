@@ -1,0 +1,102 @@
+{
+	"classes": [
+		{
+			"alt": 5,
+			"name": "5. osztály",
+			"topics": [
+				{
+					"alt": "nat",
+					"name": "Természetes számok",
+					"subtopics": [
+						{
+							"alt": "nat",
+							"name": "Természetes számok",
+							"definitions": [
+								{
+									"label": "Természetes számok",
+									"youtube": "L6qu8pmxNxY"
+								},
+								{
+									"label": "Páros, páratlan számok",
+									"youtube": "vRdtdBEDbXI"
+								}
+							],
+							"quizzes": [
+                {
+                  "question": "Melyik számokat nevezzük természetes számoknak?",
+                  "correct": "Amik a természetben gyakran előfordulnak.",
+                  "wrong1": "Amiket a természetjárók fedeztek föl.",
+                  "wrong2": "Mindegyiket."
+                },
+                {
+                  "question": "Melyik betűvel jelöljük a természetes számok halmazát?",
+                  "correct": "$\\\\\\\\mathbb{N}$",
+                  "wrong1": "$\\\\\\\\mathbb{T}$",
+                  "wrong2": "$\\\\\\\\mathbb{R}$"
+                },
+                {
+                  "question": "Az alábbiak közül melyik kérdésre válaszolunk mindig természetes számmal?",
+                  "correct": "Hány darab...?",
+                  "wrong1": "Mekkora...?",
+                  "wrong2": "Hányadik...?"
+                },
+                {
+                  "question": "Milyen eredetű a <i>natura</i> szó?",
+                  "correct": "latin",
+                  "wrong1": "görög",
+                  "wrong2": "magyar"
+                },
+                {
+                  "question": "Melyik a legnagyobb természetes szám?",
+                  "correct": "Nincs ilyen",
+                  "wrong1": "$999999999$",
+                  "wrong2": "$10000000$"
+                },
+                {
+                  "question": "Hány darab természetes szám van?",
+                  "correct": "Végtelen sok",
+                  "wrong1": "$987533867$",
+                  "wrong2": "$13456432$"
+                },
+                {
+                  "question": "Melyik a legkisebb természetes szám?",
+                  "correct": "$0$",
+                  "wrong1": "$1$",
+                  "wrong2": "Nincs ilyen"
+                },
+                {
+                  "question": "A páros számok ... végződnek.",
+                  "correct": "$0,2,4,6,8$-ra",
+                  "wrong1": "$1,3,5,7,9$-re",
+                  "wrong2": "$0,1,2,3,4$-re"
+                },
+                {
+                  "question": "A páratlan számok ... végződnek.",
+                  "correct": "$1,3,5,7,9$-re",
+                  "wrong1": "$0,2,4,6,8$-ra",
+                  "wrong2": "$0,1,2,3,4$-re"
+                },
+                {
+                  "question": "10.  Azt, hogy egy szám páros, vagy páratlan, a(z) ... számjegy dönti el.",
+                  "correct": "utolsó",
+                  "wrong1": "első",
+                  "wrong2": "második"
+                }
+							],
+							"exercises": [
+								{
+									"alt": "count_apples",
+									"label": "Számolás (alma)"
+								},
+								{
+									"alt": "parity",
+									"label": "Páros, páratlan"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
