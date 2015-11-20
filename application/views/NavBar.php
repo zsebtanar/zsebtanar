@@ -47,7 +47,7 @@
 								foreach ($subtopics as $subtopic_id => $subtopic_name) {?>
 
 									<li>
-										<a href="<?php echo base_url();?>page/view/<?php echo $subtopic_id;?>">
+										<a href="<?php echo base_url();?>view/page/<?php echo $subtopic_id;?>">
 											<?php echo $subtopic_name;?>
 										</a>
 									</li><?php

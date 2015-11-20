@@ -86,9 +86,15 @@ class Html extends CI_model {
 
 		if ($id) {
 
+
 			$subtopics = $this->db->get_where('subtopics', array('id' => $id));
 			$subtopic = $subtopics->result()[0];
-			$classes = $this->db->get_where('classes', array('id' => $subtopic->classID));
+
+			$this->db->select('classes.name');
+			$this->db->from('subtopics');
+			$this->db->join('topics', 'topics.id = subtopics.topicID', 'inner');
+			$this->db->join('classes', 'classes.id = topics.classID', 'inner');
+			$classes = $this->db->get();
 			$class = $classes->result()[0];
 
 			$title = $subtopic->name;
