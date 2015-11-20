@@ -33,7 +33,7 @@ class Statistics extends CI_model {
 			$currentDate = date('Y.m.d');
 			for ($row = 1; $row <= $highestRow; ++$row) {
 				$value = $objWorksheet->getCellByColumnAndRow(0, $row)->getValue();
-				$sum = max($sum, $objWorksheet->getCellByColumnAndRow(8, $row)->getValue());
+				$sum = max($sum, $objWorksheet->getCellByColumnAndRow(1, $row)->getValue());
 				if ($value == $currentDate) {
 					$dateFound = TRUE;
 					$objPHPExcel = $this->Update($objPHPExcel, $row, $sum, $currentDate);
@@ -62,29 +62,15 @@ class Statistics extends CI_model {
 	 */
 	public function Update($objPHPExcel, $row, $sum_old, $currentDate) {
 
-		$this->db->select('SalerName, count(*)');
-
 		$this->load->model('Database');
-
-		$i = 0;
-		foreach (array_keys(Database::TABLE_COLUMNS) as $table) {
-			$total[$i++] = $this->db->count_all_results($table);
-		}
 		
-		$sum_new = array_sum($total);
+		$sum_new = $this->db->count_all_results('exercises');
 
 		if ($sum_new > $sum_old) {
 
 			$objPHPExcel->setActiveSheetIndex(0)
 						->setCellValue('A'.$row, $currentDate)
-						->setCellValue('H'.$row, $sum_new);
-
-			$columns = range('B', 'G');
-
-			foreach ($columns as $index => $column) {
-				$objPHPExcel->setActiveSheetIndex(0)
-							->setCellValue($column.$row, $total[$index]);
-			}
+						->setCellValue('B'.$row, $sum_new);
 		}
 
 		return $objPHPExcel;

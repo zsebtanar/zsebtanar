@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Page extends CI_controller {
+class View extends CI_controller {
 
-	public function View($id=NULL, $level=NULL) {
+	public function Page($id=NULL, $level=NULL) {
 		
 		// Write statistics
 		$this->load->model('Statistics');

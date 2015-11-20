@@ -16,10 +16,63 @@
 			<a class="navbar-brand" href="<?php echo base_url();?>page/view">Zsebtanár</a>
 		</div>
 		<div class="collapse navbar-collapse">
-			<ul class="nav navbar-nav">
-				<?php
+			<ul class="nav navbar-nav"><?php
 
-				echo $html;
+				foreach ($html as $class => $topics) {?>
+
+					<li>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php
+
+						echo $class;
+
+					if (count($topics) > 0) {?>
+
+							<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu multi-level"><?php
+
+						foreach ($topics as $topic => $subtopics) {?>
+
+							<li class="dropdown-submenu">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php
+
+							echo $topic;?>
+
+								</a><?php
+
+							if (count($subtopics) > 0) {?>
+
+								<ul class="dropdown-menu"><?php
+
+								foreach ($subtopics as $subtopic_id => $subtopic_name) {?>
+
+									<li>
+										<a href="<?php echo base_url();?>page/view/<?php echo $subtopic_id;?>">
+											<?php echo $subtopic_name;?>
+										</a>
+									</li><?php
+
+								}?>
+
+								</ul><?php
+
+							}?>
+
+							</li><?php
+
+						}?>
+
+						</ul><?php
+
+					} else {?>
+
+						</a><?php
+
+					}?>
+
+					</li><?php
+
+				}
 
 				?>
 			</ul>

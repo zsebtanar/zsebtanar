@@ -268,7 +268,7 @@ class Database extends CI_model {
 	public function Redirect($id=NULL, $level=NULL) {
 
 		$this->load->helper('url');
-		header('Location:'.base_url().'page/view/'.$id.($id ? '/' : '').$level);
+		header('Location:'.base_url().'view/page/'.$id.($id ? '/' : '').$level);
 	}
 
 	/**

@@ -19,7 +19,7 @@ class Update extends CI_controller {
 		}
 
 		$this->Database->InsertData($data, $id);
-		// $this->Database->Redirect($id, $level);
+		$this->Database->Redirect($id, $level);
 	}
 }
 
