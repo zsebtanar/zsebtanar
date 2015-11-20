@@ -3,19 +3,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Update extends CI_controller {
 
-	public function Database() {
+	public function Database($id=NULL, $level=NULL) {
 
-		$dbname = $this->db->database;
+		$this->session->set_userdata('Logged_in', TRUE);
+		$this->session->set_userdata('Write_statistics', TRUE);
 		
 		$this->load->model('Database');
-		$this->Database->Drop($dbname);
-		$this->Database->Create($dbname);
-		$this->Database->Connect($dbname);
+		$data = $this->Database->ReadFile('resources/data.json');
 
-		$this->load->model('Tables');
-		$this->Tables->Drop('classes');
-		$this->Tables->Create('classes');
+		if (!isset($id)) {
+			$this->Database->DropTables();
+			$this->Database->CreateTables();
+		} else {
+			$this->Database->DeleteFromTables($id);
+		}
 
+		$this->Database->InsertData($data, $id);
+		// $this->Database->Redirect($id, $level);
 	}
 }
 

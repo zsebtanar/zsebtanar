@@ -10,33 +10,26 @@
 				<span class="icon-bar"></span>
 			</button>
 
-			<a class="navbar-brand" href="index.php">
-				<img src="assets/images/logo_small.png" alt="logo" width="20">
+			<a class="navbar-brand" href="<?php echo base_url();?>page/view">
+				<img src="<?php echo base_url();?>assets/images/logo_small.png" alt="logo" width="20">
 			</a>
-			<a class="navbar-brand" href="index.php">Zsebtanár</a>
+			<a class="navbar-brand" href="<?php echo base_url();?>page/view">Zsebtanár</a>
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 				<?php
 
-				printNavBarMenu();
+				echo $html;
 
-				?></ul>
+				?>
+			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<?php
 
-				if ($_SESSION['logged_in']) {?>
+				echo $refresh_icon;
 
+				?>
 				<li>
-					<a href="<?php echo $href; ?>">
-						<span class="glyphicon glyphicon-refresh"></span> Frissítés
-					</a>
-				</li>
-				<?php		  
-
-				}
-
-				?><li>
 					<a href="#" data-toggle="modal" data-target="#search">
 						<span class="glyphicon glyphicon-search"></span> Keresés
 					</a>
