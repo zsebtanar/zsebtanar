@@ -6,11 +6,9 @@ class Application extends CI_controller {
 	public function Search() {
 		
 		$this->load->model('Database');
-
 		$keyword = $this->input->post('keyword');
 		$results = $this->Database->Search($keyword);
-
-		print_r($results);
+		echo json_encode($results);
 	}
 }
 

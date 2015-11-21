@@ -290,16 +290,7 @@ class Database extends CI_model {
 		$this->db->like('label', $keyword, 'both');
 		$this->db->order_by('label');
 		$query = $this->db->get('exercises');
-
-		print_r($query->num_rows);
-
-		$output = '<ul>';
-		foreach ($query->result() as $row){
-			$output .= '<li><a href='.base_url().'view/exercise/'.$row->id.'>'.$row->name.'</a></li>';
-		}
-		$output .= '</ul>';
-
-		return $output;
+		return $query->result_array();
 	}
 }
 

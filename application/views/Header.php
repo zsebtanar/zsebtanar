@@ -34,14 +34,40 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
 <!-- Typeahead JS -->
-<script type="text/javascript" src="<?php echo base_url();?>assets/js/jquery.typeahead.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#exercise").keyup(function() {
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url();?>application/search",
+                data: {
+                    keyword: $("#exercise").val()
+                },
+                dataType: "json",
+                success: function(data) {
+                    if (data.length > 0) {
+                        $('#DropdownExercises').empty();
+                        $('#exercise').attr("data-toggle", "dropdown");
+                        $('#DropdownExercises').dropdown('toggle');
+                    } else if (data.length == 0) {
+                        $('#exercise').attr("data-toggle", "");
+                    }
+                    $.each(data, function(key, value) {
+                        if (data.length >= 0)
+                            $('#DropdownExercises').append('<li role="presentation"><a href="<?php echo base_url();?>view/exercise/' + value['id'] + '">' + value['name'] + '</a></li>');
+                    });
+                }
+            });
+        });
+        $('ul.txtcountry').on('click', 'li a', function() {
+            $('#exercise').val($(this).text());
+            ($(this).getAttribute('href'));
+        });
+    });
+</script>
 
 <!-- Query parser for youtube links JS -->
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/jquery-queryParser.js"></script>
-
-<!-- Quiz JS -->
-<script type="text/javascript" src="<?php echo base_url();?>assets/js/quiz/mootools-core-1.4.5-minified.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>assets/js/quiz/dg-quiz-maker.js"></script>
 
 <!-- MathJax JS -->
 <script type="text/x-mathjax-config">
@@ -57,13 +83,6 @@
   });
 </script>
 <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-<!-- Misc -->
-<script type="text/javascript">
-		$('#search').autocomplete({
-			source: "<?php echo base_url();?>page/search"
-		});
-</script>
 </head>
 
 <body>
