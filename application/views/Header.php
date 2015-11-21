@@ -36,21 +36,21 @@
 <!-- Typeahead JS -->
 <script>
     $(document).ready(function() {
-        $("#exercise").keyup(function() {
+        $("#search").keyup(function() {
             $.ajax({
                 type: "POST",
                 url: "<?php echo base_url();?>application/search",
                 data: {
-                    keyword: $("#exercise").val()
+                    keyword: $("#search").val()
                 },
                 dataType: "json",
                 success: function(data) {
                     if (data.length > 0) {
                         $('#DropdownExercises').empty();
-                        $('#exercise').attr("data-toggle", "dropdown");
+                        $('#search').attr("data-toggle", "dropdown");
                         $('#DropdownExercises').dropdown('toggle');
                     } else if (data.length == 0) {
-                        $('#exercise').attr("data-toggle", "");
+                        $('#search').attr("data-toggle", "");
                     }
                     $.each(data, function(key, value) {
                         if (data.length >= 0)
@@ -60,7 +60,7 @@
             });
         });
         $('ul.txtcountry').on('click', 'li a', function() {
-            $('#exercise').val($(this).text());
+            $('#search').val($(this).text());
             ($(this).getAttribute('href'));
         });
     });

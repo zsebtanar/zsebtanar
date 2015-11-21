@@ -83,11 +83,6 @@
 
 				?>
 				<li>
-					<a href="#" data-toggle="modal" data-target="#search">
-						<span class="glyphicon glyphicon-search"></span> Keresés
-					</a>
-				</li>
-				<li>
 					<a href="#" data-toggle="modal" data-target="#info">
 						<span class="glyphicon glyphicon-info-sign"></span> Mi ez?
 					</a>

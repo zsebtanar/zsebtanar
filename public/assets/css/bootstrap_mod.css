@@ -12,11 +12,11 @@ body {
 }
 
 .img_main {
-    padding-top: 40px;
+    padding-top: 20px;
 }
 
 .jumbotron {
-    padding: 0px;
+    padding-bottom: 50px;
     margin: 0px;
 }
 
@@ -30,6 +30,10 @@ body {
 }
 .exercise {
     padding-top: 20px;
+}
+
+.exercise_input {
+    padding: 30px;
 }
 
 h1 {

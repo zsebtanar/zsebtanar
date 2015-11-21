@@ -55,21 +55,19 @@ class Html extends CI_model {
 	 * @param  int $level Excercise level
 	 * @return string $html Html-code
 	 */
-	public function printRefreshIcon($id=NULL, $level=NULL) {
+	public function printRefreshIcon($id=NULL) {
 
-		
-
-		$href = base_url().'update/database/'.$id.($id ? '/' : '').$level;
+		$href = base_url().'update/database/'.$id;
 		
 		$html = '';
 
 		if ($this->session->userdata('Logged_in')) {
 
-			$html = '<li>'."\n";
-			$html = "\t".'<a href="'.$href.'">'."\n";
-			$html = "\t\t".'<span class="glyphicon glyphicon-refresh"></span> Frissítés'."\n";
-			$html = "\t".'</a>'."\n";
-			$html = '</li>'."\n";
+			$html .= '<li>'."\n";
+			$html .= "\t".'<a href="'.$href.'">'."\n";
+			$html .= "\t\t".'<span class="glyphicon glyphicon-refresh"></span> Frissítés'."\n";
+			$html .= "\t".'</a>'."\n";
+			$html .= '</li>'."\n";
 
 		}
 

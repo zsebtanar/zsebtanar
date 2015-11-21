@@ -274,9 +274,9 @@ class Database extends CI_model {
 	 * @param  int $level Excercise level
 	 * @return void
 	 */
-	public function Redirect($id=NULL, $level=NULL) {
+	public function Redirect($id=NULL) {
 
-		header('Location:'.base_url().'view/page/'.$id.($id ? '/' : '').$level);
+		header('Location:'.base_url().'view/page/'.$id);
 	}
 
 	/**
@@ -291,6 +291,31 @@ class Database extends CI_model {
 		$this->db->order_by('label');
 		$query = $this->db->get('exercises');
 		return $query->result_array();
+	}
+
+	/**
+	 * Get exercises of subtopic
+	 *
+	 * @param  int   $id        Subtopic ID
+	 * @return array $exercises Exercises
+	 */
+	public function getExercises($id) {
+
+		$query = $this->db->get_where('exercises', array('subtopicID' => $id));
+		return $query->result_array();
+	}
+
+	/**
+	 * Get exercise
+	 *
+	 * @param  int    $id    Exercise ID
+	 * @return string $label Exercise label
+	 */
+	public function getExercise($id) {
+
+		$query = $this->db->get_where('exercises', array('id' => $id));
+		$label = $query->result()[0];
+		return $label;
 	}
 }
 
