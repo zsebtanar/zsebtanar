@@ -79,33 +79,51 @@ class Html extends CI_model {
 	/**
 	 * Print page title
 	 *
-	 * @param  int $id    Subtopic ID
+	 * @param  int    $id   Subtopic/Excercise ID
+	 * @param  string $type Page type ('subtopic' or 'exercise')
 	 * @return string $html Html-code
 	 */
-	public function printPageTitle($id=NULL) {
+	public function printPageTitle($id=NULL, $type='subtopic') {
 
 		if ($id) {
 
+			if ($type=='subtopic') {
 
-			$subtopics = $this->db->get_where('subtopics', array('id' => $id));
-			$subtopic = $subtopics->result()[0];
+				$subtopics = $this->db->get_where('subtopics', array('id' => $id));
+				$subtopic = $subtopics->result()[0];
 
-			$this->db->select('classes.name');
-			$this->db->from('subtopics');
-			$this->db->join('topics', 'topics.id = subtopics.topicID', 'inner');
-			$this->db->join('classes', 'classes.id = topics.classID', 'inner');
-			$classes = $this->db->get();
-			$class = $classes->result()[0];
+				$this->db->select('classes.name');
+				$this->db->from('subtopics');
+				$this->db->join('topics', 'topics.id = subtopics.topicID', 'inner');
+				$this->db->join('classes', 'classes.id = topics.classID', 'inner');
+				$classes = $this->db->get();
+				$class = $classes->result()[0];
 
-			$title = $subtopic->name;
-			$subtitle = $class->name;
+				$title = $subtopic->name;
+				$subtitle = $class->name;
+
+			} else {
+
+				$exercises = $this->db->get_where('exercises', array('id' => $id));
+				$exercise = $exercises->result()[0];
+
+				$this->db->select('subtopics.name');
+				$this->db->from('exercises');
+				$this->db->join('subtopics', 'subtopics.id = exercises.subtopicID', 'inner');
+				$subtopics = $this->db->get();
+				$subtopic = $subtopics->result()[0];
+
+				$title = $exercise->name;
+				$subtitle = $subtopic->name;
+			}
+
 			$img = '';
 
 		} else {
 
 			$title = 'zsebtanár';
 			$subtitle = 'matek | másként';
-			$img = '<a href="page/view"><img class="img-responsive center-block" '
+			$img = '<a href="'.base_url().'view/page"><img class="img-responsive center-block img_main" '
 				.'src="'.base_url().'assets/images/logo.png" alt="logo" width="150"></a>';
 				
 		}

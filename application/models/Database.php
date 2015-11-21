@@ -3,6 +3,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Database extends CI_model {
 
+	/**
+	 * Class constructor
+	 *
+	 * @return	void
+	 */
+	public function __construct() {
+
+		$this->load->helper('url');
+		$this->load->dbforge();
+	}
+
 	// Define name and type of table columns
 	const TABLE_COLUMNS = array(
 			'classes' => array(
@@ -18,8 +29,8 @@ class Database extends CI_model {
 				),
 			'exercises' => array(
 				'subtopicID'	=> 'FROM SESSION',
-				'name'			=> 'NOT NULL',
-				'label'			=> '',
+				'name'			=> '',
+				'label'			=> 'NOT NULL',
 				'youtube'		=> ''
 				),
 			'links' => array(
@@ -61,8 +72,6 @@ class Database extends CI_model {
 	 * @return void
 	 */
 	public function DropTable($table) {
-
-		$this->load->dbforge();
 
 		if ($this->db->table_exists($table)) {
 			if ($this->dbforge->drop_table($table)) {
@@ -128,8 +137,8 @@ class Database extends CI_model {
 			'exercises' => 'CREATE TABLE exercises (
 							id 			INT 		NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							subtopicID 	INT 		NOT NULL,
-							name 		VARCHAR(30) NOT NULL UNIQUE,
-							label 		VARCHAR(120),
+							label 		VARCHAR(30) NOT NULL UNIQUE,
+							name 		VARCHAR(120),
 							youtube 	VARCHAR(20),
 							FOREIGN KEY (subtopicID) REFERENCES subtopics(id)
 						)Engine=InnoDB;',
@@ -267,28 +276,30 @@ class Database extends CI_model {
 	 */
 	public function Redirect($id=NULL, $level=NULL) {
 
-		$this->load->helper('url');
 		header('Location:'.base_url().'view/page/'.$id.($id ? '/' : '').$level);
 	}
 
 	/**
 	 * Search
 	 *
-	 * @param string $name String name
-	 * @return void
+	 * @param  string $keyword Keyword
+	 * @return string $output  Html output
 	 */
-	public function Search($name) {
+	public function Search($keyword) {
 
-		$this->db->select('exercises');
-		$this->db->like('label', $name);
+		$this->db->like('label', $keyword, 'both');
+		$this->db->order_by('label');
 		$query = $this->db->get('exercises');
 
-		if ($query->num_rows > 0) {
-			foreach ($query->result_array() as $row){
-				$row_set[] = htmlentities(stripslashes($row['label']));
-			}
-			echo json_encode($row_set);
+		print_r($query->num_rows);
+
+		$output = '<ul>';
+		foreach ($query->result() as $row){
+			$output .= '<li><a href='.base_url().'view/exercise/'.$row->id.'>'.$row->name.'</a></li>';
 		}
+		$output .= '</ul>';
+
+		return $output;
 	}
 }
 

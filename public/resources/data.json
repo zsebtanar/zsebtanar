@@ -10,12 +10,12 @@
 							"name": "Természetes számok",
 							"exercises": [
 								{
-									"name": "count_apples",
-									"label": "Számolás (alma)"
+									"label": "count_apples",
+									"name": "Számolás (alma)"
 								},
 								{
-									"name": "parity",
-									"label": "Páros, páratlan"
+									"label": "parity",
+									"name": "Páros, páratlan"
 								}
 							]
 						}

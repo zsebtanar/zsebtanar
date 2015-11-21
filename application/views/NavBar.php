@@ -10,10 +10,10 @@
 				<span class="icon-bar"></span>
 			</button>
 
-			<a class="navbar-brand" href="<?php echo base_url();?>page/view">
+			<a class="navbar-brand" href="<?php echo base_url();?>view/page">
 				<img src="<?php echo base_url();?>assets/images/logo_small.png" alt="logo" width="20">
 			</a>
-			<a class="navbar-brand" href="<?php echo base_url();?>page/view">Zsebtanár</a>
+			<a class="navbar-brand" href="<?php echo base_url();?>view/page">Zsebtanár</a>
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav"><?php

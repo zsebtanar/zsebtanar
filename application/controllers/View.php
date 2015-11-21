@@ -3,28 +3,49 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class View extends CI_controller {
 
-	public function Page($id=NULL, $level=NULL) {
-		
+	/**
+	 * Class constructor
+	 *
+	 * @return	void
+	 */
+	public function __construct() {
+
+		parent::__construct();
+		$this->load->helper('url');
+		$this->load->model('Html');
+
 		// Write statistics
 		$this->load->model('Statistics');
 		$this->Statistics->Write('resources/statistics.xlsx');
 
-		// Load page
-		$this->load->helper('url');
-		$this->load->model('Html');
+		$this->load->view('Template');
 
-		$this->load->view('Header');
-		$this->load->view('GoogleAnalytics');
+	}
+	
+
+	public function Page($id=NULL, $level=NULL) {
 
 		$data['html'] = $this->Html->printNavBarMenu();
 		$data['refresh_icon'] = $this->Html->printRefreshIcon($id, $level);
 		$this->load->view('NavBar', $data);
 
-		$this->load->view('Modal/Search');
-		$this->load->view('Modal/Info');
-		$this->load->view('Modal/Youtube');
+		$data = $this->Html->printPageTitle($id, 'subtopic');
+		$this->load->view('PageTitle', $data);
 
-		$data = $this->Html->printPageTitle($id);
+		if (!$id) {
+			$this->load->view('Modal/Search_main');
+		}
+
+		$this->load->view('Footer');
+	}
+
+	public function Exercise($id=NULL, $level=NULL) {
+
+		$data['html'] = $this->Html->printNavBarMenu();
+		$data['refresh_icon'] = $this->Html->printRefreshIcon($id, $level);
+		$this->load->view('NavBar', $data);
+
+		$data = $this->Html->printPageTitle($id, 'exercise');
 		$this->load->view('PageTitle', $data);
 
 		$this->load->view('Footer');
