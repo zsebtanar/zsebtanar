@@ -45,8 +45,8 @@
                 },
                 dataType: "json",
                 success: function(data) {
+                    $('#DropdownExercises').empty();
                     if (data.length > 0) {
-                        $('#DropdownExercises').empty();
                         $('#search').attr("data-toggle", "dropdown");
                         $('#DropdownExercises').dropdown('toggle');
                     } else if (data.length == 0) {

@@ -105,14 +105,14 @@
 		event.preventDefault();
 
 	    $.ajax({
-	        type: "POST",
+	        type: "GET",
 	        url: "<?php echo base_url();?>application/checkanswer",
 	        data: {
 	            answer: JSON.stringify(queryString)
 	        },
 	        dataType: "json",
         	success: function(data) {
-	        	alert(data);
+	        	console.log(data);
 	        }
 	    });
     });

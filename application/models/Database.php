@@ -287,10 +287,16 @@ class Database extends CI_model {
 	 */
 	public function Search($keyword) {
 
-		$this->db->like('label', $keyword, 'both');
-		$this->db->order_by('label');
-		$query = $this->db->get('exercises');
-		return $query->result_array();
+		if ($keyword != '') {
+			$this->db->like('name', $keyword, 'both');
+			$this->db->order_by('label');
+			$query = $this->db->get('exercises');
+			$output = $query->result_array();
+		} else {
+			$output = [];
+		}
+
+		return $output;
 	}
 
 	/**
