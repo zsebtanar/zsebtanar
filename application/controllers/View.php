@@ -22,12 +22,11 @@ class View extends CI_controller {
 		$this->load->view('Template');
 
 	}
-	
 
 	public function Page($id=NULL) {
 
 		$data['html'] = $this->Html->printNavBarMenu();
-		$data['refresh_icon'] = $this->Html->printRefreshIcon($id);
+		$data['refresh_icon'] = $this->Html->printRefreshIcon($id, 'page');
 		$this->load->view('NavBar', $data);
 
 		$data = $this->Html->printPageTitle($id, 'subtopic');
@@ -48,7 +47,7 @@ class View extends CI_controller {
 		$level = min($level, 3);
 
 		$data['html'] = $this->Html->printNavBarMenu();
-		$data['refresh_icon'] = $this->Html->printRefreshIcon($id);
+		$data['refresh_icon'] = $this->Html->printRefreshIcon($id, 'exercise');
 		$this->load->view('NavBar', $data);
 
 		$data = $this->Html->printPageTitle($id, 'exercise');

@@ -93,17 +93,25 @@ class Database extends CI_model {
 	 */
 	public function DeleteFromTables($id) {
 
-		$tables = array('exercises','links');
+		$exercises = $this->db->get_where('exercises', array('subtopicID' => $id));
 
-		foreach ($tables as $table) {
+		foreach ($exercises->result() as $exercise) {
 
-			$this->db->where(array('subtopicID' => $id));
+			$exerciseID = $exercise->id;
 
-			if ($this->db->delete($table)) {
-				echo 'Data deleted from '.$table.'!<br />';
+			$this->db->where('exerciseID', $exerciseID);
+
+			if ($this->db->delete('links')) {
+				echo 'Data deleted from links!<br />';
 			} else {
 				show_error($this->db->_error_message());
 			}
+		}
+
+		if ($this->db->delete('exercises', array('subtopicID' => $id))) {
+			echo 'Data deleted from exercises!<br />';
+		} else {
+			show_error($this->db->_error_message());
 		}
 	}
 
@@ -147,7 +155,7 @@ class Database extends CI_model {
 							exerciseID	INT			NOT NULL,
 							label 		VARCHAR(30) NOT NULL,
 							CONSTRAINT link_label UNIQUE (id, label),
-							FOREIGN KEY (id) REFERENCES exercises(id),
+							FOREIGN KEY (exerciseID) REFERENCES exercises(id),
 							FOREIGN KEY (label) REFERENCES exercises(label)
 						)Engine=InnoDB;',
 		);
