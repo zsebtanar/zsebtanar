@@ -14,9 +14,9 @@ class Application extends CI_controller {
 	public function CheckAnswer() {
 
 		$this->load->model('Exercises');
-		$answer = $this->input->get('answer');
+		$answer = $this->input->GET('answer');
 		$result = $this->Exercises->CheckAnswer($answer);
-		// echo json_encode($result);
+		echo json_encode($result);
 	}
 }
 

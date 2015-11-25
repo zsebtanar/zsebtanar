@@ -59,7 +59,7 @@
                 }
             });
         });
-        $('ul.txtcountry').on('click', 'li a', function() {
+        $('ul.exercises').on('click', 'li a', function() {
             $('#search').val($(this).text());
             ($(this).getAttribute('href'));
         });

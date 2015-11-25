@@ -11,13 +11,23 @@
 							"exercises": [
 								{
 									"label": "count_apples",
-									"name": "Számolás (alma)",
-									"youtube": "P1-7oQpFbwg"
+									"name": "Számolás (alma)"
 								},
 								{
 									"label": "parity",
-									"name": "Páros, páratlan",
-									"youtube": "P1-7oQpFbwg"
+									"name": "Páros, páratlan"
+								},
+								{
+									"label": "count_parity",
+									"name": "Számolás (páros, páratlan)",
+									"links": [
+										{
+											"label": "parity" 
+										},
+										{
+											"label": "count_apples" 
+										}
+									]
 								}
 							]
 						}

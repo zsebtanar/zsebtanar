@@ -97,3 +97,9 @@ input.smallInput {
 .multi-level>li>ul>li>a {
     padding-left: 20px;
 }
+.green {
+    color: #3c763d;
+}
+.red {
+    color: #a94442;
+}

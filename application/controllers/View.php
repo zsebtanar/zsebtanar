@@ -43,7 +43,9 @@ class View extends CI_controller {
 		$this->load->view('Footer');
 	}
 
-	public function Exercise($id=NULL) {
+	public function Exercise($id=NULL, $level=1) {
+
+		$level = min($level, 3);
 
 		$data['html'] = $this->Html->printNavBarMenu();
 		$data['refresh_icon'] = $this->Html->printRefreshIcon($id);
@@ -56,9 +58,11 @@ class View extends CI_controller {
 		$exercise = $this->Database->getExercise($id);
 		$label = $exercise->label;
 
-		$data = $this->Exercises->$label();
+		$data = $this->Exercises->$label($level);
 		$data['exercise'] = $exercise;
 		$data['youtube'] = $exercise->youtube;
+		$data['level'] = $level;
+		$data['id'] = $id;
 		$this->load->view('Exercise', $data);
 
 		$this->load->view('Footer');

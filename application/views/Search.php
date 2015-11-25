@@ -8,7 +8,7 @@
 				</span>
 			</div>
 		</div>
-		<ul class="dropdown-menu txtcountry" style="margin-left:15px;margin-right:0px;" role="menu" aria-labelledby="dropdownMenu" id="DropdownExercises"></ul>
+		<ul class="dropdown-menu exercises" style="margin-left:15px;margin-right:0px;" role="menu" aria-labelledby="dropdownMenu" id="DropdownExercises"></ul>
 	</div>
 	<div class="col-md-4"></div>
 </div>

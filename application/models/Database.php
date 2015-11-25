@@ -34,8 +34,8 @@ class Database extends CI_model {
 				'youtube'		=> ''
 				),
 			'links' => array(
-				'exerciseID1'	=> 'NOT NULL',
-				'exerciseID2'	=> 'NOT NULL'
+				'exerciseID'	=> 'FROM SESSION',
+				'label'			=> 'NOT NULL'
 				)
 			);
 
@@ -93,7 +93,7 @@ class Database extends CI_model {
 	 */
 	public function DeleteFromTables($id) {
 
-		$tables = array('exercises',);
+		$tables = array('exercises','links');
 
 		foreach ($tables as $table) {
 
@@ -143,11 +143,12 @@ class Database extends CI_model {
 							FOREIGN KEY (subtopicID) REFERENCES subtopics(id)
 						)Engine=InnoDB;',
 			'links' => 'CREATE TABLE links (
-							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							exerciseID1 INT NOT NULL,
-							exerciseID2 INT NOT NULL,
-							FOREIGN KEY (exerciseID1) REFERENCES exercises(id),
-							FOREIGN KEY (exerciseID2) REFERENCES exercises(id)
+							id 			INT			NOT NULL AUTO_INCREMENT PRIMARY KEY,
+							exerciseID	INT			NOT NULL,
+							label 		VARCHAR(30) NOT NULL,
+							CONSTRAINT link_label UNIQUE (id, label),
+							FOREIGN KEY (id) REFERENCES exercises(id),
+							FOREIGN KEY (label) REFERENCES exercises(label)
 						)Engine=InnoDB;',
 		);
 
