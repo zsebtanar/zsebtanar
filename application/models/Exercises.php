@@ -212,6 +212,29 @@ class Exercises extends CI_model {
 		);
 	}
 
+	/* Define question for natural numbers */
+	public function def_natural_question($level=1) {
+
+		$question = 'Az alábbiak közül melyik kérdésre válaszolunk mindig természetes számmal?';
+		$options = array(
+			'Hány darab...?',
+			'Mekkora...?',
+			'Hányadik...?'
+		);
+		$correct = 0;
+		$solution = $options[$correct];
+		$this->shuffleAssoc($options);
+		$type = 'quiz';
+
+		return array(
+			'question' => $question,
+			'options' => $options,
+			'correct' => $correct,
+			'solution' => $solution,
+			'type' => $type
+		);
+	}
+
 	/* Count apples */
 	public function count_apples($level=1) {
 

@@ -4,28 +4,28 @@
 			"name": "5. osztály",
 			"topics": [
 				{
-					"name": "Természetes számok",
+					"name": "Alapműveletek",
 					"subtopics": [
 						{
-							"name": "Természetes számok",
+							"name": "Számolás",
 							"exercises": [
 								{
 									"label": "def_even",
-									"name": "Páros számok",
+									"name": "Páros számok jelentése",
 									"level": 1
 								},
 								{
 									"label": "def_odd",
-									"name": "Páratlan számok",
+									"name": "Páratlan számok jelentése",
 									"level": 1
 								},
 								{
 									"label": "count_apples",
-									"name": "Számolás (alma)"
+									"name": "Számoljunk almákat"
 								},
 								{
 									"label": "parity",
-									"name": "Páros, páratlan",
+									"name": "Páros vagy páratlan?",
 									"links": [
 										{
 											"label": "def_even" 
@@ -37,13 +37,36 @@
 								},
 								{
 									"label": "count_parity",
-									"name": "Számolás (páros, páratlan)",
+									"name": "Hány darab páros/páratlan?",
 									"links": [
 										{
 											"label": "parity" 
 										},
 										{
 											"label": "count_apples" 
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Természetes számok",
+					"subtopics": [
+						{
+							"name": "Természetes számok",
+							"exercises": [
+								{
+									"label": "def_natural_question",
+									"name": "Természetes számok kérdése",
+									"level": 1,
+									"links": [
+										{
+											"label": "count_apples" 
+										},
+										{
+											"label": "count_parity" 
 										}
 									]
 								}

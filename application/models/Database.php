@@ -346,6 +346,8 @@ class Database extends CI_model {
 	 */
 	public function getNextExercise($id, $level) {
 
+		$next['label'] = 'Tovább';
+
 		$exercises1 = $this->db->get_where('exercises', array('id' => $id));
 		$exercise1 = $exercises1->result()[0];
 		$max_level = $exercise1->level;
@@ -353,29 +355,24 @@ class Database extends CI_model {
 		if ($level < $max_level) {
 
 			$next['href'] = 'view/exercise/'.strval($id).'/'.strval($level+1);
-			$next['label'] = 'Tovább';
 
  		} else {
 
+
  			$exercises2 = $this->db->get_where('links', array('label' => $exercise1->label));
- 			
- 			if (count($exercises2->result()) > 0) {
+ 			$num_res2 = count($exercises2->result());
 
- 				$exercise2 = $exercises2->result()[0];
- 				$id2 = $exercise2->exerciseID;
+ 			if ($num_res2 > 0) {
 
-				$next['href'] = 'view/exercise/'.$id2.'/1';
-				$next['label'] = 'Tovább';
+ 				$id_next = $exercises2->result()[rand(1,$num_res2)-1]->exerciseID;
+ 				$next['href'] = 'view/exercise/'.strval($id_next).'/1';
 
  			} else {
 
  				$next['href'] = 'view/page/';
- 				$next['label'] = 'Vissza';
-
+				$next['label'] = 'Kész! :)';
  			}
  		}
-
-
 
  		return $next;
 	}

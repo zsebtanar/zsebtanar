@@ -41,12 +41,11 @@
 			}?>
 
 			</div>
-			<div class="col-md-10"><?php
+			<div class="col-md-11"><?php
 
 			echo $question;?>
 
 			</div>
-			<div class="col-md-1"></div>
 		</div>
 		<div class="row exercise_input">
 
@@ -100,8 +99,9 @@
 						<?php
 					}
 
-				}?>
+					// echo json_encode($correct);
 
+				}?>	
 				<input type="hidden" name="type" value="<?php echo $type;?>">
 				<input type="hidden" name="correct" value="<?php echo json_encode($correct);?>">
 				<input type="hidden" name="solution" value="<?php echo $solution;?>">
@@ -118,32 +118,28 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-3">
-		<div class="row">
-			<div class="col-md-12"><?php
+	<div class="col-md-3"><?php
 
-			if (count($links) > 0) {?>
+		if (count($links) > 0) {?>
 
-				<p><b>Könnyebb feladatok</b></p>
+			<p><b>Túl nehéz? Katt ide!</b></p>
 
-				<ul><?php
+			<ul><?php
 
-				foreach ($links as $link) {?>
+			foreach ($links as $link) {?>
 
-					<li>
-						<a href="<?php echo base_url().'view/exercise/'.$link['id']; ?>">
-							<?php echo $link['name']; ?>
-						</a>
-					</li><?php
-					
-				}?>
-
-				</ul><?php
-
+				<li>
+					<a href="<?php echo base_url().'view/exercise/'.$link['id']; ?>">
+						<?php echo $link['name']; ?>
+					</a>
+				</li><?php
+				
 			}?>
 
-			</div>
-		</div>
+			</ul><?php
+
+		}?>
+
 	</div>
 </div>
 

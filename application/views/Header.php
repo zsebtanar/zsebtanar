@@ -9,6 +9,7 @@
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <meta name="description" content="Ingyenes matematika oktatóvideók">
 <meta name="author" content="Szabó Viktor">
+<meta charset="UTF-8">
 <link rel="icon" type="image/png" href="<?php echo base_url();?>assets/images/logo_small.png">
 
 <title>
