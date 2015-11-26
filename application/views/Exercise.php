@@ -1,14 +1,42 @@
 <div class="row">
-	<div class="col-md-4"></div>
-	<div class="col-md-4">
+	<div class="col-md-3"></div>
+	<div class="col-md-6">
 		<div class="row">
 			<div class="col-md-1"><?php
 
 			if ($youtube) {?>
 
 				<a href="http://www.youtube.com/watch?v=<?php echo $youtube; ?>">
-					<img src="<?php echo base_url();?>/assets/images/logo_small.png" alt="logo" width="20">
+					<img src="<?php echo base_url();?>assets/images/logo_small.png" alt="logo" width="20">
 				</a><?php
+
+			} else {?>
+
+				<!-- Trigger the modal with a button -->
+				<a data-toggle="modal" data-target="#myModal">
+					<img src="<?php echo base_url();?>assets/images/logo_small.png" alt="logo" width="20">
+				</a>
+
+				<!-- Modal -->
+				<div id="myModal" class="modal fade" role="dialog">
+				  <div class="modal-dialog">
+
+				    <!-- Modal content-->
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        <h4 class="modal-title">:(</h4>
+				      </div>
+				      <div class="modal-body">
+				        <p>Sajnos ehhez a feladathoz még nincs videó. Ha nem sikerül megoldani a feladatot, és úgy gondolod, a videómegoldás segítene, dobj egy emailt a <b>zsebtanar@gmail.com</b>-ra!</p>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Rendben</button>
+				      </div>
+				    </div>
+
+				  </div>
+				</div><?php
 
 			}?>
 
@@ -25,13 +53,11 @@
 			<div class="col-sm-12 text-center">
 				<form id="exercise" autocomplete="off"><?php
 
-				if ($type == 'int') {
-
-					if (is_array($options)) {
+				if ($type == 'quiz') {
 
 						if (count($options) > 3) {?>
 
-							<select name="answer" class="form-control" id="sel<?php echo $ex_no; ?>"><?php
+							<select name="answer" class="form-control"><?php
 
 							foreach ($options as $key => $value) {?>
 								
@@ -54,7 +80,7 @@
 							}
 						}
 
-					} elseif ($options == '') {?>
+				} elseif ($type == 'int') {?>
 
 						<table align="center" class="answer_fraction">
 							<tbody>
@@ -64,10 +90,7 @@
 									</td>
 								</tr>
 							</tbody>
-						</table>
-						<?php
-
-					}
+						</table><?php
 
 				} elseif ($type == 'multi') {
 
@@ -95,7 +118,33 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-4"></div>
+	<div class="col-md-3">
+		<div class="row">
+			<div class="col-md-12"><?php
+
+			if (count($links) > 0) {?>
+
+				<p><b>Könnyebb feladatok</b></p>
+
+				<ul><?php
+
+				foreach ($links as $link) {?>
+
+					<li>
+						<a href="<?php echo base_url().'view/exercise/'.$link['id']; ?>">
+							<?php echo $link['name']; ?>
+						</a>
+					</li><?php
+					
+				}?>
+
+				</ul><?php
+
+			}?>
+
+			</div>
+		</div>
+	</div>
 </div>
 
 <script>
@@ -137,7 +186,7 @@
         		switch (data['status']) {
         			case 'CORRECT':
         				document.getElementById("message").innerHTML = '<div class="alert alert-success"><strong><span class=\"glyphicon glyphicon-ok\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>';
-        				document.getElementById("button").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url();?>view/exercise/<?php echo $id;?>/<?php echo $level+1;?>\">Tovább</button>";
+        				document.getElementById("button").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url().$next['href'];?>\"><?php echo $next['label'];?></button>";
         				break;
         			case 'WRONG':
         				document.getElementById("message").innerHTML = '<div class="alert alert-danger"><strong><span class=\"glyphicon glyphicon-remove\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>';

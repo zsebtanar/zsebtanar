@@ -45,6 +45,7 @@ class Exercises extends CI_model {
 		$submessages = [];
 
 		switch ($type) {
+
 			case 'int':
 				if ($answer == '') {
 					$status = 'NOT_DONE';
@@ -57,6 +58,20 @@ class Exercises extends CI_model {
 					$message = 'A helyes válasz: '.$solution;
 				}
 				break;
+
+			case 'quiz':
+				if ($answer == '') {
+					$status = 'NOT_DONE';
+					$message = 'Hiányzik a válasz!';
+				} elseif ($answer[0] == $correct) {
+					$status = 'CORRECT';
+					$message = 'Helyes válasz!';
+				} else {
+					$status = 'WRONG';
+					$message = 'Hibás válasz!';
+				}
+				break;
+
 			case 'multi':
 				if (!isset($answer)) {
 					$status = 'NOT_DONE';
@@ -106,8 +121,7 @@ class Exercises extends CI_model {
 	 *
 	 * @return int $num Random number.
 	 */
-	private function numGen($len, $numSys)
-	{
+	private function numGen($len, $numSys) {
 		if ($len > 1) {
 			// first digit non-0
 			$num = rand(1, $numSys-1);
@@ -126,6 +140,76 @@ class Exercises extends CI_model {
 			$num .= $digit;
 		}
 		return $num;
+	}
+
+	/**
+	 * Associative array shuffle
+	 *
+	 * Shuffle for associative arrays, preserves key=>value pairs.
+	 * (Based on (Vladimir Kornea of typetango.com)'s function) 
+	 *
+	 * @param array &$array Array.
+	 *
+	 * @return NULL
+	 */
+	function shuffleAssoc(&$array) {
+
+		$keys = array_keys($array);
+		shuffle($keys);
+
+		foreach ($keys as $key) {
+			$new[$key] = $array[$key];
+		}
+
+		$array = $new;
+
+		return;
+	}
+
+	/* Define even numbers */
+	public function def_even($level=1) {
+
+		$question = 'Melyik számokat nevezzünk páros számoknak?';
+		$options = array(
+			'Azokat, amik $0,2,4,6,8$-ra végződnek.',
+			'Azokat, amik $1,3,5,7,9$-re végződnek.',
+			'Azokat, amik $1,2,3,4,5$-re végződnek.'
+		);
+		$correct = 0;
+		$solution = $options[$correct];
+		$this->shuffleAssoc($options);
+		$type = 'quiz';
+
+		return array(
+			'question' => $question,
+			'options' => $options,
+			'correct' => $correct,
+			'solution' => $solution,
+			'type' => $type
+		);
+	}
+
+	/* Define even numbers */
+	public function def_odd($level=1) {
+
+		$question = 'Melyik számokat nevezzünk páratlan számoknak?';
+		$options = array(
+			'Azokat, amik $0,2,4,6,8$-ra végződnek.',
+			'Azokat, amik $1,3,5,7,9$-re végződnek.',
+			'Azokat, amik $1,2,3,4,5$-re végződnek.'
+		);
+		$correct = 1;
+		$solution = $options[$correct];
+		$this->shuffleAssoc($options);
+		$type = 'quiz';
+
+		return array(
+			'question' => $question,
+			'options' => $options,
+			'correct' => $correct,
+			'solution' => $solution,
+			'type' => $type
+		);
 	}
 
 	/* Count apples */
@@ -168,7 +252,7 @@ class Exercises extends CI_model {
 		if ($level == 1) {
 
 			$question = 'Páros vagy páratlan az alábbi szám?$$'.$num.'$$';
-			$type = 'int';
+			$type = 'quiz';
 			$options = array('páros', 'páratlan');
 			$correct = $num%2;
 			$solution = $options[$correct];

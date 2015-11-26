@@ -29,6 +29,7 @@ class Database extends CI_model {
 				),
 			'exercises' => array(
 				'subtopicID'	=> 'FROM SESSION',
+				'level'			=> 3,
 				'name'			=> '',
 				'label'			=> 'NOT NULL',
 				'youtube'		=> ''
@@ -125,34 +126,35 @@ class Database extends CI_model {
 
 		$sql = array(
 			'classes' => 'CREATE TABLE classes (
-							id 		INT 		NOT NULL AUTO_INCREMENT PRIMARY KEY,
+							id 		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							name 	VARCHAR(60) NOT NULL
 						)Engine=InnoDB;',
 			'topics' => 'CREATE TABLE topics (
-							id 		INT 		NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							classID INT 		NOT NULL,
+							id 		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+							classID INT NOT NULL,
 							name 	VARCHAR(60) NOT NULL,
 							CONSTRAINT class_name UNIQUE (classID, name),
 							FOREIGN KEY (classID) REFERENCES classes(id)
 						)Engine=InnoDB;',
 			'subtopics' => 'CREATE TABLE subtopics (
-							id 		INT 		NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							topicID INT 		NOT NULL,
+							id 		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+							topicID INT NOT NULL,
 							name 	VARCHAR(60) NOT NULL,
 							CONSTRAINT topic_name UNIQUE (topicID, name),
 							FOREIGN KEY (topicID) REFERENCES topics(id)
 						)Engine=InnoDB;',
 			'exercises' => 'CREATE TABLE exercises (
-							id 			INT 		NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							subtopicID 	INT 		NOT NULL,
+							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+							subtopicID 	INT NOT NULL,
+							level 		INT,
 							label 		VARCHAR(30) NOT NULL UNIQUE,
 							name 		VARCHAR(120),
 							youtube 	VARCHAR(20),
 							FOREIGN KEY (subtopicID) REFERENCES subtopics(id)
 						)Engine=InnoDB;',
 			'links' => 'CREATE TABLE links (
-							id 			INT			NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							exerciseID	INT			NOT NULL,
+							id 			INT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
+							exerciseID	INT	NOT NULL,
 							label 		VARCHAR(30) NOT NULL,
 							CONSTRAINT link_label UNIQUE (id, label),
 							FOREIGN KEY (exerciseID) REFERENCES exercises(id),
@@ -207,8 +209,10 @@ class Database extends CI_model {
 						} elseif ($type == 'FROM SESSION') {
 							$sessionID = str_split($col, 5)[0].'_ID';
 							$values[$col] = $this->session->userdata($sessionID);
-						} else {
+						} elseif ($type == '') {
 							$values[$col] = '';
+						} else {
+							$values[$col] = $type;
 						}
 					} else {
 						$values[$col] = $data[$col];
@@ -331,6 +335,49 @@ class Database extends CI_model {
 		$query = $this->db->get_where('exercises', array('id' => $id));
 		$label = $query->result()[0];
 		return $label;
+	}
+
+	/**
+	 * Get next exercise
+	 *
+	 * @param  int   $id    Exercise ID
+	 * @param  int   $level Exercise level
+	 * @return array $next  Next exercise
+	 */
+	public function getNextExercise($id, $level) {
+
+		$exercises1 = $this->db->get_where('exercises', array('id' => $id));
+		$exercise1 = $exercises1->result()[0];
+		$max_level = $exercise1->level;
+
+		if ($level < $max_level) {
+
+			$next['href'] = 'view/exercise/'.strval($id).'/'.strval($level+1);
+			$next['label'] = 'Tovább';
+
+ 		} else {
+
+ 			$exercises2 = $this->db->get_where('links', array('label' => $exercise1->label));
+ 			
+ 			if (count($exercises2->result()) > 0) {
+
+ 				$exercise2 = $exercises2->result()[0];
+ 				$id2 = $exercise2->exerciseID;
+
+				$next['href'] = 'view/exercise/'.$id2.'/1';
+				$next['label'] = 'Tovább';
+
+ 			} else {
+
+ 				$next['href'] = 'view/page/';
+ 				$next['label'] = 'Vissza';
+
+ 			}
+ 		}
+
+
+
+ 		return $next;
 	}
 }
 

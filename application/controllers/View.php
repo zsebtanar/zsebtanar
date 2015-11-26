@@ -30,7 +30,7 @@ class View extends CI_controller {
 		$this->load->view('NavBar', $data);
 
 		$data = $this->Html->printPageTitle($id, 'subtopic');
-		$this->load->view('PageTitle', $data);
+		$this->load->view('TitleBig', $data);
 
 		if (!$id) {
 			$this->load->view('Search');
@@ -42,7 +42,7 @@ class View extends CI_controller {
 		$this->load->view('Footer');
 	}
 
-	public function Exercise($id=NULL, $level=1) {
+	public function Exercise($id, $level=1) {
 
 		$level = min($level, 3);
 
@@ -51,21 +51,25 @@ class View extends CI_controller {
 		$this->load->view('NavBar', $data);
 
 		$data = $this->Html->printPageTitle($id, 'exercise');
-		$this->load->view('ExerciseTitle', $data);
+		$this->load->view('TitleSmall', $data);
 
 		$this->load->model('Exercises');
+
 		$exercise = $this->Database->getExercise($id);
 		$label = $exercise->label;
-
 		$data = $this->Exercises->$label($level);
-		$data['exercise'] = $exercise;
-		$data['youtube'] = $exercise->youtube;
-		$data['level'] = $level;
-		$data['id'] = $id;
+
+		$data['exercise'] 	= $exercise;
+		$data['youtube'] 	= $exercise->youtube;
+		$data['level'] 		= $level;
+		$data['id'] 		= $id;
+		$data['links'] 		= $this->Html->printExerciseLinks($id);
+		$data['next'] 		= $this->Database->getNextExercise($id, $level);
 		$this->load->view('Exercise', $data);
 
 		$this->load->view('Footer');
 	}
+
 }
 
 ?>

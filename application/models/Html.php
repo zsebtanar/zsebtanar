@@ -99,7 +99,7 @@ class Html extends CI_model {
 	 * Print page title
 	 *
 	 * @param  int    $id   Subtopic/Excercise ID
-	 * @param  string $type Page type ('subtopic' or 'exercise')
+	 * @param  string $type Page type ('subtopic' or 'exercise' or 'message')
 	 * @return string $html Html-code
 	 */
 	public function printPageTitle($id=NULL, $type='subtopic') {
@@ -140,11 +140,19 @@ class Html extends CI_model {
 
 		} else {
 
-			$title = 'zsebtanár';
-			$subtitle = 'matek | másként';
-			$img = '<a href="'.base_url().'view/page"><img class="img-responsive center-block img_main" '
-				.'src="'.base_url().'assets/images/logo.png" alt="logo" width="150"></a>';
-				
+			if ($type=='message') {
+
+				$title = 'Üzenet küldése';
+				$subtitle = '';
+				$img = '';
+
+			} else {
+
+				$title = 'zsebtanár';
+				$subtitle = 'matek | másként';
+				$img = '<a href="'.base_url().'view/page"><img class="img-responsive center-block img_main" '
+					.'src="'.base_url().'assets/images/logo.png" alt="logo" width="150"></a>';
+			}
 		}
 
 		return array(
@@ -157,59 +165,28 @@ class Html extends CI_model {
 	/**
 	 * Print exercise links
 	 *
-	 * @param  int    $id   Excercise ID
-	 * @return string $html Html-code
+	 * @param  int   $id    Excercise ID
+	 * @return array $links Links
 	 */
 	public function printExerciseLinks($id=NULL) {
 
+		$links = [];
+
 		if ($id) {
 
-			if ($type=='subtopic') {
+			$exercises1 = $this->db->get_where('links', array('exerciseID' => $id));
+			foreach ($exercises1->result() as $exercise1) {
+				$exercises2 = $this->db->get_where('exercises', array('label' => $exercise1->label));
+				$exercise2 = $exercises2->result()[0];
 
-				$subtopics = $this->db->get_where('subtopics', array('id' => $id));
-				$subtopic = $subtopics->result()[0];
+				$link['id'] = $exercise2->id;
+				$link['name'] = $exercise2->name;
 
-				$this->db->select('classes.name');
-				$this->db->from('subtopics');
-				$this->db->join('topics', 'topics.id = subtopics.topicID', 'inner');
-				$this->db->join('classes', 'classes.id = topics.classID', 'inner');
-				$classes = $this->db->get();
-				$class = $classes->result()[0];
-
-				$title = $subtopic->name;
-				$subtitle = $class->name;
-
-			} else {
-
-				$exercises = $this->db->get_where('exercises', array('id' => $id));
-				$exercise = $exercises->result()[0];
-
-				$this->db->select('subtopics.name');
-				$this->db->from('exercises');
-				$this->db->join('subtopics', 'subtopics.id = exercises.subtopicID', 'inner');
-				$subtopics = $this->db->get();
-				$subtopic = $subtopics->result()[0];
-
-				$title = $exercise->name;
-				$subtitle = $subtopic->name;
+				$links[] = $link;
 			}
-
-			$img = '';
-
-		} else {
-
-			$title = 'zsebtanár';
-			$subtitle = 'matek | másként';
-			$img = '<a href="'.base_url().'view/page"><img class="img-responsive center-block img_main" '
-				.'src="'.base_url().'assets/images/logo.png" alt="logo" width="150"></a>';
-				
 		}
 
-		return array(
-			'img' => $img,
-			'title' => $title,
-			'subtitle' => $subtitle,
-		);
+		return $links;
 	}
 }
 

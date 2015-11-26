@@ -10,12 +10,30 @@
 							"name": "Természetes számok",
 							"exercises": [
 								{
+									"label": "def_even",
+									"name": "Páros számok",
+									"level": 1
+								},
+								{
+									"label": "def_odd",
+									"name": "Páratlan számok",
+									"level": 1
+								},
+								{
 									"label": "count_apples",
 									"name": "Számolás (alma)"
 								},
 								{
 									"label": "parity",
-									"name": "Páros, páratlan"
+									"name": "Páros, páratlan",
+									"links": [
+										{
+											"label": "def_even" 
+										},
+										{
+											"label": "def_odd" 
+										}
+									]
 								},
 								{
 									"label": "count_parity",

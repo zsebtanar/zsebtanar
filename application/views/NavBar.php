@@ -79,7 +79,9 @@
 			<ul class="nav navbar-nav navbar-right">
 				<?php
 
-				echo $refresh_icon;
+				if (isset($refresh_icon)) {
+					echo $refresh_icon;
+				}
 
 				?>
 				<li>
