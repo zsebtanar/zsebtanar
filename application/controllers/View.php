@@ -13,7 +13,6 @@ class View extends CI_controller {
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->model('Html');
-		$this->load->model('Database');
 
 		// Write statistics
 		$this->load->model('Statistics');
@@ -25,17 +24,18 @@ class View extends CI_controller {
 
 	public function Page($id=NULL) {
 
-		$data['html'] = $this->Html->printNavBarMenu();
-		$data['refresh_icon'] = $this->Html->printRefreshIcon($id, 'page');
+		$type = 'page';
+
+		$data = $this->Html->printNavBarMenu($id, $type);
 		$this->load->view('NavBar', $data);
 
-		$data = $this->Html->printPageTitle($id, 'subtopic');
-		$this->load->view('TitleBig', $data);
+		$data = $this->Html->printPageTitle($id, $type);
+		$this->load->view('Title', $data);
 
 		if (!$id) {
 			$this->load->view('Search');
 		} else {
-			$data['exercise_list'] = $this->Database->getExercises($id);
+			$data = $this->Html->getExercises($id);
 			$this->load->view('ExerciseList', $data);		
 		}
 
@@ -45,31 +45,31 @@ class View extends CI_controller {
 	public function Exercise($id, $level=1) {
 
 		$level = min($level, 3);
+		$type = 'exercise';
 
-		$data['html'] = $this->Html->printNavBarMenu();
-		$data['refresh_icon'] = $this->Html->printRefreshIcon($id, 'exercise');
+		$data = $this->Html->printNavBarMenu($id, $type);
 		$this->load->view('NavBar', $data);
 
-		$data = $this->Html->printPageTitle($id, 'exercise');
-		$this->load->view('TitleSmall', $data);
 
-		$this->load->model('Exercises');
+		$data = $this->Html->printPageTitle($id, $type);
+		$this->load->view('Title', $data);
 
-		$exercise = $this->Database->getExercise($id);
-		$label = $exercise->label;
-		$data = $this->Exercises->$label($level);
 
-		$data['exercise'] 	= $exercise;
-		$data['youtube'] 	= $exercise->youtube;
-		$data['level'] 		= $level;
-		$data['id'] 		= $id;
-		$data['links'] 		= $this->Html->printExerciseLinks($id);
-		$data['next'] 		= $this->Database->getNextExercise($id, $level);
+		$data = $this->Html->getExerciseData($id, $level);
 		$this->load->view('Exercise', $data);
 
 		$this->load->view('Footer');
 	}
 
+	public function Login($password) {
+
+		if ($password = 'zst') {
+
+			$this->session->set_userdata('Logged_in', TRUE);
+			header('Location:'.base_url().'view/page/');
+
+		}
+	}
 }
 
 ?>

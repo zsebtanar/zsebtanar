@@ -10,34 +10,6 @@
 					<img src="<?php echo base_url();?>assets/images/logo_small.png" alt="logo" width="20">
 				</a><?php
 
-			} else {?>
-
-				<!-- Trigger the modal with a button -->
-				<a data-toggle="modal" data-target="#myModal">
-					<img src="<?php echo base_url();?>assets/images/logo_small.png" alt="logo" width="20">
-				</a>
-
-				<!-- Modal -->
-				<div id="myModal" class="modal fade" role="dialog">
-				  <div class="modal-dialog">
-
-				    <!-- Modal content-->
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal">&times;</button>
-				        <h4 class="modal-title">:(</h4>
-				      </div>
-				      <div class="modal-body">
-				        <p>Sajnos ehhez a feladathoz még nincs videó. Ha nem sikerül megoldani a feladatot, és úgy gondolod, a videómegoldás segítene, dobj egy emailt a <b>zsebtanar@gmail.com</b>-ra!</p>
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" class="btn btn-default" data-dismiss="modal">Rendben</button>
-				      </div>
-				    </div>
-
-				  </div>
-				</div><?php
-
 			}?>
 
 			</div>
@@ -99,9 +71,13 @@
 						<?php
 					}
 
-					// echo json_encode($correct);
 
-				}?>	
+
+				}
+
+				echo json_encode($correct);
+
+				?>	
 				<input type="hidden" name="type" value="<?php echo $type;?>">
 				<input type="hidden" name="correct" value="<?php echo json_encode($correct);?>">
 				<input type="hidden" name="solution" value="<?php echo $solution;?>">

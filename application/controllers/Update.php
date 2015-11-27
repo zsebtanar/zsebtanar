@@ -5,7 +5,6 @@ class Update extends CI_controller {
 
 	public function Database($id=NULL, $level=NULL) {
 
-		$this->session->set_userdata('Logged_in', TRUE);
 		$this->session->set_userdata('Write_statistics', TRUE);
 		
 		$this->load->model('Database');
