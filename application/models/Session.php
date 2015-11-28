@@ -23,6 +23,11 @@ class Session extends CI_model {
 			} else {
 				$this->session->set_userdata('sessionID', $sessionID+1);
 			}
+
+			if (NULL == $this->session->userdata('results')) {
+				$this->session->set_userdata('results', []);	
+			}
+			
 		}
 
 		return;
@@ -32,7 +37,7 @@ class Session extends CI_model {
 	 * Record action
 	 *
 	 * @param  int 	  $id     Subtopic/Exercise ID
-	 * @param  string $type   View type (page/exercise)
+	 * @param  string $type   View type (exercise/page)
 	 * @param  int    $level  Exercise level
 	 * @param  string $result Result of action (correct/wrong/not_done)
 	 * @return void
@@ -71,19 +76,26 @@ class Session extends CI_model {
 			show_error($this->db->_error_message());
 		}
 
+		$results = $this->session->userdata('results');
 		if ($result == 'CORRECT') {
 
-			$newdata = array('result_'.$id => $level);
-			$this->session->set_userdata($newdata);
+			$results[$id] = $level;
+			$this->session->set_userdata('results', $results);
+
+			if ($level == $exercise->level &&
+				NULL !== $this->session->userdata('method')	&&
+				$this->session->userdata('method') == 'exercise') {
+				$this->updateSession($id, NULL, $action='delete');
+			}
 
 		} elseif ($result == 'WRONG') {
 
-			if (NULL !== $this->session->userdata('result_'.$id)) {
+			if (isset($results[$id])) {
 
-				$level_old = $this->session->userdata('result_'.$id);
+				$level_old = $results[$id];
 				$level_new = max(0, min($level-1,$level_old-1));
-				$newdata = array('result_'.$id => $level_new);
-				$this->session->set_userdata($newdata);
+				$results[$id] = $level_new;
+				$this->session->set_userdata('results', $results);
 
 			}
 		}
@@ -167,8 +179,8 @@ class Session extends CI_model {
 		$exercise = $query->result()[0];
 		$max_level = $exercise->level;
 
-		if (NULL !== $this->session->userdata('result_'.$id)) {
-			$user_level = $this->session->userdata('result_'.$id);
+		if (NULL !== $this->session->userdata('results')[$id]) {
+			$user_level = $this->session->userdata('results')[$id];
 		} else {
 			$user_level = 0;
 		}
@@ -196,8 +208,8 @@ class Session extends CI_model {
 		foreach ($query->result() as $exercise) {
 
 			$id = $exercise->id;
-			if (NULL !== $this->session->userdata('result_'.$id)) {
-				$this->session->unset_userdata('result_'.$id);
+			if (NULL !== $this->session->userdata('results')[$id]) {
+				$this->session->unset_userdata('results')[$id];
 			}
 		}
 
@@ -217,14 +229,70 @@ class Session extends CI_model {
 		$exercise = $query->result()[0];
 		$level_max = $exercise->level;
 
-		if (NULL !== $this->session->userdata('result_'.$id)) {
-			$level_user = $this->session->userdata('result_'.$id);
+		if (isset($this->session->userdata('results')[$id])) {
+			$level_user = $this->session->userdata('results')[$id];
 			$level_new = min($level_max, $level_user+1);
 		} else {
-			$level_new = $level;
+			if (!$level) {
+				$level_new = 1;
+			} else {
+				$level_new = $level;
+			}
 		}
 
 		return $level_new;
+	}
+
+	/**
+	 * Update session
+	 *
+	 * @param  int $id     Exercise/subtopic ID
+	 * @param  int $method Practice method (exercise/subtopic)
+	 * @return void
+	 */
+	public function updateSession($id) {
+
+		if (NULL !== $this->input->get('action')) {
+			$action = $this->input->get('action');
+		} else {
+			$action = '';
+		}
+
+		if (NULL !== $this->input->get('method')) {
+			$method = $this->input->get('method');
+		} else {
+			$method = '';
+		}
+
+		if ($method) {
+			$this->session->set_userdata('method', $method);
+			$this->session->set_userdata('goal', $id);
+		}
+
+		if ($action == 'add') {
+
+			if (NULL !== $this->session->userdata('todo_list')) {
+				$todo_list = $this->session->userdata('todo_list');
+				$todo_list[] = $id;
+				$this->session->set_userdata('todo_list', $todo_list);
+			}
+
+		} elseif ($action == 'delete') {
+
+			$todo_list = $this->session->userdata('todo_list');
+			$reversed = array_reverse($todo_list);
+			if ($reversed[0] == $id) {
+				$todo_list_new = array_pop($todo_list);
+				$this->session->set_userdata('todo_list', $todo_list_new);
+			}
+
+		} elseif ($action == 'restart') {
+
+			$this->session->unset_userdata('results');
+			
+		}
+		
+		return;
 	}
 }
 

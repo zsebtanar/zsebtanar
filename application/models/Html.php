@@ -167,8 +167,8 @@ class Html extends CI_model {
 
 				$level = $exercise->level;
 
-				if (NULL !== $this->session->userdata('result_'.$id)) {
-					$user_level = $this->session->userdata('result_'.$id);
+				if (isset($this->session->userdata('results')[$id])) {
+					$user_level = $this->session->userdata('results')[$id];
 				} else {
 					$user_level = 0;
 				}
@@ -233,8 +233,8 @@ class Html extends CI_model {
 				$exercise2 = $exercises2->result()[0];
 				$id = $exercise2->id;
 
-				if (NULL !== $this->session->userdata('result_'.$id)) {
-					$level_user = $this->session->userdata('result_'.$id);
+				if (isset($this->session->userdata('results')[$id])) {
+					$level_user = $this->session->userdata('results')[$id];
 				} else {
 					$level_user = 0;
 				}
@@ -260,7 +260,22 @@ class Html extends CI_model {
 	public function getExercises($id) {
 
 		$query = $this->db->get_where('exercises', array('subtopicID' => $id));
-		$data['exercise_list'] = $query->result_array();
+		foreach ($query->result() as $exercise) {
+
+			$id = $exercise->id;
+			if (isset($this->session->userdata('results')[$id])) {
+				$level_user = $this->session->userdata('results')[$id];
+			} else {
+				$level_user = 0;
+			}
+
+			$row['level_user'] 	= $level_user;
+			$row['id'] 			= $id;
+			$row['name'] 		= $exercise->name;
+			$row['level_max'] 	= $exercise->level;
+
+			$data['exercise_list'][] = $row;
+		}
 
 		return $data;
 	}
@@ -301,8 +316,8 @@ class Html extends CI_model {
 
 		$data['label'] = 'Tovább';
 
-		$exercises1 = $this->db->get_where('exercises', array('id' => $id));
-		$exercise1 = $exercises1->result()[0];
+		$query = $this->db->get_where('exercises', array('id' => $id));
+		$exercise1 = $query->result()[0];
 		$max_level = $exercise1->level;
 
 		if ($level < $max_level) {
@@ -311,6 +326,40 @@ class Html extends CI_model {
 
  		} else {
 
+ 			$method = $this->session->userdata('method');
+ 			$goal = $this->session->userdata('goal');
+
+ 			if ($method == 'subtopic') {
+				$query = $this->db->get_where('exercises', array('subtopicID' => $goal));
+				$exercises = $query->result();
+				shuffle($exercises);
+				foreach ($exercises as $exercise) {
+					$id = $exercise->id;
+					$level_max = $exercise->level;
+					if (isset($this->session->userdata('results')[$id])) {
+						$level_user = $this->session->userdata('results')[$id];
+						if ($level_user < $level_max) {
+							$data['href'] = 'view/exercise/'.strval($id);
+							return $data;
+						}
+					} else {
+						$data['href'] = 'view/exercise/'.strval($id);
+						return $data;
+					}
+				}
+
+ 				$data['href'] = 'view/page/'.$goal;
+				$data['label'] = 'Kész! :)';
+				return $data;
+
+ 			} elseif ($method == 'exercise') {
+
+ 				if ($goal == $id || $level == $max_level) {
+	 				$data['href'] = 'view/page';
+					$data['label'] = 'Kész! :)';
+					return $data;
+ 				}
+ 			}
 
  			$exercises2 = $this->db->get_where('links', array('label' => $exercise1->label));
  			$num_res2 = count($exercises2->result());
@@ -318,7 +367,7 @@ class Html extends CI_model {
  			if ($num_res2 > 0) {
 
  				$id_next = $exercises2->result()[rand(1,$num_res2)-1]->exerciseID;
- 				$data['href'] = 'view/exercise/'.strval($id_next).'/1';
+ 				$data['href'] = 'view/exercise/'.strval($id_next);
 
  			} else {
 
@@ -338,22 +387,24 @@ class Html extends CI_model {
 	 */
 	public function getExerciseFromSubtopicID($subtopicID) {
 
+
+
 		$query = $this->db->get_where('exercises', array('subtopicID' => $subtopicID));
 		$exercises = $query->result_array();
 		shuffle($exercises);
 
 		foreach ($exercises as $exercise) {
 			$id = $exercise['id'];
-			if (NULL !== $this->session->userdata('result_'.$id)) {
-				$level_user = $this->session->userdata('result_'.$id);
+			if (isset($this->session->userdata('results')[$id])) {
+				$level_user = $this->session->userdata('results')[$id];
 				$level_max = $exercise['level'];
 
 				if ($level_user < $level_max) {
 					$exerciseID = $id;
 					$level = $level_user+1;
+					break;
 				}
-
-				break;
+				
 			} else {
 
 				$exerciseID = $id;

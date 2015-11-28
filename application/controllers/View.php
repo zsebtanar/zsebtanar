@@ -21,9 +21,13 @@ class View extends CI_controller {
 		
 		$this->load->view('Template');
 
+		print_r($_SESSION);
+
 	}
 
 	public function Page($id=NULL) {
+
+		$this->Session->updateSession($id);
 
 		$type = 'page';
 
@@ -45,11 +49,9 @@ class View extends CI_controller {
 		$this->load->view('Footer');
 	}
 
-	public function Exercise($id=1, $level=1, $method='exercise') {
+	public function Exercise($id=1, $level=NULL) {
 
-		if ($method == 'subtopic') {
-			list($id, $level) = $this->Html->getExerciseFromSubtopicID($id);
-		}
+		$this->Session->updateSession($id);
 
 		$type = 'exercise';
 

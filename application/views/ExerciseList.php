@@ -6,9 +6,9 @@
 		foreach ($exercise_list as $exercise) {?>
 
 			<li>
-				<a href="<?php echo base_url();?>view/exercise/<?php echo $exercise['id'];?>">
+				<a href="<?php echo base_url();?>view/exercise?id=<?php echo $exercise['id'];?>&amp;method=exercise">
 					<?php echo $exercise['name']; ?>
-				</a>
+				</a> (<?php echo $exercise['level_user'].'/'.$exercise['level_max'];?>)
 			</li><?php
 
 		}?>

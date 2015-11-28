@@ -104,7 +104,7 @@
 
 			foreach ($links as $link) {?>
 
-				<a href="<?php echo base_url().'view/exercise/'.$link['id']; ?>">
+				<a href="<?php echo base_url().'view/exercise?id='.$link['id'].'&action=add'; ?>">
 					<?php echo $link['name']; ?>
 				</a> (<?php echo $link['level_user'].'/'.$link['level_max'];?>)
 				<br /><?php
@@ -112,6 +112,28 @@
 			}
 
 		}?>
+
+		<div class="row text-center"><br />
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#restart">Újrakezdés</button>
+		</div><br />
+
+		<div id="restart" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Figyelem!</h4>
+					</div>
+					<div class="modal-body">
+						<p>Tényleg szeretnél minden eddigi eredményt törölni?</p>
+						<div class="text-center">
+							<a href="<?php echo base_url().'view/exercise?id='.$id.'&action=restart'; ?>" class="btn btn-primary" >Igen</a>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Nem</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
 	</div>
 </div>
