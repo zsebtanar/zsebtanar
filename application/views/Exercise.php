@@ -100,21 +100,16 @@
 
 		if (count($links) > 0) {?>
 
-			<p><b>Túl nehéz? Katt ide!</b></p>
-
-			<ul><?php
+			<p><b>Gyakorlófeladatok</b></p><?php
 
 			foreach ($links as $link) {?>
 
-				<li>
-					<a href="<?php echo base_url().'view/exercise/'.$link['id']; ?>">
-						<?php echo $link['name']; ?>
-					</a>
-				</li><?php
+				<a href="<?php echo base_url().'view/exercise/'.$link['id']; ?>">
+					<?php echo $link['name']; ?>
+				</a> (<?php echo $link['level_user'].'/'.$link['level_max'];?>)
+				<br /><?php
 				
-			}?>
-
-			</ul><?php
+			}
 
 		}?>
 

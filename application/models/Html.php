@@ -154,12 +154,14 @@ class Html extends CI_model {
 
 			} else {
 
-				$exercises = $this->db->get_where('exercises', array('id' => $id));
-				$exercise = $exercises->result()[0];
+				$query = $this->db->get_where('exercises', array('id' => $id));
+				$exercise = $query->result()[0];
 
-				$this->db->select('subtopics.name');
-				$this->db->from('exercises');
-				$this->db->join('subtopics', 'subtopics.id = exercises.subtopicID', 'inner');
+				$this->db->select('subtopics.name')
+						->distinct()
+						->from('subtopics')
+						->join('exercises', 'subtopics.id = exercises.subtopicID', 'inner')
+						->where('exercises.id', $id);
 				$subtopics = $this->db->get();
 				$subtopic = $subtopics->result()[0];
 
@@ -208,7 +210,8 @@ class Html extends CI_model {
 			'img' 		=> $img,
 			'title' 	=> $title,
 			'subtitle' 	=> $subtitle,
-			'type' 		=> $type
+			'type' 		=> $type,
+			'id'		=> $id
 		);
 	}
 
@@ -228,9 +231,18 @@ class Html extends CI_model {
 			foreach ($exercises1->result() as $exercise1) {
 				$exercises2 = $this->db->get_where('exercises', array('label' => $exercise1->label));
 				$exercise2 = $exercises2->result()[0];
+				$id = $exercise2->id;
 
-				$link['id'] = $exercise2->id;
-				$link['name'] = $exercise2->name;
+				if (NULL !== $this->session->userdata('result_'.$id)) {
+					$level_user = $this->session->userdata('result_'.$id);
+				} else {
+					$level_user = 0;
+				}
+
+				$link['id'] 		= $id;
+				$link['name'] 		= $exercise2->name;
+				$link['level_max'] 	= $exercise2->level;
+				$link['level_user']	= $level_user;
 
 				$links[] = $link;
 			}
@@ -283,11 +295,11 @@ class Html extends CI_model {
 	 *
 	 * @param  int   $id    Exercise ID
 	 * @param  int   $level Exercise level
-	 * @return array $next  Next exercise
+	 * @return array $data  Next exercise
 	 */
 	public function getNextExercise($id, $level) {
 
-		$next['label'] = 'Tovább';
+		$data['label'] = 'Tovább';
 
 		$exercises1 = $this->db->get_where('exercises', array('id' => $id));
 		$exercise1 = $exercises1->result()[0];
@@ -295,7 +307,7 @@ class Html extends CI_model {
 
 		if ($level < $max_level) {
 
-			$next['href'] = 'view/exercise/'.strval($id).'/'.strval($level+1);
+			$data['href'] = 'view/exercise/'.strval($id).'/'.strval($level+1);
 
  		} else {
 
@@ -306,16 +318,66 @@ class Html extends CI_model {
  			if ($num_res2 > 0) {
 
  				$id_next = $exercises2->result()[rand(1,$num_res2)-1]->exerciseID;
- 				$next['href'] = 'view/exercise/'.strval($id_next).'/1';
+ 				$data['href'] = 'view/exercise/'.strval($id_next).'/1';
 
  			} else {
 
- 				$next['href'] = 'view/page/';
-				$next['label'] = 'Kész! :)';
+ 				$data['href'] = 'view/page/';
+				$data['label'] = 'Kész! :)';
  			}
  		}
 
- 		return $next;
+ 		return $data;
+	}
+
+	/**
+	 * Get exercise from subtopicID
+	 *
+	 * @param  int   $subtopicID Subtopic ID
+	 * @return array $data       Exercise data
+	 */
+	public function getExerciseFromSubtopicID($subtopicID) {
+
+		$query = $this->db->get_where('exercises', array('subtopicID' => $subtopicID));
+		$exercises = $query->result_array();
+		shuffle($exercises);
+
+		foreach ($exercises as $exercise) {
+			$id = $exercise['id'];
+			if (NULL !== $this->session->userdata('result_'.$id)) {
+				$level_user = $this->session->userdata('result_'.$id);
+				$level_max = $exercise['level'];
+
+				if ($level_user < $level_max) {
+					$exerciseID = $id;
+					$level = $level_user+1;
+				}
+
+				break;
+			} else {
+
+				$exerciseID = $id;
+				$level = 1;
+			}
+		}
+
+		// all exercise done
+		if (!isset($exerciseID) || !isset($exerciseID)) {
+
+			$status = 'FULL';
+			$exerciseID = NULL;
+			$level = NULL;
+
+		} else {
+
+			$status = 'OK';
+
+		}
+
+ 		return array(
+ 			'href'	 => base_url().'view/exercise/'.$exerciseID.'/'.$level,
+ 			'status' => $status
+		);
 	}
 }
 

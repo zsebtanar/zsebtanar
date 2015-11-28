@@ -45,12 +45,15 @@ class View extends CI_controller {
 		$this->load->view('Footer');
 	}
 
-	public function Exercise($id=1, $level=1) {
+	public function Exercise($id=1, $level=1, $method='exercise') {
 
-		$level = min($level, 3);
+		if ($method == 'subtopic') {
+			list($id, $level) = $this->Html->getExerciseFromSubtopicID($id);
+		}
+
 		$type = 'exercise';
 
-		print_r($_SESSION);
+		$level = $this->Session->getExerciseLevel($id, $level);
 
 		$this->Session->recordAction($id, $type, $level);
 

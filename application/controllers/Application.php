@@ -19,6 +19,19 @@ class Application extends CI_controller {
 		echo json_encode($result);
 	}
 
+	public function CheckExercises() {
+
+		$this->load->model('Html');
+		$this->load->model('Session');
+		$subtopicID = $this->input->GET('subtopicID');
+		$method = $this->input->GET('method');
+		if ($method == 'restart') {
+			$this->Session->clearExercises($subtopicID);
+		}
+		$result = $this->Html->getExerciseFromSubtopicID($subtopicID);
+		echo json_encode($result);
+	}
+
 	public function DeleteSessions() {
 
 		$this->load->helper('url');
@@ -36,9 +49,6 @@ class Application extends CI_controller {
 
 		$data = $this->dbutil->csv_from_result($query);
 		$path = './resources/saved_sessions/session_'.date('m-d-Y_H-i-s').'.csv';
-
-		print_r($data);
-		print_r($path);
 
 		if (!write_file($path, $data)) {
 			show_error('Unable to write the file');

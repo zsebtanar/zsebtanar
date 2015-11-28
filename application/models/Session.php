@@ -76,6 +76,16 @@ class Session extends CI_model {
 			$newdata = array('result_'.$id => $level);
 			$this->session->set_userdata($newdata);
 
+		} elseif ($result == 'WRONG') {
+
+			if (NULL !== $this->session->userdata('result_'.$id)) {
+
+				$level_old = $this->session->userdata('result_'.$id);
+				$level_new = max(0, min($level-1,$level_old-1));
+				$newdata = array('result_'.$id => $level_new);
+				$this->session->set_userdata($newdata);
+
+			}
 		}
 
 		return;
@@ -172,6 +182,49 @@ class Session extends CI_model {
 		}
 
 		return $levels;
+	}
+
+	/**
+	 * Clear exercises from session
+	 *
+	 * @param  int 	$subtopicID Subtopic ID
+	 * @return void
+	 */
+	public function clearExercises($subtopicID) {
+
+		$query = $this->db->get_where('exercises', array('subtopicID' => $subtopicID));
+		foreach ($query->result() as $exercise) {
+
+			$id = $exercise->id;
+			if (NULL !== $this->session->userdata('result_'.$id)) {
+				$this->session->unset_userdata('result_'.$id);
+			}
+		}
+
+		return;
+	}
+
+	/**
+	 * Get exercise level
+	 *
+	 * @param  int $id        Exercise ID
+	 * @param  int $level     Exercise level
+	 * @return int $level_new Modified Exercise level 
+	 */
+	public function getExerciseLevel($id, $level) {
+
+		$query = $this->db->get_where('exercises', array('id' => $id));
+		$exercise = $query->result()[0];
+		$level_max = $exercise->level;
+
+		if (NULL !== $this->session->userdata('result_'.$id)) {
+			$level_user = $this->session->userdata('result_'.$id);
+			$level_new = min($level_max, $level_user+1);
+		} else {
+			$level_new = $level;
+		}
+
+		return $level_new;
 	}
 }
 
