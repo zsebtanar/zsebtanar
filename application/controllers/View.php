@@ -50,6 +50,8 @@ class View extends CI_controller {
 		$level = min($level, 3);
 		$type = 'exercise';
 
+		print_r($_SESSION);
+
 		$this->Session->recordAction($id, $type, $level);
 
 		$data = $this->Html->printNavBarMenu($id, $type);

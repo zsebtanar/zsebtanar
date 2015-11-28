@@ -150,6 +150,7 @@ class Html extends CI_model {
 
 				$title = $subtopic->name;
 				$subtitle = $class->name;
+				$img = '';
 
 			} else {
 
@@ -162,11 +163,29 @@ class Html extends CI_model {
 				$subtopics = $this->db->get();
 				$subtopic = $subtopics->result()[0];
 
+				$level = $exercise->level;
+
+				if (NULL !== $this->session->userdata('result_'.$id)) {
+					$user_level = $this->session->userdata('result_'.$id);
+				} else {
+					$user_level = 0;
+				}
+
+				for ($i=1; $i <= $level; $i++) {
+
+					$img[$i] = 0;
+
+					if ($i <= $user_level) {
+						$img[$i] = 1;
+					}
+				}
+
 				$title = $exercise->name;
 				$subtitle = $subtopic->name;
+
 			}
 
-			$img = '';
+			
 
 		} else {
 

@@ -178,6 +178,20 @@
         				document.getElementById("button").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url();?>view/exercise/<?php echo $id;?>/<?php echo $level;?>\">Újra</button>";
         				break;
         		}
+
+        		// Change icons
+				$.each(data['levels'], function(index, value) {
+					console.log(value);
+					var src = document.getElementById("star"+index).src;
+					if (value == 0) {
+						var src = src.replace("filled", "empty");
+					} else {
+						var src = src.replace("empty", "filled");
+					}
+				    document.getElementById("star"+index).src = src;
+				    console.log(src);
+
+				});
 	        }
 	    });
     }

@@ -4,7 +4,13 @@ if ($type == 'exercise') {?>
 
 <h1 class="text-center">
 	<?php  echo $title; ?><br />
-	<small><?php echo $subtitle; ?></small>
+	<small><?php echo $subtitle; ?></small><br /><?php
+
+	foreach ($img as $index => $star) {?>
+
+	<img id="star<?php echo $index;?>" src="<?php echo base_url().'assets/images/star_'.($star ? 'filled' : 'empty').'.png';?>" alt="star"><?php
+
+	}?>
 </h1><br /><?php
 
 } elseif ($type == 'page') {?>

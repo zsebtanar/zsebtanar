@@ -109,11 +109,13 @@ class Exercises extends CI_model {
 
 		$this->load->model('Session');
 		$this->Session->recordAction($id, 'exercise', $level, $status);
+		$levels = $this->Session->getUserLevel($id);
 
 		$output = array(
 			'status' 		=> $status,
 			'message' 		=> $message,
-			'submessages'	=> $submessages
+			'submessages'	=> $submessages,
+			'levels'		=> $levels
 		);
 
 		return $output;

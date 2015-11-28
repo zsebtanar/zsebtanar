@@ -71,6 +71,13 @@ class Session extends CI_model {
 			show_error($this->db->_error_message());
 		}
 
+		if ($result == 'CORRECT') {
+
+			$newdata = array('result_'.$id => $level);
+			$this->session->set_userdata($newdata);
+
+		}
+
 		return;
 	}
 
@@ -136,6 +143,35 @@ class Session extends CI_model {
 		}
 
 		return $data;
+	}
+
+	/**
+	 * Get user level
+	 *
+	 * @param  int 	 $id     Exercise ID
+	 * @return array $levels Exercise levels (0/1)
+	 */
+	public function getUserLevel($id) {
+
+		$query = $this->db->get_where('exercises', array('id' => $id));
+		$exercise = $query->result()[0];
+		$max_level = $exercise->level;
+
+		if (NULL !== $this->session->userdata('result_'.$id)) {
+			$user_level = $this->session->userdata('result_'.$id);
+		} else {
+			$user_level = 0;
+		}
+
+		for ($i=1; $i <= $max_level; $i++) { 
+			if ($i <= $user_level) {
+				$levels[$i] = 1;
+			} else {
+				$levels[$i] = 0;
+			}
+		}
+
+		return $levels;
 	}
 }
 
