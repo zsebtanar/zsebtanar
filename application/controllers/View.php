@@ -13,11 +13,12 @@ class View extends CI_controller {
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->model('Html');
+		$this->load->model('Session');
 
 		// Write statistics
 		$this->load->model('Statistics');
 		$this->Statistics->Write('resources/statistics.xlsx');
-
+		
 		$this->load->view('Template');
 
 	}
@@ -25,6 +26,8 @@ class View extends CI_controller {
 	public function Page($id=NULL) {
 
 		$type = 'page';
+
+		$this->Session->recordAction($id, $type);
 
 		$data = $this->Html->printNavBarMenu($id, $type);
 		$this->load->view('NavBar', $data);
@@ -42,10 +45,12 @@ class View extends CI_controller {
 		$this->load->view('Footer');
 	}
 
-	public function Exercise($id, $level=1) {
+	public function Exercise($id=1, $level=1) {
 
 		$level = min($level, 3);
 		$type = 'exercise';
+
+		$this->Session->recordAction($id, $type, $level);
 
 		$data = $this->Html->printNavBarMenu($id, $type);
 		$this->load->view('NavBar', $data);
@@ -69,6 +74,19 @@ class View extends CI_controller {
 			header('Location:'.base_url().'view/page/');
 
 		}
+	}
+
+	public function Session($type='database', $id=NULL) {
+
+		if ($type == 'database') {
+			$data = $this->Session->getActions($id);
+		} elseif ($type == 'import') {
+			$data = $this->Session->getSavedSessions($id);
+		}
+
+		$this->load->view('Session', $data);
+		$this->load->view('Footer');
+
 	}
 }
 

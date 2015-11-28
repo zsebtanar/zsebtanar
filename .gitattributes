@@ -3,6 +3,7 @@
 
 # Normalize and convert text files to native line endings on checkout:
 *.php text
+*.csv text
 
 # Binary files (not to be modified):
 *.png binary

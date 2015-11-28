@@ -23,7 +23,7 @@ class Exercises extends CI_model {
 	public function CheckAnswer($data) {
 
 		$answerdata = json_decode($data, TRUE);
-		$answer = '';
+		$answer = [];
 
 		foreach ($answerdata as $item) {
 			switch ($item['name']) {
@@ -39,6 +39,12 @@ class Exercises extends CI_model {
 				case 'solution':
 					$solution = $item['value'];
 					break;
+				case 'id':
+					$id = $item['value'];
+					break;
+				case 'level':
+					$level = $item['value'];
+					break;
 			}
 		}
 
@@ -47,7 +53,7 @@ class Exercises extends CI_model {
 		switch ($type) {
 
 			case 'int':
-				if ($answer == '') {
+				if ($answer[0] == '') {
 					$status = 'NOT_DONE';
 					$message = 'Hiányzik a válasz!';
 				} elseif ($answer[0] == $correct) {
@@ -73,7 +79,7 @@ class Exercises extends CI_model {
 				break;
 
 			case 'multi':
-				if (!isset($answer)) {
+				if (count($answer) == 0) {
 					$status = 'NOT_DONE';
 					$message = 'Jelölj be legalább egy választ!';
 				} else {
@@ -100,6 +106,9 @@ class Exercises extends CI_model {
 				}
 				break;
 		}
+
+		$this->load->model('Session');
+		$this->Session->recordAction($id, 'exercise', $level, $status);
 
 		$output = array(
 			'status' 		=> $status,

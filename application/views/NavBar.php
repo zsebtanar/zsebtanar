@@ -83,6 +83,10 @@
 					echo $refresh_icon;
 				}
 
+				if (isset($session_icon)) {
+					echo $session_icon;
+				}
+
 				?>
 				<li>
 					<a href="#" data-toggle="modal" data-target="#info">

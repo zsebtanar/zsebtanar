@@ -81,6 +81,8 @@
 				<input type="hidden" name="type" value="<?php echo $type;?>">
 				<input type="hidden" name="correct" value="<?php echo json_encode($correct);?>">
 				<input type="hidden" name="solution" value="<?php echo $solution;?>">
+				<input type="hidden" name="id" value="<?php echo $id;?>">
+				<input type="hidden" name="level" value="<?php echo $level;?>">
 				
 				<br />
 				<p id="message"></p>

@@ -37,7 +37,8 @@ class Database extends CI_model {
 			'links' => array(
 				'exerciseID'	=> 'FROM SESSION',
 				'label'			=> 'NOT NULL'
-				)
+				),
+			'actions' => ''
 			);
 
 	/**
@@ -159,6 +160,15 @@ class Database extends CI_model {
 							CONSTRAINT link_label UNIQUE (id, label),
 							FOREIGN KEY (exerciseID) REFERENCES exercises(id),
 							FOREIGN KEY (label) REFERENCES exercises(label)
+						)Engine=InnoDB;',
+			'actions' => 'CREATE TABLE actions (
+							id 			INT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
+							sessionID	INT	NOT NULL,
+							time 		TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+							type 		VARCHAR(30) NOT NULL,
+							name 		VARCHAR(30) NOT NULL,
+							level  		VARCHAR(30),
+							result 		VARCHAR(30)
 						)Engine=InnoDB;',
 		);
 
