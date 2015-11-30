@@ -51,7 +51,13 @@ class View extends CI_controller {
 
 	public function Exercise($id=1, $level=NULL) {
 
+		if (NULL !== $this->input->get('id')) {
+			$id = $this->input->get('id');
+		}
+
 		$this->Session->updateSession($id);
+
+		print_r($id);
 
 		$type = 'exercise';
 

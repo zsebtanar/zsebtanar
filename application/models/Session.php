@@ -267,15 +267,22 @@ class Session extends CI_model {
 		if ($method) {
 			$this->session->set_userdata('method', $method);
 			$this->session->set_userdata('goal', $id);
+			$this->session->unset_userdata('todo_list');
 		}
 
 		if ($action == 'add') {
 
 			if (NULL !== $this->session->userdata('todo_list')) {
 				$todo_list = $this->session->userdata('todo_list');
-				$todo_list[] = $id;
+				print_r(count($todo_list));
+				array_push($todo_list, $id);
 				$this->session->set_userdata('todo_list', $todo_list);
+			} else {
+				$this->session->set_userdata('todo_list', array(0 => $id));
 			}
+
+			print_r($this->session->userdata('todo_list'));
+			echo 'lsdkfj';
 
 		} elseif ($action == 'delete') {
 

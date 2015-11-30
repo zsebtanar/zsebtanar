@@ -334,16 +334,16 @@ class Html extends CI_model {
 				$exercises = $query->result();
 				shuffle($exercises);
 				foreach ($exercises as $exercise) {
-					$id = $exercise->id;
+					$id_next = $exercise->id;
 					$level_max = $exercise->level;
-					if (isset($this->session->userdata('results')[$id])) {
-						$level_user = $this->session->userdata('results')[$id];
+					if (isset($this->session->userdata('results')[$id_next])) {
+						$level_user = $this->session->userdata('results')[$id_next];
 						if ($level_user < $level_max) {
-							$data['href'] = 'view/exercise/'.strval($id);
+							$data['href'] = 'view/exercise/'.strval($id_next);
 							return $data;
 						}
 					} else {
-						$data['href'] = 'view/exercise/'.strval($id);
+						$data['href'] = 'view/exercise/'.strval($id_next);
 						return $data;
 					}
 				}
@@ -361,19 +361,19 @@ class Html extends CI_model {
  				}
  			}
 
- 			$exercises2 = $this->db->get_where('links', array('label' => $exercise1->label));
- 			$num_res2 = count($exercises2->result());
+ 			// $exercises2 = $this->db->get_where('links', array('label' => $exercise1->label));
+ 			// $num_res2 = count($exercises2->result());
 
- 			if ($num_res2 > 0) {
+ 			// if ($num_res2 > 0) {
 
- 				$id_next = $exercises2->result()[rand(1,$num_res2)-1]->exerciseID;
- 				$data['href'] = 'view/exercise/'.strval($id_next);
+ 			// 	$id_next = $exercises2->result()[rand(1,$num_res2)-1]->exerciseID;
+ 			// 	$data['href'] = 'view/exercise/'.strval($id_next);
 
- 			} else {
+ 			// } else {
 
- 				$data['href'] = 'view/page/';
-				$data['label'] = 'Kész! :)';
- 			}
+ 			// 	$data['href'] = 'view/page/';
+				// $data['label'] = 'Kész! :)';
+ 			// }
  		}
 
  		return $data;
