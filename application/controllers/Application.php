@@ -81,15 +81,25 @@ class Application extends CI_controller {
 	 *
 	 * @return void
 	 */
-	public function Login($password) {
+	public function Login() {
 
-		if ($password = 'zst') {
+		$password = $this->input->get('password');
+
+		if ($password == 'zst') {
 
 			$this->session->set_userdata('Logged_in', TRUE);
+			$status = 'PASSWORD_OK';
 
+		} elseif (+$password) {
+
+			$status = 'INCORRECT_PASSWORD';
+
+		} else {
+
+			$status = 'PASSWORD_MISSING';
 		}
 
-		header('Location:'.base_url().'view/subtopic/');
+		echo json_encode($status);
 	}
 
 	/**

@@ -87,6 +87,17 @@
 					echo $session_icon;
 				}
 
+				if (NULL === $this->session->userdata('Logged_in') ||
+					!$this->session->userdata('Logged_in')) {?>
+
+				<li>
+					<a href="#" data-toggle="modal" data-target="#login">
+						<span class="glyphicon glyphicon-user"></span> Admin
+					</a>
+				</li><?php
+
+				}
+
 				?>
 				<li>
 					<a href="#" data-toggle="modal" data-target="#info">
