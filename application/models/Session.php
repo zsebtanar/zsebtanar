@@ -11,12 +11,26 @@ class Session extends CI_model {
 	public function __construct() {
 
 		$this->load->helper('url');
+		$this->load->helper('file');
+
+		return;
+	}
+
+	/**
+	 * Set session ID
+	 *
+	 * @return void
+	 */
+	public function setSessionID() {
+
+		// $this->session->unset_userdata('sessionID');
 
 		if (NULL === $this->session->userdata('sessionID')) {
 			
+			// Define session ID
 			$this->db->select_max('sessionID');
 			$query = $this->db->get('actions');
-			$sessionID = $query->result_array()[0]['sessionID']; 
+			$sessionID = $query->result_array()[0]['sessionID'];
 
 			if (NULL == $sessionID) {
 				$this->session->set_userdata('sessionID', 1);
@@ -24,10 +38,11 @@ class Session extends CI_model {
 				$this->session->set_userdata('sessionID', $sessionID+1);
 			}
 
+			// Define session results
 			if (NULL == $this->session->userdata('results')) {
 				$this->session->set_userdata('results', []);	
 			}
-			
+
 		}
 
 		return;
@@ -37,56 +52,111 @@ class Session extends CI_model {
 	 * Record action
 	 *
 	 * @param  int 	  $id     Subtopic/Exercise ID
-	 * @param  string $type   View type (exercise/page)
+	 * @param  string $type   View type (exercise/subtopic)
 	 * @param  int    $level  Exercise level
 	 * @param  string $result Result of action (correct/wrong/not_done)
+	 *
 	 * @return void
 	 */
 	public function recordAction($id, $type, $level=NULL, $result=NULL) {
 
-		$data['sessionID'] 	= $this->session->userdata('sessionID');
-		$data['type']		= $type;
-		$data['level']		= $level;
-		$data['result']		= $result;
-
-		if ($type == 'page') {
+		if ($type == 'subtopic') {
 
 			if (!$id) {
-
-				$data['name'] 	= 'Kezdőlap';
-
+				$name 		= 'Kezdőlap';
 			} else {
-
-				$subtopics 		= $this->db->get_where('subtopics', array('id' => $id));
-				$subtopic 		= $subtopics->result()[0];
-				$data['name'] 	= $subtopic->name;
-
+				print_r($id);
+				$query 		= $this->db->get_where('subtopics', array('id' => $id));
+				$subtopic 	= $query->result()[0];
+				$name 		= $subtopic->name;
 			}
+
+			$this->insertSubtopicAction($name, $type);
 
 		} elseif ($type == 'exercise') {
 
-			$exercises 		= $this->db->get_where('exercises', array('id' => $id));
-			$exercise 		= $exercises->result()[0];
-			$data['name'] 	= $exercise->name;
-			$data['level']	= $level.'/'.$exercise->level;
+			$query 		= $this->db->get_where('exercises', array('id' => $id));
+			$exercise 	= $query->result()[0];
+			$name 		= $exercise->name;
+			$level_max	= $exercise->level;
 
+			$this->insertExerciseAction($name, $level, $level_max, $result);
+
+			if ($result) {
+				$this->updateResults($id, $level, $level_max, $result);
+			}
+
+			$this->saveExerciseID($id);
 		}
+
+		return;
+	}
+
+	/**
+	 * Insert subtopic action into database
+	 *
+	 * @param  string $name   Subtopic name
+	 * @param  int    $level  Exercise level
+	 * @param  string $result Result of action (correct/wrong/not_done)
+	 *
+	 * @return void
+	 */
+	public function insertSubtopicAction($name) {
+
+		$data['sessionID'] 	= $this->session->userdata('sessionID');
+		$data['type']		= 'subtopic';
+		$data['name']		= $name;
 
 		if (!$this->db->insert('actions', $data)) {
 			show_error($this->db->_error_message());
 		}
 
+		return;
+	}
+
+	/**
+	 * Insert action into database
+	 *
+	 * @param  string $name      Exercise name
+	 * @param  int    $level     Current level
+	 * @param  int    $level_max Exercise level
+	 * @param  string $result    Result of action (correct/wrong/not_done)
+	 *
+	 * @return void
+	 */
+	public function insertExerciseAction($name, $level=NULL, $level_max, $result=NULL) {
+
+		$data['sessionID'] 	= $this->session->userdata('sessionID');
+		$data['type']		= 'exercise';
+		$data['level']		= $level.'/'.$level_max;
+		$data['result']		= $result;
+		$data['name'] 		= $name;
+
+		if (!$this->db->insert('actions', $data)) {
+			show_error($this->db->_error_message());
+		}
+
+		return;
+	}
+
+	/**
+	 * Update results
+	 *
+	 * @param  int 	  $id        Subtopic/Exercise ID
+	 * @param  int    $level     Current exercise level
+	 * @param  int    $level_max Exercise level
+	 * @param  string $result    Result of action (correct/wrong/not_done)
+	 *
+	 * @return void
+	 */
+	public function updateResults($id, $level=NULL, $level_max, $result=NULL) {
+
 		$results = $this->session->userdata('results');
+
 		if ($result == 'CORRECT') {
 
 			$results[$id] = $level;
-			$this->session->set_userdata('results', $results);
-
-			if ($level == $exercise->level &&
-				NULL !== $this->session->userdata('method')	&&
-				$this->session->userdata('method') == 'exercise') {
-				$this->updateSession($id, NULL, $action='delete');
-			}
+			$this->session->set_userdata('results', $results);	
 
 		} elseif ($result == 'WRONG') {
 
@@ -104,12 +174,12 @@ class Session extends CI_model {
 	}
 
 	/**
-	 * Get actions
+	 * Get actions of session
 	 *
 	 * @param  int 	 $id   Session ID
 	 * @return array $data Session data
 	 */
-	public function getActions($id=1) {
+	public function getActions($id=NULL) {
 
 		$this->db->select('sessionID');
 		$this->db->distinct();
@@ -117,10 +187,10 @@ class Session extends CI_model {
 		$query = $this->db->get('actions');
 
 		foreach ($query->result() as $session) {
-			$sessionID[] = $session->sessionID; 
+			$sessionIDs[] = $session->sessionID; 
 		}
 
-		$data['all_sessions'] = $sessionID;
+		$data['all_sessions'] = $sessionIDs;
 		$data['current_id'] = $id;
 
 		if ($id) {
@@ -140,8 +210,6 @@ class Session extends CI_model {
 	 * @return array $data Session data
 	 */
 	public function getSavedSessions($file) {
-
-		$this->load->helper('file');
 
 		if (!$file) {
 
@@ -168,12 +236,15 @@ class Session extends CI_model {
 	}
 
 	/**
-	 * Get user level
+	 * Get user results of exercise
+	 *
+	 * Returns an array with 0s and 1s. 1 means the user has answered the exercise
+	 * at the specific level correctly, O means the opposite. 
 	 *
 	 * @param  int 	 $id     Exercise ID
-	 * @return array $levels Exercise levels (0/1)
+	 * @return array $levels Exercise levels (0 or 1)
 	 */
-	public function getUserLevel($id) {
+	public function getExerciseResults($id) {
 
 		$query = $this->db->get_where('exercises', array('id' => $id));
 		$exercise = $query->result()[0];
@@ -197,12 +268,12 @@ class Session extends CI_model {
 	}
 
 	/**
-	 * Clear exercises from session
+	 * Clear exercise results of subtopics from session
 	 *
 	 * @param  int 	$subtopicID Subtopic ID
 	 * @return void
 	 */
-	public function clearExercises($subtopicID) {
+	public function clearResults($subtopicID) {
 
 		$query = $this->db->get_where('exercises', array('subtopicID' => $subtopicID));
 		foreach ($query->result() as $exercise) {
@@ -217,86 +288,56 @@ class Session extends CI_model {
 	}
 
 	/**
-	 * Get exercise level
+	 * Get next level of exercise
 	 *
-	 * @param  int $id        Exercise ID
-	 * @param  int $level     Exercise level
-	 * @return int $level_new Modified Exercise level 
+	 * @param  int $id    Exercise ID
+	 * @return int $level Exercise level 
 	 */
-	public function getExerciseLevel($id, $level) {
+	public function getExerciseLevelNext($id) {
 
 		$query = $this->db->get_where('exercises', array('id' => $id));
 		$exercise = $query->result()[0];
 		$level_max = $exercise->level;
 
 		if (isset($this->session->userdata('results')[$id])) {
+
 			$level_user = $this->session->userdata('results')[$id];
-			$level_new = min($level_max, $level_user+1);
+			$level = min($level_max, $level_user+1);
+
 		} else {
-			if (!$level) {
-				$level_new = 1;
-			} else {
-				$level_new = $level;
-			}
+
+			$level = 1;
 		}
 
-		return $level_new;
+		return $level;
 	}
 
 	/**
-	 * Update session
+	 * Save exercise ID
 	 *
-	 * @param  int $id     Exercise/subtopic ID
-	 * @param  int $method Practice method (exercise/subtopic)
+	 * Saves exercise ID to list. 
+	 * Next exercise will be chosen according to the to the saved list.
+	 *
+	 * @param  int $id Exercise ID
 	 * @return void
 	 */
-	public function updateSession($id) {
+	public function saveExerciseID($id) {
 
-		if (NULL !== $this->input->get('action')) {
-			$action = $this->input->get('action');
-		} else {
-			$action = '';
-		}
+		if (NULL !== $this->session->userdata('method')) {
 
-		if (NULL !== $this->input->get('method')) {
-			$method = $this->input->get('method');
-		} else {
-			$method = '';
-		}
+			$method = $this->session->userdata('method');
 
-		if ($method) {
-			$this->session->set_userdata('method', $method);
-			$this->session->set_userdata('goal', $id);
-			$this->session->unset_userdata('todo_list');
-		}
+			if ($method == 'exercise') {
 
-		if ($action == 'add') {
-
-			if (NULL !== $this->session->userdata('todo_list')) {
 				$todo_list = $this->session->userdata('todo_list');
-				print_r(count($todo_list));
-				array_push($todo_list, $id);
+
+				if (!in_array($id, $todo_list)) {
+					array_push($todo_list, $id);
+				}
+
 				$this->session->set_userdata('todo_list', $todo_list);
-			} else {
-				$this->session->set_userdata('todo_list', array(0 => $id));
+
 			}
-
-			print_r($this->session->userdata('todo_list'));
-			echo 'lsdkfj';
-
-		} elseif ($action == 'delete') {
-
-			$todo_list = $this->session->userdata('todo_list');
-			$reversed = array_reverse($todo_list);
-			if ($reversed[0] == $id) {
-				$todo_list_new = array_pop($todo_list);
-				$this->session->set_userdata('todo_list', $todo_list_new);
-			}
-
-		} elseif ($action == 'restart') {
-
-			$this->session->unset_userdata('results');
-			
 		}
 		
 		return;

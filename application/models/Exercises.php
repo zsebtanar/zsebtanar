@@ -66,7 +66,7 @@ class Exercises extends CI_model {
 				break;
 
 			case 'quiz':
-				if ($answer == '') {
+				if (!isset($answer[0])) {
 					$status = 'NOT_DONE';
 					$message = 'Hiányzik a válasz!';
 				} elseif ($answer[0] == $correct) {
@@ -108,14 +108,18 @@ class Exercises extends CI_model {
 		}
 
 		$this->load->model('Session');
+		$this->load->model('Html');
 		$this->Session->recordAction($id, 'exercise', $level, $status);
-		$levels = $this->Session->getUserLevel($id);
+		$levels = $this->Session->getExerciseResults($id);
+		$data = $this->Html->getNextExercise($id, $level);
 
 		$output = array(
 			'status' 		=> $status,
 			'message' 		=> $message,
 			'submessages'	=> $submessages,
-			'levels'		=> $levels
+			'levels'		=> $levels,
+			'label'			=> $data['label'],
+			'href'			=> $data['href'],
 		);
 
 		return $output;

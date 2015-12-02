@@ -88,36 +88,6 @@ class Database extends CI_model {
 	}
 
 	/**
-	 * Delete subtopic from tables
-	 *
-	 * @param  int $id Subtopic ID
-	 * @return void
-	 */
-	public function DeleteFromTables($id) {
-
-		$exercises = $this->db->get_where('exercises', array('subtopicID' => $id));
-
-		foreach ($exercises->result() as $exercise) {
-
-			$exerciseID = $exercise->id;
-
-			$this->db->where('exerciseID', $exerciseID);
-
-			if ($this->db->delete('links')) {
-				echo 'Data deleted from links!<br />';
-			} else {
-				show_error($this->db->_error_message());
-			}
-		}
-
-		if ($this->db->delete('exercises', array('subtopicID' => $id))) {
-			echo 'Data deleted from exercises!<br />';
-		} else {
-			show_error($this->db->_error_message());
-		}
-	}
-
-	/**
 	 * Create table
 	 *
 	 * @param  string $table Table name
@@ -193,15 +163,15 @@ class Database extends CI_model {
 	/**
 	 * Insert data
 	 *
+	 * Inserts data into database form json file when table name is defined.
 	 * If column is missing from data and must not be null, throws an error.
 	 * If it can be null, value is defined by an empty string ''.
 	 *
 	 * @param  array  $data   Original data
-	 * @param  int    $id     Subtopic ID
 	 * @param  string $string Table name
 	 * @return void
 	 */
-	public function InsertData($data, $id=NULL, $table=NULL) {
+	public function InsertData($data, $table=NULL) {
 
 		// print_r($table);
 		if ($table) {
@@ -213,36 +183,57 @@ class Database extends CI_model {
 				// Get values
 				foreach (SELF::TABLE_COLUMNS[$table] as $col => $type) {
 					if (!isset($data[$col])) {
+
+						// error: value missing!
 						if ($type == 'NOT NULL') {
 							print_r($data);
 							show_error('Field '.$col.' is missing from data!');
+
+						// insert value from session
 						} elseif ($type == 'FROM SESSION') {
 							$sessionID = str_split($col, 5)[0].'_ID';
 							$values[$col] = $this->session->userdata($sessionID);
-						} elseif ($type == '') {
-							$values[$col] = '';
-						} else {
+
+						// insert default value
+						} elseif ($type != '') {
 							$values[$col] = $type;
+							
+						// insert empty string
+						} else {
+							$values[$col] = '';
 						}
+						
 					} else {
 						$values[$col] = $data[$col];
 					}
 				}
+			
+				// Insert values
+				if ($this->db->insert($table, $values)) {
+					echo 'Data inserted into '.$table.'!<br />';
+				} else {
+					show_error($this->db->_error_message());
+				}
 			}
 
-			// Insert values
-			if ($this->db->insert($table, $values)) {
-				echo 'Data inserted into '.$table.'!<br />';
-			} else {
-
-				show_error($this->db->_error_message());
-			}
+			// Store ID
+			$currentID = $this->db->insert_id();
+			$sessionID = str_split($table, 5)[0].'_ID';
+			$this->session->set_userdata($sessionID, $currentID);
 		}
 
-		// Store ID
-		$currentID = $this->db->insert_id();
-		$sessionID = str_split($table, 5)[0].'_ID';
-		$this->session->set_userdata($sessionID, $currentID);
+		$this->recursiveInsert($data);
+	}
+
+	/**
+	 * Insert data recoursively
+	 *
+	 * Calls insertData() function for each column of data.
+	 *
+	 * @param  array  $data   Original data
+	 * @return void
+	 */
+	public function recursiveInsert($data) {
 
 		// Recursive check for other table names
 		foreach (array_keys(SELF::TABLE_COLUMNS) as $column) {
@@ -251,22 +242,29 @@ class Database extends CI_model {
 
 				foreach ($data[$column] as $row) {
 
-					if (!$id) {
-
-						// Full update
-						$this->InsertData($row, $id, $column);	
-					} else {
-
-						// Partial update
-						if (in_array($column, array('classes','topics','subtopics'))) {
-							$this->InsertData($row, $id);
-						} elseif ($id == $this->session->userdata('subto_ID')) {
-							$this->InsertData($row, $id, $column);
-						}
-					}
+					$this->InsertData($row, $column);	
 				}
 			}
 		}
+	}
+
+	/**
+	 * Unset user data
+	 *
+	 * Unsets unused session variables defined during inserting data.
+	 *
+	 * @return void
+	 */
+	public function UnsetUserData() {
+
+		$this->session->unset_userdata('_ID');
+		$this->session->unset_userdata('class_ID');
+		$this->session->unset_userdata('topic_ID');
+		$this->session->unset_userdata('subto_ID');
+		$this->session->unset_userdata('exerc_ID');
+		$this->session->unset_userdata('links_ID');
+
+		return;
 	}
 
 	/**
@@ -297,9 +295,9 @@ class Database extends CI_model {
 	 * @param  int $level Excercise level
 	 * @return void
 	 */
-	public function Redirect($id=NULL) {
+	public function Redirect() {
 
-		header('Location:'.base_url().'view/page/'.$id);
+		header('Location:'.base_url().'view/subtopic/');
 	}
 
 	/**

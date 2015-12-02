@@ -3,40 +3,57 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Application extends CI_controller {
 
+	/**
+	 * Search keyword in database
+	 *
+	 * @param string $keyword Keyword (from REQUEST)
+	 *
+	 * @return void
+	 */
 	public function Search() {
 		
 		$this->load->model('Database');
-		$keyword = $this->input->post('keyword');
+		$keyword = $this->input->get('keyword');
 		$results = $this->Database->Search($keyword);
 		echo json_encode($results);
 	}
 
+	/**
+	 * Check exercise answer
+	 *
+	 * @param array $answer Answer data (from REQUEST)
+	 *
+	 * @return void
+	 */
 	public function CheckAnswer() {
 
 		$this->load->model('Exercises');
-		$answer = $this->input->GET('answer');
+		$answer = $this->input->get('answer');
 		$result = $this->Exercises->CheckAnswer($answer);
 		echo json_encode($result);
 	}
 
-	public function CheckExercises() {
+	/**
+	 * Clear results for subtopic
+	 *
+	 * Checks whether user has completed all exercises of subtopic.
+	 *
+	 * @param int $subtopicID Subtopic id
+	 *
+	 * @return void
+	 */
+	public function ClearResults($subtopicID) {
 
-		$this->load->model('Html');
 		$this->load->model('Session');
-		$subtopicID = $this->input->GET('subtopicID');
-		$method = $this->input->GET('method');
-		if ($method == 'restart') {
-			$this->Session->clearExercises($subtopicID);
-		}
-		$result = $this->Html->getExerciseFromSubtopicID($subtopicID);
-		echo json_encode($result);
+		$this->Session->clearResults($subtopicID);
+		header('Location:'.base_url().'view/subtopic/'.$subtopicID);
 	}
 
 	public function DeleteSessions() {
 
 		$this->load->helper('url');
 		$this->db->empty_table('actions'); 
-		header('Location:'.base_url().'view/page/');
+		header('Location:'.base_url().'view/subtopic/');
 	}
 
 	public function ExportSession($id) {
@@ -54,7 +71,58 @@ class Application extends CI_controller {
 			show_error('Unable to write the file');
 		}
 
-		header('Location:'.base_url().'view/page/');
+		header('Location:'.base_url().'view/subtopic/');
+	}
+
+	/**
+	 * Log in to website
+	 *
+	 * @param string $password Password
+	 *
+	 * @return void
+	 */
+	public function Login($password) {
+
+		if ($password = 'zst') {
+
+			$this->session->set_userdata('Logged_in', TRUE);
+
+		}
+
+		header('Location:'.base_url().'view/subtopic/');
+	}
+
+	/**
+	 * Set learning goal
+	 *
+	 * Defines what the user want to learn (exercise or subtopic).
+	 * Order of exercises will defined by the goal.
+	 *
+	 *
+	 * @param string $type Learning type (exercise/subtopic)
+	 * @param int    $goal Id of learning target
+	 *
+	 * @return void
+	 */
+	public function SetGoal($type, $goal) {
+
+		$this->load->model('Html');
+		$this->session->set_userdata('method', $type);
+		$this->session->set_userdata('goal', $goal);
+		$this->session->set_userdata('todo_list', []);
+
+		if ($type == 'subtopic') {
+
+			$data = $this->Html->getNextExerciseSubtopic($goal);
+			$id_next = $data['id_next'];
+
+			header('Location:'.base_url().'view/exercise/'.$id_next);
+
+		} elseif ($type == 'exercise') {
+
+			header('Location:'.base_url().'view/exercise/'.$goal);
+		}
+
 	}
 }
 

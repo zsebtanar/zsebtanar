@@ -17,7 +17,7 @@ class Html extends CI_model {
 	 * Print navbar menu
 	 *
 	 * @param  int 	  $id   Exercise ID
-	 * @param  string $type View type ('page' or 'exercise')
+	 * @param  string $type View type ('subtopic' or 'exercise')
 	 * @return array  $menu Navbar menu
 	 */
 	public function printNavBarMenu($id, $type) {
@@ -58,13 +58,13 @@ class Html extends CI_model {
 	 * Print refresh icon
 	 *
 	 * @param  int 	  $id   Subtopic/Exercise ID
-	 * @param  string $type View type ('page' or 'exercise')
+	 * @param  string $type View type ('subtopic' or 'exercise')
 	 * @return string $html Html-code
 	 */
 	public function printRefreshIcon($id, $type) {
 
 		switch ($type) {
-			case 'page':
+			case 'subtopic':
 				if ($id) {
 					$subtopicID = $id;
 				} else {
@@ -129,14 +129,14 @@ class Html extends CI_model {
 	 * Print page title
 	 *
 	 * @param  int    $id   Subtopic/Excercise ID
-	 * @param  string $type Page type ('subtopic' or 'exercise' or 'message')
+	 * @param  string $type Page type (subtopic/exercise)
 	 * @return string $html Html-code
 	 */
-	public function printPageTitle($id, $type) {
+	public function printTitle($id, $type) {
 
 		if ($id) {
 
-			if ($type=='page') {
+			if ($type=='subtopic') {
 
 				$subtopics = $this->db->get_where('subtopics', array('id' => $id));
 				$subtopic = $subtopics->result()[0];
@@ -157,7 +157,7 @@ class Html extends CI_model {
 				$query = $this->db->get_where('exercises', array('id' => $id));
 				$exercise = $query->result()[0];
 
-				$this->db->select('subtopics.name')
+				$this->db->select('subtopics.name, subtopics.id')
 						->distinct()
 						->from('subtopics')
 						->join('exercises', 'subtopics.id = exercises.subtopicID', 'inner')
@@ -187,23 +187,15 @@ class Html extends CI_model {
 
 			}
 
-			
+			$href = base_url().'view/subtopic/'.$subtopic->id;
 
 		} else {
 
-			if ($type=='message') {
-
-				$title = 'Üzenet küldése';
-				$subtitle = '';
-				$img = '';
-
-			} else {
-
-				$title = 'zsebtanár';
-				$subtitle = 'matek | másként';
-				$img = '<a href="'.base_url().'view/page"><img class="img-responsive center-block img_main" '
-					.'src="'.base_url().'assets/images/logo.png" alt="logo" width="150"></a>';
-			}
+			$title = 'zsebtanár';
+			$subtitle = 'matek | másként';
+			$img = '<a href="'.base_url().'view/subtopic"><img class="img-responsive center-block img_main" '
+				.'src="'.base_url().'assets/images/logo.png" alt="logo" width="150"></a>';
+			$href = NULL;
 		}
 
 		return array(
@@ -211,44 +203,9 @@ class Html extends CI_model {
 			'title' 	=> $title,
 			'subtitle' 	=> $subtitle,
 			'type' 		=> $type,
-			'id'		=> $id
+			'id'		=> $id,
+			'href'		=> $href
 		);
-	}
-
-	/**
-	 * Get exercise links
-	 *
-	 * @param  int   $id    Excercise ID
-	 * @return array $links Links
-	 */
-	public function getExerciseLinks($id=NULL) {
-
-		$links = [];
-
-		if ($id) {
-
-			$exercises1 = $this->db->get_where('links', array('exerciseID' => $id));
-			foreach ($exercises1->result() as $exercise1) {
-				$exercises2 = $this->db->get_where('exercises', array('label' => $exercise1->label));
-				$exercise2 = $exercises2->result()[0];
-				$id = $exercise2->id;
-
-				if (isset($this->session->userdata('results')[$id])) {
-					$level_user = $this->session->userdata('results')[$id];
-				} else {
-					$level_user = 0;
-				}
-
-				$link['id'] 		= $id;
-				$link['name'] 		= $exercise2->name;
-				$link['level_max'] 	= $exercise2->level;
-				$link['level_user']	= $level_user;
-
-				$links[] = $link;
-			}
-		}
-
-		return $links;
 	}
 
 	/**
@@ -257,24 +214,31 @@ class Html extends CI_model {
 	 * @param  int   $id   Subtopic ID
 	 * @return array $data Exercises
 	 */
-	public function getExercises($id) {
+	public function getExerciseList($id) {
 
 		$query = $this->db->get_where('exercises', array('subtopicID' => $id));
-		foreach ($query->result() as $exercise) {
 
-			$id = $exercise->id;
-			if (isset($this->session->userdata('results')[$id])) {
-				$level_user = $this->session->userdata('results')[$id];
-			} else {
-				$level_user = 0;
+		$exercises = $query->result();
+
+		if (count($exercises) > 0) {
+			foreach ($exercises as $exercise) {
+
+				$id = $exercise->id;
+				if (isset($this->session->userdata('results')[$id])) {
+					$level_user = $this->session->userdata('results')[$id];
+				} else {
+					$level_user = 0;
+				}
+
+				$row['level_user'] 	= $level_user;
+				$row['id'] 			= $id;
+				$row['name'] 		= $exercise->name;
+				$row['level_max'] 	= $exercise->level;
+
+				$data['exercise_list'][] = $row;
 			}
-
-			$row['level_user'] 	= $level_user;
-			$row['id'] 			= $id;
-			$row['name'] 		= $exercise->name;
-			$row['level_max'] 	= $exercise->level;
-
-			$data['exercise_list'][] = $row;
+		} else {
+			$data = [];
 		}
 
 		return $data;
@@ -299,8 +263,7 @@ class Html extends CI_model {
 		$data['level'] 		= $level;
 		$data['youtube'] 	= $exercise->youtube;
 		$data['id'] 		= $id;
-		$data['links'] 		= $this->getExerciseLinks($id);
-		$data['next'] 		= $this->getNextExercise($id, $level);
+		$data['prev']		= $this->getPreviousExercise($id);
 
 		return $data;
 	}
@@ -312,7 +275,7 @@ class Html extends CI_model {
 	 * @param  int   $level Exercise level
 	 * @return array $data  Next exercise
 	 */
-	public function getNextExercise($id, $level) {
+	public function getNextExercise($id, $level=1) {
 
 		$data['label'] = 'Tovább';
 
@@ -322,112 +285,216 @@ class Html extends CI_model {
 
 		if ($level < $max_level) {
 
-			$data['href'] = 'view/exercise/'.strval($id).'/'.strval($level+1);
+			$data['href'] = base_url().'view/exercise/'.strval($id);
 
  		} else {
 
- 			$method = $this->session->userdata('method');
- 			$goal = $this->session->userdata('goal');
+ 			if (NULL !== $this->session->userdata('method') &&
+ 				NULL !== $this->session->userdata('goal')) {
 
- 			if ($method == 'subtopic') {
-				$query = $this->db->get_where('exercises', array('subtopicID' => $goal));
-				$exercises = $query->result();
-				shuffle($exercises);
-				foreach ($exercises as $exercise) {
-					$id_next = $exercise->id;
-					$level_max = $exercise->level;
-					if (isset($this->session->userdata('results')[$id_next])) {
-						$level_user = $this->session->userdata('results')[$id_next];
-						if ($level_user < $level_max) {
-							$data['href'] = 'view/exercise/'.strval($id_next);
-							return $data;
+	 			$method = $this->session->userdata('method');
+	 			$goal = $this->session->userdata('goal');
+
+	 			if ($method == 'subtopic') {
+
+	 				$data['label'] = 'Tovább';
+
+					$query = $this->db->get_where('exercises', array('subtopicID' => $goal));
+					$exercises = $query->result();
+					
+					foreach ($exercises as $exercise) {
+						$id_next = $exercise->id;
+						$level_max = $exercise->level;
+						$results = $this->session->userdata('results');
+						if (isset($results[$id_next])) {
+							$level_user = $results[$id_next];
+							if ($level_user < $level_max) {
+								$data['href'] = base_url().'view/exercise/'.strval($id_next);
+								break;
+							}
+						} else {
+							$data['href'] = base_url().'view/exercise/'.strval($id_next);
+							break;
 						}
-					} else {
-						$data['href'] = 'view/exercise/'.strval($id_next);
-						return $data;
 					}
-				}
 
- 				$data['href'] = 'view/page/'.$goal;
-				$data['label'] = 'Kész! :)';
-				return $data;
+					if (!isset($data['href'])) {
 
- 			} elseif ($method == 'exercise') {
+		 				$data['label'] = 'Kész! :)';
+						$data['href'] = base_url().'view/subtopic/'.$goal;
 
- 				if ($goal == $id || $level == $max_level) {
-	 				$data['href'] = 'view/page';
-					$data['label'] = 'Kész! :)';
+					}
+				
 					return $data;
+
+	 			} elseif ($method == 'exercise') {
+
+	 				if ($goal == $id) {
+
+	 					$data['label'] = 'Kész! :)';
+						$data['href'] = base_url().'view/subtopic/';
+
+	 				} else {
+
+	 					$todo_list = $this->session->userdata('todo_list');
+
+	 					foreach ($todo_list as $key => $value) {
+	 						if ($value == $id) {
+	 							unset($todo_list[$key]);
+	 						}
+	 					}
+
+	 					$last = array_slice($todo_list, -1, 1);
+	 					$data['href'] = base_url().'view/exercise/'.strval($last[0]);
+
+	 					$this->session->set_userdata('todo_list', $todo_list);
+		 			}
+
+	 			}
+
+ 			} else {
+
+ 				$query = $this->db->get_where('links', array('label' => $exercise1->label));
+ 				$links = $query->result();
+
+ 				if (count($links) > 0) {
+ 					
+					foreach ($links as $link) {
+
+						$query = $this->db->get_where('exercises', array('id' => $link->exerciseID));
+						$exercise = $query->result()[0];
+						$id_next = $exercise->id;
+						$level_max = $exercise->level;
+						if (isset($this->session->userdata('results')[$id_next])) {
+							$level_user = $this->session->userdata('results')[$id_next];
+							if ($level_user < $level_max) {
+								$data['href'] = base_url().'view/exercise/'.strval($id_next);
+								break;
+							}
+						} else {
+							$data['href'] = base_url().'view/exercise/'.strval($id_next);
+							break;
+						}
+					}
+
+ 				} else {
+
+ 					$data['href'] = base_url().'view/subtopic';
+					$data['label'] = 'Kész! :)';
  				}
  			}
-
- 			// $exercises2 = $this->db->get_where('links', array('label' => $exercise1->label));
- 			// $num_res2 = count($exercises2->result());
-
- 			// if ($num_res2 > 0) {
-
- 			// 	$id_next = $exercises2->result()[rand(1,$num_res2)-1]->exerciseID;
- 			// 	$data['href'] = 'view/exercise/'.strval($id_next);
-
- 			// } else {
-
- 			// 	$data['href'] = 'view/page/';
-				// $data['label'] = 'Kész! :)';
- 			// }
  		}
 
  		return $data;
 	}
 
 	/**
-	 * Get exercise from subtopicID
+	 * Get previous exercise
+	 *
+	 * @param  int   $id   Exercise ID
+	 * @return array $href Link to previous exercise
+	 */
+	public function getPreviousExercise($id) {
+
+		$query = $this->db->get_where('exercises', array('id' => $id));
+		$exercise1 = $query->result()[0];
+		$query = $this->db->get_where('links', array('exerciseID' => $id));
+		$links = $query->result();
+
+		if (count($links) > 0) {
+			
+			shuffle($links);
+
+			foreach ($links as $link) {
+
+				$query = $this->db->get_where('exercises', array('label' => $link->label));
+				$exercise2 = $query->result()[0];
+				
+				$id_prev = $exercise2->id;
+				$level_max = $exercise2->level;
+				$results = $this->session->userdata('results');
+
+				if (!isset($results[$id_prev])) {
+
+					$href = base_url().'view/exercise/'.strval($id_prev);
+					break;
+
+				} elseif ($results[$id_prev] < $level_max) {
+
+					$href = base_url().'view/exercise/'.strval($id_prev);
+					break;
+
+				} else {
+
+					$href = base_url().'view/exercise/'.strval($id_prev);
+					// $href = NULL;
+				}
+			}
+
+		} else {
+
+			$href = NULL;
+		}
+
+ 		return $href;
+	}
+
+	/**
+	 * Get next avaliable exercise for subtopic
+	 *
+	 * Checks whether user has complated all exercises of subtopics.
+	 * If not, returns link to next available exercise.
+	 * If so, returns link to clear results session.
 	 *
 	 * @param  int   $subtopicID Subtopic ID
 	 * @return array $data       Exercise data
 	 */
-	public function getExerciseFromSubtopicID($subtopicID) {
-
-
+	public function getNextExerciseSubtopic($subtopicID) {
 
 		$query = $this->db->get_where('exercises', array('subtopicID' => $subtopicID));
 		$exercises = $query->result_array();
-		shuffle($exercises);
 
 		foreach ($exercises as $exercise) {
+
 			$id = $exercise['id'];
-			if (isset($this->session->userdata('results')[$id])) {
-				$level_user = $this->session->userdata('results')[$id];
+			$results = $this->session->userdata('results');
+
+			if (isset($results[$id])) {
+
+				$level_user = $results[$id];
 				$level_max = $exercise['level'];
 
 				if ($level_user < $level_max) {
-					$exerciseID = $id;
-					$level = $level_user+1;
+					$id_next = $id;
 					break;
 				}
 				
 			} else {
 
-				$exerciseID = $id;
-				$level = 1;
+				$id_next = $id;
+				break;
 			}
 		}
 
 		// all exercise done
-		if (!isset($exerciseID) || !isset($exerciseID)) {
+		if (!isset($id_next)) {
 
-			$status = 'FULL';
-			$exerciseID = NULL;
-			$level = NULL;
+			$href = base_url().'application/clearresults/'.$subtopicID;
+			$name = 'Újrakezd';
+			$id_next = NULL;
+			$level_next = NULL;
 
 		} else {
 
-			$status = 'OK';
+			$href = base_url().'application/setgoal/subtopic/'.$subtopicID;
+			$name = 'Gyakorlás';
 
 		}
 
  		return array(
- 			'href'	 => base_url().'view/exercise/'.$exerciseID.'/'.$level,
- 			'status' => $status
+ 			'href' 			=> $href,
+ 			'name' 			=> $name,
+ 			'id_next' 		=> $id_next
 		);
 	}
 }

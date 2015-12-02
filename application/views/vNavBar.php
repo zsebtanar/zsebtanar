@@ -10,10 +10,10 @@
 				<span class="icon-bar"></span>
 			</button>
 
-			<a class="navbar-brand" href="<?php echo base_url();?>view/page">
+			<a class="navbar-brand" href="<?php echo base_url();?>view/subtopic">
 				<img src="<?php echo base_url();?>assets/images/logo_small.png" alt="logo" width="20">
 			</a>
-			<a class="navbar-brand" href="<?php echo base_url();?>view/page">Zsebtanár</a>
+			<a class="navbar-brand" href="<?php echo base_url();?>view/subtopic">Zsebtanár</a>
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav"><?php
@@ -47,7 +47,7 @@
 								foreach ($subtopics as $subtopic_id => $subtopic_name) {?>
 
 									<li>
-										<a href="<?php echo base_url();?>view/page/<?php echo $subtopic_id;?>">
+										<a href="<?php echo base_url();?>view/subtopic/<?php echo $subtopic_id;?>">
 											<?php echo $subtopic_name;?>
 										</a>
 									</li><?php

@@ -32,7 +32,7 @@
 
 <div class="row">
 	<div class="btn-group">
-		<a href="<?php echo base_url().'view/page';?>" class="btn btn-default">Kezdőlapra</a>
+		<a href="<?php echo base_url().'view/subtopic';?>" class="btn btn-default">Kezdőlapra</a>
 		<a href="<?php echo base_url().'application/deletesessions';?>"class="btn btn-default">Összes törlése</a><?php
 
 		if (isset($current_id)) {?>
