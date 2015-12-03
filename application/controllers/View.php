@@ -33,35 +33,33 @@ class View extends CI_controller {
 	 */
 	public function Subtopic($id=NULL, $type = 'subtopic') {
 
-		$this->load->view('vTemplate');
+		$this->load->view('Template');
 		$this->Session->setSessionID();
-
-		print_r($_SESSION);
 
 		$this->Session->recordAction($id, $type);
 
 		$data = $this->Html->printNavBarMenu($id, $type);
-		$this->load->view('vNavBar', $data);
+		$this->load->view('NavBar', $data);
 
 		$data = $this->Html->printTitle($id, $type);
 		$data['button'] = $this->Html->getNextExerciseSubtopic($id);
-		$this->load->view('vTitle', $data);
+		$this->load->view('Title', $data);
 
 		if (!$id) {
-			$this->load->view('vSearch');
+			$this->load->view('Search');
 		} else {
 			$data = $this->Html->getExerciseList($id);
-			$this->load->view('vExerciseList', $data);		
+			$this->load->view('ExerciseList', $data);		
 		}
 
-		$this->load->view('vFooter');
+		$this->load->view('Footer');
 	}
 
 	public function Exercise($id=1, $level=NULL) {
 
 		$type = 'exercise';
 
-		$this->load->view('vTemplate');
+		$this->load->view('Template');
 
 		if (!$level) {
 			$level = $this->Session->getExerciseLevelNext($id);
@@ -69,25 +67,23 @@ class View extends CI_controller {
 
 		$this->Session->recordAction($id, $type, $level);
 
-		print_r($_SESSION);
-
 		$data = $this->Html->printNavBarMenu($id, $type);
-		$this->load->view('vNavBar', $data);
+		$this->load->view('NavBar', $data);
 
 
 		$data = $this->Html->printTitle($id, $type);
-		$this->load->view('vTitle', $data);
+		$this->load->view('Title', $data);
 
 
 		$data = $this->Html->getExerciseData($id, $level);
-		$this->load->view('vExercise', $data);
+		$this->load->view('Exercise', $data);
 
-		$this->load->view('vFooter');
+		$this->load->view('Footer');
 	}
 
 	public function Session($type='database', $id=NULL) {
 
-		$this->load->view('vTemplate');
+		$this->load->view('Template');
 
 		if ($type == 'database') {
 			$data = $this->Session->getActions($id);
@@ -95,8 +91,8 @@ class View extends CI_controller {
 			$data = $this->Session->getSavedSessions($id);
 		}
 
-		$this->load->view('vSession', $data);
-		$this->load->view('vFooter');
+		$this->load->view('Session', $data);
+		$this->load->view('Footer');
 
 	}
 }

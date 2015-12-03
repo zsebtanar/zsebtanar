@@ -65,7 +65,6 @@ class Session extends CI_model {
 			if (!$id) {
 				$name 		= 'Kezdőlap';
 			} else {
-				print_r($id);
 				$query 		= $this->db->get_where('subtopics', array('id' => $id));
 				$subtopic 	= $query->result()[0];
 				$name 		= $subtopic->name;

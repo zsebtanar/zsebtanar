@@ -105,7 +105,7 @@ class Application extends CI_controller {
 	/**
 	 * Set learning goal
 	 *
-	 * Defines what the user want to learn (exercise or subtopic).
+	 * Defines what the user want to practice (exercise or subtopic).
 	 * Order of exercises will defined by the goal.
 	 *
 	 *

@@ -12,7 +12,7 @@
 						<form role="form">
 							<div class="form-group">
 								<label for="pwd">Jelszó:</label>
-								<input id="password" type="password" class="form-control" id="pwd">
+								<input name="password" type="password" class="form-control" id="pwd">
 							</div>
 							<p class="text-center" id="message"></p>
 							<div class="text-right">
@@ -30,20 +30,23 @@
 <!-- Typeahead JS -->
 <script>
     function login() {
+    	event.preventDefault();
+    	var pwd = document.getElementById('pwd').value;
         $.ajax({
             type: "GET",
             url: "<?php echo base_url();?>application/login",
             data: {
-                keyword: $("#password").val()
+                password: pwd
             },
             dataType: "json",
             success: function(status) {
+            	window.alert(status);
                 if (status == 'PASSWORD_OK') {
                     location.reload();
                 } else if (status == 'INCORRECT_PASSWORD') {
-                    $('#message').val('Érvénytelen jelszó!');
+                    document.getElementById('message').innerHTML = 'Érvénytelen jelszó!';
                 } else if (status == 'PASSWORD_MISSING') {
-                	$('#message').val('Hiányzik a jelszó!');
+                	document.getElementById('message').innerHTML = 'Hiányzik a jelszó!';
     			}
     		}
         });
