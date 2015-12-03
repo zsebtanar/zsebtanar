@@ -34,9 +34,10 @@ class Exercises extends CI_model {
 
 		$this->load->model('Session');
 		$this->load->model('Html');
-		$this->Session->recordAction($data['id'], 'exercise', $data['level'], $data['status']);
 
-		$levels = $this->Session->getExerciseResults($data['id']);
+		$this->Session->recordExerciseCheck($data['id'], $data['level'], $data['status']);
+
+		$levels = $this->Session->getExerciseResultsCurrent($data['id']);
 		$next = $this->Exercises->getNextExercise($data['id'], $data['level']);
 
 		$output = array(
@@ -371,7 +372,7 @@ class Exercises extends CI_model {
 		$links = $query->result();
 
 		if (count($links) > 0) {
-			
+
 			shuffle($links);
 
 			foreach ($links as $link) {
@@ -414,68 +415,10 @@ class Exercises extends CI_model {
 	}
 
 	/**
-	 * Get next avaliable exercise for subtopic
-	 *
-	 * Checks whether user has complated all exercises of subtopics.
-	 * If not, returns link to next available exercise.
-	 * If so, returns link to clear results session.
-	 *
-	 * @param  int   $subtopicID Subtopic ID
-	 * @return array $data       Exercise data
-	 */
-	public function getNextExerciseSubtopic($subtopicID) {
-
-		$query = $this->db->get_where('exercises', array('subtopicID' => $subtopicID));
-		$exercises = $query->result_array();
-
-		foreach ($exercises as $exercise) {
-
-			$id = $exercise['id'];
-			$results = $this->session->userdata('results');
-
-			if (isset($results[$id])) {
-
-				$level_user = $results[$id];
-				$level_max = $exercise['level'];
-
-				if ($level_user < $level_max) {
-					$id_next = $id;
-					break;
-				}
-				
-			} else {
-
-				$id_next = $id;
-				break;
-			}
-		}
-
-		// all exercise done
-		if (!isset($id_next)) {
-
-			$href = base_url().'application/clearresults/'.$subtopicID;
-			$name = 'Újrakezd';
-			$id_next = NULL;
-			$level_next = NULL;
-
-		} else {
-
-			$href = base_url().'application/setgoal/subtopic/'.$subtopicID;
-			$name = 'Gyakorlás';
-
-		}
-
- 		return array(
- 			'href' 			=> $href,
- 			'name' 			=> $name,
- 			'id_next' 		=> $id_next
-		);
-	}
-
-	/**
 	 * Get ID of next avaliable exercise (subtopic mode)
 	 *
 	 * 1. Checks whether user has complated all exercises in the to do list.
+	 *    - If not, returns last element of to do list.
 	 * 2. Checks whether user has complated all exercises of subtopics.
 	 *    - If not, returns link to next available exercise.
 	 *    - If so, returns null.
@@ -485,30 +428,50 @@ class Exercises extends CI_model {
 	 */
 	public function IDNextSubtopic() {
 
-		$subtopicID = $this->session->userdata('goal');
+		$id_next = NULL;
 
-		$query = $this->db->get_where('exercises', array('subtopicID' => $subtopicID));
-		$exercises = $query->result_array();
+		if (NULL !== $this->session->userdata('goal')) {
 
-		foreach ($exercises as $exercise) {
+			$subtopicID = $this->session->userdata('goal');
 
-			$id = $exercise['id'];
-			$results = $this->session->userdata('results');
+			$todo_list = $this->session->userdata('todo_list');
 
-			if (isset($results[$id])) {
+			if (count($todo_list) > 0) {
 
-				$level_user = $results[$id];
-				$level_max = $exercise['level'];
+				// User has not finished to do list
+				$id_next = array_slice($todo_list, -1);
 
-				if ($level_user < $level_max) {
-					$id_next = $id;
-					break;
-				}
-				
 			} else {
 
-				$id_next = $id;
-				break;
+				$query = $this->db->get_where('exercises', array('subtopicID' => $subtopicID));
+				$exercises = $query->result_array();
+
+				shuffle($exercises);
+
+				foreach ($exercises as $exercise) {
+
+					$id = $exercise['id'];
+					$results = $this->session->userdata('results');
+
+					if (isset($results[$id])) {
+
+						$level_user = $results[$id];
+						$level_max = $exercise['level'];
+
+						if ($level_user < $level_max) {
+
+							// User has not solved exercise at all levels
+							$id_next = $id;
+							break;
+						}
+						
+					} else {
+
+						// User has not solved exercise yet
+						$id_next = $id;
+						break;
+					}
+				}
 			}
 		}
 

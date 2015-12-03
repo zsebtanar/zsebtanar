@@ -20,10 +20,16 @@ if ($type == 'exercise') {?>
 	<p class="text-center"><?php echo $subtitle;?></p>
 </div><?php
 
-	if ($id) {?>
+	if ($id_next) {?>
 
 		<div class="row text-center">
-			<a class="btn btn-primary" href="<?php echo $button['href'];?>"><?php echo $button['name'];?></a>
+			<a class="btn btn-primary" href="<?php echo base_url().'view/exercise/'.$id_next;?>">Gyakorlás</a>
+		</div><br /><?php
+
+	} else {?>
+
+		<div class="row text-center">
+			<a class="btn btn-primary" href="<?php echo base_url().'application/clearresults/'.$id;?>">Újrakezd</a>
 		</div><br /><?php
 
 	}

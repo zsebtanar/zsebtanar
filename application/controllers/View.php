@@ -55,7 +55,8 @@ class View extends CI_controller {
 		$this->load->view('NavBar', $data);
 
 		$data = $this->Html->Title($id, $type);
-		$data['button'] = $this->Exercises->getNextExerciseSubtopic($id);
+		$data['id_next'] = $this->Exercises->IDNextSubtopic($id);
+		$data['id'] = $id;
 		$this->load->view('Title', $data);
 
 		if (!$id) {
@@ -73,11 +74,13 @@ class View extends CI_controller {
 
 	public function Exercise($id=1, $level=NULL) {
 
-		if (NULL !== $this->session->userdata('method')) {
+		if (NULL === $this->session->userdata('method')) {
 			$this->session->set_userdata('method', 'exercise');
 			$this->session->set_userdata('goal', $id);
 			$this->session->set_userdata('todo_list', []);
 		}
+
+		$this->Session->UpdateTodoList($id);
 
 		$type = 'exercise';
 
