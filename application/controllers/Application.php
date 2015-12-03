@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Application extends CI_controller {
 
 	/**
-	 * Search keyword in database
+	 * Search keyword in database (AJAX)
 	 *
 	 * @param string $keyword Keyword (from REQUEST)
 	 *
@@ -19,7 +19,7 @@ class Application extends CI_controller {
 	}
 
 	/**
-	 * Check exercise answer
+	 * Check exercise answer (AJAX)
 	 *
 	 * @param array $answer Answer data (from REQUEST)
 	 *
@@ -36,7 +36,7 @@ class Application extends CI_controller {
 	/**
 	 * Clear results for subtopic
 	 *
-	 * Checks whether user has completed all exercises of subtopic.
+	 * Clears all results of user from session.
 	 *
 	 * @param int $subtopicID Subtopic id
 	 *
@@ -49,6 +49,15 @@ class Application extends CI_controller {
 		header('Location:'.base_url().'view/subtopic/'.$subtopicID);
 	}
 
+	/**
+	 * Delete sessions
+	 *
+	 * Delete all session activities from database
+	 *
+	 * @param int $subtopicID Subtopic id
+	 *
+	 * @return void
+	 */
 	public function DeleteSessions() {
 
 		$this->load->helper('url');
@@ -56,6 +65,15 @@ class Application extends CI_controller {
 		header('Location:'.base_url().'view/subtopic/');
 	}
 
+	/**
+	 * Export sessions
+	 *
+	 * Exports selected session activities into csv file.
+	 *
+	 * @param int $subtopicID Subtopic id
+	 *
+	 * @return void
+	 */
 	public function ExportSession($id) {
 		
 		$this->load->dbutil();
@@ -107,7 +125,6 @@ class Application extends CI_controller {
 	 *
 	 * Defines what the user want to practice (exercise or subtopic).
 	 * Order of exercises will defined by the goal.
-	 *
 	 *
 	 * @param string $type Learning type (exercise/subtopic)
 	 * @param int    $goal Id of learning target

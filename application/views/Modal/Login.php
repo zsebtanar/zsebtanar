@@ -14,7 +14,7 @@
 								<label for="pwd">Jelszó:</label>
 								<input name="password" type="password" class="form-control" id="pwd">
 							</div>
-							<p class="text-center" id="message"></p>
+							<p class="text-center" id="login_message"></p>
 							<div class="text-right">
 								<button type="submit" class="btn btn-default" onclick=login()>Mehet</button>
 							</div>
@@ -44,9 +44,9 @@
                 if (status == 'PASSWORD_OK') {
                     location.reload();
                 } else if (status == 'INCORRECT_PASSWORD') {
-                    document.getElementById('message').innerHTML = 'Érvénytelen jelszó!';
+                    document.getElementById('login_message').innerHTML = 'Érvénytelen jelszó!';
                 } else if (status == 'PASSWORD_MISSING') {
-                	document.getElementById('message').innerHTML = 'Hiányzik a jelszó!';
+                	document.getElementById('login_message').innerHTML = 'Hiányzik a jelszó!';
     			}
     		}
         });

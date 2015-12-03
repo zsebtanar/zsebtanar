@@ -60,6 +60,7 @@ class Session extends CI_model {
 	 */
 	public function recordAction($id, $type, $level=NULL, $result=NULL) {
 
+
 		if ($type == 'subtopic') {
 
 			if (!$id) {
@@ -249,8 +250,9 @@ class Session extends CI_model {
 		$exercise = $query->result()[0];
 		$max_level = $exercise->level;
 
-		if (NULL !== $this->session->userdata('results')[$id]) {
-			$user_level = $this->session->userdata('results')[$id];
+		$results = $this->session->userdata('results');
+		if (isset($results[$id])) {
+			$user_level = $results[$id];
 		} else {
 			$user_level = 0;
 		}

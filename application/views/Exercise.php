@@ -184,9 +184,4 @@
 			}
 		});
 	}
-
-	// Reload page
-	// function reloadPage() {
-	// 	location.reload();
-	// }
 </script>

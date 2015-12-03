@@ -23,6 +23,11 @@ class View extends CI_controller {
 
 		// Set session ID
 		$this->Session->setSessionID();
+
+		// print_r($this->session->userdata('method').'<br />');
+		// print_r($this->session->userdata('goal').'<br />');
+		// print_r($this->session->userdata('todo_list'));
+		// print_r(microtime());
 	}
 
 	/**
@@ -35,6 +40,10 @@ class View extends CI_controller {
 
 		$this->load->view('Template');
 		$this->Session->setSessionID();
+
+		$this->session->unset_userdata('method');
+		$this->session->unset_userdata('goal');
+		$this->session->unset_userdata('todo_list');
 
 		$this->Session->recordAction($id, $type);
 
