@@ -119,38 +119,6 @@ class Application extends CI_controller {
 
 		echo json_encode($status);
 	}
-
-	/**
-	 * Set learning goal
-	 *
-	 * Defines what the user want to practice (exercise or subtopic).
-	 * Order of exercises will defined by the goal.
-	 *
-	 * @param string $type Learning type (exercise/subtopic)
-	 * @param int    $goal Id of learning target
-	 *
-	 * @return void
-	 */
-	public function SetGoal($type, $goal) {
-
-		$this->load->model('Html');
-		$this->session->set_userdata('method', $type);
-		$this->session->set_userdata('goal', $goal);
-		$this->session->set_userdata('todo_list', []);
-
-		if ($type == 'subtopic') {
-
-			$data = $this->Html->getNextExerciseSubtopic($goal);
-			$id_next = $data['id_next'];
-
-			header('Location:'.base_url().'view/exercise/'.$id_next);
-
-		} elseif ($type == 'exercise') {
-
-			header('Location:'.base_url().'view/exercise/'.$goal);
-		}
-
-	}
 }
 
 ?>

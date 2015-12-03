@@ -343,6 +343,23 @@ class Session extends CI_model {
 		
 		return;
 	}
+
+	/**
+	 * Print session information
+	 *
+	 * @return void
+	 */
+	public function PrintInfo() {
+
+		print_r('Session ID: '.$this->session->userdata('sessionID').'<br />');
+		print_r('Method: '.$this->session->userdata('method').' - ');
+		print_r($this->session->userdata('goal').'<br />'.'To do list: ');
+		print_r($this->session->userdata('todo_list'));
+		print_r('<br />Results: ');
+		print_r($this->session->userdata('results'));
+		
+		return;
+	}
 }
 
 ?>

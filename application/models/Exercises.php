@@ -4,17 +4,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Exercises extends CI_model {
 
 	/**
-	 * Class constructor
-	 *
-	 * @return	void
-	 */
-	public function __construct() {
-
-		$this->load->helper('url');
-		define('RESOURCES_URL', base_url('resources/exercises'));
-	}
-
-	/**
 	 * Check answer
 	 *
 	 * @param  array $data Answer data
@@ -23,9 +12,56 @@ class Exercises extends CI_model {
 	public function CheckAnswer($data) {
 
 		$answerdata = json_decode($data, TRUE);
+
+		$data = $this->ConvertAnswerToArray($answerdata);
+
+		$data['submessages'] = [];
+
+		switch ($data['type']) {
+
+			case 'int':
+				$data = $this->GenerateMessagesInt($data);
+				break;
+
+			case 'quiz':
+				$data = $this->GenerateMessagesQuiz($data);
+				break;
+
+			case 'multi':
+				$data = $this->GenerateMessagesMulti($data);
+				break;
+		}
+
+		$this->load->model('Session');
+		$this->load->model('Html');
+		$this->Session->recordAction($data['id'], 'exercise', $data['level'], $data['status']);
+
+		$levels = $this->Session->getExerciseResults($data['id']);
+		$next = $this->Exercises->getNextExercise($data['id'], $data['level']);
+
+		$output = array(
+			'status' 		=> $data['status'],
+			'message' 		=> $data['message'],
+			'submessages'	=> $data['submessages'],
+			'levels'		=> $levels,
+			'label'			=> $next['label'],
+			'href'			=> $next['href'],
+		);
+
+		return $output;
+	}
+
+	/**
+	 * Convert answer to array
+	 *
+	 * @param  array $json   Answer data (JSON)
+	 * @return array $output Answer data (array)
+	 */
+	public function ConvertAnswerToArray($json) {
+
 		$answer = [];
 
-		foreach ($answerdata as $item) {
+		foreach ($json as $item) {
 			switch ($item['name']) {
 				case 'type':
 					$type = $item['value'];
@@ -48,333 +84,435 @@ class Exercises extends CI_model {
 			}
 		}
 
-		$submessages = [];
-
-		switch ($type) {
-
-			case 'int':
-				if ($answer[0] == '') {
-					$status = 'NOT_DONE';
-					$message = 'Hiányzik a válasz!';
-				} elseif ($answer[0] == $correct) {
-					$status = 'CORRECT';
-					$message = 'Helyes válasz!';
-				} else {
-					$status = 'WRONG';
-					$message = 'A helyes válasz: '.$solution;
-				}
-				break;
-
-			case 'quiz':
-				if (!isset($answer[0])) {
-					$status = 'NOT_DONE';
-					$message = 'Hiányzik a válasz!';
-				} elseif ($answer[0] == $correct) {
-					$status = 'CORRECT';
-					$message = 'Helyes válasz!';
-				} else {
-					$status = 'WRONG';
-					$message = 'Hibás válasz!';
-				}
-				break;
-
-			case 'multi':
-				if (count($answer) == 0) {
-					$status = 'NOT_DONE';
-					$message = 'Jelölj be legalább egy választ!';
-				} else {
-					$status = 'CORRECT';
-					$message = 'Helyes válasz!';
-					foreach ($correct as $key => $value) {
-						$submessages[$key] = 'WRONG';
-						if ($value == 1) {
-							if (in_array($key, $answer)) {
-								$submessages[$key] = 'CORRECT';
-							} else {
-								$status = 'WRONG';
-								$message = 'Hibás válasz!';
-							}
-						} else {
-							if (in_array($key, $answer)) {
-								$status = 'WRONG';
-								$message = 'Hibás válasz!';
-							} else {
-								$submessages[$key] = 'CORRECT';
-							}
-						}
-					}
-				}
-				break;
-		}
-
-		$this->load->model('Session');
-		$this->load->model('Html');
-		$this->Session->recordAction($id, 'exercise', $level, $status);
-		$levels = $this->Session->getExerciseResults($id);
-		$data = $this->Html->getNextExercise($id, $level);
-
 		$output = array(
-			'status' 		=> $status,
-			'message' 		=> $message,
-			'submessages'	=> $submessages,
-			'levels'		=> $levels,
-			'label'			=> $data['label'],
-			'href'			=> $data['href'],
+			'answer'	=> $answer,
+			'type'		=> $type,
+			'correct'	=> $correct,
+			'solution'	=> $solution,
+			'id'		=> $id,
+			'level'		=> $level
 		);
 
 		return $output;
 	}
 
 	/**
-	 * Random number generator
+	 * Generate messages for integer type exercises
 	 *
-	 * Generates number of $len digits in $numSys numeral system (e.g. value is 10 for
-	 * decimal system).
-	 *
-	 * @param int $len    No. of digits.
-	 * @param int $numSys Numeral system.
-	 *
-	 * @return int $num Random number.
+	 * @param  array $data Answer data
+	 * @return array $data Answer data (modified)
 	 */
-	private function numGen($len, $numSys) {
-		if ($len > 1) {
-			// first digit non-0
-			$num = rand(1, $numSys-1);
+	public function GenerateMessagesInt($data) {
+
+		if ($data['answer'][0] == '') {
+			$data['status'] = 'NOT_DONE';
+			$data['message'] = 'Hiányzik a válasz!';
+		} elseif ($data['answer'][0] == $data['correct']) {
+			$data['status'] = 'CORRECT';
+			$data['message'] = 'Helyes válasz!';
 		} else {
-			$num = rand(0, $numSys-1);
+			$data['status'] = 'WRONG';
+			$data['message'] = 'A helyes válasz: '.$data['solution'];
 		}
-		for ($i=0; $i<$len-1; $i++) {
 
-			$digit = rand(0, $numSys-1);
-
-			// for small numbers, last two digit differs
-			while ($len < 4 && $i == 0 && $digit == $num) {
-				$digit = rand(0, $numSys-1);
-			}
-
-			$num .= $digit;
-		}
-		return $num;
+		return $data;
 	}
 
 	/**
-	 * Associative array shuffle
+	 * Generate messages for quiz type exercises
 	 *
-	 * Shuffle for associative arrays, preserves key=>value pairs.
-	 * (Based on (Vladimir Kornea of typetango.com)'s function) 
-	 *
-	 * @param array &$array Array.
-	 *
-	 * @return NULL
+	 * @param  array $data Answer data
+	 * @return array $data Answer data (modified)
 	 */
-	function shuffleAssoc(&$array) {
+	public function GenerateMessagesQuiz($data) {
 
-		$keys = array_keys($array);
-		shuffle($keys);
-
-		foreach ($keys as $key) {
-			$new[$key] = $array[$key];
-		}
-
-		$array = $new;
-
-		return;
-	}
-
-	/* Define even numbers */
-	public function def_even($level=1) {
-
-		$question = 'Melyik számokat nevezzünk páros számoknak?';
-		$options = array(
-			'Azokat, amik $0,2,4,6,8$-ra végződnek.',
-			'Azokat, amik $1,3,5,7,9$-re végződnek.',
-			'Azokat, amik $1,2,3,4,5$-re végződnek.'
-		);
-		$correct = 0;
-		$solution = $options[$correct];
-		$this->shuffleAssoc($options);
-		$type = 'quiz';
-
-		return array(
-			'question' => $question,
-			'options' => $options,
-			'correct' => $correct,
-			'solution' => $solution,
-			'type' => $type
-		);
-	}
-
-	/* Define even numbers */
-	public function def_odd($level=1) {
-
-		$question = 'Melyik számokat nevezzünk páratlan számoknak?';
-		$options = array(
-			'Azokat, amik $0,2,4,6,8$-ra végződnek.',
-			'Azokat, amik $1,3,5,7,9$-re végződnek.',
-			'Azokat, amik $1,2,3,4,5$-re végződnek.'
-		);
-		$correct = 1;
-		$solution = $options[$correct];
-		$this->shuffleAssoc($options);
-		$type = 'quiz';
-
-		return array(
-			'question' => $question,
-			'options' => $options,
-			'correct' => $correct,
-			'solution' => $solution,
-			'type' => $type
-		);
-	}
-
-	/* Define question for natural numbers */
-	public function def_natural_question($level=1) {
-
-		$question = 'Az alábbiak közül melyik kérdésre válaszolunk mindig természetes számmal?';
-		$options = array(
-			'Hány darab...?',
-			'Mekkora...?',
-			'Hányadik...?'
-		);
-		$correct = 0;
-		$solution = $options[$correct];
-		$this->shuffleAssoc($options);
-		$type = 'quiz';
-
-		return array(
-			'question' => $question,
-			'options' => $options,
-			'correct' => $correct,
-			'solution' => $solution,
-			'type' => $type
-		);
-	}
-
-	/* Count apples */
-	public function count_apples($level=1) {
-
-		if ($level == 1) {
-			$num = rand(0,4);
-		} elseif ($level == 2) {
-			$num = rand(5,9);
-		} elseif ($level == 3) {
-			$num = rand(10,20);
-		}
-
-		$question = 'Hány darab alma van a fán?<div class="text-center"><img class="img-question" width="50%" src="'.RESOURCES_URL.'/count_apples/tree'.$num.'.png"></div>';
-		$correct = $num;
-		$options = '';
-		$solution = '$'.$correct.'$';
-		$type = 'int';
-
-		return array(
-			'question' => $question,
-			'options' => $options,
-			'correct' => $correct,
-			'solution' => $solution,
-			'type' => $type
-		);
-	}
-
-	/* Define parity of numbers */
-	public function parity($level=1) {
-
-		if ($level == 1) {
-			$num = rand(0,9); 
-		} elseif ($level == 2) {
-			$len = 3;
-		} elseif ($level == 3) {
-			$len = 5;
-		}
-
-		if ($level == 1) {
-
-			$question = 'Páros vagy páratlan az alábbi szám?$$'.$num.'$$';
-			$type = 'quiz';
-			$options = array('páros', 'páratlan');
-			$correct = $num%2;
-			$solution = $options[$correct];
-
+		if (!isset($data['answer'][0])) {
+			$data['status'] = 'NOT_DONE';
+			$data['message'] = 'Hiányzik a válasz!';
+		} elseif ($data['answer'][0] == $data['correct']) {
+			$data['status'] = 'CORRECT';
+			$data['message'] = 'Helyes válasz!';
 		} else {
+			$data['status'] = 'WRONG';
+			$data['message'] = 'Hibás válasz!';
+		}
 
-			for ($i=0; $i < $len; $i++) { 
-				$num[$i] = $this->numGen(rand(round($len/2),$len), 10);
-			}
+		return $data;
+	}
 
-			$correct = [];
+	/**
+	 * Generate messages for multiple choice type exercises
+	 *
+	 * @param  array $data Answer data
+	 * @return array $data Answer data (modified)
+	 */
+	public function GenerateMessagesMulti($data) {
 
-			while (array_sum($correct) == 0) {
-				$parity = array('párosak', 'páratlanok');
-				$par = rand(0,1);
-
-				foreach ($num as $key => $value) {
-					$correct[$key] = ($value%2 == $par ? 1 : 0);
-					if ($value > 9999) {
-						$value = number_format($value,0,',','\,');
+		if (count($data['answer']) == 0) {
+			$data['status'] = 'NOT_DONE';
+			$data['message'] = 'Jelölj be legalább egy választ!';
+		} else {
+			$data['status'] = 'CORRECT';
+			$data['message'] = 'Helyes válasz!';
+			foreach ($data['correct'] as $key => $value) {
+				$data['submessages'][$key] = 'WRONG';
+				if ($value == 1) {
+					if (in_array($key, $data['answer'])) {
+						$data['submessages'][$key] = 'CORRECT';
+					} else {
+						$data['status'] = 'WRONG';
+						$data['message'] = 'Hibás válasz!';
 					}
-					$options[$key] = '$'.$value.'$';
+				} else {
+					if (in_array($key, $data['answer'])) {
+						$data['status'] = 'WRONG';
+						$data['message'] = 'Hibás válasz!';
+					} else {
+						$data['submessages'][$key] = 'CORRECT';
+					}
+				}
+			}
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Get exercise data
+	 *
+	 * @param  int   $id    Exercise ID
+	 * @param  int   $level Exercise level
+	 * @return array $data  Exercise data
+	 */
+	public function getExerciseData($id, $level) {
+
+		$query 		= $this->db->get_where('exercises', array('id' => $id));
+		$exercise 	= $query->result()[0]; 
+		$label 		= $exercise->label;
+
+		$this->load->model('Maths');
+
+		$data 				= $this->Maths->$label($level);
+		$data['level'] 		= $level;
+		$data['youtube'] 	= $exercise->youtube;
+		$data['id'] 		= $id;
+		$data['id_prev']	= $this->IDPrevious($id);
+
+		return $data;
+	}
+
+	/**
+	 * Get exercises of subtopic
+	 *
+	 * @param  int   $id   Subtopic ID
+	 * @return array $data Exercises
+	 */
+	public function getExerciseList($id) {
+
+		$query = $this->db->get_where('exercises', array('subtopicID' => $id));
+
+		$exercises = $query->result();
+
+		if (count($exercises) > 0) {
+			foreach ($exercises as $exercise) {
+
+				$id = $exercise->id;
+				if (isset($this->session->userdata('results')[$id])) {
+					$level_user = $this->session->userdata('results')[$id];
+				} else {
+					$level_user = 0;
+				}
+
+				$row['level_user'] 	= $level_user;
+				$row['id'] 			= $id;
+				$row['name'] 		= $exercise->name;
+				$row['level_max'] 	= $exercise->level;
+
+				$data['exercise_list'][] = $row;
+			}
+		} else {
+			$data = [];
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Get next exercise
+	 *
+	 * @param  int   $id    Exercise ID
+	 * @param  int   $level Exercise level
+	 * @return array $data  Next exercise
+	 */
+	public function getNextExercise($id, $level=1) {
+
+		$data['label'] = 'Tovább';
+
+		$query = $this->db->get_where('exercises', array('id' => $id));
+		$exercise1 = $query->result()[0];
+		$max_level = $exercise1->level;
+
+		if ($level < $max_level) {
+
+			$data['href'] = base_url().'view/exercise/'.strval($id);
+
+ 		} else {
+
+ 			if (NULL !== $this->session->userdata('method') &&
+ 				NULL !== $this->session->userdata('goal')) {
+
+	 			$method = $this->session->userdata('method');
+	 			$goal = $this->session->userdata('goal');
+
+	 			if ($method == 'subtopic') {
+
+	 				$data['label'] = 'Tovább';
+
+					$query = $this->db->get_where('exercises', array('subtopicID' => $goal));
+					$exercises = $query->result();
+					
+					foreach ($exercises as $exercise) {
+						$id_next = $exercise->id;
+						$level_max = $exercise->level;
+						$results = $this->session->userdata('results');
+						if (isset($results[$id_next])) {
+							$level_user = $results[$id_next];
+							if ($level_user < $level_max) {
+								$data['href'] = base_url().'view/exercise/'.strval($id_next);
+								break;
+							}
+						} else {
+							$data['href'] = base_url().'view/exercise/'.strval($id_next);
+							break;
+						}
+					}
+
+					if (!isset($data['href'])) {
+
+		 				$data['label'] = 'Kész! :)';
+						$data['href'] = base_url().'view/subtopic/'.$goal;
+
+					}
+				
+					return $data;
+
+	 			} elseif ($method == 'exercise') {
+
+	 				if ($goal == $id) {
+
+	 					$data['label'] = 'Kész! :)';
+						$data['href'] = base_url().'view/subtopic/';
+
+	 				} else {
+
+	 					$todo_list = $this->session->userdata('todo_list');
+
+	 					foreach ($todo_list as $key => $value) {
+	 						if ($value == $id) {
+	 							unset($todo_list[$key]);
+	 						}
+	 					}
+
+	 					$last = array_slice($todo_list, -1, 1);
+	 					$data['href'] = base_url().'view/exercise/'.strval($last[0]);
+
+	 					$this->session->set_userdata('todo_list', $todo_list);
+		 			}
+
+	 			}
+
+ 			} else {
+
+ 				$query = $this->db->get_where('links', array('label' => $exercise1->label));
+ 				$links = $query->result();
+
+ 				if (count($links) > 0) {
+ 					
+					foreach ($links as $link) {
+
+						$query = $this->db->get_where('exercises', array('id' => $link->exerciseID));
+						$exercise = $query->result()[0];
+						$id_next = $exercise->id;
+						$level_max = $exercise->level;
+						if (isset($this->session->userdata('results')[$id_next])) {
+							$level_user = $this->session->userdata('results')[$id_next];
+							if ($level_user < $level_max) {
+								$data['href'] = base_url().'view/exercise/'.strval($id_next);
+								break;
+							}
+						} else {
+							$data['href'] = base_url().'view/exercise/'.strval($id_next);
+							break;
+						}
+					}
+
+ 				} else {
+
+ 					$data['href'] = base_url().'view/subtopic';
+					$data['label'] = 'Kész! :)';
+ 				}
+ 			}
+ 		}
+
+ 		return $data;
+	}
+
+	/**
+	 * Get ID of previous exercise
+	 *
+	 * @param  int $id      Exercise ID
+	 * @return int $id_prev ID of previous exercise
+	 */
+	public function IDPrevious($id) {
+
+		$query = $this->db->get_where('exercises', array('id' => $id));
+		$exercise1 = $query->result()[0];
+		$query = $this->db->get_where('links', array('exerciseID' => $id));
+		$links = $query->result();
+
+		if (count($links) > 0) {
+			
+			shuffle($links);
+
+			foreach ($links as $link) {
+
+				$query = $this->db->get_where('exercises', array('label' => $link->label));
+				$exercise2 = $query->result()[0];
+				
+				$id2 = $exercise2->id;
+				$level_max = $exercise2->level;
+				$results = $this->session->userdata('results');
+
+				if (!isset($results[$id2])) {
+
+					// user has not encountered exercise
+					$id_prev = $id2;
+					break;
+
+				} elseif ($results[$id2] < $level_max) {
+
+					// user has not completed exercise at all levels
+					$id_prev = $id2;
+					break;
+
+				} else {
+
+					// is user allowed to return fully completed exercises?
+					$solved_exercise_allowed = TRUE;
+					if ($solved_exercise_allowed) {
+						$id_prev = $id2;
+					}
 				}
 			}
 
-			$question = 'Mely számok '.$parity[$par].' az alábbi számok közül?';
-			$type = 'multi';
-			$solution = '';
+		} else {
+
+			$id_prev = NULL;
+		}
+
+ 		return $id_prev;
+	}
+
+	/**
+	 * Get next avaliable exercise for subtopic
+	 *
+	 * Checks whether user has complated all exercises of subtopics.
+	 * If not, returns link to next available exercise.
+	 * If so, returns link to clear results session.
+	 *
+	 * @param  int   $subtopicID Subtopic ID
+	 * @return array $data       Exercise data
+	 */
+	public function getNextExerciseSubtopic($subtopicID) {
+
+		$query = $this->db->get_where('exercises', array('subtopicID' => $subtopicID));
+		$exercises = $query->result_array();
+
+		foreach ($exercises as $exercise) {
+
+			$id = $exercise['id'];
+			$results = $this->session->userdata('results');
+
+			if (isset($results[$id])) {
+
+				$level_user = $results[$id];
+				$level_max = $exercise['level'];
+
+				if ($level_user < $level_max) {
+					$id_next = $id;
+					break;
+				}
+				
+			} else {
+
+				$id_next = $id;
+				break;
+			}
+		}
+
+		// all exercise done
+		if (!isset($id_next)) {
+
+			$href = base_url().'application/clearresults/'.$subtopicID;
+			$name = 'Újrakezd';
+			$id_next = NULL;
+			$level_next = NULL;
+
+		} else {
+
+			$href = base_url().'application/setgoal/subtopic/'.$subtopicID;
+			$name = 'Gyakorlás';
 
 		}
 
-		return array(
-			'question' => $question,
-			'options' => $options,
-			'correct' => $correct,
-			'solution' => $solution,
-			'type' => $type
+ 		return array(
+ 			'href' 			=> $href,
+ 			'name' 			=> $name,
+ 			'id_next' 		=> $id_next
 		);
 	}
 
-	/* Count even/odd numbers */
-	public function count_parity($level=1) {
+	/**
+	 * Get ID of next avaliable exercise (subtopic mode)
+	 *
+	 * 1. Checks whether user has complated all exercises in the to do list.
+	 * 2. Checks whether user has complated all exercises of subtopics.
+	 *    - If not, returns link to next available exercise.
+	 *    - If so, returns null.
+	 *
+	 * @param  int   $subtopicID Subtopic ID
+	 * @return array $data       Exercise data
+	 */
+	public function IDNextSubtopic() {
 
-		if ($level == 1) {
-			$no = rand(2,3); 
-			$len = 1;
-		} elseif ($level == 2) {
-			$no = rand(5,10);
-			$len = 3;
-		} elseif ($level == 3) {
-			$no = rand(10,20);
-			$len = 5;
-		}
+		$subtopicID = $this->session->userdata('goal');
 
-		for ($i=0; $i < $no; $i++) { 
-			$num[$i] = $this->numGen(rand(ceil($len/2),$len), 10);
-		}
+		$query = $this->db->get_where('exercises', array('subtopicID' => $subtopicID));
+		$exercises = $query->result_array();
 
-		$parity = array('páros', 'páratlan');
-		$par = rand(0,1);
+		foreach ($exercises as $exercise) {
 
-		$question = 'Hány szám '.$parity[$par].' az alábbiak közül?<br />';
-		$correct = 0;
+			$id = $exercise['id'];
+			$results = $this->session->userdata('results');
 
-		foreach ($num as $key => $value) {
-			$correct = ($value%2 == $par ? ++$correct : $correct);
-			if ($value > 9999) {
-				$value = number_format($value,0,',','\,');
+			if (isset($results[$id])) {
+
+				$level_user = $results[$id];
+				$level_max = $exercise['level'];
+
+				if ($level_user < $level_max) {
+					$id_next = $id;
+					break;
+				}
+				
+			} else {
+
+				$id_next = $id;
+				break;
 			}
-			$question .= '$'.$value.'$, ';
 		}
 
-		$question = rtrim($question, ', ');
-		$type = 'int';
-		$solution = '$'.$correct.'$';
-		$options = '';
-
-		return array(
-			'question' => $question,
-			'options' => $options,
-			'correct' => $correct,
-			'solution' => $solution,
-			'type' => $type
-		);
+ 		return $id_next;
 	}
 
 }

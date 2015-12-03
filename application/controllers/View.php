@@ -15,6 +15,7 @@ class View extends CI_controller {
 		// Load models
 		$this->load->helper('url');
 		$this->load->model('Html');
+		$this->load->model('Exercises');
 		$this->load->model('Session');
 		$this->load->model('Statistics');
 
@@ -23,11 +24,6 @@ class View extends CI_controller {
 
 		// Set session ID
 		$this->Session->setSessionID();
-
-		// print_r($this->session->userdata('method').'<br />');
-		// print_r($this->session->userdata('goal').'<br />');
-		// print_r($this->session->userdata('todo_list'));
-		// print_r(microtime());
 	}
 
 	/**
@@ -36,35 +32,52 @@ class View extends CI_controller {
 	 * @param  int $id Subtopic id
 	 * @return	void
 	 */
-	public function Subtopic($id=NULL, $type = 'subtopic') {
+	public function Subtopic($id=NULL) {
 
 		$this->load->view('Template');
 		$this->Session->setSessionID();
 
-		$this->session->unset_userdata('method');
-		$this->session->unset_userdata('goal');
-		$this->session->unset_userdata('todo_list');
+		if ($id) {
+			$this->session->set_userdata('method', 'subtopic');
+			$this->session->set_userdata('goal', $id);
+			$this->session->set_userdata('todo_list', []);
+		} else {
+			$this->session->unset_userdata('method');
+			$this->session->unset_userdata('goal');
+			$this->session->unset_userdata('todo_list');
+		}
+
+		$type = 'subtopic';
 
 		$this->Session->recordAction($id, $type);
 
-		$data = $this->Html->printNavBarMenu($id, $type);
+		$data = $this->Html->NavBarMenu($id, $type);
 		$this->load->view('NavBar', $data);
 
-		$data = $this->Html->printTitle($id, $type);
-		$data['button'] = $this->Html->getNextExerciseSubtopic($id);
+		$data = $this->Html->Title($id, $type);
+		$data['button'] = $this->Exercises->getNextExerciseSubtopic($id);
 		$this->load->view('Title', $data);
 
 		if (!$id) {
 			$this->load->view('Search');
 		} else {
-			$data = $this->Html->getExerciseList($id);
+			$data = $this->Exercises->getExerciseList($id);
 			$this->load->view('ExerciseList', $data);		
 		}
 
 		$this->load->view('Footer');
+
+		$this->Session->PrintInfo();
+
 	}
 
 	public function Exercise($id=1, $level=NULL) {
+
+		if (NULL !== $this->session->userdata('method')) {
+			$this->session->set_userdata('method', 'exercise');
+			$this->session->set_userdata('goal', $id);
+			$this->session->set_userdata('todo_list', []);
+		}
 
 		$type = 'exercise';
 
@@ -76,18 +89,21 @@ class View extends CI_controller {
 
 		$this->Session->recordAction($id, $type, $level);
 
-		$data = $this->Html->printNavBarMenu($id, $type);
+		$data = $this->Html->NavBarMenu($id, $type);
 		$this->load->view('NavBar', $data);
 
 
-		$data = $this->Html->printTitle($id, $type);
+		$data = $this->Html->Title($id, $type);
 		$this->load->view('Title', $data);
 
 
-		$data = $this->Html->getExerciseData($id, $level);
+		$data = $this->Exercises->getExerciseData($id, $level);
 		$this->load->view('Exercise', $data);
 
 		$this->load->view('Footer');
+
+		$this->Session->PrintInfo();
+
 	}
 
 	public function Session($type='database', $id=NULL) {

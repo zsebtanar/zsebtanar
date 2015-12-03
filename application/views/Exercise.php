@@ -93,9 +93,9 @@
 					</button>
 				</div><?php
 
-				if ($prev) {?>
+				if ($id_prev) {?>
 
-					<a class="btn btn-default" href="<?php echo $prev;?>">
+					<a class="btn btn-default" href="<?php echo base_url().'view/exercise/'.$id_prev;?>">
 						Könnyebbet kérek!
 					</a><?php
 
