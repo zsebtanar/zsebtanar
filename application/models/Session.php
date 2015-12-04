@@ -33,10 +33,11 @@ class Session extends CI_model {
 			if (!$this->db->insert('sessions', '')) {
 				show_error($this->db->_error_message());
 			}
-		}
+			$sessionID = $this->db->insert_id();
 
-		$sessionID = $this->db->insert_id();
-		$this->session->set_userdata('sessionID', $sessionID);
+			$this->session->set_userdata('sessionID', $sessionID);
+
+		}
 
 		return;
 	}
@@ -338,18 +339,16 @@ class Session extends CI_model {
 	}
 
 	/**
-	 * Record quest
+	 * Start quest
 	 *
-	 * Data is recorded when user starts quest (i.e. sets learning goal),
-	 * or completes it.
-	 *
-	 * @param string $method Learning method (exercise/subtopic)
-	 * @param int    $id     Exercise/Subtopic id
-	 * @param string $status Quest status (started/completed)
+	 * Data is recorded when user starts quest (i.e. sets learning goal).
 	 *
 	 * @return void
 	 */
-	public function RecordQuest($method, $id, $status) {
+	public function StartQuest() {
+
+		$method = $this->session->userdata('method');
+		$id 	= $this->session->userdata('goal');
 
 		if ($method == 'exercise') {
 
@@ -358,28 +357,50 @@ class Session extends CI_model {
 		} elseif ($method == 'subtopic') {
 
 			$query = $this->db->get_where('subtopics', array('id' => $id));
+			print_r($id);
 			
 		}
+
+		// print_r($query->result());
 
 		$data['name'] 		= $query->result()[0]->name;
 		$data['sessionID'] 	= $this->session->userdata('sessionID');
 		$data['method'] 	= $method;
-		$data['status'] 	= $status;
+		$data['status'] 	= 'STARTED';
 
 		if (!$this->db->insert('quests', $data)) {
 			show_error($this->db->_error_message());
 		}
 
-		if ($status == 'STARTED') {
+		$questID = $this->db->insert_id();
+		$this->session->set_userdata('questID', $questID);
 
-			$questID = $this->db->insert_id();
-			$this->session->set_userdata('questID', $questID);
-		
-		} else {
+		return;
+	}
 
-			$this->session->unset_userdata('questID');
+	/**
+	 * Complete quest
+	 *
+	 * Data is updated when user starts quest (i.e. sets learning goal),
+	 * or completes it.
+	 *
+	 * @return void
+	 */
+	public function CompleteQuest() {
 
-		}
+		$questID = $this->session->userdata('questID');
+
+		$query = $this->db->get_where('quests', array('id' => $questID));
+		$id = $query->result()[0]->id;
+
+		$data['status'] = 'COMPLETED';
+
+		$this->db->where('id', $id);
+		$this->db->update('quests', $data); 
+
+		$this->session->unset_userdata('questID');
+		$this->session->unset_userdata('method');
+		$this->session->unset_userdata('goal');
 
 		return;
 	}

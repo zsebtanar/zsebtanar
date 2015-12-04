@@ -276,6 +276,9 @@ class Database extends CI_model {
 		$this->session->unset_userdata('subto_ID');
 		$this->session->unset_userdata('exerc_ID');
 		$this->session->unset_userdata('links_ID');
+		$this->session->unset_userdata('links_ID');
+		$this->session->unset_userdata('questID');
+		$this->session->unset_userdata('sessionID');
 
 		return;
 	}

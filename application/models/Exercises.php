@@ -39,15 +39,21 @@ class Exercises extends CI_model {
 		$this->Session->UpdateTodoList($data['id']);
 
 		$levels = $this->Session->getUserLevels($data['id']);
-		$next = $this->Exercises->getNextExercise($data['id']);
+		$id_next = $this->getNextExercise($data['id']);
+		$subtopicID = $this->getSubtopicID($data['id']);
+		$goal = $this->session->userdata('goal');
+
+		if (!$id_next) {
+			$this->Session->CompleteQuest();
+		}
 
 		$output = array(
 			'status' 		=> $data['status'],
 			'message' 		=> $data['message'],
 			'submessages'	=> $data['submessages'],
 			'levels'		=> $levels,
-			'label'			=> $next['label'],
-			'href'			=> $next['href']
+			'id_next'		=> $id_next,
+			'goal'			=> $goal
 		);
 
 		return $output;
@@ -254,39 +260,13 @@ class Exercises extends CI_model {
 		if ($method == 'subtopic') {
 
 			$id_next = $this->IDNextSubtopic();
-			$goal = $this->session->userdata('goal');
-
-			if ($id_next) {
-
-				$data['label'] = 'Tovább';
-				$data['href'] = base_url().'view/exercise/'.strval($id_next);
-
-			} else {
-
-				$data['label'] = 'Kész! :)';
-				$data['href'] = base_url().'view/subtopic/'.$goal;
-
-			}
 
 		} elseif ($method == 'exercise') {
 
 			$id_next = $this->IDNextExercise($id);
-
-			if ($id_next) {
-
-				$data['label'] = 'Tovább';
-				$data['href'] = base_url().'view/exercise/'.strval($id_next);
-
-			} else {
-
-				$subtopicID = $this->getSubtopicID($id);
-				$data['label'] = 'Kész! :)';
-				$data['href'] = base_url().'view/subtopic/'.$subtopicID;
-
-			}
 		}
 
- 		return $data;
+ 		return $id_next;
 	}
 
 	/**

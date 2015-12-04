@@ -75,6 +75,9 @@ class Application extends CI_controller {
 	public function DeleteSessions() {
 
 		$this->db->empty_table('actions'); 
+		$this->db->empty_table('quests'); 
+		$this->db->empty_table('sessions');
+
 		header('Location:'.base_url().'view/subtopic/');
 	}
 
@@ -104,7 +107,7 @@ class Application extends CI_controller {
 			$id_next = $this->Exercises->IDNextSubtopic();
 		}
 
-		$this->Session->RecordQuest($method, $id, 'STARTED');
+		$this->Session->StartQuest();
 
 		header('Location:'.base_url().'view/exercise/'.$id_next);
 	}
