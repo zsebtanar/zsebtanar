@@ -91,15 +91,20 @@ class View extends CI_controller {
 
 	}
 
-	public function Session($type='database', $id=NULL) {
+	/**
+	 * View activities
+	 *
+	 * Display summary of all sessions or specific session.
+	 *
+	 * @param int $id Session ID
+	 *
+	 * @return void
+	 */
+	public function Activities($id=NULL) {
 
 		$this->load->view('Template');
 
-		if ($type == 'database') {
-			$data = $this->Session->getActions($id);
-		} elseif ($type == 'import') {
-			$data = $this->Session->getSavedSessions($id);
-		}
+		$data = $this->Session->getSessions($id);
 
 		$this->load->view('Session', $data);
 		$this->load->view('Footer');

@@ -131,6 +131,26 @@ class Session extends CI_model {
 	}
 
 	/**
+	 * Get sessions
+	 *
+	 * @param  int 	 $id   Session ID
+	 * @return array $data Session data
+	 */
+	public function getSessions($id=NULL) {
+
+		$this->db->select('id');
+		$query = $this->db->get('sessions');
+
+		if ($query->num_rows() > 0) {
+			foreach ($query->result() as $row) {
+				$session['id'] = $row->id;
+				$data[] = $session;
+			}
+		}
+
+		return $data;
+	}
+	/**
 	 * Get saved sessions
 	 *
 	 * @param  int 	 $id   Session ID

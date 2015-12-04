@@ -165,6 +165,20 @@ class Application extends CI_controller {
 
 		echo json_encode($status);
 	}
+
+	/**
+	 * Log out from website
+	 *
+	 * @return void
+	 */
+	public function Logout() {
+
+		$this->session->set_userdata('Logged_in', FALSE);
+
+		header('Location:'.base_url().'view/subtopic/');
+
+		return;
+	}
 }
 
 ?>

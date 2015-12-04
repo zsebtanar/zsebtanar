@@ -49,7 +49,6 @@ class Html extends CI_model {
 
 		$data['html'] 			= $menu;
 		$data['refresh_icon'] 	= $this->RefreshIcon($id, $type);
-		$data['session_icon'] 	= $this->SessionIcon();
 
 		return $data;
 	}
@@ -93,30 +92,6 @@ class Html extends CI_model {
 			$html .= '<li>'."\n";
 			$html .= "\t".'<a href="'.$href.'">'."\n";
 			$html .= "\t\t".'<span class="glyphicon glyphicon-refresh"></span> Frissítés'."\n";
-			$html .= "\t".'</a>'."\n";
-			$html .= '</li>'."\n";
-
-		}
-
-		return $html;
-	}
-
-	/**
-	 * Print session icon
-	 *
-	 * @return void
-	 */
-	public function SessionIcon() {
-
-		$href = base_url().'view/session/';
-		
-		$html = '';
-
-		if ($this->session->userdata('Logged_in')) {
-
-			$html .= '<li>'."\n";
-			$html .= "\t".'<a href="'.$href.'">'."\n";
-			$html .= "\t\t".'<span class="glyphicon glyphicon-menu-hamburger"></span> Tevékenységek'."\n";
 			$html .= "\t".'</a>'."\n";
 			$html .= '</li>'."\n";
 

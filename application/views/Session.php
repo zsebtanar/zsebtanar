@@ -1,35 +1,3 @@
-<div class="row"><?php
-
-	if (isset($all_sessions)) {?>
-
-		<ul class="pagination"><?php
-
-			foreach ($all_sessions as $id) {?>
-
-		  		<li><a href="<?php echo base_url().'view/session/database/'.$id;?>"><?php echo $id;?></a></li><?php
-
-		  	}?>
-
-		</ul><?php
-
-	} elseif (isset($files)) {?>
-
-		<div class="list-group"><?php
-
-			foreach ($files as $file) {?>
-
-		  		<a href="<?php echo base_url().'view/session/import/'.$file;?>" class="list-group-item"><?php echo $file;?></a><?php
-
-		  	}?>
-
-		</div><?php
-
-	}?>
-
-		
-
-</div>
-
 <div class="row">
 	<div class="btn-group">
 		<a href="<?php echo base_url().'view/subtopic';?>" class="btn btn-default">Kezdőlapra</a>
