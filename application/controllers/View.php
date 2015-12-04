@@ -104,7 +104,7 @@ class View extends CI_controller {
 
 		$this->load->view('Template');
 
-		$data = $this->Session->getSessions($id);
+		$data['sessions'] = $this->Session->getSessions($id);
 
 		$this->load->view('Session', $data);
 		$this->load->view('Footer');

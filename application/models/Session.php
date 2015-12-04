@@ -138,12 +138,19 @@ class Session extends CI_model {
 	 */
 	public function getSessions($id=NULL) {
 
+		$this->load->library('subquery');
+
 		$this->db->select('id');
 		$query = $this->db->get('sessions');
 
 		if ($query->num_rows() > 0) {
+			
 			foreach ($query->result() as $row) {
+
 				$session['id'] = $row->id;
+
+				$this->db->select_min('time')->from('actions');
+
 				$data[] = $session;
 			}
 		}
