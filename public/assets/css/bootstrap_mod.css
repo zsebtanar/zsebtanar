@@ -103,3 +103,6 @@ input.smallInput {
 .red {
     color: #a94442;
 }
+.progress {
+    margin-bottom: 0 !important;
+}

@@ -9,6 +9,7 @@
 		<thead>
 			<tr>
 				<th>#</th>
+				<th>Idő</th>
 			</tr>
 		</thead>
 		<tbody><?php
@@ -18,6 +19,14 @@
 
 			<tr>
 				<td><?php echo $session['id'];?></td>
+				<td>
+					<div class="progress">
+						<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?php echo $session['progress'];?>"
+						aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $session['progress'];?>%">
+							<?php echo $session['time'];?>
+						</div>
+					</div>
+				</td>
 			</tr><?php
 
 			}

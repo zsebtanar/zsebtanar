@@ -15,6 +15,7 @@ class Session extends CI_model {
 		$this->load->helper('url');
 		$this->load->helper('file');
 		$this->load->model('Exercises');
+		$this->load->model('Database');
 
 		return;
 	}
@@ -138,25 +139,37 @@ class Session extends CI_model {
 	 */
 	public function getSessions($id=NULL) {
 
-		$this->load->library('subquery');
-
 		$this->db->select('id');
 		$query = $this->db->get('sessions');
 
 		if ($query->num_rows() > 0) {
-			
+
 			foreach ($query->result() as $row) {
 
-				$session['id'] = $row->id;
+				$id 			= $row->id;
+				$length 		= $this->Database->GetSessionLength($id);
+				$length_time 	= gmdate("H:i:s", $length);
+				$max_length 	= (isset($max_length) ? max($max_length, $length) : $length);
 
-				$this->db->select_min('time')->from('actions');
+				$session['id'] 			= $id;
+				$session['length'] 		= $length;
 
-				$data[] = $session;
+				$sessions[] = $session;
+			}
+
+			foreach ($sessions as $index => $session) {
+
+				$session['id'] 			= $id;
+				$session['time'] 		= gmdate("H:i:s", $session['length']);
+				$session['progress'] 	= round($session['length']/$max_length*100);
+
+				$sessions[$index]		= $session;
 			}
 		}
 
-		return $data;
+		return $sessions;
 	}
+
 	/**
 	 * Get saved sessions
 	 *

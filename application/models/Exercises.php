@@ -53,7 +53,8 @@ class Exercises extends CI_model {
 			'submessages'	=> $data['submessages'],
 			'levels'		=> $levels,
 			'id_next'		=> $id_next,
-			'goal'			=> $goal
+			'goal'			=> $goal,
+			'subtopicID'	=> $subtopicID
 		);
 
 		return $output;

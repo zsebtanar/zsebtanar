@@ -335,6 +335,32 @@ class Database extends CI_model {
 
 		return $output;
 	}
+
+	/**
+	 * Get session length
+	 *
+	 * Calculates length of session (s) by taking the time difference
+	 * between its first and last action
+	 *
+	 * @param  int $id Session ID
+	 * @return int $length Session length (s)
+	 */
+	public function GetSessionLength($id) {
+
+		$query = $this->db->query(
+					'SELECT TIMESTAMPDIFF(SECOND, MIN(`time`), MAX(`time`)) as `time_total` FROM `actions`
+						WHERE `questID` IN(
+							SELECT `id` FROM `quests`
+							WHERE `sessionID` IN(
+								SELECT `id` FROM `sessions`
+								WHERE `id` = '.$id.' 
+							)
+						)');
+
+		$length = $query->result()[0]->time_total;
+
+		return $length;
+	}
 }
 
 ?>
