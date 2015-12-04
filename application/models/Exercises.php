@@ -33,15 +33,13 @@ class Exercises extends CI_model {
 		}
 
 		$this->load->model('Session');
-		$this->load->model('Html');
 
-		$this->Session->recordExerciseCheck($data['id'], $data['level'], $data['status']);
+		$this->Session->RecordAction($data['id'], $data['level'], $data['status']);
+		$this->Session->UpdateResults($data['id'], $data['level'], $data['status']);;
 		$this->Session->UpdateTodoList($data['id']);
 
 		$levels = $this->Session->getExerciseResultsCurrent($data['id']);
 		$next = $this->Exercises->getNextExercise($data['id']);
-
-		$query = $this->db->get_where('exercises', array('id' => $data['id']));
 
 		$output = array(
 			'status' 		=> $data['status'],
@@ -468,6 +466,8 @@ class Exercises extends CI_model {
 		$level_max  = $this->getMaxLevel($id);
 		$level_user = $this->getUserLevel($id);
 
+		// print_r($level_max);
+
 		if ($level_user < $level_max) {
 
 			// User has not solved exercise at all levels
@@ -477,7 +477,7 @@ class Exercises extends CI_model {
 
  			$todo_list = $this->session->userdata('todo_list');
 
-			if (count($todo_list) > 0) {
+			if (!empty($todo_list)) {
 
 				// User has not finished to do list
 				$todo_last = array_slice($todo_list, -1);
@@ -487,7 +487,6 @@ class Exercises extends CI_model {
 
  		return $id_next;
 	}
-
 }
 
 ?>

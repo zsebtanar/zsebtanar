@@ -26,27 +26,17 @@ class Session extends CI_model {
 	 */
 	public function setSessionID() {
 
-		// $this->session->unset_userdata('sessionID');
+		$this->session->unset_userdata('sessionID');
 
 		if (NULL === $this->session->userdata('sessionID')) {
 			
-			// Define session ID
-			$this->db->select_max('sessionID');
-			$query = $this->db->get('actions');
-			$sessionID = $query->result_array()[0]['sessionID'];
-
-			if (NULL == $sessionID) {
-				$this->session->set_userdata('sessionID', 1);
-			} else {
-				$this->session->set_userdata('sessionID', $sessionID+1);
+			if (!$this->db->insert('sessions', '')) {
+				show_error($this->db->_error_message());
 			}
-
-			// Define session results
-			if (NULL == $this->session->userdata('results')) {
-				$this->session->set_userdata('results', []);	
-			}
-
 		}
+
+		$sessionID = $this->db->insert_id();
+		$this->session->set_userdata('sessionID', $sessionID);
 
 		return;
 	}
@@ -61,7 +51,7 @@ class Session extends CI_model {
 	 *
 	 * @return void
 	 */
-	public function recordAction($id, $type, $level=NULL, $result=NULL) {
+	public function recordAction_old($id, $type, $level=NULL, $result=NULL) {
 
 
 		if ($type == 'subtopic') {
@@ -86,7 +76,7 @@ class Session extends CI_model {
 			$this->insertExerciseAction($id, $level, $result);
 
 			if ($result) {
-				$this->updateResults($id, $level, $level_max, $result);
+				$this->UpdateResults($id, $level, $level_max, $result);
 			}
 
 			$this->saveExerciseID($id);
@@ -109,11 +99,11 @@ class Session extends CI_model {
 	 *
 	 * @return void
 	 */
-	public function recordExerciseCheck($id, $level=NULL, $result=NULL) {
+	public function xxxxrecordExerciseCheck($id, $level=NULL, $result=NULL) {
 
 		$this->insertExerciseAction($id, $level, $result);
 
-		$this->updateResults($id, $level, $result);
+		$this->UpdateResults($id, $level, $result);
 
 		return;
 	}
@@ -127,7 +117,7 @@ class Session extends CI_model {
 	 *
 	 * @return void
 	 */
-	public function insertSubtopicAction($name) {
+	public function xxxinsertSubtopicAction($name) {
 
 		$data['sessionID'] 	= $this->session->userdata('sessionID');
 		$data['type']		= 'subtopic';
@@ -141,7 +131,9 @@ class Session extends CI_model {
 	}
 
 	/**
-	 * Insert action into database
+	 * Record action
+	 *
+	 * Data is recorded when user attempts to solve an exercise.
 	 *
 	 * @param  int 	  $id     Subtopic/Exercise ID
 	 * @param  int    $level  Exercise level
@@ -149,16 +141,15 @@ class Session extends CI_model {
 	 *
 	 * @return void
 	 */
-	public function insertExerciseAction($id, $level=NULL, $result=NULL) {
+	public function recordAction($id, $level=NULL, $result=NULL) {
 
 		$query 		= $this->db->get_where('exercises', array('id' => $id));
 		$exercise 	= $query->result()[0];
 		$name 		= $exercise->name;
 		$level_max	= $exercise->level;
 
-		$data['sessionID'] 	= $this->session->userdata('sessionID');
-		$data['type']		= 'exercise';
-		$data['level']		= $level.'/'.$level_max;
+		$data['questID'] 	= $this->session->userdata('questID');
+		$data['progress']	= $level/$level_max;
 		$data['result']		= $result;
 		$data['name'] 		= $name;
 
@@ -181,7 +172,7 @@ class Session extends CI_model {
 	 *
 	 * @return void
 	 */
-	public function updateResults($id, $level=NULL, $result=NULL) {
+	public function UpdateResults($id, $level=NULL, $result=NULL) {
 
 		$query 		= $this->db->get_where('exercises', array('id' => $id));
 		$level_max 	= $query->result()[0]->level;
@@ -192,16 +183,6 @@ class Session extends CI_model {
 			$results[$id] = $level;
 			$this->session->set_userdata('results', $results);	
 
-		} elseif ($result == 'WRONG') {
-
-			if (isset($results[$id])) {
-
-				$level_old = $results[$id];
-				$level_new = max(0, min($level-1,$level_old-1));
-				$results[$id] = $level_new;
-				$this->session->set_userdata('results', $results);
-
-			}
 		}
 
 		return;
@@ -391,6 +372,7 @@ class Session extends CI_model {
 	public function PrintInfo() {
 
 		print_r('Session ID: '.$this->session->userdata('sessionID').'<br />');
+		print_r('Quest ID: '.$this->session->userdata('questID').'<br />');
 		print_r('Method: '.$this->session->userdata('method').' - ');
 		print_r($this->session->userdata('goal').'<br />'.'To do list: ');
 		print_r($this->session->userdata('todo_list'));
@@ -441,6 +423,53 @@ class Session extends CI_model {
 
 		$todo_list = $this->session->set_userdata('todo_list', $todo_list);
 		
+		return;
+	}
+
+	/**
+	 * Record quest
+	 *
+	 * Data is recorded when user starts quest (i.e. sets learning goal),
+	 * or completes it.
+	 *
+	 * @param string $method Learning method (exercise/subtopic)
+	 * @param int    $id     Exercise/Subtopic id
+	 * @param string $status Quest status (started/completed)
+	 *
+	 * @return void
+	 */
+	public function RecordQuest($method, $id, $status) {
+
+		if ($method == 'exercise') {
+
+			$query = $this->db->get_where('exercises', array('id' => $id));
+
+		} elseif ($method == 'subtopic') {
+
+			$query = $this->db->get_where('subtopics', array('id' => $id));
+			
+		}
+
+		$data['name'] 		= $query->result()[0]->name;
+		$data['sessionID'] 	= $this->session->userdata('sessionID');
+		$data['method'] 	= $method;
+		$data['status'] 	= $status;
+
+		if (!$this->db->insert('quests', $data)) {
+			show_error($this->db->_error_message());
+		}
+
+		if ($status == 'STARTED') {
+
+			$questID = $this->db->insert_id();
+			$this->session->set_userdata('questID', $questID);
+		
+		} else {
+
+			$this->session->unset_userdata('questID');
+
+		}
+
 		return;
 	}
 }

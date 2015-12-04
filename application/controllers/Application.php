@@ -92,6 +92,7 @@ class Application extends CI_controller {
 	public function SetGoal($method, $id) {
 
 		$this->load->model('Exercises');
+		$this->load->model('Session');
 
 		$this->session->set_userdata('method', $method);
 		$this->session->set_userdata('goal', $id);
@@ -102,6 +103,8 @@ class Application extends CI_controller {
 		} elseif ($method == 'subtopic') {
 			$id_next = $this->Exercises->IDNextSubtopic();
 		}
+
+		$this->Session->RecordQuest($method, $id, 'STARTED');
 
 		header('Location:'.base_url().'view/exercise/'.$id_next);
 	}

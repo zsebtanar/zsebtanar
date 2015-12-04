@@ -24,12 +24,13 @@ if ($type == 'exercise') {?>
 
 		<div class="row text-center">
 			<a class="btn btn-primary" href="<?php echo base_url().'application/setgoal/subtopic/'.$id_next;?>">Gyakorlás</a>
+			<a class="btn btn-default" href="<?php echo base_url().'application/clearresults/'.$id;?>">Újrakezd</a>
 		</div><br /><?php
 
 	} elseif ($id) {?>
 
 		<div class="row text-center">
-			<a class="btn btn-primary" href="<?php echo base_url().'application/clearresults/'.$id;?>">Újrakezd</a>
+			<a class="btn btn-default" href="<?php echo base_url().'application/clearresults/'.$id;?>">Újrakezd</a>
 		</div><br /><?php
 
 	}

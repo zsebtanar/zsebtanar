@@ -139,13 +139,18 @@ class Database extends CI_model {
 			'quests' => 'CREATE TABLE quests (
 							id 			INT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							sessionID	INT	NOT NULL,
+							method 		VARCHAR(30) NOT NULL,
+							name 		VARCHAR(30) NOT NULL,
+							status 		VARCHAR(30) NOT NULL,
 							FOREIGN KEY (sessionID) REFERENCES sessions(id)
-						)Engine=InnoDB;'
+						)Engine=InnoDB;',
 			'actions' => 'CREATE TABLE actions (
 							id 			INT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							sessionID	INT	NOT NULL,
 							questID		INT	NOT NULL,
-							FOREIGN KEY (sessionID) REFERENCES sessions(id),
+							time 		TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+							name 		VARCHAR(30) NOT NULL,
+							progress 	DECIMAL(6,2),
+							result 		VARCHAR(30),
 							FOREIGN KEY (questID) REFERENCES quests(id)
 						)Engine=InnoDB;',
 		);

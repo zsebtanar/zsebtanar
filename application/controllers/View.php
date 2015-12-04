@@ -35,15 +35,12 @@ class View extends CI_controller {
 	public function Subtopic($id=NULL) {
 
 		$this->load->view('Template');
-		$this->Session->setSessionID();
 
 		$this->session->unset_userdata('method');
 		$this->session->unset_userdata('goal');
 		$this->session->unset_userdata('todo_list');
 
 		$type = 'subtopic';
-
-		$this->Session->recordAction($id, $type);
 
 		$data = $this->Html->NavBarMenu($id, $type);
 		$this->load->view('NavBar', $data);
@@ -79,15 +76,11 @@ class View extends CI_controller {
 			$level = $this->Session->getExerciseLevelNext($id);
 		}
 
-		$this->Session->recordAction($id, $type, $level);
-
 		$data = $this->Html->NavBarMenu($id, $type);
 		$this->load->view('NavBar', $data);
 
-
 		$data = $this->Html->Title($id, $type);
 		$this->load->view('Title', $data);
-
 
 		$data = $this->Exercises->getExerciseData($id, $level);
 		$this->load->view('Exercise', $data);
