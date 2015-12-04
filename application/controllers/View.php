@@ -37,15 +37,9 @@ class View extends CI_controller {
 		$this->load->view('Template');
 		$this->Session->setSessionID();
 
-		if ($id) {
-			$this->session->set_userdata('method', 'subtopic');
-			$this->session->set_userdata('goal', $id);
-			$this->session->set_userdata('todo_list', []);
-		} else {
-			$this->session->unset_userdata('method');
-			$this->session->unset_userdata('goal');
-			$this->session->unset_userdata('todo_list');
-		}
+		$this->session->unset_userdata('method');
+		$this->session->unset_userdata('goal');
+		$this->session->unset_userdata('todo_list');
 
 		$type = 'subtopic';
 
@@ -56,6 +50,7 @@ class View extends CI_controller {
 
 		$data = $this->Html->Title($id, $type);
 		$data['id_next'] = $this->Exercises->IDNextSubtopic($id);
+
 		$data['id'] = $id;
 		$this->load->view('Title', $data);
 
@@ -73,12 +68,6 @@ class View extends CI_controller {
 	}
 
 	public function Exercise($id=1, $level=NULL) {
-
-		if (NULL === $this->session->userdata('method')) {
-			$this->session->set_userdata('method', 'exercise');
-			$this->session->set_userdata('goal', $id);
-			$this->session->set_userdata('todo_list', []);
-		}
 
 		$this->Session->UpdateTodoList($id);
 

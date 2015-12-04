@@ -23,10 +23,10 @@ if ($type == 'exercise') {?>
 	if ($id_next) {?>
 
 		<div class="row text-center">
-			<a class="btn btn-primary" href="<?php echo base_url().'view/exercise/'.$id_next;?>">Gyakorlás</a>
+			<a class="btn btn-primary" href="<?php echo base_url().'application/setgoal/subtopic/'.$id_next;?>">Gyakorlás</a>
 		</div><br /><?php
 
-	} else {?>
+	} elseif ($id) {?>
 
 		<div class="row text-center">
 			<a class="btn btn-primary" href="<?php echo base_url().'application/clearresults/'.$id;?>">Újrakezd</a>

@@ -55,7 +55,7 @@
                     }
                     $.each(data, function(key, value) {
                         if (data.length >= 0)
-                            $('#DropdownExercises').append('<li role="presentation"><a href="<?php echo base_url();?>view/exercise/' + value['id'] + '">' + value['name'] + '</a></li>');
+                            $('#DropdownExercises').append('<li role="presentation"><a href="<?php echo base_url();?>application/setgoal/exercise/' + value['id'] + '">' + value['name'] + '</a></li>');
                     });
                 }
             });

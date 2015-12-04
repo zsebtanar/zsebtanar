@@ -4,6 +4,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Application extends CI_controller {
 
 	/**
+	 * Class constructor
+	 *
+	 * @return	void
+	 */
+	public function __construct() {
+
+		parent::__construct();
+
+		$this->load->helper('url');
+
+		return;
+	}
+
+	/**
 	 * Search keyword in database (AJAX)
 	 *
 	 * @param string $keyword Keyword (from REQUEST)
@@ -60,9 +74,36 @@ class Application extends CI_controller {
 	 */
 	public function DeleteSessions() {
 
-		$this->load->helper('url');
 		$this->db->empty_table('actions'); 
 		header('Location:'.base_url().'view/subtopic/');
+	}
+
+	/**
+	 * Set goal
+	 *
+	 * User can define whether he wants to practice an exercise or a whole subject.
+	 * Goal is recorded in session. Next exercise is based on this.
+	 *
+	 * @param string $method Learning method (exercise/subtopic)
+	 * @param int    $id     Exercise/Subtopic id
+	 *
+	 * @return void
+	 */
+	public function SetGoal($method, $id) {
+
+		$this->load->model('Exercises');
+
+		$this->session->set_userdata('method', $method);
+		$this->session->set_userdata('goal', $id);
+		$this->session->set_userdata('todo_list', []);
+
+		if ($method == 'exercise') {
+			$id_next = $id;
+		} elseif ($method == 'subtopic') {
+			$id_next = $this->Exercises->IDNextSubtopic();
+		}
+
+		header('Location:'.base_url().'view/exercise/'.$id_next);
 	}
 
 	/**
@@ -77,7 +118,6 @@ class Application extends CI_controller {
 	public function ExportSession($id) {
 		
 		$this->load->dbutil();
-		$this->load->helper('url');
 		$this->load->helper('file');
 
 		$query = $this->db->get_where('actions', array('sessionID' => $id));

@@ -40,7 +40,6 @@
             },
             dataType: "json",
             success: function(status) {
-            	window.alert(status);
                 if (status == 'PASSWORD_OK') {
                     location.reload();
                 } else if (status == 'INCORRECT_PASSWORD') {

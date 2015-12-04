@@ -91,7 +91,7 @@
 					<button class="btn btn-primary" onclick="checkSolution()">
 						Mehet
 					</button>
-				</div><?php
+				</div><br /><?php
 
 				if ($id_prev) {?>
 
@@ -116,8 +116,6 @@
 	function checkSolution() {
 		var queryString = $("form").serializeArray();
 		event.preventDefault();
-		console.log(JSON.stringify(queryString));
-		
 		$.ajax({
 			type: "GET",
 			url: "<?php echo base_url();?>application/checkanswer",

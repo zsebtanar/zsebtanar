@@ -10,8 +10,11 @@ class Session extends CI_model {
 	 */
 	public function __construct() {
 
+		parent::__construct();
+
 		$this->load->helper('url');
 		$this->load->helper('file');
+		$this->load->model('Exercises');
 
 		return;
 	}
@@ -111,8 +114,6 @@ class Session extends CI_model {
 		$this->insertExerciseAction($id, $level, $result);
 
 		$this->updateResults($id, $level, $result);
-
-		$this->UpdateTodoList($id);
 
 		return;
 	}
@@ -310,14 +311,18 @@ class Session extends CI_model {
 	 */
 	public function clearResults($subtopicID) {
 
+		$results = $this->session->userdata('results');
+
 		$query = $this->db->get_where('exercises', array('subtopicID' => $subtopicID));
 		foreach ($query->result() as $exercise) {
 
 			$id = $exercise->id;
-			if (NULL !== $this->session->userdata('results')[$id]) {
-				$this->session->unset_userdata('results')[$id];
+			if (isset($results[$id])) {
+				unset($results[$id]);
 			}
 		}
+
+		$this->session->set_userdata('results', $results);
 
 		return;
 	}
@@ -391,7 +396,7 @@ class Session extends CI_model {
 		print_r($this->session->userdata('todo_list'));
 		print_r('<br />Results: ');
 		print_r($this->session->userdata('results'));
-		
+
 		return;
 	}
 
@@ -408,17 +413,14 @@ class Session extends CI_model {
 	 */
 	public function UpdateTodoList($id) {
 
+		$level_max  = $this->Exercises->getMaxLevel($id);
+		$level_user = $this->Exercises->getUserLevel($id);
+
 		$todo_list = $this->session->userdata('todo_list');
 		$results = $this->session->userdata('results');
-		
-		// Get user level
-		$level_user = (isset($results[$id]) ? $results[$id] : 0);
-
-		// Get exercise level
-		$query = $this->db->get_where('exercises', array('id' => $id));
-		$level_max = $query->result()[0]->level;
 
 		if (in_array($id, $todo_list)) {
+
 			$index = array_search($id, $todo_list);
 
 			if ($level_user == $level_max) {

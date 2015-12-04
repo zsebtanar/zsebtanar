@@ -6,9 +6,8 @@
 		foreach ($exercise_list as $exercise) {?>
 
 			<li>
-				<a href="<?php echo base_url().'view/exercise/'.$exercise['id'];?>">
-					<?php echo $exercise['name']; ?>
-				</a><?php
+				<a href="<?php echo base_url().'application/setgoal/exercise/'.$exercise['id'];?>">
+					<?php echo $exercise['name']; ?></a>&nbsp;<?php
 
 					for ($i=0; $i<$exercise['level_max']; $i++) {
 

@@ -6,12 +6,12 @@ class Exercises extends CI_model {
 	/**
 	 * Check answer
 	 *
-	 * @param  array $data Answer data
+	 * @param  array $jsondata Answer data
 	 * @return void
 	 */
-	public function CheckAnswer($data) {
+	public function CheckAnswer($jsondata) {
 
-		$answerdata = json_decode($data, TRUE);
+		$answerdata = json_decode($jsondata, TRUE);
 
 		$data = $this->ConvertAnswerToArray($answerdata);
 
@@ -36,9 +36,12 @@ class Exercises extends CI_model {
 		$this->load->model('Html');
 
 		$this->Session->recordExerciseCheck($data['id'], $data['level'], $data['status']);
+		$this->Session->UpdateTodoList($data['id']);
 
 		$levels = $this->Session->getExerciseResultsCurrent($data['id']);
-		$next = $this->Exercises->getNextExercise($data['id'], $data['level']);
+		$next = $this->Exercises->getNextExercise($data['id']);
+
+		$query = $this->db->get_where('exercises', array('id' => $data['id']));
 
 		$output = array(
 			'status' 		=> $data['status'],
@@ -46,7 +49,7 @@ class Exercises extends CI_model {
 			'submessages'	=> $data['submessages'],
 			'levels'		=> $levels,
 			'label'			=> $next['label'],
-			'href'			=> $next['href'],
+			'href'			=> $next['href']
 		);
 
 		return $output;
@@ -212,6 +215,9 @@ class Exercises extends CI_model {
 
 		$query = $this->db->get_where('exercises', array('subtopicID' => $id));
 
+		$id_next = $this->IDNextSubtopic();
+		$data['id_next'] = $id_next;
+
 		$exercises = $query->result();
 
 		if (count($exercises) > 0) {
@@ -231,8 +237,6 @@ class Exercises extends CI_model {
 
 				$data['exercise_list'][] = $row;
 			}
-		} else {
-			$data = [];
 		}
 
 		return $data;
@@ -245,117 +249,88 @@ class Exercises extends CI_model {
 	 * @param  int   $level Exercise level
 	 * @return array $data  Next exercise
 	 */
-	public function getNextExercise($id, $level=1) {
+	public function getNextExercise($id) {
 
-		$data['label'] = 'Tovább';
+		$method = $this->session->userdata('method');
 
-		$query = $this->db->get_where('exercises', array('id' => $id));
-		$exercise1 = $query->result()[0];
-		$max_level = $exercise1->level;
+		if ($method == 'subtopic') {
 
-		if ($level < $max_level) {
+			$id_next = $this->IDNextSubtopic();
+			$goal = $this->session->userdata('goal');
 
-			$data['href'] = base_url().'view/exercise/'.strval($id);
+			if ($id_next) {
 
- 		} else {
+				$data['label'] = 'Tovább';
+				$data['href'] = base_url().'view/exercise/'.strval($id_next);
 
- 			if (NULL !== $this->session->userdata('method') &&
- 				NULL !== $this->session->userdata('goal')) {
+			} else {
 
-	 			$method = $this->session->userdata('method');
-	 			$goal = $this->session->userdata('goal');
+				$data['label'] = 'Kész! :)';
+				$data['href'] = base_url().'view/subtopic/'.$goal;
 
-	 			if ($method == 'subtopic') {
+			}
 
-	 				$data['label'] = 'Tovább';
+		} elseif ($method == 'exercise') {
 
-					$query = $this->db->get_where('exercises', array('subtopicID' => $goal));
-					$exercises = $query->result();
-					
-					foreach ($exercises as $exercise) {
-						$id_next = $exercise->id;
-						$level_max = $exercise->level;
-						$results = $this->session->userdata('results');
-						if (isset($results[$id_next])) {
-							$level_user = $results[$id_next];
-							if ($level_user < $level_max) {
-								$data['href'] = base_url().'view/exercise/'.strval($id_next);
-								break;
-							}
-						} else {
-							$data['href'] = base_url().'view/exercise/'.strval($id_next);
-							break;
-						}
-					}
+			$id_next = $this->IDNextExercise($id);
 
-					if (!isset($data['href'])) {
+			if ($id_next) {
 
-		 				$data['label'] = 'Kész! :)';
-						$data['href'] = base_url().'view/subtopic/'.$goal;
+				$data['label'] = 'Tovább';
+				$data['href'] = base_url().'view/exercise/'.strval($id_next);
 
-					}
-				
-					return $data;
+			} else {
 
-	 			} elseif ($method == 'exercise') {
+				$subtopicID = $this->getSubtopicID($id);
+				$data['label'] = 'Kész! :)';
+				$data['href'] = base_url().'view/subtopic/'.$subtopicID;
 
-	 				if ($goal == $id) {
-
-	 					$data['label'] = 'Kész! :)';
-						$data['href'] = base_url().'view/subtopic/';
-
-	 				} else {
-
-	 					$todo_list = $this->session->userdata('todo_list');
-
-	 					foreach ($todo_list as $key => $value) {
-	 						if ($value == $id) {
-	 							unset($todo_list[$key]);
-	 						}
-	 					}
-
-	 					$last = array_slice($todo_list, -1, 1);
-	 					$data['href'] = base_url().'view/exercise/'.strval($last[0]);
-
-	 					$this->session->set_userdata('todo_list', $todo_list);
-		 			}
-
-	 			}
-
- 			} else {
-
- 				$query = $this->db->get_where('links', array('label' => $exercise1->label));
- 				$links = $query->result();
-
- 				if (count($links) > 0) {
- 					
-					foreach ($links as $link) {
-
-						$query = $this->db->get_where('exercises', array('id' => $link->exerciseID));
-						$exercise = $query->result()[0];
-						$id_next = $exercise->id;
-						$level_max = $exercise->level;
-						if (isset($this->session->userdata('results')[$id_next])) {
-							$level_user = $this->session->userdata('results')[$id_next];
-							if ($level_user < $level_max) {
-								$data['href'] = base_url().'view/exercise/'.strval($id_next);
-								break;
-							}
-						} else {
-							$data['href'] = base_url().'view/exercise/'.strval($id_next);
-							break;
-						}
-					}
-
- 				} else {
-
- 					$data['href'] = base_url().'view/subtopic';
-					$data['label'] = 'Kész! :)';
- 				}
- 			}
- 		}
+			}
+		}
 
  		return $data;
+	}
+
+	/**
+	 * Get maximum level for exercise
+	 *
+	 * @param  int $id        Exercise ID
+	 * @return int $level_max Maximum level
+	 */
+	public function getMaxLevel($id) {
+
+		$query 		= $this->db->get_where('exercises', array('id' => $id));
+		$level_max 	= $query->result()[0]->level;
+
+ 		return $level_max;
+	}
+
+	/**
+	 * Get subtopicID for exercise
+	 *
+	 * @param  int $id         Exercise ID
+	 * @return int $subtopicID Subtopic ID
+	 */
+	public function getSubtopicID($id) {
+
+		$query 		= $this->db->get_where('exercises', array('id' => $id));
+		$subtopicID = $query->result()[0]->subtopicID;
+
+ 		return $subtopicID;
+	}
+
+	/**
+	 * Get user level for exercise
+	 *
+	 * @param  int $id         Exercise ID
+	 * @return int $level_user User level
+	 */
+	public function getUserLevel($id) {
+
+		$results = $this->session->userdata('results');
+		$level_user = (isset($results[$id]) ? $results[$id] : 0);
+
+ 		return $level_user;
 	}
 
 	/**
@@ -366,10 +341,12 @@ class Exercises extends CI_model {
 	 */
 	public function IDPrevious($id) {
 
-		$query = $this->db->get_where('exercises', array('id' => $id));
-		$exercise1 = $query->result()[0];
-		$query = $this->db->get_where('links', array('exerciseID' => $id));
-		$links = $query->result();
+		$id_prev 	= NULL;
+
+		$query 		= $this->db->get_where('exercises', array('id' => $id));
+		$exercise1 	= $query->result()[0];
+		$query 		= $this->db->get_where('links', array('exerciseID' => $id));
+		$links 		= $query->result();
 
 		if (count($links) > 0) {
 
@@ -405,10 +382,6 @@ class Exercises extends CI_model {
 					}
 				}
 			}
-
-		} else {
-
-			$id_prev = NULL;
 		}
 
  		return $id_prev;
@@ -423,55 +396,92 @@ class Exercises extends CI_model {
 	 *    - If not, returns link to next available exercise.
 	 *    - If so, returns null.
 	 *
-	 * @param  int   $subtopicID Subtopic ID
-	 * @return array $data       Exercise data
+	 * @return int $id      Id of current subtopic
+	 * @return int $id_next Id of next exercise
 	 */
-	public function IDNextSubtopic() {
+	public function IDNextSubtopic($id = NULL) {
 
 		$id_next = NULL;
 
-		if (NULL !== $this->session->userdata('goal')) {
+		$subtopicID = ($id ? $id : $this->session->userdata('goal'));
 
-			$subtopicID = $this->session->userdata('goal');
+		$todo_list = $this->session->userdata('todo_list');
 
-			$todo_list = $this->session->userdata('todo_list');
+		if (count($todo_list) > 0) {
+
+			// User has not finished to do list
+			$todo_last = array_slice($todo_list, -1);
+			$id_next = $todo_last[0];
+
+		} else {
+
+			$results = $this->session->userdata('results');
+			$query = $this->db->get_where('exercises', array('subtopicID' => $subtopicID));
+			$exercises = $query->result();
+
+			foreach ($exercises as $exercise) {
+
+				$id = $exercise->id;
+
+				if (isset($results[$id])) {
+
+					$level_max  = $this->getMaxLevel($id);
+					$level_user = $this->getUserLevel($id);
+
+					if ($level_user < $level_max) {
+
+						// User has not solved exercise at all levels
+						$id_next = $id;
+						break;
+					}
+					
+				} else {
+
+					// User has not solved exercise yet
+					$id_next = $id;
+					break;
+				}
+			}
+		}
+
+ 		return $id_next;
+	}
+
+	/**
+	 * Get ID of next avaliable exercise (exercise mode)
+	 *
+	 * 1. Checks whether user has complated exercise in all level.
+	 *    - If not, returns same exercise.
+	 * 2. Checks whether user has any exercise in to do list.
+	 *    - If so, returns last exercise of list.
+	 *    - If not, returns null.
+	 *
+	 * @param  int   $id Exercise ID
+	 * @return array $data Exercise data
+	 */
+	public function IDNextExercise($id) {
+
+		$id_next = NULL;
+
+		$goal = $this->session->userdata('goal');
+
+		$level_max  = $this->getMaxLevel($id);
+		$level_user = $this->getUserLevel($id);
+
+		if ($level_user < $level_max) {
+
+			// User has not solved exercise at all levels
+			$id_next = $id;
+
+ 		} else {
+
+ 			$todo_list = $this->session->userdata('todo_list');
 
 			if (count($todo_list) > 0) {
 
 				// User has not finished to do list
-				$id_next = array_slice($todo_list, -1);
-
-			} else {
-
-				$query = $this->db->get_where('exercises', array('subtopicID' => $subtopicID));
-				$exercises = $query->result_array();
-
-				shuffle($exercises);
-
-				foreach ($exercises as $exercise) {
-
-					$id = $exercise['id'];
-					$results = $this->session->userdata('results');
-
-					if (isset($results[$id])) {
-
-						$level_user = $results[$id];
-						$level_max = $exercise['level'];
-
-						if ($level_user < $level_max) {
-
-							// User has not solved exercise at all levels
-							$id_next = $id;
-							break;
-						}
-						
-					} else {
-
-						// User has not solved exercise yet
-						$id_next = $id;
-						break;
-					}
-				}
+				$todo_last = array_slice($todo_list, -1);
+				$id_next = $todo_last[0];
 			}
 		}
 
