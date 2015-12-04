@@ -38,7 +38,9 @@ class Database extends CI_model {
 				'exerciseID'	=> 'FROM SESSION',
 				'label'			=> 'NOT NULL'
 				),
-			'actions' => ''
+			'sessions'			=> '',
+			'quests' 			=> '',
+			'actions' 			=> ''
 			);
 
 	/**
@@ -131,14 +133,20 @@ class Database extends CI_model {
 							FOREIGN KEY (exerciseID) REFERENCES exercises(id),
 							FOREIGN KEY (label) REFERENCES exercises(label)
 						)Engine=InnoDB;',
+			'sessions' => 'CREATE TABLE sessions (
+							id 			INT	NOT NULL AUTO_INCREMENT PRIMARY KEY
+						)Engine=InnoDB;',
+			'quests' => 'CREATE TABLE quests (
+							id 			INT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
+							sessionID	INT	NOT NULL,
+							FOREIGN KEY (sessionID) REFERENCES sessions(id)
+						)Engine=InnoDB;'
 			'actions' => 'CREATE TABLE actions (
 							id 			INT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							sessionID	INT	NOT NULL,
-							time 		TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-							type 		VARCHAR(30) NOT NULL,
-							name 		VARCHAR(30) NOT NULL,
-							level  		VARCHAR(30),
-							result 		VARCHAR(30)
+							questID		INT	NOT NULL,
+							FOREIGN KEY (sessionID) REFERENCES sessions(id),
+							FOREIGN KEY (questID) REFERENCES quests(id)
 						)Engine=InnoDB;',
 		);
 
