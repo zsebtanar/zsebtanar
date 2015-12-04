@@ -38,7 +38,7 @@ class Exercises extends CI_model {
 		$this->Session->UpdateResults($data['id'], $data['level'], $data['status']);;
 		$this->Session->UpdateTodoList($data['id']);
 
-		$levels = $this->Session->getExerciseResultsCurrent($data['id']);
+		$levels = $this->Session->getUserLevels($data['id']);
 		$next = $this->Exercises->getNextExercise($data['id']);
 
 		$output = array(

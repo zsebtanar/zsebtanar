@@ -26,7 +26,7 @@ class Session extends CI_model {
 	 */
 	public function setSessionID() {
 
-		$this->session->unset_userdata('sessionID');
+		// $this->session->unset_userdata('sessionID');
 
 		if (NULL === $this->session->userdata('sessionID')) {
 			
@@ -37,95 +37,6 @@ class Session extends CI_model {
 
 		$sessionID = $this->db->insert_id();
 		$this->session->set_userdata('sessionID', $sessionID);
-
-		return;
-	}
-
-	/**
-	 * Record action
-	 *
-	 * @param  int 	  $id     Subtopic/Exercise ID
-	 * @param  string $type   View type (exercise/subtopic)
-	 * @param  int    $level  Exercise level
-	 * @param  string $result Result of action (correct/wrong/not_done)
-	 *
-	 * @return void
-	 */
-	public function recordAction_old($id, $type, $level=NULL, $result=NULL) {
-
-
-		if ($type == 'subtopic') {
-
-			if (!$id) {
-				$name 		= 'Kezdőlap';
-			} else {
-				$query 		= $this->db->get_where('subtopics', array('id' => $id));
-				$subtopic 	= $query->result()[0];
-				$name 		= $subtopic->name;
-			}
-
-			$this->insertSubtopicAction($name, $type);
-
-		} elseif ($type == 'exercise') {
-
-			$query 		= $this->db->get_where('exercises', array('id' => $id));
-			$exercise 	= $query->result()[0];
-			$name 		= $exercise->name;
-			$level_max	= $exercise->level;
-
-			$this->insertExerciseAction($id, $level, $result);
-
-			if ($result) {
-				$this->UpdateResults($id, $level, $level_max, $result);
-			}
-
-			$this->saveExerciseID($id);
-		}
-
-		return;
-	}
-
-	/**
-	 * Record exercise check
-	 *
-	 * Saves results after checking answer
-	 * 1. Inserts results into database
-	 * 2. Update user results in session
-	 * 3. Update to do list in session
-	 *
-	 * @param  int 	  $id     Subtopic/Exercise ID
-	 * @param  int    $level  Exercise level
-	 * @param  string $result Result (correct/wrong/not_done)
-	 *
-	 * @return void
-	 */
-	public function xxxxrecordExerciseCheck($id, $level=NULL, $result=NULL) {
-
-		$this->insertExerciseAction($id, $level, $result);
-
-		$this->UpdateResults($id, $level, $result);
-
-		return;
-	}
-
-	/**
-	 * Insert subtopic action into database
-	 *
-	 * @param  string $name   Subtopic name
-	 * @param  int    $level  Exercise level
-	 * @param  string $result Result of action (correct/wrong/not_done)
-	 *
-	 * @return void
-	 */
-	public function xxxinsertSubtopicAction($name) {
-
-		$data['sessionID'] 	= $this->session->userdata('sessionID');
-		$data['type']		= 'subtopic';
-		$data['name']		= $name;
-
-		if (!$this->db->insert('actions', $data)) {
-			show_error($this->db->_error_message());
-		}
 
 		return;
 	}
@@ -251,7 +162,7 @@ class Session extends CI_model {
 	}
 
 	/**
-	 * Get current user results for exercise
+	 * Get user levels for current exercise
 	 *
 	 * Returns an array with 0s and 1s. 1 means the user has answered the exercise
 	 * at the specific level correctly, O means the opposite. Data is used to update 
@@ -260,7 +171,7 @@ class Session extends CI_model {
 	 * @param  int 	 $id     Exercise ID
 	 * @return array $levels Exercise levels (0 or 1)
 	 */
-	public function getExerciseResultsCurrent($id) {
+	public function getUserLevels($id) {
 
 		$query = $this->db->get_where('exercises', array('id' => $id));
 		$exercise = $query->result()[0];
