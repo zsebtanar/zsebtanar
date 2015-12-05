@@ -15,7 +15,7 @@ class Database extends CI_model {
 	}
 
 	// Define name and type of table columns
-	const TABLE_COLUMNS = array(
+	public static $table_columns = array(
 			'classes' => array(
 				'name'	=> 'NOT NULL'
 				),
@@ -50,7 +50,7 @@ class Database extends CI_model {
 	 */
 	public function CreateTables() {
 
-		$tables = SELF::TABLE_COLUMNS;
+		$tables = SELF::$table_columns;
 		foreach (array_keys($tables) as $table) {
 			$this->CreateTable($table);
 		}
@@ -63,7 +63,7 @@ class Database extends CI_model {
 	 */
 	public function DropTables() {
 
-		$tables = array_reverse(SELF::TABLE_COLUMNS);
+		$tables = array_reverse(SELF::$table_columns);
 		foreach (array_keys($tables) as $table) {
 			$this->DropTable($table);
 		}
@@ -139,6 +139,7 @@ class Database extends CI_model {
 			'quests' => 'CREATE TABLE quests (
 							id 			INT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							sessionID	INT	NOT NULL,
+							time 		TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 							method 		VARCHAR(30) NOT NULL,
 							name 		VARCHAR(30) NOT NULL,
 							status 		VARCHAR(30) NOT NULL,
@@ -149,8 +150,10 @@ class Database extends CI_model {
 							questID		INT	NOT NULL,
 							time 		TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 							name 		VARCHAR(30) NOT NULL,
-							progress 	DECIMAL(6,2),
+							level 		INT,
+							level_max 	INT,
 							result 		VARCHAR(30),
+							todo 		INT,
 							FOREIGN KEY (questID) REFERENCES quests(id)
 						)Engine=InnoDB;',
 		);
@@ -189,12 +192,12 @@ class Database extends CI_model {
 		// print_r($table);
 		if ($table) {
 			// Check table
-			if (NULL === SELF::TABLE_COLUMNS[$table]) {
+			if (NULL === SELF::$table_columns[$table]) {
 				show_error('Table '.$table.' not defined!<br />');
 			} else {
 
 				// Get values
-				foreach (SELF::TABLE_COLUMNS[$table] as $col => $type) {
+				foreach (SELF::$table_columns[$table] as $col => $type) {
 					if (!isset($data[$col])) {
 
 						// error: value missing!
@@ -249,7 +252,7 @@ class Database extends CI_model {
 	public function recursiveInsert($data) {
 
 		// Recursive check for other table names
-		foreach (array_keys(SELF::TABLE_COLUMNS) as $column) {
+		foreach (array_keys(SELF::$table_columns) as $column) {
 
 			if (isset($data[$column])) {
 
@@ -339,10 +342,10 @@ class Database extends CI_model {
 	/**
 	 * Get session length
 	 *
-	 * Calculates length of session (s) by taking the time difference
+	 * Calculates length of session in seconds by taking the time difference
 	 * between its first and last action
 	 *
-	 * @param  int $id Session ID
+	 * @param  int $id     Session ID
 	 * @return int $length Session length (s)
 	 */
 	public function GetSessionLength($id) {
@@ -351,15 +354,105 @@ class Database extends CI_model {
 					'SELECT TIMESTAMPDIFF(SECOND, MIN(`time`), MAX(`time`)) as `time_total` FROM `actions`
 						WHERE `questID` IN(
 							SELECT `id` FROM `quests`
-							WHERE `sessionID` IN(
-								SELECT `id` FROM `sessions`
-								WHERE `id` = '.$id.' 
-							)
+							WHERE `sessionID` = '.$id.' 
 						)');
 
 		$length = $query->result()[0]->time_total;
 
 		return $length;
+	}
+
+	/**
+	 * Get quest length
+	 *
+	 * Calculates length of quest in seconds by taking the time difference
+	 * between its first and last action
+	 *
+	 * @param  int $id     Quest ID
+	 * @return int $length Quest length (s)
+	 */
+	public function GetQuestLength($id) {
+
+		$query 		= $this->db->query('SELECT `time` FROM `quests` WHERE `id` = '.$id);
+		$time_start = strtotime($query->result()[0]->time);
+
+		$query 		= $this->db->query(
+						'SELECT MAX(`time`) as `time_max` FROM `actions`
+							WHERE `questID` = '.$id);
+		$time_end 	= strtotime($query->result()[0]->time_max);
+
+		$length 	= $time_end - $time_start;
+
+		return $length;
+	}
+
+	/**
+	 * Get session start
+	 *
+	 * Calculates starting time of session (s)
+	 *
+	 * @param  int $id    Session ID
+	 * @return int $start Session start (s)
+	 */
+	public function GetSessionStart($id) {
+
+		$query = $this->db->query(
+					'SELECT MIN(`time`) as `time_start` FROM `actions`
+						WHERE `questID` = (
+							SELECT MIN(`id`) FROM `quests`
+							WHERE `sessionID` = '.$id.' 
+						)');
+
+		$start = $query->result()[0]->time_start;
+
+		return $start;
+	}
+
+	/**
+	 * Get session results
+	 *
+	 * Calculates number of total/completed/not finished quests for session
+	 *
+	 * @param  int $id      Session ID
+	 * @return int $results Session results
+	 */
+	public function GetSessionResults($id) {
+
+		$query = $this->db->query('SELECT COUNT(`id`) AS `total` FROM `quests` WHERE `sessionID` = '.$id);
+		$results['total'] = $query->result()[0]->total;
+
+		$query = $this->db->query('SELECT COUNT(`id`) AS `total` FROM `quests` WHERE `status` = \'COMPLETED\' AND `sessionID` = '.$id);
+		$results['completed'] = $query->result()[0]->total;
+
+		$results['not_finished'] = $results['total'] - $results['completed'];
+
+		return $results;
+	}
+
+	/**
+	 * Get session quests
+	 *
+	 * Calculates number of correct/wrong/missing actions for quest
+	 *
+	 * @param  int $id      Quest ID
+	 * @return int $results Quest results
+	 */
+	public function GetQuestResults($id) {
+
+		$query = $this->db->query('SELECT COUNT(`id`) AS `total` FROM `actions` WHERE `questID` = '.$id);
+		$results['total'] = $query->result()[0]->total;
+
+		$query = $this->db->query('SELECT COUNT(`id`) AS `correct` FROM `actions`
+									WHERE `result` = \'CORRECT\' AND `questID` = '.$id);
+		$results['correct'] = $query->result()[0]->correct;
+
+		$query = $this->db->query('SELECT COUNT(`id`) AS `wrong` FROM `actions`
+									WHERE `result` = \'WRONG\' AND `questID` = '.$id);
+		$results['wrong'] = $query->result()[0]->wrong;
+
+		$results['not_done'] = $results['total'] - $results['correct'] - $results['wrong'];
+
+		return $results;
 	}
 }
 

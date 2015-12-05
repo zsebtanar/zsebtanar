@@ -62,9 +62,11 @@ class Session extends CI_model {
 		$level_max	= $exercise->level;
 
 		$data['questID'] 	= $this->session->userdata('questID');
-		$data['progress']	= $level/$level_max;
+		$data['level']		= $level;
+		$data['level_max']	= $level_max;
 		$data['result']		= $result;
 		$data['name'] 		= $name;
+		$data['todo'] 		= count($this->session->userdata('todo_list'))-1;
 
 		if (!$this->db->insert('actions', $data)) {
 			show_error($this->db->_error_message());
@@ -134,40 +136,116 @@ class Session extends CI_model {
 	/**
 	 * Get sessions
 	 *
-	 * @param  int 	 $id   Session ID
-	 * @return array $data Session data
+	 * @return array $sessions Session data
 	 */
-	public function getSessions($id=NULL) {
+	public function getSessions() {
 
-		$this->db->select('id');
 		$query = $this->db->get('sessions');
 
 		if ($query->num_rows() > 0) {
 
 			foreach ($query->result() as $row) {
 
-				$id 			= $row->id;
-				$length 		= $this->Database->GetSessionLength($id);
-				$length_time 	= gmdate("H:i:s", $length);
-				$max_length 	= (isset($max_length) ? max($max_length, $length) : $length);
+				$id 		= $row->id;
+				$length 	= $this->Database->GetSessionLength($id);
+				$quests		= $this->Database->GetSessionResults($id);
+				$start		= $this->Database->GetSessionStart($id);
 
-				$session['id'] 			= $id;
-				$session['length'] 		= $length;
+				$max_length = (isset($max_length) ? max($max_length, $length) : $length);
+				$max_quests = (isset($max_quests) ? max($max_quests, $quests['total']) : $quests['total']);
+
+				$session['id'] 				= $id;
+				$session['start'] 			= $start;
+				$session['length'] 			= $length;
+				$session['length_label'] 	= gmdate("H:i:s", $length);
+				$session['quests1'] 		= $quests['completed'];
+				$session['quests2'] 		= $quests['not_finished'];
+				$session['quests1_label'] 	= $quests['completed'];
+				$session['quests2_label'] 	= $quests['not_finished'];
 
 				$sessions[] = $session;
 			}
 
 			foreach ($sessions as $index => $session) {
 
-				$session['id'] 			= $id;
-				$session['time'] 		= gmdate("H:i:s", $session['length']);
-				$session['progress'] 	= round($session['length']/$max_length*100);
+				if ($max_length > 0) {
+					$session['length'] 		= round($session['length']/$max_length*100);
+				}
+
+				if ($max_quests > 0) {
+					$session['quests1']		= round($session['quests1']/$max_quests*100);
+					$session['quests2']		= round($session['quests2']/$max_quests*100);
+				}
 
 				$sessions[$index]		= $session;
 			}
 		}
 
 		return $sessions;
+	}
+
+	/**
+	 * Get quests
+	 *
+	 * @param int $id Session id
+	 *
+	 * @return array $quests Session data
+	 */
+	public function getQuests($id) {
+
+		$query = $this->db->get_where('quests', array('sessionID' => $id));
+
+		if ($query->num_rows() > 0) {
+
+			foreach ($query->result() as $row) {
+
+				$id 		= $row->id;
+				$length 	= $this->Database->GetQuestLength($id);
+				$actions 	= $this->Database->GetQuestResults($id);
+
+				$status = ($row->status == 'COMPLETED' ? 'success' : 'danger');
+				$method = ($row->method == 'exercise' ? 'feladat' : 'témakör');
+
+				$max_length = (isset($max_length) ? max($max_length, $length) : $length);
+				$max_actions = (isset($max_actions) ? max($max_actions, $actions['total']) : $actions['total']);
+
+				$quest['id'] 			= $id;
+				$quest['name'] 			= $row->name;
+				$quest['method'] 		= $method;
+				$quest['status'] 		= $status;
+				$quest['length'] 		= $length;
+				$quest['length_label'] 	= gmdate("H:i:s", $length);
+
+				$quest['actions1'] 		= $actions['correct'];
+				$quest['actions2'] 		= $actions['wrong'];
+				$quest['actions3'] 		= $actions['not_done'];
+				$quest['actions1_label'] 	= $actions['correct'];
+				$quest['actions2_label'] 	= $actions['wrong'];
+				$quest['actions3_label'] 	= $actions['not_done'];
+
+				$quests[] = $quest;
+			}
+
+			foreach ($quests as $index => $quest) {
+
+				if ($max_length > 0) {
+					$quest['length'] 	= round($quest['length']/$max_length*100);
+				}
+
+				if ($max_actions > 0) {
+					$quest['actions1'] = round($quest['actions1']/$max_actions*100);
+					$quest['actions2'] = round($quest['actions2']/$max_actions*100);
+					$quest['actions3'] = round($quest['actions3']/$max_actions*100);
+				}
+
+				$quests[$index]		= $quest;
+			}
+
+		} else {
+			$quests = NULL;
+		}
+
+		return $quests;
 	}
 
 	/**

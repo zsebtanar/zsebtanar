@@ -94,7 +94,7 @@ class View extends CI_controller {
 	/**
 	 * View activities
 	 *
-	 * Display summary of all sessions or specific session.
+	 * Display summary sessions.
 	 *
 	 * @param int $id Session ID
 	 *
@@ -104,9 +104,15 @@ class View extends CI_controller {
 
 		$this->load->view('Template');
 
-		$data['sessions'] = $this->Session->getSessions($id);
-
-		$this->load->view('Session', $data);
+		if (!$id) {
+			$data['sessions'] = $this->Session->getSessions();
+			$this->load->view('Sessions', $data);
+		} else {
+			$data['quests'] = $this->Session->getQuests($id);
+			$data['id'] = $id;
+			$this->load->view('Quests', $data);
+		}
+		
 		$this->load->view('Footer');
 
 	}
