@@ -304,38 +304,6 @@ class Session extends CI_model {
 	}
 
 	/**
-	 * Get saved sessions
-	 *
-	 * @param  int 	 $id   Session ID
-	 * @return array $data Session data
-	 */
-	public function getSavedSessions($file) {
-
-		if (!$file) {
-
-			$files = get_filenames('./resources/saved_sessions');
-			
-			foreach ($files as $file) {
-
-				$data['files'][] = $file;
-
-			}
-		} else {
-
-			$this->load->library('csvreader');
-			$file_path = base_url().'./resources/saved_sessions/'.$file;
-
-			$data = $this->Session->getActions();
-			$content = $this->csvreader->parse_file($file_path);
-			$data['from_file'] = TRUE;
-			$data['current_session'] = $content;
-
-		}
-
-		return $data;
-	}
-
-	/**
 	 * Get glyphicons for exercise
 	 *
 	 * @param  int 	  $level     User level
