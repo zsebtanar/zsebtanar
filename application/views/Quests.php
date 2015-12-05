@@ -8,16 +8,17 @@
 <div class="row">
 	<h1>
 		Küldetések<br />
-		<small><?php echo $id;?>. munkamenet</small>
+		<small><?php echo $sessionID;?>. munkamenet</small>
 	</h1>
 	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th class="col-md-1">#</th>
 				<th class="col-md-1">Típus</th>
+				<th class="col-md-1">Osztály</th>
 				<th class="col-md-3">Név</th>
 				<th class="col-md-3">Hossz</th>
-				<th class="col-md-4">Eredmény</th>
+				<th class="col-md-3">Feladatok</th>
 			</tr>
 		</thead>
 		<tbody><?php
@@ -26,8 +27,17 @@
 		foreach ($quests as $quest) {?>
 
 			<tr>
-				<td><?php echo $quest['id'];?></td>
-				<td><?php echo $quest['method'];?></td>
+				<td>
+					<a href="<?php echo base_url().'view/activities/'.$sessionID.'/'.$quest['id'];?>">
+						<?php echo $quest['id'];?>
+					</a>
+				</td>
+				<td>
+					<span class="label label-<?php echo $quest['status'];?>">
+						<?php echo $quest['method'];?>
+					</span>
+				</td>
+				<td><?php echo $quest['class'];?></td>
 				<td><?php echo $quest['name'];?></td>
 				<td>
 					<div class="progress">

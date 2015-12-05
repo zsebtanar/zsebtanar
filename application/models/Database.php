@@ -140,6 +140,7 @@ class Database extends CI_model {
 							id 			INT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							sessionID	INT	NOT NULL,
 							time 		TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+							class 		VARCHAR(120) NOT NULL,
 							method 		VARCHAR(30) NOT NULL,
 							name 		VARCHAR(30) NOT NULL,
 							status 		VARCHAR(30) NOT NULL,
@@ -379,7 +380,42 @@ class Database extends CI_model {
 		$query 		= $this->db->query(
 						'SELECT MAX(`time`) as `time_max` FROM `actions`
 							WHERE `questID` = '.$id);
-		$time_end 	= strtotime($query->result()[0]->time_max);
+		if (NULL !== $query->result()[0]->time_max) {
+			$time_end = strtotime($query->result()[0]->time_max);
+		} else {
+			$time_end = $time_start;
+		}
+
+		$length = $time_end - $time_start;
+
+		return $length;
+	}
+
+	/**
+	 * Get action length
+	 *
+	 * Calculates length of action in seconds by taking the time difference
+	 * between its first and last action
+	 *
+	 * @param  int $id     Action ID
+	 * @return int $length Action length (s)
+	 */
+	public function GetActionLength($id) {
+
+		$id_prev 	= $id-1;
+		$query 		= $this->db->query('SELECT `time` FROM `actions` WHERE `id` = '.$id_prev);
+		if ($query->num_rows() == 0) {
+			$query 	= $this->db->query('SELECT `time` FROM `quests` WHERE `id` = '.$id);
+		}
+
+		$time_start = strtotime($query->result()[0]->time);
+
+		$query 		= $this->db->query('SELECT `time` FROM `actions` WHERE `id` = '.$id);
+		if ($query->num_rows() > 0) {
+			$time_end = strtotime($query->result()[0]->time);
+		} else {
+			$time_end = $time_start;
+		}
 
 		$length 	= $time_end - $time_start;
 
@@ -454,6 +490,44 @@ class Database extends CI_model {
 
 		return $results;
 	}
+
+	/**
+	 * Get class name
+	 *
+	 * Searches for class name of exercise/subtopic.
+	 *
+	 * @param  int    $id   ID
+	 * @param  string $type Id type (exercise/subtopic)
+	 *
+	 * @return string $class Class name
+	 */
+	public function GetClassName($id, $type) {
+
+		if ($type == 'exercise') {
+
+			$query = $this->db->query(
+				'SELECT DISTINCT `classes`.`name` as `osztaly` FROM `classes`
+					INNER JOIN `topics` ON `classes`.`id` = `topics`.`classID`
+					INNER JOIN `subtopics` ON `topics`.`id` = `subtopics`.`topicID`
+					INNER JOIN `exercises` ON `exercises`.`subtopicID` = `exercises`.`subtopicID`
+						WHERE `exercises`.`id` = '.$id);
+			$class = $query->result()[0]->osztaly;
+
+		} elseif ($type == 'subtopic') {
+
+			$query = $this->db->query(
+				'SELECT DISTINCT `classes`.`name` as `osztaly` FROM `classes`
+					INNER JOIN `topics` ON `classes`.`id` = `topics`.`classID`
+					INNER JOIN `subtopics` ON `topics`.`id` = `subtopics`.`topicID`
+						WHERE `subtopics`.`id` = '.$id);
+			$class = $query->result()[0]->osztaly;
+
+		}
+
+		return $class;
+	}
+
+
 }
 
 ?>

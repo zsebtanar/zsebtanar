@@ -35,7 +35,7 @@ class Exercises extends CI_model {
 		$this->load->model('Session');
 
 		$this->Session->RecordAction($data['id'], $data['level'], $data['status']);
-		$this->Session->UpdateResults($data['id'], $data['level'], $data['status']);;
+		$this->Session->UpdateResults($data['id'], $data['level'], $data['status']);
 		$this->Session->UpdateTodoList($data['id']);
 
 		$levels = $this->Session->getUserLevels($data['id']);
@@ -315,6 +315,8 @@ class Exercises extends CI_model {
 	/**
 	 * Get ID of previous exercise
 	 *
+	 * Offers an easier exercise if user has not solved exercise on the easiest level.
+	 *
 	 * @param  int $id      Exercise ID
 	 * @return int $id_prev ID of previous exercise
 	 */
@@ -322,42 +324,52 @@ class Exercises extends CI_model {
 
 		$id_prev 	= NULL;
 
-		$query 		= $this->db->get_where('exercises', array('id' => $id));
-		$exercise1 	= $query->result()[0];
-		$query 		= $this->db->get_where('links', array('exerciseID' => $id));
-		$links 		= $query->result();
+		$results 	= $this->session->userdata('results');
 
-		if (count($links) > 0) {
+		if (isset($results[$id]) && $results[$id] > 0) {
 
-			shuffle($links);
+			// User has already solved exercise on the easiest level
+			return $id_prev;
 
-			foreach ($links as $link) {
+		} else {
 
-				$query = $this->db->get_where('exercises', array('label' => $link->label));
-				$exercise2 = $query->result()[0];
-				
-				$id2 = $exercise2->id;
-				$level_max = $exercise2->level;
-				$results = $this->session->userdata('results');
+			$query 		= $this->db->get_where('exercises', array('id' => $id));
+			$exercise1 	= $query->result()[0];
+			$query 		= $this->db->get_where('links', array('exerciseID' => $id));
+			$links 		= $query->result();
 
-				if (!isset($results[$id2])) {
+			if (count($links) > 0) {
 
-					// user has not encountered exercise
-					$id_prev = $id2;
-					break;
+				shuffle($links);
 
-				} elseif ($results[$id2] < $level_max) {
+				foreach ($links as $link) {
 
-					// user has not completed exercise at all levels
-					$id_prev = $id2;
-					break;
+					$query = $this->db->get_where('exercises', array('label' => $link->label));
+					$exercise2 = $query->result()[0];
+					
+					$id2 = $exercise2->id;
+					$level_max = $exercise2->level;
+					$results = $this->session->userdata('results');
 
-				} else {
+					if (!isset($results[$id2])) {
 
-					// is user allowed to return fully completed exercises?
-					$solved_exercise_allowed = TRUE;
-					if ($solved_exercise_allowed) {
+						// user has not encountered exercise
 						$id_prev = $id2;
+						break;
+
+					} elseif ($results[$id2] < $level_max) {
+
+						// user has not completed exercise at all levels
+						$id_prev = $id2;
+						break;
+
+					} else {
+
+						// is user allowed to return fully completed exercises?
+						$solved_exercise_allowed = TRUE;
+						if ($solved_exercise_allowed) {
+							$id_prev = $id2;
+						}
 					}
 				}
 			}

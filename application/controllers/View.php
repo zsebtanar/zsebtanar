@@ -94,23 +94,30 @@ class View extends CI_controller {
 	/**
 	 * View activities
 	 *
-	 * Display summary sessions.
+	 * Display summary sessions/quest/actions.
 	 *
-	 * @param int $id Session ID
+	 * @param int $sessionID Session ID
+	 * @param int $questID Quest ID
 	 *
 	 * @return void
 	 */
-	public function Activities($id=NULL) {
+	public function Activities($sessionID=NULL, $questID=NULL) {
 
 		$this->load->view('Template');
 
-		if (!$id) {
+		if (!$sessionID) {
 			$data['sessions'] = $this->Session->getSessions();
 			$this->load->view('Sessions', $data);
-		} else {
-			$data['quests'] = $this->Session->getQuests($id);
-			$data['id'] = $id;
+		} elseif (!$questID) {
+			$data['quests'] = $this->Session->getQuests($sessionID);
+			$data['sessionID'] = $sessionID;
 			$this->load->view('Quests', $data);
+		} else {
+			$data['actions'] = $this->Session->getActions($questID);
+			$data['sessionID'] = $sessionID;
+			$data['questID'] = $questID;
+			$data['questName'] = $this->Session->getQuestName($questID);
+			$this->load->view('Actions', $data);
 		}
 		
 		$this->load->view('Footer');

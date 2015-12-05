@@ -105,5 +105,5 @@ input.smallInput {
 }
 .progress {
     margin-bottom: 0 !important;
-    background-image: linear-gradient(to bottom, #6F6F6F, #DCDCDC 100%);
+    background-image: linear-gradient(to bottom, #6F6F6F, #A09E9E 100%);
 }

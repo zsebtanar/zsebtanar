@@ -12,7 +12,7 @@
 				<th class="col-md-1">#</th>
 				<th class="col-md-2">Kezdés</th>
 				<th class="col-md-5">Hossz</th>
-				<th class="col-md-4">Eredmény</th>
+				<th class="col-md-4">Küldetések</th>
 			</tr>
 		</thead>
 		<tbody><?php

@@ -66,7 +66,9 @@ class Session extends CI_model {
 		$data['level_max']	= $level_max;
 		$data['result']		= $result;
 		$data['name'] 		= $name;
-		$data['todo'] 		= count($this->session->userdata('todo_list'))-1;
+
+		$todo_length		= count($this->session->userdata('todo_list'));
+		$data['todo'] 		= min(0, $todo_length-1);
 
 		if (!$this->db->insert('actions', $data)) {
 			show_error($this->db->_error_message());
@@ -98,39 +100,13 @@ class Session extends CI_model {
 			$results[$id] = $level;
 			$this->session->set_userdata('results', $results);	
 
+		} elseif ($result == 'WRONG' && $results[$id] == $level_max) {
+
+			$results[$id] = $level-1;
+			$this->session->set_userdata('results', $results);
 		}
 
 		return;
-	}
-
-	/**
-	 * Get actions of session
-	 *
-	 * @param  int 	 $id   Session ID
-	 * @return array $data Session data
-	 */
-	public function getActions($id=NULL) {
-
-		$this->db->select('sessionID');
-		$this->db->distinct();
-
-		$query = $this->db->get('actions');
-
-		foreach ($query->result() as $session) {
-			$sessionIDs[] = $session->sessionID; 
-		}
-
-		$data['all_sessions'] = $sessionIDs;
-		$data['current_id'] = $id;
-
-		if ($id) {
-			$query = $this->db->get_where('actions', array('sessionID' => $id));
-			foreach ($query->result_array() as $session) {
-				$data['current_session'][] = $session; 
-			}
-		}
-
-		return $data;
 	}
 
 	/**
@@ -179,6 +155,8 @@ class Session extends CI_model {
 
 				$sessions[$index]		= $session;
 			}
+		} else {
+			$sessions = [];
 		}
 
 		return $sessions;
@@ -211,6 +189,7 @@ class Session extends CI_model {
 
 				$quest['id'] 			= $id;
 				$quest['name'] 			= $row->name;
+				$quest['class'] 		= $row->class;
 				$quest['method'] 		= $method;
 				$quest['status'] 		= $status;
 				$quest['length'] 		= $length;
@@ -249,6 +228,82 @@ class Session extends CI_model {
 	}
 
 	/**
+	 * Get quest name
+	 *
+	 * Searches for name of quest
+	 *
+	 * @param int $id Quest ID
+	 *
+	 * @return string $class Class name
+	 */
+	public function GetQuestName($id) {
+
+		$query = $this->db->get_where('quests', array('id' => $id));
+		$name = $query->result()[0]->name;
+
+		return $name;
+	}
+
+	/**
+	 * Get actions
+	 *
+	 * @param int $questID Quest id
+	 *
+	 * @return array $actions Action data
+	 */
+	public function getActions($questID) {
+
+		$query = $this->db->get_where('actions', array('questID' => $questID));
+
+		if ($query->num_rows() > 0) {
+
+			foreach ($query->result() as $row) {
+
+				$id 		= $row->id;
+				$length 	= $this->Database->GetActionLength($id);
+
+				switch ($row->result) {
+					case 'CORRECT':
+						$status = 'success';
+						break;
+					case 'WRONG':
+						$status = 'danger';
+						break;
+					case 'NOT_DONE':
+						$status = 'warning';
+						break;
+				}
+
+				$max_length = (isset($max_length) ? max($max_length, $length) : $length);
+
+				$action['id'] 			= $id;
+				$action['name'] 		= $row->name;
+				$action['todo'] 		= $row->todo;
+				$action['status'] 		= $status;
+				$action['length'] 		= $length;
+				$action['length_label'] = gmdate("H:i:s", $length);
+				$action['icons'] 		= $this->GetProgressIcons($row->level, $row->level_max, $row->result);
+
+				$actions[] = $action;
+			}
+
+			foreach ($actions as $index => $action) {
+
+				if ($max_length > 0) {
+					$action['length'] 	= round($action['length']/$max_length*100);
+				}
+
+				$actions[$index]		= $action;
+			}
+
+		} else {
+			$actions = NULL;
+		}
+
+		return $actions;
+	}
+
+	/**
 	 * Get saved sessions
 	 *
 	 * @param  int 	 $id   Session ID
@@ -275,6 +330,47 @@ class Session extends CI_model {
 			$data['from_file'] = TRUE;
 			$data['current_session'] = $content;
 
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Get glyphicons for exercise
+	 *
+	 * @param  int 	  $level     User level
+	 * @param  int 	  $level_max Exercise level
+	 * @param  string $result    Result (CORRECT/WRONG/NOT_DONE)
+	 *
+	 * @return array $data Data
+	 */
+	public function GetProgressIcons($level, $level_max, $result) {
+
+		for ($i=0; $i < $level_max; $i++) { 
+			if ($i < $level) {
+				switch ($result) {
+					case 'CORRECT':
+						$status = 'success';
+						$icon 	= 'ok-sign';
+						break;
+					case 'WRONG':
+						$status = 'danger';
+						$icon 	= 'remove-sign';
+						break;
+					case 'NOT_DONE':
+						$status = 'warning';
+						$icon 	= 'question-sign';
+						break;
+				}
+			} else {
+				$status = 'default';
+				$icon 	= 'info-sign';
+			}
+
+			$icons['status'] = $status;
+			$icons['icon'] = $icon;
+
+			$data[] = $icons;
 		}
 
 		return $data;
@@ -471,19 +567,19 @@ class Session extends CI_model {
 		if ($method == 'exercise') {
 
 			$query = $this->db->get_where('exercises', array('id' => $id));
+			$class = $this->Database->GetClassName($id, 'exercise');
 
 		} elseif ($method == 'subtopic') {
 
 			$query = $this->db->get_where('subtopics', array('id' => $id));
-			print_r($id);
+			$class = $this->Database->GetClassName($id, 'subtopic');
 			
 		}
-
-		// print_r($query->result());
 
 		$data['name'] 		= $query->result()[0]->name;
 		$data['sessionID'] 	= $this->session->userdata('sessionID');
 		$data['method'] 	= $method;
+		$data['class'] 		= $class;
 		$data['status'] 	= 'STARTED';
 
 		if (!$this->db->insert('quests', $data)) {
