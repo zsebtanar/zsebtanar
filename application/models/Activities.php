@@ -185,43 +185,7 @@ class Activities extends CI_model {
 
 		return $results;
 	}
-
-	/**
-	 * Get class name
-	 *
-	 * Searches for class name of exercise/subtopic.
-	 *
-	 * @param  int    $id   ID
-	 * @param  string $type Id type (exercise/subtopic)
-	 *
-	 * @return string $class Class name
-	 */
-	public function GetClassName($id, $type) {
-
-		if ($type == 'exercise') {
-
-			$query = $this->db->query(
-				'SELECT DISTINCT `classes`.`name` as `osztaly` FROM `classes`
-					INNER JOIN `topics` ON `classes`.`id` = `topics`.`classID`
-					INNER JOIN `subtopics` ON `topics`.`id` = `subtopics`.`topicID`
-					INNER JOIN `exercises` ON `exercises`.`subtopicID` = `exercises`.`subtopicID`
-						WHERE `exercises`.`id` = '.$id);
-			$class = $query->result()[0]->osztaly;
-
-		} elseif ($type == 'subtopic') {
-
-			$query = $this->db->query(
-				'SELECT DISTINCT `classes`.`name` as `osztaly` FROM `classes`
-					INNER JOIN `topics` ON `classes`.`id` = `topics`.`classID`
-					INNER JOIN `subtopics` ON `topics`.`id` = `subtopics`.`topicID`
-						WHERE `subtopics`.`id` = '.$id);
-			$class = $query->result()[0]->osztaly;
-
-		}
-
-		return $class;
-	}
-
+	
 	/**
 	 * Get sessions
 	 *
