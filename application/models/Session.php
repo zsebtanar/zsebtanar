@@ -571,6 +571,22 @@ class Session extends CI_model {
 	}
 
 	/**
+	 * Clear quest
+	 *
+	 * Unsets session variables when quest is finished.
+	 *
+	 * @return void
+	 */
+	public function ClearQuest() {
+
+		$this->session->unset_userdata('method');
+		$this->session->unset_userdata('goal');
+		$this->session->unset_userdata('todo_list');
+
+		return;
+	}
+
+	/**
 	 * Complete quest
 	 *
 	 * Data is updated when user starts quest (i.e. sets learning goal),

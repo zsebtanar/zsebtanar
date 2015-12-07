@@ -1,8 +1,3 @@
-<!DOCTYPE html>
-<html lang="hu">
-
-	<head>
-
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -89,7 +84,3 @@
   });
 </script>
 <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-</head>
-
-<body>
-<div class="container">

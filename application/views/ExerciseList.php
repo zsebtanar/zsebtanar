@@ -11,9 +11,9 @@
 
 					for ($i=0; $i<$exercise['level_max']; $i++) {
 
-						$file = ($i < $exercise['level_user'] ? 'filled' : 'empty');?>
+						$value = ($i < $exercise['level_user'] ? 1 : 0);?>
 
-					<img src="<?php echo base_url().'assets/images/star_'.$file.'.png';?>" alt="star" width="15px"><?php
+					<img src="<?php echo base_url().'assets/images/star'.$value.'.png';?>" alt="star" width="15px"><?php
 
 					};?>
 

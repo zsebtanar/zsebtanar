@@ -34,65 +34,28 @@ class View extends CI_controller {
 	 */
 	public function Subtopic($id=NULL) {
 
-		$this->load->view('Template');
+		$this->Session->ClearQuest();
+		$data = $this->Html->SubtopicData($id);
 
-		$this->session->unset_userdata('method');
-		$this->session->unset_userdata('goal');
-		$this->session->unset_userdata('todo_list');
-
-		$type = 'subtopic';
-
-		$data = $this->Html->NavBarMenu($id, $type);
-		$this->load->view('NavBar', $data);
-
-		$data = $this->Html->Title($id, $type);
-		$data['id_next'] = $this->Exercises->IDNextSubtopic($id);
-
-		$data['id'] = $id;
-		$this->load->view('Title', $data);
-
-		if (!$id) {
-			$this->load->view('Search');
-		} else {
-			$data = $this->Exercises->getExerciseList($id);
-			$this->load->view('ExerciseList', $data);		
-		}
-
-		$this->load->view('Footer');
-
+		$this->load->view('Template', $data);
+		
 		if ($this->session->userdata('Logged_in')) {
 			$this->Session->PrintInfo();
 		}
-
 	}
 
 	public function Exercise($id=1, $level=NULL) {
 
 		$this->Session->UpdateTodoList($id);
+		$data = $this->Html->ExerciseData($id, $level);
+
+		$this->load->view('Template', $data);
 
 		$type = 'exercise';
-
-		$this->load->view('Template');
-
-		if (!$level) {
-			$level = $this->Session->getExerciseLevelNext($id);
-		}
-
-		$data = $this->Html->NavBarMenu($id, $type);
-		$this->load->view('NavBar', $data);
-
-		$data = $this->Html->Title($id, $type);
-		$this->load->view('Title', $data);
-
-		$data = $this->Exercises->getExerciseData($id, $level);
-		$this->load->view('Exercise', $data);
-
-		$this->load->view('Footer');
 
 		if ($this->session->userdata('Logged_in')) {
 			$this->Session->PrintInfo();
 		}
-
 	}
 
 	/**
