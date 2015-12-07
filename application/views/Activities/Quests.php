@@ -2,7 +2,7 @@
 	<div class="btn-group">
 		<a href="<?php echo base_url().'view/subtopic';?>" class="btn btn-default">Kezdőlapra</a>
 		<a href="<?php echo base_url().'view/activities';?>" class="btn btn-default">Munkamenetek</a>
-		<a href="<?php echo base_url().'application/endsession';?>"class="btn btn-default">Összes törlése</a>
+		<a href="<?php echo base_url().'application/deletesessions';?>"class="btn btn-default">Összes törlése</a>
 	</div>
 </div><br />
 <div class="row">

@@ -116,32 +116,6 @@ class Application extends CI_controller {
 	}
 
 	/**
-	 * Export sessions
-	 *
-	 * Exports selected session activities into csv file.
-	 *
-	 * @param int $subtopicID Subtopic id
-	 *
-	 * @return void
-	 */
-	public function ExportSession($id) {
-		
-		$this->load->dbutil();
-		$this->load->helper('file');
-
-		$query = $this->db->get_where('actions', array('sessionID' => $id));
-
-		$data = $this->dbutil->csv_from_result($query);
-		$path = './resources/saved_sessions/session_'.date('m-d-Y_H-i-s').'.csv';
-
-		if (!write_file($path, $data)) {
-			show_error('Unable to write the file');
-		}
-
-		header('Location:'.base_url().'view/subtopic/');
-	}
-
-	/**
 	 * Log in to website
 	 *
 	 * @param string $password Password

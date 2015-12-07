@@ -8,6 +8,8 @@
 <body>
 	<div class="container"><?php
 
+	if (in_array($type, ['main', 'subtopic', 'exercise'])) {
+
 	$this->load->view('GoogleAnalytics');
 
 	$this->load->view('Modal/Info');
@@ -20,20 +22,25 @@
 
 	</nav><?php
 
+	$this->load->view('Title/Title'.$type, $title);
+
+	}
+
 	if ($type == 'main') {
 
-		$this->load->view('Title/TitleMain');
 		$this->load->view('Search');
 
 	} elseif ($type == 'subtopic') {
 
-		$this->load->view('Title/TitleSubtopic', $title);
 		$this->load->view('ExerciseList', $exercises);
 
 	} elseif ($type == 'exercise') {
 
-		$this->load->view('Title/TitleExercise', $title);
 		$this->load->view('Exercise', $exercise);
+
+	} else {
+
+		$this->load->view('Activities/'.$type, $data);
 
 	}?>
 

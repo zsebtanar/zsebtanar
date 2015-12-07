@@ -13,9 +13,7 @@ class View extends CI_controller {
 		parent::__construct();
 
 		// Load models
-		$this->load->helper('url');
 		$this->load->model('Html');
-		$this->load->model('Exercises');
 		$this->load->model('Session');
 		$this->load->model('Statistics');
 
@@ -34,7 +32,7 @@ class View extends CI_controller {
 	 */
 	public function Subtopic($id=NULL) {
 
-		$this->Session->ClearQuest();
+		$this->Session->ClearSession();
 		$data = $this->Html->SubtopicData($id);
 
 		$this->load->view('Template', $data);
@@ -70,25 +68,29 @@ class View extends CI_controller {
 	 */
 	public function Activities($sessionID=NULL, $questID=NULL) {
 
-		$this->load->view('Template');
+		$this->load->model('Activities');
 
 		if (!$sessionID) {
-			$data['sessions'] = $this->Session->getSessions();
-			$this->load->view('Sessions', $data);
-		} elseif (!$questID) {
-			$data['quests'] = $this->Session->getQuests($sessionID);
-			$data['sessionID'] = $sessionID;
-			$this->load->view('Quests', $data);
-		} else {
-			$data['actions'] = $this->Session->getActions($questID);
-			$data['sessionID'] = $sessionID;
-			$data['questID'] = $questID;
-			$data['questName'] = $this->Session->getQuestName($questID);
-			$this->load->view('Actions', $data);
-		}
-		
-		$this->load->view('Footer');
 
+			$data['type'] = 'sessions';
+			$data['data']['sessions'] = $this->Activities->getSessions();
+			
+		} elseif (!$questID) {
+			$data['type'] = 'quests';
+			$data['data']['quests'] = $this->Activities->getQuests($sessionID);
+			$data['data']['sessionID'] = $sessionID;
+
+		} else {
+
+			$data['type'] = 'actions';
+			$data['data']['actions'] = $this->Activities->getActions($questID);
+			$data['data']['sessionID'] = $sessionID;
+			$data['data']['questID'] = $questID;
+			$data['data']['questName'] = $this->Activities->getQuestName($questID);
+
+		}
+
+		$this->load->view('Template', $data);
 	}
 }
 

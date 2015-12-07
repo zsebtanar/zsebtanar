@@ -31,6 +31,7 @@ class Html extends CI_model {
 			$data['exercises'] = $this->Exercises->getExerciseList($id);
 		} else {
 			$data['type'] = 'main';
+			$data['title'] = NULL;
 		}
 
 		return $data;
