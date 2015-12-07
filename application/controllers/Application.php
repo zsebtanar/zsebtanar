@@ -60,13 +60,14 @@ class Application extends CI_controller {
 
 		$this->load->model('Session');
 		$this->Session->clearResults($subtopicID);
+
 		header('Location:'.base_url().'view/subtopic/'.$subtopicID);
 	}
 
 	/**
-	 * Delete sessions
+	 * End session
 	 *
-	 * Delete all session activities from database
+	 * Drop activities from database & unset session ID
 	 *
 	 * @param int $subtopicID Subtopic id
 	 *
@@ -77,6 +78,8 @@ class Application extends CI_controller {
 		$this->db->empty_table('actions'); 
 		$this->db->empty_table('quests'); 
 		$this->db->empty_table('sessions');
+
+		$this->session->unset_userdata('sessionID');
 
 		header('Location:'.base_url().'view/subtopic/');
 	}

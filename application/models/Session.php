@@ -21,11 +21,13 @@ class Session extends CI_model {
 	}
 
 	/**
-	 * Set session ID
+	 * Start session
+	 *
+	 * Define session ID and initialize session variables.
 	 *
 	 * @return void
 	 */
-	public function setSessionID() {
+	public function startSession() {
 
 		// $this->session->unset_userdata('sessionID');
 
@@ -37,6 +39,12 @@ class Session extends CI_model {
 			$sessionID = $this->db->insert_id();
 
 			$this->session->set_userdata('sessionID', $sessionID);
+
+		}
+
+		if (NULL === $this->session->userdata('Logged_in')) {
+			
+			$this->session->set_userdata('Logged_in', FALSE);
 
 		}
 
@@ -100,7 +108,9 @@ class Session extends CI_model {
 			$results[$id] = $level;
 			$this->session->set_userdata('results', $results);	
 
-		} elseif ($result == 'WRONG' && $results[$id] == $level_max) {
+		} elseif ($result == 'WRONG' && 
+			isset($results[$id]) &&
+			$results[$id] == $level_max) {
 
 			$results[$id] = $level-1;
 			$this->session->set_userdata('results', $results);

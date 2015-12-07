@@ -22,8 +22,8 @@ class View extends CI_controller {
 		// Write statistics of website content
 		$this->Statistics->Write('resources/statistics.xlsx');
 
-		// Set session ID
-		$this->Session->setSessionID();
+		// Start session
+		$this->Session->startSession();
 	}
 
 	/**
@@ -60,7 +60,9 @@ class View extends CI_controller {
 
 		$this->load->view('Footer');
 
-		$this->Session->PrintInfo();
+		if ($this->session->userdata('Logged_in')) {
+			$this->Session->PrintInfo();
+		}
 
 	}
 
@@ -87,7 +89,9 @@ class View extends CI_controller {
 
 		$this->load->view('Footer');
 
-		$this->Session->PrintInfo();
+		if ($this->session->userdata('Logged_in')) {
+			$this->Session->PrintInfo();
+		}
 
 	}
 

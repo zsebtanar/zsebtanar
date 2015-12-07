@@ -41,7 +41,7 @@
             dataType: "json",
             success: function(status) {
                 if (status == 'PASSWORD_OK') {
-                    location.reload();
+                    window.location.assign("<?php echo base_url();?>view/activities")
                 } else if (status == 'INCORRECT_PASSWORD') {
                     document.getElementById('login_message').innerHTML = 'Érvénytelen jelszó!';
                 } else if (status == 'PASSWORD_MISSING') {

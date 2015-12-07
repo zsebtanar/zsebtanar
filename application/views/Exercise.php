@@ -74,8 +74,10 @@
 
 
 				}
-
-				echo json_encode($correct);
+				
+				if ($this->session->userdata('Logged_in')) {
+					echo json_encode($correct);
+				}
 
 				?>	
 				<input type="hidden" name="type" value="<?php echo $type;?>">

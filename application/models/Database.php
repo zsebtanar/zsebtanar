@@ -352,13 +352,32 @@ class Database extends CI_model {
 	public function GetSessionLength($id) {
 
 		$query = $this->db->query(
-					'SELECT TIMESTAMPDIFF(SECOND, MIN(`time`), MAX(`time`)) as `time_total` FROM `actions`
+					'SELECT MIN(`time`) as `time_min` FROM `quests`
+						WHERE `id` IN(
+							SELECT `id` FROM `quests`
+							WHERE `sessionID` = '.$id.' 
+						)');
+
+		if ($query->num_rows() == 0) {
+			return 0;
+		} else {
+			$time_min = strtotime($query->result()[0]->time_min);
+		}
+
+		$query = $this->db->query(
+					'SELECT MAX(`time`) as `time_max` FROM `actions`
 						WHERE `questID` IN(
 							SELECT `id` FROM `quests`
 							WHERE `sessionID` = '.$id.' 
 						)');
 
-		$length = $query->result()[0]->time_total;
+		if ($query->num_rows() == 0) {
+			return 0;
+		} else {
+			$time_max = strtotime($query->result()[0]->time_max);
+		}
+
+		$length = $time_max - $time_min;
 
 		return $length;
 	}
@@ -404,8 +423,11 @@ class Database extends CI_model {
 
 		$id_prev 	= $id-1;
 		$query 		= $this->db->query('SELECT `time` FROM `actions` WHERE `id` = '.$id_prev);
+
 		if ($query->num_rows() == 0) {
-			$query 	= $this->db->query('SELECT `time` FROM `quests` WHERE `id` = '.$id);
+			$query 		= $this->db->query('SELECT `questID` FROM `actions` WHERE `id` = '.$id);
+			$questID 	= $query->result()[0]->questID;
+			$query 		= $this->db->query('SELECT `time` FROM `quests` WHERE `id` = '.$questID);
 		}
 
 		$time_start = strtotime($query->result()[0]->time);
