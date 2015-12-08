@@ -72,34 +72,26 @@ class Exercises extends CI_model {
 
 		foreach ($json as $item) {
 			switch ($item['name']) {
-				case 'type':
-					$type = $item['value'];
-					break;
 				case 'answer':
 					$answer[] = $item['value'];
 					break;
-				case 'correct':
-					$correct = json_decode($item['value'], TRUE);
-					break;
-				case 'solution':
-					$solution = $item['value'];
-					break;
-				case 'id':
-					$id = $item['value'];
-					break;
-				case 'level':
-					$level = $item['value'];
+				case 'hash':
+					$hash = $item['value'];
 					break;
 			}
 		}
 
+		$this->load->model('Session');
+
+		$data = $this->Session->GetExerciseData($hash);
+
 		$output = array(
 			'answer'	=> $answer,
-			'type'		=> $type,
-			'correct'	=> $correct,
-			'solution'	=> $solution,
-			'id'		=> $id,
-			'level'		=> $level
+			'type'		=> $data['type'],
+			'correct'	=> $data['correct'],
+			'solution'	=> $data['solution'],
+			'id'		=> $data['id'],
+			'level'		=> $data['level']
 		);
 
 		return $output;
@@ -195,19 +187,53 @@ class Exercises extends CI_model {
 	 */
 	public function getExerciseData($id, $level) {
 
+		// $this->session->unset_userdata('exercise');
+
+		$this->load->helper('string');
+		$this->load->model('Maths');
+
 		$query 		= $this->db->get_where('exercises', array('id' => $id));
 		$exercise 	= $query->result()[0]; 
 		$label 		= $exercise->label;
 
-		$this->load->model('Maths');
+		$data		= $this->Maths->$label($level);
+		$hash		= random_string('alnum', 16);
 
-		$data 				= $this->Maths->$label($level);
+		$this->SaveToSession($id, $level, $data, $hash);
+
 		$data['level'] 		= $level;
 		$data['youtube'] 	= $exercise->youtube;
 		$data['id'] 		= $id;
 		$data['id_prev']	= $this->IDPrevious($id);
+		$data['hash']		= $hash;
 
 		return $data;
+	}
+
+	/**
+	 * Save exercise data to session
+	 *
+	 * @param  int    $id    Exercise id
+	 * @param  int    $level Exercise level
+	 * @param  array  $data  Exercise data
+	 * @param  string $hash  Random string
+	 * @return void
+	 */
+	public function SaveToSession($id, $level, $data, $hash) {
+
+		$sessiondata 		= $this->session->userdata('exercise');
+		
+		$answer['id']		= $id;
+		$answer['level'] 	= $level;
+		$answer['correct'] 	= $data['correct'];
+		$answer['type'] 	= $data['type'];
+		$answer['solution']	= $data['solution'];
+
+		$sessiondata[$hash] = $answer;
+
+		$this->session->set_userdata('exercise', $sessiondata);
+
+		return;
 	}
 
 	/**

@@ -247,6 +247,8 @@ class Session extends CI_model {
 		print_r($this->session->userdata('todo_list'));
 		print_r('<br />Results: ');
 		print_r($this->session->userdata('results'));
+		print_r('<br />Exercise data: ');
+		print_r($this->session->userdata('exercise'));
 
 		return;
 	}
@@ -376,6 +378,29 @@ class Session extends CI_model {
 		$this->session->unset_userdata('goal');
 
 		return;
+	}
+
+	/**
+	 * Get exercise data from session
+	 *
+	 * @param  string $hash Random string
+	 * @return array  $data Exercise data
+	 */
+	public function GetExerciseData($hash) {
+
+		$sessiondata = $this->session->userdata('exercise');
+
+		$data['correct'] 	= $sessiondata[$hash]['correct'] ; 
+		$data['solution']  	= $sessiondata[$hash]['solution'];  
+		$data['level'] 		= $sessiondata[$hash]['level']; 
+		$data['type'] 		= $sessiondata[$hash]['type']; 
+		$data['id'] 		= $sessiondata[$hash]['id'];
+
+		unset($sessiondata[$hash]);
+
+		$this->session->set_userdata('exercise', $sessiondata);
+
+		return $data;
 	}
 }
 

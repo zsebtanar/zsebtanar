@@ -41,15 +41,11 @@
 				if ($this->session->userdata('Logged_in')) {
 
 					echo json_encode($correct);
-					
+
 				}
 
 				?>	
-				<input type="hidden" name="type" value="<?php echo $type;?>">
-				<input type="hidden" name="correct" value="<?php echo json_encode($correct);?>">
-				<input type="hidden" name="solution" value="<?php echo $solution;?>">
-				<input type="hidden" name="id" value="<?php echo $id;?>">
-				<input type="hidden" name="level" value="<?php echo $level;?>">
+				<input type="hidden" name="hash" value="<?php echo $hash;?>">
 				
 				<br />
 				<p id="message"></p>
@@ -102,7 +98,7 @@
 				// Disable buttons
 				var radios = document.forms["exercise"]["answer"];
 
-				if (Array.isArray(radios)) {
+				if (radios.length > 0) {
 					for (var i=0, iLen=radios.length; i<iLen; i++) {
 						radios[i].disabled = true;
 					}
