@@ -26,57 +26,22 @@
 
 				if ($type == 'quiz') {
 
-						if (count($options) > 3) {?>
+					$this->load->view('Input/Quiz', array('options' => $options));
 
-							<select name="answer" class="form-control"><?php
+				} elseif ($type == 'int') {
 
-							foreach ($options as $key => $value) {?>
-								
-								<option value="<?php echo $key; ?>"><?php echo $value; ?></option><?php
-
-							}?>
-
-							</select><?php
-
-						} else {
-
-							foreach ($options as $key => $value) {?>
-								
-								<div class="radio">
-									<label>
-										<input type="radio" name="answer" value="<?php echo $key; ?>"><?php echo $value; ?>
-									</label>
-								</div><?php
-
-							}
-						}
-
-				} elseif ($type == 'int') {?>
-
-						<table align="center" class="answer_fraction">
-							<tbody>
-								<tr>
-									<td align="center">
-										<input type="text" align="center" class="form-control smallInput" data-autosize-input='{ "space": 20 }' name="answer">
-									</td>
-								</tr>
-							</tbody>
-						</table><?php
+					$this->load->view('Input/Int');
 
 				} elseif ($type == 'multi') {
 
-					foreach ($options as $key => $value) {?>
-						
-						<input id="input<?php echo $key;?>" type="checkbox" name="answer" value="<?php echo $key; ?>">&nbsp;<?php echo $value; ?><br />
-						<?php
-					}
-
-
+					$this->load->view('Input/Multi', array('options' => $options));
 
 				}
 				
 				if ($this->session->userdata('Logged_in')) {
+
 					echo json_encode($correct);
+					
 				}
 
 				?>	
