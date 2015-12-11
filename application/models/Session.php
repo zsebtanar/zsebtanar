@@ -52,6 +52,31 @@ class Session extends CI_model {
 	}
 
 	/**
+	 * Unset user data
+	 *
+	 * Unsets used defined session variables.
+	 *
+	 * @return void
+	 */
+	public function UnsetUserData() {
+
+		$user_data = $this->session->all_userdata();
+
+		foreach ($user_data as $key => $value) {
+			if ($key != 'session_id' &&
+				$key != 'ip_address' &&
+				$key != 'user_agent' &&
+				$key != 'last_activity' &&
+				$key != 'Logged_in') {
+				
+				$this->session->unset_userdata($key);
+			}
+		}
+
+		return;
+	}
+
+	/**
 	 * Record action
 	 *
 	 * Data is recorded when user attempts to solve an exercise.
@@ -76,7 +101,7 @@ class Session extends CI_model {
 		$data['name'] 		= $name;
 
 		$todo_length		= count($this->session->userdata('todo_list'));
-		$data['todo'] 		= min(0, $todo_length-1);
+		$data['todo'] 		= $todo_length;
 
 		if (!$this->db->insert('actions', $data)) {
 			show_error($this->db->_error_message());
@@ -205,7 +230,7 @@ class Session extends CI_model {
 	/**
 	 * Save exercise ID
 	 *
-	 * Saves exercise ID to list. 
+	 * Saves exercise ID to to do list. 
 	 * Next exercise will be chosen according to the to the saved list.
 	 *
 	 * @param  int $id Exercise ID
@@ -388,17 +413,17 @@ class Session extends CI_model {
 	 */
 	public function GetExerciseData($hash) {
 
-		$sessiondata = $this->session->userdata('exercise');
+		$exercise = $this->session->userdata('exercise');
 
-		$data['correct'] 	= $sessiondata[$hash]['correct'] ; 
-		$data['solution']  	= $sessiondata[$hash]['solution'];  
-		$data['level'] 		= $sessiondata[$hash]['level']; 
-		$data['type'] 		= $sessiondata[$hash]['type']; 
-		$data['id'] 		= $sessiondata[$hash]['id'];
+		$data['correct'] 	= $exercise[$hash]['correct'] ; 
+		$data['solution']  	= $exercise[$hash]['solution'];  
+		$data['level'] 		= $exercise[$hash]['level']; 
+		$data['type'] 		= $exercise[$hash]['type']; 
+		$data['id'] 		= $exercise[$hash]['id'];
 
-		unset($sessiondata[$hash]);
+		unset($exercise[$hash]);
 
-		$this->session->set_userdata('exercise', $sessiondata);
+		$this->session->set_userdata('exercise', $exercise);
 
 		return $data;
 	}

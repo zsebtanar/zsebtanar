@@ -13,6 +13,8 @@ class Exercises extends CI_model {
 
 		$answerdata = json_decode($jsondata, TRUE);
 
+		print_r($_SESSION);
+
 		$data = $this->ConvertAnswerToArray($answerdata);
 
 		$data['submessages'] = [];
