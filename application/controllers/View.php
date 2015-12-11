@@ -42,9 +42,20 @@ class View extends CI_controller {
 		}
 	}
 
-	public function Exercise($id=1, $level=NULL) {
+	/**
+	 * View exercise
+	 *
+	 * Display exercise page.
+	 *
+	 * @param int    $id    Exercise id
+	 * @param string $hash  Random string
+	 * @param int    $level Exercise level
+	 *
+	 * @return void
+	 */
+	public function Exercise($id=1, $hash, $level=NULL) {
 
-		$this->Session->UpdateTodoList($id);
+		$this->Session->UpdateTodoList($id, $hash);
 		$data = $this->Html->ExerciseData($id, $level);
 
 		$this->load->view('Template', $data);

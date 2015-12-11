@@ -48,6 +48,12 @@ class Session extends CI_model {
 
 		}
 
+		if (NULL === $this->session->userdata('Quests')) {
+			
+			$this->session->set_userdata('Quests', []);
+
+		}
+
 		return;
 	}
 
@@ -260,14 +266,15 @@ class Session extends CI_model {
 	 * 2. Adds exercise if not in to do list yet.
 	 * 3. Removes exercise if user has completed it in all level.
 	 *
-	 * @param int $id Exercise ID
+	 * @param int    $id   Exercise ID
+	 * @param string $hash Random string
 	 *
 	 * @return void
 	 */
-	public function UpdateTodoList($id) {
+	public function UpdateTodoList($id, $hash) {
 
 		$level_max  = $this->Exercises->getMaxLevel($id);
-		$level_user = $this->Exercises->getUserLevel($id);
+		$level_user = $this->Exercises->getUserLevel($id, $hash);
 
 		$todo_list = $this->session->userdata('todo_list');
 		$results = $this->session->userdata('results');
@@ -298,17 +305,22 @@ class Session extends CI_model {
 	}
 
 	/**
-	 * Start quest
+	 * Record quest into database
 	 *
-	 * Data is recorded when user starts quest (i.e. sets learning goal).
+	 * Data is recorded into database when user starts quest.
 	 *
+	 * @param  string $hash Random string
 	 * @return void
 	 */
-	public function StartQuest() {
+	public function RecordQuestStart($hash) {
 
-		$method = $this->session->userdata('method');
-		$id 	= $this->session->userdata('goal');
+		// Get current method and goal
+		$quests = $this->session->userdata('Quests');
 
+		$method = $quests[$hash]['method'];
+		$id 	= $quests[$hash]['goal'];
+
+		// Insert action into database
 		if ($method == 'exercise') {
 
 			$query = $this->db->get_where('exercises', array('id' => $id));
@@ -331,8 +343,10 @@ class Session extends CI_model {
 			show_error($this->db->_error_message());
 		}
 
+		// Save quest ID into session
 		$questID = $this->db->insert_id();
-		$this->session->set_userdata('questID', $questID);
+		$quests[$hash]['questID'] = $questID;
+		$this->session->set_userdata('Quests', $quests);
 
 		return;
 	}

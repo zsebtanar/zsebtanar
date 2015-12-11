@@ -327,12 +327,17 @@ class Exercises extends CI_model {
 	/**
 	 * Get user level for exercise
 	 *
-	 * @param  int $id         Exercise ID
+	 * @param  int    $id   Exercise ID
+	 * @param  string $hash Random string
+	 *
 	 * @return int $level_user User level
 	 */
-	public function getUserLevel($id) {
+	public function getUserLevel($id, $hash) {
 
-		$results = $this->session->userdata('results');
+		$quests = $this->session->userdata('Quests');
+
+		$results = $quests[$hash]['results'];
+		
 		$level_user = (isset($results[$id]) ? $results[$id] : 0);
 
  		return $level_user;

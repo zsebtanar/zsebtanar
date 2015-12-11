@@ -87,8 +87,9 @@ class Application extends CI_controller {
 	/**
 	 * Set goal
 	 *
-	 * User can define whether he wants to practice an exercise or a whole subject.
-	 * Goal is recorded in session. Next exercise is based on this.
+	 * User can choose to practice an exercise or a whole subject.
+	 * Goal is recorded in session. Next exercise is chosen based on goal. Parallel
+	 * quests are distinguised by a random string ($hash).
 	 *
 	 * @param string $method Learning method (exercise/subtopic)
 	 * @param int    $id     Exercise/Subtopic id
@@ -99,20 +100,36 @@ class Application extends CI_controller {
 
 		$this->load->model('Exercises');
 		$this->load->model('Session');
+		$this->load->helper('string');
 
-		$this->session->set_userdata('method', $method);
-		$this->session->set_userdata('goal', $id);
-		$this->session->set_userdata('todo_list', []);
 
+		// Save method and goal to session
+		$hash = random_string('alnum', 16);
+
+		$quests = $this->session->userdata('Quests');
+
+		$quest['method'] 	= $method;
+		$quest['goal'] 		= $id;
+		$quest['todo_list'] = [];
+		$quest['results'] 	= [];
+
+		$quests[$hash] = $quest;
+
+		$this->session->set_userdata('Quests', $quests);
+
+
+		// Record action in database
+		$this->Session->RecordQuestStart($hash);
+
+
+		// Redirect page
 		if ($method == 'exercise') {
 			$id_next = $id;
 		} elseif ($method == 'subtopic') {
 			$id_next = $this->Exercises->IDNextSubtopic();
 		}
 
-		$this->Session->StartQuest();
-
-		header('Location:'.base_url().'view/exercise/'.$id_next);
+		header('Location:'.base_url().'view/exercise/'.$id_next.'/'.$hash);
 	}
 
 	/**

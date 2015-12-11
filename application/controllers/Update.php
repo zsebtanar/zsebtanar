@@ -11,15 +11,21 @@ class Update extends CI_controller {
 	public function Database() {
 
 		$this->session->set_userdata('Write_statistics', TRUE);
-		
+
 		$this->load->model('Database');
-		$data = $this->Database->ReadFile('resources/data.json');
 
-		$this->Database->DropTables();
-		$this->Database->CreateTables();
+		if ($this->session->userdata('Logged_in')) {
+			
+			$data = $this->Database->ReadFile('resources/data.json');
 
-		$this->Database->InsertData($data);
-		$this->Database->UnsetUserData();
+			$this->Database->DropTables();
+			$this->Database->CreateTables();
+
+			$this->Database->InsertData($data);
+			$this->Database->UnsetUserData();
+
+		}
+
 		$this->Database->Redirect();
 	}
 }
