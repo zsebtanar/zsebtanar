@@ -68,7 +68,8 @@ class Session extends CI_model {
 				$key != 'user_agent' &&
 				$key != 'last_activity' &&
 				$key != 'Logged_in') {
-				
+
+								
 				$this->session->unset_userdata($key);
 			}
 		}
