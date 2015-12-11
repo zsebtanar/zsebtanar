@@ -42,22 +42,24 @@ class Html extends CI_model {
 	 *
 	 * Collects all necessary parameters for template
 	 *
-	 * @param  int 	  $id   	Exercise ID
-	 * @param  int 	  $level 	Exercise level
+	 * @param int    $id   	Exercise ID
+	 * @param string $hash  Random string
+	 * @param int 	 $level Exercise level (can ben NULL)
+	 *
 	 * @return array  $data 	Exercise data
 	 */
-	public function ExerciseData($id, $level) {
+	public function ExerciseData($id, $hash, $level) {
 
-		$data['menu'] = $this->Html->NavBarMenu($id);
+		$data['menu'] = $this->Html->NavBarMenu();
 		$data['title'] = $this->Html->TitleExercise($id);
 		$data['type'] = 'exercise';
 
 		if (!$level) {
 			$this->load->model('Session');
-			$level = $this->Session->getExerciseLevelNext($id);
+			$level = $this->Session->getExerciseLevelNext($id, $hash);
 		}
 
-		$data['exercise'] = $this->Exercises->getExerciseData($id, $level);
+		$data['exercise'] = $this->Exercises->getExerciseData($id, $level, $hash);
 
 		return $data;
 	}
@@ -65,10 +67,9 @@ class Html extends CI_model {
 	/**
 	 * Print navbar menu
 	 *
-	 * @param  int 	  $id   Exercise ID
 	 * @return array  $menu Navbar menu
 	 */
-	public function NavBarMenu($id) {
+	public function NavBarMenu() {
 
 		$classes = $this->db->get('classes');
 
@@ -98,29 +99,6 @@ class Html extends CI_model {
 		$data['html'] = $menu;
 
 		return $data;
-	}
-
-	/**
-	 * Print page title
-	 *
-	 * @param  int    $id   Subtopic/Excercise ID
-	 * @param  string $type Page type (subtopic/exercise)
-	 * @return string $title Page title
-	 */
-	public function Title($id, $type) {
-
-		if ($id) {
-			if ($type=='subtopic') {
-				$title = $this->TitleSubtopic($id);
-			} else {
-				$title = $this->TitleExercise($id);
-			}
-			$title['type'] = $type;
-		} else {
-			$title['type'] = 'main';
-		}
-
-		return $title;
 	}
 
 	/**

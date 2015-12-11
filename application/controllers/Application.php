@@ -89,7 +89,7 @@ class Application extends CI_controller {
 	 *
 	 * User can choose to practice an exercise or a whole subject.
 	 * Goal is recorded in session. Next exercise is chosen based on goal. Parallel
-	 * quests are distinguised by a random string ($hash).
+	 * quests are distinguished by a random string ($hash).
 	 *
 	 * @param string $method Learning method (exercise/subtopic)
 	 * @param int    $id     Exercise/Subtopic id
@@ -112,6 +112,7 @@ class Application extends CI_controller {
 		$quest['goal'] 		= $id;
 		$quest['todo_list'] = [];
 		$quest['results'] 	= [];
+		$quest['exercise'] 	= [];
 
 		$quests[$hash] = $quest;
 

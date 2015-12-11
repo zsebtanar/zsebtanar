@@ -34,12 +34,12 @@ class Exercises extends CI_model {
 
 		$this->load->model('Session');
 
-		$this->Session->RecordAction($data['id'], $data['level'], $data['status']);
-		$this->Session->UpdateResults($data['id'], $data['level'], $data['status']);
-		$this->Session->UpdateTodoList($data['id']);
+		$this->Session->RecordAction($data['id'], $data['hash'], $data['level'], $data['status']);
+		$this->Session->UpdateResults($data['id'], $data['hash'], $data['level'], $data['status']);
+		$this->Session->UpdateTodoList($data['id'], $data['hash']);
 
-		$levels = $this->Session->getUserLevels($data['id']);
-		$id_next = $this->getNextExercise($data['id']);
+		$levels = $this->Session->getUserLevels($data['id'], $data['hash']);
+		$id_next = $this->getNextExercise($data['id'], $data['hash']);
 		$subtopicID = $this->getSubtopicID($data['id']);
 		$goal = $this->session->userdata('goal');
 
@@ -87,6 +87,7 @@ class Exercises extends CI_model {
 
 		$output = array(
 			'answer'	=> $answer,
+			'hash'		=> $hash,
 			'type'		=> $data['type'],
 			'correct'	=> $data['correct'],
 			'solution'	=> $data['solution'],
@@ -181,11 +182,13 @@ class Exercises extends CI_model {
 	/**
 	 * Get exercise data
 	 *
-	 * @param  int   $id    Exercise ID
-	 * @param  int   $level Exercise level
+	 * @param int    $id    Exercise ID
+	 * @param int    $level Exercise level
+	 * @param string $hash  Random string
+	 *
 	 * @return array $data  Exercise data
 	 */
-	public function getExerciseData($id, $level) {
+	public function getExerciseData($id, $level, $hash) {
 
 		// $this->session->unset_userdata('exercise');
 
@@ -196,8 +199,8 @@ class Exercises extends CI_model {
 		$exercise 	= $query->result()[0]; 
 		$label 		= $exercise->label;
 
+		// Load function
 		$data		= $this->Maths->$label($level);
-		$hash		= random_string('alnum', 16);
 
 		$this->SaveToSession($id, $level, $data, $hash);
 
@@ -211,27 +214,29 @@ class Exercises extends CI_model {
 	}
 
 	/**
-	 * Save exercise data to session
+	 * Save data of current exercise to session
 	 *
 	 * @param  int    $id    Exercise id
 	 * @param  int    $level Exercise level
 	 * @param  array  $data  Exercise data
 	 * @param  string $hash  Random string
+	 *
 	 * @return void
 	 */
 	public function SaveToSession($id, $level, $data, $hash) {
 
-		$sessiondata 		= $this->session->userdata('exercise');
-		
-		$answer['id']		= $id;
-		$answer['level'] 	= $level;
-		$answer['correct'] 	= $data['correct'];
-		$answer['type'] 	= $data['type'];
-		$answer['solution']	= $data['solution'];
+		$quests = $this->session->userdata('Quests');
+		$exercise = $quests[$hash]['exercise'];
 
-		$sessiondata[$hash] = $answer;
+		$exercise['id']			= $id;
+		$exercise['level'] 		= $level;
+		$exercise['correct'] 	= $data['correct'];
+		$exercise['type'] 		= $data['type'];
+		$exercise['solution']	= $data['solution'];
 
-		$this->session->set_userdata('exercise', $sessiondata);
+		$quests[$hash]['exercise'] = $exercise;
+
+		$this->session->set_userdata('Quests', $quests);
 
 		return;
 	}
@@ -276,11 +281,12 @@ class Exercises extends CI_model {
 	/**
 	 * Get next exercise
 	 *
-	 * @param  int   $id    Exercise ID
-	 * @param  int   $level Exercise level
-	 * @return array $data  Next exercise
+	 * @param int    $id   Exercise ID
+	 * @param string $hash Random string
+	 *
+	 * @return array $data Next exercise
 	 */
-	public function getNextExercise($id) {
+	public function getNextExercise($id, $hash) {
 
 		$method = $this->session->userdata('method');
 

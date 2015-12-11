@@ -62,27 +62,31 @@ class Session extends CI_model {
 	 *
 	 * Data is recorded when user attempts to solve an exercise.
 	 *
-	 * @param  int 	  $id     Subtopic/Exercise ID
-	 * @param  int    $level  Exercise level
-	 * @param  string $result Result (correct/wrong/not_done)
+	 * @param int 	 $id     Subtopic/Exercise ID
+	 * @param string $hash   Random string
+	 * @param int    $level  Exercise level
+	 * @param string $result Result (correct/wrong/not_done)
 	 *
 	 * @return void
 	 */
-	public function recordAction($id, $level=NULL, $result=NULL) {
+	public function recordAction($id, $hash, $level=NULL, $result=NULL) {
 
 		$query 		= $this->db->get_where('exercises', array('id' => $id));
 		$exercise 	= $query->result()[0];
 		$name 		= $exercise->name;
 		$level_max	= $exercise->level;
 
-		$data['questID'] 	= $this->session->userdata('questID');
+		$quests = $this->session->userdata('Quests');
+		$questID = $quests[$hash]['questID'];
+
+		$data['questID'] 	= $questID;
 		$data['level']		= $level;
 		$data['level_max']	= $level_max;
 		$data['result']		= $result;
 		$data['name'] 		= $name;
 
-		$todo_length		= count($this->session->userdata('todo_list'));
-		$data['todo'] 		= min(0, $todo_length-1);
+		$todo_length		= count($quests[$hash]['todo_list')]);
+		$data['todo'] 		= $todo_length;
 
 		if (!$this->db->insert('actions', $data)) {
 			show_error($this->db->_error_message());
@@ -95,19 +99,22 @@ class Session extends CI_model {
 	 * Update results
 	 *
 	 * Increases user level in case of correct answer.
-	 * Decreases user level in case of wrong answer (if possible).
+	 * Decreases user level at maximum level if answer was wrong (to ensure 
+	 * user gets same exercise at top level next time).
 	 *
-	 * @param  int 	  $id        Subtopic/Exercise ID
-	 * @param  int    $level     Current exercise level
-	 * @param  string $result    Result of action (correct/wrong/not_done)
+	 * @param int 	 $id     Subtopic/Exercise ID
+	 * @param string $hash   Random string
+	 * @param int    $level  Current exercise level
+	 * @param string $result Result of action (correct/wrong/not_done)
 	 *
 	 * @return void
 	 */
-	public function UpdateResults($id, $level=NULL, $result=NULL) {
+	public function UpdateResults($id, $hash, $level=NULL, $result=NULL) {
 
-		$query 		= $this->db->get_where('exercises', array('id' => $id));
-		$level_max 	= $query->result()[0]->level;
-		$results 	= $this->session->userdata('results');
+		$level_max 	= $this->Exercises->getMaxLevel($id);
+
+		$quests = $this->session->userdata('Quests');
+		$results = $quests[$hash]['results'];
 
 		if ($result == 'CORRECT') {
 
@@ -122,6 +129,9 @@ class Session extends CI_model {
 			$this->session->set_userdata('results', $results);
 		}
 
+		$quests[$hash]['results'] = $results;
+		$this->session->set_userdata('Quests', $quests);
+
 		return;
 	}
 
@@ -132,16 +142,18 @@ class Session extends CI_model {
 	 * at the specific level correctly, O means the opposite. Data is used to update 
 	 * star icons with javascript.
 	 *
-	 * @param  int 	 $id     Exercise ID
+	 * @param int 	 $id     Exercise ID
+	 * @param string $hash   Random string
+	 *
 	 * @return array $levels Exercise levels (0 or 1)
 	 */
-	public function getUserLevels($id) {
+	public function getUserLevels($id, $hash) {
 
-		$query = $this->db->get_where('exercises', array('id' => $id));
-		$exercise = $query->result()[0];
-		$max_level = $exercise->level;
+		$max_level = $this->Exercises->getMaxLevel($id);
 
-		$results = $this->session->userdata('results');
+		$quests = $this->session->userdata('Quests');
+		$results = $quests[$hash]['results'];
+
 		if (isset($results[$id])) {
 			$user_level = $results[$id];
 		} else {
@@ -186,22 +198,27 @@ class Session extends CI_model {
 	/**
 	 * Get next level of exercise
 	 *
-	 * @param  int $id    Exercise ID
+	 * @param int    $id   Exercise ID
+	 * @param string $hash Random string
+	 *
 	 * @return int $level Exercise level 
 	 */
-	public function getExerciseLevelNext($id) {
+	public function getExerciseLevelNext($id, $hash) {
 
-		$query = $this->db->get_where('exercises', array('id' => $id));
-		$exercise = $query->result()[0];
-		$level_max = $exercise->level;
+		$level_max = $this->Exercises->getMaxLevel($id);
 
-		if (isset($this->session->userdata('results')[$id])) {
+		$quests = $this->session->userdata('Quests');
+		$results = $quests[$hash]['results'];
 
-			$level_user = $this->session->userdata('results')[$id];
+		if (isset($results[$id])) {
+
+			// User has already solved exercise
+			$level_user = $results[$id];
 			$level = min($level_max, $level_user+1);
 
 		} else {
 
+			// New exercise
 			$level = 1;
 		}
 
@@ -247,14 +264,23 @@ class Session extends CI_model {
 	public function PrintInfo() {
 
 		print_r('Session ID: '.$this->session->userdata('sessionID').'<br />');
-		print_r('Quest ID: '.$this->session->userdata('questID').'<br />');
-		print_r('Method: '.$this->session->userdata('method').' - ');
-		print_r($this->session->userdata('goal').'<br />'.'To do list: ');
-		print_r($this->session->userdata('todo_list'));
-		print_r('<br />Results: ');
-		print_r($this->session->userdata('results'));
-		print_r('<br />Exercise data: ');
-		print_r($this->session->userdata('exercise'));
+
+		$quests = $this->session->userdata('Quests');
+
+		foreach ($quests as $hash => $quest) {
+
+			if ($hash) {
+				print_r('<hr />Hash: '.$hash.'<br />');
+				print_r('Quest ID: '.$quest['questID'].'<br />');
+				print_r('Method: '.$quest['method'].' - ');
+				print_r($quest['goal'].'<br />'.'To do list: ');
+				print_r($quest['todo_list']);
+				print_r('<br />Results: ');
+				print_r($quest['results']);
+				print_r('<br />Exercise data: ');
+				print_r($quest['exercise']);
+			}
+		}
 
 		return;
 	}
@@ -262,7 +288,7 @@ class Session extends CI_model {
 	/**
 	 * Update to do list
 	 *
-	 * 1. Removes all exercises after current one (if any).
+	 * 1. Removes all exercises from to do list after current one (if any).
 	 * 2. Adds exercise if not in to do list yet.
 	 * 3. Removes exercise if user has completed it in all level.
 	 *
@@ -276,17 +302,22 @@ class Session extends CI_model {
 		$level_max  = $this->Exercises->getMaxLevel($id);
 		$level_user = $this->Exercises->getUserLevel($id, $hash);
 
-		$todo_list = $this->session->userdata('todo_list');
-		$results = $this->session->userdata('results');
+		$quests = $this->session->userdata('Quests');
+		$todo_list = $quests[$hash]['todo_list'];
 
+		// Does exercise occur in todo list?
 		if (in_array($id, $todo_list)) {
 
 			$index = array_search($id, $todo_list);
 
+			// Has user solved exercise at max level?
 			if ($level_user == $level_max) {
+
 				// Removes current & following exercises
 				$todo_list = array_slice($todo_list, 0, $index);
+
 			} else {
+
 				// Removes following exercises
 				$todo_list = array_slice($todo_list, 0, $index+1);
 			}
@@ -294,12 +325,15 @@ class Session extends CI_model {
 		} else {
 
 			if ($level_user < $level_max) {
+
 				// Appends exercise to end of to do list
 				$todo_list[] = $id;
 			}
 		}
 
-		$todo_list = $this->session->set_userdata('todo_list', $todo_list);
+		// Save updated to do list
+		$quests[$hash]['todo_list'] = $todo_list;
+		$this->session->set_userdata('Quests', $quests);
 		
 		return;
 	}
@@ -402,17 +436,19 @@ class Session extends CI_model {
 	 */
 	public function GetExerciseData($hash) {
 
-		$sessiondata = $this->session->userdata('exercise');
+		$quests = $this->session->userdata('Quests');
+		$exercise = $quests[$hash]['exercise'];
 
-		$data['correct'] 	= $sessiondata[$hash]['correct'] ; 
-		$data['solution']  	= $sessiondata[$hash]['solution'];  
-		$data['level'] 		= $sessiondata[$hash]['level']; 
-		$data['type'] 		= $sessiondata[$hash]['type']; 
-		$data['id'] 		= $sessiondata[$hash]['id'];
+		$data['correct'] 	= $exercise['correct'] ; 
+		$data['solution']  	= $exercise['solution'];  
+		$data['level'] 		= $exercise['level']; 
+		$data['type'] 		= $exercise['type']; 
+		$data['id'] 		= $exercise['id'];
 
-		unset($sessiondata[$hash]);
+		// Delete data from session
+		$quests[$hash]['exercise'] = [];
 
-		$this->session->set_userdata('exercise', $sessiondata);
+		$this->session->set_userdata('Quests', $quests);
 
 		return $data;
 	}
