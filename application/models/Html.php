@@ -28,7 +28,7 @@ class Html extends CI_model {
 		if ($id) {
 			$data['type'] = 'subtopic';
 			$data['title'] = $this->Html->TitleSubtopic($id);
-			$data['exercises'] = $this->Exercises->getExerciseList($id);
+			$data['exercises'] = $this->Exercises->getSubtopicExercises($id);
 		} else {
 			$data['type'] = 'main';
 			$data['title'] = NULL;
@@ -51,6 +51,7 @@ class Html extends CI_model {
 		$data['menu'] = $this->Html->NavBarMenu($id);
 		$data['title'] = $this->Html->TitleExercise($id);
 		$data['type'] = 'exercise';
+		$data['links'] = $this->Exercises->getExerciseLinks($id);
 
 		if (!$level) {
 			$this->load->model('Session');

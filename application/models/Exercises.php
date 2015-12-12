@@ -4,6 +4,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Exercises extends CI_model {
 
 	/**
+	 * Class constructor
+	 *
+	 * @return	void
+	 */
+	public function __construct() {
+
+		parent::__construct();
+
+		$this->load->helper('url');
+		defined('RESOURCES_URL') OR define('RESOURCES_URL', base_url('resources/exercises'));
+
+		return;
+	}
+
+	/**
 	 * Check answer
 	 *
 	 * @param  array $jsondata Answer data
@@ -197,13 +212,18 @@ class Exercises extends CI_model {
 		// $this->session->unset_userdata('exercise');
 
 		$this->load->helper('string');
+		$this->load->helper('Maths');
+
 		$this->load->model('Maths');
 
 		$query 		= $this->db->get_where('exercises', array('id' => $id));
 		$exercise 	= $query->result()[0]; 
-		$label 		= $exercise->label;
+		$function 	= $exercise->label;
 
-		$data		= $this->Maths->$label($level);
+		$this->load->helper('Exercises/'.$function);
+
+		$data		= $function($level);
+
 		$hash		= random_string('alnum', 16);
 
 		$this->SaveToSession($id, $level, $data, $hash);
@@ -247,9 +267,10 @@ class Exercises extends CI_model {
 	 * Get exercises of subtopic
 	 *
 	 * @param  int   $id   Subtopic ID
+	 *
 	 * @return array $data Exercises
 	 */
-	public function getExerciseList($id) {
+	public function getSubtopicExercises($id) {
 
 		$query = $this->db->get_where('exercises', array('subtopicID' => $id));
 
@@ -281,6 +302,42 @@ class Exercises extends CI_model {
 	}
 
 	/**
+	 * Get links for exercise
+	 *
+	 * Collects all links for exercise, and recursively does the same for all linked 
+	 * exercises. Produces a multidimensional array.
+	 *
+	 * @param  int   $id   Subtopic ID
+	 *
+	 * @return array $links Links
+	 */
+	public function getExerciseLinks($id) {
+
+		$name 			= $this->getExerciseName($id);
+		$exerciselinks 	= [];
+
+		$query 	= $this->db->get_where('links', array('exerciseID' => $id));
+		$links 	= $query->result();
+
+		if (count($links) > 0) {
+
+			foreach ($links as $link) {
+
+				$query = $this->db->get_where('exercises', array('label' => $link->label));
+				$id2 = $query->result()[0]->id;
+
+				$exerciselinks[] = $this->getExerciseLinks($id2);
+			}
+		}
+
+		return array(
+			'id' 	=> $id,
+			'name' 	=> $name,
+			'links'	=> (isset($exerciselinks) ? $exerciselinks : [])
+		);
+	}
+
+	/**
 	 * Get next exercise
 	 *
 	 * @param  int   $id    Exercise ID
@@ -307,6 +364,7 @@ class Exercises extends CI_model {
 	 * Get maximum level for exercise
 	 *
 	 * @param  int $id        Exercise ID
+	 *
 	 * @return int $level_max Maximum level
 	 */
 	public function getMaxLevel($id) {
@@ -318,9 +376,25 @@ class Exercises extends CI_model {
 	}
 
 	/**
+	 * Get exercise name
+	 *
+	 * @param  int    $id   Exercise ID
+	 *
+	 * @return string $name Exercise name
+	 */
+	public function getExerciseName($id) {
+
+		$query 	= $this->db->get_where('exercises', array('id' => $id));
+		$name 	= $query->result()[0]->name;
+
+ 		return $name;
+	}
+
+	/**
 	 * Get subtopicID for exercise
 	 *
 	 * @param  int $id         Exercise ID
+	 *
 	 * @return int $subtopicID Subtopic ID
 	 */
 	public function getSubtopicID($id) {
@@ -335,6 +409,7 @@ class Exercises extends CI_model {
 	 * Get user level for exercise
 	 *
 	 * @param  int $id         Exercise ID
+	 *
 	 * @return int $level_user User level
 	 */
 	public function getUserLevel($id) {

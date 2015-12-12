@@ -69,7 +69,12 @@
 			
 				</form>
 			</div>
-		</div>
+		</div><?php
+
+		// print_r($links);
+
+		$this->load->view('ExerciseLinks', array('links' => $links));?>
+
 	</div>
 	<div class="col-md-3"></div>
 </div>

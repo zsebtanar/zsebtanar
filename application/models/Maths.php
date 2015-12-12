@@ -10,8 +10,8 @@ class Maths extends CI_model {
 	 */
 	public function __construct() {
 
-		$this->load->helper('url');
-		define('RESOURCES_URL', base_url('resources/exercises'));
+		// $this->load->helper('url');
+		// defined('RESOURCES_URL', base_url('resources/exercises'));
 	}
 
 	/**
