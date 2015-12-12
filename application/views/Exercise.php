@@ -71,9 +71,11 @@
 			</div>
 		</div><?php
 
-		// print_r($links);
+		if ($this->session->userdata('Logged_in')) {
 
-		$this->load->view('ExerciseLinks', array('links' => $links));?>
+			$this->load->view('ExerciseLinks', array('links' => $links));
+
+		}?>
 
 	</div>
 	<div class="col-md-3"></div>
