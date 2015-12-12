@@ -11,51 +11,49 @@ class Exercises extends CI_model {
 	 */
 	public function CheckAnswer($jsondata) {
 
+		$this->load->model('Session');
+		$this->load->model('Database');
+
 		$answerdata = json_decode($jsondata, TRUE);
+		list($answer, $hash) = $this->GetAnswerData($answerdata);
+		list($correct, $solution, $level, $type, $id) = $this->Session->GetExerciseData($hash);
 
-		print_r($_SESSION);
-
-		$data = $this->ConvertAnswerToArray($answerdata);
-
-		$data['submessages'] = [];
-
-		switch ($data['type']) {
+		switch ($type) {
 
 			case 'int':
-				$data = $this->GenerateMessagesInt($data);
+
+				list($status, $message) = $this->GenerateMessagesInt($answer, $correct, $solution);
+
 				break;
 
 			case 'quiz':
-				$data = $this->GenerateMessagesQuiz($data);
+				list($status, $message) = $this->GenerateMessagesQuiz($answer, $correct, $solution);
 				break;
 
 			case 'multi':
-				$data = $this->GenerateMessagesMulti($data);
+				list($status, $message, $submessages) = $this->GenerateMessagesMulti($answer, $correct, $solution);
 				break;
 		}
 
-		$this->load->model('Session');
+		$this->Database->RecordAction($id, $level, $status);
+		$this->Session->UpdateExerciseData($status, $hash);
+		$this->Session->UpdateResults($id, $level, $status);
+		$this->Session->UpdateTodoList($id);
 
-		$this->Session->RecordAction($data['id'], $data['level'], $data['status']);
-		$this->Session->UpdateResults($data['id'], $data['level'], $data['status']);
-		$this->Session->UpdateTodoList($data['id']);
-
-		$levels = $this->Session->getUserLevels($data['id']);
-		$id_next = $this->getNextExercise($data['id']);
-		$subtopicID = $this->getSubtopicID($data['id']);
-		$goal = $this->session->userdata('goal');
+		$levels = $this->Session->getUserLevels($id);
+		$id_next = $this->getNextExercise($id);
+		$subtopicID = $this->getSubtopicID($id);
 
 		if (!$id_next) {
 			$this->Session->CompleteQuest();
 		}
 
 		$output = array(
-			'status' 		=> $data['status'],
-			'message' 		=> $data['message'],
-			'submessages'	=> $data['submessages'],
+			'status' 		=> $status,
+			'message' 		=> $message,
+			'submessages'	=> (isset($submessages) ? $submessages : []),
 			'levels'		=> $levels,
 			'id_next'		=> $id_next,
-			'goal'			=> $goal,
 			'subtopicID'	=> $subtopicID
 		);
 
@@ -63,13 +61,16 @@ class Exercises extends CI_model {
 	}
 
 	/**
-	 * Convert answer to array
+	 * Get answer data
 	 *
-	 * @param  array $json   Answer data (JSON)
-	 * @return array $output Answer data (array)
+	 * @param array $json Answer data (JSON)
+	 *
+	 * @return array  $answer Answer data (array)
+	 * @return string $hash   Random string
 	 */
-	public function ConvertAnswerToArray($json) {
+	public function GetAnswerData($json) {
 
+		// Collect answer data
 		$answer = [];
 
 		foreach ($json as $item) {
@@ -83,101 +84,103 @@ class Exercises extends CI_model {
 			}
 		}
 
-		$this->load->model('Session');
-
-		$data = $this->Session->GetExerciseData($hash);
-
-		$output = array(
-			'answer'	=> $answer,
-			'type'		=> $data['type'],
-			'correct'	=> $data['correct'],
-			'solution'	=> $data['solution'],
-			'id'		=> $data['id'],
-			'level'		=> $data['level']
-		);
-
-		return $output;
+		return array($answer, $hash);
 	}
 
 	/**
 	 * Generate messages for integer type exercises
 	 *
-	 * @param  array $data Answer data
-	 * @return array $data Answer data (modified)
+	 * @param array  $answer   User answer
+	 * @param int    $correct  Correct answer
+	 * @param string $solution Solution
+	 *
+	 * @return string $status  Status (NOT_DONE/CORRECT/WRONG)
+	 * @return string $message Message
 	 */
-	public function GenerateMessagesInt($data) {
+	public function GenerateMessagesInt($answer, $correct, $solution) {
 
-		if ($data['answer'][0] == '') {
-			$data['status'] = 'NOT_DONE';
-			$data['message'] = 'Hiányzik a válasz!';
-		} elseif ($data['answer'][0] == $data['correct']) {
-			$data['status'] = 'CORRECT';
-			$data['message'] = 'Helyes válasz!';
+		if ($answer[0] == '') {
+			$status = 'NOT_DONE';
+			$message = 'Hiányzik a válasz!';
+		} elseif ($answer[0] == $correct) {
+			$status = 'CORRECT';
+			$message = 'Helyes válasz!';
 		} else {
-			$data['status'] = 'WRONG';
-			$data['message'] = 'A helyes válasz: '.$data['solution'];
+			$status = 'WRONG';
+			$message = 'A helyes válasz: '.$solution;
 		}
 
-		return $data;
+		return array($status, $message);
 	}
 
 	/**
 	 * Generate messages for quiz type exercises
 	 *
-	 * @param  array $data Answer data
-	 * @return array $data Answer data (modified)
+	 * @param array  $answer   User answer
+	 * @param int    $correct  Correct answer
+	 * @param string $solution Solution
+	 *
+	 * @return string $status  Status (NOT_DONE/CORRECT/WRONG)
+	 * @return string $message Message
 	 */
-	public function GenerateMessagesQuiz($data) {
+	public function GenerateMessagesQuiz($answer, $correct, $solution) {
 
-		if (!isset($data['answer'][0])) {
-			$data['status'] = 'NOT_DONE';
-			$data['message'] = 'Hiányzik a válasz!';
-		} elseif ($data['answer'][0] == $data['correct']) {
-			$data['status'] = 'CORRECT';
-			$data['message'] = 'Helyes válasz!';
+		if (!isset($answer[0])) {
+			$status = 'NOT_DONE';
+			$message = 'Hiányzik a válasz!';
+		} elseif ($answer[0] == $correct) {
+			$status = 'CORRECT';
+			$message = 'Helyes válasz!';
 		} else {
-			$data['status'] = 'WRONG';
-			$data['message'] = 'Hibás válasz!';
+			$status = 'WRONG';
+			$message = 'Hibás válasz!';
 		}
 
-		return $data;
+		return array($status, $message);
 	}
 
 	/**
 	 * Generate messages for multiple choice type exercises
 	 *
-	 * @param  array $data Answer data
-	 * @return array $data Answer data (modified)
+	 * @param array  $answer   User answer
+	 * @param int    $correct  Correct answer
+	 * @param string $solution Solution
+	 *
+	 * @return string $status     Status (NOT_DONE/CORRECT/WRONG)
+	 * @return string $message    Message
+	 * @return array  $submessage Submessages
 	 */
-	public function GenerateMessagesMulti($data) {
+	public function GenerateMessagesMulti($answer, $correct, $solution) {
 
-		if (count($data['answer']) == 0) {
-			$data['status'] = 'NOT_DONE';
-			$data['message'] = 'Jelölj be legalább egy választ!';
+		$submessages = [];
+
+		if (count($answer) == 0) {
+			$status = 'NOT_DONE';
+			$message = 'Jelölj be legalább egy választ!';
 		} else {
-			$data['status'] = 'CORRECT';
-			$data['message'] = 'Helyes válasz!';
-			foreach ($data['correct'] as $key => $value) {
-				$data['submessages'][$key] = 'WRONG';
+			$status = 'CORRECT';
+			$message = 'Helyes válasz!';
+			foreach ($correct as $key => $value) {
+				$submessages[$key] = 'WRONG';
 				if ($value == 1) {
-					if (in_array($key, $data['answer'])) {
-						$data['submessages'][$key] = 'CORRECT';
+					if (in_array($key, $answer)) {
+						$submessages[$key] = 'CORRECT';
 					} else {
-						$data['status'] = 'WRONG';
-						$data['message'] = 'Hibás válasz!';
+						$status = 'WRONG';
+						$message = 'Hibás válasz!';
 					}
 				} else {
-					if (in_array($key, $data['answer'])) {
-						$data['status'] = 'WRONG';
-						$data['message'] = 'Hibás válasz!';
+					if (in_array($key, $answer)) {
+						$status = 'WRONG';
+						$message = 'Hibás válasz!';
 					} else {
-						$data['submessages'][$key] = 'CORRECT';
+						$submessages[$key] = 'CORRECT';
 					}
 				}
 			}
 		}
 
-		return $data;
+		return array($status, $message, $submessages);
 	}
 
 	/**

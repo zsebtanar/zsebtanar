@@ -353,7 +353,39 @@ class Database extends CI_model {
 		return $class;
 	}
 
+	/**
+	 * Record action
+	 *
+	 * Data is recorded when user attempts to solve an exercise.
+	 *
+	 * @param  int 	  $id     Subtopic/Exercise ID
+	 * @param  int    $level  Exercise level
+	 * @param  string $result Result (correct/wrong/not_done)
+	 *
+	 * @return void
+	 */
+	public function recordAction($id, $level=NULL, $result=NULL) {
 
+		$query 		= $this->db->get_where('exercises', array('id' => $id));
+		$exercise 	= $query->result()[0];
+		$name 		= $exercise->name;
+		$level_max	= $exercise->level;
+
+		$data['questID'] 	= $this->session->userdata('questID');
+		$data['level']		= $level;
+		$data['level_max']	= $level_max;
+		$data['result']		= $result;
+		$data['name'] 		= $name;
+
+		$todo_length		= count($this->session->userdata('todo_list'));
+		$data['todo'] 		= $todo_length;
+
+		if (!$this->db->insert('actions', $data)) {
+			show_error($this->db->_error_message());
+		}
+
+		return;
+	}
 }
 
 ?>

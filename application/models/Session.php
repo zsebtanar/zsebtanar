@@ -77,40 +77,6 @@ class Session extends CI_model {
 	}
 
 	/**
-	 * Record action
-	 *
-	 * Data is recorded when user attempts to solve an exercise.
-	 *
-	 * @param  int 	  $id     Subtopic/Exercise ID
-	 * @param  int    $level  Exercise level
-	 * @param  string $result Result (correct/wrong/not_done)
-	 *
-	 * @return void
-	 */
-	public function recordAction($id, $level=NULL, $result=NULL) {
-
-		$query 		= $this->db->get_where('exercises', array('id' => $id));
-		$exercise 	= $query->result()[0];
-		$name 		= $exercise->name;
-		$level_max	= $exercise->level;
-
-		$data['questID'] 	= $this->session->userdata('questID');
-		$data['level']		= $level;
-		$data['level_max']	= $level_max;
-		$data['result']		= $result;
-		$data['name'] 		= $name;
-
-		$todo_length		= count($this->session->userdata('todo_list'));
-		$data['todo'] 		= $todo_length;
-
-		if (!$this->db->insert('actions', $data)) {
-			show_error($this->db->_error_message());
-		}
-
-		return;
-	}
-
-	/**
 	 * Update results
 	 *
 	 * Increases user level in case of correct answer.
@@ -408,24 +374,43 @@ class Session extends CI_model {
 	/**
 	 * Get exercise data from session
 	 *
-	 * @param  string $hash Random string
-	 * @return array  $data Exercise data
+	 * @param string $hash Random string
+	 *
+	 * @return array $data Exercise data
 	 */
 	public function GetExerciseData($hash) {
 
 		$exercise = $this->session->userdata('exercise');
 
-		$data['correct'] 	= $exercise[$hash]['correct'] ; 
-		$data['solution']  	= $exercise[$hash]['solution'];  
-		$data['level'] 		= $exercise[$hash]['level']; 
-		$data['type'] 		= $exercise[$hash]['type']; 
-		$data['id'] 		= $exercise[$hash]['id'];
+		$correct 	= $exercise[$hash]['correct'] ; 
+		$solution  	= $exercise[$hash]['solution'];  
+		$level 		= $exercise[$hash]['level']; 
+		$type 		= $exercise[$hash]['type']; 
+		$id 		= $exercise[$hash]['id'];
 
-		unset($exercise[$hash]);
+		return array($correct, $solution, $level, $type, $id);
+	}
 
-		$this->session->set_userdata('exercise', $exercise);
+	/**
+	 * Update exercise data
+	 *
+	 * Remove exercise data from session if user has answered exercise (either
+	 * correct or wrong)
+	 *
+	 * @param string $status Status (NOT_DONE/CORRECT/WRONG)
+	 * @param string $hash   Random string
+	 *
+	 * @return void
+	 */
+	public function UpdateExerciseData($status, $hash) {
 
-		return $data;
+		if ($status != 'NOT_DONE') {
+			$exercise = $this->session->userdata('exercise');
+			unset($exercise[$hash]);
+			$this->session->set_userdata('exercise');
+		}
+
+		return;
 	}
 }
 
