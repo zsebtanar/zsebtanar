@@ -14,6 +14,7 @@ class Exercises extends CI_model {
 		$this->load->model('Session');
 		$this->load->model('Database');
 
+
 		$answerdata = json_decode($jsondata, TRUE);
 		list($answer, $hash) = $this->GetAnswerData($answerdata);
 		list($correct, $solution, $level, $type, $id) = $this->Session->GetExerciseData($hash);
@@ -54,7 +55,8 @@ class Exercises extends CI_model {
 			'submessages'	=> (isset($submessages) ? $submessages : []),
 			'levels'		=> $levels,
 			'id_next'		=> $id_next,
-			'subtopicID'	=> $subtopicID
+			'subtopicID'	=> $subtopicID,
+			'session' 		=> json_encode($_SESSION)
 		);
 
 		return $output;

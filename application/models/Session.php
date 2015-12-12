@@ -337,9 +337,9 @@ class Session extends CI_model {
 	 */
 	public function ClearSession() {
 
-		$this->session->unset_userdata('method');
-		$this->session->unset_userdata('goal');
-		$this->session->unset_userdata('todo_list');
+		// $this->session->unset_userdata('method');
+		// $this->session->unset_userdata('goal');
+		$this->session->set_userdata('todo_list', []);
 
 		return;
 	}
@@ -364,9 +364,9 @@ class Session extends CI_model {
 		$this->db->where('id', $id);
 		$this->db->update('quests', $data); 
 
-		$this->session->unset_userdata('questID');
-		$this->session->unset_userdata('method');
-		$this->session->unset_userdata('goal');
+		// $this->session->unset_userdata('questID');
+		// $this->session->unset_userdata('method');
+		// $this->session->unset_userdata('goal');
 
 		return;
 	}
@@ -407,7 +407,7 @@ class Session extends CI_model {
 		if ($status != 'NOT_DONE') {
 			$exercise = $this->session->userdata('exercise');
 			unset($exercise[$hash]);
-			$this->session->set_userdata('exercise');
+			$this->session->set_userdata('exercise', $exercise);
 		}
 
 		return;
