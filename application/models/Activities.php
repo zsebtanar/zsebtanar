@@ -12,6 +12,7 @@ class Activities extends CI_model {
 
 		$this->load->helper('url');
 	}
+	
 
 	/**
 	 * Get session length
