@@ -10,9 +10,12 @@ class Update extends CI_controller {
 	 */
 	public function Database() {
 
+		$this->load->model('Database');
+		$this->load->model('Session');
+
 		$this->session->set_userdata('Write_statistics', TRUE);
 
-		$this->load->model('Database');
+		$data = $this->Database->ReadFile('resources/data.json');
 
 		if ($this->session->userdata('Logged_in')) {
 			
@@ -26,6 +29,8 @@ class Update extends CI_controller {
 
 		}
 
+		$this->Database->InsertData($data);
+		$this->Session->UnsetUserData();
 		$this->Database->Redirect();
 	}
 }

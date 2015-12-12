@@ -41,6 +41,7 @@
 				if ($this->session->userdata('Logged_in')) {
 
 					echo json_encode($correct);
+					echo '<br />'.$hash;
 
 				}
 

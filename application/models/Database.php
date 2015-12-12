@@ -265,28 +265,6 @@ class Database extends CI_model {
 	}
 
 	/**
-	 * Unset user data
-	 *
-	 * Unsets unused session variables defined during inserting data.
-	 *
-	 * @return void
-	 */
-	public function UnsetUserData() {
-
-		$this->session->unset_userdata('_ID');
-		$this->session->unset_userdata('class_ID');
-		$this->session->unset_userdata('topic_ID');
-		$this->session->unset_userdata('subto_ID');
-		$this->session->unset_userdata('exerc_ID');
-		$this->session->unset_userdata('links_ID');
-		$this->session->unset_userdata('links_ID');
-		$this->session->unset_userdata('questID');
-		$this->session->unset_userdata('sessionID');
-
-		return;
-	}
-
-	/**
 	 * Read file
 	 *
 	 * @param  string $file File name
