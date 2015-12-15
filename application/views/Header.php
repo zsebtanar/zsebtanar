@@ -78,8 +78,8 @@
 	  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
 	  displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
 	},
-	"HTML-CSS": { linebreaks: { automatic: true } },
-		 "SVG": { linebreaks: { automatic: true } },
+	"HTML-CSS": { linebreaks: { width: "container" } },
+		 "SVG": { linebreaks: { width: "container" } },
 	TeX: {extensions: ["color.js"]}
   });
 </script>

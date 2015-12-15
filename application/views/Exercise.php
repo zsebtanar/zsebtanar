@@ -10,6 +10,14 @@
 					<img src="<?php echo base_url();?>assets/images/logo_small.png" alt="logo" width="20">
 				</a><?php
 
+			}
+
+			if ($download) {?>
+
+				<a href="<?php echo base_url().'resources/download/'.$download; ?>" target="_blank">
+					<img src="<?php echo base_url();?>assets/images/light_bulb.png" alt="hint" width="40">
+				</a><?php
+
 			}?>
 
 			</div>
@@ -41,7 +49,6 @@
 				if ($this->session->userdata('Logged_in')) {
 
 					echo json_encode($correct);
-					echo '<br />'.$hash;
 
 				}
 

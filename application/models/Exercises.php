@@ -215,26 +215,101 @@ class Exercises extends CI_model {
 		$this->load->helper('Maths');
 
 		$this->load->model('Maths');
+		$this->load->model('Database');
 
 		$query 		= $this->db->get_where('exercises', array('id' => $id));
 		$exercise 	= $query->result()[0]; 
-		$function 	= $exercise->label;
 
-		$this->load->helper('Exercises/'.$function);
+		$quizdata = $this->Database->getQuizData($id);
 
-		$data		= $function($level);
+		if ($quizdata) {
 
-		$hash		= random_string('alnum', 16);
+			$data = $this->getQuizData($quizdata);
+
+		} else {
+
+
+			$function 	= $exercise->label;
+
+			$class = $this->Database->getClassName($id, 'exercise');
+			$topic = $this->Database->getTopicName($id, 'exercise');
+
+			$class2 = $this->Database->toAscii($class);
+			$topic2 = $this->Database->toAscii($topic);
+
+			print_r($topic2);
+
+			if (!function_exists($function)) {
+				$this->load->helper('Exercises/'.$class2.'/'.$topic2. '/functions');
+			}
+
+			$data = $function($level);
+		}
+
+		$hash = random_string('alnum', 16);
 
 		$this->SaveToSession($id, $level, $data, $hash);
 
 		$data['level'] 		= $level;
 		$data['youtube'] 	= $exercise->youtube;
+		$data['download'] 	= $exercise->download;
 		$data['id'] 		= $id;
 		$data['id_prev']	= $this->IDPrevious($id);
 		$data['hash']		= $hash;
 
 		return $data;
+	}
+
+	/**
+	 * Get quiz data
+	 *
+	 * Define correct answer, solution and options for quiz
+	 *
+	 * @param array $data Exercise data
+	 *
+	 * @return array $data Exercise data (completed)
+	 */
+	public function getQuizData($data) {
+
+		$options = array(
+			$data['correct'],
+			$data['wrong1'],
+			$data['wrong2']
+		);
+
+		$this->shuffleAssoc($options);
+
+		return array(
+			'question' 	=> $data['question'],
+			'options' 	=> $options,
+			'correct' 	=> 0,
+			'solution'	=> $options[0],
+			'type' 		=> 'quiz'
+		);
+	}
+
+	/**
+	 * Associative array shuffle
+	 *
+	 * Shuffle for associative arrays, preserves key=>value pairs.
+	 * (Based on (Vladimir Kornea of typetango.com)'s function) 
+	 *
+	 * @param array &$array Array.
+	 *
+	 * @return NULL
+	 */
+	public function shuffleAssoc(&$array) {
+
+		$keys = array_keys($array);
+		shuffle($keys);
+
+		foreach ($keys as $key) {
+			$new[$key] = $array[$key];
+		}
+
+		$array = $new;
+
+		return;
 	}
 
 	/**

@@ -29,10 +29,18 @@ class Database extends CI_model {
 				),
 			'exercises' => array(
 				'subtopicID'	=> 'FROM SESSION',
-				'level'			=> 3,
+				'level'			=> 1,
 				'name'			=> '',
 				'label'			=> 'NOT NULL',
-				'youtube'		=> ''
+				'youtube'		=> '',
+				'download'		=> ''
+				),
+			'quizzes' => array(
+				'exerciseID'	=> 'FROM SESSION',
+				'question'		=> 'NOT NULL',
+				'correct'		=> 'NOT NULL',
+				'wrong1'		=> 'NOT NULL',
+				'wrong2'		=> 'NOT NULL'
 				),
 			'links' => array(
 				'exerciseID'	=> 'FROM SESSION',
@@ -122,11 +130,21 @@ class Database extends CI_model {
 							label 		VARCHAR(30) NOT NULL UNIQUE,
 							name 		VARCHAR(120),
 							youtube 	VARCHAR(20),
+							download 	VARCHAR(60),
 							FOREIGN KEY (subtopicID) REFERENCES subtopics(id)
+						)Engine=InnoDB;',
+			'quizzes' => 'CREATE TABLE quizzes (
+							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+							exerciseID 	INT NOT NULL UNIQUE,
+							question 	VARCHAR(240) NOT NULL,
+							correct 	VARCHAR(120) NOT NULL,
+							wrong1 		VARCHAR(120) NOT NULL,
+							wrong2 		VARCHAR(120) NOT NULL,
+							FOREIGN KEY (exerciseID) REFERENCES exercises(id)
 						)Engine=InnoDB;',
 			'links' => 'CREATE TABLE links (
 							id 			INT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							exerciseID	INT	NOT NULL,
+							exerciseID	INT,
 							label 		VARCHAR(30) NOT NULL,
 							CONSTRAINT link_label UNIQUE (id, label),
 							FOREIGN KEY (exerciseID) REFERENCES exercises(id),
@@ -288,7 +306,7 @@ class Database extends CI_model {
 	/**
 	 * Redirect page
 	 *
-	 * @param  int $id    Subtopic ID
+	 * @param  int $id	Subtopic ID
 	 * @param  int $level Excercise level
 	 * @return void
 	 */
@@ -322,7 +340,7 @@ class Database extends CI_model {
 	 *
 	 * Searches for class name of exercise/subtopic.
 	 *
-	 * @param  int    $id   ID
+	 * @param  int	$id   ID
 	 * @param  string $type Id type (exercise/subtopic)
 	 *
 	 * @return string $class Class name
@@ -332,21 +350,21 @@ class Database extends CI_model {
 		if ($type == 'exercise') {
 
 			$query = $this->db->query(
-				'SELECT DISTINCT `classes`.`name` as `osztaly` FROM `classes`
+				'SELECT DISTINCT `classes`.`name` as `class` FROM `classes`
 					INNER JOIN `topics` ON `classes`.`id` = `topics`.`classID`
 					INNER JOIN `subtopics` ON `topics`.`id` = `subtopics`.`topicID`
-					INNER JOIN `exercises` ON `exercises`.`subtopicID` = `exercises`.`subtopicID`
+					INNER JOIN `exercises` ON `subtopics`.`id` = `exercises`.`subtopicID`
 						WHERE `exercises`.`id` = '.$id);
-			$class = $query->result()[0]->osztaly;
+			$class = $query->result()[0]->class;
 
 		} elseif ($type == 'subtopic') {
 
 			$query = $this->db->query(
-				'SELECT DISTINCT `classes`.`name` as `osztaly` FROM `classes`
+				'SELECT DISTINCT `classes`.`name` as `class` FROM `classes`
 					INNER JOIN `topics` ON `classes`.`id` = `topics`.`classID`
 					INNER JOIN `subtopics` ON `topics`.`id` = `subtopics`.`topicID`
 						WHERE `subtopics`.`id` = '.$id);
-			$class = $query->result()[0]->osztaly;
+			$class = $query->result()[0]->class;
 
 		}
 
@@ -354,12 +372,71 @@ class Database extends CI_model {
 	}
 
 	/**
+	 * Get topic name
+	 *
+	 * Searches for topic name of exercise/subtopic.
+	 *
+	 * @param  int	$id   ID
+	 * @param  string $type Id type (exercise/subtopic)
+	 *
+	 * @return string $topic Topic name
+	 */
+	public function GetTopicName($id, $type) {
+
+		if ($type == 'exercise') {
+
+			$query = $this->db->query(
+				'SELECT DISTINCT `topics`.`name` as `topic` FROM `topics`
+					INNER JOIN `subtopics` ON `topics`.`id` = `subtopics`.`topicID`
+					INNER JOIN `exercises` ON `subtopics`.`id` = `exercises`.`subtopicID`
+						WHERE `exercises`.`id` = '.$id);
+			$topic = $query->result()[0]->topic;
+
+		} elseif ($type == 'subtopic') {
+
+			$query = $this->db->query(
+				'SELECT DISTINCT `topics`.`name` as `topic` FROM `topics`
+					INNER JOIN `subtopics` ON `topics`.`id` = `subtopics`.`topicID`
+						WHERE `subtopics`.`id` = '.$id);
+			$topic = $query->result()[0]->topic;
+
+		}
+
+		return $topic;
+	}
+
+	/**
+	 * Get quiz data
+	 *
+	 * Checks whether exercise is quiz or not. If so, returns quiz data, else returns
+	 * false.
+	 *
+	 * @param int $id Exercise id
+	 *
+	 * @return array $data Quiz data
+	 */
+	public function getQuizData($id) {
+
+		$query = $this->db->query('SELECT * FROM `quizzes` WHERE `quizzes`.`exerciseID` = '.$id);
+
+		if ($query->num_rows() > 0) {
+
+			$data = $query->result_array()[0];
+			return $data;
+
+		} else {
+
+			return FALSE;
+		}
+	}
+
+	/**
 	 * Record action
 	 *
 	 * Data is recorded when user attempts to solve an exercise.
 	 *
-	 * @param  int 	  $id     Subtopic/Exercise ID
-	 * @param  int    $level  Exercise level
+	 * @param  int 	  $id	 Subtopic/Exercise ID
+	 * @param  int	$level  Exercise level
 	 * @param  string $result Result (correct/wrong/not_done)
 	 *
 	 * @return void
@@ -385,6 +462,27 @@ class Database extends CI_model {
 		}
 
 		return;
+	}
+
+	/**
+	 * Convert string to Ascii
+	 *
+	 * @param string $str Original string.
+	 *
+	 * @return string $clean Modified string.
+	 */
+	public function toAscii($str)
+	{
+		$change = array('Á'=>'A', 'É'=>'E', 'Í'=>'I', 'Ó'=>'O', 'Ö'=>'O',
+						'Ő'=>'O', 'Ú'=>'U', 'Ü'=>'U', 'Ű'=>'U',
+						'á'=>'a', 'é'=>'e', 'í'=>'i', 'ó'=>'o', 'ö'=>'o',
+						'ő'=>'o', 'ú'=>'u', 'ü'=>'u', 'ű'=>'u', '.'=>'');
+		$clean = strtr($str, $change);
+		$clean = preg_replace("/[\/|+ -]+/", '_', $clean);
+		$clean = preg_replace("/[^a-zA-Z0-9_-]/", '', $clean);
+		$clean = strtolower(trim($clean, '-'));
+
+		return $clean;
 	}
 }
 
