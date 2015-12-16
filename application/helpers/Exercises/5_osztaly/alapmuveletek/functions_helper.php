@@ -30,6 +30,40 @@ function count_apples($level=1) {
 	);
 }
 
+/* Define parity of number */
+function parity($level=1) {
+
+	if ($level == 1) {
+		$len = 1;
+	} elseif ($level == 2) {
+		$len = 3;
+	} elseif ($level == 3) {
+		$len = 5;
+	}
+
+	$num = numGen(rand(ceil($len/2),$len), 10);
+
+	$question = 'Páros vagy páratlan az alábbi szám?$$'.$num.'$$';
+
+	$options = array('páros', 'páratlan');
+	$index = $num%2;
+	$solution = $options[$index];
+
+	shuffle($options);
+
+	$correct = array_search($solution, $options);
+	$type = 'quiz';
+
+	return array(
+		'question' 	=> $question,
+		'options' 	=> $options,
+		'correct' 	=> $correct,
+		'solution'	=> $solution,
+		'type' 		=> $type
+	);
+}
+
+
 /* Count even/odd numbers */
 function count_parity($level=1) {
 

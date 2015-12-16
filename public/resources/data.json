@@ -138,8 +138,8 @@
 										{
 											"question": "Melyik a legnagyobb természetes szám?",
 											"correct": "Nincs ilyen",
-											"wrong1": "$999999999$",
-											"wrong2": "$10000000$"
+											"wrong1": "$999\\,999\\,999$",
+											"wrong2": "$10\\,000\\,000$"
 										}
 									]
 								},
@@ -162,8 +162,8 @@
 										{
 											"question": "Hány darab természetes szám van?",
 											"correct": "Végtelen sok",
-											"wrong1": "$987533867$",
-											"wrong2": "$13456432$"
+											"wrong1": "$987\\,533\\,867$",
+											"wrong2": "$13\\,456\\,432$"
 										}
 									]
 								}

@@ -241,6 +241,10 @@ class Exercises extends CI_model {
 			}
 
 			$data = $function($level);
+
+			if ($data['type'] == 'quiz') {
+				$data = $this->getAnswerLength($data);
+			}
 		}
 
 		$hash = random_string('alnum', 16);
@@ -291,6 +295,28 @@ class Exercises extends CI_model {
 		);
 	}
 
+	/**
+	 * Get answer length
+	 *
+	 * Calculates maximum length of answers from options
+	 *
+	 * @param array $data Exercise data
+	 *
+	 * @return array $data Exercise data (completed)
+	 */
+	public function getAnswerLength($data) {
+
+		$length = 0;
+		
+		foreach ($data['options'] as $option) {
+
+			$length = max($length, count(str_split($option)));
+		}
+
+		$data['length'] = $length;
+
+		return $data;
+	}
 	/**
 	 * Save exercise data to session
 	 *
