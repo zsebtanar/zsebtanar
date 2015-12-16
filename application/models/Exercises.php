@@ -268,45 +268,27 @@ class Exercises extends CI_model {
 	 */
 	public function getQuizData($data) {
 
+		$length = max(count(str_split($data['correct'])),
+					  count(str_split($data['wrong1'])),
+					  count(str_split($data['wrong2'])));
+
 		$options = array(
 			$data['correct'],
 			$data['wrong1'],
 			$data['wrong2']
 		);
 
-		$this->shuffleAssoc($options);
+		shuffle($options);
+		$correct = array_search($data['correct'], $options);
 
 		return array(
 			'question' 	=> $data['question'],
 			'options' 	=> $options,
-			'correct' 	=> 0,
-			'solution'	=> $options[0],
-			'type' 		=> 'quiz'
+			'correct' 	=> $correct,
+			'solution'	=> $options[$correct],
+			'type' 		=> 'quiz',
+			'length' 	=> $length
 		);
-	}
-
-	/**
-	 * Associative array shuffle
-	 *
-	 * Shuffle for associative arrays, preserves key=>value pairs.
-	 * (Based on (Vladimir Kornea of typetango.com)'s function) 
-	 *
-	 * @param array &$array Array.
-	 *
-	 * @return NULL
-	 */
-	public function shuffleAssoc(&$array) {
-
-		$keys = array_keys($array);
-		shuffle($keys);
-
-		foreach ($keys as $key) {
-			$new[$key] = $array[$key];
-		}
-
-		$array = $new;
-
-		return;
 	}
 
 	/**

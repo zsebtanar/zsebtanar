@@ -29,12 +29,12 @@
 		</div>
 		<div class="row exercise_input">
 
-			<div class="col-sm-12 text-center">
+			<div class="col-sm-12">
 				<form id="exercise" autocomplete="off"><?php
 
 				if ($type == 'quiz') {
 
-					$this->load->view('Input/Quiz', array('options' => $options));
+					$this->load->view('Input/Quiz', array('options' => $options, 'length' => $length));
 
 				} elseif ($type == 'int') {
 
@@ -44,25 +44,25 @@
 
 					$this->load->view('Input/Multi', array('options' => $options));
 
-				}
-				
-				if ($this->session->userdata('Logged_in')) {
+				}?>
 
-					echo json_encode($correct);
-
-				}
-
-				?>	
 				<input type="hidden" name="hash" value="<?php echo $hash;?>">
-				
 				<br />
-				<p id="message"></p>
-				<div id="button">
+				<div class="text-center">
+					<p id="message"></p>
+					<div id="button"><?php
 
-					<button class="btn btn-primary" onclick="checkSolution()">
-						Mehet
-					</button>
-				</div><br /><?php
+						if ($this->session->userdata('Logged_in')) {
+
+							echo json_encode($correct).'<br />';
+
+						}?>
+
+						<button class="btn btn-primary" onclick="checkSolution()">
+							Mehet
+						</button>
+					</div><br />
+					<?php
 
 				if ($id_prev) {?>
 
@@ -73,7 +73,7 @@
 				}?>
 
 
-			
+				</div>
 				</form>
 			</div>
 		</div><?php
