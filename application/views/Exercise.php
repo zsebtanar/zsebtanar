@@ -153,9 +153,9 @@
 					console.log(value);
 					var src = document.getElementById("star"+index).src;
 					if (value == 0) {
-						var src = src.replace("filled", "empty");
+						var src = src.replace("1", "0");
 					} else {
-						var src = src.replace("empty", "filled");
+						var src = src.replace("0", "1");
 					}
 					document.getElementById("star"+index).src = src;
 					console.log(src);

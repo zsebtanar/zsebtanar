@@ -307,7 +307,7 @@ class Exercises extends CI_model {
 	public function getAnswerLength($data) {
 
 		$length = 0;
-		
+
 		foreach ($data['options'] as $option) {
 
 			$length = max($length, count(str_split($option)));
@@ -601,6 +601,8 @@ class Exercises extends CI_model {
 			$results = $this->session->userdata('results');
 			$query = $this->db->get_where('exercises', array('subtopicID' => $subtopicID));
 			$exercises = $query->result();
+
+			shuffle($exercises);
 
 			foreach ($exercises as $exercise) {
 

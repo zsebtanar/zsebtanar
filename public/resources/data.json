@@ -37,7 +37,7 @@
 								},
 								{
 									"label": "parity_digit",
-									"name": "Páratlan számok jelentése",
+									"name": "Paritást meghatározó számjegy",
 									"download": "paros_paratlan.jpg",
 									"quizzes": [
 										{
