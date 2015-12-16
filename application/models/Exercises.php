@@ -209,7 +209,7 @@ class Exercises extends CI_model {
 	 */
 	public function getExerciseData($id, $level) {
 
-		// $this->session->unset_userdata('exercise');
+		$this->session->unset_userdata('exercise');
 
 		$this->load->helper('string');
 		$this->load->helper('Maths');
@@ -227,7 +227,6 @@ class Exercises extends CI_model {
 			$data = $this->getQuizData($quizdata);
 
 		} else {
-
 
 			$function 	= $exercise->label;
 
@@ -384,7 +383,7 @@ class Exercises extends CI_model {
 	 *
 	 * @return array $links Links
 	 */
-	public function getExerciseLinks($id) {
+	public function getExerciseLinks($id, $i=0) {
 
 		$name 			= $this->getExerciseName($id);
 		$exerciselinks 	= [];
@@ -398,15 +397,19 @@ class Exercises extends CI_model {
 
 				$query = $this->db->get_where('exercises', array('label' => $link->label));
 				$id2 = $query->result()[0]->id;
-
-				$exerciselinks[] = $this->getExerciseLinks($id2);
+				
+				if ($i < 50) {
+					$exerciselinks[] = $this->getExerciseLinks($id2, $i++);
+				} else {
+					show_error('Önhivatkozás a '.$id2.' számú feladatnál!!!');
+				}
 			}
 		}
 
 		return array(
 			'id' 	=> $id,
 			'name' 	=> $name,
-			'links'	=> (isset($exerciselinks) ? $exerciselinks : [])
+			'links'	=> $exerciselinks
 		);
 	}
 

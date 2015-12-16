@@ -45,6 +45,7 @@ class View extends CI_controller {
 	public function Exercise($id=1, $level=NULL) {
 
 		$this->Session->UpdateTodoList($id);
+
 		$data = $this->Html->ExerciseData($id, $level);
 
 		$this->load->view('Template', $data);

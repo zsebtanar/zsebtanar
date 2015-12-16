@@ -73,7 +73,7 @@
 									"level": 3,
 									"links": [
 										{
-											"label": "count_parity" 
+											"label": "parity" 
 										},
 										{
 											"label": "count_apples" 
