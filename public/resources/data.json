@@ -36,6 +36,19 @@
 									]
 								},
 								{
+									"label": "parity_digit",
+									"name": "Páratlan számok jelentése",
+									"download": "paros_paratlan.jpg",
+									"quizzes": [
+										{
+											"question": "Melyik számjegy dönti el, hogy egy szám páros, vagy páratlan?",
+											"correct": "Az utolsó.",
+											"wrong1": "Az első.",
+											"wrong2": "A második."
+										}
+									]
+								},
+								{
 									"label": "count_apples",
 									"name": "Számolás 1-től 20-ig",
 									"level": 3,
@@ -60,7 +73,7 @@
 									"level": 3,
 									"links": [
 										{
-											"label": "parity" 
+											"label": "count_parity" 
 										},
 										{
 											"label": "count_apples" 

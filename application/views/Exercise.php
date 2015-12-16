@@ -78,10 +78,10 @@
 			</div>
 		</div><?php
 
-		if ($this->session->userdata('Logged_in')) {
+		if ($this->session->userdata('Logged_in') && count($links['links']) > 0) {
 
-			$this->load->view('ExerciseLinks', array('links' => $links));
-
+				$this->load->view('ExerciseLinks', array('links' => $links));
+			
 		}?>
 
 	</div>

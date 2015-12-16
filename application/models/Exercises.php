@@ -237,8 +237,6 @@ class Exercises extends CI_model {
 			$class2 = $this->Database->toAscii($class);
 			$topic2 = $this->Database->toAscii($topic);
 
-			print_r($topic2);
-
 			if (!function_exists($function)) {
 				$this->load->helper('Exercises/'.$class2.'/'.$topic2. '/functions');
 			}

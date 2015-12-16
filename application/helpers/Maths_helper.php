@@ -35,29 +35,4 @@ if (!function_exists('numGen')) {
 	}
 }
 
-/**
- * Associative array shuffle
- *
- * Shuffle for associative arrays, preserves key=>value pairs.
- * (Based on (Vladimir Kornea of typetango.com)'s function) 
- *
- * @param array &$array Array.
- *
- * @return NULL
- */
-if (!function_exists('shuffleAssoc')) {
-
-	function shuffleAssoc(&$array) {
-
-		$keys = array_keys($array);
-		shuffle($keys);
-
-		foreach ($keys as $key) {
-			$new[$key] = $array[$key];
-		}
-
-		$array = $new;
-
-		return;
-	}
-}
+?>

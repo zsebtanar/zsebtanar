@@ -52,7 +52,7 @@ class View extends CI_controller {
 		$type = 'exercise';
 
 		if ($this->session->userdata('Logged_in')) {
-			// $this->Session->PrintInfo();
+			$this->Session->PrintInfo();
 		}
 	}
 

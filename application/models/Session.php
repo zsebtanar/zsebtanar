@@ -238,8 +238,8 @@ class Session extends CI_model {
 		print_r($this->session->userdata('todo_list'));
 		print_r('<br />Results: ');
 		print_r($this->session->userdata('results'));
-		print_r('<br />Exercise data: ');
-		print_r($this->session->userdata('exercise'));
+		// print_r('<br />Exercise data: ');
+		// print_r($this->session->userdata('exercise'));
 
 		return;
 	}
