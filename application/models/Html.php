@@ -14,6 +14,26 @@ class Html extends CI_model {
 	}
 
 	/**
+	 * Get main page data
+	 *
+	 * Collects all necessary parameters for template
+	 *
+	 * @param int $classID Class id
+	 * @param int $topicID Topic id
+	 *
+	 * @return array $data Main page data
+	 */
+	public function MainData($classID=NULL, $topicID=NULL) {
+
+		$data['menu'] = $this->NavBarMenu();
+		$data['search'] = $this->Database->getSearchData($classID, $topicID);
+		$data['type'] = 'main';
+		$data['title'] = NULL;
+
+		return $data;
+	}
+
+	/**
 	 * Get subtopic data
 	 *
 	 * Collects all necessary parameters for template
@@ -23,16 +43,10 @@ class Html extends CI_model {
 	 */
 	public function SubtopicData($id) {
 
-		$data['menu'] = $this->Html->NavBarMenu($id);
-
-		if ($id) {
-			$data['type'] = 'subtopic';
-			$data['title'] = $this->Html->TitleSubtopic($id);
-			$data['exercises'] = $this->Exercises->getSubtopicExercises($id);
-		} else {
-			$data['type'] = 'main';
-			$data['title'] = NULL;
-		}
+		$data['menu'] = $this->NavBarMenu();
+		$data['type'] = 'subtopic';
+		$data['title'] = $this->Html->TitleSubtopic($id);
+		$data['exercises'] = $this->Exercises->getSubtopicExercises($id);
 
 		return $data;
 	}
@@ -48,7 +62,7 @@ class Html extends CI_model {
 	 */
 	public function ExerciseData($id, $level) {
 
-		$data['menu'] = $this->Html->NavBarMenu($id);
+		$data['menu'] = $this->NavBarMenu();
 		$data['title'] = $this->Html->TitleExercise($id);
 		$data['type'] = 'exercise';
 		$data['links'] = $this->Exercises->getExerciseLinks($id);
@@ -66,10 +80,9 @@ class Html extends CI_model {
 	/**
 	 * Print navbar menu
 	 *
-	 * @param  int 	  $id   Exercise ID
 	 * @return array  $menu Navbar menu
 	 */
-	public function NavBarMenu($id) {
+	public function NavBarMenu() {
 
 		$classes = $this->db->get('classes');
 

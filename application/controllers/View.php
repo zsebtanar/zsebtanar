@@ -25,9 +25,30 @@ class View extends CI_controller {
 	}
 
 	/**
+	 * View main page
+	 *
+	 * @param int $classID Class id
+	 * @param int $topicID Topic id
+	 *
+	 * @return void
+	 */
+	public function Main($classID=NULL, $topicID=NULL) {
+
+		$this->Session->ClearSession();
+		$data = $this->Html->MainData($classID, $topicID);
+
+		$this->load->view('Template', $data);
+		
+		if ($this->session->userdata('Logged_in')) {
+			$this->Session->PrintInfo();
+		}
+	}
+
+	/**
 	 * View subtopic
 	 *
-	 * @param  int $id Subtopic id
+	 * @param int $id Subtopic id
+	 *
 	 * @return	void
 	 */
 	public function Subtopic($id=NULL) {

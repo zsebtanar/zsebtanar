@@ -372,6 +372,52 @@ class Database extends CI_model {
 	}
 
 	/**
+	 * Get search data
+	 *
+	 * Gets all classes + topics if class is defined
+	 *
+	 * @param int $classID Class id
+	 * @param int $topicID Topic id
+	 *
+	 * @return array $data Class data
+	 */
+	public function getSearchData($classID=NULL, $topicID=NULL) {
+
+		$query = $this->db->query('SELECT * FROM `classes`');
+		$classes = $query->result_array();
+		array_unshift($classes, array('id' => NULL, 'name' => 'Mindenhol'));
+
+		if ($classID) {
+			$query = $this->db->query('SELECT `name` FROM `classes` WHERE `id` = '.$classID);
+			$className = $query->result()[0]->name;
+
+			$query = $this->db->query('SELECT * FROM `topics` WHERE `classID` = '.$classID);
+			$topics = $query->result_array();
+			array_unshift($topics, array('id' => NULL, 'name' => 'Mindenhol'));
+
+			if ($topicID) {
+				$query = $this->db->query('SELECT `name` FROM `topics` WHERE `id` = '.$topicID);
+				$topicName = $query->result()[0]->name;
+			} else {
+				$topicName = 'Válassz témakört!';
+			}
+		} else {
+			$topics = NULL;
+			$topicName = NULL;
+			$className = 'Válassz osztályt!';
+		}
+
+		return array(
+			'classes' 	=> $classes,
+			'className' => $className,
+			'classID' 	=> $classID,
+			'topics' 	=> $topics,
+			'topicName' => $topicName,
+			'topicID' 	=> $topicID
+		);
+	}
+
+	/**
 	 * Get topic name
 	 *
 	 * Searches for topic name of exercise/subtopic.

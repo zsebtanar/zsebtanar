@@ -28,7 +28,7 @@
 
 	if ($type == 'main') {
 
-		$this->load->view('Search');
+		$this->load->view('Search', $search);
 
 	} elseif ($type == 'subtopic') {
 
