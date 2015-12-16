@@ -318,16 +318,39 @@ class Database extends CI_model {
 	/**
 	 * Search
 	 *
-	 * @param  string $keyword Keyword
+	 * @param string $keyword Keyword
+	 * @param int $classID Class id
+	 * @param int $topicID Topic id
+	 *
 	 * @return string $output  Html output
 	 */
-	public function Search($keyword) {
+	public function Search($keyword, $classID=NULL, $topicID=NULL) {
 
 		if ($keyword != '') {
-			$this->db->like('name', $keyword, 'both');
-			$this->db->order_by('label');
-			$query = $this->db->get('exercises');
+			if ($classID) {
+				if ($topicID) {
+					$query = $this->db->query(
+						'SELECT `exercises`.`name`, `exercises`.`id` FROM `exercises`
+							INNER JOIN `subtopics` ON `subtopics`.`id` = `exercises`.`subtopicID`
+							WHERE `exercises`.`name` LIKE \'%'.$keyword.'%\' ESCAPE \'!\'
+							AND `subtopics`.`topicID` = '.$topicID.
+							' ORDER BY `exercises`.`name`');
+				} else {
+					$query = $this->db->query(
+						'SELECT `exercises`.`name`, `exercises`.`id` FROM `exercises`
+							INNER JOIN `subtopics` ON `subtopics`.`id` = `exercises`.`subtopicID`
+							INNER JOIN `topics` ON `topics`.`id` = `subtopics`.`topicID`
+							WHERE `exercises`.`name` LIKE \'%'.$keyword.'%\' ESCAPE \'!\'
+							AND `topics`.`classID` = '.$classID.
+							' ORDER BY `exercises`.`name`');
+				}
+			} else {
+				$this->db->like('name', $keyword, 'both');
+				$this->db->order_by('name');
+				$query = $this->db->get('exercises');
+			}
 			$output = $query->result_array();
+			// print_r($this->db->last_query());
 		} else {
 			$output = [];
 		}

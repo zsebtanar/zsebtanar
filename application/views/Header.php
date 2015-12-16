@@ -42,10 +42,13 @@
                 type: "GET",
                 url: "<?php echo base_url();?>application/search",
                 data: {
-                    keyword: $("#search").val()
+                    keyword: $("#search").val(),
+                    classID: $("#classID").val(),
+                    topicID: $("#topicID").val()
                 },
                 dataType: "json",
                 success: function(data) {
+                    // window.alert(JSON.stringify(data));
                     $('#DropdownExercises').empty();
                     if (data.length > 0) {
                         $('#search').attr("data-toggle", "dropdown");

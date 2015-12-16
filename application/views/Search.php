@@ -6,7 +6,7 @@
 				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 					<?php echo $className;?>&nbsp;<span class="caret"></span>
 				</button>
-				<input type="hidden" name="classID" value="<?php echo $classID;?>">
+
 				<ul class="dropdown-menu" role="menu"><?php
 
 					foreach ($classes as $class) {?>
@@ -28,7 +28,7 @@
 				<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
 					<?php echo $topicName;?>&nbsp;<span class="caret"></span>
 				</button>
-				<input type="hidden" name="topicID" value="<?php echo $topicID;?>">
+
 				<ul class="dropdown-menu" role="menu"><?php
 
 					foreach ($topics as $topic) {?>
@@ -52,10 +52,12 @@
 			<div class="typeahead-field">
 				<span class="typeahead-query">
 					<input id="search" name="search" type="search" autofocus autocomplete="off">
+					<input type="hidden" id="classID" name="classID" value="<?php echo $classID;?>">
+					<input type="hidden" id="topicID" name="topicID" value="<?php echo $topicID;?>">
 				</span>
 			</div>
 		</div>
-		<ul class="dropdown-menu exercises" style="margin-top:-45px;margin-left:15px;margin-right:0px;" role="menu" aria-labelledby="dropdownMenu" id="DropdownExercises"></ul>
+		<ul class="dropdown-menu exercises" style="margin-left:15px;margin-right:0px;" role="menu" aria-labelledby="dropdownMenu" id="DropdownExercises"></ul>
 	</div>
 	<div class="col-md-4"></div>
 </div>

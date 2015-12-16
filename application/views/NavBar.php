@@ -9,10 +9,10 @@
 			<span class="icon-bar"></span>
 		</button>
 
-		<a class="navbar-brand" href="<?php echo base_url();?>view/subtopic">
+		<a class="navbar-brand" href="<?php echo base_url();?>view/main">
 			<img src="<?php echo base_url();?>assets/images/logo_small.png" alt="logo" width="20">
 		</a>
-		<a class="navbar-brand" href="<?php echo base_url();?>view/subtopic">Zsebtanár</a>
+		<a class="navbar-brand" href="<?php echo base_url();?>view/main">Zsebtanár</a>
 	</div>
 	<div class="collapse navbar-collapse">
 		<ul class="nav navbar-nav"><?php

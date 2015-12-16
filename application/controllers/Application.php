@@ -28,7 +28,9 @@ class Application extends CI_controller {
 		
 		$this->load->model('Database');
 		$keyword = $this->input->get('keyword');
-		$results = $this->Database->Search($keyword);
+		$classID = $this->input->get('classID');
+		$topicID = $this->input->get('topicID');
+		$results = $this->Database->Search($keyword, $classID, $topicID);
 		echo json_encode($results);
 	}
 
