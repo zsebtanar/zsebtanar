@@ -154,7 +154,7 @@ class Application extends CI_controller {
 
 		$this->session->set_userdata('Logged_in', FALSE);
 
-		header('Location:'.base_url().'view/subtopic/');
+		header('Location:'.base_url().'view/main/');
 
 		return;
 	}

@@ -312,7 +312,7 @@ class Database extends CI_model {
 	 */
 	public function Redirect() {
 
-		header('Location:'.base_url().'view/subtopic/');
+		header('Location:'.base_url().'view/main/');
 	}
 
 	/**

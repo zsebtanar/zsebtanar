@@ -56,7 +56,7 @@ class Exercises extends CI_model {
 		$this->Session->UpdateResults($id, $level, $status);
 		$this->Session->UpdateTodoList($id);
 
-		$levels = $this->Session->getUserLevels($id);
+		$levels = $this->getUserLevels($id);
 		$id_next = $this->getNextExercise($id);
 		$subtopicID = $this->getSubtopicID($id);
 
@@ -363,16 +363,14 @@ class Exercises extends CI_model {
 			foreach ($exercises as $exercise) {
 
 				$id = $exercise->id;
-				if (isset($this->session->userdata('results')[$id])) {
-					$level_user = $this->session->userdata('results')[$id];
-				} else {
-					$level_user = 0;
-				}
 
-				$row['level_user'] 	= $level_user;
+				$level = $this->Session->getExerciseLevelNext($id);
+
+				$row = $this->getExerciseData($id, $level);
+
+				$row['levels'] 		= $this->getUserLevels($id);
 				$row['id'] 			= $id;
 				$row['name'] 		= $exercise->name;
-				$row['level_max'] 	= $exercise->level;
 
 				$data['exercise_list'][] = $row;
 			}
@@ -502,6 +500,32 @@ class Exercises extends CI_model {
 		$level_user = (isset($results[$id]) ? $results[$id] : 0);
 
  		return $level_user;
+	}
+
+	/**
+	 * Get user levels for current exercise
+	 *
+	 * Returns an array with 0s and 1s. 1 means the user has answered the exercise
+	 * at the specific level correctly, O means the opposite. Data is used to update 
+	 * star icons with javascript.
+	 *
+	 * @param  int 	 $id     Exercise ID
+	 * @return array $levels Exercise levels (0 or 1)
+	 */
+	public function getUserLevels($id) {
+
+		$max_level = $this->getMaxLevel($id);
+		$user_level = $this->getUserLevel($id);
+
+		for ($i=1; $i <= $max_level; $i++) { 
+			if ($i <= $user_level) {
+				$levels[$i] = 1;
+			} else {
+				$levels[$i] = 0;
+			}
+		}
+
+		return $levels;
 	}
 
 	/**

@@ -71,10 +71,10 @@ function count_parity($level=1) {
 		$no = rand(2,3); 
 		$len = 1;
 	} elseif ($level == 2) {
-		$no = rand(5,10);
+		$no = rand(4,6);
 		$len = 3;
 	} elseif ($level == 3) {
-		$no = rand(10,20);
+		$no = rand(7,10);
 		$len = 5;
 	}
 
@@ -85,7 +85,7 @@ function count_parity($level=1) {
 	$parity = array('páros', 'páratlan');
 	$par = rand(0,1);
 
-	$question = 'Hány szám '.$parity[$par].' az alábbiak közül?<br />';
+	$question = 'Hány szám '.$parity[$par].' az alábbiak közül?$$\begin{align}';
 	$correct = 0;
 
 	foreach ($num as $key => $value) {
@@ -93,10 +93,10 @@ function count_parity($level=1) {
 		if ($value > 9999) {
 			$value = number_format($value,0,',','\,');
 		}
-		$question .= '$'.$value.'$, ';
+		$question .= $value.' & \\\\';
 	}
 
-	$question = rtrim($question, ', ');
+	$question = rtrim($question, '\\\\').'\end{align}$$';
 	$type = 'int';
 	$solution = '$'.$correct.'$';
 	$options = '';

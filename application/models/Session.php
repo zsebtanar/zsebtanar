@@ -111,40 +111,6 @@ class Session extends CI_model {
 	}
 
 	/**
-	 * Get user levels for current exercise
-	 *
-	 * Returns an array with 0s and 1s. 1 means the user has answered the exercise
-	 * at the specific level correctly, O means the opposite. Data is used to update 
-	 * star icons with javascript.
-	 *
-	 * @param  int 	 $id     Exercise ID
-	 * @return array $levels Exercise levels (0 or 1)
-	 */
-	public function getUserLevels($id) {
-
-		$query = $this->db->get_where('exercises', array('id' => $id));
-		$exercise = $query->result()[0];
-		$max_level = $exercise->level;
-
-		$results = $this->session->userdata('results');
-		if (isset($results[$id])) {
-			$user_level = $results[$id];
-		} else {
-			$user_level = 0;
-		}
-
-		for ($i=1; $i <= $max_level; $i++) { 
-			if ($i <= $user_level) {
-				$levels[$i] = 1;
-			} else {
-				$levels[$i] = 0;
-			}
-		}
-
-		return $levels;
-	}
-
-	/**
 	 * Clear exercise results of subtopics from session
 	 *
 	 * @param  int 	$subtopicID Subtopic ID
