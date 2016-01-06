@@ -1,6 +1,6 @@
 <div class="row">
-	<div class="col-md-4"></div>
-	<div class="col-md-4"><?php
+	<div class="col-md-3"></div>
+	<div class="col-md-6"><?php
 
 		foreach ($html as $class => $topics) {?>
 
@@ -57,5 +57,5 @@
 		}?>
 
 	</div>
-	<div class="col-md-4"></div>
+	<div class="col-md-3"></div>
 </div>

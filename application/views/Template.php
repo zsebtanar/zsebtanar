@@ -35,7 +35,8 @@
 
 	} elseif ($type == 'subtopic') {
 
-		$this->load->view('ExerciseList', $exercises);
+		// $this->load->view('ExerciseList', $exercises);
+		$this->load->view('QuestList', $quests);
 
 	} elseif ($type == 'exercise') {
 

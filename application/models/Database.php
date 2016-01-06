@@ -35,16 +35,18 @@ class Database extends CI_model {
 			'exercises' => array(
 				'questID'	=> 'FROM SESSION',
 				'level'		=> 1,
+				'label'		=> '',
 				'name'		=> '',
 				'youtube'	=> '',
 				'download'	=> ''
 				),
 			'quizzes' => array(
-				'questID'	=> 'FROM SESSION',
-				'question'	=> 'NOT NULL',
-				'correct'	=> 'NOT NULL',
-				'wrong1'	=> 'NOT NULL',
-				'wrong2'	=> 'NOT NULL'
+				'exerciseID'	=> 'FROM SESSION',
+				'label'			=> '',
+				'question'		=> 'NOT NULL',
+				'correct'		=> 'NOT NULL',
+				'wrong1'		=> 'NOT NULL',
+				'wrong2'		=> 'NOT NULL'
 				),
 			'links' => array(
 				'questID'	=> 'FROM SESSION',
@@ -135,6 +137,7 @@ class Database extends CI_model {
 							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							questID 	INT NOT NULL,
 							level 		INT,
+							label 		VARCHAR(30),
 							name 		VARCHAR(120),
 							youtube 	VARCHAR(20),
 							download 	VARCHAR(60),
@@ -142,12 +145,13 @@ class Database extends CI_model {
 						)Engine=InnoDB;',
 			'quizzes' => 'CREATE TABLE quizzes (
 							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							questID 	INT,
+							exerciseID 	INT,
+							label 		VARCHAR(30),
 							question 	VARCHAR(240) NOT NULL,
 							correct 	VARCHAR(120) NOT NULL,
 							wrong1 		VARCHAR(120) NOT NULL,
 							wrong2 		VARCHAR(120) NOT NULL,
-							FOREIGN KEY (questID) REFERENCES quests(id)
+							FOREIGN KEY (exerciseID) REFERENCES exercises(id)
 						)Engine=InnoDB;',
 			'links' => 'CREATE TABLE links (
 							id 		INT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -360,7 +364,8 @@ class Database extends CI_model {
 				'SELECT DISTINCT `classes`.`name` as `class` FROM `classes`
 					INNER JOIN `topics` ON `classes`.`id` = `topics`.`classID`
 					INNER JOIN `subtopics` ON `topics`.`id` = `subtopics`.`topicID`
-					INNER JOIN `exercises` ON `subtopics`.`id` = `exercises`.`subtopicID`
+					INNER JOIN `quests` ON `subtopics`.`id` = `quests`.`subtopicID`
+					INNER JOIN `exercises` ON `quests`.`id` = `exercises`.`questID`
 						WHERE `exercises`.`id` = '.$id);
 			$class = $query->result()[0]->class;
 
@@ -427,10 +432,10 @@ class Database extends CI_model {
 	/**
 	 * Get topic name
 	 *
-	 * Searches for topic name of exercise/subtopic.
+	 * Searches for topic name of exercise/quest.
 	 *
-	 * @param  int	$id   ID
-	 * @param  string $type Id type (exercise/subtopic)
+	 * @param  int	  $id   ID
+	 * @param  string $type Id type (exercise/quest)
 	 *
 	 * @return string $topic Topic name
 	 */
@@ -441,16 +446,18 @@ class Database extends CI_model {
 			$query = $this->db->query(
 				'SELECT DISTINCT `topics`.`name` as `topic` FROM `topics`
 					INNER JOIN `subtopics` ON `topics`.`id` = `subtopics`.`topicID`
-					INNER JOIN `exercises` ON `subtopics`.`id` = `exercises`.`subtopicID`
+					INNER JOIN `quests` ON `subtopics`.`id` = `quests`.`subtopicID`
+					INNER JOIN `exercises` ON `quests`.`id` = `exercises`.`questID`
 						WHERE `exercises`.`id` = '.$id);
 			$topic = $query->result()[0]->topic;
 
-		} elseif ($type == 'subtopic') {
+		} elseif ($type == 'quest') {
 
 			$query = $this->db->query(
 				'SELECT DISTINCT `topics`.`name` as `topic` FROM `topics`
 					INNER JOIN `subtopics` ON `topics`.`id` = `subtopics`.`topicID`
-						WHERE `subtopics`.`id` = '.$id);
+					INNER JOIN `quests` ON `subtopics`.`id` = `quests`.`subtopicID`
+						WHERE `quests`.`id` = '.$id);
 			$topic = $query->result()[0]->topic;
 
 		}
@@ -494,28 +501,28 @@ class Database extends CI_model {
 	 *
 	 * @return void
 	 */
-	public function recordAction($id, $level=NULL, $result=NULL) {
+	// public function recordAction($id, $level=NULL, $result=NULL) {
 
-		$query 		= $this->db->get_where('exercises', array('id' => $id));
-		$exercise 	= $query->result()[0];
-		$name 		= $exercise->name;
-		$level_max	= $exercise->level;
+	// 	$query 		= $this->db->get_where('exercises', array('id' => $id));
+	// 	$exercise 	= $query->result()[0];
+	// 	$name 		= $exercise->name;
+	// 	$level_max	= $exercise->level;
 
-		$data['questID'] 	= $this->session->userdata('questID');
-		$data['level']		= $level;
-		$data['level_max']	= $level_max;
-		$data['result']		= $result;
-		$data['name'] 		= $name;
+	// 	$data['questID'] 	= $this->session->userdata('questID');
+	// 	$data['level']		= $level;
+	// 	$data['level_max']	= $level_max;
+	// 	$data['result']		= $result;
+	// 	$data['name'] 		= $name;
 
-		$todo_length		= count($this->session->userdata('todo_list'));
-		$data['todo'] 		= $todo_length;
+	// 	$todo_length		= count($this->session->userdata('todo_list'));
+	// 	$data['todo'] 		= $todo_length;
 
-		if (!$this->db->insert('actions', $data)) {
-			show_error($this->db->_error_message());
-		}
+	// 	if (!$this->db->insert('actions', $data)) {
+	// 		show_error($this->db->_error_message());
+	// 	}
 
-		return;
-	}
+	// 	return;
+	// }
 
 	/**
 	 * Convert string to Ascii

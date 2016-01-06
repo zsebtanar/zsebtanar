@@ -50,20 +50,21 @@ class Application extends CI_controller {
 	}
 
 	/**
-	 * Clear results for subtopic
+	 * Clear results for quest
 	 *
-	 * Clears all results of user from session.
+	 * Clears all results for specific quest from session.
 	 *
 	 * @param int $subtopicID Subtopic id
+	 * @param int $questID    Quest id
 	 *
 	 * @return void
 	 */
-	public function ClearResults($subtopicID) {
+	public function ClearResults($subtopicID, $questID) {
 
 		$this->load->model('Session');
-		$this->Session->clearResults($subtopicID);
+		$this->Session->clearResults($questID);
 
-		header('Location:'.base_url().'view/subtopic/'.$subtopicID);
+		header('Location:'.base_url().'view/subtopic/'.$subtopicID.'/'.$questID);
 	}
 
 	/**
@@ -108,11 +109,9 @@ class Application extends CI_controller {
 
 		if ($method == 'exercise') {
 			$id_next = $id;
-		} elseif ($method == 'subtopic') {
-			$id_next = $this->Exercises->IDNextSubtopic();
+		} elseif ($method == 'quest') {
+			$id_next = $this->Exercises->IDNextQuest();
 		}
-
-		$this->Session->StartQuest();
 
 		header('Location:'.base_url().'view/exercise/'.$id_next);
 	}

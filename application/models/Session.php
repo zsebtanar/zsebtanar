@@ -111,16 +111,18 @@ class Session extends CI_model {
 	}
 
 	/**
-	 * Clear exercise results of subtopics from session
+	 * Clear exercise results of quest from session
 	 *
-	 * @param  int 	$subtopicID Subtopic ID
+	 * @param  int 	$questID Quest ID
+	 *
 	 * @return void
 	 */
-	public function clearResults($subtopicID) {
+	public function clearResults($questID) {
 
 		$results = $this->session->userdata('results');
 
-		$query = $this->db->get_where('exercises', array('subtopicID' => $subtopicID));
+		$query = $this->db->get_where('exercises', array('questID' => $questID));
+
 		foreach ($query->result() as $exercise) {
 
 			$id = $exercise->id;
@@ -197,11 +199,12 @@ class Session extends CI_model {
 	 */
 	public function PrintInfo() {
 
-		print_r('Session ID: '.$this->session->userdata('sessionID').'<br />');
-		print_r('Quest ID: '.$this->session->userdata('questID').'<br />');
+		// print_r('Session ID: '.$this->session->userdata('sessionID').'<br />');
+		// print_r('Quest ID: '.$this->session->userdata('questID').'<br />');
 		print_r('Method: '.$this->session->userdata('method').' - ');
-		print_r($this->session->userdata('goal').'<br />'.'To do list: ');
-		print_r($this->session->userdata('todo_list'));
+		print_r($this->session->userdata('goal'));
+		// print_r('<br />'.'To do list: ');
+		// print_r($this->session->userdata('todo_list'));
 		print_r('<br />Results: ');
 		print_r($this->session->userdata('results'));
 		// print_r('<br />Exercise data: ');
@@ -255,46 +258,6 @@ class Session extends CI_model {
 	}
 
 	/**
-	 * Start quest
-	 *
-	 * Data is recorded when user starts quest (i.e. sets learning goal).
-	 *
-	 * @return void
-	 */
-	public function StartQuest() {
-
-		$method = $this->session->userdata('method');
-		$id 	= $this->session->userdata('goal');
-
-		if ($method == 'exercise') {
-
-			$query = $this->db->get_where('exercises', array('id' => $id));
-			$class = $this->Database->GetClassName($id, 'exercise');
-
-		} elseif ($method == 'subtopic') {
-
-			$query = $this->db->get_where('subtopics', array('id' => $id));
-			$class = $this->Database->GetClassName($id, 'subtopic');
-			
-		}
-
-		$data['name'] 		= $query->result()[0]->name;
-		$data['sessionID'] 	= $this->session->userdata('sessionID');
-		$data['method'] 	= $method;
-		$data['class'] 		= $class;
-		$data['status'] 	= 'STARTED';
-
-		if (!$this->db->insert('quests', $data)) {
-			show_error($this->db->_error_message());
-		}
-
-		$questID = $this->db->insert_id();
-		$this->session->set_userdata('questID', $questID);
-
-		return;
-	}
-
-	/**
 	 * Clear session
 	 *
 	 * Unsets session variables when quest is finished.
@@ -306,33 +269,6 @@ class Session extends CI_model {
 		// $this->session->unset_userdata('method');
 		// $this->session->unset_userdata('goal');
 		$this->session->set_userdata('todo_list', []);
-
-		return;
-	}
-
-	/**
-	 * Complete quest
-	 *
-	 * Data is updated when user starts quest (i.e. sets learning goal),
-	 * or completes it.
-	 *
-	 * @return void
-	 */
-	public function CompleteQuest() {
-
-		$questID = $this->session->userdata('questID');
-
-		$query = $this->db->get_where('quests', array('id' => $questID));
-		$id = $query->result()[0]->id;
-
-		$data['status'] = 'COMPLETED';
-
-		$this->db->where('id', $id);
-		$this->db->update('quests', $data); 
-
-		// $this->session->unset_userdata('questID');
-		// $this->session->unset_userdata('method');
-		// $this->session->unset_userdata('goal');
 
 		return;
 	}

@@ -62,28 +62,10 @@
 							Mehet
 						</button>
 					</div><br />
-					<?php
-
-				if ($id_prev) {?>
-
-					<a class="btn btn-default" href="<?php echo base_url().'view/exercise/'.$id_prev;?>">
-						Könnyebbet kérek!
-					</a><?php
-
-				}?>
-
-
 				</div>
 				</form>
 			</div>
-		</div><?php
-
-		if ($this->session->userdata('Logged_in') && count($links['links']) > 0) {
-
-				$this->load->view('ExerciseLinks', array('links' => $links));
-			
-		}?>
-
+		</div>
 	</div>
 	<div class="col-md-3"></div>
 </div>
@@ -126,7 +108,7 @@
 					case 'CORRECT':
 						document.getElementById("message").innerHTML = '<div class="alert alert-success"><strong><span class=\"glyphicon glyphicon-ok\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>';
 						if (data['id_next'] == null) {
-							document.getElementById("button").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url().'view/subtopic/';?>" + data['subtopicID'] + "\">Kész! :)</button>";
+							document.getElementById("button").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url().'view/subtopic/';?>" + data['subtopicID'] + '/' + data['questID'] + "\">Kész! :)</button>";
 						} else {
 							document.getElementById("button").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url().'view/exercise/';?>" + data['id_next'] + "\">Tovább</button>";
 						}

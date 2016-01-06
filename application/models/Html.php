@@ -43,10 +43,11 @@ class Html extends CI_model {
 	 */
 	public function SubtopicData($id) {
 
-		$data['menu'] = $this->NavBarMenu();
-		$data['type'] = 'subtopic';
-		$data['title'] = $this->Html->TitleSubtopic($id);
-		$data['exercises'] = $this->Exercises->getSubtopicExercises($id);
+		$data['menu'] 	= $this->NavBarMenu();
+		$data['type'] 	= 'subtopic';
+		$data['title'] 	= $this->Html->TitleSubtopic($id);
+		$data['quests'] = $this->Exercises->getSubtopicQuests($id);
+		// $data['exercises'] = $this->Exercises->getSubtopicExercises($id);
 
 		return $data;
 	}
@@ -56,16 +57,16 @@ class Html extends CI_model {
 	 *
 	 * Collects all necessary parameters for template
 	 *
-	 * @param  int 	  $id   	Exercise ID
-	 * @param  int 	  $level 	Exercise level
-	 * @return array  $data 	Exercise data
+	 * @param int $id    Exercise ID
+	 * @param int $level Exercise level
+	 *
+	 * @return array $data Exercise data
 	 */
 	public function ExerciseData($id, $level) {
 
 		$data['menu'] = $this->NavBarMenu();
 		$data['title'] = $this->Html->TitleExercise($id);
 		$data['type'] = 'exercise';
-		$data['links'] = $this->Exercises->getExerciseLinks($id);
 
 		if (!$level) {
 			$this->load->model('Session');
@@ -151,7 +152,8 @@ class Html extends CI_model {
 		$this->db->select('subtopics.name, subtopics.id')
 				->distinct()
 				->from('subtopics')
-				->join('exercises', 'subtopics.id = exercises.subtopicID', 'inner')
+				->join('quests', 'subtopics.id = quests.subtopicID', 'inner')
+				->join('exercises', 'quests.id = exercises.questID', 'inner')
 				->where('exercises.id', $id);
 		$subtopics = $this->db->get();
 		$subtopic = $subtopics->result()[0];
@@ -173,15 +175,21 @@ class Html extends CI_model {
 			}
 		}
 
-		$title = $exercise->name;
-		$subtitle = $subtopic->name;
-		$href = base_url().'view/subtopic/'.$subtopic->id;
+		if (NULL !== $this->session->userdata('method')) {
+			$method = $this->session->userdata('method');
+			$questID = ($method == 'quest' ? $this->session->userdata('goal') : '');
+		}
+
+		// $title = $exercise->name;
+		// $subtitle = $subtopic->name;
+		// $href = base_url().'view/subtopic/'.$subtopic->id.'/'.$questID;
 
 		return array(
 			'img' 			=> $img,
-			'title' 		=> $title,
-			'subtitle' 		=> $subtitle,
-			'subtopicID'	=> $subtopic->id
+			'title' 		=> $exercise->name,
+			'subtitle' 		=> $subtopic->name,
+			'subtopicID'	=> $subtopic->id,
+			'questID' 		=> $questID
 		);
 	}
 
@@ -199,10 +207,10 @@ class Html extends CI_model {
 		$subtopics = $this->db->get_where('subtopics', array('id' => $id));
 		$subtopic = $subtopics->result()[0];
 
-		$this->db->select('classes.name');
-		$this->db->from('subtopics');
-		$this->db->join('topics', 'topics.id = subtopics.topicID', 'inner');
-		$this->db->join('classes', 'classes.id = topics.classID', 'inner');
+		$this->db->select('classes.name')
+				->from('subtopics')
+				->join('topics', 'topics.id = subtopics.topicID', 'inner')
+				->join('classes', 'classes.id = topics.classID', 'inner');
 		$classes = $this->db->get();
 		$class = $classes->result()[0];
 
@@ -216,7 +224,7 @@ class Html extends CI_model {
 			'subtitle' 	=> $subtitle,
 			'id'		=> $id,
 			'href'		=> $href,
-			'id_next' 	=> $this->Exercises->IDNextSubtopic($id)
+			// 'id_next' 	=> $this->Exercises->IDNextSubtopic($id)
 		);
 	}
 }

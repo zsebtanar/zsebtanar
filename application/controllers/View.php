@@ -12,12 +12,9 @@ class View extends CI_controller {
 
 		parent::__construct();
 
-		// Load models
-		$this->load->model('Html');
+		// load models
 		$this->load->model('Session');
-
-		// Write statistics of website content
-		// $this->Statistics->Write('resources/statistics.xlsx');
+		$this->load->model('Html');
 
 		// Start session
 		$this->Session->startSession();
@@ -46,14 +43,18 @@ class View extends CI_controller {
 	/**
 	 * View subtopic
 	 *
-	 * @param int $id Subtopic id
+	 * @param int $subtopicID Subtopic id
+	 * @param int $questID    Quest id
 	 *
 	 * @return	void
 	 */
-	public function Subtopic($id=NULL) {
+	public function Subtopic($subtopicID=NULL, $questID=NULL) {
 
 		$this->Session->ClearSession();
-		$data = $this->Html->SubtopicData($id);
+		$data = $this->Html->SubtopicData($subtopicID);
+		
+		$data['questID'] = $questID;
+		$data['subtopicID'] = $subtopicID;
 
 		$this->load->view('Template', $data);
 		
