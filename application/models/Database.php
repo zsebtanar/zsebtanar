@@ -27,28 +27,29 @@ class Database extends CI_model {
 				'topicID'	=> 'FROM SESSION',
 				'name'		=> 'NOT NULL'
 				),
-			'exercises' => array(
+			'quests' => array(
 				'subtopicID'	=> 'FROM SESSION',
-				'level'			=> 1,
-				'name'			=> '',
-				'label'			=> 'NOT NULL',
-				'youtube'		=> '',
-				'download'		=> ''
-				),
-			'quizzes' => array(
-				'exerciseID'	=> 'FROM SESSION',
-				'question'		=> 'NOT NULL',
-				'correct'		=> 'NOT NULL',
-				'wrong1'		=> 'NOT NULL',
-				'wrong2'		=> 'NOT NULL'
-				),
-			'links' => array(
-				'exerciseID'	=> 'FROM SESSION',
+				'name'			=> 'NOT NULL',
 				'label'			=> 'NOT NULL'
 				),
-			'sessions'			=> '',
-			'quests' 			=> '',
-			'actions' 			=> ''
+			'exercises' => array(
+				'questID'	=> 'FROM SESSION',
+				'level'		=> 1,
+				'name'		=> '',
+				'youtube'	=> '',
+				'download'	=> ''
+				),
+			'quizzes' => array(
+				'questID'	=> 'FROM SESSION',
+				'question'	=> 'NOT NULL',
+				'correct'	=> 'NOT NULL',
+				'wrong1'	=> 'NOT NULL',
+				'wrong2'	=> 'NOT NULL'
+				),
+			'links' => array(
+				'questID'	=> 'FROM SESSION',
+				'label'		=> 'NOT NULL'
+				)
 			);
 
 	/**
@@ -123,57 +124,39 @@ class Database extends CI_model {
 							CONSTRAINT topic_name UNIQUE (topicID, name),
 							FOREIGN KEY (topicID) REFERENCES topics(id)
 						)Engine=InnoDB;',
-			'exercises' => 'CREATE TABLE exercises (
+			'quests' => 'CREATE TABLE quests (
 							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							subtopicID 	INT NOT NULL,
-							level 		INT,
 							label 		VARCHAR(30) NOT NULL UNIQUE,
+							name 		VARCHAR(60) NOT NULL,
+							FOREIGN KEY (subtopicID) REFERENCES subtopics(id)
+						)Engine=InnoDB;',
+			'exercises' => 'CREATE TABLE exercises (
+							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+							questID 	INT NOT NULL,
+							level 		INT,
 							name 		VARCHAR(120),
 							youtube 	VARCHAR(20),
 							download 	VARCHAR(60),
-							FOREIGN KEY (subtopicID) REFERENCES subtopics(id)
+							FOREIGN KEY (questID) REFERENCES quests(id)
 						)Engine=InnoDB;',
 			'quizzes' => 'CREATE TABLE quizzes (
 							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							exerciseID 	INT NOT NULL UNIQUE,
+							questID 	INT,
 							question 	VARCHAR(240) NOT NULL,
 							correct 	VARCHAR(120) NOT NULL,
 							wrong1 		VARCHAR(120) NOT NULL,
 							wrong2 		VARCHAR(120) NOT NULL,
-							FOREIGN KEY (exerciseID) REFERENCES exercises(id)
-						)Engine=InnoDB;',
-			'links' => 'CREATE TABLE links (
-							id 			INT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							exerciseID	INT,
-							label 		VARCHAR(30) NOT NULL,
-							CONSTRAINT link_label UNIQUE (id, label),
-							FOREIGN KEY (exerciseID) REFERENCES exercises(id),
-							FOREIGN KEY (label) REFERENCES exercises(label)
-						)Engine=InnoDB;',
-			'sessions' => 'CREATE TABLE sessions (
-							id 			INT	NOT NULL AUTO_INCREMENT PRIMARY KEY
-						)Engine=InnoDB;',
-			'quests' => 'CREATE TABLE quests (
-							id 			INT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							sessionID	INT	NOT NULL,
-							time 		TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-							class 		VARCHAR(120) NOT NULL,
-							method 		VARCHAR(30) NOT NULL,
-							name 		VARCHAR(30) NOT NULL,
-							status 		VARCHAR(30) NOT NULL,
-							FOREIGN KEY (sessionID) REFERENCES sessions(id)
-						)Engine=InnoDB;',
-			'actions' => 'CREATE TABLE actions (
-							id 			INT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							questID		INT	NOT NULL,
-							time 		TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-							name 		VARCHAR(30) NOT NULL,
-							level 		INT,
-							level_max 	INT,
-							result 		VARCHAR(30),
-							todo 		INT,
 							FOREIGN KEY (questID) REFERENCES quests(id)
 						)Engine=InnoDB;',
+			'links' => 'CREATE TABLE links (
+							id 		INT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
+							questID	INT,
+							label 	VARCHAR(30) NOT NULL,
+							CONSTRAINT link_label UNIQUE (questID, label),
+							FOREIGN KEY (questID) REFERENCES quests(id),
+							FOREIGN KEY (label) REFERENCES quests(label)
+						)Engine=InnoDB;'
 		);
 
 		// Check table
@@ -264,7 +247,8 @@ class Database extends CI_model {
 	 *
 	 * Calls insertData() function for each column of data.
 	 *
-	 * @param  array  $data   Original data
+	 * @param array $data Original data
+	 *
 	 * @return void
 	 */
 	public function recursiveInsert($data) {

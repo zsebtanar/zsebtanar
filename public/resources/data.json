@@ -8,239 +8,65 @@
 					"subtopics": [
 						{
 							"name": "Számolás",
-							"exercises": [
+							"quests": [
 								{
-									"label": "even",
-									"name": "Páros számok jelentése",
-									"download": "paros_paratlan.jpg",
-									"quizzes": [
-										{
-											"question": "Melyik számokat nevezzünk páros számoknak?",
-											"correct": "Azokat, amik $0,2,4,6,8$-ra végződnek.",
-											"wrong1": "Azokat, amik $1,3,5,7,9$-re végződnek.",
-											"wrong2": "Azokat, amik $1,2,3,4,5$-re végződnek."
-										}
-									]
-								},
-								{
-									"label": "odd",
-									"name": "Páratlan számok jelentése",
-									"download": "paros_paratlan.jpg",
-									"quizzes": [
-										{
-											"question": "Melyik számokat nevezzünk páratlan számoknak?",
-											"correct": "Azokat, amik $1,3,5,7,9$-re végződnek.",
-											"wrong1": "Azokat, amik $0,2,4,6,8$-ra végződnek.",
-											"wrong2": "Azokat, amik $1,2,3,4,5$-re végződnek."
-										}
-									]
-								},
-								{
-									"label": "parity_digit",
-									"name": "Paritást meghatározó számjegy",
-									"download": "paros_paratlan.jpg",
-									"quizzes": [
-										{
-											"question": "Melyik számjegy dönti el, hogy egy szám páros, vagy páratlan?",
-											"correct": "Az utolsó.",
-											"wrong1": "Az első.",
-											"wrong2": "A második."
-										}
-									]
-								},
-								{
-									"label": "count_apples",
-									"name": "Számolás 1-től 20-ig",
-									"level": 3,
-									"download": "szamok_1-20.jpg"
-								},
-								{
+									"name": "Páros, páratlan",
 									"label": "parity",
-									"name": "Páros vagy páratlan?",
-									"level": 3,
-									"links": [
+									"exercises": [
 										{
-											"label": "even" 
+											"label": "even",
+											"name": "Páros számok jelentése",
+											"download": "paros_paratlan.jpg",
+											"quizzes": [
+												{
+													"question": "Melyik számokat nevezzünk páros számoknak?",
+													"correct": "Azokat, amik $0,2,4,6,8$-ra végződnek.",
+													"wrong1": "Azokat, amik $1,3,5,7,9$-re végződnek.",
+													"wrong2": "Azokat, amik $1,2,3,4,5$-re végződnek."
+												}
+											]
 										},
 										{
-											"label": "odd" 
-										}
-									]
-								},
-								{
-									"label": "count_parity",
-									"name": "Hány darab páros/páratlan?",
-									"level": 3,
-									"links": [
-										{
-											"label": "parity" 
+											"label": "odd",
+											"name": "Páratlan számok jelentése",
+											"download": "paros_paratlan.jpg",
+											"quizzes": [
+												{
+													"question": "Melyik számokat nevezzünk páratlan számoknak?",
+													"correct": "Azokat, amik $1,3,5,7,9$-re végződnek.",
+													"wrong1": "Azokat, amik $0,2,4,6,8$-ra végződnek.",
+													"wrong2": "Azokat, amik $1,2,3,4,5$-re végződnek."
+												}
+											]
 										},
 										{
-											"label": "count_apples" 
-										}
-									]
-								}
-							]
-						}
-					]
-				},
-				{
-					"name": "Természetes számok",
-					"subtopics": [
-						{
-							"name": "Természetes számok",
-							"exercises": [
-								{
-									"label": "natural_numbers",
-									"name": "Természetes számok jelentése",
-									"quizzes": [
+											"label": "parity_digit",
+											"name": "Paritást meghatározó számjegy",
+											"download": "paros_paratlan.jpg",
+											"quizzes": [
+												{
+													"question": "Melyik számjegy dönti el, hogy egy szám páros, vagy páratlan?",
+													"correct": "Az utolsó.",
+													"wrong1": "Az első.",
+													"wrong2": "A második."
+												}
+											]
+										},
 										{
-											"question": "Melyik számokat nevezzük természetes számoknak?",
-											"correct": "$0,1,2,3,\\ldots$",
-											"wrong1": "$1,2,3,4,\\ldots$",
-											"wrong2": "$0,2,4,6,\\ldots$"
-										}
-									]
-								},
-								{
-									"label": "natural_notation",
-									"name": "Természetes számok jelölése",
-									"quizzes": [
+											"label": "count_apples",
+											"name": "Számolás 1-től 20-ig",
+											"level": 3,
+											"download": "szamok_1-20.jpg"
+										},
 										{
-											"question": "Melyik betűvel jelöljük a természetes számok halmazát?",
-											"correct": "$\\mathbb{N}$",
-											"wrong1": "$\\mathbb{T}$",
-											"wrong2": "$\\mathbb{R}$"
-										}
-									]
-								},
-								{
-									"label": "natural_question",
-									"name": "Természetes számok kérdése",
-									"quizzes": [
+											"label": "parity",
+											"name": "Páros vagy páratlan?",
+											"level": 3
+										},
 										{
-											"question": "Az alábbiak közül melyik kérdésre válaszolunk mindig természetes számmal?",
-											"correct": "Hány darab...?",
-											"wrong1": "Mekkora...?",
-											"wrong2": "Hányadik...?"
-										}
-									]
-								},
-								{
-									"label": "natural_biggest",
-									"name": "Legnagyobb természetes szám",
-									"quizzes": [
-										{
-											"question": "Melyik a legnagyobb természetes szám?",
-											"correct": "Nincs ilyen",
-											"wrong1": "$999\\,999\\,999$",
-											"wrong2": "$10\\,000\\,000$"
-										}
-									]
-								},
-								{
-									"label": "natural_smallest",
-									"name": "Legkisebb természetes szám",
-									"quizzes": [
-										{
-											"question": "Melyik a legkisebb természetes szám?",
-											"correct": "$0$",
-											"wrong1": "$1$",
-											"wrong2": "Nincs ilyen"
-										}
-									]
-								},
-								{
-									"label": "natural_how_many",
-									"name": "Hány darab természetes szám van?",
-									"quizzes": [
-										{
-											"question": "Hány darab természetes szám van?",
-											"correct": "Végtelen sok",
-											"wrong1": "$987\\,533\\,867$",
-											"wrong2": "$13\\,456\\,432$"
-										}
-									]
-								}
-							]
-						},
-						{
-							"name": "Tízes számrendszer",
-							"exercises": [
-								{
-									"label": "decimal_digits",
-									"name": "Tízes számrendszer számjegyei",
-									"quizzes": [
-										{
-											"question": "Melyik számjegyeket használjunk tízes számrendszerben a számok leírására?",
-											"correct": "$0,1,2,3,4,5,6,7,8,9$",
-											"wrong1": "$1,2,3,4,5,6,7,8,9,10$",
-											"wrong2": "Mindegyiket."
-										}
-									]
-								},
-								{
-									"label": "decimal_alt_name",
-									"name": "Tízes számrendszer másik neve",
-									"quizzes": [
-										{
-											"question": "Hogy hívjuk másképp a tízes számrendszert?",
-											"correct": "Decimális",
-											"wrong1": "Bináris",
-											"wrong2": "Természetes"
-										}
-									]
-								},
-								{
-									"label": "number_value",
-									"name": "Alaki érték",
-									"quizzes": [
-										{
-											"question": "Mi határozza meg egy számjegy alaki értékét?",
-											"correct": "A számjegy alakja.",
-											"wrong1": "Az, hogy a számjegy melyik helyen áll a számban.",
-											"wrong2": "A számjegy és a helyiérték szorzata."
-										}
-									]
-								}
-							]
-						},
-						{
-							"name": "Kettes számrendszer",
-							"exercises": [
-								{
-									"label": "binary_digits",
-									"name": "Kettes számrendszer számjegyei",
-									"quizzes": [
-										{
-											"question": "Melyik számjegyeket használjuk a számok leírására kettes számrendszerben?",
-											"correct": "$0,1$",
-											"wrong1": "$0,1,2,3,4,5,6,7,8,9$",
-											"wrong2": "$0,1,2$"
-										}
-									]
-								},
-								{
-									"label": "binary_alt_name",
-									"name": "Kettes számrendszer másik neve",
-									"quizzes": [
-										{
-											"question": "A kettes számrendszert más néven ... számrendszernek hívjuk.",
-											"correct": "bináris",
-											"wrong1": "decimális",
-											"wrong2": "természetes"
-										}
-									]
-								},
-								{
-									"label": "binary_notation",
-									"name": "Kettes számrendszerbeli számok jelölése",
-									"quizzes": [
-										{
-											"question": "Hogyan jelöljük a kettes számrendszerben felírt számokat?",
-											"correct": "A szám jobb alsó sarkába egy kis $2$-est írunk.",
-											"wrong1": "Sehogy.",
-											"wrong2": "A szám bal alsó sarkába egy kis $2$-est írunk." 
+											"label": "count_parity",
+											"name": "Hány darab páros/páratlan?",
+											"level": 3
 										}
 									]
 								}

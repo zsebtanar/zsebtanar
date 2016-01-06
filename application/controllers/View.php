@@ -15,10 +15,9 @@ class View extends CI_controller {
 		// Load models
 		$this->load->model('Html');
 		$this->load->model('Session');
-		$this->load->model('Statistics');
 
 		// Write statistics of website content
-		$this->Statistics->Write('resources/statistics.xlsx');
+		// $this->Statistics->Write('resources/statistics.xlsx');
 
 		// Start session
 		$this->Session->startSession();

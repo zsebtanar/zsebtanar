@@ -13,7 +13,7 @@ class Update extends CI_controller {
 		$this->load->model('Database');
 		$this->load->model('Session');
 
-		$this->session->set_userdata('Write_statistics', TRUE);
+		// $this->session->set_userdata('Write_statistics', TRUE);
 
 		$data = $this->Database->ReadFile('resources/data.json');
 
@@ -22,7 +22,7 @@ class Update extends CI_controller {
 
 		$this->Database->InsertData($data);
 		$this->Session->UnsetUserData();
-		$this->Database->Redirect();
+		// $this->Database->Redirect();
 	}
 }
 
