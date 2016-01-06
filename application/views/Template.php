@@ -18,7 +18,9 @@
 
 	<nav class="navbar navbar-default navbar-fixed-top" role="banner"><?php
 
-		$this->load->view('NavBar', $menu);?>
+		$this->load->view('NavBar2');
+		// $this->load->view('NavBar', $menu);
+		?>
 
 	</nav><?php
 
@@ -28,7 +30,8 @@
 
 	if ($type == 'main') {
 
-		$this->load->view('Search', $search);
+		// $this->load->view('Search', $search);
+		$this->load->view('TOC', $menu);
 
 	} elseif ($type == 'subtopic') {
 
