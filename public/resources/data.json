@@ -2,9 +2,11 @@
 	"classes": [
 		{
 			"name": "5. osztály",
+			"label": 5,
 			"topics": [
 				{
 					"name": "Alapműveletek",
+					"label": "basic",
 					"subtopics": [
 						{
 							"name": "Számolás",
@@ -38,35 +40,6 @@
 													"wrong2": "Azokat, amik $1,2,3,4,5$-re végződnek."
 												}
 											]
-										},
-										{
-											"label": "parity_digit",
-											"name": "Paritást meghatározó számjegy",
-											"download": "paros_paratlan.jpg",
-											"quizzes": [
-												{
-													"question": "Melyik számjegy dönti el, hogy egy szám páros, vagy páratlan?",
-													"correct": "Az utolsó.",
-													"wrong1": "Az első.",
-													"wrong2": "A második."
-												}
-											]
-										},
-										{
-											"label": "count_apples",
-											"name": "Számolás 1-től 20-ig",
-											"level": 3,
-											"download": "szamok_1-20.jpg"
-										},
-										{
-											"label": "parity",
-											"name": "Páros vagy páratlan?",
-											"level": 3
-										},
-										{
-											"label": "count_parity",
-											"name": "Hány darab páros/páratlan?",
-											"level": 3
 										}
 									]
 								}

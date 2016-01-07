@@ -2,55 +2,42 @@
 <html lang="hu">
 	<head><?php
 
-	$this->load->view('Header');?>
+	$this->load->view('Misc/Header');?>
 
 	</head>
 <body>
 	<div class="container"><?php
 
-	if (in_array($type, ['main', 'subtopic', 'exercise'])) {
+	$this->load->view('Misc/GoogleAnalytics');
 
-	$this->load->view('GoogleAnalytics');
-
-	$this->load->view('Modal/Info');
-	$this->load->view('Modal/Youtube');
-	$this->load->view('Modal/Login');?>
+	$this->load->view('Modal/Info');?>
 
 	<nav class="navbar navbar-default navbar-fixed-top" role="banner"><?php
 
-		$this->load->view('NavBar2');
-		// $this->load->view('NavBar', $menu);
-		?>
+		$this->load->view('Misc/NavBar');?>
 
 	</nav><?php
 
-	$this->load->view('Title/Title'.$type, $title);
-
-	}
-
 	if ($type == 'main') {
 
-		// $this->load->view('Search', $search);
-		$this->load->view('TOC', $menu);
+		$this->load->view('Title/Main');
+		$this->load->view('Body/Subtopics', $menu);
 
 	} elseif ($type == 'subtopic') {
 
-		// $this->load->view('ExerciseList', $exercises);
-		$this->load->view('QuestList', $quests);
+		$this->load->view('Title/Subtopic', $titledata);
+		$this->load->view('Body/Quests', $quests);
 
 	} elseif ($type == 'exercise') {
 
-		$this->load->view('Exercise', $exercise);
-
-	} else {
-
-		$this->load->view('Activities/'.$type, $data);
+		$this->load->view('Title/Exercise', $titledata);
+		$this->load->view('Body/Exercise', $exercise);
 
 	}?>
 
 	</div><?php
 
-	$this->load->view('Footer');?>
+	$this->load->view('Misc/Footer');?>
 
 </body>
 </html>

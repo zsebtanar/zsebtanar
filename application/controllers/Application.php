@@ -17,22 +17,22 @@ class Application extends CI_controller {
 		return;
 	}
 
-	/**
-	 * Search keyword in database (AJAX)
-	 *
-	 * @param string $keyword Keyword (from REQUEST)
-	 *
-	 * @return void
-	 */
-	public function Search() {
+	// /**
+	//  * Search keyword in database (AJAX)
+	//  *
+	//  * @param string $keyword Keyword (from REQUEST)
+	//  *
+	//  * @return void
+	//  */
+	// public function Search() {
 		
-		$this->load->model('Database');
-		$keyword = $this->input->get('keyword');
-		$classID = $this->input->get('classID');
-		$topicID = $this->input->get('topicID');
-		$results = $this->Database->Search($keyword, $classID, $topicID);
-		echo json_encode($results);
-	}
+	// 	$this->load->model('Database');
+	// 	$keyword = $this->input->get('keyword');
+	// 	$classID = $this->input->get('classID');
+	// 	$topicID = $this->input->get('topicID');
+	// 	$results = $this->Database->Search($keyword, $classID, $topicID);
+	// 	echo json_encode($results);
+	// }
 
 	/**
 	 * Check exercise answer (AJAX)
@@ -67,25 +67,25 @@ class Application extends CI_controller {
 		header('Location:'.base_url().'view/subtopic/'.$subtopicID.'/'.$questID);
 	}
 
-	/**
-	 * End session
-	 *
-	 * Drop activities from database & unset session ID
-	 *
-	 * @param int $subtopicID Subtopic id
-	 *
-	 * @return void
-	 */
-	public function DeleteSessions() {
+	// /**
+	//  * End session
+	//  *
+	//  * Drop activities from database & unset session ID
+	//  *
+	//  * @param int $subtopicID Subtopic id
+	//  *
+	//  * @return void
+	//  */
+	// public function DeleteSessions() {
 
-		$this->db->empty_table('actions'); 
-		$this->db->empty_table('quests'); 
-		$this->db->empty_table('sessions');
+	// 	$this->db->empty_table('actions'); 
+	// 	$this->db->empty_table('quests'); 
+	// 	$this->db->empty_table('sessions');
 
-		$this->session->unset_userdata('sessionID');
+	// 	$this->session->unset_userdata('sessionID');
 
-		header('Location:'.base_url().'view/subtopic/');
-	}
+	// 	header('Location:'.base_url().'view/subtopic/');
+	// }
 
 	/**
 	 * Set goal
@@ -123,25 +123,27 @@ class Application extends CI_controller {
 	 *
 	 * @return void
 	 */
-	public function Login() {
-
-		$password = $this->input->get('password');
+	public function Login($password) {
 
 		if ($password == 'zst') {
 
 			$this->session->set_userdata('Logged_in', TRUE);
-			$status = 'PASSWORD_OK';
+			// $status = 'PASSWORD_OK';
 
 		} elseif (+$password) {
 
-			$status = 'INCORRECT_PASSWORD';
+			// $status = 'INCORRECT_PASSWORD';
 
 		} else {
 
-			$status = 'PASSWORD_MISSING';
+			// $status = 'PASSWORD_MISSING';
 		}
 
-		echo json_encode($status);
+		// echo json_encode($status);
+
+		header('Location:'.base_url().'view/main/');
+
+		return;
 	}
 
 	/**

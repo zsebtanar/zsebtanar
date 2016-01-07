@@ -6,7 +6,7 @@ class Database extends CI_model {
 	/**
 	 * Class constructor
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	public function __construct() {
 
@@ -17,11 +17,13 @@ class Database extends CI_model {
 	// Define name and type of table columns
 	public static $table_columns = array(
 			'classes' => array(
-				'name'	=> 'NOT NULL'
+				'name'	=> 'NOT NULL',
+				'label'	=> 'NOT NULL'
 				),
 			'topics' => array(
 				'classID'	=> 'FROM SESSION',
-				'name'		=> 'NOT NULL'
+				'name'		=> 'NOT NULL',
+				'label'		=> 'NOT NULL'
 				),
 			'subtopics' => array(
 				'topicID'	=> 'FROM SESSION',
@@ -83,7 +85,8 @@ class Database extends CI_model {
 	/**
 	 * Drop table
 	 *
-	 * @param  string $table Table name
+	 * @param string $table Table name
+	 *
 	 * @return void
 	 */
 	public function DropTable($table) {
@@ -102,7 +105,8 @@ class Database extends CI_model {
 	/**
 	 * Create table
 	 *
-	 * @param  string $table Table name
+	 * @param string $table Table name
+	 *
 	 * @return void
 	 */
 	public function CreateTable($table) {
@@ -110,12 +114,14 @@ class Database extends CI_model {
 		$sql = array(
 			'classes' => 'CREATE TABLE classes (
 							id 		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							name 	VARCHAR(60) NOT NULL
+							name 	VARCHAR(60) NOT NULL,
+							label 	VARCHAR(30) NOT NULL
 						)Engine=InnoDB;',
 			'topics' => 'CREATE TABLE topics (
 							id 		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							classID INT NOT NULL,
 							name 	VARCHAR(60) NOT NULL,
+							label 	VARCHAR(30) NOT NULL,
 							CONSTRAINT class_name UNIQUE (classID, name),
 							FOREIGN KEY (classID) REFERENCES classes(id)
 						)Engine=InnoDB;',
@@ -188,8 +194,9 @@ class Database extends CI_model {
 	 * If column is missing from data and must not be null, throws an error.
 	 * If it can be null, value is defined by an empty string ''.
 	 *
-	 * @param  array  $data   Original data
-	 * @param  string $string Table name
+	 * @param array  $data   Original data
+	 * @param string $string Table name
+	 *
 	 * @return void
 	 */
 	public function InsertData($data, $table=NULL) {
@@ -243,20 +250,6 @@ class Database extends CI_model {
 			$this->session->set_userdata($sessionID, $currentID);
 		}
 
-		$this->recursiveInsert($data);
-	}
-
-	/**
-	 * Insert data recoursively
-	 *
-	 * Calls insertData() function for each column of data.
-	 *
-	 * @param array $data Original data
-	 *
-	 * @return void
-	 */
-	public function recursiveInsert($data) {
-
 		// Recursive check for other table names
 		foreach (array_keys(SELF::$table_columns) as $column) {
 
@@ -273,8 +266,9 @@ class Database extends CI_model {
 	/**
 	 * Read file
 	 *
-	 * @param  string $file File name
-	 * @return array  $data File content
+	 * @param string $file File name
+	 *
+	 * @return array $data File content
 	 */
 	public function ReadFile($file) {
 
@@ -292,67 +286,12 @@ class Database extends CI_model {
 	}
 
 	/**
-	 * Redirect page
-	 *
-	 * @param  int $id	Subtopic ID
-	 * @param  int $level Excercise level
-	 * @return void
-	 */
-	public function Redirect() {
-
-		header('Location:'.base_url().'view/main/');
-	}
-
-	/**
-	 * Search
-	 *
-	 * @param string $keyword Keyword
-	 * @param int $classID Class id
-	 * @param int $topicID Topic id
-	 *
-	 * @return string $output  Html output
-	 */
-	public function Search($keyword, $classID=NULL, $topicID=NULL) {
-
-		if ($keyword != '') {
-			if ($classID) {
-				if ($topicID) {
-					$query = $this->db->query(
-						'SELECT `exercises`.`name`, `exercises`.`id` FROM `exercises`
-							INNER JOIN `subtopics` ON `subtopics`.`id` = `exercises`.`subtopicID`
-							WHERE `exercises`.`name` LIKE \'%'.$keyword.'%\' ESCAPE \'!\'
-							AND `subtopics`.`topicID` = '.$topicID.
-							' ORDER BY `exercises`.`name`');
-				} else {
-					$query = $this->db->query(
-						'SELECT `exercises`.`name`, `exercises`.`id` FROM `exercises`
-							INNER JOIN `subtopics` ON `subtopics`.`id` = `exercises`.`subtopicID`
-							INNER JOIN `topics` ON `topics`.`id` = `subtopics`.`topicID`
-							WHERE `exercises`.`name` LIKE \'%'.$keyword.'%\' ESCAPE \'!\'
-							AND `topics`.`classID` = '.$classID.
-							' ORDER BY `exercises`.`name`');
-				}
-			} else {
-				$this->db->like('name', $keyword, 'both');
-				$this->db->order_by('name');
-				$query = $this->db->get('exercises');
-			}
-			$output = $query->result_array();
-			// print_r($this->db->last_query());
-		} else {
-			$output = [];
-		}
-
-		return $output;
-	}
-
-	/**
 	 * Get class name
 	 *
 	 * Searches for class name of exercise/subtopic.
 	 *
-	 * @param  int	$id   ID
-	 * @param  string $type Id type (exercise/subtopic)
+	 * @param int	 $id   ID
+	 * @param string $type Id type (exercise/subtopic)
 	 *
 	 * @return string $class Class name
 	 */
@@ -384,58 +323,12 @@ class Database extends CI_model {
 	}
 
 	/**
-	 * Get search data
-	 *
-	 * Gets all classes + topics if class is defined
-	 *
-	 * @param int $classID Class id
-	 * @param int $topicID Topic id
-	 *
-	 * @return array $data Class data
-	 */
-	public function getSearchData($classID=NULL, $topicID=NULL) {
-
-		$query = $this->db->query('SELECT * FROM `classes`');
-		$classes = $query->result_array();
-		array_unshift($classes, array('id' => NULL, 'name' => 'Mindenhol'));
-
-		if ($classID) {
-			$query = $this->db->query('SELECT `name` FROM `classes` WHERE `id` = '.$classID);
-			$className = $query->result()[0]->name;
-
-			$query = $this->db->query('SELECT * FROM `topics` WHERE `classID` = '.$classID);
-			$topics = $query->result_array();
-			array_unshift($topics, array('id' => NULL, 'name' => 'Mindenhol'));
-
-			if ($topicID) {
-				$query = $this->db->query('SELECT `name` FROM `topics` WHERE `id` = '.$topicID);
-				$topicName = $query->result()[0]->name;
-			} else {
-				$topicName = 'Válassz témakört!';
-			}
-		} else {
-			$topics = NULL;
-			$topicName = NULL;
-			$className = 'Válassz osztályt!';
-		}
-
-		return array(
-			'classes' 	=> $classes,
-			'className' => $className,
-			'classID' 	=> $classID,
-			'topics' 	=> $topics,
-			'topicName' => $topicName,
-			'topicID' 	=> $topicID
-		);
-	}
-
-	/**
 	 * Get topic name
 	 *
 	 * Searches for topic name of exercise/quest.
 	 *
-	 * @param  int	  $id   ID
-	 * @param  string $type Id type (exercise/quest)
+	 * @param int	 $id   ID
+	 * @param string $type Id type (exercise/quest)
 	 *
 	 * @return string $topic Topic name
 	 */
@@ -489,40 +382,6 @@ class Database extends CI_model {
 			return FALSE;
 		}
 	}
-
-	/**
-	 * Record action
-	 *
-	 * Data is recorded when user attempts to solve an exercise.
-	 *
-	 * @param  int 	  $id	 Subtopic/Exercise ID
-	 * @param  int	$level  Exercise level
-	 * @param  string $result Result (correct/wrong/not_done)
-	 *
-	 * @return void
-	 */
-	// public function recordAction($id, $level=NULL, $result=NULL) {
-
-	// 	$query 		= $this->db->get_where('exercises', array('id' => $id));
-	// 	$exercise 	= $query->result()[0];
-	// 	$name 		= $exercise->name;
-	// 	$level_max	= $exercise->level;
-
-	// 	$data['questID'] 	= $this->session->userdata('questID');
-	// 	$data['level']		= $level;
-	// 	$data['level_max']	= $level_max;
-	// 	$data['result']		= $result;
-	// 	$data['name'] 		= $name;
-
-	// 	$todo_length		= count($this->session->userdata('todo_list'));
-	// 	$data['todo'] 		= $todo_length;
-
-	// 	if (!$this->db->insert('actions', $data)) {
-	// 		show_error($this->db->_error_message());
-	// 	}
-
-	// 	return;
-	// }
 
 	/**
 	 * Convert string to Ascii

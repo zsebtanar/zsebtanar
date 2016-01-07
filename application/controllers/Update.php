@@ -10,21 +10,26 @@ class Update extends CI_controller {
 	 */
 	public function Database() {
 
-		// unset user data in session
-		$this->load->model('Session');
-		$this->Session->UnsetUserData();
+		if ($this->session->userdata('Logged_in') == TRUE) {
 
-		// prepare tables
-		$this->load->model('Database');
-		$this->Database->DropTables();
-		$this->Database->CreateTables();
+			// unset user data in session
+			$this->load->model('Session');
+			$this->Session->UnsetUserData();
 
-		// read data from file
-		$data = $this->Database->ReadFile('resources/data.json');
-		$this->Database->InsertData($data);
+			// prepare tables
+			$this->load->model('Database');
+			$this->Database->DropTables();
+			$this->Database->CreateTables();
+
+			// read data from file
+			$data = $this->Database->ReadFile('resources/data.json');
+			$this->Database->InsertData($data);
+
+		}
 
 		// redirect page
-		$this->Database->Redirect();
+		$this->load->helper('url');
+		header('Location:'.base_url().'view/main/');
 	}
 }
 

@@ -13,11 +13,9 @@ class View extends CI_controller {
 		parent::__construct();
 
 		// load models
-		$this->load->model('Session');
 		$this->load->model('Html');
+		$this->load->model('Session');
 
-		// Start session
-		$this->Session->startSession();
 	}
 
 	/**
@@ -52,7 +50,7 @@ class View extends CI_controller {
 
 		$this->Session->ClearSession();
 		$data = $this->Html->SubtopicData($subtopicID);
-		
+
 		$data['questID'] = $questID;
 		$data['subtopicID'] = $subtopicID;
 
@@ -63,6 +61,14 @@ class View extends CI_controller {
 		}
 	}
 
+	/**
+	 * View exercise
+	 *
+	 * @param int $id    Exercise id
+	 * @param int $level Exercise level
+	 *
+	 * @return	void
+	 */
 	public function Exercise($id=1, $level=NULL) {
 
 		$this->Session->UpdateTodoList($id);
@@ -76,43 +82,6 @@ class View extends CI_controller {
 		if ($this->session->userdata('Logged_in')) {
 			$this->Session->PrintInfo();
 		}
-	}
-
-	/**
-	 * View activities
-	 *
-	 * Display summary sessions/quest/actions.
-	 *
-	 * @param int $sessionID Session ID
-	 * @param int $questID Quest ID
-	 *
-	 * @return void
-	 */
-	public function Activities($sessionID=NULL, $questID=NULL) {
-
-		$this->load->model('Activities');
-
-		if (!$sessionID) {
-
-			$data['type'] = 'sessions';
-			$data['data']['sessions'] = $this->Activities->getSessions();
-			
-		} elseif (!$questID) {
-			$data['type'] = 'quests';
-			$data['data']['quests'] = $this->Activities->getQuests($sessionID);
-			$data['data']['sessionID'] = $sessionID;
-
-		} else {
-
-			$data['type'] = 'actions';
-			$data['data']['actions'] = $this->Activities->getActions($questID);
-			$data['data']['sessionID'] = $sessionID;
-			$data['data']['questID'] = $questID;
-			$data['data']['questName'] = $this->Activities->getQuestName($questID);
-
-		}
-
-		$this->load->view('Template', $data);
 	}
 }
 

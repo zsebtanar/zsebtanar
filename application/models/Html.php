@@ -6,7 +6,7 @@ class Html extends CI_model {
 	/**
 	 * Class constructor
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	public function __construct() {
 
@@ -26,9 +26,8 @@ class Html extends CI_model {
 	public function MainData($classID=NULL, $topicID=NULL) {
 
 		$data['menu'] = $this->NavBarMenu();
-		$data['search'] = $this->Database->getSearchData($classID, $topicID);
 		$data['type'] = 'main';
-		$data['title'] = NULL;
+		$data['titledata'] = NULL;
 
 		return $data;
 	}
@@ -39,15 +38,15 @@ class Html extends CI_model {
 	 * Collects all necessary parameters for template
 	 *
 	 * @param  int 	  $id   Subtopic ID
+	 *
 	 * @return array  $data Subtopic data
 	 */
 	public function SubtopicData($id) {
 
-		$data['menu'] 	= $this->NavBarMenu();
-		$data['type'] 	= 'subtopic';
-		$data['title'] 	= $this->Html->TitleSubtopic($id);
-		$data['quests'] = $this->Exercises->getSubtopicQuests($id);
-		// $data['exercises'] = $this->Exercises->getSubtopicExercises($id);
+		$data['menu'] 		= $this->NavBarMenu();
+		$data['type'] 		= 'subtopic';
+		$data['titledata'] 	= $this->TitleSubtopic($id);
+		$data['quests'] 	= $this->Exercises->getSubtopicQuests($id);
 
 		return $data;
 	}
@@ -64,9 +63,9 @@ class Html extends CI_model {
 	 */
 	public function ExerciseData($id, $level) {
 
-		$data['menu'] = $this->NavBarMenu();
-		$data['title'] = $this->Html->TitleExercise($id);
-		$data['type'] = 'exercise';
+		$data['menu'] 		= $this->NavBarMenu();
+		$data['titledata'] 	= $this->TitleExercise($id);
+		$data['type'] 		= 'exercise';
 
 		if (!$level) {
 			$this->load->model('Session');
@@ -79,9 +78,9 @@ class Html extends CI_model {
 	}
 
 	/**
-	 * Print navbar menu
+	 * Get navbar menu
 	 *
-	 * @return array  $menu Navbar menu
+	 * @return array $data Navbar menu
 	 */
 	public function NavBarMenu() {
 
@@ -116,32 +115,10 @@ class Html extends CI_model {
 	}
 
 	/**
-	 * Print page title
+	 * Get page title for exercise
 	 *
-	 * @param  int    $id   Subtopic/Excercise ID
-	 * @param  string $type Page type (subtopic/exercise)
-	 * @return string $title Page title
-	 */
-	public function Title($id, $type) {
-
-		if ($id) {
-			if ($type=='subtopic') {
-				$title = $this->TitleSubtopic($id);
-			} else {
-				$title = $this->TitleExercise($id);
-			}
-			$title['type'] = $type;
-		} else {
-			$title['type'] = 'main';
-		}
-
-		return $title;
-	}
-
-	/**
-	 * Print page title for exercise
+	 * @param int $id Excercise ID
 	 *
-	 * @param  int    $id   Subtopic/Excercise ID
 	 * @return string $html Html-code
 	 */
 	public function TitleExercise($id) {
@@ -158,34 +135,15 @@ class Html extends CI_model {
 		$subtopics = $this->db->get();
 		$subtopic = $subtopics->result()[0];
 
-		$level = $exercise->level;
-
-		if (isset($this->session->userdata('results')[$id])) {
-			$user_level = $this->session->userdata('results')[$id];
-		} else {
-			$user_level = 0;
-		}
-
-		for ($i=1; $i <= $level; $i++) {
-
-			$img[$i] = 0;
-
-			if ($i <= $user_level) {
-				$img[$i] = 1;
-			}
-		}
+		$levels = $this->Exercises->getUserLevels($id);
 
 		if (NULL !== $this->session->userdata('method')) {
 			$method = $this->session->userdata('method');
 			$questID = ($method == 'quest' ? $this->session->userdata('goal') : '');
 		}
 
-		// $title = $exercise->name;
-		// $subtitle = $subtopic->name;
-		// $href = base_url().'view/subtopic/'.$subtopic->id.'/'.$questID;
-
 		return array(
-			'img' 			=> $img,
+			'levels' 		=> $levels,
 			'title' 		=> $exercise->name,
 			'subtitle' 		=> $subtopic->name,
 			'subtopicID'	=> $subtopic->id,
@@ -198,6 +156,7 @@ class Html extends CI_model {
 	 *
 	 * @param  int    $id   Subtopic/Excercise ID
 	 * @param  string $type Page type (subtopic/exercise)
+	 *
 	 * @return string $html Html-code
 	 */
 	public function TitleSubtopic($id) {
@@ -223,8 +182,7 @@ class Html extends CI_model {
 			'title' 	=> $title,
 			'subtitle' 	=> $subtitle,
 			'id'		=> $id,
-			'href'		=> $href,
-			// 'id_next' 	=> $this->Exercises->IDNextSubtopic($id)
+			'href'		=> $href
 		);
 	}
 }

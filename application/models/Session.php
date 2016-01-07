@@ -27,29 +27,29 @@ class Session extends CI_model {
 	 *
 	 * @return void
 	 */
-	public function startSession() {
+	// public function startSession() {
 
-		// $this->session->unset_userdata('sessionID');
+	// 	// $this->session->unset_userdata('sessionID');
 
-		if (NULL === $this->session->userdata('sessionID')) {
+	// 	if (NULL === $this->session->userdata('sessionID')) {
 			
-			if (!$this->db->insert('sessions', '')) {
-				show_error($this->db->_error_message());
-			}
-			$sessionID = $this->db->insert_id();
+	// 		if (!$this->db->insert('sessions', '')) {
+	// 			show_error($this->db->_error_message());
+	// 		}
+	// 		$sessionID = $this->db->insert_id();
 
-			$this->session->set_userdata('sessionID', $sessionID);
+	// 		$this->session->set_userdata('sessionID', $sessionID);
 
-		}
+	// 	}
 
-		if (NULL === $this->session->userdata('Logged_in')) {
+	// 	if (NULL === $this->session->userdata('Logged_in')) {
 			
-			$this->session->set_userdata('Logged_in', FALSE);
+	// 		$this->session->set_userdata('Logged_in', FALSE);
 
-		}
+	// 	}
 
-		return;
-	}
+	// 	return;
+	// }
 
 	/**
 	 * Unset user data
@@ -144,19 +144,10 @@ class Session extends CI_model {
 	 */
 	public function getExerciseLevelNext($id) {
 
-		$query = $this->db->get_where('exercises', array('id' => $id));
-		$exercise = $query->result()[0];
-		$level_max = $exercise->level;
-
-		if (isset($this->session->userdata('results')[$id])) {
-
-			$level_user = $this->session->userdata('results')[$id];
-			$level = min($level_max, $level_user+1);
-
-		} else {
-
-			$level = 1;
-		}
+		$level_max = $this->Exercises->getMaxLevel($id);
+		$level_user = $this->Exercises->getUserLevel($id);
+		
+		$level = min($level_max, $level_user+1);
 
 		return $level;
 	}
