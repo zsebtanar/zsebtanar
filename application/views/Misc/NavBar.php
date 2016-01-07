@@ -13,12 +13,32 @@
 	</div>
 
 	<div class="collapse navbar-collapse">
-		<ul class="nav navbar-nav navbar-right">
+		<ul class="nav navbar-nav navbar-right"><?php
+
+		if (NULL !== $this->session->userdata('Logged_in') &&
+			$this->session->userdata('Logged_in')) {?>
+
+			<li>
+				<a href="<?php echo base_url().'update/database/';?>">
+					<span class="glyphicon glyphicon-refresh"></span> Frissítés
+				</a>
+			</li>
+			<li>
+				<a href="<?php echo base_url().'application/logout';?>">
+					<span class="glyphicon glyphicon-log-out"></span> Kijelentkezés
+				</a>
+			</li><?php
+
+		} else {?>
+
 			<li>
 				<a href="#" data-toggle="modal" data-target="#info">
 					<span class="glyphicon glyphicon-info-sign"></span>
 				</a>
-			</li>
+			</li><?php
+
+		}?>
+		
 		</ul>
 	</div>
 </div>

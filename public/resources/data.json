@@ -16,6 +16,18 @@
 									"label": "parity",
 									"exercises": [
 										{
+											"label": "parity_digit",
+											"name": "Párosság számjegye",
+											"quizzes": [
+												{
+													"question": "Melyik számjegy dönti el, hogy egy szám páros, vagy páratlan?",
+													"correct": "Az utolsó.",
+													"wrong1": "Az első.",
+													"wrong2": "A második."
+												}
+											]
+										},
+										{
 											"label": "even",
 											"name": "Páros számok jelentése",
 											"download": "paros_paratlan.jpg",

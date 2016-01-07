@@ -51,19 +51,14 @@ class Exercises extends CI_model {
 				break;
 		}
 
-		// $this->Database->RecordAction($id, $level, $status);
 		$this->Session->UpdateExerciseData($status, $hash);
 		$this->Session->UpdateResults($id, $level, $status);
-		$this->Session->UpdateTodoList($id);
 
 		$levels = $this->getUserLevels($id);
 		$id_next = $this->getIDNext($id);
+
 		$questID = $this->getQuestID($id);
 		$subtopicID = $this->getSubtopicID($id);
-
-		if (!$id_next) {
-			// $this->Session->CompleteQuest();
-		}
 
 		$output = array(
 			'status' 		=> $status,
@@ -230,16 +225,13 @@ class Exercises extends CI_model {
 
 		} else {
 
-			$function 	= $exercise->label;
+			$function = $exercise->label;
 
-			$class = $this->Database->getClassName($id, 'exercise');
-			$topic = $this->Database->getTopicName($id, 'exercise');
-
-			$class2 = $this->Database->toAscii($class);
-			$topic2 = $this->Database->toAscii($topic);
+			$class = $this->Database->getClassLabel($id);
+			$topic = $this->Database->getTopicLabel($id);
 
 			if (!function_exists($function)) {
-				$this->load->helper('Exercises/'.$class2.'/'.$topic2. '/functions');
+				$this->load->helper('Exercises/'.$class.'/'.$topic. '/functions');
 			}
 
 			$data = $function($level);
@@ -360,12 +352,12 @@ class Exercises extends CI_model {
 		if (count($quests) > 0) {
 			foreach ($quests as $quest) {
 
-				$id = $quest->id;
+				$questID = $quest->id;
 
-				$row['id'] 			= $id;
+				$row['id'] 			= $questID;
 				$row['name'] 		= $quest->name;
-				$row['exercises'] 	= $this->getQuestExercises($id);
-				$row['id_next']		= $this->IDNextQuest($id);
+				$row['exercises'] 	= $this->getQuestExercises($questID);
+				$row['id_next']		= $this->IDNextQuest($questID);
 
 				$data['quests'][] 	= $row;
 			}
@@ -417,7 +409,8 @@ class Exercises extends CI_model {
 
 		if ($method == 'quest') {
 
-			$id_next = $this->IDNextQuest($id);
+			$questID = $this->session->userdata('goal');
+			$id_next = $this->IDNextQuest($questID);
 
 		} elseif ($method == 'exercise') {
 
@@ -536,15 +529,13 @@ class Exercises extends CI_model {
 	 * Checks whether user has completed all exercises of quest. If not,
 	 * returns link to next available exercise else returns null.
 	 *
-	 * @param int $id Id of current quest
+	 * @param int $questID Id of current quest
 	 *
 	 * @return int $id_next Id of next exercise
 	 */
-	public function IDNextQuest($id = NULL) {
+	public function IDNextQuest($questID) {
 
 		$id_next = NULL;
-
-		$questID = ($id ? $id : $this->session->userdata('goal'));
 
 		$results = $this->session->userdata('results');
 		$query = $this->db->get_where('exercises', array('questID' => $questID));

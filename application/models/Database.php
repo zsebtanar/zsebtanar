@@ -286,76 +286,48 @@ class Database extends CI_model {
 	}
 
 	/**
-	 * Get class name
+	 * Get class label
 	 *
-	 * Searches for class name of exercise/subtopic.
+	 * Searches for class label of exercise (to access math functions).
 	 *
-	 * @param int	 $id   ID
-	 * @param string $type Id type (exercise/subtopic)
+	 * @param int $id Exercise ID
 	 *
-	 * @return string $class Class name
+	 * @return string $label Class label
 	 */
-	public function GetClassName($id, $type) {
+	public function GetClassLabel($id) {
 
-		if ($type == 'exercise') {
+		$query = $this->db->query(
+			'SELECT DISTINCT `classes`.`label` FROM `classes`
+				INNER JOIN `topics` ON `classes`.`id` = `topics`.`classID`
+				INNER JOIN `subtopics` ON `topics`.`id` = `subtopics`.`topicID`
+				INNER JOIN `quests` ON `subtopics`.`id` = `quests`.`subtopicID`
+				INNER JOIN `exercises` ON `quests`.`id` = `exercises`.`questID`
+					WHERE `exercises`.`id` = '.$id);
+		$label = $query->result()[0]->label;
 
-			$query = $this->db->query(
-				'SELECT DISTINCT `classes`.`name` as `class` FROM `classes`
-					INNER JOIN `topics` ON `classes`.`id` = `topics`.`classID`
-					INNER JOIN `subtopics` ON `topics`.`id` = `subtopics`.`topicID`
-					INNER JOIN `quests` ON `subtopics`.`id` = `quests`.`subtopicID`
-					INNER JOIN `exercises` ON `quests`.`id` = `exercises`.`questID`
-						WHERE `exercises`.`id` = '.$id);
-			$class = $query->result()[0]->class;
-
-		} elseif ($type == 'subtopic') {
-
-			$query = $this->db->query(
-				'SELECT DISTINCT `classes`.`name` as `class` FROM `classes`
-					INNER JOIN `topics` ON `classes`.`id` = `topics`.`classID`
-					INNER JOIN `subtopics` ON `topics`.`id` = `subtopics`.`topicID`
-						WHERE `subtopics`.`id` = '.$id);
-			$class = $query->result()[0]->class;
-
-		}
-
-		return $class;
+		return $label;
 	}
 
 	/**
-	 * Get topic name
+	 * Get topic label
 	 *
-	 * Searches for topic name of exercise/quest.
+	 * Searches for topic label of exercise (to access math functions).
 	 *
-	 * @param int	 $id   ID
-	 * @param string $type Id type (exercise/quest)
+	 * @param int $id Exercise ID
 	 *
-	 * @return string $topic Topic name
+	 * @return string $label Topic label
 	 */
-	public function GetTopicName($id, $type) {
+	public function GetTopicLabel($id) {
 
-		if ($type == 'exercise') {
+		$query = $this->db->query(
+			'SELECT DISTINCT `topics`.`label` FROM `topics`
+				INNER JOIN `subtopics` ON `topics`.`id` = `subtopics`.`topicID`
+				INNER JOIN `quests` ON `subtopics`.`id` = `quests`.`subtopicID`
+				INNER JOIN `exercises` ON `quests`.`id` = `exercises`.`questID`
+					WHERE `exercises`.`id` = '.$id);
+		$label = $query->result()[0]->label;
 
-			$query = $this->db->query(
-				'SELECT DISTINCT `topics`.`name` as `topic` FROM `topics`
-					INNER JOIN `subtopics` ON `topics`.`id` = `subtopics`.`topicID`
-					INNER JOIN `quests` ON `subtopics`.`id` = `quests`.`subtopicID`
-					INNER JOIN `exercises` ON `quests`.`id` = `exercises`.`questID`
-						WHERE `exercises`.`id` = '.$id);
-			$topic = $query->result()[0]->topic;
-
-		} elseif ($type == 'quest') {
-
-			$query = $this->db->query(
-				'SELECT DISTINCT `topics`.`name` as `topic` FROM `topics`
-					INNER JOIN `subtopics` ON `topics`.`id` = `subtopics`.`topicID`
-					INNER JOIN `quests` ON `subtopics`.`id` = `quests`.`subtopicID`
-						WHERE `quests`.`id` = '.$id);
-			$topic = $query->result()[0]->topic;
-
-		}
-
-		return $topic;
+		return $label;
 	}
 
 	/**

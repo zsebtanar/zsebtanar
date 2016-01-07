@@ -190,76 +190,10 @@ class Session extends CI_model {
 	 */
 	public function PrintInfo() {
 
-		// print_r('Session ID: '.$this->session->userdata('sessionID').'<br />');
-		// print_r('Quest ID: '.$this->session->userdata('questID').'<br />');
 		print_r('Method: '.$this->session->userdata('method').' - ');
 		print_r($this->session->userdata('goal'));
-		// print_r('<br />'.'To do list: ');
-		// print_r($this->session->userdata('todo_list'));
 		print_r('<br />Results: ');
 		print_r($this->session->userdata('results'));
-		// print_r('<br />Exercise data: ');
-		// print_r($this->session->userdata('exercise'));
-
-		return;
-	}
-
-	/**
-	 * Update to do list
-	 *
-	 * 1. Removes all exercises after current one (if any).
-	 * 2. Adds exercise if not in to do list yet.
-	 * 3. Removes exercise if user has completed it in all level.
-	 *
-	 * @param int $id Exercise ID
-	 *
-	 * @return void
-	 */
-	public function UpdateTodoList($id) {
-
-		$level_max  = $this->Exercises->getMaxLevel($id);
-		$level_user = $this->Exercises->getUserLevel($id);
-
-		$todo_list = $this->session->userdata('todo_list');
-		$results = $this->session->userdata('results');
-
-		if (in_array($id, $todo_list)) {
-
-			$index = array_search($id, $todo_list);
-
-			if ($level_user == $level_max) {
-				// Removes current & following exercises
-				$todo_list = array_slice($todo_list, 0, $index);
-			} else {
-				// Removes following exercises
-				$todo_list = array_slice($todo_list, 0, $index+1);
-			}
-
-		} else {
-
-			if ($level_user < $level_max) {
-				// Appends exercise to end of to do list
-				$todo_list[] = $id;
-			}
-		}
-
-		$todo_list = $this->session->set_userdata('todo_list', $todo_list);
-		
-		return;
-	}
-
-	/**
-	 * Clear session
-	 *
-	 * Unsets session variables when quest is finished.
-	 *
-	 * @return void
-	 */
-	public function ClearSession() {
-
-		// $this->session->unset_userdata('method');
-		// $this->session->unset_userdata('goal');
-		$this->session->set_userdata('todo_list', []);
 
 		return;
 	}

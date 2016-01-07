@@ -28,7 +28,6 @@ class View extends CI_controller {
 	 */
 	public function Main($classID=NULL, $topicID=NULL) {
 
-		$this->Session->ClearSession();
 		$data = $this->Html->MainData($classID, $topicID);
 
 		$this->load->view('Template', $data);
@@ -48,7 +47,6 @@ class View extends CI_controller {
 	 */
 	public function Subtopic($subtopicID=NULL, $questID=NULL) {
 
-		$this->Session->ClearSession();
 		$data = $this->Html->SubtopicData($subtopicID);
 
 		$data['questID'] = $questID;
@@ -70,8 +68,6 @@ class View extends CI_controller {
 	 * @return	void
 	 */
 	public function Exercise($id=1, $level=NULL) {
-
-		$this->Session->UpdateTodoList($id);
 
 		$data = $this->Html->ExerciseData($id, $level);
 

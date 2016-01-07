@@ -71,20 +71,22 @@
 
 				<input type="hidden" name="hash" value="<?php echo $hash;?>">
 				<br />
-				<div class="text-center">
-					<p id="message"></p>
-					<div id="button"><?php
+				<div class="text-center"><?php
 
-						if ($this->session->userdata('Logged_in')) {
+					if ($this->session->userdata('Logged_in')) {
 
-							echo json_encode($correct).'<br />';
+						echo json_encode($correct).'<br />';
 
-						}?>
+					}?>
 
+					<div id="button">
 						<button class="btn btn-primary" onclick="checkSolution()">
 							Mehet
 						</button>
 					</div><br />
+
+					<p id="message"></p>
+					
 				</div>
 				</form>
 			</div>
