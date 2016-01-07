@@ -12,6 +12,18 @@
 							"name": "Számolás",
 							"quests": [
 								{
+									"name": "Számolás",
+									"label": "counting",
+									"exercises": [
+										{
+											"label": "count_apples",
+											"name": "Számolás 1-től 20-ig",
+											"level": 3,
+											"download": "szamok_1-20.jpg"
+										}
+									]
+								},
+								{
 									"name": "Páros, páratlan",
 									"label": "parity",
 									"exercises": [
@@ -29,7 +41,7 @@
 										},
 										{
 											"label": "even",
-											"name": "Páros számok jelentése",
+											"name": "Páros számok",
 											"download": "paros_paratlan.jpg",
 											"quizzes": [
 												{
@@ -42,7 +54,7 @@
 										},
 										{
 											"label": "odd",
-											"name": "Páratlan számok jelentése",
+											"name": "Páratlan számok",
 											"download": "paros_paratlan.jpg",
 											"quizzes": [
 												{
@@ -52,6 +64,30 @@
 													"wrong2": "Azokat, amik $1,2,3,4,5$-re végződnek."
 												}
 											]
+										},
+										{
+											"label": "parity",
+											"name": "Páros vagy páratlan?",
+											"level": 3
+										}
+									]
+								},
+								{
+									"name": "Vegyes feladatok",
+									"label": "count_parity",
+									"exercises": [
+										{
+											"label": "count_parity",
+											"name": "Hány darab páros/páratlan?",
+											"level": 3
+										}
+									],
+									"links": [
+										{
+											"label": "parity" 
+										},
+										{
+											"label": "counting" 
 										}
 									]
 								}
