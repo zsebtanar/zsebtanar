@@ -1,6 +1,14 @@
 <div class="row">
 	<div class="col-md-3"></div>
 	<div class="col-md-6">
+		<div class="text-center">
+			<a href="#" class="btn btn-class openall">
+				<img src="<?php echo base_url();?>assets/images/eye_open.png" alt="logo" width="20">
+			</a>
+			<a href="#" class="btn btn-class closeall">
+				<img src="<?php echo base_url();?>assets/images/eye_close.png" alt="logo" width="20">
+			</a>
+		</div><br /><br /><br />
 		<div class="panel-group" id="accordion"><?php
 
 		foreach ($quests as $quest) {?>
