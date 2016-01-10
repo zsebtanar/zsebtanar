@@ -37,15 +37,17 @@ class Html extends CI_model {
 	 *
 	 * Collects all necessary parameters for template
 	 *
-	 * @param  int 	  $id   Subtopic ID
+	 * @param int $id Subtopic ID
 	 *
-	 * @return array  $data Subtopic data
+	 * @return array $data Subtopic data
 	 */
 	public function SubtopicData($id) {
 
 		$data['menu'] 		= $this->NavBarMenu();
 		$data['type'] 		= 'subtopic';
-		$data['titledata'] 	= $this->TitleSubtopic($id);
+		$data['title']['current'] 	= $this->TitleSubtopic($id);
+		$data['title']['prev'] 		= $this->TitleSubtopic($id-1);
+		$data['title']['next'] 		= $this->TitleSubtopic($id+1);
 		$data['quests'] 	= $this->Exercises->getSubtopicQuests($id);
 
 		return $data;
@@ -152,38 +154,48 @@ class Html extends CI_model {
 	}
 
 	/**
-	 * Print page title for subtopic
+	 * Get page title for subtopic
 	 *
-	 * @param  int    $id   Subtopic/Excercise ID
-	 * @param  string $type Page type (subtopic/exercise)
+	 * @param int $id Subtopic ID
 	 *
-	 * @return string $html Html-code
+	 * @return string $data Html-code
 	 */
 	public function TitleSubtopic($id) {
 
 		$this->load->model('Exercises');
 
 		$subtopics = $this->db->get_where('subtopics', array('id' => $id));
-		$subtopic = $subtopics->result()[0];
 
-		$this->db->select('classes.name')
-				->from('subtopics')
-				->join('topics', 'topics.id = subtopics.topicID', 'inner')
-				->join('classes', 'classes.id = topics.classID', 'inner');
-		$classes = $this->db->get();
-		$class = $classes->result()[0];
+		if (count($subtopics->result()) > 0) {
 
-		$title = $subtopic->name;
-		$subtitle = $class->name;
+			$subtopic = $subtopics->result()[0];
 
-		$href = base_url().'view/subtopic/'.$subtopic->id;
+			$this->db->select('classes.name')
+					->from('subtopics')
+					->join('topics', 'topics.id = subtopics.topicID', 'inner')
+					->join('classes', 'classes.id = topics.classID', 'inner');
+			$classes = $this->db->get();
+			$class = $classes->result()[0];
 
-		return array(
-			'title' 	=> $title,
-			'subtitle' 	=> $subtitle,
-			'id'		=> $id,
-			'href'		=> $href
-		);
+			$title = $subtopic->name;
+			$subtitle = $class->name;
+
+			$href = base_url().'view/subtopic/'.$subtopic->id;
+
+			$data = array(
+				'title' 	=> $title,
+				'subtitle' 	=> $subtitle,
+				'id'		=> $id,
+				'href'		=> $href
+			);
+
+		} else {
+
+			$data = NULL;
+
+		}
+
+		return $data;
 	}
 }
 

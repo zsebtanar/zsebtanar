@@ -17,9 +17,13 @@
 				<div class="panel-heading">
 					<h4 class="panel-title"><?php
 
-						if (!$quest['id_next']) {?>
+						if ($quest['complete']) {?>
 
 							<img src="<?php echo base_url().'assets/images/tick.png';?>" alt="star" width="20px">&nbsp;<?php
+
+						} else {?>
+
+							<img src="<?php echo base_url().'assets/images/tick_empty.png';?>" alt="star" width="20px">&nbsp;<?php
 
 						}?>
 
@@ -56,7 +60,7 @@
 
 						</ul><?php
 
-						if ($quest['id_next']) {?>
+						if (!$quest['complete']) {?>
 
 						<div class="text-center">
 							<a class="btn btn-primary" href="<?php echo base_url().'application/setgoal/quest/'.$quest['id'];?>">
@@ -71,6 +75,40 @@
 								Újrakezd
 							</a>
 						</div><?php
+
+						}
+
+						if (count($quest['links']) > 0) {
+
+							if (count($quest['links']) == 1) {?>
+
+								<br />Túl nehéz? Először nézd meg ezt:<br /><?php
+
+							} else {?>
+
+								<br />Túl nehéz? Először nézd meg ezeket:<br /><?php
+
+							}?>
+
+							<div class="text-center"><?php
+
+							foreach ($quest['links'] as $link) {?>
+
+								<a class="btn btn-default" href="<?php echo base_url().'view/subtopic/'.$link['subtopicID'].'/'.$link['questID'];?>"><?php
+
+									if ($link['complete']) {?>
+
+										<img src="<?php echo base_url().'assets/images/tick_grey.png';?>" alt="star" width="20px">&nbsp;<?php
+
+									}
+
+									echo $link['name'];?>
+
+								</a>&nbsp;<?php
+
+							}?>
+
+							</div><?php
 
 						}?>
 

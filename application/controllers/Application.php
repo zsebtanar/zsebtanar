@@ -47,6 +47,11 @@ class Application extends CI_controller {
 		$this->load->model('Session');
 		$this->Session->clearResults($questID);
 
+		// delete questID from session lists
+		$quests = $this->session->userdata('quests');
+		unset($quests[$questID]);
+		$quests = $this->session->set_userdata('quests', $quests);
+
 		header('Location:'.base_url().'view/subtopic/'.$subtopicID.'/'.$questID);
 	}
 
@@ -73,7 +78,7 @@ class Application extends CI_controller {
 		if ($method == 'exercise') {
 			$id_next = $id;
 		} elseif ($method == 'quest') {
-			$id_next = $this->Exercises->IDNextQuest();
+			$id_next = $this->Exercises->IDNextQuest($id);
 		}
 
 		header('Location:'.base_url().'view/exercise/'.$id_next);

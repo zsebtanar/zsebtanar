@@ -65,7 +65,7 @@ function parity($level=1) {
 
 
 /* Count even/odd numbers */
-function count_parity($level=1) {
+function decimal_number_value($level=1) {
 
 	if ($level == 1) {
 		$no = rand(2,3); 

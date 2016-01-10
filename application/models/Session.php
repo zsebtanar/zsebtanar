@@ -21,37 +21,6 @@ class Session extends CI_model {
 	}
 
 	/**
-	 * Start session
-	 *
-	 * Define session ID and initialize session variables.
-	 *
-	 * @return void
-	 */
-	// public function startSession() {
-
-	// 	// $this->session->unset_userdata('sessionID');
-
-	// 	if (NULL === $this->session->userdata('sessionID')) {
-			
-	// 		if (!$this->db->insert('sessions', '')) {
-	// 			show_error($this->db->_error_message());
-	// 		}
-	// 		$sessionID = $this->db->insert_id();
-
-	// 		$this->session->set_userdata('sessionID', $sessionID);
-
-	// 	}
-
-	// 	if (NULL === $this->session->userdata('Logged_in')) {
-			
-	// 		$this->session->set_userdata('Logged_in', FALSE);
-
-	// 	}
-
-	// 	return;
-	// }
-
-	/**
 	 * Unset user data
 	 *
 	 * Unsets used defined session variables.
@@ -153,37 +122,6 @@ class Session extends CI_model {
 	}
 
 	/**
-	 * Save exercise ID
-	 *
-	 * Saves exercise ID to to do list. 
-	 * Next exercise will be chosen according to the to the saved list.
-	 *
-	 * @param  int $id Exercise ID
-	 * @return void
-	 */
-	public function saveExerciseID($id) {
-
-		if (NULL !== $this->session->userdata('method')) {
-
-			$method = $this->session->userdata('method');
-
-			if ($method == 'exercise') {
-
-				$todo_list = $this->session->userdata('todo_list');
-
-				if (!in_array($id, $todo_list)) {
-					array_push($todo_list, $id);
-				}
-
-				$this->session->set_userdata('todo_list', $todo_list);
-
-			}
-		}
-		
-		return;
-	}
-
-	/**
 	 * Print session information
 	 *
 	 * @return void
@@ -194,6 +132,8 @@ class Session extends CI_model {
 		print_r($this->session->userdata('goal'));
 		print_r('<br />Results: ');
 		print_r($this->session->userdata('results'));
+		print_r('<br />Quests: ');
+		print_r($this->session->userdata('quests'));
 
 		return;
 	}

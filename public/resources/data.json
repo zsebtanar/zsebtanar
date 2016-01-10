@@ -94,6 +94,244 @@
 							]
 						}
 					]
+				},
+				{
+					"name": "Természetes számok",
+					"label": "natural",
+					"subtopics": [
+						{
+							"name": "Természetes számok",
+							"quests": [
+								{
+									"name": "Jelölés",
+									"label": "notation",
+									"exercises": [
+										{
+											"label": "definition",
+											"name": "Jelentés",
+											"quizzes": [
+												{
+													"question": "Melyik számokat nevezzük természetes számoknak?",
+													"correct": "Amik a természetben gyakran előfordulnak.",
+													"wrong1": "Amiket a természetjárók fedeztek föl.",
+													"wrong2": "Mindegyiket."
+												}
+											]
+										},
+										{
+											"label": "notation",
+											"name": "Jelölés",
+											"quizzes": [
+												{
+													"question": "Melyik betűvel jelöljük a természetes számok halmazát?",
+													"correct": "$\\\\\\\\mathbb{N}$",
+													"wrong1": "$\\\\\\\\mathbb{T}$",
+													"wrong2": "$\\\\\\\\mathbb{R}$"
+												}
+											]
+										},
+										{
+											"label": "question",
+											"name": "Kérdés",
+											"quizzes": [
+												{
+													"question": "Az alábbiak közül melyik kérdésre válaszolunk mindig természetes számmal?",
+													"correct": "Hány darab...?",
+													"wrong1": "Mekkora...?",
+													"wrong2": "Hányadik...?"
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "Legkisebb, legnagyobb, darabszám",
+									"label": "min_max_count",
+									"exercises": [
+										{
+											"label": "max",
+											"name": "Legnagyobb",
+											"quizzes": [
+												{
+													"question": "Melyik a legnagyobb természetes szám?",
+													"correct": "Nincs ilyen",
+													"wrong1": "$999999999$",
+													"wrong2": "$10000000$"
+												}
+											]
+										},
+										{
+											"label": "min",
+											"name": "Legkisebb",
+											"quizzes": [
+												{
+													"question": "Melyik a legkisebb természetes szám?",
+													"correct": "$0$",
+													"wrong1": "$1$",
+													"wrong2": "Nincs ilyen"
+												}
+											]
+										},
+										{
+											"label": "number",
+											"name": "Darabszám",
+											"quizzes": [
+												{
+													"question": "Hány darab természetes szám van?",
+													"correct": "Végtelen sok",
+													"wrong1": "$987533867$",
+													"wrong2": "$13456432$"
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Tízes számrendszer",
+							"quests": [
+								{
+									"name": "Bevezető",
+									"label": "decimal_intro",
+									"exercises": [
+										{
+											"label": "num_sys_options",
+											"name": "Számok leírása",
+											"quizzes": [
+												{
+													"question": "Hányféleképpen lehet leírni ugyanazt a számot?",
+													"correct": "Nagyon sokféleképpen.",
+													"wrong1": "Kétféleképpen.",
+													"wrong2": "Egyféleképpen."
+												}
+											]
+										},
+										{
+											"label": "num_sys_def",
+											"name": "Számrendszerek",
+											"quizzes": [
+												{
+													"question": "Mire jók a számrendszerek?",
+													"correct": "Ezek mondják meg, hogy a számokat hogyan kell leírni.",
+													"wrong1": "Ezekkel rendszerezzük a különböző számjegyeket.",
+													"wrong2": "Ezekkel döntjük el, hogy melyik szám a nagyobb."
+												}
+											]
+										},
+										{
+											"label": "num_sys_common",
+											"name": "Számok leírása mindennapokban",
+											"quizzes": [
+												{
+													"question": "Melyik számrendszert használjuk a mindennapi életben?",
+													"correct": "A tízes számrendszert.",
+													"wrong1": "A kettes számrendszert.",
+													"wrong2": "A római számrendszert."
+												}
+											]
+										},
+										{
+											"label": "decimal_alt",
+											"name": "Más elnevezés",
+											"quizzes": [
+												{
+													"question": "Hogy hívjük a tízes számrendszert más néven?",
+													"correct": "Decimális",
+													"wrong1": "Bináris",
+													"wrong2": "Természetes"
+												}
+											]
+										},
+										{
+											"label": "decimal_digits",
+											"name": "Számjegyek",
+											"download": "szamjegyek_10.jpg",
+											"quizzes": [
+												{
+													"question": "Hány darab számjegyet használunk tízes számrendszerben a számjegyek leírására?",
+													"correct": "$10$-et.",
+													"wrong1": "Végtelen sokat.",
+													"wrong2": "Egyet sem."
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "Helyiérték",
+									"label": "decimal_place_value",
+									"exercises": [
+										{
+											"label": "place_value_table",
+											"name": "Helyiérték-táblázat",
+											"quizzes": [
+												{
+													"question": "Mire jó a helyiérték-táblázat?",
+													"correct": "Ez alapján tudjuk kiszámolni, hogy melyik számjegy mennyit ér egy számban.",
+													"wrong1": "Ez tartalmazza az összes számjegyet.",
+													"wrong2": "Ez segít eldönteni, hogy nagy-e a szám."
+												}
+											]
+										},
+										{
+											"label": "place_value_def",
+											"name": "Helyiérték jelentése",
+											"quizzes": [
+												{
+													"question": "Mi határozza meg egy számjegy helyiértékét?",
+													"correct": "Az, hogy helyiérték-táblázat melyik helyén áll.",
+													"wrong1": "A számjegy alakja.",
+													"wrong2": "A számjegy alakja és a helyiérték szorzata."
+												}
+											]
+										},
+										{
+											"label": "decimal_place_value1",
+											"name": "Számjegy értéke",
+											"level": 3,
+											"download": "helyiertek-tablazat_10.jpg"
+										},
+										{
+											"label": "decimal_place_value2",
+											"name": "Helyiérték kiszámítása",
+											"level": 3,
+											"download": "helyiertek-tablazat_10.jpg"
+										}
+									]
+								},
+								{
+									"name": "Alaki érték, helyiérték, valódi érték",
+									"label": "decimal_number_place_real_value",
+									"exercises": [
+										{
+											"label": "number_value_def",
+											"name": "Alaki érték jelentése",
+											"quizzes": [
+												{
+													"question": "Mi határozza meg egy szám alaki értékét?",
+													"correct": "A számjegy alakja.",
+													"wrong1": "Az, hogy melyik helyen áll.",
+													"wrong2": "A számjegy és a helyiérték szorzata."
+												}
+											]
+										},
+										{
+											"label": "decimal_number_value",
+											"name": "Alaki érték",
+											"level": 3,
+											"download": "helyiertek-tablazat_10.jpg"
+										}
+									],
+									"links": [
+										{
+											"label": "decimal_place_value" 
+										}
+									]
+								}
+							]
+						}
+					]
 				}
 			]
 		}

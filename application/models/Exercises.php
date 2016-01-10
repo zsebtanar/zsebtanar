@@ -37,9 +37,7 @@ class Exercises extends CI_model {
 		switch ($type) {
 
 			case 'int':
-
 				list($status, $message) = $this->GenerateMessagesInt($answer, $correct, $solution);
-
 				break;
 
 			case 'quiz':
@@ -357,7 +355,8 @@ class Exercises extends CI_model {
 				$row['id'] 			= $questID;
 				$row['name'] 		= $quest->name;
 				$row['exercises'] 	= $this->getQuestExercises($questID);
-				$row['id_next']		= $this->IDNextQuest($questID);
+				$row['links'] 		= $this->getQuestLinks($questID);
+				$row['complete'] 	= $this->isComplete($questID);
 
 				$data['quests'][] 	= $row;
 			}
@@ -396,10 +395,44 @@ class Exercises extends CI_model {
 	}
 
 	/**
+	 * Get links of quest
+	 *
+	 * @param int $id Quest ID
+	 *
+	 * @return array $data Links
+	 */
+	public function getQuestLinks($id) {
+
+		$data = NULL;
+
+		$query = $this->db->get_where('links', array('questID' => $id));
+		$links = $query->result();
+		
+		foreach ($links as $link) {
+
+			$label 			= $link->label;
+			$query 			= $this->db->get_where('quests', array('label' => $label));
+
+			$questID		= $query->result()[0]->id;
+
+			$row['questID']	= $questID;
+			$row['name'] 	= $query->result()[0]->name;
+
+			$row['subtopicID']	= $query->result()[0]->subtopicID;
+			$row['complete'] 	= $this->isComplete($questID);
+
+			$data[] = $row;
+		}
+
+		return $data;
+	}
+
+	/**
 	 * Get id of next exercise
 	 *
-	 * @param int $id    Exercise ID
-	 * @param int $level Exercise level
+	 * If there is no such, completed questID will be recorded in session.
+	 *
+	 * @param int $id Exercise ID
 	 *
 	 * @return array $id_next Id of next exercise
 	 */
@@ -412,6 +445,13 @@ class Exercises extends CI_model {
 			$questID = $this->session->userdata('goal');
 			$id_next = $this->IDNextQuest($questID);
 
+			// record completed quest in session
+			if (!$id_next) {
+				$quests = $this->session->userdata('quests');
+				$quests[$questID] = TRUE;
+				$this->session->set_userdata('quests', $quests);
+			}
+
 		} elseif ($method == 'exercise') {
 
 			$id_next = $this->IDNextExercise($id);
@@ -420,6 +460,23 @@ class Exercises extends CI_model {
 
  		return $id_next;
 	}
+
+	/**
+	 * Check if quest is completed
+	 *
+	 * @param int $id Quest ID
+	 *
+	 * @return bool $isComplete Is quest completed?
+	 */
+	public function isComplete($questID) {
+
+		$quests = $this->session->userdata('quests');
+
+		$isComplete	= (isset($quests[$questID]) ? $quests[$questID] : FALSE);
+
+ 		return $isComplete;
+	}
+
 
 	/**
 	 * Get maximum level for exercise

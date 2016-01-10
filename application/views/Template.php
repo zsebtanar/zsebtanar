@@ -25,7 +25,7 @@
 
 	} elseif ($type == 'subtopic') {
 
-		$this->load->view('Title/Subtopic', $titledata);
+		$this->load->view('Title/Subtopic', $title);
 		$this->load->view('Body/Quests', $quests);
 
 	} elseif ($type == 'exercise') {
