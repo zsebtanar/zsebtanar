@@ -43,13 +43,13 @@
 						foreach ($quest['exercises'] as $exercise) {?>
 
 							<li>
-								<a href="<?php echo base_url().'application/setgoal/exercise/'.$exercise['id'];?>">
+								<a href="<?php echo base_url().'view/exercise/'.$exercise['id'];?>">
 									<?php echo $exercise['name'];?>
 								</a>&nbsp;<?php
 
-								foreach ($exercise['levels'] as $level) {?>
+								for ($i=0; $i < $exercise['maxlevel']; $i++) {?>
 
-									<img src="<?php echo base_url().'assets/images/star'.$level.'.png';?>" alt="star" width="15px"><?php
+									<img id="star<?php echo $i;?>" src="<?php echo base_url().'assets/images/star'.($i < $exercise['userlevel'] ? 1 : 0).'.png';?>" alt="star"  width="15px"><?php
 
 								}?>
 
@@ -60,25 +60,9 @@
 
 						</ul><?php
 
-						if (!$quest['complete']) {?>
+						if (count($quest['links']) > 0) {?>
 
-						<div class="text-center">
-							<a class="btn btn-primary" href="<?php echo base_url().'application/setgoal/quest/'.$quest['id'];?>">
-								Mehet
-							</a>
-						</div><?php
-
-						} else {?>
-
-						<div class="text-center">
-							<a class="btn btn-warning" href="<?php echo base_url().'application/clearresults/'.$subtopicID.'/'.$quest['id'];?>">
-								Újrakezd
-							</a>
-						</div><?php
-
-						}
-
-						if (count($quest['links']) > 0) {
+							<div class="text-center"><?php
 
 							if (count($quest['links']) == 1) {?>
 
@@ -88,9 +72,7 @@
 
 								<br />Túl nehéz? Először nézd meg ezeket:<br /><?php
 
-							}?>
-
-							<div class="text-center"><?php
+							}
 
 							foreach ($quest['links'] as $link) {?>
 

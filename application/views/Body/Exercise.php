@@ -2,7 +2,7 @@
 	<div class="col-md-3"></div>
 	<div class="col-md-6">
 		<div class="row">
-			<div class="col-md-1"><?php
+			<div class="col-sm-1"><?php
 
 			if ($youtube) {?>
 
@@ -44,22 +44,19 @@
 			}?>
 
 			</div>
-			<div class="col-md-11"><?php
+			<div class="col-sm-10"><?php
 
 			echo $question;?>
 
 			</div>
+			<div class="col-sm-1"></div>
 		</div>
 		<div class="row exercise_input">
 
 			<div class="col-sm-12">
 				<form id="exercise" autocomplete="off"><?php
 
-				if ($type == 'quiz') {
-
-					$this->load->view('Input/Quiz', array('options' => $options, 'length' => $length));
-
-				} elseif ($type == 'int') {
+				if ($type == 'int') {
 
 					$this->load->view('Input/Int');
 

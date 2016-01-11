@@ -51,56 +51,26 @@ class Session extends CI_model {
 	 * Increases user level in case of correct answer.
 	 * Decreases user level in case of wrong answer (if possible).
 	 *
-	 * @param  int 	  $id        Subtopic/Exercise ID
-	 * @param  int    $level     Current exercise level
-	 * @param  string $result    Result of action (correct/wrong/not_done)
+	 * @param  int 	  $id     Subtopic/Exercise ID
+	 * @param  int    $level  Current exercise level
+	 * @param  string $result Result of action (correct/wrong/not_done)
 	 *
 	 * @return void
 	 */
-	public function UpdateResults($id, $level=NULL, $result=NULL) {
+	public function UpdateResults($id, $level, $result) {
+
+
 
 		$query 		= $this->db->get_where('exercises', array('id' => $id));
 		$level_max 	= $query->result()[0]->level;
-		$results 	= $this->session->userdata('results');
+		$results 	= $this->session->userdata('levels');
 
 		if ($result == 'CORRECT') {
 
 			$results[$id] = $level;
-			$this->session->set_userdata('results', $results);	
+			$this->session->set_userdata('levels', $results);	
 
-		} elseif ($result == 'WRONG' && 
-			isset($results[$id]) &&
-			$results[$id] == $level_max) {
-
-			$results[$id] = $level-1;
-			$this->session->set_userdata('results', $results);
 		}
-
-		return;
-	}
-
-	/**
-	 * Clear exercise results of quest from session
-	 *
-	 * @param  int 	$questID Quest ID
-	 *
-	 * @return void
-	 */
-	public function clearResults($questID) {
-
-		$results = $this->session->userdata('results');
-
-		$query = $this->db->get_where('exercises', array('questID' => $questID));
-
-		foreach ($query->result() as $exercise) {
-
-			$id = $exercise->id;
-			if (isset($results[$id])) {
-				unset($results[$id]);
-			}
-		}
-
-		$this->session->set_userdata('results', $results);
 
 		return;
 	}
@@ -108,17 +78,69 @@ class Session extends CI_model {
 	/**
 	 * Get next level of exercise
 	 *
-	 * @param  int $id    Exercise ID
+	 * @param int $id Exercise ID
+	 *
 	 * @return int $level Exercise level 
 	 */
 	public function getExerciseLevelNext($id) {
 
 		$level_max = $this->Exercises->getMaxLevel($id);
-		$level_user = $this->Exercises->getUserLevel($id);
+		$level_user = $this->getUserLevel($id);
 		
 		$level = min($level_max, $level_user+1);
 
 		return $level;
+	}
+
+	/**
+	 * Get user progress for exercise
+	 *
+	 * $progress shows how many percent of rounds were solved by user.
+	 *
+	 * @param int $id Exercise ID
+	 *
+	 * @return int $progress Exercise progress (%) 
+	 */
+	public function getUserProgress($id) {
+
+		$round_max = $this->Exercises->getMaxRound($id);
+		$round_user = $this->getUserRound($id);
+		
+		$progress = round($round_user/$round_max*100);
+
+		return $progress;
+	}
+
+	/**
+	 * Get user level for exercise
+	 *
+	 * @param int $id Exercise ID
+	 *
+	 * @return int $level_user User level
+	 */
+	public function getUserLevel($id) {
+
+		$results = $this->session->userdata('levels');
+		$level_user = (isset($results[$id]) ? $results[$id] : 0);
+
+ 		return $level_user;
+	}
+
+	/**
+	 * Get user round for exercise
+	 *
+	 * $round_user shows how many times user has solved the exercise.
+	 *
+	 * @param int $id Exercise ID
+	 *
+	 * @return int $round_user User level
+	 */
+	public function getUserRound($id) {
+
+		$rounds = $this->session->userdata('rounds');
+		$round_user = (isset($rounds[$id]) ? $rounds[$id] : 0);
+
+ 		return $round_user;
 	}
 
 	/**
@@ -128,12 +150,37 @@ class Session extends CI_model {
 	 */
 	public function PrintInfo() {
 
-		print_r('Method: '.$this->session->userdata('method').' - ');
-		print_r($this->session->userdata('goal'));
-		print_r('<br />Results: ');
-		print_r($this->session->userdata('results'));
-		print_r('<br />Quests: ');
+		print_r('Completed quests: ');
 		print_r($this->session->userdata('quests'));
+		print_r('Exercises: ');
+		print_r($this->session->userdata('levels'));
+
+		return;
+	}
+
+	/**
+	 * Save exercise data to session
+	 *
+	 * @param int    $id    Exercise id
+	 * @param int    $level Exercise level
+	 * @param array  $data  Exercise data
+	 * @param string $hash  Random string
+	 *
+	 * @return void
+	 */
+	public function SaveExerciseData($id, $level, $data, $hash) {
+
+		$sessiondata 		= $this->session->userdata('exercise');
+		
+		$answer['id']		= $id;
+		$answer['level'] 	= $level;
+		$answer['correct'] 	= $data['correct'];
+		$answer['type'] 	= $data['type'];
+		$answer['solution']	= $data['solution'];
+
+		$sessiondata[$hash] = $answer;
+
+		$this->session->set_userdata('exercise', $sessiondata);
 
 		return;
 	}
@@ -159,9 +206,9 @@ class Session extends CI_model {
 	}
 
 	/**
-	 * Update exercise data
+	 * Delete exercise data
 	 *
-	 * Remove exercise data from session if user has answered exercise (either
+	 * Removes exercise data from session if user has answered exercise (either
 	 * correct or wrong)
 	 *
 	 * @param string $status Status (NOT_DONE/CORRECT/WRONG)
@@ -169,7 +216,7 @@ class Session extends CI_model {
 	 *
 	 * @return void
 	 */
-	public function UpdateExerciseData($status, $hash) {
+	public function DeleteExerciseData($status, $hash) {
 
 		if ($status != 'NOT_DONE') {
 			$exercise = $this->session->userdata('exercise');

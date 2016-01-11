@@ -74,7 +74,7 @@ class Html extends CI_model {
 			$level = $this->Session->getExerciseLevelNext($id);
 		}
 
-		$data['exercise'] = $this->Exercises->getExerciseData($id, $level);
+		$data['exercise'] = $this->Exercises->GetExerciseData($id, $level);
 
 		return $data;
 	}
@@ -137,15 +137,17 @@ class Html extends CI_model {
 		$subtopics = $this->db->get();
 		$subtopic = $subtopics->result()[0];
 
-		$levels = $this->Exercises->getUserLevels($id);
+		$userlevel = $this->Session->getUserLevel($id);
+		$maxlevel = $this->Exercises->getMaxLevel($id);
 
-		if (NULL !== $this->session->userdata('method')) {
-			$method = $this->session->userdata('method');
-			$questID = ($method == 'quest' ? $this->session->userdata('goal') : '');
-		}
+		$questID = $exercise->questID;
+
+		$progress = $this->Session->getUserProgress($id);
 
 		return array(
-			'levels' 		=> $levels,
+			'userlevel' 	=> $userlevel,
+			'maxlevel'	 	=> $maxlevel,
+			'progress'		=> $progress,
 			'title' 		=> $exercise->name,
 			'subtitle' 		=> $subtopic->name,
 			'subtopicID'	=> $subtopic->id,

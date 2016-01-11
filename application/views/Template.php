@@ -10,16 +10,12 @@
 
 	$this->load->view('Misc/GoogleAnalytics');
 
-	$this->load->view('Modal/Info');?>
+	$this->load->view('Modal/Info');
 
-	<nav class="navbar navbar-default navbar-fixed-top" role="banner"><?php
-
-		$this->load->view('Misc/NavBar');?>
-
-	</nav><?php
+	$this->load->view('Misc/NavBar');
 
 	if ($type == 'main') {
-
+		
 		$this->load->view('Title/Main');
 		$this->load->view('Body/Subtopics', $menu);
 

@@ -33,58 +33,6 @@ class Application extends CI_controller {
 	}
 
 	/**
-	 * Clear results for quest
-	 *
-	 * Clears all results for specific quest from session.
-	 *
-	 * @param int $subtopicID Subtopic id
-	 * @param int $questID    Quest id
-	 *
-	 * @return void
-	 */
-	public function ClearResults($subtopicID, $questID) {
-
-		$this->load->model('Session');
-		$this->Session->clearResults($questID);
-
-		// delete questID from session lists
-		$quests = $this->session->userdata('quests');
-		unset($quests[$questID]);
-		$quests = $this->session->set_userdata('quests', $quests);
-
-		header('Location:'.base_url().'view/subtopic/'.$subtopicID.'/'.$questID);
-	}
-
-	/**
-	 * Set goal
-	 *
-	 * User can define whether he wants to practice an exercise or a whole subject.
-	 * Goal is recorded in session. Next exercise is based on this.
-	 *
-	 * @param string $method Learning method (exercise/subtopic)
-	 * @param int    $id     Exercise/Subtopic id
-	 *
-	 * @return void
-	 */
-	public function SetGoal($method, $id) {
-
-		$this->load->model('Exercises');
-		$this->load->model('Session');
-
-		$this->session->set_userdata('method', $method);
-		$this->session->set_userdata('goal', $id);
-		$this->session->set_userdata('todo_list', []);
-
-		if ($method == 'exercise') {
-			$id_next = $id;
-		} elseif ($method == 'quest') {
-			$id_next = $this->Exercises->IDNextQuest($id);
-		}
-
-		header('Location:'.base_url().'view/exercise/'.$id_next);
-	}
-
-	/**
 	 * Log in to website
 	 *
 	 * @param string $password Password
@@ -112,6 +60,21 @@ class Application extends CI_controller {
 	public function Logout() {
 
 		$this->session->set_userdata('Logged_in', FALSE);
+
+		header('Location:'.base_url().'view/main/');
+
+		return;
+	}
+
+	/**
+	 * Clear results
+	 *
+	 * @return void
+	 */
+	public function ClearResults() {
+
+		$this->session->unset_userdata('levels');
+		$this->session->unset_userdata('quests');
 
 		header('Location:'.base_url().'view/main/');
 

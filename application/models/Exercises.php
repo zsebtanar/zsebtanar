@@ -29,7 +29,6 @@ class Exercises extends CI_model {
 		$this->load->model('Session');
 		$this->load->model('Database');
 
-
 		$answerdata = json_decode($jsondata, TRUE);
 		list($answer, $hash) = $this->GetAnswerData($answerdata);
 		list($correct, $solution, $level, $type, $id) = $this->Session->GetExerciseData($hash);
@@ -49,10 +48,9 @@ class Exercises extends CI_model {
 				break;
 		}
 
-		$this->Session->UpdateExerciseData($status, $hash);
+		$this->Session->DeleteExerciseData($status, $hash);
 		$this->Session->UpdateResults($id, $level, $status);
 
-		$levels = $this->getUserLevels($id);
 		$id_next = $this->getIDNext($id);
 
 		$questID = $this->getQuestID($id);
@@ -62,7 +60,6 @@ class Exercises extends CI_model {
 			'status' 		=> $status,
 			'message' 		=> $message,
 			'submessages'	=> (isset($submessages) ? $submessages : []),
-			'levels'		=> $levels,
 			'id_next'		=> $id_next,
 			'subtopicID'	=> $subtopicID,
 			'questID'		=> $questID,
@@ -202,7 +199,7 @@ class Exercises extends CI_model {
 	 * @param  int   $level Exercise level
 	 * @return array $data  Exercise data
 	 */
-	public function getExerciseData($id, $level) {
+	public function GetExerciseData($id, $level) {
 
 		$this->session->unset_userdata('exercise');
 
@@ -215,33 +212,21 @@ class Exercises extends CI_model {
 		$query 		= $this->db->get_where('exercises', array('id' => $id));
 		$exercise 	= $query->result()[0]; 
 
-		$quizdata = $this->Database->getQuizData($id);
 
-		if ($quizdata) {
+		$function = $exercise->label;
 
-			$data = $this->getQuizData($quizdata);
+		$class = $this->Database->getClassLabel($id);
+		$topic = $this->Database->getTopicLabel($id);
 
-		} else {
-
-			$function = $exercise->label;
-
-			$class = $this->Database->getClassLabel($id);
-			$topic = $this->Database->getTopicLabel($id);
-
-			if (!function_exists($function)) {
-				$this->load->helper('Exercises/'.$class.'/'.$topic. '/functions');
-			}
-
-			$data = $function($level);
-
-			if ($data['type'] == 'quiz') {
-				$data = $this->getAnswerLength($data);
-			}
+		if (!function_exists($function)) {
+			$this->load->helper('Exercises/'.$class.'/'.$topic. '/functions');
 		}
+
+		$data = $function($level);
 
 		$hash = random_string('alnum', 16);
 
-		$this->SaveToSession($id, $level, $data, $hash);
+		$this->SaveExerciseData($id, $level, $data, $hash);
 
 		$data['level'] 		= $level;
 		$data['youtube'] 	= $exercise->youtube;
@@ -284,55 +269,6 @@ class Exercises extends CI_model {
 			'type' 		=> 'quiz',
 			'length' 	=> $length
 		);
-	}
-
-	/**
-	 * Get answer length
-	 *
-	 * Calculates maximum length of answers from options (to choose best display)
-	 *
-	 * @param array $data Exercise data
-	 *
-	 * @return array $data Exercise data (completed)
-	 */
-	public function getAnswerLength($data) {
-
-		$length = 0;
-
-		foreach ($data['options'] as $option) {
-
-			$length = max($length, count(str_split($option)));
-		}
-
-		$data['length'] = $length;
-
-		return $data;
-	}
-	/**
-	 * Save exercise data to session
-	 *
-	 * @param int    $id    Exercise id
-	 * @param int    $level Exercise level
-	 * @param array  $data  Exercise data
-	 * @param string $hash  Random string
-	 *
-	 * @return void
-	 */
-	public function SaveToSession($id, $level, $data, $hash) {
-
-		$sessiondata 		= $this->session->userdata('exercise');
-		
-		$answer['id']		= $id;
-		$answer['level'] 	= $level;
-		$answer['correct'] 	= $data['correct'];
-		$answer['type'] 	= $data['type'];
-		$answer['solution']	= $data['solution'];
-
-		$sessiondata[$hash] = $answer;
-
-		$this->session->set_userdata('exercise', $sessiondata);
-
-		return;
 	}
 
 	/**
@@ -383,9 +319,10 @@ class Exercises extends CI_model {
 
 				$id = $exercise->id;
 
-				$row['levels'] 	= $this->getUserLevels($id);
-				$row['id'] 		= $id;
-				$row['name'] 	= $exercise->name;
+				$row['userlevel'] 	= $this->Session->getUserLevel($id);
+				$row['maxlevel'] 	= $this->getMaxLevel($id);
+				$row['id'] 			= $id;
+				$row['name'] 		= $exercise->name;
 
 				$data[] = $row;
 			}
@@ -428,40 +365,6 @@ class Exercises extends CI_model {
 	}
 
 	/**
-	 * Get id of next exercise
-	 *
-	 * If there is no such, completed questID will be recorded in session.
-	 *
-	 * @param int $id Exercise ID
-	 *
-	 * @return array $id_next Id of next exercise
-	 */
-	public function getIDNext($id) {
-
-		$method = $this->session->userdata('method');
-
-		if ($method == 'quest') {
-
-			$questID = $this->session->userdata('goal');
-			$id_next = $this->IDNextQuest($questID);
-
-			// record completed quest in session
-			if (!$id_next) {
-				$quests = $this->session->userdata('quests');
-				$quests[$questID] = TRUE;
-				$this->session->set_userdata('quests', $quests);
-			}
-
-		} elseif ($method == 'exercise') {
-
-			$id_next = $this->IDNextExercise($id);
-
-		}
-
- 		return $id_next;
-	}
-
-	/**
 	 * Check if quest is completed
 	 *
 	 * @param int $id Quest ID
@@ -477,7 +380,6 @@ class Exercises extends CI_model {
  		return $isComplete;
 	}
 
-
 	/**
 	 * Get maximum level for exercise
 	 *
@@ -491,6 +393,23 @@ class Exercises extends CI_model {
 		$level_max 	= $query->result()[0]->level;
 
  		return $level_max;
+	}
+
+	/**
+	 * Get number or rounds for exercise
+	 *
+	 * $rounds shows how many times user needs to solve the exercise to complete it. 
+	 *
+	 * @param int $id Exercise ID
+	 *
+	 * @return int $rounds Maximum rounds
+	 */
+	public function getMaxRound($id) {
+
+		$query 		= $this->db->get_where('exercises', array('id' => $id));
+		$rounds 	= $query->result()[0]->rounds;
+
+ 		return $rounds;
 	}
 
 	/**
@@ -544,88 +463,6 @@ class Exercises extends CI_model {
 	}
 
 	/**
-	 * Get user level for exercise
-	 *
-	 * @param int $id Exercise ID
-	 *
-	 * @return int $level_user User level
-	 */
-	public function getUserLevel($id) {
-
-		$results = $this->session->userdata('results');
-		$level_user = (isset($results[$id]) ? $results[$id] : 0);
-
- 		return $level_user;
-	}
-
-	/**
-	 * Get user levels for current exercise
-	 *
-	 * Returns an array with 0s and 1s. 1 means the user has answered the exercise
-	 * at the specific level correctly, O means the opposite. Data is used to update 
-	 * star icons with javascript.
-	 *
-	 * @param  int 	 $id     Exercise ID
-	 * @return array $levels Exercise levels (0 or 1)
-	 */
-	public function getUserLevels($id) {
-
-		$max_level = $this->getMaxLevel($id);
-		$user_level = $this->getUserLevel($id);
-
-		for ($i=1; $i <= $max_level; $i++) {
-			$levels[$i] = ($i <= $user_level ? 1 : 0);
-		}
-
-		return $levels;
-	}
-
-	/**
-	 * Get ID of next avaliable exercise (quest mode)
-	 *
-	 * Checks whether user has completed all exercises of quest. If not,
-	 * returns link to next available exercise else returns null.
-	 *
-	 * @param int $questID Id of current quest
-	 *
-	 * @return int $id_next Id of next exercise
-	 */
-	public function IDNextQuest($questID) {
-
-		$id_next = NULL;
-
-		$results = $this->session->userdata('results');
-		$query = $this->db->get_where('exercises', array('questID' => $questID));
-		$exercises = $query->result();
-
-		foreach ($exercises as $exercise) {
-
-			$id = $exercise->id;
-
-			if (isset($results[$id])) {
-
-				$level_max  = $this->getMaxLevel($id);
-				$level_user = $this->getUserLevel($id);
-
-				if ($level_user < $level_max) {
-
-					// User has not solved exercise at all levels
-					$id_next = $id;
-					break;
-				}
-				
-			} else {
-
-				// User has not solved exercise yet
-				$id_next = $id;
-				break;
-			}
-		}
-
- 		return $id_next;
-	}
-
-	/**
 	 * Get ID of next exercise (exercise mode)
 	 *
 	 * Checks whether user has completed exercise in all level. If not,
@@ -635,14 +472,12 @@ class Exercises extends CI_model {
 	 *
 	 * @return array $data Exercise data
 	 */
-	public function IDNextExercise($id) {
+	public function getIDNext($id) {
 
 		$id_next = NULL;
 
-		$goal = $this->session->userdata('goal');
-
 		$level_max  = $this->getMaxLevel($id);
-		$level_user = $this->getUserLevel($id);
+		$level_user = $this->Session->getUserLevel($id);
 
 		if ($level_user < $level_max) {
 
