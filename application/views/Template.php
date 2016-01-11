@@ -12,7 +12,7 @@
 
 	$this->load->view('Modal/Info');
 
-	$this->load->view('Misc/NavBar');
+	$this->load->view('Misc/NavBar', $results);
 
 	if ($type == 'main') {
 		

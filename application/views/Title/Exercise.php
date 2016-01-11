@@ -10,9 +10,9 @@
 		</a>
 	</p><?php
 
-	for ($i=0; $i < $maxlevel; $i++) {?>
+	for ($i=0; $i < $level_max; $i++) {?>
 
-		<img id="star<?php echo $i;?>" src="<?php echo base_url().'assets/images/star'.($i < $userlevel ? 1 : 0).'.png';?>" alt="star"><?php
+		<img id="star<?php echo $i;?>" src="<?php echo base_url().'assets/images/star'.($i < $level_user ? 1 : 0).'.png';?>" alt="star"><?php
 
 	}?>
 

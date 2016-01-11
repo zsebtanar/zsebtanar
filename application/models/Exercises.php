@@ -49,21 +49,28 @@ class Exercises extends CI_model {
 		}
 
 		$this->Session->DeleteExerciseData($status, $hash);
-		$this->Session->UpdateResults($id, $level, $status);
+
+		if ($status == 'CORRECT') {
+			$message = $this->Session->UpdateResults($id, $message);
+		}
 
 		$id_next = $this->getIDNext($id);
-
-		$questID = $this->getQuestID($id);
+		$questID 	= $this->getQuestID($id);
 		$subtopicID = $this->getSubtopicID($id);
+		$progress 	= $this->Session->getUserProgress($id);
+		$points 	= $this->Session->GetResults();
+		$submessages = (isset($submessages) ? $submessages : []);
 
 		$output = array(
 			'status' 		=> $status,
 			'message' 		=> $message,
-			'submessages'	=> (isset($submessages) ? $submessages : []),
+			'submessages'	=> $submessages,
 			'id_next'		=> $id_next,
 			'subtopicID'	=> $subtopicID,
 			'questID'		=> $questID,
-			'session' 		=> json_encode($_SESSION)
+			// 'session' 		=> json_encode($_SESSION),
+			'progress'		=> $progress,
+			'points'		=> $points,
 		);
 
 		return $output;
@@ -195,11 +202,11 @@ class Exercises extends CI_model {
 	/**
 	 * Get exercise data
 	 *
-	 * @param  int   $id    Exercise ID
-	 * @param  int   $level Exercise level
-	 * @return array $data  Exercise data
+	 * @param int $id Exercise ID
+	 *
+	 * @return array $data Exercise data
 	 */
-	public function GetExerciseData($id, $level) {
+	public function GetExerciseData($id) {
 
 		$this->session->unset_userdata('exercise');
 
@@ -209,24 +216,38 @@ class Exercises extends CI_model {
 		$this->load->model('Maths');
 		$this->load->model('Database');
 
+		$level = $this->Session->getExerciseLevelNext($id);
+
 		$query 		= $this->db->get_where('exercises', array('id' => $id));
 		$exercise 	= $query->result()[0]; 
 
+		$quizdata = $this->Database->getQuizData($id);
 
-		$function = $exercise->label;
+		if ($quizdata) {
 
-		$class = $this->Database->getClassLabel($id);
-		$topic = $this->Database->getTopicLabel($id);
+			$data = $this->getQuizData($quizdata);
 
-		if (!function_exists($function)) {
-			$this->load->helper('Exercises/'.$class.'/'.$topic. '/functions');
+		} else {
+
+			$function 	= $exercise->label;
+
+			$class = $this->Database->getClassLabel($id);
+			$topic = $this->Database->getTopicLabel($id);
+
+			if (!function_exists($function)) {
+				$this->load->helper('Exercises/'.$class.'/'.$topic. '/functions');
+			}
+
+			$data = $function($level);
+
+			if ($data['type'] == 'quiz') {
+				$data = $this->getAnswerLength($data);
+			}
 		}
-
-		$data = $function($level);
 
 		$hash = random_string('alnum', 16);
 
-		$this->SaveExerciseData($id, $level, $data, $hash);
+		$this->Session->SaveExerciseData($id, $level, $data, $hash);
 
 		$data['level'] 		= $level;
 		$data['youtube'] 	= $exercise->youtube;
@@ -297,6 +318,29 @@ class Exercises extends CI_model {
 				$data['quests'][] 	= $row;
 			}
 		}
+
+		return $data;
+	}
+
+	/**
+	 * Get answer length
+	 *
+	 * Calculates maximum length of answers from options
+	 *
+	 * @param array $data Exercise data
+	 *
+	 * @return array $data Exercise data (completed)
+	 */
+	public function getAnswerLength($data) {
+
+		$length = 0;
+
+		foreach ($data['options'] as $option) {
+
+			$length = max($length, count(str_split($option)));
+		}
+
+		$data['length'] = $length;
 
 		return $data;
 	}
@@ -463,23 +507,22 @@ class Exercises extends CI_model {
 	}
 
 	/**
-	 * Get ID of next exercise (exercise mode)
+	 * Get ID of next exercise
 	 *
-	 * Checks whether user has completed exercise in all level. If not,
-	 * returns same exercise else returns null.
+	 * Checks whether user has completed all rounds of exercise.
 	 *
 	 * @param int $id Exercise ID
 	 *
-	 * @return array $data Exercise data
+	 * @return int $id_next Next exercise ID
 	 */
 	public function getIDNext($id) {
 
 		$id_next = NULL;
 
-		$level_max  = $this->getMaxLevel($id);
-		$level_user = $this->Session->getUserLevel($id);
+		$round_max  = $this->getMaxRound($id);
+		$round_user = $this->Session->getUserRound($id);
 
-		if ($level_user < $level_max) {
+		if ($round_user < $round_max) {
 
 			// User has not solved exercise at all levels
 			$id_next = $id;

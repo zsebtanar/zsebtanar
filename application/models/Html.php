@@ -25,9 +25,10 @@ class Html extends CI_model {
 	 */
 	public function MainData($classID=NULL, $topicID=NULL) {
 
-		$data['menu'] = $this->NavBarMenu();
-		$data['type'] = 'main';
-		$data['titledata'] = NULL;
+		$data['menu'] 		= $this->NavBarMenu();
+		$data['type'] 		= 'main';
+		$data['titledata'] 	= NULL;
+		$data['results'] 	= $this->Session->GetResults();
 
 		return $data;
 	}
@@ -43,12 +44,14 @@ class Html extends CI_model {
 	 */
 	public function SubtopicData($id) {
 
-		$data['menu'] 		= $this->NavBarMenu();
-		$data['type'] 		= 'subtopic';
+		$data['menu'] 	= $this->NavBarMenu();
+		$data['type'] 	= 'subtopic';
+		$data['quests'] = $this->Exercises->getSubtopicQuests($id);
+		$data['results'] = $this->Session->GetResults();
+
 		$data['title']['current'] 	= $this->TitleSubtopic($id);
 		$data['title']['prev'] 		= $this->TitleSubtopic($id-1);
 		$data['title']['next'] 		= $this->TitleSubtopic($id+1);
-		$data['quests'] 	= $this->Exercises->getSubtopicQuests($id);
 
 		return $data;
 	}
@@ -59,22 +62,16 @@ class Html extends CI_model {
 	 * Collects all necessary parameters for template
 	 *
 	 * @param int $id    Exercise ID
-	 * @param int $level Exercise level
 	 *
 	 * @return array $data Exercise data
 	 */
-	public function ExerciseData($id, $level) {
+	public function ExerciseData($id) {
 
 		$data['menu'] 		= $this->NavBarMenu();
 		$data['titledata'] 	= $this->TitleExercise($id);
 		$data['type'] 		= 'exercise';
-
-		if (!$level) {
-			$this->load->model('Session');
-			$level = $this->Session->getExerciseLevelNext($id);
-		}
-
-		$data['exercise'] = $this->Exercises->GetExerciseData($id, $level);
+		$data['results'] 	= $this->Session->GetResults();
+		$data['exercise'] = $this->Exercises->GetExerciseData($id);
 
 		return $data;
 	}
@@ -137,16 +134,16 @@ class Html extends CI_model {
 		$subtopics = $this->db->get();
 		$subtopic = $subtopics->result()[0];
 
-		$userlevel = $this->Session->getUserLevel($id);
-		$maxlevel = $this->Exercises->getMaxLevel($id);
+		$level_user = $this->Session->getUserLevel($id);
+		$level_max = $this->Exercises->getMaxLevel($id);
 
 		$questID = $exercise->questID;
 
 		$progress = $this->Session->getUserProgress($id);
 
 		return array(
-			'userlevel' 	=> $userlevel,
-			'maxlevel'	 	=> $maxlevel,
+			'level_user' 	=> $level_user,
+			'level_max'	 	=> $level_max,
 			'progress'		=> $progress,
 			'title' 		=> $exercise->name,
 			'subtitle' 		=> $subtopic->name,

@@ -48,31 +48,167 @@ class Session extends CI_model {
 	/**
 	 * Update results
 	 *
-	 * Increases user level in case of correct answer.
-	 * Decreases user level in case of wrong answer (if possible).
+	 * @param int    $id      Exercise ID
+	 * @param string $message Message for user
 	 *
-	 * @param  int 	  $id     Subtopic/Exercise ID
-	 * @param  int    $level  Current exercise level
-	 * @param  string $result Result of action (correct/wrong/not_done)
+	 * @return string $message Message for user (updated)
+	 */
+	public function UpdateResults($id, $message) {
+
+		$message = $this->UpdateRound($id, $message);
+		$message = $this->UpdateLevel($id, $message);
+
+		return $message;
+	}
+
+	/**
+	 * Update round for exercise
+	 *
+	 * @param int    $id      Exercise ID
+	 * @param string $message Message for user
+	 *
+	 * @return string $message Message for user (updated)
+	 */
+	public function UpdateRound($id, $message) {
+
+		$round_user = $this->getUserRound($id);
+		$round_max = $this->Exercises->getMaxRound($id);
+
+		$rounds = $this->session->userdata('rounds');
+
+		$rounds[$id] = ++$round_user;
+		$this->session->set_userdata('rounds', $rounds);
+
+		$prize = ($round_user <= $round_max ? 100 : 10);
+
+		$this->AddPoint($prize);
+
+		$message .= '<br />+'.$prize.'&nbsp;<img src="'.
+			base_url().'assets/images/coin.png" alt="coin" width="30">';
+
+		return $message;
+	}
+
+	/**
+	 * Update quest of exercise
+	 *
+	 * @param int    $id      Exercise ID
+	 * @param string $message Message for user
+	 *
+	 * @return string $message Message for user (updated)
+	 */
+	public function UpdateQuest($id, $message) {
+
+		$query 		= $this->db->get_where('exercises', array('id' => $id));
+		$exercise 	= $query->result()[0];
+		$questID 	= $exercise->questID;
+
+		$query 		= $this->db->get_where('exercises', array('questID' => $questID));
+		$exercises 	= $query->result();
+
+		$iscomplete = TRUE;
+		foreach ($exercises as $exercise) {
+
+			$level_user = $this->getUserLevel($exercise->id);
+			$level_max = $this->Exercises->getMaxLevel($exercise->id);
+
+			if ($level_user != $level_max) {
+
+				$iscomplete = FALSE;
+				break;
+			}
+		}
+
+		if ($iscomplete) {
+			$quests = $this->session->userdata('quests');
+			$quests[$questID] = 1;
+			$this->session->set_userdata('quests', $quests);
+
+			$message .= '<br />Elvégeztél egy küldetést!<br />+1'.
+				'&nbsp;<img src="'.base_url().
+				'assets/images/shield1.png" alt="coin" width="30">+2000'.
+				'&nbsp;<img src="'.base_url().
+				'assets/images/coin.png" alt="coin" width="30">';
+
+			$this->AddPoint(2000);
+		}
+
+		return $message;
+	}
+
+	/**
+	 * Add points
+	 *
+	 * @param int $amount Amount of money
 	 *
 	 * @return void
 	 */
-	public function UpdateResults($id, $level, $result) {
+	public function AddPoint($amount) {
 
+		$points = $this->session->userdata('points');
+		$points += $amount;
+		$this->session->set_userdata('points', $points);
 
+		return;
+	}
 
-		$query 		= $this->db->get_where('exercises', array('id' => $id));
-		$level_max 	= $query->result()[0]->level;
-		$results 	= $this->session->userdata('levels');
+	/**
+	 * Get results
+	 *
+	 * @return array $data Results
+	 */
+	public function GetResults() {
 
-		if ($result == 'CORRECT') {
+		$points = $this->session->userdata('points');
+		$data['points'] = ($points ? $points : 0);
 
-			$results[$id] = $level;
-			$this->session->set_userdata('levels', $results);	
+		$quests = $this->session->userdata('quests');
+		$data['quests'] = ($quests ? array_sum($quests) : 0);
+
+		return $data;
+	}
+
+	/**
+	 * Update level for exercise
+	 *
+	 * @param int    $id      Exercise ID
+	 * @param string $message Message for user
+	 *
+	 * @return string $message Message for user (updated)
+	 */
+	public function UpdateLevel($id, $message) {
+
+		$round_user = $this->getUserRound($id);
+		$level_user = $this->getUserLevel($id);
+
+		$round_max = $this->Exercises->getMaxRound($id);
+		$level_max = $this->Exercises->getMaxLevel($id);
+
+		$progress_round = $round_user/$round_max;
+		$progress_level = ($level_user+1)/$level_max;
+
+		if ($progress_round >= $progress_level && $level_user < $level_max) {
+
+			// Update user level
+			$levels = $this->session->userdata('levels');
+			$levels[$id] = ++$level_user;
+			$this->session->set_userdata('levels', $levels);
+
+			// Update quests
+			if ($level_user == $level_max) {
+				$message = $this->UpdateQuest($id, $message);
+			}
+
+			// Update points
+			$points = array(1 => 500, 2 => 1000, 3 => 2000);
+			$this->AddPoint($points[$level_user]);
+			$message .= '<br />Szintet léptél!<br />+'.$points[$level_user].
+				'&nbsp;<img src="'.base_url().
+				'assets/images/coin.png" alt="coin" width="30">';
 
 		}
 
-		return;
+		return $message;
 	}
 
 	/**
@@ -86,7 +222,7 @@ class Session extends CI_model {
 
 		$level_max = $this->Exercises->getMaxLevel($id);
 		$level_user = $this->getUserLevel($id);
-		
+
 		$level = min($level_max, $level_user+1);
 
 		return $level;
@@ -150,10 +286,14 @@ class Session extends CI_model {
 	 */
 	public function PrintInfo() {
 
-		print_r('Completed quests: ');
-		print_r($this->session->userdata('quests'));
-		print_r('Exercises: ');
-		print_r($this->session->userdata('levels'));
+		// print_r('Quests: ');
+		// print_r($this->session->userdata('quests'));
+		// print_r('<br />Levels: ');
+		// print_r($this->session->userdata('levels'));
+		// print_r('<br />Rounds: ');
+		// print_r($this->session->userdata('rounds'));
+		// print_r('<br />Points: ');
+		// print_r($this->session->userdata('points'));
 
 		return;
 	}

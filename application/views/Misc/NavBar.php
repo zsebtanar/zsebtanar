@@ -14,11 +14,26 @@
 		</div>
 
 		<div class="collapse navbar-collapse">
-			<ul class="nav navbar-nav navbar-right"><?php
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="#">
+						<img src="<?php echo base_url();?>assets/images/shield.png" alt="shield" width="20">&nbsp;<b><?php echo $results['quests'];?></b>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="<?php echo base_url();?>assets/images/coin.png" alt="coin" width="20">&nbsp;<b><?php echo $results['points'];?></b>
+					</a>
+				</li><?php
 
 			if (NULL !== $this->session->userdata('Logged_in') &&
 				$this->session->userdata('Logged_in')) {?>
 
+				<li>
+					<a href="<?php echo base_url().'application/clearresults';?>">
+						<span class="glyphicon glyphicon-remove"></span> Törlés
+					</a>
+				</li>
 				<li>
 					<a href="<?php echo base_url().'update/database/';?>">
 						<span class="glyphicon glyphicon-refresh"></span> Frissítés

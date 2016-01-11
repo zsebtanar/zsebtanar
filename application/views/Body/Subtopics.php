@@ -33,7 +33,7 @@
 
 						if (count($subtopics) > 0) {?>
 
-						<div id="collapse<?php echo $i;?>" class="panel-collapse collapse">
+						<div id="collapse<?php echo $i;?>" class="panel-collapse collapse in">
 							<div class="panel-body">
 
 								<ul><?php

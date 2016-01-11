@@ -75,6 +75,8 @@ class Application extends CI_controller {
 
 		$this->session->unset_userdata('levels');
 		$this->session->unset_userdata('quests');
+		$this->session->unset_userdata('rounds');
+		$this->session->unset_userdata('points');
 
 		header('Location:'.base_url().'view/main/');
 

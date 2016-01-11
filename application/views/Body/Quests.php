@@ -34,7 +34,9 @@
 					</h4>
 				</div><?php
 
-				$class = ($questID == $quest['id'] ? 'in' : '');?>
+				$class = ($questID == $quest['id'] ? 'in' : '');
+				$class = 'in';
+				?>
 
 				<div id="collapse<?php echo $quest['id'];?>" class="panel-collapse collapse <?php echo $class;?>">
 					<div class="panel-body">

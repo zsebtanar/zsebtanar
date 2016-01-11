@@ -56,7 +56,11 @@
 			<div class="col-sm-12">
 				<form id="exercise" autocomplete="off"><?php
 
-				if ($type == 'int') {
+				if ($type == 'quiz') {
+
+					$this->load->view('Input/Quiz', array('options' => $options, 'length' => $length));
+
+				} elseif ($type == 'int') {
 
 					$this->load->view('Input/Int');
 
@@ -129,6 +133,7 @@
 				switch (data['status']) {
 					case 'CORRECT':
 						document.getElementById("message").innerHTML = '<div class="alert alert-success"><strong><span class=\"glyphicon glyphicon-ok\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>';
+						$('.progress-bar').css('width', data['progress']+'%').attr('aria-valuenow', data['progress']);  
 						if (data['id_next'] == null) {
 							document.getElementById("button").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url().'view/subtopic/';?>" + data['subtopicID'] + '/' + data['questID'] + "\">Kész! :)</button>";
 						} else {
