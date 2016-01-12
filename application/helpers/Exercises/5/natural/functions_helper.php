@@ -2,9 +2,9 @@
 
 
 
-/*** NATURAL NUMBERS ***/
+// --- NATURAL NUMBERS
 
-/* Define number value */
+// Define number value
 function decimal_number_value($level)
 {
 
@@ -57,7 +57,7 @@ function decimal_number_value($level)
 	);
 }
 
-/* Define place value I. */
+// Define place value I.
 function decimal_place_value1($level)
 {
 	if ($level == 1) {
@@ -118,7 +118,7 @@ function decimal_place_value1($level)
 	);
 }
 
-/* Define place value II. */
+// Define place value II.
 function decimal_place_value2($level)
 {
 	if ($level == 1) {
@@ -159,7 +159,7 @@ function decimal_place_value2($level)
 	);
 }
 
-/* Define real value */
+// Define real value
 function decimal_real_value($level)
 {
 	if ($level == 1) {
@@ -189,6 +189,524 @@ function decimal_real_value($level)
 	$correct = pow(10, $place_value-1)*$digit;
 	$solution = '$'.$correct.'$';
 	$options = '';
+	$type = 'int';
+
+	return array(
+		'question' 	=> $question,
+		'options' 	=> $options,
+		'correct' 	=> $correct,
+		'solution'	=> $solution,
+		'type' 		=> $type
+	);
+}
+
+// Count total (with letters)
+function decimal_count_letters($level)
+{
+
+	if ($level == 1) {
+		$limit_number = rand(1,2);
+		$limit_place = 3;
+		$limit_value = 3;
+	} elseif ($level == 2) {
+		$limit_number = rand(2,3);
+		$limit_place = 4;
+		$limit_value = 9;
+	} else {
+		$limit_number = rand(3,5);
+		$limit_place = 5;
+		$limit_value = 12;
+	}
+
+	$place_values = array(
+		"egyes",
+		"tízes",
+		"százas",
+		"ezres",
+		"tízezres",
+		"százezres",
+		"milliós",
+		"tízmilliós",
+		"százmilliós"
+	);
+
+	$place_values = array_slice($place_values,0,$limit_place);
+
+	$total = 0;
+	$text = '';
+
+	$db = 0;
+	foreach ($place_values as $key => $place_value) {
+		if ($db < $limit_number) {
+			$value = rand(1,$limit_value);
+			$total = $total + $value*pow(10,$key);
+			$text = $text.' $'.$value.'$ '.$place_value;
+		}
+		$db++;
+	}
+
+	$text = preg_replace('/(\w)\s\$/', '\1, $', $text);
+	$text = preg_replace('/,([^,]*)$/', ' és\1', $text);
+
+	$options = '';
+	$question = 'Mennyit ér '.$text.'?';
+	$correct = $total;
+	$solution = '$'.$total.'$';
+	$type = 'int';
+
+	return array(
+		'question' 	=> $question,
+		'options' 	=> $options,
+		'correct' 	=> $correct,
+		'solution'	=> $solution,
+		'type' 		=> $type
+	);
+}
+
+// Count total (with numbers)
+function decimal_count_numbers($level)
+{
+	$kitevok = array(0,1,2,3,4,5,6,7,8);
+
+	if ($level == 1) {
+		$maxdb = rand(1,2);
+		$maxkitevo = 3;
+		$maxertek = 3;
+	} elseif ($level == 2) {
+		$maxdb = rand(2,3);
+		$maxkitevo = 4;
+		$maxertek = 9;
+	} elseif ($level == 3) {
+		$maxdb = rand(3,4);
+		$maxkitevo = 5;
+		$maxertek = 12;
+	}
+
+	$kitevok = array_slice($kitevok,0,$maxkitevo);
+	shuffleAssoc($kitevok);
+
+	$osszeg = 0;
+	$szoveg = '';
+
+	$db = 0;
+	foreach ($kitevok as $key => $value) {
+		if ($db < $maxdb) {
+			$alakiertek = rand(1,$maxertek);
+			$helyiertek = pow(10,$kitevok[$key]);
+			$osszeg = $osszeg + $alakiertek*$helyiertek;
+			$szoveg = $szoveg.$alakiertek.'\cdot'.$helyiertek.'$$+$$';
+		}
+		$db++;
+	}
+
+	$szoveg = preg_replace('/000000000\$/', '\\,000\\,000\\,000$', $szoveg);
+	$szoveg = preg_replace('/000000\$/', '\\,000\\,000$', $szoveg);
+	$szoveg = preg_replace('/0000\$/', '0\\,000$', $szoveg);
+	$szoveg = preg_replace('/^(.)/', '$\1', $szoveg);
+	$szoveg = preg_replace('/\$\+\$\$$/', '', $szoveg);
+
+	$options = '';
+	$question = 'Mennyivel egyenlő '.$szoveg.'?';
+	$correct = $osszeg;
+
+	$osszeg = str_ireplace(',','\\\\,',number_format($osszeg));
+	$solution = '$'.$osszeg.'$';
+	$type = 'int';
+
+	return array(
+		'question' 	=> $question,
+		'options' 	=> $options,
+		'correct' 	=> $correct,
+		'solution'	=> $solution,
+		'type' 		=> $type
+	);
+}
+
+// Count total (with money)
+function decimal_count_money($level)
+{
+  $penzek = array("tíz","húsz","ötven","száz","kétszáz","ötszáz","ezer","kétezer","ötezer","tízezer","húszezer");
+  $ertekek = array(10,   20,    50,     100,   200,      500,     1000,  2000,     5000,    10000,    20000);
+  $penzek = preg_replace('/^(.*)$/', '\1forintos', $penzek);
+  
+  if ($level == 1) {
+    $maxfajta = rand(1,2);
+    $maxhelyiertek = 4;
+    $maxdb = array(3,2,1);
+  } elseif ($level == 2) {
+    $maxfajta = rand(2,3);
+    $maxhelyiertek = 7;
+    $maxdb = array(9,3,2);
+  } elseif ($level == 3) {
+    $maxfajta = rand(3,4);
+    $maxhelyiertek = count($penzek);
+    $maxdb = array(12,5,3);
+  }
+  
+  $penzek = array_slice($penzek,0,$maxhelyiertek);
+  shuffleAssoc($penzek);
+  
+  $osszeg = 0;
+  $szoveg = '';
+  
+  $db = 0;
+  foreach ($penzek as $key => $value) {
+    if ($db < $maxfajta) {
+      $alakiertek = rand(1,$maxdb[$key % 3]);   
+      $osszeg = $osszeg + $alakiertek*$ertekek[$key];
+      $szoveg = $szoveg.' $'.$alakiertek.'$ '.$value;
+    }
+    $db++;
+  }
+  
+  $szoveg = preg_replace('/(\w)\s\$/', '\1, $', $szoveg);
+  $szoveg = preg_replace('/,([^,]*)$/', ' és\1', $szoveg);
+  
+  $options = '';
+  $question = 'Mennyit ér '.$szoveg.'?';
+  $correct = $osszeg;
+  $solution = '$'.$osszeg.'$';
+	$type = 'int';
+
+	return array(
+		'question' 	=> $question,
+		'options' 	=> $options,
+		'correct' 	=> $correct,
+		'solution'	=> $solution,
+		'type' 		=> $type
+	);
+}
+
+// Count number of zeros in total
+function decimal_count_zeros($level)
+{
+  $kitevok = array(0,1,2,3,4,5,6,7,8);
+  
+	if ($level == 1) {
+		$maxdb = rand(1,2);
+		$maxkitevo = 3;
+		$maxertek = 3;
+	} elseif ($level == 2) {
+		$maxdb = rand(2,3);
+		$maxkitevo = 4;
+		$maxertek = 9;
+	} elseif ($level == 3) {
+		$maxdb = rand(3,4);
+		$maxkitevo = 5;
+		$maxertek = 12;
+	}
+  
+  $kitevok = array_slice($kitevok,0,$maxkitevo);
+  shuffleAssoc($kitevok);
+  
+  $osszeg = 0;
+  $szoveg = '';
+  
+  $db = 0;
+  foreach ($kitevok as $key => $value) {
+    if ($db < $maxdb) {
+      $alakiertek = rand(1,$maxertek);
+      $helyiertek = pow(10,$kitevok[$key]);
+      $osszeg = $osszeg + $alakiertek*$helyiertek;
+      $szoveg = $szoveg.$alakiertek.'\cdot'.$helyiertek.'$$+$$';
+    }
+    $db++;
+  }
+  
+  $nulla_db = 0;
+  foreach(str_split($osszeg) as $value) {
+    if ($value == 0) {
+      $nulla_db++;
+    }
+  }
+
+  $szoveg = preg_replace('/000000000\$/', '\\,000\\,000\\,000$', $szoveg);
+  $szoveg = preg_replace('/000000\$/', '\\,000\\,000$', $szoveg);
+  $szoveg = preg_replace('/0000\$/', '0\\,000$', $szoveg);
+  $szoveg = preg_replace('/^(.)/', '$\1', $szoveg);
+  $szoveg = preg_replace('/\$\+\$\$$/', '', $szoveg);
+  
+  $options = '';
+  $question = 'Hány nulla szerepel az alábbi műveletsor eredményében: '.$szoveg.'?';
+  $correct = $nulla_db;
+  
+  if ($osszeg > 9999) {
+    $osszeg = str_ireplace(',','\\\\,',number_format($osszeg));
+  }
+  
+  $solution = '$'.$nulla_db.'$ (az eredmény: $'.$osszeg.'$)';
+	$type = 'int';
+
+	return array(
+		'question' 	=> $question,
+		'options' 	=> $options,
+		'correct' 	=> $correct,
+		'solution'	=> $solution,
+		'type' 		=> $type
+	);
+}
+
+// Change number (with letters)
+function decimal_change_letters($level)
+{
+  $mitvalt = array("százas","ezres","tízezres","százezres","milliós","tízmilliós","százmilliós");
+  $mirevalt = array("tízest","százast","ezrest");
+  $index = rand(0,2);
+  $mirevalt = $mirevalt[$index];
+  
+  if ($level == 1) {
+    $max_db = 1;
+    $max_helyiertek = 1;
+    $max_ertek = 3;
+  } elseif ($level == 2) {
+    $max_db = 2;
+    $max_helyiertek = 3;
+    $max_ertek = 9;
+  } elseif ($level == 3) {
+    $max_db = 3;
+    $max_helyiertek = 6;
+    $max_ertek = 12;
+  }
+  
+  $mitvalt = array_slice($mitvalt,$index,$max_helyiertek-$index+1,TRUE);
+  shuffleAssoc($mitvalt);
+  
+  $osszeg = 0;
+  $szoveg = '';
+  
+  $db = 0;
+  foreach ($mitvalt as $key => $value) {
+    if ($db < $max_db) {
+      $k = rand(1,$max_ertek);
+      $osszeg = $osszeg + $k*pow(10,$key+2);
+      $szoveg = $szoveg.' $'.$k.'$ '.$value;
+    }
+    $db++;
+  }
+  
+  $eredmeny = $osszeg/pow(10,$index+1);
+  $correct = $eredmeny;
+  if ($eredmeny > 9999) {
+    $eredmeny = str_ireplace(',','\\\\,',number_format($eredmeny));
+  }
+
+  $szoveg = preg_replace('/(\w)\s\$/', '\1, $', $szoveg);
+  $szoveg = preg_replace('/,([^,]*)$/', ' és\1', $szoveg);
+  $options = '';
+  $question = 'Hány darab  '.$mirevalt.' jelent '.$szoveg.'?';
+  $solution = '$'.$eredmeny.'$ db '.$mirevalt.'.';
+	$type = 'int';
+
+	return array(
+		'question' 	=> $question,
+		'options' 	=> $options,
+		'correct' 	=> $correct,
+		'solution'	=> $solution,
+		'type' 		=> $type
+	);
+}
+
+// Change number (with money)
+function decimal_change_money($level)
+{
+  $mirevalt = array("tízforintosra","százforintosra");
+  $index = rand(0,1);
+  $mirevalt = $mirevalt[$index];
+  
+  if ($level == 1) {
+    $dbmax = 1;
+    $mitvalt = array("százast","ezrest");
+    $max = array(3,5);
+  } elseif ($level == 2) {
+    $dbmax = 2;
+    $mitvalt = array("százast","ezrest","ötezrest");
+    $max = array(9,6,1);
+  } elseif ($level == 3) {
+    $dbmax = 3;
+    $mitvalt = array("százast","ezrest","ötezrest","tízezrest","húszezrest");
+    $max = array(12,12,1,12,1);
+  }
+  
+  $mitvalt = array_slice($mitvalt,$index);
+  $max = array_slice($max,$index);
+  shuffleAssoc($mitvalt);
+  
+  $osszeg = 0;
+  $szoveg = '';
+  
+  $db = 0;
+  foreach ($mitvalt as $key => $value) {
+    if ($db < $dbmax) {
+      $k = rand(1,$max[$key]);
+      if ($value == "százast") {
+        $osszeg = $osszeg + $k*100;
+      } elseif ($value == "ezrest") {
+        $osszeg = $osszeg + $k*1000;
+      } elseif ($value == "ötezrest") {
+        $osszeg = $osszeg + $k*5000;
+      } elseif ($value == "tízezrest") {
+        $osszeg = $osszeg + $k*10000;
+      } elseif ($value == "húszezrest") {
+        $osszeg = $osszeg + $k*20000;
+      }
+      $szoveg = $szoveg.' $'.$k.'$ '.$value;
+    }
+    $db++;
+  }
+  
+  if ($mirevalt == "tízforintosra") {
+    $eredmeny = $osszeg/10;
+  } elseif ($mirevalt == "százforintosra") {
+    $eredmeny = $osszeg/100;
+  }
+  
+  $szoveg = preg_replace('/(\w)\s\$/', '\1, $', $szoveg);
+  $szoveg = preg_replace('/,([^,]*)$/', ' és\1', $szoveg);
+  
+  $options = '';
+  $question = 'Hány darab  '.$mirevalt.' lehet felváltani '.$szoveg.'?';
+  $correct = $eredmeny;
+  $solution = '$'.$eredmeny.'$ db '.$mirevalt.'.';
+	$type = 'int';
+
+	return array(
+		'question' 	=> $question,
+		'options' 	=> $options,
+		'correct' 	=> $correct,
+		'solution'	=> $solution,
+		'type' 		=> $type
+	);
+}
+
+// Write number (with numbers)
+function decimal_write_numbers($level)
+{
+  if ($level == 1) {
+    $hossz = rand(2,3); 
+  } elseif ($level == 2) {
+    $hossz = rand(3,4);
+  } elseif ($level == 3) {
+    $hossz = rand(4,5);
+  }
+  
+  $szam = randGenerate($hossz,10);
+  
+  $szamjegyek = str_split($szam);
+  $szamjegyek = array_reverse($szamjegyek);
+  
+  $szam_hatar = array('','ezer','millió','milliárd');
+  $szamok1 = array('','egy','kettő','három','négy','öt','hat','hét','nyolc','kilenc');
+  $szamok1b = array('','','két','három','négy','öt','hat','hét','nyolc','kilenc');
+  $szamok2 = array('','tizen','huszon','harminc','negyven','ötven','hatvan','hetven','nyolcvan','kilencven');
+  $szamok2b = array('','tíz','húsz','harminc','negyven','ötven','hatvan','hetven','nyolcvan','kilencven');
+  
+  $szakasz = 0;
+  $szam_betu = '';
+  foreach ($szamjegyek as $key => $value) {
+    if ($key % 3 == 0) {
+      if ($szam > 2000 && $szakasz > 0) {
+        $szam_betu = $szam_hatar[$szakasz].'-'.$szam_betu;
+      } else {
+        $szam_betu = $szam_hatar[$szakasz].$szam_betu;
+      }
+      $szam_betu = $szamok1[$value].$szam_betu;
+      $szakasz++;
+    } elseif ($key % 3 == 1) {
+      if ($szamjegyek[$key-1] == 0) {
+        $szam_betu = $szamok2b[$value].$szam_betu;
+      } else {
+        $szam_betu = $szamok2[$value].$szam_betu;
+      }
+    } elseif ($key % 3 == 2) {
+      $szam_betu = $szamok1b[$value].'száz'.$szam_betu;
+    }
+  }
+  
+  $options = '';
+  $szam_betu = str_ireplace('egyezer','ezer', $szam_betu);
+  $szam_betu = str_ireplace('kettőezer','kétezer', $szam_betu);
+  $szam_betu = str_ireplace('kettőmillió','kétmillió', $szam_betu);
+  $szam_betu = str_ireplace('kettőmilliárd','kétmilliárd', $szam_betu);
+  
+  $question = 'Írjuk le számjegyekkel az alábbi számot: <i>"'.$szam_betu.'"</i> !';
+  $correct = $szam;
+  
+  if ($szam > 9999) {
+    $szam = number_format($szam,0,',','\,');
+  }
+  
+  $solution = '$'.$szam.'$';
+	$type = 'int';
+
+	return array(
+		'question' 	=> $question,
+		'options' 	=> $options,
+		'correct' 	=> $correct,
+		'solution'	=> $solution,
+		'type' 		=> $type
+	);
+}
+
+// Count hyphens in number
+function decimal_write_hyphen($level)
+{
+  if ($level == 1) {
+    $szam = rand(1,2500);
+  } elseif ($level == 2) {
+    $szam = numGen(rand(4,7),10);
+  } elseif ($level == 3) {
+    $szam = numGen(rand(7,10),10);
+  }
+  
+  $szamjegyek = str_split($szam);
+  $szamjegyek = array_reverse($szamjegyek);
+  
+  $szam_hatar = array('','ezer','millió','milliárd');
+  $szamok1 = array('','egy','kettő','három','négy','öt','hat','hét','nyolc','kilenc');
+  $szamok1b = array('','','két','három','négy','öt','hat','hét','nyolc','kilenc');
+  $szamok2 = array('','tizen','huszon','harminc','negyven','ötven','hatvan','hetven','nyolcvan','kilencven');
+  $szamok2b = array('','tíz','húsz','harminc','negyven','ötven','hatvan','hetven','nyolcvan','kilencven');
+  
+  $szakasz = 0;
+  $szam_betu = '';
+  foreach ($szamjegyek as $key => $value) {
+    if ($key % 3 == 0) {
+      if ($szam > 2000 && $szakasz > 0) {
+        $szam_betu = $szam_hatar[$szakasz].'-'.$szam_betu;
+      } else {
+        $szam_betu = $szam_hatar[$szakasz].$szam_betu;
+      }
+      $szam_betu = $szamok1[$value].$szam_betu;
+      $szakasz++;
+    } elseif ($key % 3 == 1) {
+      if ($szamjegyek[$key-1] == 0) {
+        $szam_betu = $szamok2b[$value].$szam_betu;
+      } else {
+        $szam_betu = $szamok2[$value].$szam_betu;
+      }
+    } elseif ($key % 3 == 2 && $value > 0) {
+      $szam_betu = $szamok1b[$value].'száz'.$szam_betu;
+    }
+  }
+  
+  $options = '';
+  $szam_betu = str_ireplace('egyezer','ezer', $szam_betu);
+  $szam_betu = str_ireplace('kettőezer','kétezer', $szam_betu);
+  $szam_betu = str_ireplace('kettőmillió','kétmillió', $szam_betu);
+  $szam_betu = str_ireplace('kettőmilliárd','kétmilliárd', $szam_betu);
+
+  $szam_betu2 = preg_replace('/-/', '', $szam_betu);
+  
+  if ($szam > 9999) {
+    $szam = number_format($szam,0,',','\,');
+  }
+  
+  $question = 'Hány kötőjel hiányzik az alábbi kifejezésből?<br /><br /><div class="text-center"><i>"'.
+  	$szam_betu2.'"</i></div>';
+  
+  $correct = count(preg_grep('/-/', str_split($szam_betu)));
+  
+  $solution = '<i>'.$szam_betu.'<\i>';
 	$type = 'int';
 
 	return array(

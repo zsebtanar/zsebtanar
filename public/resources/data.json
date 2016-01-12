@@ -86,6 +86,56 @@
 											"download": "helyiertek-tablazat_10.jpg"
 										}
 									]
+								},
+								{
+									"name": "Számolás",
+									"label": "decimal_count",
+									"exercises": [
+										{
+											"label": "decimal_count_letters",
+											"name": "Betűkkel"
+										},
+										{
+											"label": "decimal_count_numbers",
+											"name": "Számokkal"
+										},
+										{
+											"label": "decimal_count_money",
+											"name": "Pénzzel"
+										},
+										{
+											"label": "decimal_count_zeros",
+											"name": "Nullák"
+										}
+									]
+								},
+								{
+									"name": "Számok átváltása",
+									"label": "decimal_change",
+									"exercises": [
+										{
+											"label": "decimal_change_letters",
+											"name": "Betűkkel"
+										},
+										{
+											"label": "decimal_change_money",
+											"name": "Pénzzel"
+										}
+									]
+								},
+								{
+									"name": "Számok leírása",
+									"label": "decimal_write",
+									"exercises": [
+										{
+											"label": "decimal_write_numbers",
+											"name": "Számokkal"
+										},
+										{
+											"label": "decimal_write_hyphen",
+											"name": "Betűkkel"
+										}
+									]
 								}
 							]
 						}

@@ -359,14 +359,14 @@ class Session extends CI_model {
 	 */
 	public function PrintInfo() {
 
-		print_r('Subtopics: ');
-		print_r($this->session->userdata('subtopics'));
-		print_r('Quests: ');
-		print_r($this->session->userdata('quests'));
+		// print_r('Subtopics: ');
+		// print_r($this->session->userdata('subtopics'));
+		// print_r('Quests: ');
+		// print_r($this->session->userdata('quests'));
 		// print_r('<br />Levels: ');
 		// print_r($this->session->userdata('levels'));
-		print_r('<br />Rounds: ');
-		print_r($this->session->userdata('rounds'));
+		// print_r('<br />Rounds: ');
+		// print_r($this->session->userdata('rounds'));
 		// print_r('<br />Points: ');
 		// print_r($this->session->userdata('points'));
 
