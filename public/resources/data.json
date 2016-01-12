@@ -10,6 +10,7 @@
 					"subtopics": [
 						{
 							"name": "Számolás",
+							"label":"counting",
 							"quests": [
 								{
 									"name": "Számolás",
@@ -60,6 +61,7 @@
 					"subtopics": [
 						{
 							"name": "Tízes számrendszer",
+							"label": "decimal",
 							"quests": [
 								{
 									"name": "Alaki érték, helyiérték, valódi érték",
@@ -134,6 +136,22 @@
 										{
 											"label": "decimal_write_hyphen",
 											"name": "Betűkkel"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Kettes számrendszer",
+							"label": "binary",
+							"quests": [
+								{
+									"name": "Alaki érték, helyiérték, valódi érték",
+									"label": "binary_number_value",
+									"exercises": [
+										{
+											"label": "binary_number_value",
+											"name": "Alaki érték"
 										}
 									]
 								}

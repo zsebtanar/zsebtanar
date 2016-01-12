@@ -231,13 +231,14 @@ class Exercises extends CI_model {
 
 		} else {
 
-			$function 	= $exercise->label;
+			$function = $exercise->label;
 
 			$class = $this->Database->getClassLabel($id);
 			$topic = $this->Database->getTopicLabel($id);
+			$subtopic = $this->Database->getSubtopicLabel($id);
 
 			if (!function_exists($function)) {
-				$this->load->helper('Exercises/'.$class.'/'.$topic. '/functions');
+				$this->load->helper('Exercises/'.$class.'/'.$topic.'/'.$subtopic.'/functions');
 			}
 
 			$data = $function($level);

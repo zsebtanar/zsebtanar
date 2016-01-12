@@ -6,7 +6,9 @@
 				<h4 class="modal-title">A honlapról</h4>
 			</div>
 			<div class="modal-body">
-				<p>Ez a honlap elsősorban azért jött létre, hogy segítsen azoknak, akiknek nehezen megy a matek. Az esetleges hibákért semmilyen jogi felelősséget nem vállalok, de ha kapok róla visszajelzést, igyekszem minél hamarabb kijavítani őket. Egy témakör kidolgozása hosszabb ideig is eltarthat, ezért a honlap lassan bővül.</p>
+				<p>Ez a honlap azoknak szeretne segíteni, akiknek nehezen megy a matek.</p>
+				<p>Észrevételeket, javaslatokat a <b>zsebtanar@gmail.com</b>-ra lehet küldeni.</p>
+				<p>Az esetleges hibákért semmilyen jogi felelősséget nem vállalok, de ha kapok róla visszajelzést, igyekszem minél hamarabb kijavítani őket.</p>
 				<p>A honlap használatához <a href="https://www.google.com/intl/hu/chrome/browser/desktop" target="_blank">Google Chrome</a> böngésző használata javasolt.</p>
 				<p>A honlap teljes tartalma a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.hu" target="_blank">Creative Commons Nevezd meg! - Ne add el! - Így add tovább! 4.0 Nemzetközi Licenc</a> feltételeinek megfelelően ingyenesen felhasználható.</p>
 				<p>Jó tanulást kívánok!</p>

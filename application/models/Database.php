@@ -27,7 +27,8 @@ class Database extends CI_model {
 				),
 			'subtopics' => array(
 				'topicID'	=> 'FROM SESSION',
-				'name'		=> 'NOT NULL'
+				'name'		=> 'NOT NULL',
+				'label'		=> 'NOT NULL'
 				),
 			'quests' => array(
 				'subtopicID'	=> 'FROM SESSION',
@@ -130,6 +131,7 @@ class Database extends CI_model {
 							id 		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							topicID INT NOT NULL,
 							name 	VARCHAR(60) NOT NULL,
+							label 	VARCHAR(30) NOT NULL,
 							CONSTRAINT topic_name UNIQUE (topicID, name),
 							FOREIGN KEY (topicID) REFERENCES topics(id)
 						)Engine=InnoDB;',
@@ -324,6 +326,27 @@ class Database extends CI_model {
 		$query = $this->db->query(
 			'SELECT DISTINCT `topics`.`label` FROM `topics`
 				INNER JOIN `subtopics` ON `topics`.`id` = `subtopics`.`topicID`
+				INNER JOIN `quests` ON `subtopics`.`id` = `quests`.`subtopicID`
+				INNER JOIN `exercises` ON `quests`.`id` = `exercises`.`questID`
+					WHERE `exercises`.`id` = '.$id);
+		$label = $query->result()[0]->label;
+
+		return $label;
+	}
+
+	/**
+	 * Get subtopic label
+	 *
+	 * Searches for topic label of exercise (to access math functions).
+	 *
+	 * @param int $id Exercise ID
+	 *
+	 * @return string $label Topic label
+	 */
+	public function GetSubtopicLabel($id) {
+
+		$query = $this->db->query(
+			'SELECT DISTINCT `subtopics`.`label` FROM `subtopics`
 				INNER JOIN `quests` ON `subtopics`.`id` = `quests`.`subtopicID`
 				INNER JOIN `exercises` ON `quests`.`id` = `exercises`.`questID`
 					WHERE `exercises`.`id` = '.$id);

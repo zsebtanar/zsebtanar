@@ -83,16 +83,19 @@ class Html extends CI_model {
 	 */
 	public function NavBarMenu() {
 
+		$this->db->order_by('id');
 		$classes = $this->db->get('classes');
 
 		foreach ($classes->result() as $class) {
 
+			$this->db->order_by('id');
 			$topics = $this->db->get_where('topics', array('classID' => $class->id));
 
 			if (count($topics) > 0) {
 
 				foreach ($topics->result() as $topic) {
 
+					$this->db->order_by('id');
 					$subtopics = $this->db->get_where('subtopics', array('topicID' => $topic->id));
 
 					if (count($subtopics) > 0) {

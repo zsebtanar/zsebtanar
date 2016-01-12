@@ -452,6 +452,7 @@ function decimal_change_letters($level)
   $mitvalt = array("százas","ezres","tízezres","százezres","milliós","tízmilliós","százmilliós");
   $mirevalt = array("tízest","százast","ezrest");
   $index = rand(0,2);
+  $index = 2;
   $mirevalt = $mirevalt[$index];
   
   if ($level == 1) {
@@ -460,15 +461,15 @@ function decimal_change_letters($level)
     $max_ertek = 3;
   } elseif ($level == 2) {
     $max_db = 2;
-    $max_helyiertek = 3;
+    $max_helyiertek = rand(2,3);
     $max_ertek = 9;
   } elseif ($level == 3) {
     $max_db = 3;
-    $max_helyiertek = 6;
+    $max_helyiertek = rand(3,6);
     $max_ertek = 12;
   }
   
-  $mitvalt = array_slice($mitvalt,$index,$max_helyiertek-$index+1,TRUE);
+  $mitvalt = array_slice($mitvalt,$index,$max_helyiertek,TRUE);
   shuffleAssoc($mitvalt);
   
   $osszeg = 0;
@@ -589,7 +590,7 @@ function decimal_write_numbers($level)
     $hossz = rand(4,5);
   }
   
-  $szam = randGenerate($hossz,10);
+  $szam = numGen($hossz,10);
   
   $szamjegyek = str_split($szam);
   $szamjegyek = array_reverse($szamjegyek);
