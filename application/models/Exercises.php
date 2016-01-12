@@ -54,23 +54,25 @@ class Exercises extends CI_model {
 			$message = $this->Session->UpdateResults($id, $message);
 		}
 
-		$id_next = $this->getIDNext($id);
+		$id_next 	= $this->getIDNext($id);
 		$questID 	= $this->getQuestID($id);
 		$subtopicID = $this->getSubtopicID($id);
+		$level_user = $this->Session->getUserLevel($id);
+		$level_max 	= $this->Exercises->getMaxLevel($id);
 		$progress 	= $this->Session->getUserProgress($id);
-		$points 	= $this->Session->GetResults();
 		$submessages = (isset($submessages) ? $submessages : []);
 
 		$output = array(
 			'status' 		=> $status,
+			'level_max' 	=> $level_max,
+			'level_user' 	=> $level_user,
 			'message' 		=> $message,
 			'submessages'	=> $submessages,
 			'id_next'		=> $id_next,
 			'subtopicID'	=> $subtopicID,
 			'questID'		=> $questID,
 			// 'session' 		=> json_encode($_SESSION),
-			'progress'		=> $progress,
-			'points'		=> $points,
+			'progress'		=> $progress
 		);
 
 		return $output;
@@ -524,7 +526,7 @@ class Exercises extends CI_model {
 
 		if ($round_user < $round_max) {
 
-			// User has not solved exercise at all levels
+			// User has not solved all rounds of exercise
 			$id_next = $id;
 
  		} else {

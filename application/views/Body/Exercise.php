@@ -133,7 +133,7 @@
 				switch (data['status']) {
 					case 'CORRECT':
 						document.getElementById("message").innerHTML = '<div class="alert alert-success"><strong><span class=\"glyphicon glyphicon-ok\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>';
-						$('.progress-bar').css('width', data['progress']+'%').attr('aria-valuenow', data['progress']);  
+						$('.progress-bar').css('width', data['progress']+'%').attr('aria-valuenow', data['progress']);
 						if (data['id_next'] == null) {
 							document.getElementById("button").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url().'view/subtopic/';?>" + data['subtopicID'] + '/' + data['questID'] + "\">Kész! :)</button>";
 						} else {
@@ -158,18 +158,15 @@
 				}
 
 				// Change icons
-				$.each(data['levels'], function(index, value) {
-					console.log(value);
-					var src = document.getElementById("star"+index).src;
-					if (value == 0) {
-						var src = src.replace("1", "0");
-					} else {
+				for (var i = data['level_max'] - 1; i >= 0; i--) {
+					var src = document.getElementById("star"+i).src;
+					if (i < data['level_user']) {
 						var src = src.replace("0", "1");
+					} else {
+						var src = src.replace("1", "0");
 					}
-					document.getElementById("star"+index).src = src;
-					console.log(src);
-
-				});
+					document.getElementById("star"+i).src = src;
+				}
 			}
 		});
 	}

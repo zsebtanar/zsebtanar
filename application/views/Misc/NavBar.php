@@ -17,12 +17,17 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li>
 					<a href="#">
-						<img src="<?php echo base_url();?>assets/images/shield.png" alt="shield" width="20">&nbsp;<b><?php echo $results['quests'];?></b>
+						<img src="<?php echo base_url();?>assets/images/trophy.png" alt="shield" width="22">&nbsp;<b class="subtopics"><?php echo $results['subtopics'];?></b>
 					</a>
 				</li>
 				<li>
 					<a href="#">
-						<img src="<?php echo base_url();?>assets/images/coin.png" alt="coin" width="20">&nbsp;<b><?php echo $results['points'];?></b>
+						<img src="<?php echo base_url();?>assets/images/shield.png" alt="shield" width="20">&nbsp;<b class="quests"><?php echo $results['quests'];?></b>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="<?php echo base_url();?>assets/images/coin.png" alt="coin" width="20">&nbsp;<b class="points"><?php echo $results['points'];?></b>
 					</a>
 				</li><?php
 

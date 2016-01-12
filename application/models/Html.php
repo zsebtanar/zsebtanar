@@ -99,8 +99,12 @@ class Html extends CI_model {
 
 						foreach ($subtopics->result() as $subtopic) {
 
-							$menu[$class->name][$topic->name][$subtopic->id] = $subtopic->name;
+							$iscomplete = $this->Session->isSubtopicComplete($subtopic->id);
 
+							$menu[$class->name][$topic->name][$subtopic->id] = array(
+								'name' => $subtopic->name,
+								'iscomplete' => $iscomplete
+							);
 						}
 					}
 

@@ -38,12 +38,19 @@
 
 								<ul><?php
 
-								foreach ($subtopics as $subtopic_id => $subtopic_name) {?>
+								foreach ($subtopics as $subtopic_id => $subtopic) {?>
 
 									<li>
 										<a href="<?php echo base_url();?>view/subtopic/<?php echo $subtopic_id;?>">
-											<?php echo $subtopic_name;?>
-										</a>
+											<?php echo $subtopic['name'];?>
+										</a><?php
+
+										if ($subtopic['iscomplete']) {?>
+
+											&nbsp;<img src="<?php echo base_url().'assets/images/trophy.png';?>" alt="star" width="20px"><?php
+
+										}?>
+										
 									</li><?php
 
 								}?>
