@@ -5,13 +5,14 @@
 /*** NATURAL NUMBERS ***/
 
 /* Define number value */
-function decimal_number_value($level=1) {
+function decimal_number_value($level=1)
+{
 
 	if ($level == 1) {
 		$length = 2; 
 	} elseif ($level == 2) {
 		$length = rand(3,4);
-	} elseif ($level == 3) {
+	} else {
 		$length = rand(5,6);
 	}
 
@@ -54,7 +55,7 @@ function decimal_place_value1($level=1)
 		$length = 2; 
 	} elseif ($level == 2) {
 		$length = rand(3,4);
-	} elseif ($level == 3) {
+	} else {
 		$length = rand(5,6);
 	}
 
@@ -101,7 +102,7 @@ function decimal_place_value2($level=1)
 		$length = 2; 
 	} elseif ($level == 2) {
 		$length = rand(3,4);
-	} elseif ($level == 3) {
+	} else {
 		$length = rand(5,6);
 	}
 
