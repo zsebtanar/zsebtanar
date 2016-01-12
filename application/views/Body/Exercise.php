@@ -142,7 +142,7 @@
 						break;
 					case 'WRONG':
 						document.getElementById("message").innerHTML = '<div class="alert alert-danger"><strong><span class=\"glyphicon glyphicon-remove\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>';
-						MathJax.Hub.Queue(["Typeset",MathJax.Hub,"message"]);
+						document.getElementById("button").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url();?>view/exercise/<?php echo $id;?>\">Újra</button>";
 						if (data['submessages'].length > 0) {
 							for (var i = data['submessages'].length - 1; i >= 0; i--) {
 								var submessage = data['submessages'][i];
@@ -151,9 +151,9 @@
 								} else {
 									$('#input'+i).before('<span class=\"glyphicon glyphicon-remove red\"></span>&nbsp;');
 								}
-							};
+							}
 						}
-						document.getElementById("button").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url();?>view/exercise/<?php echo $id;?>\">Újra</button>";
+						MathJax.Hub.Queue(["Typeset",MathJax.Hub,"message"]);
 						break;
 				}
 

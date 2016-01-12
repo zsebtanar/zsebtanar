@@ -5,7 +5,7 @@
 /*** NATURAL NUMBERS ***/
 
 /* Define number value */
-function decimal_number_value($level=1)
+function decimal_number_value($level)
 {
 
 	if ($level == 1) {
@@ -16,23 +16,32 @@ function decimal_number_value($level=1)
 		$length = rand(5,6);
 	}
 
-	$number = numGen($length,10);
+	$num = numGen($length,10);
 
-	$digits = str_split($number);
-	$value = rand(round($length/2),$length);
-	$correct = $digits[$length-$value];
+	$digits = str_split($num);
+	$digit = rand(1, $length);
+	$correct = $digits[$length-$digit];
 
-	$values = array("az egyesek","a tízesek","a százasok","az ezresek","a tízezresek","a százezresek","a milliósok","a tízmilliósok","a százmilliósok","a milliárdosok");
+	$values = array(
+		"egyesek",
+		"tízesek",
+		"százasok",
+		"ezresek",
+		"tízezresek",
+		"százezresek",
+		"milliósok",
+		"tízmilliósok",
+		"százmilliósok",
+		"milliárdosok"
+	);
 
-	if ($number > 9999) {
-		$number = number_format($number,0,',','\,');
-	}
+	$num = ($num > 9999 ? number_format($num,0,',','\,') : $num);
 
-	if (rand(1,2) == 1) {
-		$question = 'Melyik számjegy áll '.$values[$value-1].' helyén az alábbi számban?$$'.$number.'$$';
-	} else {
-		$question = 'Mi '.$values[$value-1].' helyén álló szám alaki értéke?$$'.$number.'$$';
-	}
+	$article = ($digit == 1 || $digit == 4 ? 'az ' : 'a ');
+
+	$question1 = 'Melyik számjegy áll '.$article.$values[$digit-1].' helyén az alábbi számban?$$'.$num.'$$';
+	$question2 = 'Mi '.$article.$values[$digit-1].' helyén álló szám alaki értéke?$$'.$num.'$$';
+	$question = (rand(1,2) == 1 ? $question1 : $question2);
 
 	$options = '';
 	$correct = $correct;
@@ -49,7 +58,7 @@ function decimal_number_value($level=1)
 }
 
 /* Define place value I. */
-function decimal_place_value1($level=1)
+function decimal_place_value1($level)
 {
 	if ($level == 1) {
 		$length = 2; 
@@ -59,30 +68,39 @@ function decimal_place_value1($level=1)
 		$length = rand(5,6);
 	}
 
-	$szam = numGen($length,10);
+	$num = numGen($length,10);
 
-	$szamjegyek = str_split($szam);
-	$helyiertek = rand(round($length/2),$length);
-	$szamjegy = $szamjegyek[$length-$helyiertek];
+	$digits = str_split($num);
+	$place_value = rand(round($length/2),$length);
+	$digit = $digits[$length-$place_value];
 
-	$szam = modifySameDigits($szam,$length-$helyiertek);
+	$num = modifySameDigits($num,$length-$place_value);
 
-	if (in_array($szamjegy,array(5,1))) {$nevelo = 'az';} else {$nevelo = 'a';}
+	$article = (in_array($digit,array(5,1)) ? 'az' : 'a');
 
-	if ($szam > 9999) {
-		$szam = number_format($szam,0,',','\,');
-	}
+	$num = ($num > 9999 ? number_format($num,0,',','\,') : $num);
 
-	$question = 'Melyik helyen áll '.$nevelo.' $'.$szamjegy.'$ az alábbi számban?$$'.$szam.'$$';
-	$helyiertekek = array("egyesek","tízesek","százasok","ezresek","tízezresek","százezresek","milliósok","tízmilliósok","százmilliósok","milliárdosok");
+	$question = 'Melyik helyen áll '.$article.' $'.$digit.'$ az alábbi számban?$$'.$num.'$$';
+	$place_values = array(
+		"egyesek",
+		"tízesek",
+		"százasok",
+		"ezresek",
+		"tízezresek",
+		"százezresek",
+		"milliósok",
+		"tízmilliósok",
+		"százmilliósok",
+		"milliárdosok"
+	);
 
-	$options = array_slice($helyiertekek,0,$length);
+	$options = array_slice($place_values,0,$length);
 	$options = preg_replace( '/.$/', '$0 helyén.', $options);
 	$options = preg_replace( '/^[^e]/', 'A $0', $options);
 	$options = preg_replace( '/^e/', 'Az $0', $options);
 
-	$correct = $helyiertek-1;
-	$solution = $options[$helyiertek-1];
+	$correct = $place_value-1;
+	$solution = $options[$place_value-1];
 
 	$type = 'quiz';
 
@@ -96,7 +114,7 @@ function decimal_place_value1($level=1)
 }
 
 /* Define place value II. */
-function decimal_place_value2($level=1)
+function decimal_place_value2($level)
 {
 	if ($level == 1) {
 		$length = 2; 
@@ -106,24 +124,63 @@ function decimal_place_value2($level=1)
 		$length = rand(5,6);
 	}
 
-	$szam = numGen($length,10);
+	$num = numGen($length,10);
 
-	$szamjegyek = str_split($szam);
-	$helyiertek = rand(round($length/2),$length);
-	$szamjegy = $szamjegyek[$length-$helyiertek];
+	$digits = str_split($num);
+	$place_value = rand(round($length/2),$length);
+	$digit = $digits[$length-$place_value];
 
-	$szam = modifySameDigits($szam,$length-$helyiertek);
+	$num = modifySameDigits($num,$length-$place_value);
 
-	if (in_array($szamjegy,array(5,1))) {$nevelo = 'az';} else {$nevelo = 'a';}
+	$article = (in_array($digit,array(5,1)) ? 'az' : 'a');
 
-	if ($szam > 9999) {
-		$szam = number_format($szam,0,',','\,');
+	$num = ($num > 9999 ? number_format($num,0,',','\,') : $num);
+
+	$question = 'Mi '.$article.' $'.$digit.'$ helyiértéke az alábbi számban?$$'.$num.'$$';
+
+	$correct = pow(10, $place_value-1);
+	$solution = $options[$place_value-1];
+	$solution = str_ireplace('\\,','\\\\,',$solution);
+	$options = '';
+
+	$type = 'int';
+
+	return array(
+		'question' 	=> $question,
+		'options' 	=> $options,
+		'correct' 	=> $correct,
+		'solution'	=> $solution,
+		'type' 		=> $type
+	);
+}
+
+/* Define real value */
+function decimal_real_value($level)
+{
+	if ($level == 1) {
+		$length = 2; 
+	} elseif ($level == 2) {
+		$length = rand(3,4);
+	} else {
+		$length = rand(5,6);
 	}
 
-	$question = 'Mi '.$nevelo.' $'.$szamjegy.'$ helyiértéke az alábbi számban?$$'.$szam.'$$';
-	$helyiertekek = array(1,10,100,1000,10000,100000,1000000,10000000,100000000,1000000000);
+	$num = numGen($length,10);
 
-	$options = array_slice($helyiertekek,0,$length);
+	$digits = str_split($num);
+	$place_value = rand(round($length/2),$length);
+	$digit = $digits[$length-$place_value];
+
+	$num = modifySameDigits($num,$length-$place_value);
+
+	$article = (in_array($digit,array(5,1)) ? 'az' : 'a');
+
+	$num = ($num > 9999 ? number_format($num,0,',','\,') : $num);
+
+	$question = 'Mi '.$article.' $'.$digit.'$ helyiértéke az alábbi számban?$$'.$num.'$$';
+	$place_values = array(1,10,100,1000,10000,100000,1000000,10000000,100000000,1000000000);
+
+	$options = array_slice($place_values,0,$length);
 	$options = preg_replace( '/000000000$/', '\\,000000000', $options);
 	$options = preg_replace( '/000000$/', '\\,000000', $options);
 	$options = preg_replace( '/000$/', '\\,000', $options);
@@ -131,8 +188,8 @@ function decimal_place_value2($level=1)
 	$options = preg_replace( '/0$/', '0\$', $options);
 	$options = preg_replace( '/1$/', '1\$', $options);
 
-	$correct = $helyiertekek[$helyiertek-1];
-	$solution = $options[$helyiertek-1];
+	$correct = $place_values[$place_value-1];
+	$solution = $options[$place_value-1];
 	$solution = str_ireplace('\\,','\\\\,',$solution);
 	$options = '';
 
