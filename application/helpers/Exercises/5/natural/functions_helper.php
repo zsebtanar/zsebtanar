@@ -19,7 +19,7 @@ function decimal_number_value($level)
 	$num = numGen($length,10);
 
 	$digits = str_split($num);
-	$digit = rand(1, $length);
+	$digit = rand(round($length/2),$length);
 	$correct = $digits[$length-$digit];
 
 	$values = array(
@@ -102,6 +102,11 @@ function decimal_place_value1($level)
 	$correct = $place_value-1;
 	$solution = $options[$place_value-1];
 
+	if ($level > 2) {
+		shuffle($options);
+		$correct = array_search($solution, $options);
+	}
+
 	$type = 'quiz';
 
 	return array(
@@ -139,7 +144,7 @@ function decimal_place_value2($level)
 	$question = 'Mi '.$article.' $'.$digit.'$ helyiértéke az alábbi számban?$$'.$num.'$$';
 
 	$correct = pow(10, $place_value-1);
-	$solution = $options[$place_value-1];
+	$solution = '$'.$correct.'$';
 	$solution = str_ireplace('\\,','\\\\,',$solution);
 	$options = '';
 
@@ -177,22 +182,13 @@ function decimal_real_value($level)
 
 	$num = ($num > 9999 ? number_format($num,0,',','\,') : $num);
 
-	$question = 'Mi '.$article.' $'.$digit.'$ helyiértéke az alábbi számban?$$'.$num.'$$';
-	$place_values = array(1,10,100,1000,10000,100000,1000000,10000000,100000000,1000000000);
+	$question1 = 'Mi '.$article.' $'.$digit.'$ valódi értéke az alábbi számban?$$'.$num.'$$';
+	$question2 = 'Mennyit ér '.$article.' $'.$digit.'$ az alábbi számban?$$'.$num.'$$';
+	$question = (rand(1,2) == 1 ? $question1 : $question2);
 
-	$options = array_slice($place_values,0,$length);
-	$options = preg_replace( '/000000000$/', '\\,000000000', $options);
-	$options = preg_replace( '/000000$/', '\\,000000', $options);
-	$options = preg_replace( '/000$/', '\\,000', $options);
-	$options = preg_replace( '/^1/', '\$1', $options);
-	$options = preg_replace( '/0$/', '0\$', $options);
-	$options = preg_replace( '/1$/', '1\$', $options);
-
-	$correct = $place_values[$place_value-1];
-	$solution = $options[$place_value-1];
-	$solution = str_ireplace('\\,','\\\\,',$solution);
+	$correct = pow(10, $place_value-1)*$digit;
+	$solution = '$'.$correct.'$';
 	$options = '';
-
 	$type = 'int';
 
 	return array(

@@ -18,7 +18,6 @@
 										{
 											"label": "count_apples",
 											"name": "Számolás 1-től 20-ig",
-											"level": 3,
 											"download": "szamok_1-20.jpg"
 										}
 									]
@@ -29,8 +28,7 @@
 									"exercises": [
 										{
 											"label": "parity",
-											"name": "Páros vagy páratlan?",
-											"level": 3
+											"name": "Páros vagy páratlan?"
 										}
 									]
 								},
@@ -40,8 +38,7 @@
 									"exercises": [
 										{
 											"label": "count_parity",
-											"name": "Hány darab páros/páratlan?",
-											"level": 3
+											"name": "Hány darab páros/páratlan?"
 										}
 									],
 									"links": [
@@ -65,37 +62,28 @@
 							"name": "Tízes számrendszer",
 							"quests": [
 								{
-									"name": "Helyiérték",
+									"name": "Alaki érték, helyiérték, valódi érték",
 									"label": "decimal_place_value",
 									"exercises": [
 										{
 											"label": "decimal_place_value1",
-											"name": "Melyik helyen áll?",
-											"level": 3,
+											"name": "Helyiérték I.",
 											"download": "helyiertek-tablazat_10.jpg"
 										},
 										{
 											"label": "decimal_place_value2",
-											"name": "Helyiérték kiszámítása",
-											"level": 3,
+											"name": "Helyiérték II.",
 											"download": "helyiertek-tablazat_10.jpg"
-										}
-									]
-								},
-								{
-									"name": "Alaki érték, helyiérték, valódi érték",
-									"label": "decimal_number_place_real_value",
-									"exercises": [
+										},
 										{
 											"label": "decimal_number_value",
 											"name": "Alaki érték",
-											"level": 3,
 											"download": "helyiertek-tablazat_10.jpg"
-										}
-									],
-									"links": [
+										},
 										{
-											"label": "decimal_place_value" 
+											"label": "decimal_real_value",
+											"name": "Valódi érték",
+											"download": "helyiertek-tablazat_10.jpg"
 										}
 									]
 								}

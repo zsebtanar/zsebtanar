@@ -102,6 +102,7 @@ class Session extends CI_model {
 		$questID 	= $this->Exercises->getQuestID($id);
 		$query 		= $this->db->get_where('exercises', array('questID' => $questID));
 		$exercises 	= $query->result();
+		$total		= count($exercises);
 
 		$iscomplete = TRUE;
 		foreach ($exercises as $exercise) {
@@ -117,17 +118,18 @@ class Session extends CI_model {
 		}
 
 		if ($iscomplete) {
+
 			$quests = $this->session->userdata('quests');
 			$quests[$questID] = 1;
 			$this->session->set_userdata('quests', $quests);
 
+			$prize = $total * 1000;
+			$this->AddPoint($prize);
 			$message .= '<br /><br />Elvégeztél egy küldetést!<br />'.
 				'+1&nbsp;<img src="'.base_url().
 				'assets/images/shield.png" alt="coin" width="30">&nbsp;&nbsp;'.
-				'+2000&nbsp;<img src="'.base_url().
+				'+'.$prize.'&nbsp;<img src="'.base_url().
 				'assets/images/coin.png" alt="coin" width="30">';
-
-			$this->AddPoint(2000);
 		}
 
 		return $message;
@@ -148,9 +150,11 @@ class Session extends CI_model {
 		$subtopicID	= $this->Exercises->getSubtopicID($id);
 		$query 		= $this->db->get_where('quests', array('subtopicID' => $subtopicID));
 		$quests 	= $query->result();
-		$result 	= $this->session->userdata('quests');
+		$total 		= count($quests);
 
+		$result 	= $this->session->userdata('quests');
 		$iscomplete = TRUE;
+
 		foreach ($quests as $quest) {
 
 			if (!isset($result[$quest->id]) || $result[$quest->id]!= 1) {
@@ -160,17 +164,18 @@ class Session extends CI_model {
 		}
 
 		if ($iscomplete) {
+
 			$subtopics = $this->session->userdata('subtopics');
 			$subtopics[$subtopicID] = 1;
 			$this->session->set_userdata('subtopics', $subtopics);
 
+			$prize = $total * 5000;
+			$this->AddPoint($prize);
 			$message .= '<br /><br />Elvégeztél egy témakört!<br />'.
 				'+1&nbsp;<img src="'.base_url().
 				'assets/images/trophy.png" alt="coin" width="30">&nbsp;&nbsp;'.
-				'+5000&nbsp;<img src="'.base_url().
+				'+'.$prize.'&nbsp;<img src="'.base_url().
 				'assets/images/coin.png" alt="coin" width="30">';
-
-			$this->AddPoint(5000);
 		}
 
 		return $message;
@@ -256,14 +261,20 @@ class Session extends CI_model {
 			$this->session->set_userdata('levels', $levels);
 
 			// Update points
-			$points = array(1 => 500, 2 => 1000, 3 => 2000);
-			$this->AddPoint($points[$level_user]);
-			$message .= '<br /><br />Szintet léptél!<br />+'.$points[$level_user].
+			$prize = 200;
+			$this->AddPoint($prize);
+			$message .= '<br /><br />Szintet léptél!<br />+'.$prize.
 				'&nbsp;<img src="'.base_url().
 				'assets/images/coin.png" alt="coin" width="30">';
 
 			// Update quests
 			if ($level_user == $level_max) {
+				$prize = 500;
+				$this->AddPoint($prize);
+				$message .= '<br /><br />Elvégeztél egy feladatot!<br />+'.$prize.
+					'&nbsp;<img src="'.base_url().
+					'assets/images/coin.png" alt="coin" width="30">';
+
 				$message = $this->UpdateQuest($id, $message);
 				$message = $this->UpdateSubtopic($id, $message);
 			}
@@ -304,6 +315,7 @@ class Session extends CI_model {
 		$round_user = $this->getUserRound($id);
 		
 		$progress = round($round_user/$round_max*100);
+		$progress = min(100, $progress);
 
 		return $progress;
 	}
