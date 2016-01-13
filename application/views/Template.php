@@ -26,7 +26,7 @@
 
 	} elseif ($type == 'exercise') {
 
-		$this->load->view('Title/Exercise', $titledata);
+		$this->load->view('Title/Exercise', $title);
 		$this->load->view('Body/Exercise', $exercise);
 
 	}?>

@@ -276,6 +276,38 @@
 									]
 								}
 							]
+						},
+						{
+							"name": "Számok kerekítése",
+							"label": "number_round",
+							"quests": [
+								{
+									"name": "Kerekítés",
+									"label": "number_round",
+									"exercises": [
+										{
+											"label": "number_round_down",
+											"name": "Lefelé"
+										},
+										{
+											"label": "number_round_up",
+											"name": "Felfelé"
+										},
+										{
+											"label": "number_compare_order",
+											"name": "Számok sorrendje"
+										},
+										{
+											"label": "number_compare_missing_digit",
+											"name": "Hiányzó számjegy"
+										},
+										{
+											"label": "number_compare_between",
+											"name": "Hány természetes szám?"
+										}
+									]
+								}
+							]
 						}
 					]
 				}

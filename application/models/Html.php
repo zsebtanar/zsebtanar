@@ -71,13 +71,17 @@ class Html extends CI_model {
 	public function ExerciseData($id) {
 
 		$data['menu'] 		= $this->NavBarMenu();
-		$data['titledata'] 	= $this->TitleExercise($id);
+		
 		$data['type'] 		= 'exercise';
 		$data['results'] 	= $this->Session->GetResults();
 		$data['exercise'] 	= $this->Exercises->GetExerciseData($id);
 
 		$data['results']['id'] = $id;
 		$data['results']['type'] = 'exercise';
+
+		$data['title']['current'] 	= $this->TitleExercise($id);
+		$data['title']['prev'] 		= $this->TitleExercise($id-1);
+		$data['title']['next'] 		= $this->TitleExercise($id+1);
 
 		return $data;
 	}
@@ -127,42 +131,49 @@ class Html extends CI_model {
 	}
 
 	/**
-	 * Get page title for exercise
+	 * Get title data for exercise
 	 *
 	 * @param int $id Excercise ID
 	 *
-	 * @return string $html Html-code
+	 * @return array $data Exercise data
 	 */
 	public function TitleExercise($id) {
 
-		$query = $this->db->get_where('exercises', array('id' => $id));
-		$exercise = $query->result()[0];
+		$exercises = $this->db->get_where('exercises', array('id' => $id));
 
-		$this->db->select('subtopics.name, subtopics.id')
-				->distinct()
-				->from('subtopics')
-				->join('quests', 'subtopics.id = quests.subtopicID', 'inner')
-				->join('exercises', 'quests.id = exercises.questID', 'inner')
-				->where('exercises.id', $id);
-		$subtopics = $this->db->get();
-		$subtopic = $subtopics->result()[0];
+		if (count($exercises->result()) > 0) {
+			$exercise = $exercises->result()[0];
 
-		$level_user = $this->Session->getUserLevel($id);
-		$level_max = $this->Exercises->getMaxLevel($id);
+			$this->db->select('subtopics.name, subtopics.id')
+					->distinct()
+					->from('subtopics')
+					->join('quests', 'subtopics.id = quests.subtopicID', 'inner')
+					->join('exercises', 'quests.id = exercises.questID', 'inner')
+					->where('exercises.id', $id);
+			$subtopics = $this->db->get();
+			$subtopic = $subtopics->result()[0];
 
-		$questID = $exercise->questID;
+			$level_user = $this->Session->getUserLevel($id);
+			$level_max = $this->Exercises->getMaxLevel($id);
 
-		$progress = $this->Session->getUserProgress($id);
+			$questID = $exercise->questID;
 
-		return array(
-			'level_user' 	=> $level_user,
-			'level_max'	 	=> $level_max,
-			'progress'		=> $progress,
-			'title' 		=> $exercise->name,
-			'subtitle' 		=> $subtopic->name,
-			'subtopicID'	=> $subtopic->id,
-			'questID' 		=> $questID
-		);
+			$progress = $this->Session->getUserProgress($id);
+			$data = array(
+				'id'			=> $id,
+				'level_user' 	=> $level_user,
+				'level_max'	 	=> $level_max,
+				'progress'		=> $progress,
+				'title' 		=> $exercise->name,
+				'subtitle' 		=> $subtopic->name,
+				'subtopicID'	=> $subtopic->id,
+				'questID' 		=> $questID
+			);
+		} else {
+			$data = NULL;
+		}
+
+		return $data;
 	}
 
 	/**
