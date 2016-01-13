@@ -45,14 +45,14 @@ function decimal_number_value($level)
 
 	$options = '';
 	$correct = $correct;
-	$answer = '$'.$correct.'$';
+	$solution = '$'.$correct.'$';
 	$type = 'int';
 
 	return array(
 		'question' 	=> $question,
 		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'answer'	=> $answer,
+		'solution'	=> $solution,
 		'type' 		=> $type
 	);
 }
@@ -100,11 +100,11 @@ function decimal_place_value1($level)
 	$options = preg_replace( '/^e/', 'Az $0', $options);
 
 	$correct = $place_value-1;
-	$answer = $options[$place_value-1];
+	$solution = $options[$place_value-1];
 
 	if ($level > 2) {
 		shuffle($options);
-		$correct = array_search($answer, $options);
+		$correct = array_search($solution, $options);
 	}
 
 	$type = 'quiz';
@@ -113,7 +113,7 @@ function decimal_place_value1($level)
 		'question' 	=> $question,
 		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'answer'	=> $answer,
+		'solution'	=> $solution,
 		'type' 		=> $type
 	);
 }
@@ -144,8 +144,8 @@ function decimal_place_value2($level)
 	$question = 'Mi '.$article.' $'.$digit.'$ helyiértéke az alábbi számban?$$'.$num.'$$';
 
 	$correct = pow(10, $place_value-1);
-	$answer = '$'.$correct.'$';
-	$answer = str_ireplace('\\,','\\\\,',$answer);
+	$solution = '$'.$correct.'$';
+	$solution = str_ireplace('\\,','\\\\,',$solution);
 	$options = '';
 
 	$type = 'int';
@@ -154,7 +154,7 @@ function decimal_place_value2($level)
 		'question' 	=> $question,
 		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'answer'	=> $answer,
+		'solution'	=> $solution,
 		'type' 		=> $type
 	);
 }
@@ -187,7 +187,7 @@ function decimal_real_value($level)
 	$question = (rand(1,2) == 1 ? $question1 : $question2);
 
 	$correct = pow(10, $place_value-1)*$digit;
-	$answer = '$'.$correct.'$';
+	$solution = '$'.$correct.'$';
 	$options = '';
 	$type = 'int';
 
@@ -195,7 +195,7 @@ function decimal_real_value($level)
 		'question' 	=> $question,
 		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'answer'	=> $answer,
+		'solution'	=> $solution,
 		'type' 		=> $type
 	);
 }
@@ -251,14 +251,14 @@ function decimal_count_letters($level)
 	$options = '';
 	$question = 'Mennyit ér '.$text.'?';
 	$correct = $total;
-	$answer = '$'.$total.'$';
+	$solution = '$'.$total.'$';
 	$type = 'int';
 
 	return array(
 		'question' 	=> $question,
 		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'answer'	=> $answer,
+		'solution'	=> $solution,
 		'type' 		=> $type
 	);
 }
@@ -310,14 +310,14 @@ function decimal_count_numbers($level)
 	$correct = $osszeg;
 
 	$osszeg = str_ireplace(',','\\\\,',number_format($osszeg));
-	$answer = '$'.$osszeg.'$';
+	$solution = '$'.$osszeg.'$';
 	$type = 'int';
 
 	return array(
 		'question' 	=> $question,
 		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'answer'	=> $answer,
+		'solution'	=> $solution,
 		'type' 		=> $type
 	);
 }
@@ -365,14 +365,14 @@ function decimal_count_money($level)
   $options = '';
   $question = 'Mennyit ér '.$szoveg.'?';
   $correct = $osszeg;
-  $answer = '$'.$osszeg.'$';
+  $solution = '$'.$osszeg.'$';
 	$type = 'int';
 
 	return array(
 		'question' 	=> $question,
 		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'answer'	=> $answer,
+		'solution'	=> $solution,
 		'type' 		=> $type
 	);
 }
@@ -434,14 +434,14 @@ function decimal_count_zeros($level)
     $osszeg = str_ireplace(',','\\\\,',number_format($osszeg));
   }
   
-  $answer = '$'.$nulla_db.'$ (az eredmény: $'.$osszeg.'$)';
+  $solution = '$'.$nulla_db.'$ (az eredmény: $'.$osszeg.'$)';
 	$type = 'int';
 
 	return array(
 		'question' 	=> $question,
 		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'answer'	=> $answer,
+		'solution'	=> $solution,
 		'type' 		=> $type
 	);
 }
@@ -495,14 +495,14 @@ function decimal_change_letters($level)
   $szoveg = preg_replace('/,([^,]*)$/', ' és\1', $szoveg);
   $options = '';
   $question = 'Hány darab  '.$mirevalt.' jelent '.$szoveg.'?';
-  $answer = '$'.$eredmeny.'$ db '.$mirevalt.'.';
+  $solution = '$'.$eredmeny.'$ db '.$mirevalt.'.';
 	$type = 'int';
 
 	return array(
 		'question' 	=> $question,
 		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'answer'	=> $answer,
+		'solution'	=> $solution,
 		'type' 		=> $type
 	);
 }
@@ -567,14 +567,14 @@ function decimal_change_money($level)
   $options = '';
   $question = 'Hány darab  '.$mirevalt.' lehet felváltani '.$szoveg.'?';
   $correct = $eredmeny;
-  $answer = '$'.$eredmeny.'$ db '.$mirevalt.'.';
+  $solution = '$'.$eredmeny.'$ db '.$mirevalt.'.';
 	$type = 'int';
 
 	return array(
 		'question' 	=> $question,
 		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'answer'	=> $answer,
+		'solution'	=> $solution,
 		'type' 		=> $type
 	);
 }
@@ -636,14 +636,14 @@ function decimal_write_numbers($level)
     $szam = number_format($szam,0,',','\,');
   }
   
-  $answer = '$'.$szam.'$';
+  $solution = '$'.$szam.'$';
 	$type = 'int';
 
 	return array(
 		'question' 	=> $question,
 		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'answer'	=> $answer,
+		'solution'	=> $solution,
 		'type' 		=> $type
 	);
 }
@@ -707,14 +707,14 @@ function decimal_write_hyphen($level)
   
   $correct = count(preg_grep('/-/', str_split($szam_betu)));
   
-  $answer = '<i>'.$szam_betu.'<\i>';
+  $solution = '<i>'.$szam_betu.'<\i>';
 	$type = 'int';
 
 	return array(
 		'question' 	=> $question,
 		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'answer'	=> $answer,
+		'solution'	=> $solution,
 		'type' 		=> $type
 	);
 }

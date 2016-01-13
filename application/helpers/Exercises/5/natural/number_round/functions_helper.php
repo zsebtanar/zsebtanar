@@ -29,9 +29,9 @@ function number_round_down($level)
   $question = 'Kerekítsük lefelé '.$numb[$helyiertek-1].' az alábbi számot!$$'.$szam.'$$';
   
   if ($correct > 9999) {
-    $answer = '$'.number_format($correct,0,',','\\,').'$';
+    $solution = '$'.number_format($correct,0,',','\\,').'$';
   } else {
-    $answer = '$'.$correct.'$';
+    $solution = '$'.$correct.'$';
   }
 	$type = 'int';
 
@@ -39,7 +39,7 @@ function number_round_down($level)
 		'question' 	=> $question,
 		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'answer'	=> $answer,
+		'solution'	=> $solution,
 		'type' 		=> $type
 	);
 }
@@ -70,9 +70,9 @@ function number_round_up($level)
   $question = 'Kerekítsük felfelé '.$numb[$helyiertek-1].' az alábbi számot!$$'.$szam.'$$';
   
   if ($correct > 9999) {
-    $answer = '$'.number_format($correct,0,',','\\\\,').'$';
+    $solution = '$'.number_format($correct,0,',','\\\\,').'$';
   } else {
-    $answer = '$'.$correct.'$';
+    $solution = '$'.$correct.'$';
   }
   $type = 'int';
 
@@ -80,7 +80,7 @@ function number_round_up($level)
     'question'  => $question,
     'options'   => $options,
     'correct'   => $correct,
-    'answer'  => $answer,
+    'solution'  => $solution,
     'type'    => $type
   );
 }
@@ -111,9 +111,9 @@ function number_round($level)
   $question = 'Kerekítsük '.$numb[$helyiertek-1].' az alábbi számot!$$'.$szam.'$$';
   
   if ($correct > 9999) {
-    $answer = '$'.number_format($correct,0,',','\\\\,').'$';
+    $solution = '$'.number_format($correct,0,',','\\\\,').'$';
   } else {
-    $answer = '$'.$correct.'$';
+    $solution = '$'.$correct.'$';
   }
   $type = 'int';
 
@@ -121,7 +121,7 @@ function number_round($level)
     'question'  => $question,
     'options'   => $options,
     'correct'   => $correct,
-    'answer'  => $answer,
+    'solution'  => $solution,
     'type'    => $type
   );
 }
@@ -153,9 +153,9 @@ function number_round_error_down($level)
   $question = 'Mekkora lesz a kerekítési hiba, ha az alábbi számot '.$numb[$helyiertek-1].' kerekítjük lefelé?$$'.$szam.'$$';
   
   if ($correct > 9999) {
-    $answer = '$'.number_format($correct,0,',','\\\\,').'$';
+    $solution = '$'.number_format($correct,0,',','\\\\,').'$';
   } else {
-    $answer = '$'.$correct.'$';
+    $solution = '$'.$correct.'$';
   }
   $type = 'int';
 
@@ -163,7 +163,7 @@ function number_round_error_down($level)
     'question'  => $question,
     'options'   => $options,
     'correct'   => $correct,
-    'answer'  => $answer,
+    'solution'  => $solution,
     'type'    => $type
   );
 }
@@ -195,9 +195,9 @@ function number_round_error_up($level)
   $question = 'Mekkora lesz a kerekítési hiba, ha az alábbi számot '.$numb[$helyiertek-1].' kerekítjük felfelé?$$'.$szam.'$$';
   
   if ($correct > 9999) {
-    $answer = '$'.number_format($correct,0,',','\\\\,').'$';
+    $solution = '$'.number_format($correct,0,',','\\\\,').'$';
   } else {
-    $answer = '$'.$correct.'$';
+    $solution = '$'.$correct.'$';
   }
   $type = 'int';
 
@@ -205,7 +205,7 @@ function number_round_error_up($level)
     'question'  => $question,
     'options'   => $options,
     'correct'   => $correct,
-    'answer'  => $answer,
+    'solution'  => $solution,
     'type'    => $type
   );
 }
@@ -237,9 +237,9 @@ function number_round_error($level)
   $question = 'Mekkora lesz a kerekítési hiba, ha az alábbi számot '.$numb[$helyiertek-1].' kerekítjük?$$'.$szam.'$$';
   
   if ($correct > 9999) {
-    $answer = '$'.number_format($correct,0,',','\\\\,').'$';
+    $solution = '$'.number_format($correct,0,',','\\\\,').'$';
   } else {
-    $answer = '$'.$correct.'$';
+    $solution = '$'.$correct.'$';
   }
   $type = 'int';
 
@@ -247,7 +247,7 @@ function number_round_error($level)
     'question'  => $question,
     'options'   => $options,
     'correct'   => $correct,
-    'answer'  => $answer,
+    'solution'  => $solution,
     'type'    => $type
   );
 }
@@ -288,9 +288,9 @@ function number_round_how_many($level)
   }
   
   if ($correct > 9999) {
-    $answer = '$'.number_format($correct,0,',','\\\\,').'$';
+    $solution = '$'.number_format($correct,0,',','\\\\,').'$';
   } else {
-    $answer = '$'.$correct.'$';
+    $solution = '$'.$correct.'$';
   }
   $type = 'int';
 
@@ -298,7 +298,7 @@ function number_round_how_many($level)
     'question'  => $question,
     'options'   => $options,
     'correct'   => $correct,
-    'answer'  => $answer,
+    'solution'  => $solution,
     'type'    => $type
   );
 }
@@ -367,9 +367,9 @@ function number_round_not_rounded($level)
   $correct = array_search($rossz, $options_jo);
   
   if ($options[$correct] > 9999) {
-    $answer = '$'.number_format($options[$correct],0,',','\\\\,').'$';
+    $solution = '$'.number_format($options[$correct],0,',','\\\\,').'$';
   } else {
-    $answer = '$'.$options[$correct].'$';
+    $solution = '$'.$options[$correct].'$';
   }
   
   foreach ($options as $key => $value) {
@@ -389,7 +389,7 @@ function number_round_not_rounded($level)
     'question'  => $question,
     'options'   => $options,
     'correct'   => $correct,
-    'answer'  => $answer,
+    'solution'  => $solution,
     'type'    => $type
   );
 }

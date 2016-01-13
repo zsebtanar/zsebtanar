@@ -32,7 +32,7 @@
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-body text-center">
-								<img src="<?php echo base_url().'resources/download/'.$download; ?>" class="img-responsive" alt="hint">
+								<img src="<?php echo base_url().'resources/download/'.$download; ?>" class="img-responsive" alt="hint" width="100%">
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default" data-dismiss="modal">Bezár</button>
@@ -87,6 +87,7 @@
 					</div><br />
 
 					<p id="message"></p>
+					<p id="explanation"></p>
 					
 				</div>
 				</form>
@@ -141,6 +142,9 @@
 						}
 						break;
 					case 'WRONG':
+						if (data['explanation'] != null) {
+							document.getElementById("explanation").innerHTML = '<div class="alert alert-warning text-left">' + data['explanation'] + '</div>';
+						}
 						document.getElementById("message").innerHTML = '<div class="alert alert-danger"><strong><span class=\"glyphicon glyphicon-remove\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>';
 						document.getElementById("button").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url();?>view/exercise/<?php echo $id;?>\">Újra</button>";
 						if (data['submessages'].length > 0) {

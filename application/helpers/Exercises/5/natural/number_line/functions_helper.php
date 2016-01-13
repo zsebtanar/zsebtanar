@@ -48,7 +48,7 @@ function number_line_stepsize($level)
         </div>';
   
   $correct = $osztaskoz;
-  $answer = '$'.$correct.'$';
+  $solution = '$'.$correct.'$';
   
   $options = '';
 	$type = 'int';
@@ -57,7 +57,7 @@ function number_line_stepsize($level)
 		'question' 	=> $question,
 		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'answer'	=> $answer,
+		'solution'	=> $solution,
 		'type' 		=> $type
 	);
 }
@@ -105,7 +105,7 @@ function number_line_position($level)
         </div>';
   
   $correct = $ertek3;
-  $answer = '$'.$correct.'$';
+  $solution = '$'.$correct.'$';
   
   $options = '';
   $type = 'int';
@@ -114,7 +114,7 @@ function number_line_position($level)
     'question'  => $question,
     'options'   => $options,
     'correct'   => $correct,
-    'answer'  => $answer,
+    'solution'  => $solution,
     'type'    => $type
   );
 }
@@ -186,7 +186,7 @@ function number_line_operation($level)
         </div>';
   
   $correct = $muveletHosszu;
-  $answer = '$'.$correct.'$';
+  $solution = '$'.$correct.'$';
   
   $options = '';
   $type = 'int';
@@ -195,7 +195,7 @@ function number_line_operation($level)
     'question'  => $question,
     'options'   => $options,
     'correct'   => $correct,
-    'answer'  => $answer,
+    'solution'  => $solution,
     'type'    => $type
   );
 }
@@ -226,7 +226,7 @@ function number_line_snail($level)
 
   $options = '';
   $correct = $no * $unit;
-  $answer = '$'.$correct.'$ '.$length.'re';
+  $solution = '$'.$correct.'$ '.$length.'re';
   $options = '';
   $type = 'int';
 
@@ -234,7 +234,7 @@ function number_line_snail($level)
     'question'  => $question,
     'options'   => $options,
     'correct'   => $correct,
-    'answer'  => $answer,
+    'solution'  => $solution,
     'type'    => $type
   );
 }

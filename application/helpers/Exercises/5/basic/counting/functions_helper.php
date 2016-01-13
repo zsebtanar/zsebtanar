@@ -17,16 +17,12 @@ function count_apples($level=1) {
 
 	$question = 'Hány darab alma van a fán?<div class="text-center"><img class="img-question" width="50%" src="'.RESOURCES_URL.'/count_apples/tree'.$num.'.png"></div>';
 	$correct = $num;
-	$options = '';
-	$answer = '$'.$correct.'$';
-	$type = 'int';
+	$solution = '$'.$correct.'$';
 
 	return array(
-		'question' 	=> $question,
-		'options' 	=> $options,
-		'correct' 	=> $correct,
-		'answer'	=> $answer,
-		'type' 		=> $type
+		'question' 		=> $question,
+		'correct' 		=> $correct,
+		'solution'		=> $solution
 	);
 }
 
@@ -47,19 +43,21 @@ function parity($level=1) {
 
 	$options = array('páros', 'páratlan');
 	$index = $num%2;
-	$answer = $options[$index];
+	$solution = $options[$index];
 
 	shuffle($options);
 
-	$correct = array_search($answer, $options);
+	$correct = array_search($solution, $options);
 	$type = 'quiz';
+	$explanation = 'A $'.$num.'$ azért '.$solution.' szám, mert az utolsó jegye $'.strval($num%10).'$.';
 
 	return array(
 		'question' 	=> $question,
 		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'answer'	=> $answer,
-		'type' 		=> $type
+		'solution'	=> $solution,
+		'type' 		=> $type,
+		'explanation' => $explanation
 	);
 }
 
@@ -93,19 +91,19 @@ function count_parity($level=1) {
 			$value = number_format($value,0,',','\,');
 		}
 		$question .= $value.' & \\\\';
+		$explanation[] = 'A $'.$value.'$ <b>'.$parity[$value%2].'</b> szám, mert az utolsó jegye $'.strval($value%10).'$.';
 	}
 
+	$explanation[] = 'Mivel a számok közül összesen $'.$correct.'$ db <b>'.$parity[$par].'</b>, ezért a megoldás is $'.$correct.'$ lesz.';
+
 	$question = rtrim($question, '\\\\').'\end{align}$$';
-	$type = 'int';
-	$answer = '$'.$correct.'$';
-	$options = '';
+	$solution = '$'.$correct.'$';
 
 	return array(
 		'question' 	=> $question,
-		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'answer'	=> $answer,
-		'type' 		=> $type
+		'solution'	=> $solution,
+		'explanation' => $explanation
 	);
 }
 
@@ -143,14 +141,14 @@ function decimal_number_value($level=1) {
 
 	$question = rtrim($question, '\\\\').'\end{align}$$';
 	$type = 'int';
-	$answer = '$'.$correct.'$';
+	$solution = '$'.$correct.'$';
 	$options = '';
 
 	return array(
 		'question' 	=> $question,
 		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'answer'	=> $answer,
+		'solution'	=> $solution,
 		'type' 		=> $type
 	);
 }

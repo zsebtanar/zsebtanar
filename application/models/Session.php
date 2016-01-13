@@ -385,15 +385,18 @@ class Session extends CI_model {
 	 */
 	public function SaveExerciseData($id, $level, $data, $hash) {
 
-		$sessiondata 		= $this->session->userdata('exercise');
-		
-		$answer['id']		= $id;
-		$answer['level'] 	= $level;
-		$answer['correct'] 	= $data['correct'];
-		$answer['type'] 	= $data['type'];
-		$answer['solution']	= $data['solution'];
+		$sessiondata = $this->session->userdata('exercise');
 
-		$sessiondata[$hash] = $answer;
+		$explanation = (isset($data['explanation']) ? $data['explanation'] : NULL);
+
+		$sessiondata[$hash] = array(
+			'id'		=> $id,
+			'level' 	=> $level,
+			'correct' 	=> $data['correct'],
+			'type' 		=> $data['type'],
+			'solution'	=> $data['solution'],
+			'explanation' => $explanation
+		);
 
 		$this->session->set_userdata('exercise', $sessiondata);
 
@@ -416,8 +419,9 @@ class Session extends CI_model {
 		$level 		= $exercise[$hash]['level']; 
 		$type 		= $exercise[$hash]['type']; 
 		$id 		= $exercise[$hash]['id'];
+		$explanation = $exercise[$hash]['explanation'];
 
-		return array($correct, $solution, $level, $type, $id);
+		return array($correct, $explanation, $solution, $level, $type, $id);
 	}
 
 	/**

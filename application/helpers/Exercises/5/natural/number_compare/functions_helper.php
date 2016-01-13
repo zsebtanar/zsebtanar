@@ -65,7 +65,7 @@ function number_compare_sign($level)
   $question = 'Melyik relációs jel írható a kérdőjel helyére?$$'.$szam1.'\quad?\quad'.$szam2.'$$';
   
   $correct = 0;
-  $answer = '$'.$jo.'$';
+  $solution = '$'.$jo.'$';
   shuffleAssoc($options);
 	$type = 'quiz';
 
@@ -73,7 +73,7 @@ function number_compare_sign($level)
 		'question' 	=> $question,
 		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'answer'	=> $answer,
+		'solution'	=> $solution,
 		'type' 		=> $type
 	);
 }
@@ -138,7 +138,7 @@ function number_compare_compare($level)
   $question = 'Melyik állítás igaz?$$A:'.$szam1.'\qquad B:'.$szam2.'$$';
   
   $correct = 0;
-  $answer = '$'.$jo.'$';
+  $solution = '$'.$jo.'$';
   shuffleAssoc($options);
   
   $options = preg_replace( '/^/', '$A$ ', $options);
@@ -150,7 +150,7 @@ function number_compare_compare($level)
     'question'  => $question,
     'options'   => $options,
     'correct'   => $correct,
-    'answer'  => $answer,
+    'solution'  => $solution,
     'type'    => $type
   );
 }
@@ -217,14 +217,14 @@ function number_compare_order($level)
     $correct = $correct.$key;
   }
   
-  $answer = '$'.$correct.'$';
+  $solution = '$'.$correct.'$';
   $type = 'text';
 
   return array(
     'question'  => $question,
     'options'   => $options,
     'correct'   => $correct,
-    'answer'  => $answer,
+    'solution'  => $solution,
     'type'    => $type
   );
 }
@@ -290,7 +290,7 @@ function number_compare_missing_digit($level)
   shuffleAssoc($options);
   
   $correct = 0;
-  $answer = '$'.$szamjegy.'$';
+  $solution = '$'.$szamjegy.'$';
   
   if ($rel == "!=") {
     $negacio = ' nem ';
@@ -313,7 +313,7 @@ function number_compare_missing_digit($level)
     'question'  => $question,
     'options'   => $options,
     'correct'   => $correct,
-    'answer'  => $answer,
+    'solution'  => $solution,
     'type'      => $type
   );
 }
@@ -398,7 +398,7 @@ function number_compare_between($level)
   
   $question = 'Hány olyan természetes szám van, amely '.$szoveg_bal.' és '.$szoveg_jobb.'?';
   
-  $answer = '$'.$correct.'$';
+  $solution = '$'.$correct.'$';
 
   $type = 'int';
 
@@ -406,7 +406,7 @@ function number_compare_between($level)
     'question'  => $question,
     'options'   => $options,
     'correct'   => $correct,
-    'answer'  => $answer,
+    'solution'  => $solution,
     'type'      => $type
   );
 }

@@ -31,7 +31,7 @@ class Exercises extends CI_model {
 
 		$answerdata = json_decode($jsondata, TRUE);
 		list($answer, $hash) = $this->GetAnswerData($answerdata);
-		list($correct, $solution, $level, $type, $id) = $this->Session->GetExerciseData($hash);
+		list($correct, $explanation, $solution, $level, $type, $id) = $this->Session->GetExerciseData($hash);
 
 		switch ($type) {
 
@@ -74,6 +74,7 @@ class Exercises extends CI_model {
 			'submessages'	=> $submessages,
 			'id_next'		=> $id_next,
 			'subtopicID'	=> $subtopicID,
+			'explanation'	=> $explanation,
 			'questID'		=> $questID,
 			// 'session' 		=> json_encode($_SESSION),
 			'progress'		=> $progress
@@ -273,8 +274,19 @@ class Exercises extends CI_model {
 
 			$data = $function($level);
 
-			if ($data['type'] == 'quiz') {
+			if (!isset($data['type'])) {
+				$data['type'] = 'int';
+			} elseif ($data['type'] == 'quiz') {
 				$data = $this->getAnswerLength($data);
+			}
+
+			if (isset($data['explanation']) && is_array($data['explanation'])) {
+				$explanation = '<ul>';
+				foreach ($data['explanation'] as $segment) {
+					$explanation .= '<li>'.$segment.'</li>';
+				}
+				$explanation .= '</ul>';
+				$data['explanation'] = $explanation;
 			}
 		}
 

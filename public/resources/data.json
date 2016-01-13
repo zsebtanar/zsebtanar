@@ -29,7 +29,8 @@
 									"exercises": [
 										{
 											"label": "parity",
-											"name": "Páros vagy páratlan?"
+											"name": "Páros vagy páratlan?",
+											"download": "paros_paratlan.jpg"
 										}
 									]
 								},
@@ -39,7 +40,8 @@
 									"exercises": [
 										{
 											"label": "count_parity",
-											"name": "Hány darab páros/páratlan?"
+											"name": "Hány darab páros/páratlan?",
+											"download": "paros_paratlan.jpg"
 										}
 									],
 									"links": [
@@ -63,7 +65,8 @@
 									"exercises": [
 										{
 											"label": "basic_addition",
-											"name": "Összeadás"
+											"name": "Összeadás",
+											"download": "osszeadas.jpg"
 										},
 										{
 											"label": "basic_addition_mod",
