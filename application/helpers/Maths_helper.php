@@ -80,4 +80,156 @@ function shuffleAssoc(&$array)
   $array = $new;
   return;
 }
+
+/**
+ * Convert to Roman number
+ *
+ * @param int $num Number.
+ *
+ * @return string $rom Roman number.
+ */
+function convertRoman($num)
+{
+  $values = array(
+      1000000 => "M",
+       900000 => "CM",
+       500000 => "D",
+       400000 => "CD",
+       100000 => "C",
+        90000 => "XC",
+        50000 => "L",
+        40000 => "XL",
+        10000 => "X",
+         9000 => "IX",
+         5000 => "V",
+         4000 => "IV",
+         1000 => "M",
+          900 => "CM",
+          500 => "D",
+          400 => "CD",
+          100 => "C",
+           90 => "XC",
+           50 => "L",
+           40 => "XL",
+           10 => "X",
+            9 => "IX",
+            5 => "V",
+            4 => "IV",
+            1 => "I",
+    );
+
+  $rom = "";
+  while ($num > 0) {
+      foreach ($values as $key => $value) {
+          if ($num >= $key) {
+              if ($key > 1000) {
+                  $rom = $rom.'\overline{'.$value.'}';
+              } else {
+                  $rom = $rom.$value;
+              }
+              $num -= $key;
+              break;
+          }
+      }
+  }
+  return $rom;
+}
+
+/**
+ * Add suffix 'times' to number (szor/szer/ször)
+ *
+ * @param int $num Number (< 10^600)
+ *
+ * @return string $suffix Suffix
+ */
+function addSuffixTimes($num)
+{
+  $abs = abs($num);
+
+  switch ($abs % 10) {
+    case 1:
+    case 2:
+    case 4:
+    case 7:
+    case 9:
+      return 'szer';
+    case 3:
+    case 6:
+    case 8:
+      return 'szor';
+    case 5:
+      return 'ször';
+  }
+
+  switch (($abs / 10) % 10) {
+    case 1:
+    case 4:
+    case 5:
+    case 7:
+    case 9:
+      return 'szer';
+    case 2:
+    case 3:
+    case 6:
+    case 8:
+      return 'szor';
+  }
+
+  if ($abs == 0) {
+    return 'szor';
+  } elseif (100 <= $abs && $abs < 1000) {
+    return 'szor';
+  } elseif (1000 <= $abs && $abs < 1000000) {
+    return 'szer';
+  } else {
+    return 'szor';
+  }
+}
+
+/**
+ * Generate new random number based on given number
+ *
+ * @param int $num Number
+ * @param int $len Length of number
+ *
+ * @return int $new New number
+ */
+function newNum($num,$len)
+{
+  if (rand(1,3) == 1) {
+    $new = numGen(rand($len-1,$len+1),10);
+  } else {
+    if (rand(1,2) == 1) {
+      $ujhossz = floor($len/2); 
+    } else {
+      $ujhossz = $len - 1;
+    }
+    
+    $new = $num + numGen(rand(1,$ujhossz),10);
+  }
+  return $new;
+}
+
+/**
+ * Check if number has digit
+ *
+ * @param array $digits Digits of number
+ * @param int   $digit  Digit to check
+ *
+ * @return bool TRUE if digit occurs.
+ */
+function hasDigit($digits,$digit)
+{
+  $ugyanaze = 0;
+  foreach ($digits as $value) {
+    if ($value == $digit) {
+      $ugyanaze = 1;
+    }
+  }
+  if ($ugyanaze == 0) {
+    return TRUE;
+  } else {
+    return FALSE;
+  }
+}
 ?>

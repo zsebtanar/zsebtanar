@@ -152,6 +152,118 @@
 										{
 											"label": "binary_number_value",
 											"name": "Alaki érték"
+										},
+										{
+											"label": "binary_place_value1",
+											"name": "Helyiérték I."
+										},
+										{
+											"label": "binary_place_value2",
+											"name": "Helyiérték II."
+										},
+										{
+											"label": "binary_real_value",
+											"name": "Valódi érték"
+										}
+									]
+								},
+								{
+									"name": "Számok átváltása",
+									"label": "binary_convert",
+									"exercises": [
+										{
+											"label": "binary_convert_2to10",
+											"name": "Kettesből tízes számrendszerbe"
+										},
+										{
+											"label": "binary_convert_2to10_bulb",
+											"name": "Kettesből tízes számrendszerbe (lámpa)"
+										},
+										{
+											"label": "binary_convert_2to10_finger",
+											"name": "Kettesből tízes számrendszerbe (ujjak)"
+										},
+										{
+											"label": "binary_convert_10to2",
+											"name": "Tízesből kettes számrendszerbe"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Római számrendszer",
+							"label": "roman",
+							"quests": [
+								{
+									"name": "Számok átváltása",
+									"label": "roman_convert",
+									"exercises": [
+										{
+											"label": "roman_convert_ROMto10",
+											"name": "Rómaiból tízes számrendszerbe"
+										},
+										{
+											"label": "roman_convert_10toROM",
+											"name": "Tízesből római számrendszerbe"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Számegyenes",
+							"label": "number_line",
+							"quests": [
+								{
+									"name": "Vegyes feladatok",
+									"label": "number_line_mixed",
+									"exercises": [
+										{
+											"label": "number_line_stepsize",
+											"name": "Osztásköz"
+										},
+										{
+											"label": "number_line_position",
+											"name": "Szám helye"
+										},
+										{
+											"label": "number_line_operation",
+											"name": "Műveletek ábrázolása"
+										}
+									]
+								},
+								{
+									"name": "Szöveges feladatok",
+									"label": "number_line_text",
+									"exercises": [
+										{
+											"label": "number_line_snail",
+											"name": "Csiga"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Számok összehasonlítása",
+							"label": "number_compare",
+							"quests": [
+								{
+									"name": "Vegyes feladatok",
+									"label": "number_compare_mixed",
+									"exercises": [
+										{
+											"label": "number_compare_sign",
+											"name": "Relációs jel"
+										},
+										{
+											"label": "number_compare_compare",
+											"name": "Összehasonlítás"
+										},
+										{
+											"label": "number_compare_order",
+											"name": "Számok sorrendje"
 										}
 									]
 								}

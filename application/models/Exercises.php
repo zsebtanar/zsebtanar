@@ -39,6 +39,10 @@ class Exercises extends CI_model {
 				list($status, $message) = $this->GenerateMessagesInt($answer, $correct, $solution);
 				break;
 
+			case 'text':
+				list($status, $message) = $this->GenerateMessagesText($answer, $correct, $solution);
+				break;
+
 			case 'quiz':
 				list($status, $message) = $this->GenerateMessagesQuiz($answer, $correct, $solution);
 				break;
@@ -121,6 +125,32 @@ class Exercises extends CI_model {
 			$status = 'NOT_DONE';
 			$message = 'Hiányzik a válasz!';
 		} elseif ($answer[0] == $correct) {
+			$status = 'CORRECT';
+			$message = 'Helyes válasz!';
+		} else {
+			$status = 'WRONG';
+			$message = 'A helyes válasz: '.$solution;
+		}
+
+		return array($status, $message);
+	}
+
+	/**
+	 * Generate messages for text type exercises
+	 *
+	 * @param array  $answer   User answer
+	 * @param string $correct  Correct answer
+	 * @param string $solution Solution
+	 *
+	 * @return string $status  Status (NOT_DONE/CORRECT/WRONG)
+	 * @return string $message Message
+	 */
+	public function GenerateMessagesText($answer, $correct, $solution) {
+
+		if ($answer[0] == '') {
+			$status = 'NOT_DONE';
+			$message = 'Hiányzik a válasz!';
+		} elseif (strtoupper($answer[0]) == $correct) {
 			$status = 'CORRECT';
 			$message = 'Helyes válasz!';
 		} else {

@@ -60,7 +60,7 @@
 
 					$this->load->view('Input/Quiz', array('options' => $options, 'length' => $length));
 
-				} elseif ($type == 'int') {
+				} elseif ($type == 'int' || $type == 'text') {
 
 					$this->load->view('Input/Int');
 
