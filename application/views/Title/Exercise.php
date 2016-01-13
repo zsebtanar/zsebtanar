@@ -32,7 +32,11 @@
 		<span class="title-icon glyphicon glyphicon-chevron-right"></span></a>
 	</h1>
 
-	<p><?php echo $current['subtitle'];?></p><?php
+	<p>
+		<a href="<?php echo base_url().'view/subtopic/'.$current['subtopicID'].'/'.$current['questID'];?>">
+			<?php echo $current['subtitle'];?>
+		</a>
+	</p><?php
 
 	for ($i=0; $i < $current['level_max']; $i++) {?>
 

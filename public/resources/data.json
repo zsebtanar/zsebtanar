@@ -52,6 +52,26 @@
 									]
 								}
 							]
+						},
+												{
+							"name": "Alapműveletek",
+							"label":"operations",
+							"quests": [
+								{
+									"name": "Összeadás",
+									"label": "basic_addition",
+									"exercises": [
+										{
+											"label": "basic_addition",
+											"name": "Összeadás"
+										},
+										{
+											"label": "basic_addition_mod",
+											"name": "Összeadás módosítva"
+										}
+									]
+								}
+							]
 						}
 					]
 				},
@@ -294,16 +314,40 @@
 											"name": "Felfelé"
 										},
 										{
-											"label": "number_compare_order",
-											"name": "Számok sorrendje"
+											"label": "number_round",
+											"name": "Kerekítés"
+										}
+									]
+								},
+								{
+									"name": "Kerekítési hiba",
+									"label": "number_round_error",
+									"exercises": [
+										{
+											"label": "number_round_error_down",
+											"name": "Lefelé"
 										},
 										{
-											"label": "number_compare_missing_digit",
-											"name": "Hiányzó számjegy"
+											"label": "number_round_error_up",
+											"name": "Felfelé"
 										},
 										{
-											"label": "number_compare_between",
-											"name": "Hány természetes szám?"
+											"label": "number_round_error",
+											"name": "Kerekítés"
+										}
+									]
+								},
+								{
+									"name": "Vegyes feladatok",
+									"label": "number_round_mixed",
+									"exercises": [
+										{
+											"label": "number_round_how_many",
+											"name": "Hány szám?"
+										},
+										{
+											"label": "number_round_not_rounded",
+											"name": "Nem kerekített"
 										}
 									]
 								}

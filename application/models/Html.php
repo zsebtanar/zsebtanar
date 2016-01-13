@@ -144,14 +144,8 @@ class Html extends CI_model {
 		if (count($exercises->result()) > 0) {
 			$exercise = $exercises->result()[0];
 
-			$this->db->select('subtopics.name, subtopics.id')
-					->distinct()
-					->from('subtopics')
-					->join('quests', 'subtopics.id = quests.subtopicID', 'inner')
-					->join('exercises', 'quests.id = exercises.questID', 'inner')
-					->where('exercises.id', $id);
-			$subtopics = $this->db->get();
-			$subtopic = $subtopics->result()[0];
+			$subtopicID = $this->Exercises->getSubtopicID($id);
+			$subtopicName = $this->Exercises->getSubtopicName($id);
 
 			$level_user = $this->Session->getUserLevel($id);
 			$level_max = $this->Exercises->getMaxLevel($id);
@@ -159,18 +153,22 @@ class Html extends CI_model {
 			$questID = $exercise->questID;
 
 			$progress = $this->Session->getUserProgress($id);
+
 			$data = array(
 				'id'			=> $id,
 				'level_user' 	=> $level_user,
 				'level_max'	 	=> $level_max,
 				'progress'		=> $progress,
 				'title' 		=> $exercise->name,
-				'subtitle' 		=> $subtopic->name,
-				'subtopicID'	=> $subtopic->id,
-				'questID' 		=> $questID
+				'subtitle' 		=> $subtopicName,
+				'subtopicID'	=> $subtopicID,
+				'questID' 		=> $questID,
+				'status'		=> $exercise->status
 			);
 		} else {
+
 			$data = NULL;
+			
 		}
 
 		return $data;

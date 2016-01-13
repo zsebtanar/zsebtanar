@@ -39,6 +39,7 @@ class Database extends CI_model {
 				'questID'	=> 'FROM SESSION',
 				'level'		=> 3,
 				'rounds' 	=> 3,
+				'status' 	=> 'IN PROGRESS',
 				'label'		=> '',
 				'name'		=> '',
 				'youtube'	=> '',
@@ -151,6 +152,7 @@ class Database extends CI_model {
 							name 		VARCHAR(120),
 							youtube 	VARCHAR(20),
 							download 	VARCHAR(60),
+							status 		VARCHAR(20),
 							FOREIGN KEY (questID) REFERENCES quests(id)
 						)Engine=InnoDB;',
 			'quizzes' => 'CREATE TABLE quizzes (

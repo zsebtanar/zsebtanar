@@ -11,7 +11,8 @@
  *
  * @return int $num Random number.
  */
-function numGen($len, $numSys) {
+function numGen($len, $numSys)
+{
 	if ($len > 1) {
 		// first digit non-0
 		$num = rand(1, $numSys-1);
@@ -309,4 +310,5 @@ function addSuffixBy($num)
     return 'nál';
   }
 }
+
 ?>

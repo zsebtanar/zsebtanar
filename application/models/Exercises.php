@@ -540,6 +540,27 @@ class Exercises extends CI_model {
 	}
 
 	/**
+	 * Get subtopic name for exercise
+	 *
+	 * @param int $id Exercise ID
+	 *
+	 * @return int $name Subtopic name
+	 */
+	public function getSubtopicName($id) {
+
+		$this->db->select('subtopics.name')
+				->distinct()
+				->from('subtopics')
+				->join('quests', 'subtopics.id = quests.subtopicID', 'inner')
+				->join('exercises', 'quests.id = exercises.questID', 'inner')
+				->where('exercises.id', $id);
+		$query = $this->db->get();
+		$name = $query->result()[0]->name;
+
+ 		return $name;
+	}
+
+	/**
 	 * Get ID of next exercise
 	 *
 	 * Checks whether user has completed all rounds of exercise.
