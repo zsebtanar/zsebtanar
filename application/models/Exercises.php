@@ -400,6 +400,7 @@ class Exercises extends CI_model {
 				$row['maxlevel'] 	= $this->getMaxLevel($id);
 				$row['id'] 			= $id;
 				$row['name'] 		= $exercise->name;
+				$row['status'] 		= $exercise->status;
 
 				$data[] = $row;
 			}
