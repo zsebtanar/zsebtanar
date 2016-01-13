@@ -53,6 +53,9 @@ class Html extends CI_model {
 		$data['title']['prev'] 		= $this->TitleSubtopic($id-1);
 		$data['title']['next'] 		= $this->TitleSubtopic($id+1);
 
+		$data['results']['id'] = $id;
+		$data['results']['type'] = 'subtopic';
+
 		return $data;
 	}
 
@@ -71,7 +74,10 @@ class Html extends CI_model {
 		$data['titledata'] 	= $this->TitleExercise($id);
 		$data['type'] 		= 'exercise';
 		$data['results'] 	= $this->Session->GetResults();
-		$data['exercise'] = $this->Exercises->GetExerciseData($id);
+		$data['exercise'] 	= $this->Exercises->GetExerciseData($id);
+
+		$data['results']['id'] = $id;
+		$data['results']['type'] = 'exercise';
 
 		return $data;
 	}

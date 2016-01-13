@@ -6,9 +6,11 @@ class Update extends CI_controller {
 	/**
 	 * Update Database
 	 *
+	 * @param int $id Exercise ID
+	 *
 	 * @return void
 	 */
-	public function Database() {
+	public function Database($type=NULL, $id=NULL) {
 
 		if ($this->session->userdata('Logged_in') == TRUE) {
 
@@ -29,7 +31,12 @@ class Update extends CI_controller {
 
 		// redirect page
 		$this->load->helper('url');
-		header('Location:'.base_url().'view/main/');
+
+		if ($type && $id) {
+			header('Location:'.base_url().'view/'.$type.'/'.$id);
+		} else {
+			header('Location:'.base_url().'view/main/');
+		}
 	}
 }
 

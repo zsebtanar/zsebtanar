@@ -40,7 +40,9 @@
 					</a>
 				</li>
 				<li>
-					<a href="<?php echo base_url().'update/database/';?>">
+					<a href="<?php echo base_url().'update/database/'.
+						(isset($results['type']) ? $results['type'] : '').'/'.
+						(isset($results['id']) ? $results['id'] : '');?>">
 						<span class="glyphicon glyphicon-refresh"></span> Frissítés
 					</a>
 				</li>

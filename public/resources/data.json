@@ -264,6 +264,14 @@
 										{
 											"label": "number_compare_order",
 											"name": "Számok sorrendje"
+										},
+										{
+											"label": "number_compare_missing_digit",
+											"name": "Hiányzó számjegy"
+										},
+										{
+											"label": "number_compare_between",
+											"name": "Hány természetes szám?"
 										}
 									]
 								}

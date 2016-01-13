@@ -232,4 +232,81 @@ function hasDigit($digits,$digit)
     return FALSE;
   }
 }
+
+/**
+ * Replace digit in number
+ *
+ * @param int $num   Number.
+ * @param int $pos   Position of digit to replace.
+ * @param int $digit New digit.
+ *
+ * @return int $num Modified number.
+ */
+function replaceDigit($num,$pos,$digit)
+{
+  $digits = str_split($num);
+  $hossz = strlen($num);
+  foreach ($digits as $key => $value) {
+      if ($hossz-$pos == $key) {
+          $digits[$key] = $digit;
+      }
+  }
+  $num = implode("", $digits);
+  if ($hossz > 4) {
+      $num = preg_replace( '/(.)(.{9})$/', '\1\,\2', $num);
+      $num = preg_replace( '/(.)(.{6})$/', '\1\,\2', $num);
+      $num = preg_replace( '/(.)(.{3})$/', '\1\,\2', $num);
+  }
+  return $num;
+}
+
+/**
+ * Add suffix 'by' to number (nál/nél)
+ *
+ * @param int    $num  Number (< 10^600)
+ *
+ * @return string $suffix Suffix
+ */
+function addSuffixBy($num)
+{
+  $abs = abs($num);
+
+  switch ($abs % 10) {
+    case 1:
+    case 2:
+    case 4:
+    case 5:
+    case 7:
+    case 9:
+      return 'nél';
+    case 3:
+    case 6:
+    case 8:
+      return 'nál';
+  }
+
+  switch (($abs / 10) % 10) {
+    case 1:
+    case 4:
+    case 5:
+    case 7:
+    case 9:
+      return 'nél';
+    case 2:
+    case 3:
+    case 6:
+    case 8:
+      return 'nál';
+  }
+
+  if ($abs == 0) {
+    return 'nál';
+  }
+  elseif (1000 <= $abs && $abs < 1000000) {
+    return 'nél';
+  }
+  else {
+    return 'nál';
+  }
+}
 ?>

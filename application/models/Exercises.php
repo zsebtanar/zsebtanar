@@ -181,7 +181,7 @@ class Exercises extends CI_model {
 			$message = 'Helyes válasz!';
 		} else {
 			$status = 'WRONG';
-			$message = 'Hibás válasz!';
+			$message = 'A helyes válasz: '.$solution;
 		}
 
 		return array($status, $message);

@@ -228,4 +228,186 @@ function number_compare_order($level)
     'type'    => $type
   );
 }
+
+// Define missing digit from comparison
+function number_compare_missing_digit($level)
+{
+  if ($level == 1) {
+    $hossz = rand(2,3);
+  } elseif ($level == 2) {
+    $hossz = rand(4,6);
+  } elseif ($level == 3) {
+    $hossz = rand(7,10);
+  }
+  
+  $relacios_jelek = array("<",">","=","!=","<=",">=");
+  shuffle($relacios_jelek);
+  $rel = $relacios_jelek[0];
+  
+  $szamjegyek = range(0, 9);
+  
+  if ($rel == ">") {
+    $szamjegy = rand(2,7);
+    $jo = $szamjegy-1;
+    $rossz = array_slice($szamjegyek, $szamjegy);
+  } elseif ($rel == ">=") {
+    $szamjegy = rand(0,8);
+    $jo = $szamjegy;
+    $rossz = array_slice($szamjegyek, $szamjegy+1);
+  } elseif ($rel == "<") {
+    $szamjegy = rand(3,8);
+    $jo = $szamjegy+1;
+    $rossz = array_slice($szamjegyek, 0, $szamjegy+1);
+  } elseif ($rel == "<=") {
+    $szamjegy = rand(2,9);
+    $jo = $szamjegy;
+    $rossz = array_slice($szamjegyek, 0, $szamjegy);
+  } else {
+    $szamjegy = rand(0,9);
+    $jo = $szamjegy;
+    unset($szamjegyek[array_search($jo, $szamjegyek)]);
+    $rossz = array_values($szamjegyek);
+  }
+  
+  $szam = numGen($hossz,10);
+  $helyiertek = rand(1,$hossz-1);
+  
+  if (rand(1,2) == 1) {
+    $szam_bal = replaceDigit($szam,$helyiertek,$szamjegy);
+    $szam_jobb = replaceDigit($szam,$helyiertek,'?');
+  } else {
+    $szam_bal = replaceDigit($szam,$helyiertek,'?');
+    $szam_jobb = replaceDigit($szam,$helyiertek,$szamjegy);
+    $rel = preg_replace( '/</', '>', $rel);
+    $rel = preg_replace( '/>/', '<', $rel);
+  }
+  
+  $options[0] = $jo;
+  foreach ($rossz as $key => $value) {
+    $options[$key+1] = $value;
+  }
+  
+  shuffleAssoc($options);
+  
+  $correct = 0;
+  $solution = '$'.$szamjegy.'$';
+  
+  if ($rel == "!=") {
+    $negacio = ' nem ';
+  } else {
+    $negacio = ' ';
+  }
+  
+  $rel = preg_replace( '/^<$/', '<', $rel);
+  $rel = preg_replace( '/^>$/', '>', $rel);
+  $rel = preg_replace( '/^=$/', '=', $rel);
+  $rel = preg_replace( '/^!=$/', '\\neq', $rel);
+  $rel = preg_replace( '/^<=$/', '\\leq', $rel);
+  $rel = preg_replace( '/^>=$/', '\\geq', $rel);
+  
+  $question = 'Melyik számjegy'.$negacio.'írható a kérdőjel helyére?$$'.$szam_bal.$rel.$szam_jobb.'$$';
+
+  $type = 'quiz';
+
+  return array(
+    'question'  => $question,
+    'options'   => $options,
+    'correct'   => $correct,
+    'solution'  => $solution,
+    'type'      => $type
+  );
+}
+
+// Calculate number of numbers between limits
+function number_compare_between($level)
+{
+  if ($level == 1) {
+    $intervallum = rand(1,5);
+    $hossz = rand(1,2); 
+  } elseif ($level == 2) {
+    $intervallum = rand(6,15);
+    $hossz = rand(3,6);
+  } elseif ($level == 3) {
+    $intervallum = rand(16,20);
+    $hossz = rand(7,10);
+  }
+  
+  if ($level == 1 && rand(1,3) == 1) {
+    $szam_bal = 0;
+  } else {
+    $szam_bal = numGen($hossz,10);
+  }
+  
+  $szam_jobb = $szam_bal + $intervallum;
+  $correct = $szam_jobb - $szam_bal - 1;
+  
+  if (rand(1,2) == 1) {
+    $hatarpont_bal = TRUE;
+    $correct++;
+  } else {
+    $hatarpont_bal = FALSE;
+  }
+  
+  if (rand(1,2) == 1) {
+    $hatarpont_jobb = TRUE;
+    $correct++;
+  } else {
+    $hatarpont_jobb = FALSE;
+  }
+  
+  $opcio_kivalasztott = rand(0,3);
+  
+  if ($szam_bal > 9999) {$szam_bal = number_format($szam_bal,0,',','\,');}
+  if ($szam_jobb > 9999) {$szam_jobb = number_format($szam_jobb,0,',','\,');}
+  
+  if ($hatarpont_bal) {
+    if ($hatarpont_bal == 0 && rand(1,2) == 1) {
+      if (rand(1,2 == 1)) {
+        $szoveg_bal = '';
+      }
+    } else {
+      $opcio_bal[0] = 'legalább $'.$szam_bal.'$';
+      $opcio_bal[1] = 'nem kisebb, mint $'.$szam_bal.'$';
+      $opcio_bal[2] = 'nem kisebb $'.$szam_bal.'$-'.addSuffixBy($szam_bal);
+      $opcio_bal[3] = '$'.$szam_bal.'$-'.addSuffixBy($szam_bal).' nem kisebb';
+      $szoveg_bal = $opcio_bal[$opcio_kivalasztott];
+    }
+  } else {
+    $opcio_bal[0] = 'nagyobb, mint $'.$szam_bal.'$';
+    $opcio_bal[1] = 'nagyobb, mint $'.$szam_bal.'$';
+    $opcio_bal[2] = 'nagyobb $'.$szam_bal.'$-'.addSuffixBy($szam_bal);
+    $opcio_bal[3] = '$'.$szam_bal.'$-'.addSuffixBy($szam_bal).' nagyobb';
+    $szoveg_bal = $opcio_bal[$opcio_kivalasztott];
+  }
+  
+  if ($hatarpont_jobb) {
+    $opcio_jobb[0] = 'legfeljebb $'.$szam_jobb.'$';
+    $opcio_jobb[1] = 'nem nagyobb, mint $'.$szam_jobb.'$';
+    $opcio_jobb[2] = 'nem nagyobb $'.$szam_jobb.'$-'.addSuffixBy($szam_jobb);
+    $opcio_jobb[3] = '$'.$szam_jobb.'$-'.addSuffixBy($szam_jobb).' nem nagyobb';
+    $szoveg_jobb = $opcio_jobb[$opcio_kivalasztott];
+  } else {
+    $opcio_jobb[0] = 'kisebb, mint $'.$szam_jobb.'$';
+    $opcio_jobb[1] = 'kisebb, mint $'.$szam_jobb.'$';
+    $opcio_jobb[2] = 'kisebb $'.$szam_jobb.'$-'.addSuffixBy($szam_jobb);
+    $opcio_jobb[3] = '$'.$szam_jobb.'$-'.addSuffixBy($szam_jobb).' kisebb';
+    $szoveg_jobb = $opcio_jobb[$opcio_kivalasztott];
+  }
+  
+  $options = '';
+  
+  $question = 'Hány olyan természetes szám van, amely '.$szoveg_bal.' és '.$szoveg_jobb.'?';
+  
+  $solution = '$'.$correct.'$';
+
+  $type = 'int';
+
+  return array(
+    'question'  => $question,
+    'options'   => $options,
+    'correct'   => $correct,
+    'solution'  => $solution,
+    'type'      => $type
+  );
+}
 ?>
