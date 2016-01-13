@@ -27,14 +27,14 @@ function roman_convert_ROMto10($level)
   
   $question = 'Írjuk fel az alábbi római számot tízes számrendszerben!$$\mathrm{'.$romai_szam.'}$$';
   $options = '';
-  $solution = '$'.$szam.'$';
+  $answer = '$'.$szam.'$';
 	$type = 'int';
 
 	return array(
 		'question' 	=> $question,
 		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'solution'	=> $solution,
+		'answer'	=> $answer,
 		'type' 		=> $type
 	);
 }
@@ -55,14 +55,14 @@ function roman_convert_10toROM($level)
   $question = 'Írjuk fel római számokkal!$$'.$szam.'$$';
   $correct = $romai_szam;
   $options = '';
-  $solution = '$\\\\mathrm{'.$romai_szam.'}$';
+  $answer = '$\\\\mathrm{'.$romai_szam.'}$';
   $type = 'text';
 
   return array(
     'question'  => $question,
     'options'   => $options,
     'correct'   => $correct,
-    'solution'  => $solution,
+    'answer'  => $answer,
     'type'    => $type
   );
 }

@@ -18,14 +18,14 @@ function count_apples($level=1) {
 	$question = 'Hány darab alma van a fán?<div class="text-center"><img class="img-question" width="50%" src="'.RESOURCES_URL.'/count_apples/tree'.$num.'.png"></div>';
 	$correct = $num;
 	$options = '';
-	$solution = '$'.$correct.'$';
+	$answer = '$'.$correct.'$';
 	$type = 'int';
 
 	return array(
 		'question' 	=> $question,
 		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'solution'	=> $solution,
+		'answer'	=> $answer,
 		'type' 		=> $type
 	);
 }
@@ -47,18 +47,18 @@ function parity($level=1) {
 
 	$options = array('páros', 'páratlan');
 	$index = $num%2;
-	$solution = $options[$index];
+	$answer = $options[$index];
 
 	shuffle($options);
 
-	$correct = array_search($solution, $options);
+	$correct = array_search($answer, $options);
 	$type = 'quiz';
 
 	return array(
 		'question' 	=> $question,
 		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'solution'	=> $solution,
+		'answer'	=> $answer,
 		'type' 		=> $type
 	);
 }
@@ -97,14 +97,14 @@ function count_parity($level=1) {
 
 	$question = rtrim($question, '\\\\').'\end{align}$$';
 	$type = 'int';
-	$solution = '$'.$correct.'$';
+	$answer = '$'.$correct.'$';
 	$options = '';
 
 	return array(
 		'question' 	=> $question,
 		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'solution'	=> $solution,
+		'answer'	=> $answer,
 		'type' 		=> $type
 	);
 }
@@ -143,14 +143,14 @@ function decimal_number_value($level=1) {
 
 	$question = rtrim($question, '\\\\').'\end{align}$$';
 	$type = 'int';
-	$solution = '$'.$correct.'$';
+	$answer = '$'.$correct.'$';
 	$options = '';
 
 	return array(
 		'question' 	=> $question,
 		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'solution'	=> $solution,
+		'answer'	=> $answer,
 		'type' 		=> $type
 	);
 }

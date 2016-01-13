@@ -41,14 +41,14 @@ function binary_number_value($level)
   
     $options = '';
     $correct = $jo;
-    $solution = '$'.$jo.'$';
+    $answer = '$'.$jo.'$';
 	$type = 'int';
 
 	return array(
 		'question' 	=> $question,
 		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'solution'	=> $solution,
+		'answer'	=> $answer,
 		'type' 		=> $type
 	);
 }
@@ -94,14 +94,14 @@ function binary_place_value1($level)
     }
   
     $correct = $helyiertek-1;
-    $solution = $options[$helyiertek-1];
+    $answer = $options[$helyiertek-1];
     $type = 'quiz';
 
   return array(
     'question'  => $question,
     'options'   => $options,
     'correct'   => $correct,
-    'solution'  => $solution,
+    'answer'  => $answer,
     'type'    => $type
   );
 }
@@ -141,8 +141,8 @@ function binary_place_value2($level)
     $options = preg_replace( '/(\d)$/', '\1\$', $options);
   
     $correct = $helyiertek-1;
-    $solution = $options[$helyiertek-1];
-    $solution = str_ireplace('\\,','\\\\,',$solution);
+    $answer = $options[$helyiertek-1];
+    $answer = str_ireplace('\\,','\\\\,',$answer);
   
     shuffleAssoc($options);
 
@@ -150,8 +150,8 @@ function binary_place_value2($level)
   
     if ($level == 3) {
       $correct = $numb[$helyiertek-1];
-      $solution = $options[$helyiertek-1];
-      $solution = str_ireplace('\\,','\\\\,',$solution);
+      $answer = $options[$helyiertek-1];
+      $answer = str_ireplace('\\,','\\\\,',$answer);
       $options = '';
       $type = 'int';
     }
@@ -162,7 +162,7 @@ function binary_place_value2($level)
     'question'  => $question,
     'options'   => $options,
     'correct'   => $correct,
-    'solution'  => $solution,
+    'answer'  => $answer,
     'type'    => $type
   );
 }
@@ -208,10 +208,10 @@ function binary_real_value($level)
   $options = preg_replace( '/(\d)$/', '\1\$', $options);
   
   if ($szamjegy == 0) {
-    $solution = '$0$';
+    $answer = '$0$';
     $correct = 0;
   } else {
-    $solution = $options[$helyiertek];
+    $answer = $options[$helyiertek];
     $correct = pow(2,$helyiertek-1);
   }
   
@@ -219,7 +219,7 @@ function binary_real_value($level)
   
   $type = 'quiz';
 
-  if ($level > 2 || $solution == 0) {
+  if ($level > 2 || $answer == 0) {
     $options = '';
     $type = 'int';
   }
@@ -228,7 +228,7 @@ function binary_real_value($level)
     'question'  => $question,
     'options'   => $options,
     'correct'   => $correct,
-    'solution'  => $solution,
+    'answer'  => $answer,
     'type'    => $type
   );
 }
@@ -264,7 +264,7 @@ function binary_convert_2to10($level)
   }
   
   $question = 'Írjuk fel tízes számrendszerben!$$'.$szam.'_2$$';
-  $solution = '$'.$correct.'$';
+  $answer = '$'.$correct.'$';
   
   $options = '';
   if ($level == 1) {
@@ -295,7 +295,7 @@ function binary_convert_2to10($level)
   }
   
   $question = 'Írjuk fel tízes számrendszerben!$$'.$szam.'_2$$';
-  $solution = '$'.$correct.'$';
+  $answer = '$'.$correct.'$';
   
   $options = '';
   $type = 'int';
@@ -304,7 +304,7 @@ function binary_convert_2to10($level)
     'question'  => $question,
     'options'   => $options,
     'correct'   => $correct,
-    'solution'  => $solution,
+    'answer'  => $answer,
     'type'    => $type
   );
 }
@@ -339,7 +339,7 @@ function binary_convert_2to10_bulb($level)
         <div class="text-center">
           <img class="img-question" width="'.$szelesseg.'%" src="'.RESOURCES_URL.'/binary_bulb/create_image.php?function=binary_bulb&path='.RESOURCES_URL.'&num='.$szam.'">
         </div>';
-  $solution = '$'.$correct.'$';
+  $answer = '$'.$correct.'$';
   $options = '';
   $type = 'int';
 
@@ -347,7 +347,7 @@ function binary_convert_2to10_bulb($level)
     'question'  => $question,
     'options'   => $options,
     'correct'   => $correct,
-    'solution'  => $solution,
+    'answer'  => $answer,
     'type'    => $type
   );
 }
@@ -387,7 +387,7 @@ function binary_convert_2to10_finger($level)
         <div class="text-center">
           <img class="img-question" width="'.$width.'%" src="'.RESOURCES_URL.'/binary_finger/create_image.php?function=binary_finger&path='.RESOURCES_URL.'/binary_finger/&num='.$szam.'">
         </div>';
-  $solution = '$'.$correct.'$';
+  $answer = '$'.$correct.'$';
   
   $options = '';
   $type = 'int';
@@ -396,7 +396,7 @@ function binary_convert_2to10_finger($level)
     'question'  => $question,
     'options'   => $options,
     'correct'   => $correct,
-    'solution'  => $solution,
+    'answer'  => $answer,
     'type'    => $type
   );
 }
@@ -425,7 +425,7 @@ function binary_convert_10to2($level)
   }
   
   $question = 'A $0$ és $1$ számjegyek segítségével váltsuk át kettes számrendszerbe az alábbi számot!$$'.$szam.'_{10}$$';
-  $solution = '$'.$correct.'$';
+  $answer = '$'.$correct.'$';
 
   $options = '';
   $type = 'int';
@@ -434,7 +434,7 @@ function binary_convert_10to2($level)
     'question'  => $question,
     'options'   => $options,
     'correct'   => $correct,
-    'solution'  => $solution,
+    'answer'  => $answer,
     'type'    => $type
   );
 }

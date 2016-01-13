@@ -31,9 +31,9 @@ function basic_addition($level)
   $question = 'Adjuk össze az alábbi számokat!$$\begin{align}'.$szam1.'\\\\ +\,'.$szam2.'\\\\ \hline?\end{align}$$';
 
   if ($correct > 9999) {
-    $solution = '$'.number_format($correct,0,',','\\\\,').'$';
+    $answer = '$'.number_format($correct,0,',','\\\\,').'$';
   } else {
-    $solution = '$'.$correct.'$';
+    $answer = '$'.$correct.'$';
   }
 	$type = 'int';
 
@@ -41,7 +41,7 @@ function basic_addition($level)
 		'question' 	=> $question,
 		'options' 	=> $options,
 		'correct' 	=> $correct,
-		'solution'	=> $solution,
+		'answer'	=> $answer,
 		'type' 		=> $type
 	);
 }
@@ -100,9 +100,9 @@ function basic_addition_mod($level)
   $question = 'Ha tudjuk, hogy $$'.$szam1.'+'.$szam2.'='.$szam3.',$$akkor mennyivel egyenlő $$'.$szam1b.'+'.$szam2b.'?$$';
 
   if ($correct > 9999) {
-    $solution = '$'.number_format($correct,0,',','\\\\,').'$';
+    $answer = '$'.number_format($correct,0,',','\\\\,').'$';
   } else {
-    $solution = '$'.$correct.'$';
+    $answer = '$'.$correct.'$';
   }
   $type = 'int';
 
@@ -110,7 +110,7 @@ function basic_addition_mod($level)
     'question'  => $question,
     'options'   => $options,
     'correct'   => $correct,
-    'solution'  => $solution,
+    'answer'  => $answer,
     'type'    => $type
   );
 }
