@@ -33,24 +33,7 @@ class Exercises extends CI_model {
 		list($answer, $hash) = $this->GetAnswerData($answerdata);
 		list($correct, $explanation, $solution, $level, $type, $id) = $this->Session->GetExerciseData($hash);
 
-		switch ($type) {
-
-			case 'int':
-				list($status, $message) = $this->GenerateMessagesInt($answer, $correct, $solution);
-				break;
-
-			case 'text':
-				list($status, $message) = $this->GenerateMessagesText($answer, $correct, $solution);
-				break;
-
-			case 'quiz':
-				list($status, $message) = $this->GenerateMessagesQuiz($answer, $correct, $solution);
-				break;
-
-			case 'multi':
-				list($status, $message, $submessages) = $this->GenerateMessagesMulti($answer, $correct, $solution);
-				break;
-		}
+		list($status, $message, $submessages) = $this->GenerateMessages($type, $answer, $correct, $solution);
 
 		$this->Session->DeleteExerciseData($status, $hash);
 
@@ -64,7 +47,6 @@ class Exercises extends CI_model {
 		$level_user = $this->Session->getUserLevel($id);
 		$level_max 	= $this->Exercises->getMaxLevel($id);
 		$progress 	= $this->Session->getUserProgress($id);
-		$submessages = (isset($submessages) ? $submessages : []);
 
 		$output = array(
 			'status' 		=> $status,
@@ -76,7 +58,6 @@ class Exercises extends CI_model {
 			'subtopicID'	=> $subtopicID,
 			'explanation'	=> $explanation,
 			'questID'		=> $questID,
-			// 'session' 		=> json_encode($_SESSION),
 			'progress'		=> $progress
 		);
 
@@ -108,6 +89,43 @@ class Exercises extends CI_model {
 		}
 
 		return array($answer, $hash);
+	}
+
+	/**
+	 * Generate messages for exercises
+	 *
+	 * @param string $type     Exercise type
+	 * @param array  $answer   User answer
+	 * @param int    $correct  Correct answer
+	 * @param string $solution Solution
+	 *
+	 * @return string $status  Status (NOT_DONE/CORRECT/WRONG)
+	 * @return string $message Message
+	 */
+	public function GenerateMessages($type, $answer, $correct, $solution) {
+
+		switch ($type) {
+
+			case 'int':
+				list($status, $message) = $this->GenerateMessagesInt($answer, $correct, $solution);
+				break;
+
+			case 'text':
+				list($status, $message) = $this->GenerateMessagesText($answer, $correct, $solution);
+				break;
+
+			case 'quiz':
+				list($status, $message) = $this->GenerateMessagesQuiz($answer, $correct, $solution);
+				break;
+
+			case 'multi':
+				list($status, $message, $submessages) = $this->GenerateMessagesMulti($answer, $correct, $solution);
+				break;
+		}
+
+		$submessages = (isset($submessages) ? $submessages : []);
+
+		return array($status, $message, $submessages);
 	}
 
 	/**
@@ -257,47 +275,25 @@ class Exercises extends CI_model {
 		$query 		= $this->db->get_where('exercises', array('id' => $id));
 		$exercise 	= $query->result()[0]; 
 
-		$quizdata = $this->Database->getQuizData($id);
+		$function = $exercise->label;
 
-		if ($quizdata) {
+		$class = $this->Database->getClassLabel($id);
+		$topic = $this->Database->getTopicLabel($id);
+		$subtopic = $this->Database->getSubtopicLabel($id);
 
-			$data = $this->getQuizData($quizdata);
-
-		} else {
-
-			$function = $exercise->label;
-
-			$class = $this->Database->getClassLabel($id);
-			$topic = $this->Database->getTopicLabel($id);
-			$subtopic = $this->Database->getSubtopicLabel($id);
-
-			if (!function_exists($function)) {
-				$this->load->helper('Exercises/'.$class.'/'.$topic.'/'.$subtopic.'/functions');
-			}
-
-			$data = $function($level);
-
-			if (!isset($data['type'])) {
-				$data['type'] = 'int';
-			} elseif ($data['type'] == 'quiz') {
-				$data = $this->getAnswerLength($data);
-			}
-
-			if (isset($data['explanation'])) {
-				if (is_array($data['explanation'])) {
-					$explanation = '<ul>';
-					foreach ($data['explanation'] as $segment) {
-						$explanation .= '<li>'.$segment.'</li>';
-					}
-					$explanation .= '</ul>';
-					$data['explanation'] = $explanation;
-				}
-			} elseif ($this->hasHint($id)) {
-
-				$data['explanation'] = 'Segítségre van szükséged? Kattints a <img src="'.base_url().'assets/images/light_bulb.png" alt="hint" width="40">-ra!';
-
-			}
+		if (!function_exists($function)) {
+			$this->load->helper('Exercises/'.$class.'/'.$topic.'/'.$subtopic.'/functions');
 		}
+
+		$data = $function($level);
+
+		if (!isset($data['type'])) {
+			$data['type'] = 'int';
+		} elseif ($data['type'] == 'quiz') {
+			$data = $this->getAnswerLength($data);
+		}
+
+		$data = $this->addExplanation($id, $data);
 
 		$hash = random_string('alnum', 16);
 
@@ -308,6 +304,34 @@ class Exercises extends CI_model {
 		$data['hint'] 		= $exercise->hint;
 		$data['id'] 		= $id;
 		$data['hash']		= $hash;
+
+		return $data;
+	}
+
+	/**
+	 * Add explanation to exercise (if there is none)
+	 *
+	 * @param int   $id   Exercise id
+	 * @param array $data Exercise data
+	 *
+	 * @return array $data Exercise data (with explanation)
+	 */
+	public function addExplanation($id, $data) {
+
+		if (isset($data['explanation'])) {
+			if (is_array($data['explanation'])) {
+				$explanation = '<ul>';
+				foreach ($data['explanation'] as $segment) {
+					$explanation .= '<li>'.$segment.'</li>';
+				}
+				$explanation .= '</ul>';
+				$data['explanation'] = $explanation;
+			}
+		} elseif ($this->hasHint($id)) {
+
+			$data['explanation'] = 'Segítségre van szükséged? Kattints a <img src="'.base_url().'assets/images/light_bulb.png" alt="hint" width="40">-ra!';
+
+		}
 
 		return $data;
 	}

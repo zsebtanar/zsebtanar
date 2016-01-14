@@ -45,14 +45,6 @@ class Database extends CI_model {
 				'youtube'	=> '',
 				'hint'		=> ''
 				),
-			'quizzes' => array(
-				'exerciseID'	=> 'FROM SESSION',
-				'label'			=> '',
-				'question'		=> 'NOT NULL',
-				'correct'		=> 'NOT NULL',
-				'wrong1'		=> 'NOT NULL',
-				'wrong2'		=> 'NOT NULL'
-				),
 			'links' => array(
 				'questID'	=> 'FROM SESSION',
 				'label'		=> 'NOT NULL'
@@ -154,16 +146,6 @@ class Database extends CI_model {
 							hint 		VARCHAR(60),
 							status 		VARCHAR(20),
 							FOREIGN KEY (questID) REFERENCES quests(id)
-						)Engine=InnoDB;',
-			'quizzes' => 'CREATE TABLE quizzes (
-							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							exerciseID 	INT,
-							label 		VARCHAR(30),
-							question 	VARCHAR(240) NOT NULL,
-							correct 	VARCHAR(120) NOT NULL,
-							wrong1 		VARCHAR(120) NOT NULL,
-							wrong2 		VARCHAR(120) NOT NULL,
-							FOREIGN KEY (exerciseID) REFERENCES exercises(id)
 						)Engine=InnoDB;',
 			'links' => 'CREATE TABLE links (
 							id 		INT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -355,31 +337,6 @@ class Database extends CI_model {
 		$label = $query->result()[0]->label;
 
 		return $label;
-	}
-
-	/**
-	 * Get quiz data
-	 *
-	 * Checks whether exercise is quiz or not. If so, returns quiz data, else returns
-	 * false.
-	 *
-	 * @param int $id Exercise id
-	 *
-	 * @return array $data Quiz data
-	 */
-	public function getQuizData($id) {
-
-		$query = $this->db->query('SELECT * FROM `quizzes` WHERE `quizzes`.`exerciseID` = '.$id);
-
-		if ($query->num_rows() > 0) {
-
-			$data = $query->result_array()[0];
-			return $data;
-
-		} else {
-
-			return FALSE;
-		}
 	}
 
 	/**
