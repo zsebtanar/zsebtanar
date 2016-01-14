@@ -27,5 +27,9 @@
 
 		<span class="title-icon glyphicon glyphicon-chevron-right"></span></a>
 	</h1>	
-	<p><?php echo $current['subtitle'];?></p>
+	<p>
+		<a href="<?php echo base_url().'view/main/';?>">
+			<?php echo $current['subtitle'];?>
+		</a>
+	</p>
 </div>

@@ -6,7 +6,8 @@ class Update extends CI_controller {
 	/**
 	 * Update Database
 	 *
-	 * @param int $id Exercise ID
+	 * @param string $type View type (exercise/subtopic)
+	 * @param int    $id   Exercise/subtopic id
 	 *
 	 * @return void
 	 */

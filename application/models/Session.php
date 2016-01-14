@@ -218,9 +218,12 @@ class Session extends CI_model {
 	/**
 	 * Get results
 	 *
+	 * @param string $type View type (exercise/subtopic)
+	 * @param int    $id   Exercise/subtopic id
+	 *
 	 * @return array $data Results
 	 */
-	public function GetResults() {
+	public function GetResults($type=NULL, $id=NULL) {
 
 		$points = $this->session->userdata('points');
 		$data['points'] = ($points ? $points : 0);
@@ -230,6 +233,9 @@ class Session extends CI_model {
 
 		$quests = $this->session->userdata('subtopics');
 		$data['subtopics'] = ($quests ? array_sum($quests) : 0);
+
+		$data['id'] = $id;
+		$data['type'] = $type;
 
 		return $data;
 	}
@@ -369,6 +375,8 @@ class Session extends CI_model {
 		// print_r($this->session->userdata('rounds'));
 		// print_r('<br />Points: ');
 		// print_r($this->session->userdata('points'));
+		// print_r('<br />Exercise: ');
+		// print_r($this->session->userdata('exercise'));
 
 		return;
 	}

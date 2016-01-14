@@ -241,7 +241,7 @@ class Exercises extends CI_model {
 	 */
 	public function GetExerciseData($id) {
 
-		$this->session->unset_userdata('exercise');
+		// $this->session->unset_userdata('exercise');
 
 		$this->load->helper('string');
 		$this->load->helper('Maths');
@@ -280,13 +280,19 @@ class Exercises extends CI_model {
 				$data = $this->getAnswerLength($data);
 			}
 
-			if (isset($data['explanation']) && is_array($data['explanation'])) {
-				$explanation = '<ul>';
-				foreach ($data['explanation'] as $segment) {
-					$explanation .= '<li>'.$segment.'</li>';
+			if (isset($data['explanation'])) {
+				if (is_array($data['explanation'])) {
+					$explanation = '<ul>';
+					foreach ($data['explanation'] as $segment) {
+						$explanation .= '<li>'.$segment.'</li>';
+					}
+					$explanation .= '</ul>';
+					$data['explanation'] = $explanation;
 				}
-				$explanation .= '</ul>';
-				$data['explanation'] = $explanation;
+			} elseif ($this->hasHint($id)) {
+
+				$data['explanation'] = 'Segítségre van szükséged? Kattints a <img src="'.base_url().'assets/images/light_bulb.png" alt="hint" width="40">-ra!';
+
 			}
 		}
 
@@ -296,7 +302,7 @@ class Exercises extends CI_model {
 
 		$data['level'] 		= $level;
 		$data['youtube'] 	= $exercise->youtube;
-		$data['download'] 	= $exercise->download;
+		$data['hint'] 		= $exercise->hint;
 		$data['id'] 		= $id;
 		$data['hash']		= $hash;
 
@@ -471,6 +477,23 @@ class Exercises extends CI_model {
 	}
 
 	/**
+	 * Check if exercise has hint
+	 *
+	 * @param int $id Exercise ID
+	 *
+	 * @return bool $hasHint Whether exercise has hint
+	 */
+	public function hasHint($id) {
+
+		$query = $this->db->get_where('exercises', array('id' => $id));
+		$exercise = $query->result()[0];
+
+		$hasHint = !($exercise->hint == NULL);
+
+ 		return $hasHint;
+	}
+
+	/**
 	 * Get maximum level for exercise
 	 *
 	 * @param int $id Exercise ID
@@ -488,7 +511,8 @@ class Exercises extends CI_model {
 	/**
 	 * Get number or rounds for exercise
 	 *
-	 * $rounds shows how many times user needs to solve the exercise to complete it. 
+	 * $rounds shows how many times user needs to solve the exercise to complete it.
+	 * If user is logged in, it is only 3 (for debugging purposes). 
 	 *
 	 * @param int $id Exercise ID
 	 *
@@ -496,8 +520,17 @@ class Exercises extends CI_model {
 	 */
 	public function getMaxRound($id) {
 
-		$query 		= $this->db->get_where('exercises', array('id' => $id));
-		$rounds 	= $query->result()[0]->rounds;
+		if (NULL !== $this->session->userdata('Logged_in')
+			&& $this->session->userdata('Logged_in')) {
+
+			$rounds = 3;
+
+		} else {
+
+			$query 		= $this->db->get_where('exercises', array('id' => $id));
+			$rounds 	= $query->result()[0]->rounds;
+
+		}
 
  		return $rounds;
 	}

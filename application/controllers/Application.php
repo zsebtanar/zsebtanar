@@ -69,17 +69,25 @@ class Application extends CI_controller {
 	/**
 	 * Clear results
 	 *
+	 * @param string $type View type (exercise/subtopic)
+	 * @param int    $id   Exercise/subtopic id
+	 *
 	 * @return void
 	 */
-	public function ClearResults() {
+	public function ClearResults($type=NULL, $id=NULL) {
 
 		$this->session->unset_userdata('levels');
 		$this->session->unset_userdata('quests');
 		$this->session->unset_userdata('subtopics');
 		$this->session->unset_userdata('rounds');
 		$this->session->unset_userdata('points');
+		$this->session->unset_userdata('exercise');
 
-		header('Location:'.base_url().'view/main/');
+		if ($type && $id) {
+			header('Location:'.base_url().'view/'.$type.'/'.$id);
+		} else {
+			header('Location:'.base_url().'view/main/');
+		}
 
 		return;
 	}

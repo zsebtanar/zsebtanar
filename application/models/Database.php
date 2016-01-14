@@ -38,12 +38,12 @@ class Database extends CI_model {
 			'exercises' => array(
 				'questID'	=> 'FROM SESSION',
 				'level'		=> 3,
-				'rounds' 	=> 3,
+				'rounds' 	=> 9,
 				'status' 	=> 'IN PROGRESS',
 				'label'		=> '',
 				'name'		=> '',
 				'youtube'	=> '',
-				'download'	=> ''
+				'hint'		=> ''
 				),
 			'quizzes' => array(
 				'exerciseID'	=> 'FROM SESSION',
@@ -151,7 +151,7 @@ class Database extends CI_model {
 							label 		VARCHAR(30),
 							name 		VARCHAR(120),
 							youtube 	VARCHAR(20),
-							download 	VARCHAR(60),
+							hint 		VARCHAR(60),
 							status 		VARCHAR(20),
 							FOREIGN KEY (questID) REFERENCES quests(id)
 						)Engine=InnoDB;',

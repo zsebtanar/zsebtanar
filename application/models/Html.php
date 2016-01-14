@@ -47,14 +47,11 @@ class Html extends CI_model {
 		$data['menu'] 	= $this->NavBarMenu();
 		$data['type'] 	= 'subtopic';
 		$data['quests'] = $this->Exercises->getSubtopicQuests($id);
-		$data['results'] = $this->Session->GetResults();
+		$data['results'] = $this->Session->GetResults('subtopic', $id);
 
 		$data['title']['current'] 	= $this->TitleSubtopic($id);
 		$data['title']['prev'] 		= $this->TitleSubtopic($id-1);
 		$data['title']['next'] 		= $this->TitleSubtopic($id+1);
-
-		$data['results']['id'] = $id;
-		$data['results']['type'] = 'subtopic';
 
 		return $data;
 	}
@@ -73,7 +70,7 @@ class Html extends CI_model {
 		$data['menu'] 		= $this->NavBarMenu();
 		
 		$data['type'] 		= 'exercise';
-		$data['results'] 	= $this->Session->GetResults();
+		$data['results'] 	= $this->Session->GetResults('exercise', $id);
 		$data['exercise'] 	= $this->Exercises->GetExerciseData($id);
 
 		$data['results']['id'] = $id;

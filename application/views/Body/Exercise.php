@@ -22,7 +22,7 @@
 
 			}
 
-			if ($download) {?>
+			if ($hint) {?>
 
 				<a href="#" data-toggle="modal" data-target="#hint">
 					<img src="<?php echo base_url();?>assets/images/light_bulb.png" alt="hint" width="40">
@@ -32,7 +32,7 @@
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-body text-center">
-								<img src="<?php echo base_url().'resources/download/'.$download; ?>" class="img-responsive" alt="hint" width="100%">
+								<img src="<?php echo base_url().'resources/download/'.$hint; ?>" class="img-responsive" alt="hint" width="100%">
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default" data-dismiss="modal">Bezár</button>

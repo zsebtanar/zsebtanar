@@ -188,6 +188,135 @@ function addSuffixTimes($num)
 }
 
 /**
+ * Add article to number
+ *
+ * @param int $num Number
+ *
+ * @return string $article Article
+ */
+function addArticle($num)
+{
+  if ($num <= 0) {
+    return 'a';
+  }
+
+  $digits = str_split($num);
+  $digit = $digits[0];
+  $len = count($digits);
+
+  if ($len % 3 == 1) {
+    return (in_array($digit, ['1','5']) ? 'az' : 'a');
+  } elseif ($digit == '5') {
+      return 'az';
+  } else {
+    return 'a';
+  }
+}
+
+/**
+ * Add suffix dativus to number (at/et/öt/t)
+ *
+ * @param int $num Number (< 10^600)
+ *
+ * @return string $suffix Suffix
+ */
+function addSuffixDativ($num)
+{
+  $abs = abs($num);
+
+  switch ($abs % 10) {
+    case 1:
+    case 4:
+    case 7:
+    case 9:
+      return 'et';
+    case 2:
+      return 't';
+    case 3:
+    case 8:
+      return 'at';
+    case 5:
+      return 'öt';
+    case 6:
+      return 'ot';
+  }
+
+  switch (($abs / 10) % 10) {
+    case 1:
+    case 4:
+    case 5:
+    case 7:
+    case 9:
+      return 'et';
+    case 2:
+    case 3:
+    case 6:
+    case 8:
+      return 'at';
+  }
+
+  if ($abs == 0) {
+    return 't';
+  } elseif (100 <= $abs && $abs < 1000) {
+    return 'at';
+  } elseif (1000 <= $abs && $abs < 1000000) {
+    return 'et';
+  } else {
+    return 't';
+  }
+}
+
+/**
+ * Add suffix 'by' to number (nál/nél)
+ *
+ * @param int    $num  Number (< 10^600)
+ *
+ * @return string $suffix Suffix
+ */
+function addSuffixBy($num)
+{
+  $abs = abs($num);
+
+  switch ($abs % 10) {
+    case 1:
+    case 2:
+    case 4:
+    case 5:
+    case 7:
+    case 9:
+      return 'nél';
+    case 3:
+    case 6:
+    case 8:
+      return 'nál';
+  }
+
+  switch (($abs / 10) % 10) {
+    case 1:
+    case 4:
+    case 5:
+    case 7:
+    case 9:
+      return 'nél';
+    case 2:
+    case 3:
+    case 6:
+    case 8:
+      return 'nál';
+  }
+
+  if ($abs == 0) {
+    return 'nál';
+  }
+  elseif (1000 <= $abs && $abs < 1000000) {
+    return 'nél';
+  }
+  else {
+    return 'nál';
+  }
+}
+
+/**
  * Generate new random number based on given number
  *
  * @param int $num Number
@@ -259,56 +388,6 @@ function replaceDigit($num,$pos,$digit)
       $num = preg_replace( '/(.)(.{3})$/', '\1\,\2', $num);
   }
   return $num;
-}
-
-/**
- * Add suffix 'by' to number (nál/nél)
- *
- * @param int    $num  Number (< 10^600)
- *
- * @return string $suffix Suffix
- */
-function addSuffixBy($num)
-{
-  $abs = abs($num);
-
-  switch ($abs % 10) {
-    case 1:
-    case 2:
-    case 4:
-    case 5:
-    case 7:
-    case 9:
-      return 'nél';
-    case 3:
-    case 6:
-    case 8:
-      return 'nál';
-  }
-
-  switch (($abs / 10) % 10) {
-    case 1:
-    case 4:
-    case 5:
-    case 7:
-    case 9:
-      return 'nél';
-    case 2:
-    case 3:
-    case 6:
-    case 8:
-      return 'nál';
-  }
-
-  if ($abs == 0) {
-    return 'nál';
-  }
-  elseif (1000 <= $abs && $abs < 1000000) {
-    return 'nél';
-  }
-  else {
-    return 'nál';
-  }
 }
 
 ?>

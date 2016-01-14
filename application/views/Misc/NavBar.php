@@ -17,17 +17,17 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li>
 					<a href="#">
-						<img src="<?php echo base_url();?>assets/images/trophy.png" alt="shield" width="22">&nbsp;<b class="subtopics"><?php echo $results['subtopics'];?></b>
+						<img src="<?php echo base_url();?>assets/images/trophy.png" alt="shield" width="22">&nbsp;<b class="subtopics"><?php echo $subtopics;?></b>
 					</a>
 				</li>
 				<li>
 					<a href="#">
-						<img src="<?php echo base_url();?>assets/images/shield.png" alt="shield" width="20">&nbsp;<b class="quests"><?php echo $results['quests'];?></b>
+						<img src="<?php echo base_url();?>assets/images/shield.png" alt="shield" width="20">&nbsp;<b class="quests"><?php echo $quests;?></b>
 					</a>
 				</li>
 				<li>
 					<a href="#">
-						<img src="<?php echo base_url();?>assets/images/coin.png" alt="coin" width="20">&nbsp;<b class="points"><?php echo $results['points'];?></b>
+						<img src="<?php echo base_url();?>assets/images/coin.png" alt="coin" width="20">&nbsp;<b class="points"><?php echo $points;?></b>
 					</a>
 				</li><?php
 
@@ -35,14 +35,16 @@
 				$this->session->userdata('Logged_in')) {?>
 
 				<li>
-					<a href="<?php echo base_url().'application/clearresults';?>">
+					<a href="<?php echo base_url().'application/clearresults/'.
+						(isset($type) ? $type : '').
+						(isset($id) ? '/'.$id : '');?>">
 						<span class="glyphicon glyphicon-remove"></span> Törlés
 					</a>
 				</li>
 				<li>
 					<a href="<?php echo base_url().'update/database/'.
-						(isset($results['type']) ? $results['type'] : '').'/'.
-						(isset($results['id']) ? $results['id'] : '');?>">
+						(isset($type) ? $type : '').'/'.
+						(isset($id) ? '/'.$id : '');?>">
 						<span class="glyphicon glyphicon-refresh"></span> Frissítés
 					</a>
 				</li>

@@ -13,3 +13,7 @@
 *.gif binary
 *.pdf binary
 *.pptx binary
+*.svg binary
+*.ttf binary
+*.eot binary
+*.woff binary
