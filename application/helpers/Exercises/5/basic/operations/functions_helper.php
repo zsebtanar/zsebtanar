@@ -8,8 +8,6 @@ function basic_addition($level)
 {
   $num1 = numGen($level,10);
   $num2 = numGen($level,10);
-  // $num1 = 37;
-  // $num2 = 199;
   
   if ($num2 < $num1) {
     list($num1, $num2) = array($num2, $num1);
@@ -36,6 +34,7 @@ function basic_addition($level)
 	);
 }
 
+// Explanation for addition
 function basic_addition_explanation($num1, $num2)
 {
   $digits1  = str_split($num1);

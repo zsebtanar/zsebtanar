@@ -91,7 +91,8 @@ function count_parity($level=1) {
 			$value = number_format($value,0,',','\,');
 		}
 		$question .= $value.' & \\\\';
-		$explanation[] = 'A $'.$value.'$ <b>'.$parity[$value%2].'</b> szám, mert az utolsó jegye $'.strval($value%10).'$.';
+		$explanation[] = 'A $\textcolor{'.($value % 2 == $par ? 'green' : 'red').'}{'.$value.'}$'
+			.' <b>'.$parity[$value%2].'</b> szám, mert az utolsó jegye $'.strval($value%10).'$.';
 	}
 
 	$explanation[] = 'Mivel a számok közül összesen $'.$correct.'$ db <b>'.$parity[$par].'</b>, ezért a megoldás is $'.$correct.'$ lesz.';

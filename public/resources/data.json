@@ -19,7 +19,8 @@
 										{
 											"label": "count_apples",
 											"name": "Számolás 1-től 20-ig",
-											"hint": "szamok_1-20.jpg"
+											"hint": "szamok_1-20.jpg",
+											"status": "OK"
 										}
 									]
 								},
@@ -30,7 +31,8 @@
 										{
 											"label": "parity",
 											"name": "Páros vagy páratlan?",
-											"hint": "paros_paratlan.jpg"
+											"hint": "paros_paratlan.jpg",
+											"status": "OK"
 										}
 									]
 								},
@@ -41,7 +43,8 @@
 										{
 											"label": "count_parity",
 											"name": "Hány darab páros/páratlan?",
-											"hint": "paros_paratlan.jpg"
+											"hint": "paros_paratlan.jpg",
+											"status": "OK"
 										}
 									],
 									"links": [
@@ -68,7 +71,8 @@
 											"name": "Összeadás",
 											"hint": "osszeadas.jpg",
 											"level": 5,
-											"round": 3
+											"round": 3,
+											"status": "OK"
 										}
 									]
 								}
@@ -91,22 +95,26 @@
 										{
 											"label": "decimal_place_value1",
 											"name": "Helyiérték I.",
-											"hint": "helyiertek_tablazat_10_betuk.png"
+											"hint": "helyiertek_tablazat_10_betuk.png",
+											"status": "OK"
 										},
 										{
 											"label": "decimal_place_value2",
 											"name": "Helyiérték II.",
-											"hint": "helyiertek_tablazat_10_szamok.png"
+											"hint": "helyiertek_tablazat_10_szamok.png",
+											"status": "OK"
 										},
 										{
 											"label": "decimal_number_value",
 											"name": "Alaki érték",
-											"hint": "helyiertek_tablazat_10_betuk.png"
+											"hint": "helyiertek_tablazat_10_betuk.png",
+											"status": "OK"
 										},
 										{
 											"label": "decimal_real_value",
 											"name": "Valódi érték",
-											"hint": "helyiertek_tablazat_10_szamok.png"
+											"hint": "helyiertek_tablazat_10_szamok.png",
+											"status": "OK"
 										}
 									]
 								},

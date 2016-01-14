@@ -19,8 +19,8 @@ function decimal_number_value($level)
 	$num = numGen($length,10);
 
 	$digits = str_split($num);
-	$digit = rand(round($length/2),$length);
-	$correct = $digits[$length-$digit];
+	$place = rand(round($length/2),$length);
+	$correct = $digits[$length-$place];
 
 	$values = array(
 		"egyesek",
@@ -35,25 +35,32 @@ function decimal_number_value($level)
 		"milliárdosok"
 	);
 
-	$num = ($num > 9999 ? number_format($num,0,',','\,') : $num);
+	$num2 = ($num > 9999 ? number_format($num,0,',','\,') : $num);
 
-	$article = ($digit == 1 || $digit == 4 ? 'az ' : 'a ');
+	$article = (in_array($place, [1, 4]) ? 'az' : 'a');
 
-	$question1 = 'Melyik számjegy áll '.$article.$values[$digit-1].' helyén az alábbi számban?$$'.$num.'$$';
-	$question2 = 'Mi '.$article.$values[$digit-1].' helyén álló szám alaki értéke?$$'.$num.'$$';
-	$question = (rand(1,2) == 1 ? $question1 : $question2);
+	$question1 = 'Melyik számjegy áll '.$article.' '.$values[$place-1].' helyén az alábbi számban?$$'.$num2.'$$';
+	$question2 = 'Mi '.$article.' '.$values[$place-1].' helyén álló szám alaki értéke?$$'.$num2.'$$';
+	$rand = rand(1,2);
+	$question = ($rand == 1 ? $question1 : $question2);
 
-	$options = '';
 	$correct = $correct;
 	$solution = '$'.$correct.'$';
-	$type = 'int';
+
+	$explanation = decimal_explanation('number_value'.$rand, $num);
+	if ($rand == 1) {
+		$explanation[] = 'A feladatban '.$article.' <b>'.$values[$place-1].'</b> helyén álló számjegyre voltunk kíváncsiak,'
+			.' ami '.$solution.'.';
+	} else {
+		$explanation[] = 'A feladatban '.$article.' <b>'.$values[$place-1].'</b> helyén álló számjegy alaki értéke volt a kérdés,'
+			.' ami '.$solution.'.';
+	}
 
 	return array(
 		'question' 	=> $question,
-		'options' 	=> $options,
 		'correct' 	=> $correct,
 		'solution'	=> $solution,
-		'type' 		=> $type
+		'explanation' => $explanation
 	);
 }
 
@@ -76,11 +83,9 @@ function decimal_place_value1($level)
 
 	$num = modifySameDigits($num,$length-$place_value);
 
-	$article = (in_array($digit,array(5,1)) ? 'az' : 'a');
+	$num2 = ($num > 9999 ? number_format($num,0,',','\,') : $num);
 
-	$num = ($num > 9999 ? number_format($num,0,',','\,') : $num);
-
-	$question = 'Melyik helyen áll '.$article.' $'.$digit.'$ az alábbi számban?$$'.$num.'$$';
+	$question = 'Melyik helyen áll '.addArticle($digit).' $'.$digit.'$ az alábbi számban?$$'.$num2.'$$';
 	$place_values = array(
 		"egyesek",
 		"tízesek",
@@ -101,11 +106,16 @@ function decimal_place_value1($level)
 
 	$correct = $place_value-1;
 	$solution = $options[$place_value-1];
+	$solution2 = preg_replace( '/^./', 'a', $solution);
+	$solution2 = preg_replace( '/helyén.$/', '', $solution2);
 
 	if ($level > 2) {
 		shuffle($options);
 		$correct = array_search($solution, $options);
 	}
+
+	$explanation = decimal_explanation('place_value1', $num);
+	$explanation[] = 'A feladatban '.addArticle($digit).' $'.$digit.'$ helye volt a kérdés, ami <b>'.$solution2.'</b> helyén áll.';
 
 	$type = 'quiz';
 
@@ -114,8 +124,89 @@ function decimal_place_value1($level)
 		'options' 	=> $options,
 		'correct' 	=> $correct,
 		'solution'	=> $solution,
-		'type' 		=> $type
+		'type' 		=> $type,
+		'explanation' => $explanation
 	);
+}
+
+// Explanation for place/number/real value
+function decimal_explanation($type, $num)
+{
+	$digits = str_split($num);
+	$length = count($digits);
+	$text = '';
+
+	$values = array(
+		"egyesek",
+		"tízesek",
+		"százasok",
+		"ezresek",
+		"tízezresek",
+		"százezresek",
+		"milliósok",
+		"tízmilliósok",
+		"százmilliósok",
+		"milliárdosok"
+	);
+
+	for ($i=0; $i < $length; $i++) {
+
+		$article = (in_array($i, [0,3]) ? 'Az' : 'A');
+		$digit = $digits[$length-1-$i];
+		$place_value = pow(10, $i);
+
+		if ($type == 'place_value1' || $type == 'number_value1') {
+
+			$text = $article.' <b>'.$values[$i].'</b> helyén '.addArticle($digit).' $'.$digit.'$ áll:';
+
+		} elseif ($type == 'place_value2') {
+
+			$text = $article.' <b>'.$values[$i].'</b> helyén '.addArticle($digit).' $'.$digit.'$ áll,'
+				.' ennek a helyiértéke $'.strval($place_value).'$:';
+
+		} elseif ($type == 'number_value2') {
+
+			$text = $article.' <b>'.$values[$i].'</b> helyén álló számjegy alaki értéke $'.$digit.'$:';
+
+		} elseif ($type == 'real_value1') {
+
+			$text = $article.' <b>'.$values[$i].'</b> helyén '.addArticle($digit).' $'.$digit.'$ áll,'
+				.' ennek a helyiértéke $'.strval($place_value).'$, ezért a valódi érték $'
+				.strval($digit).'\cdot'.strval($place_value).'='.strval($place_value*$digit).'$ lesz:';
+
+		} elseif ($type == 'real_value2') {
+
+			$text = $article.' <b>'.$values[$i].'</b> helyén '.addArticle($digit).' $'.$digit.'$ áll,'
+				.' ennek a helyiértéke $'.strval($place_value).'$, ezért az a számjegy $'
+				.strval($digit).'\cdot'.strval($place_value).'='.strval($place_value*$digit).'$-'
+				.addSuffixDativ($place_value*$digit).' ér:';
+
+		}
+
+		$text .= '$$'.markRed($num, $i).'$$';
+
+		$explanation[] = $text;
+	}
+
+	return $explanation;
+}
+
+// Mark digit of number at specific place value
+function markRed($num, $place)
+{
+	$digits = str_split($num);
+	$length = count($digits);
+	$num2 	= '';
+
+	for ($i=0; $i < $length; $i++) {
+		$digit = $digits[$length-1-$i];
+		$num2 = ($i == $place ? '\textcolor{red}{'.$digit.'}' : $digit).$num2;
+		if ($length > 4 && $i % 3 == 2) {
+			$num2 = '\,'.$num2;
+		}
+	}
+
+	return $num2;
 }
 
 // Define place value II.
@@ -137,25 +228,22 @@ function decimal_place_value2($level)
 
 	$num = modifySameDigits($num,$length-$place_value);
 
-	$article = (in_array($digit,array(5,1)) ? 'az' : 'a');
-
 	$num = ($num > 9999 ? number_format($num,0,',','\,') : $num);
 
-	$question = 'Mi '.$article.' $'.$digit.'$ helyiértéke az alábbi számban?$$'.$num.'$$';
+	$question = 'Mi '.addArticle($digit).' $'.$digit.'$ helyiértéke az alábbi számban?$$'.$num.'$$';
 
 	$correct = pow(10, $place_value-1);
 	$solution = '$'.$correct.'$';
 	$solution = str_ireplace('\\,','\\\\,',$solution);
-	$options = '';
 
-	$type = 'int';
+	$explanation = decimal_explanation('place_value2', $num);
+	$explanation[] = 'A feladatban '.addArticle($digit).' $'.$digit.'$ helyiértéke volt a kérdés, aminek a helyiértéke '.$solution.'.';
 
 	return array(
 		'question' 	=> $question,
-		'options' 	=> $options,
 		'correct' 	=> $correct,
 		'solution'	=> $solution,
-		'type' 		=> $type
+		'explanation' => $explanation 
 	);
 }
 
@@ -180,23 +268,31 @@ function decimal_real_value($level)
 
 	$article = (in_array($digit,array(5,1)) ? 'az' : 'a');
 
-	$num = ($num > 9999 ? number_format($num,0,',','\,') : $num);
+	$num2 = ($num > 9999 ? number_format($num,0,',','\,') : $num);
 
-	$question1 = 'Mi '.$article.' $'.$digit.'$ valódi értéke az alábbi számban?$$'.$num.'$$';
-	$question2 = 'Mennyit ér '.$article.' $'.$digit.'$ az alábbi számban?$$'.$num.'$$';
-	$question = (rand(1,2) == 1 ? $question1 : $question2);
+	$question1 = 'Mi '.$article.' $'.$digit.'$ valódi értéke az alábbi számban?$$'.$num2.'$$';
+	$question2 = 'Mennyit ér '.$article.' $'.$digit.'$ az alábbi számban?$$'.$num2.'$$';
+	$rand = rand(1,2);
+	$question = ($rand == 1 ? $question1 : $question2);
 
 	$correct = pow(10, $place_value-1)*$digit;
 	$solution = '$'.$correct.'$';
-	$options = '';
-	$type = 'int';
+
+	$explanation = decimal_explanation('real_value'.$rand, $num);
+
+	if ($rand == 1) {
+		$explanation[] = 'A feladatban '.$article.' $'.$digit.'$ valódi értéke volt a kérdés,'
+			.' ami '.$solution.'.';
+	} else {
+		$explanation[] = 'A feladatban '.$article.' $'.$digit.'$ értéke volt a kérdés,'
+			.' ami '.$solution.'.';
+	}
 
 	return array(
 		'question' 	=> $question,
-		'options' 	=> $options,
 		'correct' 	=> $correct,
 		'solution'	=> $solution,
-		'type' 		=> $type
+		'explanation' => $explanation 
 	);
 }
 

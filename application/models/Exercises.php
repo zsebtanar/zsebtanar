@@ -381,6 +381,7 @@ class Exercises extends CI_model {
 
 		$query = $this->db->get_where('quests', array('subtopicID' => $subtopicID));
 		$quests = $query->result();
+		$data = NULL;
 
 		if (count($quests) > 0) {
 			foreach ($quests as $quest) {
@@ -393,7 +394,9 @@ class Exercises extends CI_model {
 				$row['links'] 		= $this->getQuestLinks($questID);
 				$row['complete'] 	= $this->isComplete($questID);
 
-				$data['quests'][] 	= $row;
+				if ($row['exercises']) {
+					$data['quests'][] 	= $row;
+				}
 			}
 		}
 
@@ -434,20 +437,26 @@ class Exercises extends CI_model {
 
 		$query = $this->db->get_where('exercises', array('questID' => $id));
 
+		$data = NULL;
+
 		$exercises = $query->result();
 
 		if (count($exercises) > 0) {
 			foreach ($exercises as $exercise) {
+				if ((NULL !== $this->session->userdata('Logged_in')
+					&& $this->session->userdata('Logged_in'))
+					|| $exercise->status == 'OK') {
 
-				$id = $exercise->id;
+					$id = $exercise->id;
 
-				$row['userlevel'] 	= $this->Session->getUserLevel($id);
-				$row['maxlevel'] 	= $this->getMaxLevel($id);
-				$row['id'] 			= $id;
-				$row['name'] 		= $exercise->name;
-				$row['status'] 		= $exercise->status;
+					$row['userlevel'] 	= $this->Session->getUserLevel($id);
+					$row['maxlevel'] 	= $this->getMaxLevel($id);
+					$row['id'] 			= $id;
+					$row['name'] 		= $exercise->name;
+					$row['status'] 		= $exercise->status;
 
-				$data[] = $row;
+					$data[] = $row;
+				}
 			}
 		}
 

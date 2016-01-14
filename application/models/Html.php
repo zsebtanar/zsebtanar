@@ -110,12 +110,16 @@ class Html extends CI_model {
 
 						foreach ($subtopics->result() as $subtopic) {
 
-							$iscomplete = $this->Session->isSubtopicComplete($subtopic->id);
+							$quests = $this->Exercises->getSubtopicQuests($subtopic->id);
 
-							$menu[$class->name][$topic->name][$subtopic->id] = array(
-								'name' => $subtopic->name,
-								'iscomplete' => $iscomplete
-							);
+							if ($quests) {
+								$iscomplete = $this->Session->isSubtopicComplete($subtopic->id);
+
+								$menu[$class->name][$topic->name][$subtopic->id] = array(
+									'name' => $subtopic->name,
+									'iscomplete' => $iscomplete
+								);
+							}
 						}
 					}
 
