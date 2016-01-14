@@ -67,11 +67,8 @@
 											"label": "basic_addition",
 											"name": "Összeadás",
 											"hint": "osszeadas.jpg",
-											"level": 5
-										},
-										{
-											"label": "basic_addition_mod",
-											"name": "Összeadás módosítva"
+											"level": 5,
+											"round": 3
 										}
 									]
 								}
@@ -94,22 +91,22 @@
 										{
 											"label": "decimal_place_value1",
 											"name": "Helyiérték I.",
-											"hint": "helyiertek-tablazat_10.jpg"
+											"hint": "helyiertek_tablazat_10_betuk.png"
 										},
 										{
 											"label": "decimal_place_value2",
 											"name": "Helyiérték II.",
-											"hint": "helyiertek-tablazat_10.jpg"
+											"hint": "helyiertek_tablazat_10_szamok.png"
 										},
 										{
 											"label": "decimal_number_value",
 											"name": "Alaki érték",
-											"hint": "helyiertek-tablazat_10.jpg"
+											"hint": "helyiertek_tablazat_10_betuk.png"
 										},
 										{
 											"label": "decimal_real_value",
 											"name": "Valódi érték",
-											"hint": "helyiertek-tablazat_10.jpg"
+											"hint": "helyiertek_tablazat_10_szamok.png"
 										}
 									]
 								},

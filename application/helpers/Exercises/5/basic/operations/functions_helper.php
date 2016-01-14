@@ -8,18 +8,20 @@ function basic_addition($level)
 {
   $num1 = numGen($level,10);
   $num2 = numGen($level,10);
+  // $num1 = 37;
+  // $num2 = 199;
   
   if ($num2 < $num1) {
     list($num1, $num2) = array($num2, $num1);
   }
   
   $correct = $num1+$num2;
-  if ($num1 > 999) { $num1 = number_format($num1,0,',','\,');}
-  if ($num2 > 999) { $num2 = number_format($num2,0,',','\,');}
-  $question = 'Adjuk össze az alábbi számokat!$$\begin{align}'.$num1.'\\\\ +\,'.$num2.'\\\\ \hline?\end{align}$$';
+  $num1b = ($num1 > 999 ? $num1b = number_format($num1,0,',','\,') : $num1);
+  $num2b = ($num2 > 999 ? $num2b = number_format($num2,0,',','\,') : $num2);
+  $question = 'Adjuk össze az alábbi számokat!$$\begin{align}'.$num1b.'\\\\ +\,'.$num2b.'\\\\ \hline?\end{align}$$';
 
   if ($correct > 9999) {
-    $solution = '$'.number_format($correct,0,',','\\\\,').'$';
+    $solution = '$'.number_format($correct,0,',','\\,').'$';
   } else {
     $solution = '$'.$correct.'$';
   }
@@ -29,130 +31,159 @@ function basic_addition($level)
 	return array(
 		'question' 	=> $question,
 		'correct' 	=> $correct,
-		'solution'	=> $solution
+		'solution'	=> $solution,
+    'explanation' => $explanation
 	);
 }
 
 function basic_addition_explanation($num1, $num2)
 {
-  $explanation[] = 'A utolsó oszloptól kezdve minden oszlopban összeadjuk a számjegyeket.';
-  $explanation[] = 'Az eredmény utolsó jegyét beírjuk az oszlop alá, a többit pedig a szomszéd oszlop fölé (legközelebb ezt is összeadjuk a többivel).';
+  $digits1  = str_split($num1);
+  $digits2  = str_split($num2);
+  $digits3  = str_split($num1+$num2);
+  $length   = count($digits3);
 
-  $digits1 = str_split($num1);
-  $digits2 = str_split($num2);
-  $digits_sum = str_split($num1+$num2);
+  $remain_old = 0;
+  $remain_new = 0;
 
-  print_r(array_pop($digits1));
-  print_r($digits1);
-  print_r($digits2);
-  print_r($digits_sum);
-
-
-  $length = max(count($digits1), count($digits2));
+  $values = array(
+    "az egyesek",
+    "a tízesek",
+    "a százasok",
+    "az ezresek",
+    "a tízezresek",
+    "a százezresek",
+    "a milliósok",
+    "a tízmilliósok",
+    "a százmilliósok",
+    "a milliárdosok"
+  );
 
   for ($i=0; $i < $length; $i++) {
-    $article = (in_array($i, [1,5]) ? 'az' : 'a');
+
     $digit1 = array_pop($digits1);
     $digit2 = array_pop($digits2);
-    $sum = $digit1 + $digit2;
+
+    $sum = $digit1 + $digit2 + $remain_old;
+    $text = '';
+
+
+    $text = 'Adjuk össze '.$values[$i].' helyén lévő számjegyeket'.
+      ($remain_old > 0 ? ' (az előző számolásnál kapott maradékkal együtt)' : '').
+      (!$digit1 || !$digit2 ? '! Az üres helyekre $0$-t írunk: ' : '').
+      ': $'.($remain_old > 0 ? '\textcolor{green}{'.$remain_old.'}+' : '').
+      ($digit1 ? $digit1 : 0).'+'.
+      ($digit2 ? $digit2 : 0).'='.$sum.'$.';
+
     if ($sum >= 10) {
-      $digits_sum = str_split($sum);
-      
-      $digit_sum1 = array_pop($digits_sum);
-      $digit_sum2 = array_pop($digits_sum);
-      
-      $article_sum1 = addArticle($digit_sum1);
-      $article_sum2 = addArticle($digit_sum2);
-      
-      $dativ1 = addSuffixDativ($digit_sum1);
-      $dativ2 = addSuffixDativ($digit_sum2);
-      $article2 = (in_array($i+1, [1,5]) ? 'az' : 'a');
-
-      $number_top = $digit_sum2;
-    } else {
-      $number_top = '';
+      $text .= ' Mivel ez többjegyű szám, ezért az utolsó jegyét leírjuk '.$values[$i].' oszlopába, az elsőt pedig '
+      .$values[$i+1].' oszlopa fölé:';
+      $remain_new = ($sum / 10) % 10;
     }
-    $text = basic_addition_generate_number($num1, $num2, $number_top, $i);
-    print_r($text);
+
+    $text .= basic_addition_generate_equation(array($num1, $num2), $i); 
+
+    $explanation[] = $text;
+
+    $remain_old = $remain_new;
+    $remain_new = 0;
   }
 
-  return;
+  return $explanation;
 }
 
-// Generate addition for explanation
-function basic_addition_generate_number($num1, $num2, $number_top=NULL, $value=NULL)
+/**
+ * Generate equation for addition
+ *
+ * Generates equation for adding numbers at specific place value
+ *
+ * @param array $numbers Numbers to add
+ * @param int   $colum   Column of place value
+ *
+ * @return string $equation Equation
+ */
+function basic_addition_generate_equation($numbers, $column)
 {
-  return;
-}
+  // Get digits for each number
+  foreach ($numbers as $number) {
+    $digits_num = str_split($number);
+    $digits_all[] = $digits_num;
+    $line_num[] = '';
+  }
 
-// Addition modified
-function basic_addition_mod($level)
-{
-  if ($level == 1) {
-    $minhossz = 1;
-    $maxhossz = 2;
-    $modosit1 = rand(1,2);
-    $modosit2 = rand(1,2);
-  } elseif ($level == 2) {
-    $minhossz = 3;
-    $maxhossz = 6;
-    $modosit1 = rand(3,4);
-    $modosit2 = rand(3,4);
-  } elseif ($level == 3) {
-    $minhossz = 7;
-    $maxhossz = 10;
-    $modosit1 = rand(5,9);
-    $modosit2 = rand(5,9);
-  }
-  
-  $num1 = numGen(rand($minhossz,$maxhossz),10);
-  $num2 = numGen(rand($minhossz,$maxhossz),10);
-  $szam3 = $num1+$num2;
-  
-  if (rand(1,2) == 1) {
-    $num1b = $num1 + $modosit1;
-  } else {
-    $num1b = max(0,$num1 - $modosit1);
-  }
-  
-  if ($level > 1) {
-    if (rand(1,2) == 1) {
-      $szam2b = $num2 + $modosit2;
-    } else {
-      $szam2b = max(0,$num2 - $modosit2);
+  $sum = array_sum($numbers);
+  $digits_sum = str_split($sum);
+  $length = count($digits_sum);
+  $line_sum = '';
+  $remain_old = 0;
+  $remain_new = 0;
+
+  $equation = '$$\begin{align}';
+
+  for ($i=0; $i < $length; $i++) { 
+
+    // Get digits of current column
+    $digits_column = [];
+    foreach ($digits_all as $key => $digits) {
+      $digits_column[] = array_pop($digits);
+      $digits_all[$key] = $digits;
     }
-  } else {
-    $szam2b = $num2;
-  }
-  
-  if ($level > 1) {
-    list($num1, $num2) = array($num2, $num1);
-  }
-  
-  $options = '';
-  $correct = $num1b+$szam2b;
-  if ($num1 > 9999) { $num1 = number_format($num1,0,',','\,');}
-  if ($num1b > 9999) { $num1b = number_format($num1b,0,',','\,');}
-  if ($num2 > 9999) { $num2 = number_format($num2,0,',','\,');}
-  if ($szam2b > 9999) { $szam2b = number_format($szam2b,0,',','\,');}
-  if ($szam3 > 9999) { $szam3 = number_format($szam3,0,',','\,');}
-  $question = 'Ha tudjuk, hogy $$'.$num1.'+'.$num2.'='.$szam3.',$$akkor mennyivel egyenlő $$'.$num1b.'+'.$szam2b.'?$$';
+    $digit_sum = array_pop($digits_sum);
 
-  if ($correct > 9999) {
-    $solution = '$'.number_format($correct,0,',','\\\\,').'$';
-  } else {
-    $solution = '$'.$correct.'$';
-  }
-  $type = 'int';
+    // Get new remainer
+    $sum_column = array_sum($digits_column) + $remain_old;
+    if ($sum_column >= 10) {
+      $remain_new = ($sum_column/10) % 10;
+    }
 
-  return array(
-    'question'  => $question,
-    'options'   => $options,
-    'correct'   => $correct,
-    'solution'  => $solution,
-    'type'    => $type
-  );
+    // Update equation
+    if ($i <= $column) {
+      if ($i == $column) {
+
+        // Include remainer
+        $equation .= ($remain_new > 0 ? '\tiny{\textcolor{red}{'.$remain_new.'}}\,' : '').
+          ($column == $length-1 && $remain_new > 0 ? '' : '&').
+          ($remain_old > 0 ? '\,\tiny{\textcolor{blue}{'.$remain_old.'}}\,' : '').
+          ($column == $length-1 && $remain_new > 0 ? '&' : '').'\\\\ ';
+
+        $line_sum = '\hline '.
+          '&\textcolor{red}{'.$digit_sum.'}'.$line_sum;
+      } else {
+         $line_sum = $digit_sum.$line_sum;
+        if ($i % 3 == 2) {
+          $line_sum = '\,'.$line_sum;
+        }
+      }
+    }
+
+    // Store equation lines
+    foreach ($digits_column as $key => $digit) {
+      if ($i == $column) {
+        $line_num[$key] = ($digit != NULL ? '&\textcolor{blue}{'.$digit.'}' : '&\,\,\,').$line_num[$key];
+      } else {
+        $line_num[$key] = ($digit != NULL ? $digit : '\,\,').$line_num[$key];
+      }
+      if ($i % 3 == 2) {
+        $line_num[$key] = '\,'.$line_num[$key];
+      }
+    }
+
+    $remain_old = $remain_new;
+    $remain_new = 0;
+  }
+
+  // Concatenate lines
+  foreach ($line_num as $key => $line) {
+    if ($key+1 == count($line_num)) {
+      $equation .= '+';
+    }
+    $equation .= $line.'\\\\ ';
+  }
+
+  // Include sum
+  $equation .= $line_sum.'\end{align}$$';
+
+  return $equation;
 }
-
 
 ?>

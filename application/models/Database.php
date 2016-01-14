@@ -38,7 +38,7 @@ class Database extends CI_model {
 			'exercises' => array(
 				'questID'	=> 'FROM SESSION',
 				'level'		=> 3,
-				'rounds' 	=> 9,
+				'rounds' 	=> 3,
 				'status' 	=> 'IN PROGRESS',
 				'label'		=> '',
 				'name'		=> '',

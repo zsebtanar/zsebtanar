@@ -67,9 +67,9 @@ class View extends CI_controller {
 	 *
 	 * @return	void
 	 */
-	public function Exercise($id) {
+	public function Exercise($id, $level=NULL) {
 
-		$data = $this->Html->ExerciseData($id);
+		$data = $this->Html->ExerciseData($id, $level);
 
 		$this->load->view('Template', $data);
 

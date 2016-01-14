@@ -144,6 +144,7 @@
 					case 'WRONG':
 						if (data['explanation'] != null) {
 							document.getElementById("explanation").innerHTML = '<div class="alert alert-warning text-left">' + data['explanation'] + '</div>';
+							MathJax.Hub.Queue(["Typeset",MathJax.Hub,"explanation"]);
 						}
 						document.getElementById("message").innerHTML = '<div class="alert alert-danger"><strong><span class=\"glyphicon glyphicon-remove\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>';
 						document.getElementById("button").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url();?>view/exercise/<?php echo $id;?>\">Újra</button>";

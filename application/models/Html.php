@@ -62,16 +62,17 @@ class Html extends CI_model {
 	 * Collects all necessary parameters for template
 	 *
 	 * @param int $id    Exercise ID
+	 * @param int $level Exercise level
 	 *
 	 * @return array $data Exercise data
 	 */
-	public function ExerciseData($id) {
+	public function ExerciseData($id, $level) {
 
 		$data['menu'] 		= $this->NavBarMenu();
 		
 		$data['type'] 		= 'exercise';
 		$data['results'] 	= $this->Session->GetResults('exercise', $id);
-		$data['exercise'] 	= $this->Exercises->GetExerciseData($id);
+		$data['exercise'] 	= $this->Exercises->GetExerciseData($id, $level);
 
 		$data['results']['id'] = $id;
 		$data['results']['type'] = 'exercise';

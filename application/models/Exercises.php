@@ -235,11 +235,12 @@ class Exercises extends CI_model {
 	/**
 	 * Get exercise data
 	 *
-	 * @param int $id Exercise ID
+	 * @param int $id    Exercise ID
+	 * @param int $level Exercise level
 	 *
 	 * @return array $data Exercise data
 	 */
-	public function GetExerciseData($id) {
+	public function GetExerciseData($id, $level) {
 
 		// $this->session->unset_userdata('exercise');
 
@@ -249,7 +250,9 @@ class Exercises extends CI_model {
 		$this->load->model('Maths');
 		$this->load->model('Database');
 
-		$level = $this->Session->getExerciseLevelNext($id);
+		if (!$level) {
+			$level = $this->Session->getExerciseLevelNext($id);
+		}
 
 		$query 		= $this->db->get_where('exercises', array('id' => $id));
 		$exercise 	= $query->result()[0]; 
@@ -527,8 +530,11 @@ class Exercises extends CI_model {
 
 		} else {
 
+			$level_max	= $this->getMaxLevel($id);
 			$query 		= $this->db->get_where('exercises', array('id' => $id));
-			$rounds 	= $query->result()[0]->rounds;
+			$round 	 	= $query->result()[0]->rounds;
+
+			$rounds = $level_max*$round;
 
 		}
 
