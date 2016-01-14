@@ -34,42 +34,6 @@
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> -->
 <script src="<?php echo base_url();?>assets/js/bootstrap.js"></script>
 
-<!-- Typeahead JS -->
-<script>
-    $(document).ready(function() {
-        $("#search").keyup(function() {
-            $.ajax({
-                type: "GET",
-                url: "<?php echo base_url();?>application/search",
-                data: {
-                    keyword: $("#search").val(),
-                    classID: $("#classID").val(),
-                    topicID: $("#topicID").val()
-                },
-                dataType: "json",
-                success: function(data) {
-                    // window.alert(JSON.stringify(data));
-                    $('#DropdownExercises').empty();
-                    if (data.length > 0) {
-                        $('#search').attr("data-toggle", "dropdown");
-                        $('#DropdownExercises').dropdown('toggle');
-                    } else if (data.length == 0) {
-                        $('#search').attr("data-toggle", "");
-                    }
-                    $.each(data, function(key, value) {
-                        if (data.length >= 0)
-                            $('#DropdownExercises').append('<li role="presentation"><a href="<?php echo base_url();?>application/setgoal/exercise/' + value['id'] + '">' + value['name'] + '</a></li>');
-                    });
-                }
-            });
-        });
-        $('ul.exercises').on('click', 'li a', function() {
-            $('#search').val($(this).text());
-            ($(this).getAttribute('href'));
-        });
-    });
-</script>
-
 <!-- Query parser for youtube links JS -->
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/jquery-queryParser.js"></script>
 
