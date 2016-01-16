@@ -13,7 +13,7 @@
 
 		if (is_array($quests)) {
 
-			foreach ($quests as $quest) {?>
+				foreach ($quests as $quest) {?>
 
 				<div class="panel panel-default">
 					<div class="panel-heading" role="tab" id="heading<?php echo $quest['id'];?>">

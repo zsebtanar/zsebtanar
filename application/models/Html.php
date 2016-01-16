@@ -34,16 +34,16 @@ class Html extends CI_model {
 	}
 
 	/**
-	 * Get sitemap
+	 * Get breadcrumb
 	 *
 	 * Collects links to current class/suptopic/quest/exercise etc.
 	 *
 	 * @param string $type Type of id
 	 * @param int    $id   Id
 	 *
-	 * @return array $data Sitemap data
+	 * @return array $data Breadcrumb data
 	 */
-	public function SiteMap($type, $id) {
+	public function BreadCrumb($type, $id) {
 
 		if ($type == 'subtopic') {
 
@@ -87,7 +87,7 @@ class Html extends CI_model {
 		$data['type'] 		= 'subtopic';
 		$data['quests']		= $this->Exercises->getSubtopicQuests($id);
 		$data['results']	= $this->Session->GetResults('subtopic', $id);
-		$data['sitemap'] 	= $this->SiteMap('subtopic', $id);
+		$data['breadcrumb'] = $this->BreadCrumb('subtopic', $id);
 
 		$data['title']['current'] 	= $this->TitleSubtopic($id);
 		$data['title']['prev'] 		= $this->TitleSubtopic($id-1);
@@ -111,14 +111,12 @@ class Html extends CI_model {
 		$data['type'] 		= 'exercise';
 		$data['results'] 	= $this->Session->GetResults('exercise', $id);
 		$data['exercise'] 	= $this->Exercises->GetExerciseData($id, $level);
-		$data['sitemap'] 	= $this->SiteMap('exercise', $id);
+		$data['breadcrumb'] = $this->BreadCrumb('exercise', $id);
 
 		$data['results']['id'] = $id;
 		$data['results']['type'] = 'exercise';
 
 		$data['title']['current'] 	= $this->TitleExercise($id);
-		$data['title']['prev'] 		= $this->TitleExercise($id-1);
-		$data['title']['next'] 		= $this->TitleExercise($id+1);
 
 		return $data;
 	}
