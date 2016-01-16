@@ -340,24 +340,58 @@ class Database extends CI_model {
 	}
 
 	/**
-	 * Convert string to Ascii
+	 * Get class data for subtopic
 	 *
-	 * @param string $str Original string.
+	 * @param int $id Subtopic ID
 	 *
-	 * @return string $clean Modified string.
+	 * @return array $data Class data
 	 */
-	public function toAscii($str)
-	{
-		$change = array('Á'=>'A', 'É'=>'E', 'Í'=>'I', 'Ó'=>'O', 'Ö'=>'O',
-						'Ő'=>'O', 'Ú'=>'U', 'Ü'=>'U', 'Ű'=>'U',
-						'á'=>'a', 'é'=>'e', 'í'=>'i', 'ó'=>'o', 'ö'=>'o',
-						'ő'=>'o', 'ú'=>'u', 'ü'=>'u', 'ű'=>'u', '.'=>'');
-		$clean = strtr($str, $change);
-		$clean = preg_replace("/[\/|+ -]+/", '_', $clean);
-		$clean = preg_replace("/[^a-zA-Z0-9_-]/", '', $clean);
-		$clean = strtolower(trim($clean, '-'));
+	public function GetSubtopicClass($id) {
 
-		return $clean;
+		$query = $this->db->query(
+			'SELECT DISTINCT `classes`.`id`, `classes`.`name` FROM `classes`
+				INNER JOIN `topics` ON `classes`.`id` = `topics`.`classID`
+				INNER JOIN `subtopics` ON `topics`.`id` = `subtopics`.`topicID`
+					WHERE `subtopics`.`id` = '.$id);
+		$data = $query->result_array()[0];
+
+		return $data;
+	}
+
+	/**
+	 * Get topic data for subtopic
+	 *
+	 * @param int $id Subtopic ID
+	 *
+	 * @return array $data Topic data
+	 */
+	public function GetSubtopicTopic($id) {
+
+		$query = $this->db->query(
+			'SELECT DISTINCT `topics`.`id`, `topics`.`name` FROM `topics`
+				INNER JOIN `subtopics` ON `topics`.`id` = `subtopics`.`topicID`
+					WHERE `subtopics`.`id` = '.$id);
+		$data = $query->result_array()[0];
+
+		return $data;
+	}
+
+	/**
+	 * Get quest data for exercise
+	 *
+	 * @param int $id Exercise ID
+	 *
+	 * @return array $data Quest data
+	 */
+	public function GetExerciseQuest($id) {
+
+		$query = $this->db->query(
+			'SELECT DISTINCT `quests`.`id`, `quests`.`name` FROM `quests`
+				INNER JOIN `exercises` ON `quests`.`id` = `exercises`.`questID`
+					WHERE `exercises`.`id` = '.$id);
+		$data = $query->result_array()[0];
+
+		return $data;
 	}
 }
 

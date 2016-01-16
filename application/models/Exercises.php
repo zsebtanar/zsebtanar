@@ -304,6 +304,7 @@ class Exercises extends CI_model {
 		$data['hint'] 		= $exercise->hint;
 		$data['id'] 		= $id;
 		$data['hash']		= $hash;
+		$data['subtopicID'] = $this->getSubtopicID($id);
 
 		return $data;
 	}

@@ -1,4 +1,4 @@
-<div class="jumbotron text-center" id="top">
+<div class="text-center" id="top">
 	<h1><?php
 
 		if ($prev) {?>
@@ -27,9 +27,4 @@
 
 		<span class="title-icon glyphicon glyphicon-chevron-right"></span></a>
 	</h1>	
-	<p>
-		<a href="<?php echo base_url().'view/main/';?>">
-			<?php echo $current['subtitle'];?>
-		</a>
-	</p>
 </div>

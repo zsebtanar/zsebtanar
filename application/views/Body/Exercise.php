@@ -86,6 +86,12 @@
 						</button>
 					</div><br />
 
+					<div>
+						<a class="btn btn-default" href="<?php echo base_url().'view/subtopic/'.$subtopicID;?>">
+							Vissza
+						</a>
+					</div><br />
+
 					<p id="message"></p>
 					<p id="explanation"></p>
 					

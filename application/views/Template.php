@@ -21,6 +21,8 @@
 
 	} elseif ($type == 'subtopic') {
 
+
+		$this->load->view('Misc/Sitemap', $sitemap);
 		$this->load->view('Title/Subtopic', $title);
 		$this->load->view('Body/Quests', $quests);
 

@@ -25,10 +25,50 @@ class Html extends CI_model {
 	 */
 	public function MainData($classID=NULL, $topicID=NULL) {
 
-		$data['topics'] 		= $this->getTopics();
+		$data['topics'] 	= $this->getTopics();
 		$data['type'] 		= 'main';
 		$data['titledata'] 	= NULL;
 		$data['results'] 	= $this->Session->GetResults();
+
+		return $data;
+	}
+
+	/**
+	 * Get sitemap
+	 *
+	 * Collects links to current class/suptopic/quest/exercise etc.
+	 *
+	 * @param string $type Type of id
+	 * @param int    $id   Id
+	 *
+	 * @return array $data Sitemap data
+	 */
+	public function SiteMap($type, $id) {
+
+		if ($type == 'subtopic') {
+
+			$data['class']	= $this->Database->GetSubtopicClass($id);
+			$data['topic']	= $this->Database->GetSubtopicTopic($id);
+
+			$query = $this->db->get_where('subtopics', array('id' => $id));
+			$data['subtopic'] = $query->result_array()[0];
+
+		} elseif ($type == 'exercise') {
+
+			$subtopicID = $this->Exercises->getSubtopicID($id);
+
+			$data['subtopic']['id']	= $subtopicID;
+			$data['subtopic']['name']	= $this->Exercises->getSubtopicName($id);
+
+			$data['quest']		= $this->Database->GetExerciseQuest($id);
+
+			$data['class']	= $this->Database->GetSubtopicClass($subtopicID);
+			$data['topic']	= $this->Database->GetSubtopicTopic($subtopicID);
+
+			$query = $this->db->get_where('exercises', array('id' => $id));
+			$data['exercise'] = $query->result_array()[0];
+
+		}
 
 		return $data;
 	}
@@ -44,10 +84,10 @@ class Html extends CI_model {
 	 */
 	public function SubtopicData($id) {
 
-		// $data['topics'] 	= $this->getTopics();
-		$data['type'] 	= 'subtopic';
-		$data['quests'] = $this->Exercises->getSubtopicQuests($id);
-		$data['results'] = $this->Session->GetResults('subtopic', $id);
+		$data['type'] 		= 'subtopic';
+		$data['quests']		= $this->Exercises->getSubtopicQuests($id);
+		$data['results']	= $this->Session->GetResults('subtopic', $id);
+		$data['sitemap'] 	= $this->SiteMap('subtopic', $id);
 
 		$data['title']['current'] 	= $this->TitleSubtopic($id);
 		$data['title']['prev'] 		= $this->TitleSubtopic($id-1);
@@ -68,11 +108,10 @@ class Html extends CI_model {
 	 */
 	public function ExerciseData($id, $level) {
 
-		$data['topics'] 		= $this->getTopics();
-		
 		$data['type'] 		= 'exercise';
 		$data['results'] 	= $this->Session->GetResults('exercise', $id);
 		$data['exercise'] 	= $this->Exercises->GetExerciseData($id, $level);
+		$data['sitemap'] 	= $this->SiteMap('exercise', $id);
 
 		$data['results']['id'] = $id;
 		$data['results']['type'] = 'exercise';
