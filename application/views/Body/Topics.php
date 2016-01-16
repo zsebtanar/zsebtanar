@@ -16,16 +16,16 @@
 
 			if (count($topics) > 0) {?>
 
-				<div class="panel-group" id="accordion"><?php
+				<div class="panel-group" role="tablist"><?php
 
 					$i = 0;
 
 					foreach ($topics as $topic => $subtopics) {?>
 
 					<div class="panel panel-default">
-						<div class="panel-heading">
+						<div class="panel-heading" role="tab" id="heading<?php echo $i;?>">
 							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $i;?>">
+								<a class="" role="button" data-toggle="collapse" href="#listgroup<?php echo $i;?>" aria-expanded="true" aria-controls="listgroup<?php echo $i;?>">
 									<?php echo $topic;?>
 								</a>
 							</h4>
@@ -33,14 +33,12 @@
 
 						if (count($subtopics) > 0) {?>
 
-						<div id="collapse<?php echo $i;?>" class="panel-collapse collapse in">
-							<div class="panel-body">
-
-								<ul><?php
+						<div id="listgroup<?php echo $i;?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<?php echo $i;?>" aria-expanded="true">
+							<ul class="list-group"><?php
 
 								foreach ($subtopics as $subtopic_id => $subtopic) {?>
 
-									<li>
+									<li class="list-group-item">
 										<a href="<?php echo base_url();?>view/subtopic/<?php echo $subtopic_id;?>">
 											<?php echo $subtopic['name'];?>
 										</a><?php
@@ -55,8 +53,7 @@
 
 								}?>
 
-								</ul>
-							</div>
+							</ul>
 						</div><?php
 
 						}?>

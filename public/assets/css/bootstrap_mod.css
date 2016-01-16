@@ -66,3 +66,8 @@ input.smallInput {
         margin-bottom: 5px; 
     }
 }
+
+.breadcrumb {
+    background-color: #FFFFFF;
+    padding-top: 15px;
+}
