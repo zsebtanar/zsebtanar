@@ -55,3 +55,14 @@ input.smallInput {
 .title-icon {
     font-size: 60%;
 }
+
+@media (max-width: 767px) {
+    .navbar-brand {
+        padding: 15px 5px; 
+    }
+
+    .results {
+        font-size: 80%;
+        margin-bottom: 5px; 
+    }
+}

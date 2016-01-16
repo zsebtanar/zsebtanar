@@ -10,26 +10,28 @@
 				<span class="icon-bar"></span>
 			</button>
 
-			<a class="navbar-brand" href="<?php echo base_url();?>view/main">Kezdőlap</a>
+			<a class="navbar-brand" href="#">
+				<img src="<?php echo base_url();?>assets/images/trophy.png" alt="shield" width="17">
+			</a>
+
+			<a class="navbar-brand" href="#"><b class="results"><?php echo $subtopics;?></b></a>
+
+			<a class="navbar-brand" href="#">
+				<img src="<?php echo base_url();?>assets/images/shield.png" alt="shield" width="15">
+			</a>
+
+			<a class="navbar-brand" href="#"><b class="results"><?php echo $quests;?></b></a>
+
+			<a class="navbar-brand" href="#">
+				<img src="<?php echo base_url();?>assets/images/coin.png" alt="coin" width="15">
+			</a>
+
+			<a class="navbar-brand" href="#"><b class="results"><?php echo $points;?></b></a>
+
 		</div>
 
 		<div class="collapse navbar-collapse">
-			<ul class="nav navbar-nav navbar-right">
-				<li>
-					<a href="#">
-						<img src="<?php echo base_url();?>assets/images/trophy.png" alt="shield" width="22">&nbsp;<b class="subtopics"><?php echo $subtopics;?></b>
-					</a>
-				</li>
-				<li>
-					<a href="#">
-						<img src="<?php echo base_url();?>assets/images/shield.png" alt="shield" width="20">&nbsp;<b class="quests"><?php echo $quests;?></b>
-					</a>
-				</li>
-				<li>
-					<a href="#">
-						<img src="<?php echo base_url();?>assets/images/coin.png" alt="coin" width="20">&nbsp;<b class="points"><?php echo $points;?></b>
-					</a>
-				</li><?php
+			<ul class="nav navbar-nav navbar-right"><?php
 
 			if (NULL !== $this->session->userdata('Logged_in') &&
 				$this->session->userdata('Logged_in')) {?>

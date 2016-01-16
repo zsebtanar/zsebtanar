@@ -25,7 +25,7 @@ class Html extends CI_model {
 	 */
 	public function MainData($classID=NULL, $topicID=NULL) {
 
-		$data['menu'] 		= $this->NavBarMenu();
+		$data['topics'] 		= $this->getTopics();
 		$data['type'] 		= 'main';
 		$data['titledata'] 	= NULL;
 		$data['results'] 	= $this->Session->GetResults();
@@ -44,7 +44,7 @@ class Html extends CI_model {
 	 */
 	public function SubtopicData($id) {
 
-		$data['menu'] 	= $this->NavBarMenu();
+		// $data['topics'] 	= $this->getTopics();
 		$data['type'] 	= 'subtopic';
 		$data['quests'] = $this->Exercises->getSubtopicQuests($id);
 		$data['results'] = $this->Session->GetResults('subtopic', $id);
@@ -68,7 +68,7 @@ class Html extends CI_model {
 	 */
 	public function ExerciseData($id, $level) {
 
-		$data['menu'] 		= $this->NavBarMenu();
+		$data['topics'] 		= $this->getTopics();
 		
 		$data['type'] 		= 'exercise';
 		$data['results'] 	= $this->Session->GetResults('exercise', $id);
@@ -89,7 +89,7 @@ class Html extends CI_model {
 	 *
 	 * @return array $data Navbar menu
 	 */
-	public function NavBarMenu() {
+	public function getTopics() {
 
 		$this->db->order_by('id');
 		$classes = $this->db->get('classes');
