@@ -12,4 +12,8 @@ $('.openall').click(function(){
   $('.panel-collapse:not(".in")')
     .collapse('show');
 });
+$('.bs-docs-popover').popover();
+$('.bs-docs-popover').on('shown.bs.popover', function () {
+MathJax.Hub.Queue(["Typeset",MathJax.Hub,".bs-docs-popover"]);
+})
 </script>

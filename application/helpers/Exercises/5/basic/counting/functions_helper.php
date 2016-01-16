@@ -39,7 +39,12 @@ function parity($level=1) {
 
 	$num = numGen(rand(ceil($len/2),$len), 10);
 
-	$question = 'Páros vagy páratlan az alábbi szám?$$'.$num.'$$';
+	if ($level == 1) {
+		$question = '<a tabindex="0" class="bs-docs-popover" role="button" data-placement="bottom" data-toggle="popover" data-trigger="focus" title="Páros számok" data-content="Amik $0$, $2$, $4$, $6$, $8$-ra végződnek.">Páros</a> vagy <a tabindex="0" class="bs-docs-popover" role="button" data-placement="bottom" data-toggle="popover" data-trigger="focus" title="Páratlan számok" data-content="Amik $1$, $3$, $5$, $7$, $9$-re végződnek.">páratlan</a> az alábbi szám?$$'.$num.'$$';
+	} else {
+		$question = 'Páros vagy páratlan az alábbi szám?$$'.$num.'$$';
+	}
+	
 
 	$options = array('páros', 'páratlan');
 	$index = $num%2;
