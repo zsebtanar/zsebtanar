@@ -6,17 +6,14 @@
 // Addition
 function basic_addition($level)
 {
-  $num1 = numGen($level,10);
-  $num2 = numGen($level,10);
-  
-  if ($num2 < $num1) {
-    list($num1, $num2) = array($num2, $num1);
-  }
+  $num1 = numGen(rand(3*($level-1)+1, 3*$level), 10);
+  $num2 = numGen(rand(3*($level-1)+1, 3*$level), 10);
   
   $correct = $num1+$num2;
   $num1b = ($num1 > 999 ? $num1b = number_format($num1,0,',','\,') : $num1);
   $num2b = ($num2 > 999 ? $num2b = number_format($num2,0,',','\,') : $num2);
   $question = 'Adjuk össze az alábbi számokat!$$\begin{align}'.$num1b.'\\\\ +\,'.$num2b.'\\\\ \hline?\end{align}$$';
+  $question = 'Adjuk össze az alábbi számokat!'.basic_addition_generate_equation(array($num1, $num2));
 
   if ($correct > 9999) {
     $solution = '$'.number_format($correct,0,',','\\,').'$';
@@ -101,7 +98,7 @@ function basic_addition_explanation($num1, $num2)
  *
  * @return string $equation Equation
  */
-function basic_addition_generate_equation($numbers, $column)
+function basic_addition_generate_equation($numbers, $column=-1)
 {
   // Get digits for each number
   foreach ($numbers as $number) {
@@ -158,9 +155,9 @@ function basic_addition_generate_equation($numbers, $column)
     // Store equation lines
     foreach ($digits_column as $key => $digit) {
       if ($i == $column) {
-        $line_num[$key] = ($digit != NULL ? '&\textcolor{blue}{'.$digit.'}' : '&\,\,\,').$line_num[$key];
+        $line_num[$key] = ($digit != NULL ? '&\textcolor{blue}{'.$digit.'}' : '&\phantom{0}').$line_num[$key];
       } else {
-        $line_num[$key] = ($digit != NULL ? $digit : '\,\,').$line_num[$key];
+        $line_num[$key] = ($digit != NULL ? $digit : '\phantom{0}').$line_num[$key];
       }
       if ($i % 3 == 2) {
         $line_num[$key] = '\,'.$line_num[$key];
@@ -169,6 +166,10 @@ function basic_addition_generate_equation($numbers, $column)
 
     $remain_old = $remain_new;
     $remain_new = 0;
+  }
+
+  if ($column == -1) {
+    $line_sum .= '\hline?';
   }
 
   // Concatenate lines

@@ -70,8 +70,6 @@
 											"label": "basic_addition",
 											"name": "Összeadás",
 											"hint": "osszeadas.jpg",
-											"level": 5,
-											"round": 3,
 											"status": "OK"
 										}
 									]
