@@ -6,11 +6,8 @@
 // Addition
 function basic_addition($level)
 {
-  // $num1 = numGen(rand(3*($level-1)+1, 3*$level), 10);
-  // $num2 = numGen(rand(3*($level-1)+1, 3*$level), 10);
-
-  $num1 = 79;
-  $num2 = 64346;
+  $num1 = numGen(rand(3*($level-1)+1, 3*$level), 10);
+  $num2 = numGen(rand(3*($level-1)+1, 3*$level), 10);
   
   $correct = $num1+$num2;
   $num1b = ($num1 > 999 ? $num1b = number_format($num1,0,',','\,') : $num1);
@@ -84,7 +81,7 @@ function basic_addition_explanation($num_array, $type='addition')
     $sum_sub = array_sum($digits) + $remain_old;
     $text = '';
 
-    $text = 'Adjuk össze '.(in_array($ind, [0,4]) ? 'az' : 'a').$values[$ind].' helyén lévő számjegyeket'.
+    $text = 'Adjuk össze '.(in_array($ind, [0,4]) ? 'az' : 'a').' '.$values[$ind].' helyén lévő számjegyeket'.
       ($remain_old > 0 ? ' (az előző számolásnál kapott maradékkal együtt):' : ':');
 
     if (count($digits) > 1 || $remain_old > 0) {
@@ -231,16 +228,20 @@ function basic_addition_generate_equation($numbers, $col=-1, $type='addition')
 // Multiplication
 function basic_multiplication($level)
 {
-  $num1 = numGen(rand(3*($level-1)+1, 3*$level), 10);
+  if ($level == 1) {
+    $num1 = numGen(rand(5,6), 10);
+  } elseif ($level == 2) {
+    $num1 = numGen(rand(3,4), 10);
+  } else {
+    $num1 = numGen($level, 10);
+  }
+
   $num2 = numGen($level, 10);
 
   if ($num1 < $num2) {
     list($num1, $num2) = array($num2, $num1);
   }
 
-  $num1 = 3402213;
-  $num2 = 7813;
-  
   $correct = $num1*$num2;
   $num1b = ($num1 > 999 ? $num1b = number_format($num1,0,',','\,') : $num1);
   $num2b = ($num2 > 999 ? $num2b = number_format($num2,0,',','\,') : $num2);
@@ -294,7 +295,23 @@ function basic_multiplication_explanation($num1, $num2)
     $num_array[] = $digit2*$num1;
     $step = $length2-$ind2;
 
-    $explanation[] = '<b>'.$step.'. lépés:</b> A második szám '.$order[$ind2].' számjegye $'.$digit2.'$. Szorozzuk meg ezzel '.AddArticle($num1).' $'.$num1.'$ minden számjegyét hátulról kezdve!';
+    if ($length2 > 1) {
+      $intro = '<b>'.$step.'. lépés:</b> A második szám '.$order[$ind2].' számjegye $'.$digit2.'$. ';
+      if ($length1 > 1) {
+        $intro .= 'Szorozzuk meg ezzel '.AddArticle($num1).' $'.$num1.'$ minden számjegyét hátulról kezdve!';
+      } else {
+        $intro .= 'Szorozzuk meg ezzel '.AddArticle($num1).' $'.$num1.'$-'.AddArticle($num1).'!';
+      }
+    } else {
+      $intro = 'Szorozzuk meg '.AddArticle($digit2).' $'.$digit2.'$-'.AddSuffixWith($digit2).' ';
+      if ($length1 > 1) {
+        $intro .= 'az első szám minden számjegyét hátulról kezdve!';
+      } else {
+        $intro .= 'az első számot!';
+      }
+    }
+
+    $explanation[] = $intro;
 
     $text = [];
 
@@ -332,10 +349,12 @@ function basic_multiplication_explanation($num1, $num2)
   }
 
   // Add subtotals
-  $step = $length2;
-  $explanation[] = '<b>'.$step.'. lépés:</b> Adjuk össze a szorzás során kapott számokat!';
+  if (count($num_array) > 1) {
+    $step = $length2;
+    $explanation[] = '<b>'.$step.'. lépés:</b> Adjuk össze a szorzás során kapott számokat!';
 
-  $explanation[] = basic_addition_explanation($num_array, 'multiplication');
+    $explanation[] = basic_addition_explanation($num_array, 'multiplication');
+  }
 
   return $explanation;
 }
