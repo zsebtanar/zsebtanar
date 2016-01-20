@@ -73,6 +73,17 @@
 											"status": "OK"
 										}
 									]
+								},
+								{
+									"name": "Szorzás",
+									"label": "basic_multiplication",
+									"exercises": [
+										{
+											"label": "basic_multiplication",
+											"name": "Szorzás",
+											"hint": "szorzas.jpg"
+										}
+									]
 								}
 							]
 						}

@@ -293,7 +293,7 @@ class Exercises extends CI_model {
 			$data = $this->getAnswerLength($data);
 		}
 
-		$data = $this->addExplanation($id, $data);
+		$data = $this->AddExplanation($id, $data);
 
 		$hash = random_string('alnum', 16);
 
@@ -317,13 +317,21 @@ class Exercises extends CI_model {
 	 *
 	 * @return array $data Exercise data (with explanation)
 	 */
-	public function addExplanation($id, $data) {
+	public function AddExplanation($id, $data) {
 
 		if (isset($data['explanation'])) {
 			if (is_array($data['explanation'])) {
 				$explanation = '<ul>';
 				foreach ($data['explanation'] as $segment) {
-					$explanation .= '<li>'.$segment.'</li>';
+					if (is_array($segment)) {
+						$explanation .= '<ul>';
+						foreach ($segment as $subsegment) {
+							$explanation .= '<li>'.$subsegment.'</li>';
+						}
+						$explanation .= '</ul>';
+					} else {
+						$explanation .= '<li>'.$segment.'</li>';
+					}
 				}
 				$explanation .= '</ul>';
 				$data['explanation'] = $explanation;

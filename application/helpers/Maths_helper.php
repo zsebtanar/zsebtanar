@@ -269,7 +269,7 @@ function addSuffixDativ($num)
 /**
  * Add suffix 'by' to number (nál/nél)
  *
- * @param int    $num  Number (< 10^600)
+ * @param int $num Number (<10^600)
  *
  * @return string $suffix Suffix
  */
@@ -315,6 +315,63 @@ function addSuffixBy($num)
     return 'nál';
   }
 }
+
+/**
+ * Add suffix 'with' to number (val/vel)
+ *
+ * @param int $num Number (<10^6)
+ *
+ * @return string $suffix Suffix
+ */
+function addSuffixWith($num)
+{
+  $abs = abs($num);
+
+  switch ($abs % 10) {
+    case 1:
+    case 4:
+      return 'gyel';
+    case 2:
+      return 'vel';
+    case 5:
+    case 7:
+      return 'tel';
+    case 6:
+      return 'tal';
+    case 8:
+      return 'cal';
+    case 9:
+      return 'cel';
+  }
+
+  switch (($abs / 10) % 10) {
+    case 1:
+      return 'zel';
+    case 2:
+      return 'szal';
+    case 3:
+      return 'cal';
+    case 4:
+    case 5:
+    case 7:
+    case 9:
+      return 'nel';
+    case 6:
+    case 8:
+      return 'nal';
+  }
+
+  if ($abs == 0) {
+    return 'val';
+  }
+  elseif (1000 <= $abs && $abs < 1000000) {
+    return 'rel';
+  }
+  else {
+    return 'val';
+  }
+}
+
 
 /**
  * Generate new random number based on given number
