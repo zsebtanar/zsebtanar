@@ -279,7 +279,7 @@ class Exercises extends CI_model {
 				$message = 'Hibás válasz!';
 			} else {
 				$status = 'CORRECT';
-				$message = 'Helyes válasz!'
+				$message = 'Helyes válasz!';
 			}
 		}
 

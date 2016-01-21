@@ -97,18 +97,19 @@
 					</div><br />
 
 					<p id="message"></p>
-					<p id="explanation">
+					<p id="explanation"><?php
+
+						if ($this->session->userdata('Logged_in')) {?>
+
 						<div class="alert alert-warning text-left"><?php
 
-						if ($this->session->userdata('Logged_in')) {
+							print_r($explanation);?>
 
-							print_r($explanation);
+						</div><?php
 
 						}?>
 
-						</div>
 					</p>
-					
 				</div>
 				</form>
 			</div>
