@@ -372,6 +372,54 @@ function addSuffixWith($num)
   }
 }
 
+/**
+ * Add suffix 'to' to number (hoz/hez/höz)
+ *
+ * @param int $num Number (<10^6)
+ *
+ * @return string $suffix Suffix
+ */
+function addSuffixTo($num)
+{
+  $abs = abs($num);
+
+  switch ($abs % 10) {
+    case 1:
+    case 4:
+    case 7:
+    case 9:
+      return 'hez';
+    case 2:
+    case 5:
+      return 'höz';
+    case 3:
+    case 6:
+    case 8:
+      return 'hoz';
+  }
+
+  switch (($abs / 10) % 10) {
+    case 1:
+    case 4:
+    case 5:
+    case 7:
+    case 9:
+      return 'hez';
+    case 2:
+    case 3:
+    case 6:
+    case 8:
+      return 'hoz';
+  }
+
+  if ($abs == 0) {
+    return 'hoz';
+  } elseif (1000 <= $abs && $abs < 1000000) {
+    return 'hez';
+  } else {
+    return 'hoz';
+  }
+}
 
 /**
  * Generate new random number based on given number

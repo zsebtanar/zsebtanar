@@ -121,6 +121,10 @@ class Exercises extends CI_model {
 			case 'multi':
 				list($status, $message, $submessages) = $this->GenerateMessagesMulti($answer, $correct, $solution);
 				break;
+
+			case 'division':
+				list($status, $message) = $this->GenerateMessagesDivision($answer, $correct, $solution);
+				break;
 		}
 
 		$submessages = (isset($submessages) ? $submessages : []);
@@ -248,6 +252,38 @@ class Exercises extends CI_model {
 		}
 
 		return array($status, $message, $submessages);
+	}
+
+	/**
+	 * Generate messages for division type exercises
+	 *
+	 * @param array  $answer   User answer
+	 * @param int    $correct  Correct answer
+	 * @param string $solution Solution
+	 *
+	 * @return string $status     Status (NOT_DONE/CORRECT/WRONG)
+	 * @return string $message    Message
+	 * @return array  $submessage Submessages
+	 */
+	public function GenerateMessagesDivision($answer, $correct, $solution) {
+
+		if ($answer[0] == NULL && $answer[1] == NULL) {
+			$status = 'NOT_DONE';
+			$message = 'Hiányzik a válasz!';
+		} else {
+
+			list($quotient, $remain) = json_decode($correct);
+
+			if ($quotient != $answer[0] || $remain != $answer[1]) {
+				$status = 'WRONG';
+				$message = 'Hibás válasz!';
+			} else {
+				$status = 'CORRECT';
+				$message = 'Helyes válasz!'
+			}
+		}
+
+		return array($status, $message);
 	}
 
 	/**

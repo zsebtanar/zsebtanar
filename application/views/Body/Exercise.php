@@ -68,6 +68,10 @@
 
 					$this->load->view('Input/Multi', array('options' => $options));
 
+				} elseif ($type == 'division') {
+
+					$this->load->view('Input/Division');
+
 				}?>
 
 				<input type="hidden" name="hash" value="<?php echo $hash;?>">

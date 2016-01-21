@@ -10,8 +10,6 @@ function basic_addition($level)
   $num2 = numGen(rand(3*($level-1)+1, 3*$level), 10);
   
   $correct = $num1+$num2;
-  $num1b = ($num1 > 999 ? $num1b = number_format($num1,0,',','\,') : $num1);
-  $num2b = ($num2 > 999 ? $num2b = number_format($num2,0,',','\,') : $num2);
   $question = 'Adjuk össze az alábbi számokat!'.basic_addition_generate_equation(array($num1, $num2));
 
   if ($correct > 9999) {
@@ -220,6 +218,230 @@ function basic_addition_generate_equation($numbers, $col=-1, $type='addition')
     $equation .= $eq_line.'&\\\\ ';
   }
 
+  $equation .= '\hline'.$eq_sum.'\end{align}$$';
+
+  return $equation;
+}
+
+// Subtraction
+function basic_subtraction($level)
+{
+  $num1 = numGen(rand(3*($level-1)+1, 3*$level), 10);
+  $num2 = numGen(rand(3*($level-1)+1, 3*$level), 10);
+
+  $num1 = 232002;
+  $num2 = 230101;
+
+  if ($num1 < $num2) {
+    list($num1, $num2) = array($num2, $num1);
+  }
+  
+  $correct = $num1-$num2;
+  $question = 'Végezzük el az alábbi kivonást!'.basic_subtraction_generate_equation($num1, $num2);
+
+  if ($correct > 9999) {
+    $solution = '$'.number_format($correct,0,',','\\,').'$';
+  } else {
+    $solution = '$'.$correct.'$';
+  }
+
+  $explanation = basic_subtraction_explanation($num1, $num2);
+
+  return array(
+    'question'  => $question,
+    'correct'   => $correct,
+    'solution'  => $solution,
+    'explanation' => $explanation
+  );
+}
+
+// Explanation for subtraction
+function basic_subtraction_explanation($num1, $num2)
+{
+  $digits1 = str_split($num1);
+  $digits2 = str_split($num2);
+
+  $length1 = count($digits1);
+  $length2 = count($digits2);
+
+  $remain_old = 0;
+  $remain_new = 0;
+
+  $diff = $num1 - $num2;
+  $diff_digits = str_split($diff);
+  $diff_length = count($diff_digits);
+
+  $values = array(
+    "egyesek",
+    "tízesek",
+    "százasok",
+    "ezresek",
+    "tízezresek",
+    "százezresek",
+    "milliósok",
+    "tízmilliósok",
+    "százmilliósok",
+    "milliárdosok",
+    "tízmilliárdosok",
+    "százmilliárdosok"
+  );
+
+  for ($ind=0; $ind < $length1; $ind++) {
+
+    // Get digits of current column
+    $digit1 = array_pop($digits1);
+    $digit2 = array_pop($digits2);
+
+    $digit2b = $digit2 + $remain_old;
+
+    // Define remainer
+    $result_sub = $digit1 - $digit2b;
+    if ($result_sub < 0 && $ind != $length1-1) {
+      $remain_new = 1;
+      $result_sub += 10;
+      $digit1b = $digit1 + 10;
+      $result_digit = $result_sub % 10;
+    } else {
+      $digit1b = $digit1;
+      $result_digit = $result_sub;
+    }
+
+    $text = '';
+
+    $text = 'Nézzük meg '.(in_array($ind, [0,4]) ? 'az' : 'a').' '.$values[$ind].' helyén lévő számjegyeket! ';
+    if ($remain_old > 0 && $digit2 != NULL) {
+      $text .='(Az előző számolásnál kapott maradékot '.AddArticle($digit2).' $'.$digit2.'$-'.AddSuffixTo($digit2)
+        .' adjuk: $'.$digit2.'+'.$remain_old.'='.$digit2b.'$.) ';
+    } elseif ($digit2 == NULL) {
+      $text .= 'Az üres helyre $0$-t írunk'.($remain_old > 0 ? ', viszont a maradékot ne felejtsük el hozzászámolni! ' : '. ');
+    }
+
+    $text .= 'Mennyit kell adni '.AddArticle($digit2b).' $'.$digit2b.'$-'.AddSuffixTo($digit2b).', hogy $'
+      .$digit1b.'$-'.AddSuffixDativ($digit1b).' kapjunk? $'.$result_sub.'$-'.AddSuffixDativ($result_sub).', mert $'
+      .$digit2b.'+'.$result_sub.'='.$digit1b.'$. ';
+
+    if ($remain_new == 1) {
+      $article = AddArticle($result_digit);
+      $Article = str_replace('a', 'A', $article);
+      $text .= $Article.' $'.$result_digit.'$-'.AddSuffixDativ($result_digit).' leírjuk alulra, az $1$-et pedig '
+        .(in_array($ind+1, [0,4]) ? 'az' : 'a').' '.$values[$ind+1].' fölé:';
+    } elseif ($result_digit != 0 || $ind < $diff_length) {
+      $text .= 'Az eredményt írjuk le alulra:';
+      
+    }
+
+    $text .= basic_subtraction_generate_equation($num1, $num2, $ind);
+
+    $explanation[] = $text;
+
+    $remain_old = $remain_new;
+    $remain_new = 0;
+  }
+
+  return $explanation;
+}
+
+/**
+ * Generate equation for subtraction
+ *
+ * @param int $num1 First number
+ * @param int $num2 Second number
+ * @param int $col  Column index of place value
+ *
+ * @return string $equation Equation
+ */
+function basic_subtraction_generate_equation($num1, $num2, $col=-1)
+{
+  // Get digits for each number
+  $digits1 = str_split($num1);
+  $digits2 = str_split($num2);
+
+  $length1 = count($digits1);
+  $length2 = count($digits2);
+
+  $diff = $num1 - $num2;
+  $diff_digits = str_split($diff);
+  $diff_length = count($diff_digits);
+
+  $remain_old = 0;
+  $remain_new = 0;
+
+  $eq_header = '';
+  $eq_has_header = FALSE;
+  $eq_sum = '';
+  $eq_line1 = '';
+  $eq_line2 = '';
+
+  for ($ind=0; $ind < $length1; $ind++) { 
+
+    // Get digits of current column
+    $digit1 = array_pop($digits1);
+    $digit2 = array_pop($digits2);
+
+    // Define remainer
+    $result_sub = $digit1 - ($digit2 + $remain_old);
+    if ($result_sub < 0 && $ind != $length1-1) {
+      $remain_new = 1;
+      $result_sub += 10;
+    }
+
+    // Update header
+    if ($ind <= min($col, $diff_length-1)) {
+      if ($ind == $col) {
+
+        if ($remain_old > 0) {
+          $eq_header = '\,\textcolor{blue}{\tiny{'.$remain_old.'}}\,'.$eq_header;
+          $eq_has_header = TRUE;
+        } else {
+          $eq_header = '\phantom{\normalsize{0}}'.$eq_header;
+        }
+
+        if ($remain_new > 0) {
+          $eq_header = '\textcolor{red}{\tiny{'.$remain_new.'}}\,'.$eq_header;
+          $eq_has_header = TRUE;
+        }
+
+        $eq_sum = '\textcolor{red}{'.$result_sub.'}'.$eq_sum;
+
+      } else {
+
+        $eq_header = '\phantom{\normalsize{0}}'.$eq_header;
+        $eq_sum = $result_sub.$eq_sum;
+
+        if ($ind % 3 == 2) {
+          $eq_header = '\,'.$eq_header;
+          $eq_sum = '\,'.$eq_sum;
+        }
+      }
+    }
+
+    // Store equation lines
+    $digit2 = ($digit2 == NULL ? '\phantom{0}' : $digit2);
+    if ($ind == $col) {
+      $eq_line1 = '\textcolor{blue}{'.$digit1.'}'.$eq_line1;
+      $eq_line2 = '\textcolor{blue}{'.$digit2.'}'.$eq_line2;
+    } else {
+      $eq_line1 = $digit1.$eq_line1;
+      $eq_line2 = $digit2.$eq_line2;
+    }
+    if ($ind % 3 == 2) {
+      $eq_line1 = '\,'.$eq_line1;
+      $eq_line2 = '\,'.$eq_line2;
+    }
+
+    $remain_old = $remain_new;
+    $remain_new = 0;
+  }
+
+  if ($col == -1) {
+    $eq_sum = '?';
+  }
+
+  // Include sum
+  $equation = '$$\begin{align}';
+  $equation .= $eq_line1.'&\\\\ ';
+  $equation .= ($eq_has_header ? $eq_header.'&\\\\ ' : '');
+  $equation .= '-\,'.$eq_line2.'&\\\\ ';
   $equation .= '\hline'.$eq_sum.'\end{align}$$';
 
   return $equation;
@@ -504,6 +726,49 @@ function basic_multiplication_generate_equation($num1, $num2, $col1=-1, $col2=-1
   $equation .= $eq_header.$eq_first_row.$eq_lines.'\end{align}$$';
 
   return $equation;
+}
+
+// Division
+function basic_division($level)
+{
+  $num1 = numGen(rand(3*($level-1)+1, 3*$level), 10);
+  if ($level == 1) {
+    $num2 = rand(2, 9);
+  } elseif ($level == 2) {
+    $num2 = rand(11, 19);
+  } else {
+    $num2 = rand(20, 99);
+  }
+
+  if ($num1 < $num2) {
+    list($num1, $num2) = array($num2, $num1);
+  }
+
+  $quotient = floor($num1 / $num2);
+  $remain = $num1 % $num2;
+  $num1b = ($num1 > 999 ? $num1b = number_format($num1,0,',','\,') : $num1);
+  $num2b = ($num2 > 999 ? $num2b = number_format($num2,0,',','\,') : $num2);
+  // $question = 'Szorozzuk össze az alábbi számokat!'.basic_division_generate_equation($num1, $num2);
+  $question = 'Szorozzuk össze az alábbi számokat!';
+
+  if ($quotient > 9999) {
+    $solution = '$'.number_format($quotient,0,',','\\,').'$';
+  } else {
+    $solution = '$'.$quotient.'$';
+  }
+
+  $solution .= ', maradék $'.$remain.'$';
+
+  // $explanation = basic_division_explanation($num1, $num2);
+  $explanation = 'basic_division_explanation($num1, $num2)';
+
+  return array(
+    'question'  => $question,
+    'correct'   => json_encode(array($quotient,$remain)),
+    'solution'  => $solution,
+    'type'      => 'division',
+    'explanation' => $explanation
+  );
 }
 
 ?>

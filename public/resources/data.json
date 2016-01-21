@@ -75,13 +75,26 @@
 									]
 								},
 								{
+									"name": "Kivonás",
+									"label": "basic_subtraction",
+									"exercises": [
+										{
+											"label": "basic_subtraction",
+											"name": "Kivonás",
+											"hint": "osszeadas.jpg",
+											"status": "OK"
+										}
+									]
+								},
+								{
 									"name": "Szorzás",
 									"label": "basic_multiplication",
 									"exercises": [
 										{
 											"label": "basic_multiplication",
 											"name": "Szorzás",
-											"hint": "szorzas.jpg"
+											"hint": "szorzas.jpg",
+											"status": "OK"
 										}
 									]
 								}

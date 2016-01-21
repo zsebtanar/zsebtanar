@@ -1,5 +1,5 @@
 <div class="text-center">
-	<table align="center" class="answer_fraction">
+	<table align="center">
 		<tbody>
 			<tr>
 				<td align="center">
