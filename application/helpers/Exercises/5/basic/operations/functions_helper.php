@@ -6,8 +6,8 @@
 // Addition
 function basic_addition($level)
 {
-  $num1 = numGen(rand(3*($level-1)+1, 3*$level), 10);
-  $num2 = numGen(rand(3*($level-1)+1, 3*$level), 10);
+  $num1 = numGen($level, 10);
+  $num2 = numGen(rand(round($level/2), $level), 10);
   
   $correct = $num1+$num2;
   $question = 'Adjuk össze az alábbi számokat!'.basic_addition_generate_equation(array($num1, $num2));
@@ -226,11 +226,8 @@ function basic_addition_generate_equation($numbers, $col=-1, $type='addition')
 // Subtraction
 function basic_subtraction($level)
 {
-  $num1 = numGen(rand(3*($level-1)+1, 3*$level), 10);
-  $num2 = numGen(rand(3*($level-1)+1, 3*$level), 10);
-
-  $num1 = 232002;
-  $num2 = 230101;
+  $num1 = numGen($level, 10);
+  $num2 = numGen(rand(round($level/2), $level), 10);
 
   if ($num1 < $num2) {
     list($num1, $num2) = array($num2, $num1);
@@ -452,13 +449,14 @@ function basic_multiplication($level)
 {
   if ($level == 1) {
     $num1 = numGen(rand(5,6), 10);
+    $num2 = numGen(1, 9);
   } elseif ($level == 2) {
     $num1 = numGen(rand(3,4), 10);
+    $num2 = numGen(10, 32);
   } else {
     $num1 = numGen($level, 10);
+    $num2 = numGen(33, 99);
   }
-
-  $num2 = numGen($level, 10);
 
   if ($num1 < $num2) {
     list($num1, $num2) = array($num2, $num1);

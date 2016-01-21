@@ -3,7 +3,7 @@
 	<div class="col-md-6">
 		<div class="text-center alert-warning">
 			<p>
-				<b>Figyelem!</b><br /> A honlap tesztüzemben működik, ezért előfordulhatnak hibák. Az is megeshet, hogy egy feladat túl könnyű vagy túl nehéz. Ilyenkor bármilyen észrevételt a <b>zsebtanar@gmail.com</b>-ra lehet küldeni.
+				<b>Figyelem!</b><br /> A honlap tesztüzemben működik, ezért előfordulhatnak hibák. Az is megeshet, hogy egy feladat túl könnyű vagy túl nehéz. Bármilyen észrevételt a <b>zsebtanar@gmail.com</b>-ra lehet küldeni.
 			</p>
 		</div>
 		<div class="text-center">

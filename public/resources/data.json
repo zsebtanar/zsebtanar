@@ -70,7 +70,9 @@
 											"label": "basic_addition",
 											"name": "Összeadás",
 											"hint": "osszeadas.jpg",
-											"status": "OK"
+											"status": "OK",
+											"level": 9,
+											"rounds": 1
 										}
 									]
 								},
@@ -82,7 +84,9 @@
 											"label": "basic_subtraction",
 											"name": "Kivonás",
 											"hint": "osszeadas.jpg",
-											"status": "OK"
+											"status": "OK",
+											"level": 9,
+											"rounds": 1
 										}
 									]
 								},
@@ -94,7 +98,9 @@
 											"label": "basic_multiplication",
 											"name": "Szorzás",
 											"hint": "szorzas.jpg",
-											"status": "OK"
+											"status": "OK",
+											"level": 9,
+											"rounds": 1
 										}
 									]
 								}
