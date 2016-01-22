@@ -103,6 +103,19 @@
 											"rounds": 1
 										}
 									]
+								},
+								{
+									"name": "Osztás",
+									"label": "basic_division",
+									"exercises": [
+										{
+											"label": "basic_division",
+											"name": "Osztás",
+											"hint": "szorzas.jpg",
+											"level": 9,
+											"rounds": 1
+										}
+									]
 								}
 							]
 						}

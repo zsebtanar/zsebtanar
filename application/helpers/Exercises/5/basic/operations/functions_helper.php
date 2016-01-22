@@ -6,8 +6,11 @@
 // Addition
 function basic_addition($level)
 {
-  $num1 = numGen($level, 10);
-  $num2 = numGen(rand(round($level/2), $level), 10);
+  $length1 = $level;
+  $length2 = max(rand(round($level/2), $level), 10);
+
+  $num1 = numGen($length1, 10);
+  $num2 = numGen($length2, 10);
   
   $correct = $num1+$num2;
   $question = 'Adjuk össze az alábbi számokat!'.basic_addition_generate_equation(array($num1, $num2));
@@ -226,8 +229,11 @@ function basic_addition_generate_equation($numbers, $col=-1, $type='addition')
 // Subtraction
 function basic_subtraction($level)
 {
-  $num1 = numGen($level, 10);
-  $num2 = numGen(rand(round($level/2), $level), 10);
+  $length1 = $level;
+  $length2 = max(rand(round($level/2), $level), 10);
+
+  $num1 = numGen($length1, 10);
+  $num2 = numGen($length2, 10);
 
   if ($num1 < $num2) {
     list($num1, $num2) = array($num2, $num1);
@@ -582,7 +588,7 @@ function basic_multiplication_explanation($num1, $num2)
 /**
  * Generate equation for multiplication
  *
- * Generates equation for adding numbers at specific place value
+ * Generates equation for multiplying numbers at specific place value
  *
  * @param int $num1 First number
  * @param int $num2 Second number
@@ -729,25 +735,26 @@ function basic_multiplication_generate_equation($num1, $num2, $col1=-1, $col2=-1
 // Division
 function basic_division($level)
 {
-  $num1 = numGen(rand(3*($level-1)+1, 3*$level), 10);
+  $dividend = max(1, numGen($level, 10));
+
   if ($level == 1) {
-    $num2 = rand(2, 9);
+    $divisor = rand(2, 9);
   } elseif ($level == 2) {
-    $num2 = rand(11, 19);
+    $divisor = rand(11, 19);
   } else {
-    $num2 = rand(20, 99);
+    $divisor = rand(20, 99);
   }
 
-  if ($num1 < $num2) {
-    list($num1, $num2) = array($num2, $num1);
+  $dividend = 9876432;
+  $divisor = 12;
+
+  if ($dividend < $divisor) {
+    list($dividend, $divisor) = array($divisor, $dividend);
   }
 
-  $quotient = floor($num1 / $num2);
-  $remain = $num1 % $num2;
-  $num1b = ($num1 > 999 ? $num1b = number_format($num1,0,',','\,') : $num1);
-  $num2b = ($num2 > 999 ? $num2b = number_format($num2,0,',','\,') : $num2);
-  // $question = 'Szorozzuk össze az alábbi számokat!'.basic_division_generate_equation($num1, $num2);
-  $question = 'Szorozzuk össze az alábbi számokat!';
+  $quotient = floor($dividend / $divisor);
+  $remain = $dividend % $divisor;
+  $question = 'Szorozzuk össze az alábbi számokat!'.basic_division_generate_equation($dividend, $divisor);
 
   if ($quotient > 9999) {
     $solution = '$'.number_format($quotient,0,',','\\,').'$';
@@ -757,8 +764,10 @@ function basic_division($level)
 
   $solution .= ', maradék $'.$remain.'$';
 
-  // $explanation = basic_division_explanation($num1, $num2);
-  $explanation = 'basic_division_explanation($num1, $num2)';
+  phpinfo();
+
+  // $explanation = basic_division_explanation($dividend, $divisor);
+  $explanation = 'basic_division_explanation($dividend, $divisor)';
 
   return array(
     'question'  => $question,
@@ -769,4 +778,174 @@ function basic_division($level)
   );
 }
 
+// Explanation for division
+function basic_division_explanation($dividend, $divisor)
+{
+  $digits = str_split($num1);
+
+  $order = array(
+    "első",
+    "második",
+    "harmadik",
+    "negyedik",
+    "ötödik",
+    "hatodik",
+    "hetedik",
+    "nyolcadik",
+    "kilencedik",
+    "tizedik"
+  );
+
+  // Multiply numbers
+  for ($ind=0; $ind < count($digits); $ind++) {
+
+    $digit = $digits2[$length2-1-$ind];
+    $num_array[] = $digit2*$num1;
+    $step = $length2-$ind;
+
+    if ($length2 > 1) {
+      $intro = '<b>'.$step.'. lépés:</b> A második szám '.$order[$ind].' számjegye $'.$digit2.'$. ';
+      if ($length1 > 1) {
+        $intro .= 'Szorozzuk meg ezzel '.AddArticle($num1).' $'.$num1.'$ minden számjegyét hátulról kezdve!';
+      } else {
+        $intro .= 'Szorozzuk meg ezzel '.AddArticle($num1).' $'.$num1.'$-'.AddArticle($num1).'!';
+      }
+    } else {
+      $intro = 'Szorozzuk meg '.AddArticle($digit2).' $'.$digit2.'$-'.AddSuffixWith($digit2).' ';
+      if ($length1 > 1) {
+        $intro .= 'az első szám minden számjegyét hátulról kezdve!';
+      } else {
+        $intro .= 'az első számot!';
+      }
+    }
+
+    $explanation[] = $intro;
+
+    $text = [];
+
+    for ($ind1=0; $ind1 < $length1; $ind1++) {
+
+      $digit1 = $digits1[$length1-1-$ind1];
+      $mult = $digit1 * $digit2 + $remain_old;
+
+      $subtext = 'Szorozzuk meg '.(in_array($length1-1-$ind1, [0, 4]) ? 'az' : 'a').' '.$order[$length1-1-$ind1].' számjegyet';
+      if ($remain_old != 0) {
+        $subtext .= ' (ne felejtsük el hozzáadni az előbb kapott $'.$remain_old.'$-'.AddSuffixDativ($remain_old).'!): $'.$digit2.'\cdot'.$digit1.'+'.$remain_old.'='.$mult.'$!';
+      } else {
+        $subtext .= ': $'.$digit2.'\cdot'.$digit1.'='.$mult.'$!';
+      }
+
+      if ($mult >= 10 && $ind1 != $length1-1) {
+
+        $digit_next = $digits1[$length1-2-$ind1];
+        $remain_new = floor($mult/10);
+        $mult2 = $mult % 10;
+        $subtext .= ' Írjuk '.AddArticle($mult2).' $'.$mult2.'$-'.AddSuffixDativ($mult2).' alulra, '.AddArticle($remain_new).' $'.$remain_new.'$-'.AddSuffixDativ($remain_new).' pedig '.AddArticle($digit_next).' $'.$digit_next.'$ fölé:';
+      } else {
+        $subtext .= ' Írjuk az eredményt alulra:';
+      }
+
+      $remain_old = $remain_new;
+      $remain_new = 0;
+
+      $subtext .= basic_multiplication_generate_equation($num1, $num2, $ind1, $ind);
+
+      $text[] = $subtext;
+    }
+
+    $explanation[] = $text;
+  }
+
+  // Add subtotals
+  if (count($num_array) > 1) {
+    $step = $length2;
+    $explanation[] = '<b>'.$step.'. lépés:</b> Adjuk össze a szorzás során kapott számokat!';
+
+    $explanation[] = basic_addition_explanation($num_array, 'multiplication');
+  }
+
+  return $explanation;
+}
+
+/**
+ * Generate equation for division
+ *
+ * Generates equation for dividing numbers at specific place value
+ *
+ * @param int $dividend Dividend
+ * @param int $divisor  Divisor
+ * @param int $col      Column of place value (start from beginning)
+ *
+ * @return string $equation Equation
+ */
+function basic_division_generate_equation($dividend, $divisor, $col=3)
+{
+  $digits = str_split($dividend);
+
+  // Dividend
+  $eq_dividend = '';
+  foreach ($digits as $ind => $digit) {
+    if ($ind == $col) {
+      $eq_dividend .= '\textcolor{green}{\dot{'.$digit.'}}';
+    } else {
+      $eq_dividend .= $digit;
+    }
+  }
+  if ($col != -1) {
+    $eq_dividend = '\underline{'.$eq_dividend.'}';
+  }
+
+  // Divisor
+  $eq_divisor = '';
+  if ($col == -1) {
+    $eq_divisor = strval($divisor);
+  } else {
+    $eq_divisor = '\textcolor{blue}{'.strval($divisor).'}';
+  }
+
+  // Result
+  $eq_quotient = ($col == -1 ? '?' : '');
+  $remain_prev = 0;
+  for ($ind=0; $ind <= $col; $ind++) {
+
+    $digit = $digits[$ind];
+    $dividend_current = 10 * $remain_prev + $digit;
+    $quotient_current = floor($dividend_current/$divisor);
+
+    // Current result
+    $digit_current = $quotient_current % 10;
+    if ($ind < $col && ($digit_current != 0 || $eq_quotient != '')) {
+        $eq_quotient .= $digit_current;
+    } elseif ($digit_current != 0) {
+      $eq_quotient .= '\textcolor{red}{'.$digit_current.'}';
+    }
+
+    // Equation lines
+    $remain_current = $dividend_current % $divisor;
+    $check_current  = $quotient_current * $divisor;
+    $eq_space       = '';
+    for ($j=0; $j < count($digits)-$ind-1; $j++) { 
+      $eq_space .= '\phantom{0}';
+    }
+    if ($ind == $col) {
+      $eq_lines[] = '\textcolor{blue}{'.($remain_prev == 0 ? '' : $remain_prev).$digit.'}'.$eq_space.'&';
+    } elseif ($eq_quotient != '') {
+      $eq_lines[] = $remain_prev.$digit.$eq_space.'&';
+    }
+    if ($quotient_current != 0) {
+      $eq_lines[] = '-\underline{'.$check_current.'}'.$eq_space.'&';
+      if ($ind == $col) {
+        $eq_lines[] = '\textcolor{red}{'.$remain_current.'}'.$eq_space.'&';
+      }
+    }
+
+    $remain_prev = $remain_current;
+  }
+
+  $equation = '$$\begin{align}'.$eq_dividend.'&:'.$eq_divisor.'='.$eq_quotient.'\\\\ ';
+  $equation .= implode('\\\\ ', $eq_lines);
+  $equation .= '\end{align}$$';
+
+  return $equation;
+}
 ?>

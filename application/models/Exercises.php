@@ -276,7 +276,7 @@ class Exercises extends CI_model {
 
 			if ($quotient != $answer[0] || $remain != $answer[1]) {
 				$status = 'WRONG';
-				$message = 'Hibás válasz!';
+				$message = 'A helyes válasz: '.$solution;
 			} else {
 				$status = 'CORRECT';
 				$message = 'Helyes válasz!';
