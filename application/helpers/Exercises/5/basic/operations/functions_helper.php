@@ -492,6 +492,10 @@ function basic_multiplication($level)
 // Explanation for multiplication
 function basic_multiplication_explanation($num1, $num2)
 {
+  if ($num1 < $num2) {
+    list($num1, $num2) = array($num2, $num1);
+  }
+
   $digits1 = str_split($num1);
   $digits2 = str_split($num2);
 
@@ -745,9 +749,6 @@ function basic_division($level)
     $divisor = rand(20, 99);
   }
 
-  $dividend = 9876432;
-  $divisor = 12;
-
   if ($dividend < $divisor) {
     list($dividend, $divisor) = array($divisor, $dividend);
   }
@@ -764,10 +765,7 @@ function basic_division($level)
 
   $solution .= ', maradék $'.$remain.'$';
 
-  phpinfo();
-
-  // $explanation = basic_division_explanation($dividend, $divisor);
-  $explanation = 'basic_division_explanation($dividend, $divisor)';
+  $explanation = basic_division_explanation($dividend, $divisor);
 
   return array(
     'question'  => $question,
@@ -781,7 +779,7 @@ function basic_division($level)
 // Explanation for division
 function basic_division_explanation($dividend, $divisor)
 {
-  $digits = str_split($num1);
+  $digits = str_split($dividend);
 
   $order = array(
     "első",
@@ -797,71 +795,73 @@ function basic_division_explanation($dividend, $divisor)
   );
 
   // Multiply numbers
+  $remain_prev = 0;
+  $quotient_total = 0;
   for ($ind=0; $ind < count($digits); $ind++) {
 
-    $digit = $digits2[$length2-1-$ind];
-    $num_array[] = $digit2*$num1;
-    $step = $length2-$ind;
+    $text = '';
+    $digit = $digits[$ind];
+    $dividend_current = 10 * $remain_prev + $digit;
+    $quotient_current = floor($dividend_current/$divisor);
+    $remain_current = $dividend_current % $divisor;
+    $check_current  = $quotient_current * $divisor;
 
-    if ($length2 > 1) {
-      $intro = '<b>'.$step.'. lépés:</b> A második szám '.$order[$ind].' számjegye $'.$digit2.'$. ';
-      if ($length1 > 1) {
-        $intro .= 'Szorozzuk meg ezzel '.AddArticle($num1).' $'.$num1.'$ minden számjegyét hátulról kezdve!';
-      } else {
-        $intro .= 'Szorozzuk meg ezzel '.AddArticle($num1).' $'.$num1.'$-'.AddArticle($num1).'!';
-      }
+    if ($quotient_total != 0 || $quotient_current != 0) {
+      $quotient_total = $quotient_total * 10 + $quotient_current;
+    }
+
+    if ($remain_prev == 0) {
+      $text .= 'Írjuk le alulra '.(in_array($ind, [1, 4]) ? 'az' : 'a').' '.$order[$ind].' számjegyet! ';
     } else {
-      $intro = 'Szorozzuk meg '.AddArticle($digit2).' $'.$digit2.'$-'.AddSuffixWith($digit2).' ';
-      if ($length1 > 1) {
-        $intro .= 'az első szám minden számjegyét hátulról kezdve!';
-      } else {
-        $intro .= 'az első számot!';
-      }
+      $text .= 'Írjuk '.AddArticle($remain_prev).' $'.$remain_prev.'$ mellé '
+        .(in_array($ind, [1, 4]) ? 'az' : 'a').' '.$order[$ind].' számjegyet! ';
     }
-
-    $explanation[] = $intro;
-
-    $text = [];
-
-    for ($ind1=0; $ind1 < $length1; $ind1++) {
-
-      $digit1 = $digits1[$length1-1-$ind1];
-      $mult = $digit1 * $digit2 + $remain_old;
-
-      $subtext = 'Szorozzuk meg '.(in_array($length1-1-$ind1, [0, 4]) ? 'az' : 'a').' '.$order[$length1-1-$ind1].' számjegyet';
-      if ($remain_old != 0) {
-        $subtext .= ' (ne felejtsük el hozzáadni az előbb kapott $'.$remain_old.'$-'.AddSuffixDativ($remain_old).'!): $'.$digit2.'\cdot'.$digit1.'+'.$remain_old.'='.$mult.'$!';
+    if ($quotient_current == 0) {
+      $text .= 'Mivel '.AddArticle($dividend_current).' $'.$dividend_current.'$-'
+        .AddSuffixIn($dividend_current).' nincs meg '.AddArticle($divisor).' $'.$divisor.'$, ezért ';
+      if ($quotient_total == 0) {
+        $text .= 'továbbmegyünk: ';
       } else {
-        $subtext .= ': $'.$digit2.'\cdot'.$digit1.'='.$mult.'$!';
+        $text .= 'leírjuk a $0$-t az eredményhez: ';
       }
-
-      if ($mult >= 10 && $ind1 != $length1-1) {
-
-        $digit_next = $digits1[$length1-2-$ind1];
-        $remain_new = floor($mult/10);
-        $mult2 = $mult % 10;
-        $subtext .= ' Írjuk '.AddArticle($mult2).' $'.$mult2.'$-'.AddSuffixDativ($mult2).' alulra, '.AddArticle($remain_new).' $'.$remain_new.'$-'.AddSuffixDativ($remain_new).' pedig '.AddArticle($digit_next).' $'.$digit_next.'$ fölé:';
-      } else {
-        $subtext .= ' Írjuk az eredményt alulra:';
-      }
-
-      $remain_old = $remain_new;
-      $remain_new = 0;
-
-      $subtext .= basic_multiplication_generate_equation($num1, $num2, $ind1, $ind);
-
-      $text[] = $subtext;
+    } elseif ($divisor > 30) {
+      $dividend_round = round($dividend_current / 10);
+      $divisor_round = round($divisor / 10);
+      $quotient_round = floor($dividend_round / $divisor_round);
+      $check_round = $quotient_round * $divisor;
+      $text .= 'Hányszor van meg '.AddArticle($dividend_current).' $'.$dividend_current.'$-'.AddSuffixIn($dividend_current)
+        .' '.AddArticle($divisor).' $'.$divisor.'$? A becsléshez kerekítsük tízesekre mind a két számot: $'.$dividend_round.'0:'
+        .$divisor_round.'0='.$dividend_round.'\textcolor{red}{\cancel{0}}:'.$divisor_round.'\textcolor{red}{\cancel{0}}='
+        .'\textcolor{melon}{'.$quotient_round.'}$. Ellenőrzésképp szorozzunk vissza az eredeti osztóval: $\textcolor{melon}{'
+        .$quotient_round.'}\cdot'.$divisor.'='.$check_round.'$. Mivel az eredmény '
+        .($check_round <= $dividend_current ? 'nem ' : '').'nagyobb, mint '.AddArticle($dividend_current)
+        .' $'.$dividend_current.'$, ezért az eredményhez $'.$quotient_current.'$-'.AddSuffixDativ($quotient_current)
+        .' írunk, alulra pedig a maradékot, ami  $'.$remain_current.'$, mert $'.$quotient_current.'\cdot'.$remain_current
+        .'='.$check_current.'$:';
+    } else {
+      $text .= '$'.$dividend_current.'$-'.AddSuffixIn($dividend_current).' '.AddArticle($divisor).' $'.$divisor.'$ meg van $'
+        .$quotient_current.'$-'.AddSuffixTimes($quotient_current).', maradék '.AddArticle($remain_current).' $'
+        .$remain_current.'$, mert $'.$quotient_current.'\cdot'.$divisor.'='.$check_current.'$. Az eredményt jobb '
+        .'oldalra írom, a maradékot pedig alulra:';
     }
+    $text .= basic_division_generate_equation($dividend, $divisor, $ind);
 
     $explanation[] = $text;
+
+    $remain_prev = $remain_current;
   }
 
-  // Add subtotals
-  if (count($num_array) > 1) {
-    $step = $length2;
-    $explanation[] = '<b>'.$step.'. lépés:</b> Adjuk össze a szorzás során kapott számokat!';
 
-    $explanation[] = basic_addition_explanation($num_array, 'multiplication');
+  $check = $divisor*$quotient_total;
+  $explanation[] = 'Ellenőrizzük az eredményt úgy, hogy összeszorozzuk '.AddArticle($quotient_total).' $'
+    .$quotient_total.'$-'.AddSuffixDativ($quotient_total).' '.AddArticle($divisor).' $'.$divisor.'$-'
+    .AddSuffixWith($divisor).'!';
+  $explanation[] = basic_multiplication_explanation($divisor, $quotient_total);
+
+  if ($remain_current != 0) {
+    $explanation[] = 'Végül adjuk hozzá a kapott eredményhez a maradékot:'
+      .basic_addition_generate_equation(array($check, $remain_current));
+    $explanation[] = basic_addition_explanation(array($check, $remain_current));
   }
 
   return $explanation;
@@ -878,7 +878,7 @@ function basic_division_explanation($dividend, $divisor)
  *
  * @return string $equation Equation
  */
-function basic_division_generate_equation($dividend, $divisor, $col=3)
+function basic_division_generate_equation($dividend, $divisor, $col=-1)
 {
   $digits = str_split($dividend);
 
@@ -906,6 +906,7 @@ function basic_division_generate_equation($dividend, $divisor, $col=3)
   // Result
   $eq_quotient = ($col == -1 ? '?' : '');
   $remain_prev = 0;
+  $quotient_total = 0;
   for ($ind=0; $ind <= $col; $ind++) {
 
     $digit = $digits[$ind];
@@ -913,11 +914,13 @@ function basic_division_generate_equation($dividend, $divisor, $col=3)
     $quotient_current = floor($dividend_current/$divisor);
 
     // Current result
-    $digit_current = $quotient_current % 10;
-    if ($ind < $col && ($digit_current != 0 || $eq_quotient != '')) {
-        $eq_quotient .= $digit_current;
-    } elseif ($digit_current != 0) {
-      $eq_quotient .= '\textcolor{red}{'.$digit_current.'}';
+    if ($quotient_total != 0 || $quotient_current != 0) {
+      $quotient_total = $quotient_total * 10 + $quotient_current;
+    }
+    if ($ind < $col && ($quotient_current != 0 || $eq_quotient != '')) {
+        $eq_quotient .= $quotient_current;
+    } elseif ($quotient_current != 0 || $quotient_total != 0) {
+      $eq_quotient .= '\textcolor{red}{'.$quotient_current.'}';
     }
 
     // Equation lines
@@ -943,7 +946,7 @@ function basic_division_generate_equation($dividend, $divisor, $col=3)
   }
 
   $equation = '$$\begin{align}'.$eq_dividend.'&:'.$eq_divisor.'='.$eq_quotient.'\\\\ ';
-  $equation .= implode('\\\\ ', $eq_lines);
+  $equation .= (isset($eq_lines) ? implode('\\\\ ', $eq_lines) : '');
   $equation .= '\end{align}$$';
 
   return $equation;

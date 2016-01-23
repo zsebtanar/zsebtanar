@@ -362,7 +362,19 @@ class Exercises extends CI_model {
 					if (is_array($segment)) {
 						$explanation .= '<ul>';
 						foreach ($segment as $subsegment) {
-							$explanation .= '<li>'.$subsegment.'</li>';
+							if (is_array($subsegment)) {
+								$explanation .= '<ul>';
+								foreach ($subsegment as $subsubsegment) {
+									if (is_array($subsubsegment)) {
+										print_r($subsubsegment);
+										break;
+									}
+									$explanation .= '<li>'.strval($subsubsegment).'</li>';
+								}
+								$explanation .= '</ul>';
+							} else {
+								$explanation .= '<li>'.$subsegment.'</li>';
+							}
 						}
 						$explanation .= '</ul>';
 					} else {

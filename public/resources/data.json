@@ -112,6 +112,7 @@
 											"label": "basic_division",
 											"name": "Osztás",
 											"hint": "szorzas.jpg",
+											"status": "OK",
 											"level": 9,
 											"rounds": 1
 										}

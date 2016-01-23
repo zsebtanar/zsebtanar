@@ -422,6 +422,54 @@ function addSuffixTo($num)
 }
 
 /**
+ * Add suffix 'in' to number (ban/ben)
+ *
+ * @param int $num Number (<10^6)
+ *
+ * @return string $suffix Suffix
+ */
+function addSuffixIn($num)
+{
+  $abs = abs($num);
+
+  switch ($abs % 10) {
+    case 1:
+    case 2:
+    case 4:
+    case 5:
+    case 7:
+    case 9:
+      return 'ben';
+    case 3:
+    case 6:
+    case 8:
+      return 'ban';
+  }
+
+  switch (($abs / 10) % 10) {
+    case 1:
+    case 4:
+    case 5:
+    case 7:
+    case 9:
+      return 'ben';
+    case 2:
+    case 3:
+    case 6:
+    case 8:
+      return 'ban';
+  }
+
+  if ($abs == 0) {
+    return 'ban';
+  } elseif (1000 <= $abs && $abs < 1000000) {
+    return 'ben';
+  } else {
+    return 'ban';
+  }
+}
+
+/**
  * Generate new random number based on given number
  *
  * @param int $num Number
