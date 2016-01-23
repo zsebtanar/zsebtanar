@@ -23,12 +23,12 @@ function basic_addition($level)
 
   $explanation = basic_addition_explanation(array($num1, $num2));
 
-	return array(
-		'question' 	=> $question,
-		'correct' 	=> $correct,
-		'solution'	=> $solution,
+  return array(
+    'question'  => $question,
+    'correct'   => $correct,
+    'solution'  => $solution,
     'explanation' => $explanation
-	);
+  );
 }
 
 // Explanation for addition
@@ -739,14 +739,11 @@ function basic_multiplication_generate_equation($num1, $num2, $col1=-1, $col2=-1
 // Division
 function basic_division($level)
 {
-  $dividend = max(1, numGen($level, 10));
-
-  if ($level == 1) {
-    $divisor = rand(2, 9);
-  } elseif ($level == 2) {
-    $divisor = rand(11, 19);
+  $dividend = max(1, numGen(round($level*0.6), 10));
+  if ($level <= 7) {
+    $divisor = rand(3*($level-1)+1, 3*$level);
   } else {
-    $divisor = rand(20, 99);
+    $divisor = rand(4*($level-1)+1, 9*$level);
   }
 
   if ($dividend < $divisor) {
@@ -830,14 +827,15 @@ function basic_division_explanation($dividend, $divisor)
       $quotient_round = floor($dividend_round / $divisor_round);
       $check_round = $quotient_round * $divisor;
       $text .= 'Hányszor van meg '.AddArticle($dividend_current).' $'.$dividend_current.'$-'.AddSuffixIn($dividend_current)
-        .' '.AddArticle($divisor).' $'.$divisor.'$? A becsléshez kerekítsük tízesekre mind a két számot: $'.$dividend_round.'0:'
-        .$divisor_round.'0='.$dividend_round.'\textcolor{red}{\cancel{0}}:'.$divisor_round.'\textcolor{red}{\cancel{0}}='
-        .'\textcolor{melon}{'.$quotient_round.'}$. Ellenőrzésképp szorozzunk vissza az eredeti osztóval: $\textcolor{melon}{'
+        .' '.AddArticle($divisor).' $'.$divisor.'$? A becsléshez kerekítsük tízesekre mind a két számot, majd '
+        .'mindkét számot egyszerűsítsük $10$-zel: $\require{cancel}'.$dividend_round.'0:'
+        .$divisor_round.'0='.$dividend_round.'\cancel{0}:'.$divisor_round.'\cancel{0}='
+        .'\textcolor{green}{'.$quotient_round.'}$. Ellenőrzésképp szorozzunk vissza az eredeti osztóval: $\textcolor{green}{'
         .$quotient_round.'}\cdot'.$divisor.'='.$check_round.'$. Mivel az eredmény '
         .($check_round <= $dividend_current ? 'nem ' : '').'nagyobb, mint '.AddArticle($dividend_current)
         .' $'.$dividend_current.'$, ezért az eredményhez $'.$quotient_current.'$-'.AddSuffixDativ($quotient_current)
-        .' írunk, alulra pedig a maradékot, ami  $'.$remain_current.'$, mert $'.$quotient_current.'\cdot'.$remain_current
-        .'='.$check_current.'$:';
+        .' írunk, alulra pedig a maradékot, ami  $'.$remain_current.'$, mert $'.$quotient_current.'\cdot'.$divisor
+        .'='.$check_current.'$, és $'.$dividend_current.'-'.$check_current.'='.$remain_current.'$:';
     } else {
       $text .= '$'.$dividend_current.'$-'.AddSuffixIn($dividend_current).' '.AddArticle($divisor).' $'.$divisor.'$ meg van $'
         .$quotient_current.'$-'.AddSuffixTimes($quotient_current).', maradék '.AddArticle($remain_current).' $'
