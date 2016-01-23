@@ -28,8 +28,6 @@ class View extends CI_controller {
 	 */
 	public function Main($classID=NULL, $topicID=NULL) {
 
-		// phpinfo();
-
 		$data = $this->Html->MainData($classID, $topicID);
 
 		$this->load->view('Template', $data);

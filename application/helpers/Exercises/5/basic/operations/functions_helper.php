@@ -7,7 +7,7 @@
 function basic_addition($level)
 {
   $length1 = $level;
-  $length2 = max(rand(round($level/2), $level), 10);
+  $length2 = min(rand(round($level/2), $level), 10);
 
   $num1 = numGen($length1, 10);
   $num2 = numGen($length2, 10);
@@ -230,7 +230,7 @@ function basic_addition_generate_equation($numbers, $col=-1, $type='addition')
 function basic_subtraction($level)
 {
   $length1 = $level;
-  $length2 = max(rand(round($level/2), $level), 10);
+  $length2 = min(rand(round($level/2), $level), 10);
 
   $num1 = numGen($length1, 10);
   $num2 = numGen($length2, 10);

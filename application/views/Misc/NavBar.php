@@ -10,6 +10,10 @@
 				<span class="icon-bar"></span>
 			</button>
 
+			<a class="navbar-brand" href="<?php echo base_url();?>view/main">
+				<span class="glyphicon glyphicon-home"></span>&nbsp;Kezdőlap
+			</a>
+
 			<a class="navbar-brand" href="#">
 				<img src="<?php echo base_url();?>assets/images/trophy.png" alt="shield" width="17">
 			</a>
