@@ -2,20 +2,16 @@
 	<div class="col-md-3"></div>
 	<div class="col-md-6">
 		<div class="text-center">
-			<a href="#" class="btn btn-class openall">
-				<img src="<?php echo base_url();?>assets/images/eye_open.png" alt="logo" width="20">
-			</a>
-			<a href="#" class="btn btn-class closeall">
-				<img src="<?php echo base_url();?>assets/images/eye_close.png" alt="logo" width="20">
-			</a>
-		</div><br /><br /><br />
+			<a href="#" class="btn btn-class openall">mutat</a>&nbsp;|&nbsp;
+			<a href="#" class="btn btn-class closeall">elrejt</a>
+		</div><br />
 		<div class="panel-group" role="tablist"><?php
 
 		if (is_array($quests)) {
 
 				foreach ($quests as $quest) {?>
 
-				<div class="panel panel-default">
+				<div class="panel panel-<?php echo ($questID == $quest['id'] ? 'primary' : 'default');?>">
 					<div class="panel-heading" role="tab" id="heading<?php echo $quest['id'];?>">
 						<h4 class="panel-title">
 							<a class="" role="button" data-toggle="collapse" href="#listgroup<?php echo $quest['id'];?>" aria-expanded="true" aria-controls="listgroup<?php echo $quest['id'];?>">
@@ -60,15 +56,15 @@
 
 						if (count($quest['links']) > 0) {?>
 
-							<div class="panel-footer"><?php
+							<div class="panel-footer text-center"><?php
 
 							if (count($quest['links']) == 1) {?>
 
-								Túl nehéz? Először nézd meg ezt:&nbsp;<?php
+								Túl nehéz? Először nézd meg ezt:<br /><?php
 
 							} else {?>
 
-								Túl nehéz? Először nézd meg ezeket:&nbsp;<?php
+								Túl nehéz? Először nézd meg ezeket:<br /><?php
 
 							}
 

@@ -1,16 +1,14 @@
 <div class="row">
 	<div class="col-md-3"></div>
 	<div class="col-md-6">
-		<div class="alert text-center alert-warning">
-			<b>Figyelem!</b><br /> A honlap tesztüzemben működik, ezért előfordulhatnak hibák. Az is megeshet, hogy egy feladat túl könnyű vagy túl nehéz. Bármilyen észrevételt a <b>zsebtanar@gmail.com</b>-ra lehet küldeni.
+		<div class="text-center alert alert-warning">
+			<p>
+				<b>Figyelem!</b><br /> A honlap tesztüzemben működik, ezért előfordulhatnak hibás, hiányos, illetve túl nehéz feladatok. Bármilyen észrevételt a <b>zsebtanar@gmail.com</b>-ra lehet küldeni.
+			</p>
 		</div>
 		<div class="text-center">
-			<a href="#" class="btn btn-class openall">
-				<img src="<?php echo base_url();?>assets/images/eye_open.png" alt="logo" width="20">
-			</a>
-			<a href="#" class="btn btn-class closeall">
-				<img src="<?php echo base_url();?>assets/images/eye_close.png" alt="logo" width="20">
-			</a>
+			<a href="#" class="btn btn-class openall">mutat</a>&nbsp;|&nbsp;
+			<a href="#" class="btn btn-class closeall">elrejt</a>
 		</div><?php
 
 		foreach ($html as $class => $topics) {?>

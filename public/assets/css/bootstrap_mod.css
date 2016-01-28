@@ -7,12 +7,13 @@
  */
 
 body {
+    font-family: 'Open Sans', sans-serif;
     padding-top: 50px; /* adjust navbar */
     padding-bottom: 200px; /* add space */
 }
 
 .img_main {
-    padding-top: 20px;
+    display:inline;
 }
 
 .jumbotron {

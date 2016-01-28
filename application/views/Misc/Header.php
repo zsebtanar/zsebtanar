@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.css">
 <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap-theme.css">
 <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap_mod.css">
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&amp;subset=latin,latin-ext">
 
 <!-- Typeahead CSS -->
 <link rel="stylesheet" href="<?php echo base_url();?>assets/css/typeahead.css">
@@ -50,5 +51,5 @@
 	TeX: {extensions: ["color.js"]}
   });
 </script>
-<!-- <script type="text/javascript" src="http://localhost:8080/MathJax-master/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script type="text/javascript" src="http://localhost/MathJax-master/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
 <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
