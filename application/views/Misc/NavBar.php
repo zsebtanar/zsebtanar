@@ -10,23 +10,23 @@
 				<span class="icon-bar"></span>
 			</button>
 
-			<a href="#" class="navbar-brand" title="Trófea" data-toggle="popover" data-trigger="focus" data-content="Feltétel: egy témakör összes küldetésének teljesítése.">
+			<a href="#" class="navbar-brand" title="Trófea" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-content="Feltétel: egy témakör összes küldetésének teljesítése.">
 				<img src="<?php echo base_url();?>assets/images/trophy.png" alt="shield" width="17">
 			</a>
 
-			<a class="navbar-brand" href="#"><b class="results"><?php echo $subtopics;?></b></a>
+			<a class="navbar-brand" href="#" title="Trófea" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-content="Feltétel: egy témakör összes küldetésének teljesítése."><b class="results"><?php echo $subtopics;?></b></a>
 
-			<a href="#" class="navbar-brand" title="Pajzs" data-toggle="popover" data-trigger="focus" data-content="Feltétel: egy küldetés összes feladatának teljesítése.">
+			<a href="#" class="navbar-brand" title="Pajzs" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-content="Feltétel: egy küldetés összes feladatának teljesítése.">
 				<img src="<?php echo base_url();?>assets/images/shield.png" alt="shield" width="15">
 			</a>
 
-			<a class="navbar-brand" href="#"><b class="results"><?php echo $quests;?></b></a>
+			<a class="navbar-brand" href="#" title="Pajzs" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-content="Feltétel: egy küldetés összes feladatának teljesítése."><b class="results"><?php echo $quests;?></b></a>
 
-			<a href="#" class="navbar-brand" title="Arany" data-toggle="popover" data-trigger="focus" data-content="Feltétel: egy feladat jó megoldása.">
+			<a href="#" class="navbar-brand" title="Arany" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-content="Feltétel: egy feladat jó megoldása.">
 				<img src="<?php echo base_url();?>assets/images/coin.png" alt="coin" width="15">
 			</a>
 
-			<a class="navbar-brand" href="#"><b class="results"><?php echo $points;?></b></a>
+			<a class="navbar-brand" href="#" title="Arany" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-content="Feltétel: egy feladat jó megoldása."><b class="results"><?php echo $points;?></b></a>
 
 		</div>
 
