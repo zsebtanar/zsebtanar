@@ -85,7 +85,7 @@
 					}?>
 
 					<div id="button">
-						<button class="btn btn-primary" onclick="checkSolution()">
+						<button class="btn btn-primary" onclick="checkSolution(event)">
 							Mehet
 						</button>
 					</div><br />
@@ -121,7 +121,7 @@
 <script>
 
 	// Check solution
-	function checkSolution() {
+	function checkSolution(event) {
 		var queryString = $("form").serializeArray();
 		event.preventDefault();
 		$.ajax({
