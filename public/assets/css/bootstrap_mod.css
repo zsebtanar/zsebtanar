@@ -28,7 +28,7 @@ body {
 }
 .small, small {
     font-size: 70%;
-    padding: 0px;
+    /*padding: 0px;*/
 }
 .exercise {
     padding-top: 20px;

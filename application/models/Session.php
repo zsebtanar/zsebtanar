@@ -108,9 +108,8 @@ class Session extends CI_model {
 		foreach ($exercises as $exercise) {
 
 			$level_user = $this->getUserLevel($exercise->id);
-			$level_max = $this->Exercises->getMaxLevel($exercise->id);
 
-			if ($level_user != $level_max && $exercise->status == 'OK') {
+			if ($level_user != 3 && $exercise->status == 'OK') {
 
 				$iscomplete = FALSE;
 				break;
@@ -254,12 +253,11 @@ class Session extends CI_model {
 		$level_user = $this->getUserLevel($id);
 
 		$round_max = $this->Exercises->getMaxRound($id);
-		$level_max = $this->Exercises->getMaxLevel($id);
 
 		$progress_round = $round_user/$round_max;
-		$progress_level = ($level_user+1)/$level_max;
+		$progress_level = ($level_user+1)/3;
 
-		if ($progress_round >= $progress_level && $level_user < $level_max) {
+		if ($progress_round >= $progress_level && $level_user < 3) {
 
 			// Update user level
 			$levels = $this->session->userdata('levels');
@@ -274,7 +272,7 @@ class Session extends CI_model {
 				'assets/images/coin.png" alt="coin" width="30">';
 
 			// Update quests
-			if ($level_user == $level_max) {
+			if ($level_user == 3) {
 				$prize = 500;
 				$this->AddPoint($prize);
 				$message .= '<br /><br />Elvégeztél egy feladatot!<br />+'.$prize.
@@ -298,10 +296,9 @@ class Session extends CI_model {
 	 */
 	public function getExerciseLevelNext($id) {
 
-		$level_max = $this->Exercises->getMaxLevel($id);
 		$level_user = $this->getUserLevel($id);
 
-		$level = min($level_max, $level_user+1);
+		$level = min(3, $level_user+1);
 
 		return $level;
 	}

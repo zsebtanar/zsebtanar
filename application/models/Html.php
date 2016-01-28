@@ -25,7 +25,9 @@ class Html extends CI_model {
 	 */
 	public function MainData($classID=NULL, $topicID=NULL) {
 
-		$data['topics'] 	= $this->getTopics();
+		$data['topics'] 	= $this->getTopics($classID, $topicID);
+		$data['classID'] 	= $classID;
+		$data['topicID'] 	= $topicID;
 		$data['type'] 		= 'main';
 		$data['titledata'] 	= NULL;
 		$data['results'] 	= $this->Session->GetResults();
@@ -156,6 +158,10 @@ class Html extends CI_model {
 									'name' => $subtopic->name,
 									'iscomplete' => $iscomplete
 								);
+
+								$menu[$class->name]['classID'] = $class->id;
+								$menu[$class->name][$topic->name]['topicID'] = $topic->id;
+
 							}
 						}
 					}
@@ -187,7 +193,6 @@ class Html extends CI_model {
 			$subtopicName = $this->Exercises->getSubtopicName($id);
 
 			$level_user = $this->Session->getUserLevel($id);
-			$level_max = $this->Exercises->getMaxLevel($id);
 
 			$questID = $exercise->questID;
 
@@ -196,7 +201,6 @@ class Html extends CI_model {
 			$data = array(
 				'id'			=> $id,
 				'level_user' 	=> $level_user,
-				'level_max'	 	=> $level_max,
 				'progress'		=> $progress,
 				'title' 		=> $exercise->name,
 				'subtitle' 		=> $subtopicName,

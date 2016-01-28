@@ -45,12 +45,10 @@ class Exercises extends CI_model {
 		$questID 	= $this->getQuestID($id);
 		$subtopicID = $this->getSubtopicID($id);
 		$level_user = $this->Session->getUserLevel($id);
-		$level_max 	= $this->Exercises->getMaxLevel($id);
 		$progress 	= $this->Session->getUserProgress($id);
 
 		$output = array(
 			'status' 		=> $status,
-			'level_max' 	=> $level_max,
 			'level_user' 	=> $level_user,
 			'message' 		=> $message,
 			'submessages'	=> $submessages,
@@ -507,7 +505,6 @@ class Exercises extends CI_model {
 					$id = $exercise->id;
 
 					$row['userlevel'] 	= $this->Session->getUserLevel($id);
-					$row['maxlevel'] 	= $this->getMaxLevel($id);
 					$row['id'] 			= $id;
 					$row['name'] 		= $exercise->name;
 					$row['status'] 		= $exercise->status;
@@ -587,21 +584,6 @@ class Exercises extends CI_model {
 	}
 
 	/**
-	 * Get maximum level for exercise
-	 *
-	 * @param int $id Exercise ID
-	 *
-	 * @return int $level_max Maximum level
-	 */
-	public function getMaxLevel($id) {
-
-		$query 		= $this->db->get_where('exercises', array('id' => $id));
-		$level_max 	= $query->result()[0]->level;
-
- 		return $level_max;
-	}
-
-	/**
 	 * Get number or rounds for exercise
 	 *
 	 * $rounds shows how many times user needs to solve the exercise to complete it.
@@ -620,11 +602,8 @@ class Exercises extends CI_model {
 
 		} else {
 
-			$level_max	= $this->getMaxLevel($id);
-			$query 		= $this->db->get_where('exercises', array('id' => $id));
-			$round 	 	= $query->result()[0]->rounds;
-
-			$rounds = $level_max*$round;
+			$query 	= $this->db->get_where('exercises', array('id' => $id));
+			$rounds = $query->result()[0]->rounds;
 
 		}
 

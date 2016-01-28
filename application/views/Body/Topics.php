@@ -1,10 +1,8 @@
 <div class="row">
 	<div class="col-md-3"></div>
 	<div class="col-md-6">
-		<div class="text-center alert alert-warning">
-			<div class="small">
-				<b>Figyelem!</b> A honlap tesztüzemben működik. Bármilyen észrevételt a <b>zsebtanar@gmail.com</b>-ra lehet küldeni.
-			</div>
+		<div class="text-center alert alert-warning small">
+			<b>Figyelem!</b> A honlap tesztüzemben működik. Bármilyen észrevételt a <b>zsebtanar@gmail.com</b>-ra lehet küldeni.
 		</div>
 		<!--<div class="text-center">
 			<a href="#" class="btn btn-class openall">mutat</a>&nbsp;|&nbsp;
@@ -19,14 +17,14 @@
 
 				<div class="panel-group" role="tablist"><?php
 
-					$i = 0;
+					foreach ($topics as $topic => $subtopics) {
 
-					foreach ($topics as $topic => $subtopics) {?>
+						if (isset($subtopics['topicID'])) {?>
 
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="heading<?php echo $i;?>">
+					<div class="panel panel-<?php echo ($topicID == $subtopics['topicID'] ? 'primary' : 'default');?>">
+						<div class="panel-heading" role="tab" id="heading<?php echo $subtopics['topicID'];?>">
 							<h4 class="panel-title">
-								<a class="" role="button" data-toggle="collapse" href="#listgroup<?php echo $i;?>" aria-expanded="true" aria-controls="listgroup<?php echo $i;?>">
+								<a class="" role="button" data-toggle="collapse" href="#listgroup<?php echo $subtopics['topicID'];?>" aria-expanded="true" aria-controls="listgroup<?php echo $subtopics['topicID'];?>">
 									<?php echo $topic;?>
 								</a>
 							</h4>
@@ -34,10 +32,12 @@
 
 						if (count($subtopics) > 0) {?>
 
-						<div id="listgroup<?php echo $i;?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<?php echo $i;?>" aria-expanded="true">
+						<div id="listgroup<?php echo $subtopics['topicID'];?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<?php echo $subtopics['topicID'];?>" aria-expanded="true">
 							<ul class="list-group"><?php
 
-								foreach ($subtopics as $subtopic_id => $subtopic) {?>
+								foreach ($subtopics as $subtopic_id => $subtopic) {
+
+									if (isset($subtopic['name'])) {?>
 
 									<li class="list-group-item">
 										<a href="<?php echo base_url();?>view/subtopic/<?php echo $subtopic_id;?>">
@@ -52,6 +52,8 @@
 										
 									</li><?php
 
+									}
+
 								}?>
 
 							</ul>
@@ -61,7 +63,7 @@
 
 					</div><?php
 
-					$i++;
+						}
 
 					}?>
 

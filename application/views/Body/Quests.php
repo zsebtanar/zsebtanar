@@ -41,7 +41,7 @@
 									<?php echo $exercise['name'];?>
 								</a>&nbsp;<?php
 
-								for ($i=0; $i < $exercise['maxlevel']; $i++) {?>
+								for ($i=0; $i < 3; $i++) {?>
 
 									<img id="star<?php echo $i;?>" src="<?php echo base_url().'assets/images/star'.($i < $exercise['userlevel'] ? 1 : 0).'.png';?>" alt="star"  width="15px"><?php
 
