@@ -63,13 +63,13 @@ class View extends CI_controller {
 	 * View exercise
 	 *
 	 * @param int $id    Exercise id
-	 * @param int $level Exercise level
+	 * @param int $round Exercise round
 	 *
 	 * @return	void
 	 */
-	public function Exercise($id, $level=NULL) {
+	public function Exercise($id, $round=NULL) {
 
-		$data = $this->Html->ExerciseData($id, $level);
+		$data = $this->Html->ExerciseData($id, $round);
 
 		$this->load->view('Template', $data);
 

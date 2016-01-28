@@ -55,34 +55,44 @@ class Session extends CI_model {
 	 */
 	public function UpdateResults($id, $message) {
 
-		$message = $this->UpdateRound($id, $message);
-		$message = $this->UpdateLevel($id, $message);
+		$level_user = $this->getUserLevel($id);
+		$level_max = $this->Exercises->getMaxLevel($id);
 
-		return $message;
-	}
-
-	/**
-	 * Update round for exercise
-	 *
-	 * @param int    $id      Exercise ID
-	 * @param string $message Message for user
-	 *
-	 * @return string $message Message for user (updated)
-	 */
-	public function UpdateRound($id, $message) {
-
-		$round_user = $this->getUserRound($id);
-		$round_max = $this->Exercises->getMaxRound($id);
-
-		$rounds = $this->session->userdata('rounds');
-
-		$rounds[$id] = ++$round_user;
-		$this->session->set_userdata('rounds', $rounds);
-
+		// Update levels
+		$levels = $this->session->userdata('levels');
+		$levels[$id] = $level_user + 1;
+		$this->session->set_userdata('levels', $levels);
 		$this->AddPoint(100);
-
 		$message .= '<br />+100&nbsp;<img src="'.
 			base_url().'assets/images/coin.png" alt="coin" width="30">';
+
+		// Check progress
+		$progress_old = $level_user/$level_max;
+		$progress_new = ($level_user+1)/$level_max;
+
+		if (($progress_old < 1/3 && $progress_new >= 1/3) ||
+			($progress_old < 2/3 && $progress_new >= 2/3) ||
+			($progress_old < 3/3 && $progress_new >= 3/3)) {
+
+			// Update points
+			$prize = 200;
+			$this->AddPoint($prize);
+			$message .= '<br /><br />Szintet léptél!<br />+'.$prize.
+				'&nbsp;<img src="'.base_url().
+				'assets/images/coin.png" alt="coin" width="30">';
+
+			// Update quests
+			if ($level_user == $level_max) {
+				$prize = 500;
+				$this->AddPoint($prize);
+				$message .= '<br /><br />Elvégeztél egy feladatot!<br />+'.$prize.
+					'&nbsp;<img src="'.base_url().
+					'assets/images/coin.png" alt="coin" width="30">';
+
+				$message = $this->UpdateQuest($id, $message);
+				$message = $this->UpdateSubtopic($id, $message);
+			}
+		}
 
 		return $message;
 	}
@@ -108,8 +118,9 @@ class Session extends CI_model {
 		foreach ($exercises as $exercise) {
 
 			$level_user = $this->getUserLevel($exercise->id);
+			$level_max = $this->Exercise->getMaxLevel($exercise->id);
 
-			if ($level_user != 3 && $exercise->status == 'OK') {
+			if ($level_user != $level_max && $exercise->status == 'OK') {
 
 				$iscomplete = FALSE;
 				break;
@@ -240,87 +251,32 @@ class Session extends CI_model {
 	}
 
 	/**
-	 * Update level for exercise
-	 *
-	 * @param int    $id      Exercise ID
-	 * @param string $message Message for user
-	 *
-	 * @return string $message Message for user (updated)
-	 */
-	public function UpdateLevel($id, $message) {
-
-		$round_user = $this->getUserRound($id);
-		$level_user = $this->getUserLevel($id);
-
-		$round_max = $this->Exercises->getMaxRound($id);
-
-		$progress_round = $round_user/$round_max;
-		$progress_level = ($level_user+1)/3;
-
-		if ($progress_round >= $progress_level && $level_user < 3) {
-
-			// Update user level
-			$levels = $this->session->userdata('levels');
-			$levels[$id] = ++$level_user;
-			$this->session->set_userdata('levels', $levels);
-
-			// Update points
-			$prize = 200;
-			$this->AddPoint($prize);
-			$message .= '<br /><br />Szintet léptél!<br />+'.$prize.
-				'&nbsp;<img src="'.base_url().
-				'assets/images/coin.png" alt="coin" width="30">';
-
-			// Update quests
-			if ($level_user == 3) {
-				$prize = 500;
-				$this->AddPoint($prize);
-				$message .= '<br /><br />Elvégeztél egy feladatot!<br />+'.$prize.
-					'&nbsp;<img src="'.base_url().
-					'assets/images/coin.png" alt="coin" width="30">';
-
-				$message = $this->UpdateQuest($id, $message);
-				$message = $this->UpdateSubtopic($id, $message);
-			}
-		}
-
-		return $message;
-	}
-
-	/**
-	 * Get next level of exercise
-	 *
-	 * @param int $id Exercise ID
-	 *
-	 * @return int $level Exercise level 
-	 */
-	public function getExerciseLevelNext($id) {
-
-		$level_user = $this->getUserLevel($id);
-
-		$level = min(3, $level_user+1);
-
-		return $level;
-	}
-
-	/**
 	 * Get user progress for exercise
 	 *
-	 * $progress shows how many percent of rounds were solved by user.
-	 *
 	 * @param int $id Exercise ID
 	 *
-	 * @return int $progress Exercise progress (%) 
+	 * @return array $data Exercise progress (value + style) 
 	 */
 	public function getUserProgress($id) {
 
-		$round_max = $this->Exercises->getMaxRound($id);
-		$round_user = $this->getUserRound($id);
+		$level_max = $this->Exercises->getMaxLevel($id);
+		$level_user = $this->getUserLevel($id);
 		
-		$progress = round($round_user/$round_max*100);
-		$progress = min(100, $progress);
+		$progress = $level_user/$level_max;
+		
+		if ($progress < 1/3) {
+			$style = 'info';
+		} elseif ($progress < 2/3) {
+			$style = 'warning';
+		} else {
+			$style = 'danger';
+		}
 
-		return $progress;
+		$progress = min(100, round($progress*100));
+
+		$data = ['value' => $progress, 'style' => $style];
+
+		return $data;
 	}
 
 	/**
@@ -339,23 +295,6 @@ class Session extends CI_model {
 	}
 
 	/**
-	 * Get user round for exercise
-	 *
-	 * $round_user shows how many times user has solved the exercise.
-	 *
-	 * @param int $id Exercise ID
-	 *
-	 * @return int $round_user User level
-	 */
-	public function getUserRound($id) {
-
-		$rounds = $this->session->userdata('rounds');
-		$round_user = (isset($rounds[$id]) ? $rounds[$id] : 0);
-
- 		return $round_user;
-	}
-
-	/**
 	 * Print session information
 	 *
 	 * @return void
@@ -368,8 +307,6 @@ class Session extends CI_model {
 		// print_r($this->session->userdata('quests'));
 		// print_r('<br />Levels: ');
 		// print_r($this->session->userdata('levels'));
-		// print_r('<br />Rounds: ');
-		// print_r($this->session->userdata('rounds'));
 		// print_r('<br />Points: ');
 		// print_r($this->session->userdata('points'));
 		// print_r('<br />Exercise: ');

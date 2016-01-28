@@ -51,44 +51,49 @@
 			</div>
 			<div class="col-sm-1"></div>
 		</div>
-		<div class="row exercise_input">
+		<div class="row">
 
-			<div class="col-sm-12">
+			<div class="col-sm-12 exercise_input">
 				<form id="exercise" autocomplete="off"><?php
 
-				if ($type == 'quiz') {
+					if ($type == 'quiz') {
 
-					$this->load->view('Input/Quiz', array('options' => $options, 'length' => $length));
+						$this->load->view('Input/Quiz', array('options' => $options, 'length' => $length));
 
-				} elseif ($type == 'int' || $type == 'text') {
+					} elseif ($type == 'int' || $type == 'text') {
 
-					$this->load->view('Input/Int');
+						$this->load->view('Input/Int');
 
-				} elseif ($type == 'multi') {
+					} elseif ($type == 'multi') {
 
-					$this->load->view('Input/Multi', array('options' => $options));
+						$this->load->view('Input/Multi', array('options' => $options));
 
-				} elseif ($type == 'division') {
+					} elseif ($type == 'division') {
 
-					$this->load->view('Input/Division');
-
-				}?>
-
-				<input type="hidden" name="hash" value="<?php echo $hash;?>">
-				<br />
-				<div class="text-center"><?php
-
-					if ($this->session->userdata('Logged_in')) {
-
-						echo json_encode($correct).'<br />';
+						$this->load->view('Input/Division');
 
 					}?>
 
+					<input type="hidden" name="hash" value="<?php echo $hash;?>">
+					<br />
+					<div class="text-center"><?php
+
+						if ($this->session->userdata('Logged_in')) {
+
+							echo json_encode($correct).'<br />';
+
+						}?>
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-12 text-center">
+				
 					<div id="button">
 						<button class="btn btn-primary" onclick="checkSolution(event)">
 							Mehet
 						</button>
-					</div><br />
+					</div>
+					<br />
 
 					<div>
 						<a class="btn btn-default" href="<?php echo base_url().'view/subtopic/'.$subtopicID;?>">
@@ -110,8 +115,7 @@
 						}?>
 
 					</p>
-				</div>
-				</form>
+
 			</div>
 		</div>
 	</div>
@@ -155,7 +159,9 @@
 				switch (data['status']) {
 					case 'CORRECT':
 						document.getElementById("message").innerHTML = '<div class="alert alert-success"><strong><span class=\"glyphicon glyphicon-ok\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>';
-						$('.progress-bar').css('width', data['progress']+'%').attr('aria-valuenow', data['progress']);
+						$('#progress_bar').css('width', data['progress']['value']+'%').attr('aria-valuenow', data['progress']['value']);
+						progress_bar_class = $('#progress_bar').attr('class').replace(/(progress-bar-)\w*/, '$1'+ data['progress']['style']);
+						$('#progress_bar').attr('class', progress_bar_class);
 						if (data['id_next'] == null) {
 							document.getElementById("button").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url().'view/subtopic/';?>" + data['subtopicID'] + '/' + data['questID'] + "\">Kész! :)</button>";
 						} else {
@@ -182,17 +188,6 @@
 						MathJax.Hub.Queue(["Typeset",MathJax.Hub,"message"]);
 						break;
 				}
-
-				// Change icons
-				// for (var i = data['level_max'] - 1; i >= 0; i--) {
-				// 	var src = document.getElementById("star"+i).src;
-				// 	if (i < data['level_user']) {
-				// 		var src = src.replace("star0", "star1");
-				// 	} else {
-				// 		var src = src.replace("star1", "star0");
-				// 	}
-				// 	document.getElementById("star"+i).src = src;
-				// }
 			}
 		});
 	}

@@ -5,15 +5,10 @@
 /*** SZÁMOLÁS ***/
 
 /* Count apples from 1 to 20 */
-function count_apples($level=1) {
+function count_apples($level) {
 
-	if ($level == 1) {
-		$num = rand(0,4);
-	} elseif ($level == 2) {
-		$num = rand(5,9);
-	} elseif ($level == 3) {
-		$num = rand(10,20);
-	}
+	$num = rand(2*$level, 3*($level+1));
+	$num = min(20, $num);
 
 	$question = 'Hány darab alma van a fán?<div class="text-center"><img class="img-question" width="50%" src="'.RESOURCES_URL.'/count_apples/tree'.$num.'.png"></div>';
 	$correct = $num;
@@ -27,15 +22,9 @@ function count_apples($level=1) {
 }
 
 /* Define parity of number */
-function parity($level=1) {
+function parity($level) {
 
-	if ($level == 1) {
-		$len = 1;
-	} elseif ($level == 2) {
-		$len = 3;
-	} elseif ($level == 3) {
-		$len = 5;
-	}
+	$len = $level+1;
 
 	$num = numGen(rand(ceil($len/2),$len), 10);
 

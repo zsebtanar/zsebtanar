@@ -37,7 +37,7 @@ class Database extends CI_model {
 				),
 			'exercises' => array(
 				'questID'	=> 'FROM SESSION',
-				'rounds' 	=> 9,
+				'level' 	=> 9,
 				'status' 	=> 'IN PROGRESS',
 				'label'		=> '',
 				'name'		=> '',
@@ -137,7 +137,7 @@ class Database extends CI_model {
 			'exercises' => 'CREATE TABLE exercises (
 							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							questID 	INT NOT NULL,
-							rounds		INT,
+							level		INT,
 							label 		VARCHAR(30),
 							name 		VARCHAR(120),
 							youtube 	VARCHAR(20),

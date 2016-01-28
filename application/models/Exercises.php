@@ -44,12 +44,10 @@ class Exercises extends CI_model {
 		$id_next 	= $this->getIDNext($id);
 		$questID 	= $this->getQuestID($id);
 		$subtopicID = $this->getSubtopicID($id);
-		$level_user = $this->Session->getUserLevel($id);
 		$progress 	= $this->Session->getUserProgress($id);
 
 		$output = array(
 			'status' 		=> $status,
-			'level_user' 	=> $level_user,
 			'message' 		=> $message,
 			'submessages'	=> $submessages,
 			'id_next'		=> $id_next,
@@ -303,7 +301,7 @@ class Exercises extends CI_model {
 		$this->load->model('Database');
 
 		if (!$level) {
-			$level = $this->Session->getExerciseLevelNext($id);
+			$level = $this->Session->getUserLevel($id);
 		}
 
 		$query 		= $this->db->get_where('exercises', array('id' => $id));
@@ -584,30 +582,30 @@ class Exercises extends CI_model {
 	}
 
 	/**
-	 * Get number or rounds for exercise
+	 * Get maximum level for exercise
 	 *
-	 * $rounds shows how many times user needs to solve the exercise to complete it.
+	 * $max_level shows how many times user needs to solve the exercise to complete it.
 	 * If user is logged in, it is only 3 (for debugging purposes). 
 	 *
 	 * @param int $id Exercise ID
 	 *
-	 * @return int $rounds Maximum rounds
+	 * @return int $max_level Maximum level
 	 */
-	public function getMaxRound($id) {
+	public function getMaxLevel($id) {
 
 		if (NULL !== $this->session->userdata('Logged_in')
 			&& $this->session->userdata('Logged_in')) {
 
-			$rounds = 3;
+			$max_level = 3;
 
 		} else {
 
 			$query 	= $this->db->get_where('exercises', array('id' => $id));
-			$rounds = $query->result()[0]->rounds;
+			$max_level = $query->result()[0]->level;
 
 		}
 
- 		return $rounds;
+ 		return $max_level;
 	}
 
 	/**
@@ -694,10 +692,10 @@ class Exercises extends CI_model {
 
 		$id_next = NULL;
 
-		$round_max  = $this->getMaxRound($id);
-		$round_user = $this->Session->getUserRound($id);
+		$level_max  = $this->getMaxLevel($id);
+		$level_user = $this->Session->getUserLevel($id);
 
-		if ($round_user < $round_max) {
+		if ($level_user < $level_max) {
 
 			// User has not solved all rounds of exercise
 			$id_next = $id;
