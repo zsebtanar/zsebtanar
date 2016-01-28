@@ -184,15 +184,15 @@
 				}
 
 				// Change icons
-				for (var i = data['level_max'] - 1; i >= 0; i--) {
-					var src = document.getElementById("star"+i).src;
-					if (i < data['level_user']) {
-						var src = src.replace("star0", "star1");
-					} else {
-						var src = src.replace("star1", "star0");
-					}
-					document.getElementById("star"+i).src = src;
-				}
+				// for (var i = data['level_max'] - 1; i >= 0; i--) {
+				// 	var src = document.getElementById("star"+i).src;
+				// 	if (i < data['level_user']) {
+				// 		var src = src.replace("star0", "star1");
+				// 	} else {
+				// 		var src = src.replace("star1", "star0");
+				// 	}
+				// 	document.getElementById("star"+i).src = src;
+				// }
 			}
 		});
 	}
