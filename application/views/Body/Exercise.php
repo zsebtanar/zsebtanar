@@ -99,11 +99,11 @@
 					<p id="message"></p>
 					<p id="explanation"><?php
 
-						if ($this->session->userdata('Logged_in')) {?>
+						if ($this->session->userdata('Logged_in') && isset($explanation)) {?>
 
 						<div class="alert alert-warning text-left"><?php
 
-							print_r($explanation);?>
+								echo $explanation;?>
 
 						</div><?php
 
