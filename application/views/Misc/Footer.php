@@ -16,4 +16,7 @@ $('.bs-docs-popover').popover();
 $('.bs-docs-popover').on('shown.bs.popover', function () {
 	MathJax.Hub.Queue(["Typeset",MathJax.Hub,".bs-docs-popover"]);
 })
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
 </script>

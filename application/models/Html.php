@@ -60,7 +60,7 @@ class Html extends CI_model {
 			$data['subtopic']['id']	= $subtopicID;
 			$data['subtopic']['name']	= $this->Exercises->getSubtopicName($id);
 
-			$data['quest']		= $this->Database->GetExerciseQuest($id);
+			$data['quest']	= $this->Database->GetExerciseQuest($id);
 
 			$data['class']	= $this->Database->GetSubtopicClass($subtopicID);
 			$data['topic']	= $this->Database->GetSubtopicTopic($subtopicID);

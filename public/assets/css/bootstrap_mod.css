@@ -58,7 +58,7 @@ input.smallInput {
 }
 
 @media (max-width: 767px) {
-    .navbar-brand {
+    div.navbar-header>a{
         padding: 15px 5px; 
     }
 

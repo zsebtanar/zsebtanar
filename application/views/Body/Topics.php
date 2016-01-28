@@ -6,10 +6,10 @@
 				<b>Figyelem!</b><br /> A honlap tesztüzemben működik, ezért előfordulhatnak hibás, hiányos, illetve túl nehéz feladatok. Bármilyen észrevételt a <b>zsebtanar@gmail.com</b>-ra lehet küldeni.
 			</p>
 		</div>
-		<div class="text-center">
+		<!--<div class="text-center">
 			<a href="#" class="btn btn-class openall">mutat</a>&nbsp;|&nbsp;
 			<a href="#" class="btn btn-class closeall">elrejt</a>
-		</div><?php
+		</div>--><?php
 
 		foreach ($html as $class => $topics) {?>
 

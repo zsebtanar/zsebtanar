@@ -1,10 +1,10 @@
 <div class="row">
 	<div class="col-md-3"></div>
 	<div class="col-md-6">
-		<div class="text-center">
+		<!--<div class="text-center">
 			<a href="#" class="btn btn-class openall">mutat</a>&nbsp;|&nbsp;
 			<a href="#" class="btn btn-class closeall">elrejt</a>
-		</div><br />
+		</div>--><br />
 		<div class="panel-group" role="tablist"><?php
 
 		if (is_array($quests)) {

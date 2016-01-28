@@ -10,23 +10,19 @@
 				<span class="icon-bar"></span>
 			</button>
 
-			<a class="navbar-brand" href="<?php echo base_url();?>view/main">
-				<span class="glyphicon glyphicon-home"></span>&nbsp;Kezdőlap
-			</a>
-
-			<a class="navbar-brand" href="#">
+			<a href="#" class="navbar-brand" title="Trófea" data-toggle="popover" data-trigger="focus" data-content="Feltétel: egy témakör összes feladatának teljesítése.">
 				<img src="<?php echo base_url();?>assets/images/trophy.png" alt="shield" width="17">
 			</a>
 
 			<a class="navbar-brand" href="#"><b class="results"><?php echo $subtopics;?></b></a>
 
-			<a class="navbar-brand" href="#">
+			<a href="#" class="navbar-brand" title="Pajzs" data-toggle="popover" data-trigger="focus" data-content="Feltétel: egy küldetés összes feladatának teljesítése.">
 				<img src="<?php echo base_url();?>assets/images/shield.png" alt="shield" width="15">
 			</a>
 
 			<a class="navbar-brand" href="#"><b class="results"><?php echo $quests;?></b></a>
 
-			<a class="navbar-brand" href="#">
+			<a href="#" class="navbar-brand" title="Arany" data-toggle="popover" data-trigger="focus" data-content="Feltétel: egy feladat jó megoldása.">
 				<img src="<?php echo base_url();?>assets/images/coin.png" alt="coin" width="15">
 			</a>
 
