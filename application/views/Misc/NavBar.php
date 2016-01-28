@@ -10,7 +10,7 @@
 				<span class="icon-bar"></span>
 			</button>
 
-			<a href="#" class="navbar-brand" title="Trófea" data-toggle="popover" data-trigger="focus" data-content="Feltétel: egy témakör összes feladatának teljesítése.">
+			<a href="#" class="navbar-brand" title="Trófea" data-toggle="popover" data-trigger="focus" data-content="Feltétel: egy témakör összes küldetésének teljesítése.">
 				<img src="<?php echo base_url();?>assets/images/trophy.png" alt="shield" width="17">
 			</a>
 
@@ -31,7 +31,7 @@
 		</div>
 
 		<div class="collapse navbar-collapse">
-			<ul class="nav navbar-nav navbar-right"><?php
+			<ul class="nav navbar-nav navbar-right small"><?php
 
 			if (NULL !== $this->session->userdata('Logged_in') &&
 				$this->session->userdata('Logged_in')) {?>
@@ -40,19 +40,19 @@
 					<a href="<?php echo base_url().'application/clearresults/'.
 						(isset($type) ? $type : '').
 						(isset($id) ? '/'.$id : '');?>">
-						<span class="glyphicon glyphicon-remove"></span> Törlés
+						<span class="glyphicon glyphicon-remove"></span>&nbsp;Törlés
 					</a>
 				</li>
 				<li>
 					<a href="<?php echo base_url().'update/database/'.
 						(isset($type) ? $type : '').'/'.
 						(isset($id) ? '/'.$id : '');?>">
-						<span class="glyphicon glyphicon-refresh"></span> Frissítés
+						<span class="glyphicon glyphicon-refresh"></span>&nbsp;Frissítés
 					</a>
 				</li>
 				<li>
 					<a href="<?php echo base_url().'application/logout';?>">
-						<span class="glyphicon glyphicon-log-out"></span> Kijelentkezés
+						<span class="glyphicon glyphicon-log-out"></span>&nbsp;Kijelentkezés
 					</a>
 				</li><?php
 
@@ -60,7 +60,7 @@
 
 				<li>
 					<a href="#" data-toggle="modal" data-target="#info">
-						<span class="glyphicon glyphicon-info-sign"></span>
+						<span class="glyphicon glyphicon-info-sign"></span>&nbsp;Mi ez?
 					</a>
 				</li><?php
 

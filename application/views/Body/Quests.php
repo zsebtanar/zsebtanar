@@ -56,7 +56,7 @@
 
 						if (count($quest['links']) > 0) {?>
 
-							<div class="panel-footer text-center"><?php
+							<div class="panel-footer text-center small"><?php
 
 							if (count($quest['links']) == 1) {?>
 
@@ -70,11 +70,11 @@
 
 							foreach ($quest['links'] as $link) {?>
 
-								<a class="btn btn-default" href="<?php echo base_url().'view/subtopic/'.$link['subtopicID'].'/'.$link['questID'];?>"><?php
+								<a class="btn btn-default btn-sm" href="<?php echo base_url().'view/subtopic/'.$link['subtopicID'].'/'.$link['questID'];?>"><?php
 
 									if ($link['complete']) {?>
 
-										<img src="<?php echo base_url().'assets/images/tick_grey.png';?>" alt="star" width="20px">&nbsp;<?php
+										<img src="<?php echo base_url().'assets/images/tick_grey.png';?>" alt="star" width="15px">&nbsp;<?php
 
 									}
 

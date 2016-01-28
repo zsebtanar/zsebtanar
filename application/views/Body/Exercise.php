@@ -92,7 +92,7 @@
 
 					<div>
 						<a class="btn btn-default" href="<?php echo base_url().'view/subtopic/'.$subtopicID;?>">
-							Vissza
+							<span class="glyphicon glyphicon-chevron-left"></span>&nbsp;Vissza
 						</a>
 					</div><br />
 
@@ -159,7 +159,7 @@
 						if (data['id_next'] == null) {
 							document.getElementById("button").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url().'view/subtopic/';?>" + data['subtopicID'] + '/' + data['questID'] + "\">Kész! :)</button>";
 						} else {
-							document.getElementById("button").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url().'view/exercise/';?>" + data['id_next'] + "\">Tovább</button>";
+							document.getElementById("button").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url().'view/exercise/';?>" + data['id_next'] + "\">Tovább&nbsp;<span class=\"glyphicon glyphicon-chevron-right\"></span></button>";
 						}
 						break;
 					case 'WRONG':
@@ -168,7 +168,7 @@
 							MathJax.Hub.Queue(["Typeset",MathJax.Hub,"explanation"]);
 						}
 						document.getElementById("message").innerHTML = '<div class="alert alert-danger"><strong><span class=\"glyphicon glyphicon-remove\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>';
-						document.getElementById("button").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url();?>view/exercise/<?php echo $id;?>\">Újra</button>";
+						document.getElementById("button").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url();?>view/exercise/<?php echo $id;?>\"><span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;Újra</button>";
 						if (data['submessages'].length > 0) {
 							for (var i = data['submessages'].length - 1; i >= 0; i--) {
 								var submessage = data['submessages'][i];

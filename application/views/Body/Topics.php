@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-md-3"></div>
 	<div class="col-md-6">
-		<div class="text-center alert alert-warning">
+		<div class="text-center alert alert-warning small">
 			<p>
 				<b>Figyelem!</b><br /> A honlap tesztüzemben működik, ezért előfordulhatnak hibás, hiányos, illetve túl nehéz feladatok. Bármilyen észrevételt a <b>zsebtanar@gmail.com</b>-ra lehet küldeni.
 			</p>

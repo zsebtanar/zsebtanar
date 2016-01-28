@@ -10,6 +10,7 @@ body {
     font-family: 'Open Sans', sans-serif;
     padding-top: 50px; /* adjust navbar */
     padding-bottom: 200px; /* add space */
+    font-size: 20px;
 }
 
 .img_main {
@@ -44,6 +45,9 @@ h1 {
 /* remove background color */
 .jumbotron {
 	background-color: #fff; 
+}
+.jumbotron h1 {
+    font-weight: 700;
 }
 
 /* auto size input */

@@ -1,4 +1,4 @@
-<ol class="breadcrumb text-center">
+<ol class="breadcrumb text-center small">
 	<li>
 		<a href="<?php echo base_url();?>view/main">
 			Kezdőlap
