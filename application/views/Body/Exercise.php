@@ -78,7 +78,7 @@
 					<br />
 					<div class="text-center"><?php
 
-						if ($this->session->userdata('Logged_in')) {
+						if ($this->Session->CheckLogin()) {
 
 							echo json_encode($correct).'<br />';
 
@@ -104,7 +104,7 @@
 					<p id="message"></p>
 					<p id="explanation"><?php
 
-						if ($this->session->userdata('Logged_in') && isset($explanation)) {?>
+						if ($this->Session->CheckLogin() && isset($explanation)) {?>
 
 						<div class="alert alert-warning text-left"><?php
 
