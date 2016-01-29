@@ -82,7 +82,7 @@ class Session extends CI_model {
 				'assets/images/coin.png" alt="coin" width="30">';
 
 			// Update quests
-			if ($level_user == $level_max) {
+			if ($progress_new == 1) {
 				$prize = 500;
 				$this->AddPoint($prize);
 				$message .= '<br /><br />Elvégeztél egy feladatot!<br />+'.$prize.
@@ -118,9 +118,9 @@ class Session extends CI_model {
 		foreach ($exercises as $exercise) {
 
 			$level_user = $this->getUserLevel($exercise->id);
-			$level_max = $this->Exercise->getMaxLevel($exercise->id);
+			$level_max = $this->Exercises->getMaxLevel($exercise->id);
 
-			if ($level_user != $level_max && $exercise->status == 'OK') {
+			if ($level_user < $level_max && $exercise->status == 'OK') {
 
 				$iscomplete = FALSE;
 				break;

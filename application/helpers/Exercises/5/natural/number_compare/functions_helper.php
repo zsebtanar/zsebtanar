@@ -6,11 +6,11 @@
 // Define relation sign between numbers
 function number_compare_sign($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $hossz = rand(2,3); 
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $hossz = rand(4,6);
-  } elseif ($level == 3) {
+  } else {
     $hossz = rand(7,10);
   }
   
@@ -81,11 +81,11 @@ function number_compare_sign($level)
 // Compare numbers numbers
 function number_compare_compare($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $hossz = rand(2,3); 
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $hossz = rand(4,6);
-  } elseif ($level == 3) {
+  } else {
     $hossz = rand(7,10);
   }
   
@@ -158,13 +158,13 @@ function number_compare_compare($level)
 // Define order of numbers
 function number_compare_order($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $hossz = rand(2,3);
     $darab = rand(2,3);
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $hossz = rand(4,6);
     $darab = rand(4,5);
-  } elseif ($level == 3) {
+  } else {
     $hossz = rand(7,10);
     $darab = rand(6,7);
   }
@@ -232,11 +232,11 @@ function number_compare_order($level)
 // Define missing digit from comparison
 function number_compare_missing_digit($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $hossz = rand(2,3);
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $hossz = rand(4,6);
-  } elseif ($level == 3) {
+  } else {
     $hossz = rand(7,10);
   }
   
@@ -321,18 +321,18 @@ function number_compare_missing_digit($level)
 // Calculate number of numbers between limits
 function number_compare_between($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $intervallum = rand(1,5);
     $hossz = rand(1,2); 
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $intervallum = rand(6,15);
     $hossz = rand(3,6);
-  } elseif ($level == 3) {
+  } else {
     $intervallum = rand(16,20);
     $hossz = rand(7,10);
   }
   
-  if ($level == 1 && rand(1,3) == 1) {
+  if ($level <= 3 && rand(1,3) == 1) {
     $szam_bal = 0;
   } else {
     $szam_bal = numGen($hossz,10);

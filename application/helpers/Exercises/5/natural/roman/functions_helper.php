@@ -6,11 +6,11 @@
 // Convert roman number to decimal
 function roman_convert_ROMto10($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $szam = rand(1,399);
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $szam = rand(400,3999);
-  } elseif ($level == 3) {
+  } else {
     $szam = numGen(rand(5,6),10);
     while ($szam >= 4000000) {
       $szam = numGen(rand(5,6),10);
@@ -42,11 +42,11 @@ function roman_convert_ROMto10($level)
 // Convert decimal number to roman
 function roman_convert_10toROM($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $szam = rand(1,399);
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $szam = rand(400,1999);
-  } elseif ($level == 3) {
+  } else {
     $szam = rand(2000,3999);
   }
   

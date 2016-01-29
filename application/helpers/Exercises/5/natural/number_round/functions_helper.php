@@ -6,13 +6,13 @@
 // Round number down
 function number_round_down($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $hossz = rand(1,2);
     $helyiertek = rand(1,$hossz+1);
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $hossz = rand(3,6);
     $helyiertek = rand(3,$hossz+1);
-  } elseif ($level == 3) {
+  } else {
     $hossz = rand(7,10);
     $helyiertek = rand(6,min($hossz+1,10));
   }
@@ -47,13 +47,13 @@ function number_round_down($level)
 // Round number up
 function number_round_up($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $hossz = rand(1,2);
     $helyiertek = rand(1,$hossz+1);
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $hossz = rand(3,6);
     $helyiertek = rand(3,$hossz+1);
-  } elseif ($level == 3) {
+  } else {
     $hossz = rand(7,10);
     $helyiertek = rand(6,min($hossz+1,10));
   }
@@ -88,13 +88,13 @@ function number_round_up($level)
 // Round number
 function number_round($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $hossz = rand(1,2);
     $helyiertek = rand(1,$hossz+1);
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $hossz = rand(3,6);
     $helyiertek = rand(3,$hossz+1);
-  } elseif ($level == 3) {
+  } else {
     $hossz = rand(7,10);
     $helyiertek = rand(6,min($hossz+1,10));
   }
@@ -129,13 +129,13 @@ function number_round($level)
 // Round number down - error
 function number_round_error_down($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $hossz = rand(1,2);
     $helyiertek = rand(1,$hossz+1);
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $hossz = rand(3,6);
     $helyiertek = rand(3,$hossz+1);
-  } elseif ($level == 3) {
+  } else {
     $hossz = rand(7,10);
     $helyiertek = rand(6,min($hossz+1,10));
   }
@@ -171,13 +171,13 @@ function number_round_error_down($level)
 // Round number up - error
 function number_round_error_up($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $hossz = rand(1,2);
     $helyiertek = rand(1,$hossz+1);
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $hossz = rand(3,6);
     $helyiertek = rand(3,$hossz+1);
-  } elseif ($level == 3) {
+  } else {
     $hossz = rand(7,10);
     $helyiertek = rand(6,min($hossz+1,10));
   }
@@ -213,13 +213,13 @@ function number_round_error_up($level)
 // Round number - error
 function number_round_error($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $hossz = rand(1,2);
     $helyiertek = rand(1,$hossz+1);
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $hossz = rand(3,6);
     $helyiertek = rand(3,$hossz+1);
-  } elseif ($level == 3) {
+  } else {
     $hossz = rand(7,10);
     $helyiertek = rand(6,min($hossz+1,10));
   }
@@ -255,13 +255,13 @@ function number_round_error($level)
 // Calculate how many numbers can have same rounded form
 function number_round_how_many($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $hossz = rand(1,2);
     $helyiertek = rand(1,$hossz+1);
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $hossz = rand(3,6);
     $helyiertek = rand(3,$hossz+1);
-  } elseif ($level == 3) {
+  } else {
     $hossz = rand(7,10);
     $helyiertek = rand(6,min($hossz+1,10));
   }
@@ -306,11 +306,11 @@ function number_round_how_many($level)
 // Define which number cannot be rounded form
 function number_round_not_rounded($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $hossz = rand(2,3);
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $hossz = rand(3,6);
-  } elseif ($level == 3) {
+  } else {
     $hossz = rand(7,10);
   }
   

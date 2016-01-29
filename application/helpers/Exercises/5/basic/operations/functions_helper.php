@@ -6,8 +6,14 @@
 // Addition
 function basic_addition($level)
 {
-  $length1 = $level;
-  $length2 = min(rand(round($level/2), $level), 10);
+  $length1 = rand(round($level/2), $level);
+  $length2 = rand(round($level/2), $level);
+
+  $length1 = max(1, $length1);
+  $length2 = max(1, $length2);
+
+  $length1 = min(10, $length1);
+  $length2 = min(10, $length2);
 
   $num1 = numGen($length1, 10);
   $num2 = numGen($length2, 10);
@@ -229,8 +235,15 @@ function basic_addition_generate_equation($numbers, $col=-1, $type='addition')
 // Subtraction
 function basic_subtraction($level)
 {
-  $length1 = $level;
-  $length2 = min(rand(round($level/2), $level), 10);
+
+  $length1 = rand(round($level/2), $level);
+  $length2 = rand(round($level/2), $level);
+
+  $length1 = max(1, $length1);
+  $length2 = max(1, $length2);
+
+  $length1 = min(10, $length1);
+  $length2 = min(10, $length2);
 
   $num1 = numGen($length1, 10);
   $num2 = numGen($length2, 10);
@@ -453,15 +466,15 @@ function basic_subtraction_generate_equation($num1, $num2, $col=-1)
 // Multiplication
 function basic_multiplication($level)
 {
-  if ($level == 1) {
-    $num1 = numGen(rand(5,6), 10);
-    $num2 = numGen(1, 9);
-  } elseif ($level == 2) {
-    $num1 = numGen(rand(3,4), 10);
-    $num2 = numGen(10, 32);
+  if ($level <= 3) {
+    $num1 = rand(1, 10);
+    $num2 = rand(1, 10);
+  } elseif ($level <= 7) {
+    $num1 = rand(11, 20);
+    $num2 = rand(11, 20);
   } else {
-    $num1 = numGen($level, 10);
-    $num2 = numGen(33, 99);
+    $num1 = rand(21, 50);
+    $num2 = rand(21, 50);
   }
 
   if ($num1 < $num2) {
@@ -739,20 +752,22 @@ function basic_multiplication_generate_equation($num1, $num2, $col1=-1, $col2=-1
 // Division
 function basic_division($level)
 {
-  $dividend = max(1, numGen(round($level*0.6), 10));
-  if ($level <= 7) {
-    $divisor = rand(3*($level-1)+1, 3*$level);
+
+  if ($level <= 3) {
+    $dividend = rand($level, 3*$level);
+    $divisor = rand(1, 4);
+  } elseif ($level <= 6) {
+    $dividend = rand(3*$level, 10*$level);
+    $divisor = rand(5, 9);
   } else {
-    $divisor = rand(4*($level-1)+1, 9*$level);
+    $dividend = rand(10*$level, 100*$level);
+    $divisor = rand(10, 20);
   }
 
-  if ($dividend < $divisor) {
-    list($dividend, $divisor) = array($divisor, $dividend);
-  }
-
-  $quotient = floor($dividend / $divisor);
   $remain = $dividend % $divisor;
-  $question = 'Szorozzuk össze az alábbi számokat!'.basic_division_generate_equation($dividend, $divisor);
+  $quotient = floor($dividend / $divisor);
+  
+  $question = 'Végezzük el az alábbi osztást!'.basic_division_generate_equation($dividend, $divisor);
 
   if ($quotient > 9999) {
     $solution = '$'.number_format($quotient,0,',','\\,').'$';

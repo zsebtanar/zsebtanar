@@ -297,11 +297,11 @@ class Exercises extends CI_model {
 		$this->load->helper('string');
 		$this->load->helper('Maths');
 
-		$this->load->model('Maths');
 		$this->load->model('Database');
 
 		if (!$level) {
-			$level = $this->Session->getUserLevel($id);
+			$level_current = $this->Session->getUserLevel($id);
+			$level_new = ++$level_current;
 		}
 
 		$query 		= $this->db->get_where('exercises', array('id' => $id));
@@ -317,7 +317,7 @@ class Exercises extends CI_model {
 			$this->load->helper('Exercises/'.$class.'/'.$topic.'/'.$subtopic.'/functions');
 		}
 
-		$data = $function($level);
+		$data = $function($level_current);
 
 		if (!isset($data['type'])) {
 			$data['type'] = 'int';
@@ -384,6 +384,9 @@ class Exercises extends CI_model {
 
 			$data['explanation'] = 'Segítségre van szükséged? Kattints a <img src="'.base_url().'assets/images/light_bulb.png" alt="hint" width="40">-ra!';
 
+		} else {
+
+			$data['explanation'] = 'Sajnos ehhez a feladathoz még nincs megoldókulcs. Szeretnéd, ha lenne? Írj egy emailt a <b>zsebtanar@gmail.com</b>-ra!';			
 		}
 
 		return $data;
@@ -593,17 +596,8 @@ class Exercises extends CI_model {
 	 */
 	public function getMaxLevel($id) {
 
-		if (NULL !== $this->session->userdata('Logged_in')
-			&& $this->session->userdata('Logged_in')) {
-
-			$max_level = 3;
-
-		} else {
-
-			$query 	= $this->db->get_where('exercises', array('id' => $id));
-			$max_level = $query->result()[0]->level;
-
-		}
+		$query 	= $this->db->get_where('exercises', array('id' => $id));
+		$max_level = $query->result()[0]->level;
 
  		return $max_level;
 	}

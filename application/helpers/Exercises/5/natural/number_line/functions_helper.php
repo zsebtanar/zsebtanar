@@ -6,17 +6,17 @@
 // Calculate stepsize of number line
 function number_line_stepsize($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $osztaskoz = pow(10,rand(1,4)-1);
     $kulonbseg = 1;
     $minpontok = 4;
     $kezdoertek = rand(0,2)*$osztaskoz;
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $osztaskoz = 5*pow(10,rand(1,4)-1);
     $kulonbseg = rand(2,3);
     $minpontok = 7;
     $kezdoertek = rand(3,5)*$osztaskoz;
-  } elseif ($level == 3) {
+  } else {
     $osztaskoz = rand(2,9)*pow(10,rand(1,4)-1);
     $kulonbseg = rand(3,4);
     $minpontok = 9;
@@ -65,15 +65,15 @@ function number_line_stepsize($level)
 // Calculate position of number on number line
 function number_line_position($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $osztaskoz = pow(10,rand(1,4)-1);
     $kulonbseg = 1;
     $minpontok = 4;
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $osztaskoz = 5*pow(10,rand(1,4)-1);
     $kulonbseg = rand(1,2);
     $minpontok = 7;
-  } elseif ($level == 3) {
+  } else {
     $osztaskoz = rand(2,9)*pow(10,rand(1,4)-1);
     $kulonbseg = rand(2,4);
     $minpontok = 9;
@@ -122,21 +122,21 @@ function number_line_position($level)
 // Define operation shows on number line
 function number_line_operation($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $osztaskoz = pow(10,rand(1,4)-1);
     $pont12kulonbseg = 1;
     $minpontokszama = 4;
     $szinesiveke = 1;
     $muvelethossz = rand(2,2);
     $kezdoertek = rand(0,2)*$osztaskoz;
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $osztaskoz = 5*pow(10,rand(1,4)-1);
     $pont12kulonbseg = rand(1,2);
     $minpontokszama = 7;
     $szinesiveke = 1;
     $muvelethossz = rand(3,4);
     $kezdoertek = rand(3,5)*$osztaskoz;
-  } elseif ($level == 3) {
+  } else {
     $osztaskoz = rand(2,9)*pow(10,rand(1,4)-1);
     $pont12kulonbseg = rand(2,4);
     $minpontokszama = 9;
@@ -203,13 +203,13 @@ function number_line_operation($level)
 // Define position of snail on number line
 function number_line_snail($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $unit = rand(1, 2);
     $no = rand(2, 3);
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $unit = rand(2, 3);
     $no = rand(4, 6);
-  } elseif ($level == 3) {
+  } else {
     $unit = rand(3, 5);
     $no = rand(7, 10);
   }

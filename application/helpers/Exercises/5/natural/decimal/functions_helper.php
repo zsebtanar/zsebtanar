@@ -7,14 +7,9 @@
 // Define number value
 function decimal_number_value($level)
 {
-
-	if ($level == 1) {
-		$length = 2; 
-	} elseif ($level == 2) {
-		$length = rand(3,4);
-	} else {
-		$length = rand(5,6);
-	}
+	$length = $level+1;
+	$length = max(2, $length);
+	$length = min(10, $length);
 
 	$num = numGen($length,10);
 
@@ -67,13 +62,9 @@ function decimal_number_value($level)
 // Define place value I.
 function decimal_place_value1($level)
 {
-	if ($level == 1) {
-		$length = 2; 
-	} elseif ($level == 2) {
-		$length = rand(3,4);
-	} else {
-		$length = rand(5,6);
-	}
+	$length = $level+1;
+	$length = max(2, $length);
+	$length = min(10, $length);
 
 	$num = numGen($length,10);
 
@@ -212,13 +203,9 @@ function markRed($num, $place)
 // Define place value II.
 function decimal_place_value2($level)
 {
-	if ($level == 1) {
-		$length = 2; 
-	} elseif ($level == 2) {
-		$length = rand(3,4);
-	} else {
-		$length = rand(5,6);
-	}
+	$length = $level+1;
+	$length = max(2, $length);
+	$length = min(10, $length);
 
 	$num = numGen($length,10);
 
@@ -250,13 +237,9 @@ function decimal_place_value2($level)
 // Define real value
 function decimal_real_value($level)
 {
-	if ($level == 1) {
-		$length = 2; 
-	} elseif ($level == 2) {
-		$length = rand(3,4);
-	} else {
-		$length = rand(5,6);
-	}
+	$length = $level+1;
+	$length = max(2, $length);
+	$length = min(10, $length);
 
 	$num = numGen($length,10);
 
@@ -300,11 +283,11 @@ function decimal_real_value($level)
 function decimal_count_letters($level)
 {
 
-	if ($level == 1) {
+	if ($level <= 3) {
 		$limit_number = rand(1,2);
 		$limit_place = 3;
 		$limit_value = 3;
-	} elseif ($level == 2) {
+	} elseif ($level <= 6) {
 		$limit_number = rand(2,3);
 		$limit_place = 4;
 		$limit_value = 9;
@@ -364,15 +347,15 @@ function decimal_count_numbers($level)
 {
 	$kitevok = array(0,1,2,3,4,5,6,7,8);
 
-	if ($level == 1) {
+	if ($level <= 3) {
 		$maxdb = rand(1,2);
 		$maxkitevo = 3;
 		$maxertek = 3;
-	} elseif ($level == 2) {
+	} elseif ($level <= 6) {
 		$maxdb = rand(2,3);
 		$maxkitevo = 4;
 		$maxertek = 9;
-	} elseif ($level == 3) {
+	} else {
 		$maxdb = rand(3,4);
 		$maxkitevo = 5;
 		$maxertek = 12;
@@ -425,15 +408,15 @@ function decimal_count_money($level)
   $ertekek = array(10,   20,    50,     100,   200,      500,     1000,  2000,     5000,    10000,    20000);
   $penzek = preg_replace('/^(.*)$/', '\1forintos', $penzek);
   
-  if ($level == 1) {
+  if ($level <= 3) {
     $maxfajta = rand(1,2);
     $maxhelyiertek = 4;
     $maxdb = array(3,2,1);
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $maxfajta = rand(2,3);
     $maxhelyiertek = 7;
     $maxdb = array(9,3,2);
-  } elseif ($level == 3) {
+  } else {
     $maxfajta = rand(3,4);
     $maxhelyiertek = count($penzek);
     $maxdb = array(12,5,3);
@@ -478,15 +461,15 @@ function decimal_count_zeros($level)
 {
   $kitevok = array(0,1,2,3,4,5,6,7,8);
   
-	if ($level == 1) {
+	if ($level <= 3) {
 		$maxdb = rand(1,2);
 		$maxkitevo = 3;
 		$maxertek = 3;
-	} elseif ($level == 2) {
+	} elseif ($level <= 6) {
 		$maxdb = rand(2,3);
 		$maxkitevo = 4;
 		$maxertek = 9;
-	} elseif ($level == 3) {
+	} else {
 		$maxdb = rand(3,4);
 		$maxkitevo = 5;
 		$maxertek = 12;
@@ -551,15 +534,15 @@ function decimal_change_letters($level)
   $index = 2;
   $mirevalt = $mirevalt[$index];
   
-  if ($level == 1) {
+  if ($level <= 3) {
     $max_db = 1;
     $max_helyiertek = 1;
     $max_ertek = 3;
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $max_db = 2;
     $max_helyiertek = rand(2,3);
     $max_ertek = 9;
-  } elseif ($level == 3) {
+  } else {
     $max_db = 3;
     $max_helyiertek = rand(3,6);
     $max_ertek = 12;
@@ -610,15 +593,15 @@ function decimal_change_money($level)
   $index = rand(0,1);
   $mirevalt = $mirevalt[$index];
   
-  if ($level == 1) {
+  if ($level <= 3) {
     $dbmax = 1;
     $mitvalt = array("százast","ezrest");
     $max = array(3,5);
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $dbmax = 2;
     $mitvalt = array("százast","ezrest","ötezrest");
     $max = array(9,6,1);
-  } elseif ($level == 3) {
+  } else {
     $dbmax = 3;
     $mitvalt = array("százast","ezrest","ötezrest","tízezrest","húszezrest");
     $max = array(12,12,1,12,1);
@@ -678,11 +661,11 @@ function decimal_change_money($level)
 // Write number (with numbers)
 function decimal_write_numbers($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $hossz = rand(2,3); 
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $hossz = rand(3,4);
-  } elseif ($level == 3) {
+  } else {
     $hossz = rand(4,5);
   }
   
@@ -747,11 +730,11 @@ function decimal_write_numbers($level)
 // Count hyphens in number
 function decimal_write_hyphen($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $szam = rand(1,2500);
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $szam = numGen(rand(4,7),10);
-  } elseif ($level == 3) {
+  } else {
     $szam = numGen(rand(7,10),10);
   }
   

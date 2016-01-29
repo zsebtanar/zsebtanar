@@ -6,11 +6,11 @@
 // Define number value
 function binary_number_value($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $hossz = rand(2,4); 
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $hossz = rand(5,8);
-  } elseif ($level == 3) {
+  } else {
     $hossz = rand(9,11);
   }
   
@@ -56,11 +56,11 @@ function binary_number_value($level)
 // Define place value I.
 function binary_place_value1($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $hossz = rand(2,4); 
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $hossz = rand(5,8);
-  } elseif ($level == 3) {
+  } else {
     $hossz = rand(9,11);
   }
   
@@ -89,7 +89,7 @@ function binary_place_value1($level)
     $options = preg_replace( '/^(e)/', 'Az $0', $options);
     $options = preg_replace( '/^(ö)/', 'Az $0', $options);
   
-    if ($level == 3) {
+     {
       shuffleAssoc($options);
     }
   
@@ -109,11 +109,11 @@ function binary_place_value1($level)
 // Define place value II.
 function binary_place_value2($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $hossz = rand(2,4); 
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $hossz = rand(5,8);
-  } elseif ($level == 3) {
+  } else {
     $hossz = rand(9,11);
   }
   
@@ -148,7 +148,7 @@ function binary_place_value2($level)
 
     $type = 'quiz';
   
-    if ($level == 3) {
+     {
       $correct = $numb[$helyiertek-1];
       $solution = $options[$helyiertek-1];
       $solution = str_ireplace('\\,','\\\\,',$solution);
@@ -170,11 +170,11 @@ function binary_place_value2($level)
 // Define real value
 function binary_real_value($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $hossz = rand(2,4); 
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $hossz = rand(5,8);
-  } elseif ($level == 3) {
+  } else {
     $hossz = rand(9,11);
   }
   
@@ -236,11 +236,11 @@ function binary_real_value($level)
 // Convert binary to decimal
 function binary_convert_2to10($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $hossz = rand(2,4); 
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $hossz = rand(5,8);
-  } elseif ($level == 3) {
+  } else {
     $hossz = rand(9,11);
   }
   
@@ -267,11 +267,11 @@ function binary_convert_2to10($level)
   $solution = '$'.$correct.'$';
   
   $options = '';
-  if ($level == 1) {
+  if ($level <= 3) {
     $hossz = rand(2,4); 
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $hossz = rand(5,8);
-  } elseif ($level == 3) {
+  } else {
     $hossz = rand(9,11);
   }
   
@@ -312,11 +312,11 @@ function binary_convert_2to10($level)
 // Convert binary to decimal (with bulbs)
 function binary_convert_2to10_bulb($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $hossz = rand(2,4); 
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $hossz = rand(5,8);
-  } elseif ($level == 3) {
+  } else {
     $hossz = rand(9,11);
   }
 
@@ -355,11 +355,11 @@ function binary_convert_2to10_bulb($level)
 // Convert binary to decimal (with fingers)
 function binary_convert_2to10_finger($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $hossz = rand(2,5); 
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $hossz = rand(4,7);
-  } elseif ($level == 3) {
+  } else {
     $hossz = rand(7,10);
   }
   
@@ -404,11 +404,11 @@ function binary_convert_2to10_finger($level)
 // Convert decimal to binary
 function binary_convert_10to2($level)
 {
-  if ($level == 1) {
+  if ($level <= 3) {
     $hossz = rand(2,4); 
-  } elseif ($level == 2) {
+  } elseif ($level <= 6) {
     $hossz = rand(5,8);
-  } elseif ($level == 3) {
+  } else {
     $hossz = rand(9,11);
   }
   

@@ -7,8 +7,9 @@
 /* Count apples from 1 to 20 */
 function count_apples($level) {
 
-	$num = rand(2*$level, 3*($level+1));
+	$num = rand(2*($level-1), 3*$level);
 	$num = min(20, $num);
+	$num = max(0, $num);
 
 	$question = 'Hány darab alma van a fán?<div class="text-center"><img class="img-question" width="50%" src="'.RESOURCES_URL.'/count_apples/tree'.$num.'.png"></div>';
 	$correct = $num;
@@ -24,11 +25,11 @@ function count_apples($level) {
 /* Define parity of number */
 function parity($level) {
 
-	$len = $level+1;
+	$len = max(1, $level);
 
 	$num = numGen(rand(ceil($len/2),$len), 10);
 
-	if ($level == 1) {
+	if ($level <= 3) {
 		$question = '<a tabindex="0" class="bs-docs-popover" role="button" data-placement="bottom" data-toggle="popover" data-trigger="focus" title="Páros számok" data-content="Amik $0$, $2$, $4$, $6$, $8$-ra végződnek.">Páros</a> vagy <a tabindex="0" class="bs-docs-popover" role="button" data-placement="bottom" data-toggle="popover" data-trigger="focus" title="Páratlan számok" data-content="Amik $1$, $3$, $5$, $7$, $9$-re végződnek.">páratlan</a> az alábbi szám?$$'.$num.'$$';
 	} else {
 		$question = 'Páros vagy páratlan az alábbi szám?$$'.$num.'$$';
@@ -58,16 +59,8 @@ function parity($level) {
 /* Count even/odd numbers */
 function count_parity($level=1) {
 
-	if ($level == 1) {
-		$no = rand(2,3); 
-		$len = 1;
-	} elseif ($level == 2) {
-		$no = rand(4,6);
-		$len = 3;
-	} elseif ($level == 3) {
-		$no = rand(7,10);
-		$len = 5;
-	}
+	$no = max(1, $level);
+	$len = max(1, round($level/2));
 
 	for ($i=0; $i < $no; $i++) { 
 		$num[$i] = numGen(rand(ceil($len/2),$len), 10);
