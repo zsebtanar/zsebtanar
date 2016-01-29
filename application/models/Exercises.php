@@ -396,6 +396,34 @@ class Exercises extends CI_model {
 	}
 
 	/**
+	 * Get link for exercise
+	 *
+	 * @param int $id Exercise ID
+	 *
+	 * @return string $href Link
+	 */
+	public function getExerciseLink($id) {
+
+		$exercises = $this->db->get_where('exercises', array('id' => $id));
+
+		if (count($exercises->result()) == 1) {
+
+			$exercise = $exercises->result()[0];
+
+			$title = $exercise->name;
+
+			$href = base_url().'view/exercise/'.$exercise->id;
+
+		} else {
+
+			$href = base_url().'view/main/';
+
+		}
+
+		return $href;
+	}
+
+	/**
 	 * Add explanation to exercise (if there is none)
 	 *
 	 * @param int   $id   Exercise id

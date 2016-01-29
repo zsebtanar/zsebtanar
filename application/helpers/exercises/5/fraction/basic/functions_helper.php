@@ -54,51 +54,6 @@ function fraction_denominator($level)
 	);
 }
 
-// Compare fraction with 1
-function fraction_compare_1($level)
-{
-  if ($level <= 3) {
-    $num = rand(1,3);
-    $denom = rand(3,5);
-  } elseif ($level <= 6) {
-    $num = rand(3,10);
-    $denom = rand(10,20);
-  } else {
-    $num = rand(5,20);
-    $denom = rand(30,100);
-  }
-
-  $rand = rand(1,3);
-
-  if ($rand == 1) {
-    list($num, $denom) = array($denom, $num);
-  } elseif ($rand == 2) {
-    $num = $denom;
-  }
-
-  $frac = $num/$denom;
-
-  $question = 'Melyik relációs jel kerül a kérdőjel helyére?$$\\frac{'.$num.'}{'.$denom.'}\\qquad?\\qquad1$$';
-  $options = array(0 => '>', 1 => '<', 2 => '=');
-
-  if ($frac > 1) {
-    $correct = 0;
-  } elseif ($frac < 1) {
-    $correct = 1;
-  } else {
-    $correct = 2;
-  }
-
-  $solution = '$'.$correct.'$';
-
-	return array(
-		'question' 	=> $question,
-		'correct' 	=> $correct,
-		'solution'	=> $solution,
-		'options' 	=> $options,
-	);
-}
-
 // Define fraction from rectangle
 function fraction_rectangle($level)
 {
@@ -212,5 +167,61 @@ function fraction_from_int($level)
 		'correct' 	=> $correct,
 		'solution'	=> $solution
 	);
+}
+
+// Expand fraction
+function fraction_expand($level)
+{
+  if ($level <= 3) {
+    $num = rand(1,3);
+    $denom = rand(3,5);
+    $expand = 2;
+  } elseif ($level <= 6) {
+    $num = rand(3,10);
+    $denom = rand(10,20);
+    $expand = rand(3,5);
+  } else {
+    $num = rand(5,20);
+    $denom = rand(30,100);
+    $expand = rand(5,10);
+  }
+
+  $question = 'Melyik szám áll a kérdőjel helyén?$$\\frac{'.$num.'}{'.$denom.'}=\\frac{?}{'.$denom*$expand.'}$$';
+  $correct = $num*$expand;
+  $solution = '$'.$correct.'$';
+
+  return array(
+    'question'  => $question,
+    'correct'   => $correct,
+    'solution'  => $solution
+  );
+}
+
+// Simplify fraction
+function fraction_simplify($level)
+{
+  if ($level <= 3) {
+    $num = rand(1,3);
+    $denom = rand(3,5);
+    $expand = 2;
+  } elseif ($level <= 6) {
+    $num = rand(3,10);
+    $denom = rand(10,20);
+    $expand = rand(3,5);
+  } else {
+    $num = rand(5,20);
+    $denom = rand(30,100);
+    $expand = rand(5,10);
+  }
+
+  $question = 'Melyik szám áll a kérdőjel helyén?$$\\frac{'.$num*$expand.'}{'.$denom*$expand.'}=\\frac{?}{'.$denom.'}$$';
+  $correct = $num;
+  $solution = '$'.$correct.'$';
+
+  return array(
+    'question'  => $question,
+    'correct'   => $correct,
+    'solution'  => $solution
+  );
 }
 ?>

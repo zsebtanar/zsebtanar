@@ -70,9 +70,7 @@
 											"label": "basic_addition",
 											"name": "Összeadás",
 											"hint": "osszeadas.jpg",
-											"status": "OK",
-											"level": 9,
-											"rounds": 1
+											"status": "OK"
 										}
 									]
 								},
@@ -84,9 +82,7 @@
 											"label": "basic_subtraction",
 											"name": "Kivonás",
 											"hint": "osszeadas.jpg",
-											"status": "OK",
-											"level": 9,
-											"rounds": 1
+											"status": "OK"
 										}
 									]
 								},
@@ -98,9 +94,7 @@
 											"label": "basic_multiplication",
 											"name": "Szorzás",
 											"hint": "szorzas.jpg",
-											"status": "OK",
-											"level": 9,
-											"rounds": 1
+											"status": "OK"
 										}
 									]
 								},
@@ -112,9 +106,7 @@
 											"label": "basic_division",
 											"name": "Osztás",
 											"hint": "szorzas.jpg",
-											"status": "OK",
-											"level": 9,
-											"rounds": 1
+											"status": "OK"
 										}
 									]
 								}
@@ -433,16 +425,6 @@
 									]
 								},
 								{
-									"name": "Törtek összehasonlítása",
-									"label": "fraction_basic",
-									"exercises": [
-										{
-											"label": "fraction_compare_1",
-											"name": "Összehasonlítás $1$-gyel"
-										}
-									]
-								},
-								{
 									"name": "Törtek átalakítása",
 									"label": "fraction_modify",
 									"exercises": [
@@ -457,6 +439,70 @@
 										{
 											"label": "fraction_from_int",
 											"name": "Egész törtté"
+										},
+										{
+											"label": "fraction_expand",
+											"name": "Bővítés"
+										},
+										{
+											"label": "fraction_simplify",
+											"name": "Egyszerűsítés"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Műveletek",
+							"label": "operation",
+							"quests": [
+								{
+									"name": "Törtek összehasonlítása",
+									"label": "fraction_basic",
+									"exercises": [
+										{
+											"label": "fraction_compare_1",
+											"name": "Összehasonlítás $1$-gyel"
+										},
+										{
+											"label": "fraction_compare",
+											"name": "Összehasonlítás"
+										}
+									]
+								},
+								{
+									"name": "Alapműveletek",
+									"label": "fraction_operations",
+									"exercises": [
+										{
+											"label": "fraction_add",
+											"name": "Összeadás"
+										},
+										{
+											"label": "fraction_mixed",
+											"name": "Vegyes tört"
+										},
+										{
+											"label": "fraction_subtract",
+											"name": "Kivonás"
+										},
+										{
+											"label": "fraction_multiply",
+											"name": "Szorzás"
+										},
+										{
+											"label": "fraction_divide",
+											"name": "Osztás"
+										}
+									]
+								},
+								{
+									"name": "Szöveges feladatok",
+									"label": "fraction_complex",
+									"exercises": [
+										{
+											"label": "fraction_iceberg",
+											"name": "Jéghegy"
 										}
 									]
 								}

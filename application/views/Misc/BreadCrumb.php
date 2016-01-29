@@ -1,5 +1,10 @@
 <ol class="breadcrumb text-center small">
 	<li>
+		<a href="<?php echo $link_prev;?>">
+			<span class="glyphicon glyphicon-chevron-left"></span>
+		</a>
+	</li>
+	<li>
 		<a href="<?php echo base_url();?>view/main">
 			Kezdőlap
 		</a>
@@ -35,4 +40,9 @@
 
 	}?>
 
+	<li>
+		<a href="<?php echo $link_next;?>">
+			<span class="glyphicon glyphicon-chevron-right"></span>
+		</a>
+	</li>
 </ol>

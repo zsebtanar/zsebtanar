@@ -120,7 +120,7 @@ class Session extends CI_model {
 			$level_user = $this->getUserLevel($exercise->id);
 			$level_max = $this->Exercises->getMaxLevel($exercise->id);
 
-			if ($level_user < $level_max && $exercise->status == 'OK') {
+			if ($level_user < $level_max) {
 
 				$iscomplete = FALSE;
 				break;

@@ -55,6 +55,9 @@ class Html extends CI_model {
 			$query = $this->db->get_where('subtopics', array('id' => $id));
 			$data['subtopic'] = $query->result_array()[0];
 
+			$data['link_prev'] = $this->getSubtopicLink($id-1);
+			$data['link_next'] = $this->getSubtopicLink($id+1);
+
 		} elseif ($type == 'exercise') {
 
 			$subtopicID = $this->Exercises->getSubtopicID($id);
@@ -69,6 +72,9 @@ class Html extends CI_model {
 
 			$query = $this->db->get_where('exercises', array('id' => $id));
 			$data['exercise'] = $query->result_array()[0];
+
+			$data['link_prev'] = $this->Exercises->getExerciseLink($id-1);
+			$data['link_next'] = $this->Exercises->getExerciseLink($id+1);
 
 		}
 
@@ -91,10 +97,7 @@ class Html extends CI_model {
 		$data['quests']		= $this->Exercises->getSubtopicQuests($subtopicID, $questID);
 		$data['results']	= $this->Session->GetResults('subtopic', $subtopicID);
 		$data['breadcrumb'] = $this->BreadCrumb('subtopic', $subtopicID);
-
-		$data['title']['current'] 	= $this->TitleSubtopic($subtopicID);
-		$data['title']['prev'] 		= $this->TitleSubtopic($subtopicID-1);
-		$data['title']['next'] 		= $this->TitleSubtopic($subtopicID+1);
+		$data['title']		= $this->SubtopicTitle($subtopicID);
 
 		return $data;
 	}
@@ -119,7 +122,7 @@ class Html extends CI_model {
 		$data['results']['id'] = $id;
 		$data['results']['type'] = 'exercise';
 
-		$data['title']['current'] 	= $this->TitleExercise($id);
+		$data['progress'] 	= $this->Session->getUserProgress($id);
 
 		return $data;
 	}
@@ -199,90 +202,53 @@ class Html extends CI_model {
 	}
 
 	/**
-	 * Get title data for exercise
-	 *
-	 * @param int $id Excercise ID
-	 *
-	 * @return array $data Exercise data
-	 */
-	public function TitleExercise($id) {
-
-		$exercises = $this->db->get_where('exercises', array('id' => $id));
-
-		if (count($exercises->result()) > 0) {
-			$exercise = $exercises->result()[0];
-
-			$subtopicID = $this->Exercises->getSubtopicID($id);
-			$subtopicName = $this->Exercises->getSubtopicName($id);
-
-			$level_user = $this->Session->getUserLevel($id);
-
-			$questID = $exercise->questID;
-
-			$progress = $this->Session->getUserProgress($id);
-
-			$data = array(
-				'id'			=> $id,
-				'level_user' 	=> $level_user,
-				'progress'		=> $progress,
-				'title' 		=> $exercise->name,
-				'subtitle' 		=> $subtopicName,
-				'subtopicID'	=> $subtopicID,
-				'questID' 		=> $questID,
-				'status'		=> $exercise->status
-			);
-		} else {
-
-			$data = NULL;
-			
-		}
-
-		return $data;
-	}
-
-	/**
-	 * Get page title for subtopic
+	 * Get subtopic title
 	 *
 	 * @param int $id Subtopic ID
 	 *
-	 * @return string $data Html-code
+	 * @return string $title Title
 	 */
-	public function TitleSubtopic($id) {
-
-		$this->load->model('Exercises');
+	public function SubtopicTitle($id) {
 
 		$subtopics = $this->db->get_where('subtopics', array('id' => $id));
 
 		if (count($subtopics->result()) > 0) {
 
 			$subtopic = $subtopics->result()[0];
-
-			$this->db->select('classes.name')
-					->from('subtopics')
-					->join('topics', 'topics.id = subtopics.topicID', 'inner')
-					->join('classes', 'classes.id = topics.classID', 'inner');
-			$classes = $this->db->get();
-			$class = $classes->result()[0];
-
 			$title = $subtopic->name;
-			$subtitle = $class->name;
-
-			$href = base_url().'view/subtopic/'.$subtopic->id;
-
-			$data = array(
-				'title' 	=> $title,
-				'subtitle' 	=> $subtitle,
-				'id'		=> $id,
-				'href'		=> $href
-			);
 
 		} else {
 
-			$data = NULL;
+			$title = NULL;
 
 		}
 
-		return $data;
+		return $title;
+	}
+
+	/**
+	 * Get link for subtopic
+	 *
+	 * @param int $id Subtopic ID
+	 *
+	 * @return string $href Link
+	 */
+	public function getSubtopicLink($id) {
+
+		$subtopics = $this->db->get_where('subtopics', array('id' => $id));
+
+		if (count($subtopics->result()) > 0) {
+
+			$subtopic = $subtopics->result()[0];
+			$href = base_url().'view/subtopic/'.$subtopic->id;
+
+		} else {
+
+			$href = base_url().'view/main/';
+
+		}
+
+		return $href;
 	}
 }
 
