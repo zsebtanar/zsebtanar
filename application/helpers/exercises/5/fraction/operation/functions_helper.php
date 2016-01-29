@@ -29,7 +29,7 @@ function fraction_compare_1($level)
 
   $frac = $num/$denom;
 
-  $question = 'Melyik relációs jel kerül a kérdőjel helyére?$$\\frac{'.$num.'}{'.$denom.'}\\qquad?\\qquad1$$';
+  $question = 'Melyik relációs jel kerül a kérdőjel helyére?$$\frac{'.$num.'}{'.$denom.'}\qquad?\qquad1$$';
   $options = array(0 => '>', 1 => '<', 2 => '=');
 
   if ($frac > 1) {
@@ -73,7 +73,7 @@ function fraction_compare($level)
   $frac1 = $num1/$denom1;
   $frac2 = $num2/$denom2;
 
-  $question = 'Melyik relációs jel kerül a kérdőjel helyére? $$\\frac{'.$num1.'}{'.$denom1.'}\\qquad?\\qquad\\frac{'.$num2.'}{'.$denom2.'}$$';
+  $question = 'Melyik relációs jel kerül a kérdőjel helyére? $$\frac{'.$num1.'}{'.$denom1.'}\qquad?\qquad\frac{'.$num2.'}{'.$denom2.'}$$';
   $options = array(0 => '>', 1 => '<', 2 => '=');
   if ($frac1 > $frac2) {
     $correct = 0;
@@ -124,9 +124,9 @@ function fraction_add($level)
     $denom /= $gcd;    
   }
 
-  $question = 'Mennyi lesz az alábbi művelet eredménye? $$\\frac{'.$num1.'}{'.$denom1.'}+\\frac{'.$num2.'}{'.$denom2.'}$$';
+  $question = 'Mennyi lesz az alábbi művelet eredménye? $$\frac{'.$num1.'}{'.$denom1.'}+\frac{'.$num2.'}{'.$denom2.'}$$';
   $correct = array($num, $denom);
-  $solution = '$\\\\frac{'.$num.'}{'.$denom.'}$';
+  $solution = '$\\frac{'.$num.'}{'.$denom.'}$';
   $type = 'fraction';
 
   return array(
@@ -165,7 +165,7 @@ function fraction_mixed($level)
 
   $question = 'Alakítsd át közönséges törtté!$$'.$int.'\frac{'.$num1.'}{'.$denom1.'}$$';
   $correct = array($num, $denom);
-  $solution = '$\\\\frac{'.$num2.'}{'.$denom2.'}$';
+  $solution = '$\\frac{'.$num2.'}{'.$denom2.'}$';
   $type = 'fraction';
 
   return array(
@@ -208,8 +208,8 @@ function fraction_subtract($level)
     $denom /= $gcd;    
   }
 
-  $question = 'Mennyi lesz az alábbi művelet eredménye? $$\\frac{'.$num1.'}{'.$denom1.'}-\\frac{'.$num2.'}{'.$denom2.'}$$';
-  $solution = '$\\\\frac{'.$num.'}{'.$denom.'}$';
+  $question = 'Mennyi lesz az alábbi művelet eredménye? $$\frac{'.$num1.'}{'.$denom1.'}-\frac{'.$num2.'}{'.$denom2.'}$$';
+  $solution = '$\\frac{'.$num.'}{'.$denom.'}$';
   $correct = array($num, $denom);
   $type = 'fraction';
 
@@ -253,8 +253,8 @@ function fraction_multiply($level)
     $denom /= $gcd;    
   }
 
-  $question = 'Mennyi lesz az alábbi művelet eredménye? $$\\frac{'.$num1.'}{'.$denom1.'}\\cdot\\frac{'.$num2.'}{'.$denom2.'}$$';
-  $solution = '$\\\\frac{'.$num.'}{'.$denom.'}$';
+  $question = 'Mennyi lesz az alábbi művelet eredménye? $$\frac{'.$num1.'}{'.$denom1.'}\cdot\frac{'.$num2.'}{'.$denom2.'}$$';
+  $solution = '$\\frac{'.$num.'}{'.$denom.'}$';
   $correct = array($num, $denom);
   $type = 'fraction';
 
@@ -298,8 +298,8 @@ function fraction_divide($level)
     $denom /= $gcd;    
   }
 
-  $question = 'Mennyi lesz az alábbi művelet eredménye? $$\\frac{'.$num1.'}{'.$denom1.'}:\\frac{'.$num2.'}{'.$denom2.'}$$';
-  $solution = '$\\\\frac{'.$num.'}{'.$denom.'}$';
+  $question = 'Mennyi lesz az alábbi művelet eredménye? $$\frac{'.$num1.'}{'.$denom1.'}:\frac{'.$num2.'}{'.$denom2.'}$$';
+  $solution = '$\\frac{'.$num.'}{'.$denom.'}$';
   $correct = array($num, $denom);
   $type = 'fraction';
 

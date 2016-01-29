@@ -308,14 +308,17 @@ class Exercises extends CI_model {
 		} elseif ($answer[1] == NULL) {
 			$status = 'NOT_DONE';
 			$message = 'Hiányzik a nevező!';
+		} elseif ($answer[1] == 0) {
+			$status = 'NOT_DONE';
+			$message = 'A nevező nem lehet $0$!';
 		} else {
 
 			list($num, $denom) = $correct;
-			$frac = round($num/$denom*1e5)/1e5;
+			$frac = $num/$denom;
 
 			$num_user = $answer[0];
 			$denom_user = $answer[1];
-			$frac_user = round($num_user/$denom_user*1e5)/1e5;
+			$frac_user = $num_user/$denom_user;
 
 			if ($frac != $frac_user) {
 				$status = 'WRONG';
@@ -339,31 +342,19 @@ class Exercises extends CI_model {
 	 */
 	public function GetExerciseData($id, $level) {
 
-		// $this->session->unset_userdata('exercise');
-
 		$this->load->helper('string');
-		$this->load->helper('Maths');
 
-		$this->load->model('Database');
-
+		// Get exercise level
 		if (!$level) {
 			$level_current = $this->Session->getUserLevel($id);
 			$level_new = ++$level_current;
 		}
 
-		$query 		= $this->db->get_where('exercises', array('id' => $id));
-		$exercise 	= $query->result()[0]; 
-
+		// Generate exercise
+		$this->load->helper('maths');
+		$this->load->helper('language');
+		$exercise = $this->LoadExerciseFunction($id);
 		$function = $exercise->label;
-
-		$class = $this->Database->getClassLabel($id);
-		$topic = $this->Database->getTopicLabel($id);
-		$subtopic = $this->Database->getSubtopicLabel($id);
-
-		if (!function_exists($function)) {
-			$this->load->helper('Exercises/'.$class.'/'.$topic.'/'.$subtopic.'/functions');
-		}
-
 		$data = $function($level_current);
 
 		if (!isset($data['type'])) {
@@ -379,7 +370,7 @@ class Exercises extends CI_model {
 		}
 
 		$data = $this->AddExplanation($id, $data);
-
+		
 		$hash = random_string('alnum', 16);
 
 		$this->Session->SaveExerciseData($id, $level, $data, $hash);
@@ -393,6 +384,35 @@ class Exercises extends CI_model {
 		$data['subtopicID'] = $this->getSubtopicID($id);
 
 		return $data;
+	}
+
+	/**
+	 * Load exercise
+	 *
+	 * Loads specific helper to access exercise function
+	 *
+	 * @param int $id Exercise ID
+	 *
+	 * @return array $exercise Exercise data
+	 */
+	public function LoadExerciseFunction($id) {
+
+		$query 		= $this->db->get_where('exercises', array('id' => $id));
+		$exercise 	= $query->result()[0]; 
+
+		// Load exercise function
+		$function = $exercise->label;
+
+		$this->load->model('Database');
+		$class = $this->Database->getClassLabel($id);
+		$topic = $this->Database->getTopicLabel($id);
+		$subtopic = $this->Database->getSubtopicLabel($id);
+
+		if (!function_exists($function)) {
+			$this->load->helper('Exercises/'.$class.'/'.$topic.'/'.$subtopic.'/functions');
+		}
+
+		return $exercise;
 	}
 
 	/**

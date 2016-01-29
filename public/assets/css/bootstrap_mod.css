@@ -85,3 +85,7 @@ input.smallInput {
     text-decoration: none !important;
     color: #333;
 }
+
+.panel-title {
+    font-size: inherit; 
+}

@@ -18,7 +18,7 @@ function fraction_numerator($level)
     $denom = rand(30,100);
   }
 
-  $question = 'Mekkora a számláló az alábbi törtben?$$\\frac{'.$num.'}{'.$denom.'}$$';
+  $question = 'Mekkora a számláló az alábbi törtben?$$\frac{'.$num.'}{'.$denom.'}$$';
   $correct = $num;
   $solution = '$'.$correct.'$';
 
@@ -43,7 +43,7 @@ function fraction_denominator($level)
     $denom = rand(30,100);
   }
 
-  $question = 'Mekkora a nevező az alábbi törtben?$$\\frac{'.$num.'}{'.$denom.'}$$';
+  $question = 'Mekkora a nevező az alábbi törtben?$$\frac{'.$num.'}{'.$denom.'}$$';
   $correct = $denom;
   $solution = '$'.$correct.'$';
 
@@ -78,7 +78,7 @@ function fraction_rectangle($level)
         </div>';
   $type = 'fraction';
   $correct = array($num, $denom);
-  $solution = '$\\\\frac{'.$num.'}{'.$denom.'}$';
+  $solution = '$\\frac{'.$num.'}{'.$denom.'}$';
 
 	return array(
 		'question' 	=> $question,
@@ -102,10 +102,10 @@ function fraction_reciprocal($level)
     $denom = rand(30,100);
   }
 
-  $question = 'Számítsd ki a reciprokát!$$\\frac{'.$num.'}{'.$denom.'}$$';
+  $question = 'Számítsd ki a reciprokát!$$\frac{'.$num.'}{'.$denom.'}$$';
   $type = 'fraction';
   $correct = array($num, $denom);
-  $solution = '$\\\\frac{'.$num.'}{'.$denom.'}$';
+  $solution = '$\\frac{'.$num.'}{'.$denom.'}$';
 
 	return array(
 		'question' 	=> $question,
@@ -131,7 +131,7 @@ function fraction_to_int($level)
 
   $num = $denom * $integer;
 
-  $question = 'Alakítsd egésszé!$$\\frac{'.$num.'}{'.$denom.'}$$';
+  $question = 'Alakítsd egésszé!$$\frac{'.$num.'}{'.$denom.'}$$';
   $correct = $integer;
   $solution = '$'.$correct.'$';
 
@@ -158,7 +158,7 @@ function fraction_from_int($level)
 
   $num = $denom * $integer;
 
-  $question = 'Melyik szám áll a kérdőjel helyén?$$'.$integer.'=\\frac{?}{'.$denom.'}$$';
+  $question = 'Melyik szám áll a kérdőjel helyén?$$'.$integer.'=\frac{?}{'.$denom.'}$$';
   $correct = $num;
   $solution = '$'.$correct.'$';
 
@@ -186,7 +186,7 @@ function fraction_expand($level)
     $expand = rand(5,10);
   }
 
-  $question = 'Melyik szám áll a kérdőjel helyén?$$\\frac{'.$num.'}{'.$denom.'}=\\frac{?}{'.$denom*$expand.'}$$';
+  $question = 'Melyik szám áll a kérdőjel helyén?$$\frac{'.$num.'}{'.$denom.'}=\frac{?}{'.$denom*$expand.'}$$';
   $correct = $num*$expand;
   $solution = '$'.$correct.'$';
 
@@ -214,7 +214,7 @@ function fraction_simplify($level)
     $expand = rand(5,10);
   }
 
-  $question = 'Melyik szám áll a kérdőjel helyén?$$\\frac{'.$num*$expand.'}{'.$denom*$expand.'}=\\frac{?}{'.$denom.'}$$';
+  $question = 'Melyik szám áll a kérdőjel helyén?$$\frac{'.$num*$expand.'}{'.$denom*$expand.'}=\frac{?}{'.$denom.'}$$';
   $correct = $num;
   $solution = '$'.$correct.'$';
 

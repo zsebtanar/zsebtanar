@@ -145,6 +145,7 @@
 				// Exercise not finished
 				if (data['status'] == 'NOT_DONE') {
 					document.getElementById("message").innerHTML = data['message'];
+					MathJax.Hub.Queue(["Typeset",MathJax.Hub,"message"]);
 					return;
 				}
 
