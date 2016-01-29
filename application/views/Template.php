@@ -11,6 +11,7 @@
 	$this->load->view('Misc/GoogleAnalytics');
 
 	$this->load->view('Modal/Info');
+	$this->load->view('Modal/Login');
 
 	$this->load->view('Misc/NavBar', $results);
 

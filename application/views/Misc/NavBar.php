@@ -58,6 +58,11 @@
 			} else {?>
 
 				<li>
+					<a href="#" data-toggle="modal" data-target="#login">
+						<span class="glyphicon glyphicon-user"></span>&nbsp;Bejelentkezés
+					</a>
+				</li>
+				<li>
 					<a href="#" data-toggle="modal" data-target="#info">
 						<span class="glyphicon glyphicon-info-sign"></span>&nbsp;Mi ez?
 					</a>

@@ -16,7 +16,7 @@
 							</div>
 							<p class="text-center" id="login_message"></p>
 							<div class="text-right">
-								<button type="submit" class="btn btn-default" onclick=login()>Mehet</button>
+								<button type="submit" class="btn btn-default" onclick=login(event)>Mehet</button>
 							</div>
 						</form>
 					</div>
@@ -27,27 +27,10 @@
 	</div>
 </div>
 
-<!-- Typeahead JS -->
 <script>
-    function login() {
+    function login(event) {
     	event.preventDefault();
     	var pwd = document.getElementById('pwd').value;
-        $.ajax({
-            type: "GET",
-            url: "<?php echo base_url();?>application/login",
-            data: {
-                password: pwd
-            },
-            dataType: "json",
-            success: function(status) {
-                if (status == 'PASSWORD_OK') {
-                    window.location.assign("<?php echo base_url();?>view/main")
-                } else if (status == 'INCORRECT_PASSWORD') {
-                    document.getElementById('login_message').innerHTML = 'Érvénytelen jelszó!';
-                } else if (status == 'PASSWORD_MISSING') {
-                	document.getElementById('login_message').innerHTML = 'Hiányzik a jelszó!';
-    			}
-    		}
-        });
+        window.location.assign("<?php echo base_url();?>application/login/"+pwd);
     }
 </script>
