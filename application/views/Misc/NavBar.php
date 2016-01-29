@@ -33,21 +33,20 @@
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav navbar-right small"><?php
 
-			if (NULL !== $this->session->userdata('Logged_in') &&
-				$this->session->userdata('Logged_in')) {?>
+			if ($this->Session->CheckLogin()) {?>
 
 				<li>
 					<a href="<?php echo base_url().'application/clearresults/'.
 						(isset($type) ? $type : '').
 						(isset($id) ? '/'.$id : '');?>">
-						<span class="glyphicon glyphicon-remove"></span>&nbsp;Törlés
+						<span class="glyphicon glyphicon-remove"></span>&nbsp;Pontok törlése
 					</a>
 				</li>
 				<li>
 					<a href="<?php echo base_url().'update/database/'.
 						(isset($type) ? $type : '').'/'.
 						(isset($id) ? '/'.$id : '');?>">
-						<span class="glyphicon glyphicon-refresh"></span>&nbsp;Frissítés
+						<span class="glyphicon glyphicon-refresh"></span>&nbsp;Adatbázis frissítése
 					</a>
 				</li>
 				<li>

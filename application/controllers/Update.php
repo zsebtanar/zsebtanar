@@ -13,7 +13,7 @@ class Update extends CI_controller {
 	 */
 	public function Database($type=NULL, $id=NULL) {
 
-		if ($this->session->userdata('Logged_in') == TRUE) {
+		if ($this->Session->CheckLogin()) == TRUE) {
 
 			// unset user data in session
 			$this->load->model('Session');

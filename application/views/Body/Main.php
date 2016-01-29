@@ -12,7 +12,7 @@
 
 		foreach ($classes as $class) {?>
 
-			<h1><?php echo $class['name'];?></h1><?php
+			<h2><?php echo $class['name'];?></h2><?php
 
 			if (count($class['topics']) > 0) {?>
 

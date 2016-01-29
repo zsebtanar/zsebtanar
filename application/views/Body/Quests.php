@@ -27,7 +27,7 @@
 						</h4>
 					</div>
 
-					<div id="listgroup<?php echo $quest['id'];?>" class="panel-collapse collapse <?php echo ($questID == $quest['id'] ? 'in' : '');?>" role="tabpanel" aria-labelledby="heading<?php echo $quest['id'];?>" aria-expanded="true">
+					<div id="listgroup<?php echo $quest['id'];?>" class="panel-collapse collapse <?php echo $quest['class'];?>" role="tabpanel" aria-labelledby="heading<?php echo $quest['id'];?>" aria-expanded="true">
 						<ul class="list-group"><?php
 
 						foreach ($quest['exercises'] as $exercise) {?>
@@ -40,6 +40,21 @@
 								for ($i=0; $i < 3; $i++) {?>
 
 									<img id="star<?php echo $i;?>" src="<?php echo base_url().'assets/images/star'.($i < $exercise['userlevel'] ? 1 : 0).'.png';?>" alt="star"  width="15px"><?php
+
+								}
+
+								if (NULL !== $this->session->userdata('Logged_in') &&
+									$this->session->userdata('Logged_in')) {
+
+									if ($exercise['status'] == 'OK') {?>
+
+										<span class="pull-right label label-primary"><span class="glyphicon glyphicon-ok"></span>&nbsp;kész</span><?php
+
+									} else {?>
+
+										<span class="pull-right label label-warning"><span class="glyphicon glyphicon-remove"></span>&nbsp;hiányos</span><?php
+
+									}
 
 								}?>
 

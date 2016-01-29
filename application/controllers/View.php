@@ -32,7 +32,7 @@ class View extends CI_controller {
 
 		$this->load->view('Template', $data);
 		
-		if ($this->session->userdata('Logged_in')) {
+		if ($this->Session->CheckLogin()) {
 			$this->Session->PrintInfo();
 		}
 	}
@@ -47,14 +47,14 @@ class View extends CI_controller {
 	 */
 	public function Subtopic($subtopicID=NULL, $questID=NULL) {
 
-		$data = $this->Html->SubtopicData($subtopicID);
+		$data = $this->Html->SubtopicData($subtopicID, $questID);
 
 		$data['questID'] = $questID;
 		$data['subtopicID'] = $subtopicID;
 
 		$this->load->view('Template', $data);
 		
-		if ($this->session->userdata('Logged_in')) {
+		if ($this->Session->CheckLogin()) {
 			$this->Session->PrintInfo();
 		}
 	}
@@ -75,7 +75,7 @@ class View extends CI_controller {
 
 		$type = 'exercise';
 
-		if ($this->session->userdata('Logged_in')) {
+		if ($this->Session->CheckLogin()) {
 			$this->Session->PrintInfo();
 		}
 	}

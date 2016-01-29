@@ -387,6 +387,29 @@ class Session extends CI_model {
 
 		return;
 	}
+
+	/**
+	 * Check login
+	 *
+	 * Checks if user is logged in
+	 *
+	 * @return bool $status Whether user logged in or not
+	 */
+	public function CheckLogin() {
+
+		if (NULL !== $this->session->userdata('Logged_in') &&
+			$this->session->userdata('Logged_in')) {
+
+			$status = TRUE;
+
+		} else {
+
+			$status = FALSE;
+
+		}
+
+		return $status;
+	}
 }
 
 ?>

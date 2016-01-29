@@ -394,47 +394,14 @@ class Exercises extends CI_model {
 	}
 
 	/**
-	 * Get quiz data
-	 *
-	 * Define correct answer, solution and options for quiz
-	 *
-	 * @param array $data Exercise data
-	 *
-	 * @return array $data Exercise data (completed)
-	 */
-	public function getQuizData($data) {
-
-		$length = max(count(str_split($data['correct'])),
-					  count(str_split($data['wrong1'])),
-					  count(str_split($data['wrong2'])));
-
-		$options = array(
-			$data['correct'],
-			$data['wrong1'],
-			$data['wrong2']
-		);
-
-		shuffle($options);
-		$correct = array_search($data['correct'], $options);
-
-		return array(
-			'question' 	=> $data['question'],
-			'options' 	=> $options,
-			'correct' 	=> $correct,
-			'solution'	=> $options[$correct],
-			'type' 		=> 'quiz',
-			'length' 	=> $length
-		);
-	}
-
-	/**
 	 * Get quests of subtopic
 	 *
 	 * @param int $subtopicID Subtopic ID
+	 * @param int $questID    Quest ID
 	 *
 	 * @return array $data Quests
 	 */
-	public function getSubtopicQuests($subtopicID) {
+	public function getSubtopicQuests($subtopicID=NULL, $questID=NULL) {
 
 		$query = $this->db->get_where('quests', array('subtopicID' => $subtopicID));
 		$quests = $query->result();
@@ -443,13 +410,17 @@ class Exercises extends CI_model {
 		if (count($quests) > 0) {
 			foreach ($quests as $quest) {
 
-				$questID = $quest->id;
-
-				$row['id'] 			= $questID;
+				$row['id'] 			= $quest->id;
 				$row['name'] 		= $quest->name;
-				$row['exercises'] 	= $this->getQuestExercises($questID);
-				$row['links'] 		= $this->getQuestLinks($questID);
-				$row['complete'] 	= $this->isComplete($questID);
+				$row['exercises'] 	= $this->getQuestExercises($quest->id);
+				$row['links'] 		= $this->getQuestLinks($quest->id);
+				$row['complete'] 	= $this->isComplete($quest->id);
+
+				if ($this->Session->CheckLogin() || $quest->id == $questID) {
+					$row['class'] = 'in';
+				} else {
+					$row['class'] = '';
+				}
 
 				if ($row['exercises']) {
 					$data['quests'][] 	= $row;

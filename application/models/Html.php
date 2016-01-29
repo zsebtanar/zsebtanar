@@ -80,20 +80,21 @@ class Html extends CI_model {
 	 *
 	 * Collects all necessary parameters for template
 	 *
-	 * @param int $id Subtopic ID
+	 * @param int $subtopicID Subtopic ID
+	 * @param int $questID    QuestID
 	 *
 	 * @return array $data Subtopic data
 	 */
-	public function SubtopicData($id) {
+	public function SubtopicData($subtopicID=NULL, $questID=NULL) {
 
 		$data['type'] 		= 'subtopic';
-		$data['quests']		= $this->Exercises->getSubtopicQuests($id);
-		$data['results']	= $this->Session->GetResults('subtopic', $id);
-		$data['breadcrumb'] = $this->BreadCrumb('subtopic', $id);
+		$data['quests']		= $this->Exercises->getSubtopicQuests($subtopicID, $questID);
+		$data['results']	= $this->Session->GetResults('subtopic', $subtopicID);
+		$data['breadcrumb'] = $this->BreadCrumb('subtopic', $subtopicID);
 
-		$data['title']['current'] 	= $this->TitleSubtopic($id);
-		$data['title']['prev'] 		= $this->TitleSubtopic($id-1);
-		$data['title']['next'] 		= $this->TitleSubtopic($id+1);
+		$data['title']['current'] 	= $this->TitleSubtopic($subtopicID);
+		$data['title']['prev'] 		= $this->TitleSubtopic($subtopicID-1);
+		$data['title']['next'] 		= $this->TitleSubtopic($subtopicID+1);
 
 		return $data;
 	}
@@ -166,8 +167,14 @@ class Html extends CI_model {
 
 					$topic_menu['id'] = $topic->id;
 					$topic_menu['name'] = $topic->name;
-					$topic_menu['class'] = ($topic->id == $topicID || $topic->classID == $classID ? 'in' : '');
 					$topic_menu['subtopics'] = $subtopics_menu;
+
+					if ($this->Session->CheckLogin() || $topic->id == $topicID || (!$topicID && $topic->classID == $classID)) {
+						$topic_menu['class'] = 'in';
+					} else {
+						$topic_menu['class'] = '';
+					}
+					
 
 					$topics_menu[] = $topic_menu;
 				}
@@ -175,8 +182,13 @@ class Html extends CI_model {
 
 			$class_menu['id'] = $class->id;
 			$class_menu['name'] = $class->name;
-			$class_menu['class'] = ($class->id == $classID ? 'in' : '');
 			$class_menu['topics'] = $topics_menu;
+
+			if ($this->Session->CheckLogin() || $class->id == $classID) {
+				$class_menu['class'] = 'in';
+			} else {
+				$class_menu['class'] = '';
+			}
 
 			$classes_menu[] = $class_menu;
 		}
