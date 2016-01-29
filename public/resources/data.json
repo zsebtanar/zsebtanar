@@ -405,6 +405,42 @@
 							]
 						}
 					]
+				},
+				{
+					"name": "Törtszámok",
+					"label": "fraction",
+					"subtopics": [
+						{
+							"name": "Alapok",
+							"label": "basic",
+							"quests": [
+								{
+									"name": "Tört részei",
+									"label": "fraction_parts",
+									"exercises": [
+										{
+											"label": "fraction_numerator",
+											"name": "Számláló"
+										},
+										{
+											"label": "fraction_denominator",
+											"name": "Nevező"
+										}
+									]
+								},
+								{
+									"name": "Egyszerű műveletek",
+									"label": "fraction_basic",
+									"exercises": [
+										{
+											"label": "fraction_compare_1",
+											"name": "Összehasonlítás $1$-gyel"
+										}
+									]
+								}
+							]
+						}
+					]
 				}
 			]
 		}

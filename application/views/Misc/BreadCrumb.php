@@ -28,7 +28,7 @@
 	if (isset($breadcrumb['quest'])) {?>
 
 		<li>
-			<a href="<?php echo base_url();?>view/subtopic/<?php echo $breadcrumb['class']['id'].'/'.$breadcrumb['quest']['id'];?>">
+			<a href="<?php echo base_url();?>view/subtopic/<?php echo $breadcrumb['subtopic']['id'].'/'.$breadcrumb['quest']['id'];?>">
 				<?php print_r($breadcrumb['quest']['name']); ?>
 			</a>
 		</li><?php
