@@ -1,15 +1,6 @@
-<?php
-if ($length < 10) {
-	$width = 4;
-} elseif ($length < 20) {
-	$width = 6;
-} else {
-	$width = 8;
-}?>
-
 <div class="row">
 	<div class="col-sm-<?php echo (12-$width)/2;?>"></div>
-	<div class="col-sm-<?php echo $width;?>"><?php
+	<div class="col-sm-<?php echo $width.' text-'.$align;?>"><?php
 
 	if (count($options) > 3) {?>
 

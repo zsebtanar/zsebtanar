@@ -366,7 +366,7 @@ class Exercises extends CI_model {
 		}
 
 		if ($data['type'] == 'quiz') {
-			$data = $this->getAnswerLength($data);
+			$data = $this->getColumnWidth($data);
 		}
 
 		$data = $this->AddExplanation($id, $data);
@@ -541,16 +541,30 @@ class Exercises extends CI_model {
 	 *
 	 * @return array $data Exercise data (completed)
 	 */
-	public function getAnswerLength($data) {
+	public function getColumnWidth($data) {
 
-		$length = 0;
+		$lengths = [];
 
 		foreach ($data['options'] as $option) {
 
-			$length = max($length, count(str_split($option)));
+			$lengths[] = count(str_split($option));
 		}
 
-		$data['length'] = $length;
+		$max_length = max($lengths);
+		$min_length = min($lengths);
+
+		if ($max_length < 2) {
+			$width = 2;
+		} elseif ($max_length < 10) {
+			$width = 4;
+		} elseif ($max_length < 20) {
+			$width = 6;
+		} else {
+			$width = 8;
+		}
+
+		$data['align'] = ($max_length == $min_length ? 'center' : 'left');
+		$data['width'] = $width;
 
 		return $data;
 	}
