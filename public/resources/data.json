@@ -425,20 +425,38 @@
 										{
 											"label": "fraction_denominator",
 											"name": "Nevező"
+										},
+										{
+											"label": "fraction_rectangle",
+											"name": "Tört meghatározása"
 										}
 									]
 								},
 								{
-									"name": "Egyszerű műveletek",
+									"name": "Törtek összehasonlítása",
 									"label": "fraction_basic",
 									"exercises": [
 										{
 											"label": "fraction_compare_1",
 											"name": "Összehasonlítás $1$-gyel"
+										}
+									]
+								},
+								{
+									"name": "Törtek átalakítása",
+									"label": "fraction_modify",
+									"exercises": [
+										{
+											"label": "fraction_reciprocal",
+											"name": "Reciprok"
 										},
 										{
-											"label": "fraction_rectangle",
-											"name": "Tört meghatározása"
+											"label": "fraction_to_int",
+											"name": "Tört egésszé"
+										},
+										{
+											"label": "fraction_from_int",
+											"name": "Egész törtté"
 										}
 									]
 								}
