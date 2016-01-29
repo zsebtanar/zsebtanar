@@ -234,6 +234,28 @@ class Database extends CI_model {
 			$currentID = $this->db->insert_id();
 			$sessionID = str_split($table, 5)[0].'_ID';
 			$this->session->set_userdata($sessionID, $currentID);
+
+			// Store exercises
+			if ($table == 'exercises') {
+
+				$names = $this->session->userdata('names');
+				$exercises = $this->session->userdata('exercises');
+				$exercises .= $names['classes']."\t"
+						.$names['topics']."\t"
+						.$names['subtopics']."\t"
+						.$names['quests']."\t"
+						.$data['name']."\t"
+						.(isset($data['status']) && $data['status'] == 'OK' ? 'Kész' : 'Hiányos')."\r\n";
+				$this->session->set_userdata('exercises', $exercises);
+
+			} else {
+
+				if (isset($data['name'])) {
+					$names = $this->session->userdata('names');
+					$names[$table] = $data['name'];
+					$this->session->set_userdata('names', $names);
+				}
+			}
 		}
 
 		// Recursive check for other table names

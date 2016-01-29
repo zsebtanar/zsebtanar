@@ -13,10 +13,11 @@ class Update extends CI_controller {
 	 */
 	public function Database($type=NULL, $id=NULL) {
 
-		if ($this->Session->CheckLogin()) == TRUE) {
+		$this->load->model('Session');
+
+		if ($this->Session->CheckLogin()) {
 
 			// unset user data in session
-			$this->load->model('Session');
 			$this->Session->UnsetUserData();
 
 			// prepare tables
@@ -29,6 +30,10 @@ class Update extends CI_controller {
 			$this->Database->InsertData($data);
 
 		}
+
+		// Print exercises
+		// $exercises = $this->session->userdata('exercises');
+		// print_r($exercises);
 
 		// redirect page
 		$this->load->helper('url');
