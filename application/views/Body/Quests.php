@@ -1,17 +1,17 @@
 <div class="row">
 	<div class="col-md-3"></div>
-	<div class="col-md-6">
-		<!--<div class="text-center">
+	<div class="col-md-6"><br />
+		<div class="text-center">
 			<a href="#" class="btn btn-class openall">mutat</a>&nbsp;|&nbsp;
 			<a href="#" class="btn btn-class closeall">elrejt</a>
-		</div>--><br />
+		</div>
 		<div class="panel-group" role="tablist"><?php
 
 		if (is_array($quests)) {
 
 				foreach ($quests as $quest) {?>
 
-				<div class="panel panel-<?php echo ($questID == $quest['id'] ? 'primary' : 'default');?>">
+				<div class="panel panel-default">
 					<div class="panel-heading" role="tab" id="heading<?php echo $quest['id'];?>">
 						<h4 class="panel-title">
 							<a class="" role="button" data-toggle="collapse" href="#listgroup<?php echo $quest['id'];?>" aria-expanded="true" aria-controls="listgroup<?php echo $quest['id'];?>">
@@ -25,13 +25,9 @@
 							}?>
 
 						</h4>
-					</div><?php
+					</div>
 
-					$class = ($questID == $quest['id'] ? 'in' : '');
-					$class = 'in';
-					?>
-
-					<div id="listgroup<?php echo $quest['id'];?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<?php echo $quest['id'];?>" aria-expanded="true">
+					<div id="listgroup<?php echo $quest['id'];?>" class="panel-collapse collapse <?php echo ($questID == $quest['id'] ? 'in' : '');?>" role="tabpanel" aria-labelledby="heading<?php echo $quest['id'];?>" aria-expanded="true">
 						<ul class="list-group"><?php
 
 						foreach ($quest['exercises'] as $exercise) {?>

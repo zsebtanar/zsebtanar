@@ -25,7 +25,7 @@ class Html extends CI_model {
 	 */
 	public function MainData($classID=NULL, $topicID=NULL) {
 
-		$data['topics'] 	= $this->getTopics($classID, $topicID);
+		$data['subtopics'] 	= $this->getSubtopics($classID, $topicID);
 		$data['classID'] 	= $classID;
 		$data['topicID'] 	= $topicID;
 		$data['type'] 		= 'main';
@@ -124,14 +124,20 @@ class Html extends CI_model {
 	}
 
 	/**
-	 * Get navbar menu
+	 * Get subtopics
 	 *
-	 * @return array $data Navbar menu
+	 * Gets all subtopics for each topic, and all topics for each class
+	 *
+	 * @param int $classID Class id
+	 * @param int $topicID Topic id
+	 *
+	 * @return array $data Subtopics
 	 */
-	public function getTopics() {
+	public function getSubtopics($classID=NULL, $topicID=NULL) {
 
 		$this->db->order_by('id');
 		$classes = $this->db->get('classes');
+		$classes_menu = [];
 
 		foreach ($classes->result() as $class) {
 
@@ -144,33 +150,38 @@ class Html extends CI_model {
 
 					$this->db->order_by('id');
 					$subtopics = $this->db->get_where('subtopics', array('topicID' => $topic->id));
+					$subtopics_menu = [];
 
 					if (count($subtopics) > 0) {
 
 						foreach ($subtopics->result() as $subtopic) {
 
-							$quests = $this->Exercises->getSubtopicQuests($subtopic->id);
+							$subtopic_menu['id'] = $subtopic->id;
+							$subtopic_menu['name'] = $subtopic->name;
+							$subtopic_menu['iscomplete'] = $this->Session->isSubtopicComplete($subtopic->id);
 
-							if ($quests) {
-								$iscomplete = $this->Session->isSubtopicComplete($subtopic->id);
-
-								$menu[$class->name][$topic->name][$subtopic->id] = array(
-									'name' => $subtopic->name,
-									'iscomplete' => $iscomplete
-								);
-
-								$menu[$class->name]['classID'] = $class->id;
-								$menu[$class->name][$topic->name]['topicID'] = $topic->id;
-
-							}
+							$subtopics_menu[] = $subtopic_menu;
 						}
 					}
 
+					$topic_menu['id'] = $topic->id;
+					$topic_menu['name'] = $topic->name;
+					$topic_menu['class'] = ($topic->id == $topicID || $topic->classID == $classID ? 'in' : '');
+					$topic_menu['subtopics'] = $subtopics_menu;
+
+					$topics_menu[] = $topic_menu;
 				}
 			}
+
+			$class_menu['id'] = $class->id;
+			$class_menu['name'] = $class->name;
+			$class_menu['class'] = ($class->id == $classID ? 'in' : '');
+			$class_menu['topics'] = $topics_menu;
+
+			$classes_menu[] = $class_menu;
 		}
 
-		$data['html'] = $menu;
+		$data['classes'] = $classes_menu;
 
 		return $data;
 	}

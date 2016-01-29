@@ -76,3 +76,8 @@ input.smallInput {
     background-color: #FFFFFF;
     padding-top: 15px;
 }
+
+.nounderline, .nounderline:hover {
+    text-decoration: none !important;
+    color: #333;
+}

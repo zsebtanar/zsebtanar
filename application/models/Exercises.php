@@ -334,6 +334,7 @@ class Exercises extends CI_model {
 		$data['level'] 		= $level;
 		$data['youtube'] 	= $exercise->youtube;
 		$data['hint'] 		= $exercise->hint;
+		$data['questID']	= $exercise->questID;
 		$data['id'] 		= $id;
 		$data['hash']		= $hash;
 		$data['subtopicID'] = $this->getSubtopicID($id);
@@ -499,19 +500,15 @@ class Exercises extends CI_model {
 
 		if (count($exercises) > 0) {
 			foreach ($exercises as $exercise) {
-				if ((NULL !== $this->session->userdata('Logged_in')
-					&& $this->session->userdata('Logged_in'))
-					|| $exercise->status == 'OK') {
 
-					$id = $exercise->id;
+				$id = $exercise->id;
 
-					$row['userlevel'] 	= $this->Session->getUserLevel($id);
-					$row['id'] 			= $id;
-					$row['name'] 		= $exercise->name;
-					$row['status'] 		= $exercise->status;
+				$row['userlevel'] 	= $this->Session->getUserLevel($id);
+				$row['id'] 			= $id;
+				$row['name'] 		= $exercise->name;
+				$row['status'] 		= $exercise->status;
 
-					$data[] = $row;
-				}
+				$data[] = $row;
 			}
 		}
 

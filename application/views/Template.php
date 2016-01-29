@@ -17,7 +17,7 @@
 	if ($type == 'main') {
 		
 		$this->load->view('Title/Main');
-		$this->load->view('Body/Topics', $topics);
+		$this->load->view('Body/Main', $subtopics);
 
 	} elseif ($type == 'subtopic') {
 
