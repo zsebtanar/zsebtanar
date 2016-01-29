@@ -781,7 +781,7 @@ function basic_division($level)
 
   return array(
     'question'  => $question,
-    'correct'   => json_encode(array($quotient,$remain)),
+    'correct'   => array($quotient,$remain),
     'solution'  => $solution,
     'type'      => 'division',
     'explanation' => $explanation

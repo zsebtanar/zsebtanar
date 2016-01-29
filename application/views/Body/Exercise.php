@@ -72,6 +72,10 @@
 
 						$this->load->view('Input/Division');
 
+					} elseif ($type == 'fraction') {
+
+						$this->load->view('Input/Fraction');
+
 					}?>
 
 					<input type="hidden" name="hash" value="<?php echo $hash;?>">

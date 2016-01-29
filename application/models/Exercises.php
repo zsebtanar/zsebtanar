@@ -121,6 +121,10 @@ class Exercises extends CI_model {
 			case 'division':
 				list($status, $message) = $this->GenerateMessagesDivision($answer, $correct, $solution);
 				break;
+
+			case 'fraction':
+				list($status, $message) = $this->GenerateMessagesFraction($answer, $correct, $solution);
+				break;
 		}
 
 		$submessages = (isset($submessages) ? $submessages : []);
@@ -268,9 +272,52 @@ class Exercises extends CI_model {
 			$message = 'Hiányzik a válasz!';
 		} else {
 
-			list($quotient, $remain) = json_decode($correct);
+			list($quotient, $remain) = $correct;
 
 			if ($quotient != $answer[0] || $remain != $answer[1]) {
+				$status = 'WRONG';
+				$message = 'A helyes válasz: '.$solution;
+			} else {
+				$status = 'CORRECT';
+				$message = 'Helyes válasz!';
+			}
+		}
+
+		return array($status, $message);
+	}
+
+	/**
+	 * Generate messages for fraction type exercises
+	 *
+	 * @param array  $answer   User answer
+	 * @param int    $correct  Correct answer
+	 * @param string $solution Solution
+	 *
+	 * @return string $status     Status (NOT_DONE/CORRECT/WRONG)
+	 * @return string $message    Message
+	 * @return array  $submessage Submessages
+	 */
+	public function GenerateMessagesFraction($answer, $correct, $solution) {
+
+		if ($answer[0] == NULL && $answer[1] == NULL) {
+			$status = 'NOT_DONE';
+			$message = 'Hiányzik a válasz!';
+		} elseif ($answer[0] == NULL) {
+			$status = 'NOT_DONE';
+			$message = 'Hiányzik a számláló!';
+		} elseif ($answer[1] == NULL) {
+			$status = 'NOT_DONE';
+			$message = 'Hiányzik a nevező!';
+		} else {
+
+			list($num, $denom) = $correct;
+			$frac = round($num/$denom*1e5)/1e5;
+
+			$num_user = $answer[0];
+			$denom_user = $answer[1];
+			$frac_user = round($num_user/$denom_user*1e5)/1e5;
+
+			if ($frac != $frac_user) {
 				$status = 'WRONG';
 				$message = 'A helyes válasz: '.$solution;
 			} else {
@@ -320,8 +367,14 @@ class Exercises extends CI_model {
 		$data = $function($level_current);
 
 		if (!isset($data['type'])) {
-			$data['type'] = 'int';
-		} elseif ($data['type'] == 'quiz') {
+			if (!isset($data['options'])) {
+				$data['type'] = 'int';
+			} elseif (is_array($data['options'])) {
+				$data['type'] = 'quiz';
+			}
+		}
+
+		if ($data['type'] == 'quiz') {
 			$data = $this->getAnswerLength($data);
 		}
 

@@ -435,6 +435,10 @@
 										{
 											"label": "fraction_compare_1",
 											"name": "Összehasonlítás $1$-gyel"
+										},
+										{
+											"label": "fraction_rectangle",
+											"name": "Tört meghatározása"
 										}
 									]
 								}

@@ -17,6 +17,10 @@ body {
     display:inline;
 }
 
+.img-question {
+    padding: 20px 0px;
+}
+
 .jumbotron {
     padding-bottom: 50px;
     margin: 0px;
