@@ -272,4 +272,41 @@ function combos($arr, $k) {
   return $combos;
 }
 
+/**
+ * Get member of series defined by recursive formula
+ *
+ * Formula: $coeff_an_1*a_{n-1} + $coeff_an_2*a_{n-2} + $coeff_n*n^{pow_n} + $coeff_a0
+ *
+ * @param int $a1         Initial value of a1
+ * @param int $a2         Initial value of a2
+ * @param int $coeff_an_1 Coefficient of a_{n-1} in recursive formula
+ * @param int $coeff_an_2 Coefficient of a_{n-2} in recursive formula
+ * @param int $coeff_n    Coefficient of n in recursive formula
+ * @param int $pow_n      Power of n in recursive formula
+ * @param int $coeff_a0   Constant term in recursive formula
+ * @param int $index      Index of member we are looking for
+ *
+ * @return int $res Result
+ */
+function recursiveSeries($a1, $a2, $coeff_an_1, $coeff_an_2, $coeff_n, $pow_n, $coeff_a0, $index)
+{
+  if ($index == 1) {
+    $res = $a1;
+  } elseif ($index == 2 && $coeff_an_2 != 0) {
+    $res = $a2;
+  } else {
+
+    $an_1 = recursiveSeries($a1, $a2, $coeff_an_1, $coeff_an_2, $coeff_n, $pow_n, $coeff_a0, $index-1);
+    if ($coeff_an_2 != 0) {
+      $an_2 = recursiveSeries($a1, $a2, $coeff_an_1, $coeff_an_2, $coeff_n, $pow_n, $coeff_a0, $index-2);
+    } else {
+      $an_2 = 0;
+
+    }
+    $res = $coeff_an_1*$an_1 + $coeff_an_2*$an_2 + $coeff_n*pow($index,$pow_n) + $coeff_a0;
+
+  }
+  return $res;
+}
+
 ?>

@@ -224,7 +224,7 @@ class Database extends CI_model {
 			
 				// Insert values
 				if ($this->db->insert($table, $values)) {
-					echo 'Data inserted into '.$table.'!<br />';
+					// echo 'Data inserted into '.$table.'!<br />';
 				} else {
 					show_error($this->db->_error_message());
 				}

@@ -519,7 +519,7 @@
 									"label": "exercise_1",
 									"exercises": [
 										{
-											"label": "exam_01_iceberg",
+											"label": "exam_iceberg",
 											"name": "Jéghegy",
 											"youtube": "5xeffd2FQlo"
 										}
@@ -533,6 +533,98 @@
 											"label": "exam_race",
 											"name": "Verseny",
 											"youtube": "7sZPzmVfH0w"
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "12. osztály",
+			"label": 12,
+			"topics": [
+				{
+					"name": "Sorozatok",
+					"label": "series",
+					"subtopics": [
+						{
+							"name": "Alapok",
+							"label":"basic",
+							"quests": [
+								{
+									"name": "Sorozatok megadása",
+									"label": "series_types",
+									"exercises": [
+										{
+											"label": "series_explicit",
+											"name": "Explicit"
+										},
+										{
+											"label": "series_recursive",
+											"name": "Rekurzív"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Számtani sorozatok",
+							"label":"numerical",
+							"quests": [
+								{
+									"name": "Tagok",
+									"label": "members",
+									"exercises": [
+										{
+											"label": "series_numerical_difference",
+											"name": "Különbség"
+										},
+										{
+											"label": "series_numerical_member_1",
+											"name": "Tagból és különbségből"
+										},
+										{
+											"label": "series_numerical_member_2",
+											"name": "Két tagból"
+										},
+										{
+											"label": "series_numerical_order",
+											"name": "Hányadik tag?"
+										}
+									]
+								},
+								{
+									"name": "Összeg",
+									"label": "sum",
+									"exercises": [
+										{
+											"label": "series_numerical_sum_1",
+											"name": "Tagból és különbségből"
+										},
+										{
+											"label": "series_numerical_sum_2",
+											"name": "Két tagból"
+										},
+										{
+											"label": "series_numerical_members",
+											"name": "Összeg tagjai"
+										}
+									]
+								},
+								{
+									"name": "Szöveges feladatok",
+									"label": "complex",
+									"exercises": [
+										{
+											"label": "series_numerical_carrot",
+											"name": "Répa"
+										},
+										{
+											"label": "series_numerical_candy",
+											"name": "Drazsé"
 										}
 									]
 								}
