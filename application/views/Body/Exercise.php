@@ -58,10 +58,10 @@
 
 					if ($type == 'quiz') {
 
-						$this->load->view('Input/Quiz', array(
-							'options' => $options,
-							'width' => $width,
-							'align' => $align));
+						$this->load->view('Input/Quiz',
+							array('options' => $options,
+									'width' => $width,
+									'align' => $align));
 
 					} elseif ($type == 'int' || $type == 'text') {
 

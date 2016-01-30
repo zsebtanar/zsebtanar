@@ -495,14 +495,44 @@
 											"name": "Osztás"
 										}
 									]
-								},
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "6. osztály",
+			"label": 6,
+			"topics": [
+				{
+					"name": "Felvételi",
+					"label": "exam",
+					"subtopics": [
+						{
+							"name": "2001. október 8.",
+							"label":"2001_10_08",
+							"quests": [
 								{
-									"name": "Szöveges feladatok",
-									"label": "fraction_complex",
+									"name": "1. feladat",
+									"label": "exercise_1",
 									"exercises": [
 										{
-											"label": "fraction_iceberg",
-											"name": "Jéghegy"
+											"label": "exam_01_iceberg",
+											"name": "Jéghegy",
+											"youtube": "5xeffd2FQlo"
+										}
+									]
+								},
+								{
+									"name": "2. feladat",
+									"label": "exercise_2",
+									"exercises": [
+										{
+											"label": "exam_race",
+											"name": "Verseny",
+											"youtube": "7sZPzmVfH0w"
 										}
 									]
 								}

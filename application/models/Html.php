@@ -141,12 +141,13 @@ class Html extends CI_model {
 
 		$this->db->order_by('id');
 		$classes = $this->db->get('classes');
-		$classes_menu = [];
+		
 
 		foreach ($classes->result() as $class) {
 
 			$this->db->order_by('id');
 			$topics = $this->db->get_where('topics', array('classID' => $class->id));
+			$topics_menu = [];
 
 			if (count($topics) > 0) {
 
