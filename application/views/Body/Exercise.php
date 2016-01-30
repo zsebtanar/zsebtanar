@@ -7,7 +7,7 @@
 			if ($youtube) {?>
 
 				<a href="http://www.youtube.com/watch?v=<?php echo $youtube; ?>">
-					<img src="<?php echo base_url();?>assets/images/logo_small.png" alt="logo" width="20">
+					<img src="<?php echo base_url();?>assets/images/play.png" alt="logo" width="30">
 				</a>
 
 				<div class="modal fade" id="mediaModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -52,9 +52,8 @@
 			<div class="col-sm-1"></div>
 		</div>
 		<div class="row">
-
 			<div class="col-sm-12 exercise_input">
-				<form id="exercise" autocomplete="off"><?php
+				<form id="exercise_form" autocomplete="off"><?php
 
 					if ($type == 'quiz') {
 
@@ -82,7 +81,6 @@
 					}?>
 
 					<input type="hidden" name="hash" value="<?php echo $hash;?>">
-					<br />
 					<div class="text-center"><?php
 
 						if ($this->Session->CheckLogin()) {
@@ -95,12 +93,11 @@
 			</div>
 			<div class="col-sm-12 text-center">
 				
-					<div id="button">
+					<div id="submit_exercise">
 						<button class="btn btn-primary" onclick="checkSolution(event)">
 							Mehet
 						</button>
 					</div>
-					<br />
 
 					<div>
 						<a class="btn btn-default" href="<?php echo base_url().'view/subtopic/'.$subtopicID.'/'.$questID;?>">
@@ -153,7 +150,7 @@
 				}
 
 				// Disable buttons
-				var radios = document.forms["exercise"]["answer"];
+				var radios = document.forms["exercise_form"]["answer"];
 
 				if (radios.length > 0) {
 					for (var i=0, iLen=radios.length; i<iLen; i++) {
@@ -171,9 +168,9 @@
 						progress_bar_class = $('#progress_bar').attr('class').replace(/(progress-bar-)\w*/, '$1'+ data['progress']['style']);
 						$('#progress_bar').attr('class', progress_bar_class);
 						if (data['id_next'] == null) {
-							document.getElementById("button").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url().'view/subtopic/';?>" + data['subtopicID'] + '/' + data['questID'] + "\">Kész! :)</button>";
+							document.getElementById("submit_exercise").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url().'view/subtopic/';?>" + data['subtopicID'] + '/' + data['questID'] + "\">Kész! :)</button>";
 						} else {
-							document.getElementById("button").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url().'view/exercise/';?>" + data['id_next'] + "\">Tovább&nbsp;<span class=\"glyphicon glyphicon-chevron-right\"></span></button>";
+							document.getElementById("submit_exercise").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url().'view/exercise/';?>" + data['id_next'] + "\">Tovább&nbsp;<span class=\"glyphicon glyphicon-chevron-right\"></span></button>";
 						}
 						break;
 					case 'WRONG':
@@ -182,7 +179,7 @@
 							MathJax.Hub.Queue(["Typeset",MathJax.Hub,"explanation"]);
 						}
 						document.getElementById("message").innerHTML = '<div class="alert alert-danger"><strong><span class=\"glyphicon glyphicon-remove\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>';
-						document.getElementById("button").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url();?>view/exercise/<?php echo $id;?>\"><span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;Újra</button>";
+						document.getElementById("submit_exercise").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url();?>view/exercise/<?php echo $id;?>\"><span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;Újra</button>";
 						if (data['submessages'].length > 0) {
 							for (var i = data['submessages'].length - 1; i >= 0; i--) {
 								var submessage = data['submessages'][i];

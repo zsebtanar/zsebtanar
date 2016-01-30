@@ -34,13 +34,6 @@ body {
     font-size: 70%;
     /*padding: 0px;*/
 }
-.exercise {
-    padding-top: 20px;
-}
-
-.exercise_input {
-    padding: 30px;
-}
 
 h1 {
     padding-top: 20px;
@@ -88,4 +81,12 @@ input.smallInput {
 
 .panel-title {
     font-size: inherit; 
+}
+
+#submit_exercise {
+    padding: 10px;
+}
+
+#exercise_form {
+    padding: 10px;
 }
