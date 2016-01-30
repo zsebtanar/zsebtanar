@@ -409,7 +409,7 @@ class Exercises extends CI_model {
 		$subtopic = $this->Database->getSubtopicLabel($id);
 
 		if (!function_exists($function)) {
-			$this->load->helper('Exercises/'.$class.'/'.$topic.'/'.$subtopic.'/functions');
+			$this->load->helper('exercises/'.$class.'/'.$topic.'/'.$subtopic.'/functions');
 		}
 
 		return $exercise;
