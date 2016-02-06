@@ -101,6 +101,10 @@ input.smallInput {
     color: black;
 }
 
+a.panel-heading-title:hover, a.panel-heading-title:visited, a.panel-heading-title:focus {
+    text-decoration: none;
+}
+
 .pull-right {
     margin-bottom: 10px; 
 }

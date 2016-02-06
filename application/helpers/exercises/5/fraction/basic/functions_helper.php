@@ -104,8 +104,8 @@ function fraction_reciprocal($level)
 
   $question = 'Számítsd ki a reciprokát!$$\frac{'.$num.'}{'.$denom.'}$$';
   $type = 'fraction';
-  $correct = array($num, $denom);
-  $solution = '$\\frac{'.$num.'}{'.$denom.'}$';
+  $correct = array($denom, $num);
+  $solution = '$\\frac{'.$denom.'}{'.$num.'}$';
 
 	return array(
 		'question' 	=> $question,
