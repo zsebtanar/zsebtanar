@@ -11,104 +11,54 @@
 						{
 							"name": "Számolás",
 							"label":"counting",
-							"quests": [
+							"exercises": [
 								{
-									"name": "Számolás",
-									"label": "counting",
-									"exercises": [
-										{
-											"label": "count_apples",
-											"name": "Számolás 1-től 20-ig",
-											"hint": "szamok_1-20.jpg",
-											"status": "OK"
-										}
-									]
+									"label": "count_apples",
+									"name": "Számolás 1-től 20-ig",
+									"hint": "szamok_1-20.jpg",
+									"status": "OK"
 								},
 								{
-									"name": "Páros, páratlan",
 									"label": "parity",
-									"exercises": [
-										{
-											"label": "parity",
-											"name": "Páros vagy páratlan?",
-											"hint": "paros_paratlan.jpg",
-											"status": "OK"
-										}
-									]
+									"name": "Páros vagy páratlan?",
+									"hint": "paros_paratlan.jpg",
+									"status": "OK"
 								},
 								{
-									"name": "Vegyes feladatok",
 									"label": "count_parity",
-									"exercises": [
-										{
-											"label": "count_parity",
-											"name": "Hány darab páros/páratlan?",
-											"hint": "paros_paratlan.jpg",
-											"status": "OK"
-										}
-									],
-									"links": [
-										{
-											"label": "parity" 
-										},
-										{
-											"label": "counting" 
-										}
-									]
+									"name": "Hány darab páros/páratlan?",
+									"hint": "paros_paratlan.jpg",
+									"status": "OK"
 								}
 							]
 						},
-												{
+											{
 							"name": "Alapműveletek",
 							"label":"operations",
-							"quests": [
+							"exercises": [
 								{
-									"name": "Összeadás",
 									"label": "basic_addition",
-									"exercises": [
-										{
-											"label": "basic_addition",
-											"name": "Összeadás",
-											"hint": "osszeadas.jpg",
-											"status": "OK"
-										}
-									]
+									"name": "Összeadás",
+									"hint": "osszeadas.jpg",
+									"status": "OK"
 								},
 								{
-									"name": "Kivonás",
 									"label": "basic_subtraction",
-									"exercises": [
-										{
-											"label": "basic_subtraction",
-											"name": "Kivonás",
-											"hint": "osszeadas.jpg",
-											"status": "OK"
-										}
-									]
+									"name": "Kivonás",
+									"hint": "osszeadas.jpg",
+									"status": "OK"
 								},
 								{
-									"name": "Szorzás",
 									"label": "basic_multiplication",
-									"exercises": [
-										{
-											"label": "basic_multiplication",
-											"name": "Szorzás",
-											"hint": "szorzas.jpg",
-											"status": "OK"
-										}
-									]
+									"name": "Szorzás",
+									"hint": "szorzas.jpg",
+									"status": "OK"
 								},
 								{
-									"name": "Osztás",
 									"label": "basic_division",
-									"exercises": [
-										{
-											"label": "basic_division",
-											"name": "Osztás",
-											"hint": "szorzas.jpg",
-											"status": "OK"
-										}
-									]
+									"name": "Osztás",
+									"hint": "szorzas.jpg",
+									"status": "OK"
 								}
 							]
 						}
@@ -121,278 +71,200 @@
 						{
 							"name": "Tízes számrendszer",
 							"label": "decimal",
-							"quests": [
+							"exercises": [
 								{
-									"name": "Alaki érték, helyiérték, valódi érték",
-									"label": "decimal_place_value",
-									"exercises": [
-										{
-											"label": "decimal_place_value1",
-											"name": "Helyiérték I.",
-											"hint": "helyiertek_tablazat_10_betuk.png",
-											"status": "OK"
-										},
-										{
-											"label": "decimal_place_value2",
-											"name": "Helyiérték II.",
-											"hint": "helyiertek_tablazat_10_szamok.png",
-											"status": "OK"
-										},
-										{
-											"label": "decimal_number_value",
-											"name": "Alaki érték",
-											"hint": "helyiertek_tablazat_10_betuk.png",
-											"status": "OK"
-										},
-										{
-											"label": "decimal_real_value",
-											"name": "Valódi érték",
-											"hint": "helyiertek_tablazat_10_szamok.png",
-											"status": "OK"
-										}
-									]
+									"label": "decimal_place_value1",
+									"name": "Helyiérték I.",
+									"hint": "helyiertek_tablazat_10_betuk.png",
+									"status": "OK"
 								},
 								{
-									"name": "Számolás",
-									"label": "decimal_count",
-									"exercises": [
-										{
-											"label": "decimal_count_letters",
-											"name": "Betűkkel"
-										},
-										{
-											"label": "decimal_count_numbers",
-											"name": "Számokkal"
-										},
-										{
-											"label": "decimal_count_money",
-											"name": "Pénzzel"
-										},
-										{
-											"label": "decimal_count_zeros",
-											"name": "Nullák"
-										}
-									]
+									"label": "decimal_place_value2",
+									"name": "Helyiérték II.",
+									"hint": "helyiertek_tablazat_10_szamok.png",
+									"status": "OK"
 								},
 								{
-									"name": "Számok átváltása",
-									"label": "decimal_change",
-									"exercises": [
-										{
-											"label": "decimal_change_letters",
-											"name": "Betűkkel"
-										},
-										{
-											"label": "decimal_change_money",
-											"name": "Pénzzel"
-										}
-									]
+									"label": "decimal_number_value",
+									"name": "Alaki érték",
+									"hint": "helyiertek_tablazat_10_betuk.png",
+									"status": "OK"
 								},
 								{
-									"name": "Számok leírása",
-									"label": "decimal_write",
-									"exercises": [
-										{
-											"label": "decimal_write_numbers",
-											"name": "Számokkal"
-										},
-										{
-											"label": "decimal_write_hyphen",
-											"name": "Betűkkel"
-										}
-									]
+									"label": "decimal_real_value",
+									"name": "Valódi érték",
+									"hint": "helyiertek_tablazat_10_szamok.png",
+									"status": "OK"
+								},
+								{
+									"label": "decimal_count_letters",
+									"name": "Betűkkel"
+								},
+								{
+									"label": "decimal_count_numbers",
+									"name": "Számokkal"
+								},
+								{
+									"label": "decimal_count_money",
+									"name": "Pénzzel"
+								},
+								{
+									"label": "decimal_count_zeros",
+									"name": "Nullák"
+								},
+								{
+									"label": "decimal_change_letters",
+									"name": "Betűkkel"
+								},
+								{
+									"label": "decimal_change_money",
+									"name": "Pénzzel"
+								},
+								{
+									"label": "decimal_write_numbers",
+									"name": "Számokkal"
+								},
+								{
+									"label": "decimal_write_hyphen",
+									"name": "Betűkkel"
 								}
 							]
 						},
 						{
 							"name": "Kettes számrendszer",
 							"label": "binary",
-							"quests": [
+							"exercises": [
 								{
-									"name": "Alaki érték, helyiérték, valódi érték",
 									"label": "binary_number_value",
-									"exercises": [
-										{
-											"label": "binary_number_value",
-											"name": "Alaki érték"
-										},
-										{
-											"label": "binary_place_value1",
-											"name": "Helyiérték I."
-										},
-										{
-											"label": "binary_place_value2",
-											"name": "Helyiérték II."
-										},
-										{
-											"label": "binary_real_value",
-											"name": "Valódi érték"
-										}
-									]
+									"name": "Alaki érték"
 								},
 								{
-									"name": "Számok átváltása",
-									"label": "binary_convert",
-									"exercises": [
-										{
-											"label": "binary_convert_2to10",
-											"name": "Kettesből tízes számrendszerbe"
-										},
-										{
-											"label": "binary_convert_2to10_bulb",
-											"name": "Kettesből tízes számrendszerbe (lámpa)"
-										},
-										{
-											"label": "binary_convert_2to10_finger",
-											"name": "Kettesből tízes számrendszerbe (ujjak)"
-										},
-										{
-											"label": "binary_convert_10to2",
-											"name": "Tízesből kettes számrendszerbe"
-										}
-									]
+									"label": "binary_place_value1",
+									"name": "Helyiérték I."
+								},
+								{
+									"label": "binary_place_value2",
+									"name": "Helyiérték II."
+								},
+								{
+									"label": "binary_real_value",
+									"name": "Valódi érték"
+								},
+								{
+									"label": "binary_convert_2to10",
+									"name": "Kettesből tízes számrendszerbe"
+								},
+								{
+									"label": "binary_convert_2to10_bulb",
+									"name": "Kettesből tízes számrendszerbe (lámpa)"
+								},
+								{
+									"label": "binary_convert_2to10_finger",
+									"name": "Kettesből tízes számrendszerbe (ujjak)"
+								},
+								{
+									"label": "binary_convert_10to2",
+									"name": "Tízesből kettes számrendszerbe"
 								}
 							]
 						},
 						{
 							"name": "Római számrendszer",
 							"label": "roman",
-							"quests": [
+							"exercises": [
 								{
-									"name": "Számok átváltása",
-									"label": "roman_convert",
-									"exercises": [
-										{
-											"label": "roman_convert_ROMto10",
-											"name": "Rómaiból tízes számrendszerbe"
-										},
-										{
-											"label": "roman_convert_10toROM",
-											"name": "Tízesből római számrendszerbe"
-										}
-									]
+									"label": "roman_convert_ROMto10",
+									"name": "Rómaiból tízes számrendszerbe"
+								},
+								{
+									"label": "roman_convert_10toROM",
+									"name": "Tízesből római számrendszerbe"
 								}
 							]
 						},
 						{
 							"name": "Számegyenes",
 							"label": "number_line",
-							"quests": [
+							"exercises": [
 								{
-									"name": "Vegyes feladatok",
-									"label": "number_line_mixed",
-									"exercises": [
-										{
-											"label": "number_line_stepsize",
-											"name": "Osztásköz"
-										},
-										{
-											"label": "number_line_position",
-											"name": "Szám helye"
-										},
-										{
-											"label": "number_line_operation",
-											"name": "Műveletek ábrázolása"
-										}
-									]
+									"label": "number_line_stepsize",
+									"name": "Osztásköz"
 								},
 								{
-									"name": "Szöveges feladatok",
-									"label": "number_line_text",
-									"exercises": [
-										{
-											"label": "number_line_snail",
-											"name": "Csiga"
-										}
-									]
+									"label": "number_line_position",
+									"name": "Szám helye"
+								},
+								{
+									"label": "number_line_operation",
+									"name": "Műveletek ábrázolása"
+								},
+								{
+									"label": "number_line_snail",
+									"name": "Csiga"
 								}
 							]
 						},
 						{
 							"name": "Számok összehasonlítása",
 							"label": "number_compare",
-							"quests": [
+							"exercises": [
 								{
-									"name": "Vegyes feladatok",
-									"label": "number_compare_mixed",
-									"exercises": [
-										{
-											"label": "number_compare_sign",
-											"name": "Relációs jel"
-										},
-										{
-											"label": "number_compare_compare",
-											"name": "Összehasonlítás"
-										},
-										{
-											"label": "number_compare_order",
-											"name": "Számok sorrendje"
-										},
-										{
-											"label": "number_compare_missing_digit",
-											"name": "Hiányzó számjegy"
-										},
-										{
-											"label": "number_compare_between",
-											"name": "Hány természetes szám?"
-										}
-									]
+									"label": "number_compare_sign",
+									"name": "Relációs jel"
+								},
+								{
+									"label": "number_compare_compare",
+									"name": "Összehasonlítás"
+								},
+								{
+									"label": "number_compare_order",
+									"name": "Számok sorrendje"
+								},
+								{
+									"label": "number_compare_missing_digit",
+									"name": "Hiányzó számjegy"
+								},
+								{
+									"label": "number_compare_between",
+									"name": "Hány természetes szám?"
 								}
 							]
 						},
 						{
 							"name": "Számok kerekítése",
 							"label": "number_round",
-							"quests": [
+							"exercises": [
 								{
-									"name": "Kerekítés",
+									"label": "number_round_down",
+									"name": "Lefelé"
+								},
+								{
+									"label": "number_round_up",
+									"name": "Felfelé"
+								},
+								{
 									"label": "number_round",
-									"exercises": [
-										{
-											"label": "number_round_down",
-											"name": "Lefelé"
-										},
-										{
-											"label": "number_round_up",
-											"name": "Felfelé"
-										},
-										{
-											"label": "number_round",
-											"name": "Kerekítés"
-										}
-									]
+									"name": "Kerekítés"
 								},
 								{
-									"name": "Kerekítési hiba",
+									"label": "number_round_error_down",
+									"name": "Lefelé"
+								},
+								{
+									"label": "number_round_error_up",
+									"name": "Felfelé"
+								},
+								{
 									"label": "number_round_error",
-									"exercises": [
-										{
-											"label": "number_round_error_down",
-											"name": "Lefelé"
-										},
-										{
-											"label": "number_round_error_up",
-											"name": "Felfelé"
-										},
-										{
-											"label": "number_round_error",
-											"name": "Kerekítés"
-										}
-									]
+									"name": "Kerekítés"
 								},
 								{
-									"name": "Vegyes feladatok",
-									"label": "number_round_mixed",
-									"exercises": [
-										{
-											"label": "number_round_how_many",
-											"name": "Hány szám?"
-										},
-										{
-											"label": "number_round_not_rounded",
-											"name": "Nem kerekített"
-										}
-									]
+									"label": "number_round_how_many",
+									"name": "Hány szám?"
+								},
+								{
+									"label": "number_round_not_rounded",
+									"name": "Nem kerekített"
 								}
 							]
 						}
@@ -405,96 +277,72 @@
 						{
 							"name": "Alapok",
 							"label": "basic",
-							"quests": [
+							"exercises": [
 								{
-									"name": "Tört részei",
-									"label": "fraction_parts",
-									"exercises": [
-										{
-											"label": "fraction_numerator",
-											"name": "Számláló"
-										},
-										{
-											"label": "fraction_denominator",
-											"name": "Nevező"
-										},
-										{
-											"label": "fraction_rectangle",
-											"name": "Tört meghatározása"
-										}
-									]
+									"label": "fraction_numerator",
+									"name": "Számláló"
 								},
 								{
-									"name": "Törtek átalakítása",
-									"label": "fraction_modify",
-									"exercises": [
-										{
-											"label": "fraction_reciprocal",
-											"name": "Reciprok"
-										},
-										{
-											"label": "fraction_to_int",
-											"name": "Tört egésszé"
-										},
-										{
-											"label": "fraction_from_int",
-											"name": "Egész törtté"
-										},
-										{
-											"label": "fraction_expand",
-											"name": "Bővítés"
-										},
-										{
-											"label": "fraction_simplify",
-											"name": "Egyszerűsítés"
-										}
-									]
+									"label": "fraction_denominator",
+									"name": "Nevező"
+								},
+								{
+									"label": "fraction_rectangle",
+									"name": "Tört meghatározása"
+								},
+								{
+									"label": "fraction_reciprocal",
+									"name": "Reciprok"
+								},
+								{
+									"label": "fraction_to_int",
+									"name": "Tört egésszé"
+								},
+								{
+									"label": "fraction_from_int",
+									"name": "Egész törtté"
+								},
+								{
+									"label": "fraction_expand",
+									"name": "Bővítés"
+								},
+								{
+									"label": "fraction_simplify",
+									"name": "Egyszerűsítés"
 								}
 							]
 						},
 						{
 							"name": "Műveletek",
 							"label": "operation",
-							"quests": [
+							"exercises": [
 								{
-									"name": "Törtek összehasonlítása",
-									"label": "fraction_basic",
-									"exercises": [
-										{
-											"label": "fraction_compare_1",
-											"name": "Összehasonlítás $1$-gyel"
-										},
-										{
-											"label": "fraction_compare",
-											"name": "Összehasonlítás"
-										}
-									]
+									"label": "fraction_compare_1",
+									"name": "Összehasonlítás $1$-gyel"
 								},
 								{
-									"name": "Alapműveletek",
-									"label": "fraction_operations",
-									"exercises": [
-										{
-											"label": "fraction_add",
-											"name": "Összeadás"
-										},
-										{
-											"label": "fraction_mixed",
-											"name": "Vegyes tört"
-										},
-										{
-											"label": "fraction_subtract",
-											"name": "Kivonás"
-										},
-										{
-											"label": "fraction_multiply",
-											"name": "Szorzás"
-										},
-										{
-											"label": "fraction_divide",
-											"name": "Osztás"
-										}
-									]
+									"label": "fraction_compare",
+									"name": "Összehasonlítás"
+								},
+								{
+									"label": "fraction_add",
+									"name": "Összeadás"
+								},
+								{
+									"label": "fraction_mixed",
+									"name": "Vegyes tört"
+								},
+								{
+									"label": "fraction_subtract",
+									"name": "Kivonás"
+								},
+								{
+									"label": "fraction_multiply",
+									"name": "Szorzás"
+								},
+								{
+									"label": "fraction_divide",
+									"name": "Osztás"
 								}
 							]
 						}
@@ -513,28 +361,16 @@
 						{
 							"name": "2001. október 8.",
 							"label":"2001_10_08",
-							"quests": [
+							"exercises": [
 								{
-									"name": "1. feladat",
-									"label": "exercise_1",
-									"exercises": [
-										{
-											"label": "exam_iceberg",
-											"name": "Jéghegy",
+									"label": "exam_iceberg",
+									"name": "Jéghegy",
 											"youtube": "5xeffd2FQlo"
-										}
-									]
 								},
 								{
-									"name": "2. feladat",
-									"label": "exercise_2",
-									"exercises": [
-										{
-											"label": "exam_race",
-											"name": "Verseny",
+									"label": "exam_race",
+									"name": "Verseny",
 											"youtube": "7sZPzmVfH0w"
-										}
-									]
 								}
 							]
 						}
@@ -553,80 +389,56 @@
 						{
 							"name": "Alapok",
 							"label":"basic",
-							"quests": [
+							"exercises": [
 								{
-									"name": "Sorozatok megadása",
-									"label": "series_types",
-									"exercises": [
-										{
-											"label": "series_explicit",
-											"name": "Explicit"
-										},
-										{
-											"label": "series_recursive",
-											"name": "Rekurzív"
-										}
-									]
+									"label": "series_explicit",
+									"name": "Explicit"
+								},
+								{
+									"label": "series_recursive",
+									"name": "Rekurzív"
 								}
 							]
 						},
 						{
 							"name": "Számtani sorozatok",
 							"label":"numerical",
-							"quests": [
+							"exercises": [
 								{
-									"name": "Tagok",
-									"label": "members",
-									"exercises": [
-										{
-											"label": "series_numerical_difference",
-											"name": "Különbség"
-										},
-										{
-											"label": "series_numerical_member_1",
-											"name": "Tagból és különbségből"
-										},
-										{
-											"label": "series_numerical_member_2",
-											"name": "Két tagból"
-										},
-										{
-											"label": "series_numerical_order",
-											"name": "Hányadik tag?"
-										}
-									]
+									"label": "series_numerical_difference",
+									"name": "Különbség"
 								},
 								{
-									"name": "Összeg",
-									"label": "sum",
-									"exercises": [
-										{
-											"label": "series_numerical_sum_1",
-											"name": "Tagból és különbségből"
-										},
-										{
-											"label": "series_numerical_sum_2",
-											"name": "Két tagból"
-										},
-										{
-											"label": "series_numerical_members",
-											"name": "Összeg tagjai"
-										}
-									]
+									"label": "series_numerical_member_1",
+									"name": "Tagból és különbségből"
 								},
 								{
-									"name": "Szöveges feladatok",
-									"label": "complex",
-									"exercises": [
-										{
-											"label": "series_numerical_carrot",
-											"name": "Répa"
-										},
-										{
-											"label": "series_numerical_candy",
-											"name": "Drazsé"
-										}
-									]
+									"label": "series_numerical_member_2",
+									"name": "Két tagból"
+								},
+								{
+									"label": "series_numerical_order",
+									"name": "Hányadik tag?"
+								},
+								{
+									"label": "series_numerical_sum_1",
+									"name": "Tagból és különbségből"
+								},
+								{
+									"label": "series_numerical_sum_2",
+									"name": "Két tagból"
+								},
+								{
+									"label": "series_numerical_members",
+									"name": "Összeg tagjai"
+								},
+								{
+									"label": "series_numerical_carrot",
+									"name": "Répa"
+								},
+								{
+									"label": "series_numerical_candy",
+									"name": "Drazsé"
 								}
 							]
 						}

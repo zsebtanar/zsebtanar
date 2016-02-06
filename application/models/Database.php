@@ -30,11 +30,6 @@ class Database extends CI_model {
 				'name'		=> 'NOT NULL',
 				'label'		=> 'NOT NULL'
 				),
-			'quests' => array(
-				'subtopicID'	=> 'FROM SESSION',
-				'name'			=> 'NOT NULL',
-				'label'			=> 'NOT NULL'
-				),
 			'exercises' => array(
 				'questID'	=> 'FROM SESSION',
 				'level' 	=> 9,
@@ -44,10 +39,6 @@ class Database extends CI_model {
 				'youtube'	=> '',
 				'hint'		=> ''
 				),
-			'links' => array(
-				'questID'	=> 'FROM SESSION',
-				'label'		=> 'NOT NULL'
-				)
 			);
 
 	/**
@@ -127,13 +118,6 @@ class Database extends CI_model {
 							CONSTRAINT topic_name UNIQUE (topicID, name),
 							FOREIGN KEY (topicID) REFERENCES topics(id)
 						)Engine=InnoDB;',
-			'quests' => 'CREATE TABLE quests (
-							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							subtopicID 	INT NOT NULL,
-							label 		VARCHAR(30) NOT NULL UNIQUE,
-							name 		VARCHAR(60) NOT NULL,
-							FOREIGN KEY (subtopicID) REFERENCES subtopics(id)
-						)Engine=InnoDB;',
 			'exercises' => 'CREATE TABLE exercises (
 							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							questID 	INT NOT NULL,
@@ -144,14 +128,6 @@ class Database extends CI_model {
 							hint 		VARCHAR(60),
 							status 		VARCHAR(20),
 							FOREIGN KEY (questID) REFERENCES quests(id)
-						)Engine=InnoDB;',
-			'links' => 'CREATE TABLE links (
-							id 		INT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							questID	INT,
-							label 	VARCHAR(30) NOT NULL,
-							CONSTRAINT link_label UNIQUE (questID, label),
-							FOREIGN KEY (questID) REFERENCES quests(id),
-							FOREIGN KEY (label) REFERENCES quests(label)
 						)Engine=InnoDB;'
 		);
 
