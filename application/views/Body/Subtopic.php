@@ -5,7 +5,7 @@
 			<a href="#" class="btn btn-class openall">mutat</a>&nbsp;|&nbsp;
 			<a href="#" class="btn btn-class closeall">elrejt</a>
 		</div>
-		<div class="panel-group" role="tablist"><?php
+		<div class="panel-group" id="accordion"><?php
 
 		if (is_array($exercises)) {
 
@@ -14,8 +14,8 @@
 			foreach ($exercises as $exercise) {?>
 
 			<div class="panel panel-default">
-				<div class="panel-heading panel-heading-sm clearfix" role="tab" id="heading<?php echo $exercise['id'];?>">
-					<a class="panel-heading-title" role="button" data-toggle="collapse" href="#listgroup<?php echo $exercise['id'];?>" aria-expanded="true" aria-controls="listgroup<?php echo $exercise['id'];?>">
+				<div class="panel-heading panel-heading-sm clearfix" id="heading<?php echo $exercise['id'];?>">
+					<a class="panel-heading-title" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $exercise['id'];?>" aria-expanded="true" aria-controls="collapse<?php echo $exercise['id'];?>">
 						<?php echo $order;?>. feladat
 					</a>&nbsp;
 
@@ -29,12 +29,14 @@
 					</a>
 				</div>
 
-				<div id="listgroup<?php echo $exercise['id'];?>" class="panel-collapse panel-body collapse <?php echo $exercise['class'];?>" role="tabpanel" aria-labelledby="heading<?php echo $exercise['id'];?>" aria-expanded="true"><?php
+				<div id="collapse<?php echo $exercise['id'];?>" class="panel-collapse collapse <?php echo $exercise['class'];?>">
+					<div class="panel-body"><?php
 
-					echo $exercise['question'];?>
+						echo $exercise['question'];?>
 
+					</div>
 				</div>
-			</div><br /><?php
+			</div><?php
 
 			$order++;
 

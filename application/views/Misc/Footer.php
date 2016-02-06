@@ -5,11 +5,11 @@
 <!-- Open/close content -->
 <script>
 $('.closeall').click(function(){
-  $('.panel-collapse.in')
+  $('.panel-collapse')
     .collapse('hide');
 });
 $('.openall').click(function(){
-  $('.panel-collapse:not(".in")')
+  $('.panel-collapse')
     .collapse('show');
 });
 $('.bs-docs-popover').popover();
