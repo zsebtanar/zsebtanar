@@ -482,13 +482,6 @@ class Exercises extends CI_model {
 				$explanation .= '</ul>';
 				$data['explanation'] = $explanation;
 			}
-		} elseif ($this->hasHint($id)) {
-
-			$data['explanation'] = 'Segítségre van szükséged? Kattints a <img src="'.base_url().'assets/images/light_bulb.png" alt="hint" width="40">-ra!';
-
-		} else {
-
-			$data['explanation'] = 'Sajnos ehhez a feladathoz még nincs megoldókulcs. Szeretnéd, ha lenne? Írj egy emailt a <b>zsebtanar@gmail.com</b>-ra!';			
 		}
 
 		return $data;
@@ -679,22 +672,28 @@ class Exercises extends CI_model {
 	 */
 	public function getIDNext($id) {
 
-		$id_next = NULL;
-
 		$level_max  = $this->getMaxLevel($id);
 		$level_user = $this->Session->getUserLevel($id);
 
-		if ($level_user < $level_max) {
-
-			// User has not solved all rounds of exercise
-			$id_next = $id;
-
- 		} else {
-
- 			$id_next = NULL;
-		}
+		$id_next = ($level_user < $level_max ? $id : $id+1);
 
  		return $id_next;
+	}
+
+	/**
+	 * Check whether exercise exists
+	 *
+	 * @param int $id Exercise ID
+	 *
+	 * @return bool $exists Whether exercise exists
+	 */
+	public function ExerciseExists($id) {
+
+		$query = $this->db->get_where('exercises', array('id' => $id));
+
+		$exists = count($query->result()) == 1;
+
+ 		return $exists;
 	}
 }
 

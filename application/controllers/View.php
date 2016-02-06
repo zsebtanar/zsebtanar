@@ -69,14 +69,20 @@ class View extends CI_controller {
 	 */
 	public function Exercise($id, $round=NULL) {
 
-		$data = $this->Html->ExerciseData($id, $round);
+		if ($this->Exercises->ExerciseExists($id)) {
 
-		$this->load->view('Template', $data);
+			$data = $this->Html->ExerciseData($id, $round);
 
-		$type = 'exercise';
+			$this->load->view('Template', $data);
 
-		if ($this->Session->CheckLogin()) {
-			$this->Session->PrintInfo();
+			$type = 'exercise';
+
+			if ($this->Session->CheckLogin()) {
+				$this->Session->PrintInfo();
+			}
+
+		} else {
+			header('Location:'.base_url().'view/main/');
 		}
 	}
 }

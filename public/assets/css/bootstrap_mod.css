@@ -100,3 +100,7 @@ input.smallInput {
 .panel-heading-title {
     color: black;
 }
+
+.pull-right {
+    margin-bottom: 10px; 
+}

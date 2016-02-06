@@ -164,7 +164,7 @@ function fraction_mixed($level)
   }
 
   $question = 'Alakítsd át közönséges törtté!$$'.$int.'\frac{'.$num1.'}{'.$denom1.'}$$';
-  $correct = array($num, $denom);
+  $correct = array($num2, $denom2);
   $solution = '$\\frac{'.$num2.'}{'.$denom2.'}$';
   $type = 'fraction';
 

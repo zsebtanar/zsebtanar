@@ -64,7 +64,7 @@
 
 					} elseif ($type == 'int' || $type == 'text') {
 
-						$this->load->view('Input/Int');
+						$this->load->view('Input/Default');
 
 					} elseif ($type == 'multi') {
 
@@ -92,21 +92,18 @@
 				</form>
 			</div>
 			<div class="col-sm-12 text-center">
-				
-					<div id="submit_exercise">
-						<button class="btn btn-primary" onclick="checkSolution(event)">
-							Mehet
-						</button>
-					</div>
+					<a class="btn btn-default pull-left" href="<?php echo base_url().'view/subtopic/'.$subtopicID.'/'.$id;?>">
+						<span class="glyphicon glyphicon-chevron-left"></span>&nbsp;Vissza
+					</a>
+					<button id="next_button" class="btn btn-primary pull-right" onclick="checkSolution(event)">
+						Tovább&nbsp;<span class="glyphicon glyphicon-chevron-right">
+					</button>
 
-					<div>
-						<a class="btn btn-default" href="<?php echo base_url().'view/subtopic/'.$subtopicID.'/'.$id;?>">
-							<span class="glyphicon glyphicon-chevron-left"></span>&nbsp;Vissza
-						</a>
-					</div><br />
+					<br/>
+					<br/>
 
-					<p id="message"></p>
-					<p id="explanation"><?php
+					<div id="message"></div>
+					<p id="exercise_explanation"><?php
 
 						if ($this->Session->CheckLogin() && isset($explanation)) {?>
 
@@ -140,11 +137,10 @@
 			},
 			dataType: "json",
 			success: function(data) {
-				document.getElementById("message").innerHTML = '';
 				
 				// Exercise not finished
 				if (data['status'] == 'NOT_DONE') {
-					document.getElementById("message").innerHTML = data['message'];
+					$("#message").replaceWith(data['message']);
 					MathJax.Hub.Queue(["Typeset",MathJax.Hub,"message"]);
 					return;
 				}
@@ -163,23 +159,23 @@
 				// Exercise finished
 				switch (data['status']) {
 					case 'CORRECT':
-						document.getElementById("message").innerHTML = '<div class="alert alert-success"><strong><span class=\"glyphicon glyphicon-ok\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>';
+						$("#message").replaceWith('<div class="alert alert-success"><strong><span class=\"glyphicon glyphicon-ok\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>');
 						$('#progress_bar').css('width', data['progress']['value']+'%').attr('aria-valuenow', data['progress']['value']);
 						progress_bar_class = $('#progress_bar').attr('class').replace(/(progress-bar-)\w*/, '$1'+ data['progress']['style']);
 						$('#progress_bar').attr('class', progress_bar_class);
 						if (data['id_next'] == null) {
-							document.getElementById("submit_exercise").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url().'view/subtopic/';?>" + data['subtopicID'] + '/' + data['questID'] + "\">Kész! :)</button>";
+							$("#next_button").replaceWith("<a class=\"btn btn-primary pull-right\" href=\"<?php echo base_url().'view/subtopic/';?>" + data['subtopicID'] + '/' + data['questID'] + "\">Kész! :)</button>");
 						} else {
-							document.getElementById("submit_exercise").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url().'view/exercise/';?>" + data['id_next'] + "\">Tovább&nbsp;<span class=\"glyphicon glyphicon-chevron-right\"></span></button>";
+							$("#next_button").replaceWith("<a class=\"btn btn-primary pull-right\" href=\"<?php echo base_url().'view/exercise/';?>" + data['id_next'] + "\">Tovább&nbsp;<span class=\"glyphicon glyphicon-chevron-right\"></span></button>");
 						}
 						break;
 					case 'WRONG':
 						if (data['explanation'] != null) {
-							document.getElementById("explanation").innerHTML = '<div class="alert alert-warning text-left">' + data['explanation'] + '</div>';
-							MathJax.Hub.Queue(["Typeset",MathJax.Hub,"explanation"]);
+							$("#exercise_explanation").replaceWith('<div class="alert alert-warning text-left">' + data['explanation'] + '</div>');
+							MathJax.Hub.Queue(["Typeset",MathJax.Hub,"hint"]);
 						}
-						document.getElementById("message").innerHTML = '<div class="alert alert-danger"><strong><span class=\"glyphicon glyphicon-remove\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>';
-						document.getElementById("submit_exercise").innerHTML = "<a class=\"btn btn-primary\" href=\"<?php echo base_url();?>view/exercise/<?php echo $id;?>\"><span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;Újra</button>";
+						$("#message").replaceWith('<div class="alert alert-danger"><strong><span class=\"glyphicon glyphicon-remove\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>');
+						$("#next_button").replaceWith("<a class=\"btn btn-primary pull-right\" href=\"<?php echo base_url();?>view/exercise/<?php echo $id;?>\">Újra&nbsp;<span class=\"glyphicon glyphicon-refresh\"></span></button>");
 						if (data['submessages'].length > 0) {
 							for (var i = data['submessages'].length - 1; i >= 0; i--) {
 								var submessage = data['submessages'][i];
