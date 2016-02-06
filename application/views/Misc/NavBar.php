@@ -10,23 +10,23 @@
 				<span class="icon-bar"></span>
 			</button>
 
-			<a href="#" class="navbar-brand" title="Trófea" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-content="Feltétel: egy témakör összes küldetésének teljesítése.">
+			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#explanation">
 				<img src="<?php echo base_url();?>assets/images/trophy.png" alt="shield" width="17">
 			</a>
 
-			<a class="navbar-brand" href="#" title="Trófea" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-content="Feltétel: egy témakör összes küldetésének teljesítése."><b class="results"><?php echo $trophies;?></b></a>
+			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#explanation"><b class="results"><?php echo $trophies;?></b></a>
 
-			<a href="#" class="navbar-brand" title="Pajzs" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-content="Feltétel: egy küldetés összes feladatának teljesítése.">
+			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#explanation">
 				<img src="<?php echo base_url();?>assets/images/shield.png" alt="shield" width="15">
 			</a>
 
-			<a class="navbar-brand" href="#" title="Pajzs" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-content="Feltétel: egy küldetés összes feladatának teljesítése."><b class="results"><?php echo $shields;?></b></a>
+			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#explanation"><b class="results"><?php echo $shields;?></b></a>
 
-			<a href="#" class="navbar-brand" title="Arany" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-content="Feltétel: egy feladat jó megoldása.">
+			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#explanation">
 				<img src="<?php echo base_url();?>assets/images/coin.png" alt="coin" width="15">
 			</a>
 
-			<a class="navbar-brand" href="#" title="Arany" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-content="Feltétel: egy feladat jó megoldása."><b class="results"><?php echo $points;?></b></a>
+			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#explanation"><b class="results"><?php echo $points;?></b></a>
 
 		</div>
 

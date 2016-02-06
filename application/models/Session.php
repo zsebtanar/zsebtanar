@@ -62,11 +62,13 @@ class Session extends CI_model {
 		$levels = $this->session->userdata('levels');
 		$levels[$id] = $level_user + 1;
 		$this->session->set_userdata('levels', $levels);
+
+		// Add points
 		$this->Points(100);
 		$message .= '<br />+100&nbsp;<img src="'.
 			base_url().'assets/images/coin.png" alt="coin" width="30">';
 
-		// Check progress
+		// Calculate progress
 		$progress_old = $level_user/$level_max;
 		$progress_new = ($level_user+1)/$level_max;
 

@@ -517,7 +517,7 @@ class Exercises extends CI_model {
 				$row['id'] 			= $id;
 				$row['name'] 		= $exercise->name;
 				$row['complete'] 	= $this->isComplete($id);
-				$row['userlevel'] 	= $this->Session->getUserLevel($id);
+				$row['progress'] 	= $this->Session->getUserProgress($id);
 				$row['status'] 		= $exercise->status;
 				$row['question']	= $exercisedata['question'];
 				$row['class'] 		= (!$exerciseID || $id == $exerciseID ? 'in' : '');

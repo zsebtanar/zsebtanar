@@ -17,13 +17,11 @@
 				<div class="panel-heading panel-heading-sm clearfix" role="tab" id="heading<?php echo $exercise['id'];?>">
 					<a class="panel-heading-title" role="button" data-toggle="collapse" href="#listgroup<?php echo $exercise['id'];?>" aria-expanded="true" aria-controls="listgroup<?php echo $exercise['id'];?>">
 						<?php echo $order;?>. feladat
-					</a>&nbsp;<?php
+					</a>&nbsp;
 
-					for ($i=0; $i < 3; $i++) {?>
-
-						<img id="star<?php echo $i;?>" src="<?php echo base_url().'assets/images/star'.($i < $exercise['userlevel'] ? 1 : 0).'.png';?>" alt="star"  width="15px"><?php
-
-					}?>
+					<img id="star1" src="<?php echo base_url().'assets/images/star'.(33 <= $exercise['progress']['value'] ? 1 : 0).'.png';?>" alt="star"  width="15px">
+					<img id="star2" src="<?php echo base_url().'assets/images/star'.(66 <= $exercise['progress']['value'] ? 1 : 0).'.png';?>" alt="star"  width="15px">
+					<img id="star3" src="<?php echo base_url().'assets/images/star'.(100 <= $exercise['progress']['value'] ? 1 : 0).'.png';?>" alt="star"  width="15px">
 
 					<a class="btn btn-primary btn-md pull-right" href="<?php echo base_url().'view/exercise/'.$exercise['id'];?>">
 						Mehet&nbsp;

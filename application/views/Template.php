@@ -12,6 +12,7 @@
 
 	$this->load->view('Modal/Info');
 	$this->load->view('Modal/Login');
+	$this->load->view('Modal/Explanation');
 
 	$this->load->view('Misc/NavBar', $results);
 
