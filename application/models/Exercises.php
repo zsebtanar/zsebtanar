@@ -42,7 +42,6 @@ class Exercises extends CI_model {
 		}
 
 		$id_next 	= $this->getIDNext($id);
-		$questID 	= $this->getQuestID($id);
 		$subtopicID = $this->getSubtopicID($id);
 		$progress 	= $this->Session->getUserProgress($id);
 
@@ -53,7 +52,6 @@ class Exercises extends CI_model {
 			'id_next'		=> $id_next,
 			'subtopicID'	=> $subtopicID,
 			'explanation'	=> $explanation,
-			'questID'		=> $questID,
 			'progress'		=> $progress
 		);
 
@@ -378,7 +376,6 @@ class Exercises extends CI_model {
 		$data['level'] 		= $level;
 		$data['youtube'] 	= $exercise->youtube;
 		$data['hint'] 		= $exercise->hint;
-		$data['questID']	= $exercise->questID;
 		$data['id'] 		= $id;
 		$data['hash']		= $hash;
 		$data['subtopicID'] = $this->getSubtopicID($id);
@@ -495,37 +492,33 @@ class Exercises extends CI_model {
 	}
 
 	/**
-	 * Get quests of subtopic
+	 * Get exercises of subtopic
 	 *
 	 * @param int $subtopicID Subtopic ID
-	 * @param int $questID    Quest ID
+	 * @param int $exerciseID Exercise ID
 	 *
-	 * @return array $data Quests
+	 * @return array $data Exercises
 	 */
-	public function getSubtopicQuests($subtopicID=NULL, $questID=NULL) {
+	public function getSubtopicExercises($subtopicID=NULL, $exerciseID=NULL) {
 
-		$query = $this->db->get_where('quests', array('subtopicID' => $subtopicID));
-		$quests = $query->result();
+		$query = $this->db->get_where('exercises', array('subtopicID' => $subtopicID));
+		$exercises = $query->result();
 		$data = NULL;
 
-		if (count($quests) > 0) {
-			foreach ($quests as $quest) {
+		if (count($exercises) > 0) {
+			foreach ($exercises as $exercise) {
 
-				$row['id'] 			= $quest->id;
-				$row['name'] 		= $quest->name;
-				$row['exercises'] 	= $this->getQuestExercises($quest->id);
-				$row['links'] 		= $this->getQuestLinks($quest->id);
-				$row['complete'] 	= $this->isComplete($quest->id);
+				$row['id'] 			= $exercise->id;
+				$row['name'] 		= $exercise->name;
+				$row['complete'] 	= $this->isComplete($exercise->id);
 
-				if ($this->Session->CheckLogin() || $quest->id == $questID) {
+				if ($this->Session->CheckLogin() || $exercise->id == $exerciseID) {
 					$row['class'] = 'in';
 				} else {
 					$row['class'] = '';
 				}
 
-				if ($row['exercises']) {
-					$data['quests'][] 	= $row;
-				}
+				$data[] = $row;
 			}
 		}
 
@@ -569,83 +562,19 @@ class Exercises extends CI_model {
 		return $data;
 	}
 
-	/**
-	 * Get exercises of quest
-	 *
-	 * @param int $id Quest ID
-	 *
-	 * @return array $data Exercises
-	 */
-	public function getQuestExercises($id) {
-
-		$query = $this->db->get_where('exercises', array('questID' => $id));
-
-		$data = NULL;
-
-		$exercises = $query->result();
-
-		if (count($exercises) > 0) {
-			foreach ($exercises as $exercise) {
-
-				$id = $exercise->id;
-
-				$row['userlevel'] 	= $this->Session->getUserLevel($id);
-				$row['id'] 			= $id;
-				$row['name'] 		= $exercise->name;
-				$row['status'] 		= $exercise->status;
-
-				$data[] = $row;
-			}
-		}
-
-		return $data;
-	}
 
 	/**
-	 * Get links of quest
+	 * Check if exercise is completed
 	 *
-	 * @param int $id Quest ID
+	 * @param int $id Exercise ID
 	 *
-	 * @return array $data Links
+	 * @return bool $isComplete Is exercise completed?
 	 */
-	public function getQuestLinks($id) {
+	public function isComplete($exerciseID) {
 
-		$data = NULL;
+		$exercises = $this->session->userdata('exercises');
 
-		$query = $this->db->get_where('links', array('questID' => $id));
-		$links = $query->result();
-		
-		foreach ($links as $link) {
-
-			$label 			= $link->label;
-			$query 			= $this->db->get_where('quests', array('label' => $label));
-
-			$questID		= $query->result()[0]->id;
-
-			$row['questID']	= $questID;
-			$row['name'] 	= $query->result()[0]->name;
-
-			$row['subtopicID']	= $query->result()[0]->subtopicID;
-			$row['complete'] 	= $this->isComplete($questID);
-
-			$data[] = $row;
-		}
-
-		return $data;
-	}
-
-	/**
-	 * Check if quest is completed
-	 *
-	 * @param int $id Quest ID
-	 *
-	 * @return bool $isComplete Is quest completed?
-	 */
-	public function isComplete($questID) {
-
-		$quests = $this->session->userdata('quests');
-
-		$isComplete	= (isset($quests[$questID]) ? $quests[$questID] : FALSE);
+		$isComplete	= (isset($exercises[$exerciseID]) ? $exercises[$exerciseID] : FALSE);
 
  		return $isComplete;
 	}
@@ -701,21 +630,6 @@ class Exercises extends CI_model {
 	}
 
 	/**
-	 * Get quest ID for exercise
-	 *
-	 * @param int $id Exercise ID
-	 *
-	 * @return int $questID Quest ID
-	 */
-	public function getQuestID($id) {
-
-		$query 		= $this->db->get_where('exercises', array('id' => $id));
-		$questID 	= $query->result()[0]->questID;
-
-		return $questID;
-	}
-
-	/**
 	 * Get subtopic ID for exercise
 	 *
 	 * @param int $id Exercise ID
@@ -724,12 +638,7 @@ class Exercises extends CI_model {
 	 */
 	public function getSubtopicID($id) {
 
-		$this->db->select('subtopicID')
-				->distinct()
-				->from('quests')
-				->join('exercises', 'quests.id = exercises.questID', 'inner')
-				->where('exercises.id', $id);
-		$query = $this->db->get();
+		$query = $this->db->get_where('exercises', array('id' => $id))
 		$subtopicID = $query->result()[0]->subtopicID;
 
  		return $subtopicID;
@@ -747,8 +656,7 @@ class Exercises extends CI_model {
 		$this->db->select('subtopics.name')
 				->distinct()
 				->from('subtopics')
-				->join('quests', 'subtopics.id = quests.subtopicID', 'inner')
-				->join('exercises', 'quests.id = exercises.questID', 'inner')
+				->join('exercises', 'subtopics.id = exercises.subtopictID', 'inner')
 				->where('exercises.id', $id);
 		$query = $this->db->get();
 		$name = $query->result()[0]->name;

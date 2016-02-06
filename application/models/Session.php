@@ -62,7 +62,7 @@ class Session extends CI_model {
 		$levels = $this->session->userdata('levels');
 		$levels[$id] = $level_user + 1;
 		$this->session->set_userdata('levels', $levels);
-		$this->AddPoint(100);
+		$this->Points(100);
 		$message .= '<br />+100&nbsp;<img src="'.
 			base_url().'assets/images/coin.png" alt="coin" width="30">';
 
@@ -74,23 +74,28 @@ class Session extends CI_model {
 			($progress_old < 2/3 && $progress_new >= 2/3) ||
 			($progress_old < 3/3 && $progress_new >= 3/3)) {
 
-			// Update points
+			// Level completed
 			$prize = 200;
-			$this->AddPoint($prize);
-			$message .= '<br /><br />Szintet léptél!<br />+'.$prize.
+			$this->Points($prize);
+			$this->Shields(1);
+			$message .= '<br /><br />Szintet léptél!<br />'.
+				'+1&nbsp;<img src="'.base_url().
+				'assets/images/shield.png" alt="coin" width="30">&nbsp;&nbsp;'.
+				'+'.$prize.
 				'&nbsp;<img src="'.base_url().
 				'assets/images/coin.png" alt="coin" width="30">';
 
-			// Update quests
+			// Execise completed
 			if ($progress_new == 1) {
-				$prize = 500;
-				$this->AddPoint($prize);
-				$message .= '<br /><br />Elvégeztél egy feladatot!<br />+'.$prize.
+				$prize = 1000;
+				$this->Points($prize);
+				$this->Trophies(1);
+				$message .= '<br /><br />Elvégeztél egy feladatot!<br />'.
+					'+1&nbsp;<img src="'.base_url().
+					'assets/images/trophy.png" alt="coin" width="30">&nbsp;&nbsp;'.
+					'+'.$prize.
 					'&nbsp;<img src="'.base_url().
 					'assets/images/coin.png" alt="coin" width="30">';
-
-				$message = $this->UpdateQuest($id, $message);
-				$message = $this->UpdateSubtopic($id, $message);
 			}
 		}
 
@@ -98,131 +103,63 @@ class Session extends CI_model {
 	}
 
 	/**
-	 * Update quest results
+	 * Points
 	 *
-	 * Checks is all exercises of quest has been completed.
+	 * @param int $amount Amount of points to add
 	 *
-	 * @param int    $id      Exercise ID
-	 * @param string $message Message for user
-	 *
-	 * @return string $message Message for user (updated)
+	 * @return int $points Current amount of points
 	 */
-	public function UpdateQuest($id, $message) {
+	public function Points($amount=0) {
 
-		$questID 	= $this->Exercises->getQuestID($id);
-		$query 		= $this->db->get_where('exercises', array('questID' => $questID));
-		$exercises 	= $query->result();
-		$total		= count($exercises);
-
-		$iscomplete = TRUE;
-		foreach ($exercises as $exercise) {
-
-			$level_user = $this->getUserLevel($exercise->id);
-			$level_max = $this->Exercises->getMaxLevel($exercise->id);
-
-			if ($level_user < $level_max) {
-
-				$iscomplete = FALSE;
-				break;
-			}
+		if (NULL !== $this->session->userdata('points')) {
+			$points = $this->session->userdata('points');
+		} else {
+			$points = 0;
 		}
-
-		if ($iscomplete) {
-
-			$quests = $this->session->userdata('quests');
-			$quests[$questID] = 1;
-			$this->session->set_userdata('quests', $quests);
-
-			$prize = $total * 1000;
-			$this->AddPoint($prize);
-			$message .= '<br /><br />Elvégeztél egy küldetést!<br />'.
-				'+1&nbsp;<img src="'.base_url().
-				'assets/images/shield.png" alt="coin" width="30">&nbsp;&nbsp;'.
-				'+'.$prize.'&nbsp;<img src="'.base_url().
-				'assets/images/coin.png" alt="coin" width="30">';
-		}
-
-		return $message;
-	}
-
-	/**
-	 * Update subtopic results
-	 *
-	 * Checks is all quests of subtopic has been completed.
-	 *
-	 * @param int    $id      Exercise ID
-	 * @param string $message Message for user
-	 *
-	 * @return string $message Message for user (updated)
-	 */
-	public function UpdateSubtopic($id, $message) {
-
-		$subtopicID	= $this->Exercises->getSubtopicID($id);
-		$query 		= $this->db->get_where('quests', array('subtopicID' => $subtopicID));
-		$quests 	= $query->result();
-		$total 		= count($quests);
-
-		$result 	= $this->session->userdata('quests');
-		$iscomplete = TRUE;
-
-		foreach ($quests as $quest) {
-
-			if (!isset($result[$quest->id]) || $result[$quest->id]!= 1) {
-				$iscomplete = FALSE;
-				break;
-			}
-		}
-
-		if ($iscomplete) {
-
-			$subtopics = $this->session->userdata('subtopics');
-			$subtopics[$subtopicID] = 1;
-			$this->session->set_userdata('subtopics', $subtopics);
-
-			$prize = $total * 5000;
-			$this->AddPoint($prize);
-			$message .= '<br /><br />Elvégeztél egy témakört!<br />'.
-				'+1&nbsp;<img src="'.base_url().
-				'assets/images/trophy.png" alt="coin" width="30">&nbsp;&nbsp;'.
-				'+'.$prize.'&nbsp;<img src="'.base_url().
-				'assets/images/coin.png" alt="coin" width="30">';
-		}
-
-		return $message;
-	}
-
-	/**
-	 * Check whether subtopic is complete
-	 *
-	 * Checks if all quests have been completed by user
-	 *
-	 * @param int $id Subtopic ID
-	 *
-	 * @return bool $iscomplete Whether  $html Html-code
-	 */
-	public function isSubtopicComplete($id) {
-
-		$subtopics = $this->session->userdata('subtopics');
-
-		$iscomplete = (isset($subtopics[$id]) && $subtopics[$id] == 1);
-
-		return $iscomplete;
-	}
-
-	/**
-	 * Add points
-	 *
-	 * @param int $amount Amount of money
-	 *
-	 * @return void
-	 */
-	public function AddPoint($amount) {
-
-		$points = $this->session->userdata('points');
 		$points += $amount;
 		$this->session->set_userdata('points', $points);
 
-		return;
+		return $points;
+	}
+
+	/**
+	 * Shields
+	 *
+	 * @param int $amount Amount of shields to add
+	 *
+	 * @return int $shields Current amount of shields
+	 */
+	public function Shields($amount=0) {
+
+		if (NULL !== $this->session->userdata('shields')) {
+			$shields = $this->session->userdata('shields');
+		} else {
+			$shields = 0;
+		}
+		$shields += $amount;
+		$this->session->set_userdata('shields', $shields);
+
+		return $shields;
+	}
+
+	/**
+	 * Trophies
+	 *
+	 * @param int $amount Amount of trophies to add
+	 *
+	 * @return int $shields Current amount of trophies
+	 */
+	public function Trophies($amount=0) {
+
+		if (NULL !== $this->session->userdata('trophies')) {
+			$trophies = $this->session->userdata('trophies');
+		} else {
+			$trophies = 0;
+		}
+		$trophies += $amount;
+		$this->session->set_userdata('trophies', $trophies);
+
+		return $trophies;
 	}
 
 	/**
@@ -235,14 +172,9 @@ class Session extends CI_model {
 	 */
 	public function GetResults($type=NULL, $id=NULL) {
 
-		$points = $this->session->userdata('points');
-		$data['points'] = ($points ? $points : 0);
-
-		$quests = $this->session->userdata('quests');
-		$data['quests'] = ($quests ? array_sum($quests) : 0);
-
-		$quests = $this->session->userdata('subtopics');
-		$data['subtopics'] = ($quests ? array_sum($quests) : 0);
+		$data['points'] = $this->Points();
+		$data['shields'] = $this->Shields();
+		$data['trophies'] = $this->Trophies();
 
 		$data['id'] = $id;
 		$data['type'] = $type;
@@ -303,8 +235,6 @@ class Session extends CI_model {
 
 		// print_r('Subtopics: ');
 		// print_r($this->session->userdata('subtopics'));
-		// print_r('Quests: ');
-		// print_r($this->session->userdata('quests'));
 		// print_r('<br />Levels: ');
 		// print_r($this->session->userdata('levels'));
 		// print_r('<br />Points: ');

@@ -38,7 +38,7 @@ class Html extends CI_model {
 	/**
 	 * Get breadcrumb
 	 *
-	 * Collects links to current class/suptopic/quest/exercise etc.
+	 * Collects links to current class/suptopic/exercise etc.
 	 *
 	 * @param string $type Type of id
 	 * @param int    $id   Id
@@ -65,8 +65,6 @@ class Html extends CI_model {
 			$data['subtopic']['id']	= $subtopicID;
 			$data['subtopic']['name']	= $this->Exercises->getSubtopicName($id);
 
-			$data['quest']	= $this->Database->GetExerciseQuest($id);
-
 			$data['class']	= $this->Database->GetSubtopicClass($subtopicID);
 			$data['topic']	= $this->Database->GetSubtopicTopic($subtopicID);
 
@@ -87,14 +85,14 @@ class Html extends CI_model {
 	 * Collects all necessary parameters for template
 	 *
 	 * @param int $subtopicID Subtopic ID
-	 * @param int $questID    QuestID
+	 * @param int $exerciseID Exercise ID
 	 *
 	 * @return array $data Subtopic data
 	 */
-	public function SubtopicData($subtopicID=NULL, $questID=NULL) {
+	public function SubtopicData($subtopicID=NULL, $exerciseID=NULL) {
 
 		$data['type'] 		= 'subtopic';
-		$data['quests']		= $this->Exercises->getSubtopicQuests($subtopicID, $questID);
+		$data['exercises']		= $this->Exercises->getSubtopicExercises($subtopicID, $exerciseID);
 		$data['results']	= $this->Session->GetResults('subtopic', $subtopicID);
 		$data['breadcrumb'] = $this->BreadCrumb('subtopic', $subtopicID);
 		$data['title']		= $this->SubtopicTitle($subtopicID);
@@ -163,7 +161,6 @@ class Html extends CI_model {
 
 							$subtopic_menu['id'] = $subtopic->id;
 							$subtopic_menu['name'] = $subtopic->name;
-							$subtopic_menu['iscomplete'] = $this->Session->isSubtopicComplete($subtopic->id);
 
 							$subtopics_menu[] = $subtopic_menu;
 						}
