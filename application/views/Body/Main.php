@@ -21,12 +21,12 @@
 					foreach ($class['topics'] as $topic) {?>
 
 					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="heading<?php echo $topic['id'];?>">
-							<h4 class="panel-title">
+						<div class="panel-heading panel-heading-sm" role="tab" id="heading<?php echo $topic['id'];?>">
+							<div class="panel-title">
 								<a class="" role="button" data-toggle="collapse" href="#listgroup<?php echo $topic['id'];?>" aria-expanded="true" aria-controls="listgroup<?php echo $topic['id'];?>">
 									<?php echo $topic['name'];?>
 								</a>
-							</h4>
+							</div>
 						</div><?php
 
 						if (count($subtopics) > 0) {?>
@@ -39,14 +39,7 @@
 									<li class="list-group-item">
 										<a href="<?php echo base_url();?>view/subtopic/<?php echo $subtopic['id'];?>">
 											<?php echo $subtopic['name'];?>
-										</a><?php
-
-										if ($subtopic['iscomplete']) {?>
-
-											&nbsp;<img src="<?php echo base_url().'assets/images/trophy.png';?>" alt="star" width="20px"><?php
-
-										}?>
-										
+										</a>										
 									</li><?php
 
 								}?>

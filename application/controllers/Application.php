@@ -77,10 +77,10 @@ class Application extends CI_controller {
 	public function ClearResults($type=NULL, $id=NULL) {
 
 		$this->session->unset_userdata('levels');
-		$this->session->unset_userdata('quests');
 		$this->session->unset_userdata('subtopics');
-		$this->session->unset_userdata('rounds');
 		$this->session->unset_userdata('points');
+		$this->session->unset_userdata('shields');
+		$this->session->unset_userdata('trophies');
 		$this->session->unset_userdata('exercise');
 
 		if ($type && $id) {

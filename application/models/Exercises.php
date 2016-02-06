@@ -333,12 +333,13 @@ class Exercises extends CI_model {
 	/**
 	 * Get exercise data
 	 *
-	 * @param int $id    Exercise ID
-	 * @param int $level Exercise level
+	 * @param int  $id    Exercise ID
+	 * @param int  $level Exercise level
+	 * @param bool $save  Should we save exercise data in session?
 	 *
 	 * @return array $data Exercise data
 	 */
-	public function GetExerciseData($id, $level) {
+	public function GetExerciseData($id, $level=NULL, $save=TRUE) {
 
 		$this->load->helper('string');
 
@@ -371,7 +372,9 @@ class Exercises extends CI_model {
 		
 		$hash = random_string('alnum', 16);
 
-		$this->Session->SaveExerciseData($id, $level, $data, $hash);
+		if ($save) {
+			$this->Session->SaveExerciseData($id, $level, $data, $hash);
+		}
 
 		$data['level'] 		= $level;
 		$data['youtube'] 	= $exercise->youtube;
@@ -508,15 +511,16 @@ class Exercises extends CI_model {
 		if (count($exercises) > 0) {
 			foreach ($exercises as $exercise) {
 
-				$row['id'] 			= $exercise->id;
-				$row['name'] 		= $exercise->name;
-				$row['complete'] 	= $this->isComplete($exercise->id);
+				$id = $exercise->id;
+				$exercisedata = $this->GetExerciseData($id, NULL, $save=FALSE);
 
-				if ($this->Session->CheckLogin() || $exercise->id == $exerciseID) {
-					$row['class'] = 'in';
-				} else {
-					$row['class'] = '';
-				}
+				$row['id'] 			= $id;
+				$row['name'] 		= $exercise->name;
+				$row['complete'] 	= $this->isComplete($id);
+				$row['userlevel'] 	= $this->Session->getUserLevel($id);
+				$row['status'] 		= $exercise->status;
+				$row['question']	= $exercisedata['question'];
+				$row['class'] 		= (!$exerciseID || $id == $exerciseID ? 'in' : '');
 
 				$data[] = $row;
 			}
@@ -638,7 +642,7 @@ class Exercises extends CI_model {
 	 */
 	public function getSubtopicID($id) {
 
-		$query = $this->db->get_where('exercises', array('id' => $id))
+		$query = $this->db->get_where('exercises', array('id' => $id));
 		$subtopicID = $query->result()[0]->subtopicID;
 
  		return $subtopicID;
@@ -656,7 +660,7 @@ class Exercises extends CI_model {
 		$this->db->select('subtopics.name')
 				->distinct()
 				->from('subtopics')
-				->join('exercises', 'subtopics.id = exercises.subtopictID', 'inner')
+				->join('exercises', 'subtopics.id = exercises.subtopicID', 'inner')
 				->where('exercises.id', $id);
 		$query = $this->db->get();
 		$name = $query->result()[0]->name;

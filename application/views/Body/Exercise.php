@@ -100,7 +100,7 @@
 					</div>
 
 					<div>
-						<a class="btn btn-default" href="<?php echo base_url().'view/subtopic/'.$subtopicID.'/'.$questID;?>">
+						<a class="btn btn-default" href="<?php echo base_url().'view/subtopic/'.$subtopicID.'/'.$id;?>">
 							<span class="glyphicon glyphicon-chevron-left"></span>&nbsp;Vissza
 						</a>
 					</div><br />

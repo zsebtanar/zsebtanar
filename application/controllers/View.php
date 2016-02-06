@@ -41,15 +41,15 @@ class View extends CI_controller {
 	 * View subtopic
 	 *
 	 * @param int $subtopicID Subtopic id
-	 * @param int $questID    Quest id
+	 * @param int $exerciseID Exercise id
 	 *
 	 * @return	void
 	 */
-	public function Subtopic($subtopicID=NULL, $questID=NULL) {
+	public function Subtopic($subtopicID=NULL, $exerciseID=NULL) {
 
-		$data = $this->Html->SubtopicData($subtopicID, $questID);
+		$data = $this->Html->SubtopicData($subtopicID, $exerciseID);
 
-		$data['questID'] = $questID;
+		$data['exerciseID'] = $exerciseID;
 		$data['subtopicID'] = $subtopicID;
 
 		$this->load->view('Template', $data);

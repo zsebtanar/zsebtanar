@@ -31,7 +31,7 @@ class Database extends CI_model {
 				'label'		=> 'NOT NULL'
 				),
 			'exercises' => array(
-				'questID'	=> 'FROM SESSION',
+				'subtopicID'=> 'FROM SESSION',
 				'level' 	=> 9,
 				'status' 	=> 'IN PROGRESS',
 				'label'		=> '',
@@ -120,14 +120,14 @@ class Database extends CI_model {
 						)Engine=InnoDB;',
 			'exercises' => 'CREATE TABLE exercises (
 							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							questID 	INT NOT NULL,
+							subtopicID 	INT NOT NULL,
 							level		INT,
 							label 		VARCHAR(30),
 							name 		VARCHAR(120),
 							youtube 	VARCHAR(20),
 							hint 		VARCHAR(60),
 							status 		VARCHAR(20),
-							FOREIGN KEY (questID) REFERENCES quests(id)
+							FOREIGN KEY (subtopicID) REFERENCES subtopics(id)
 						)Engine=InnoDB;'
 		);
 
@@ -219,7 +219,6 @@ class Database extends CI_model {
 				$exercises .= $names['classes']."\t"
 						.$names['topics']."\t"
 						.$names['subtopics']."\t"
-						.$names['quests']."\t"
 						.$data['name']."\t"
 						.(isset($data['status']) && $data['status'] == 'OK' ? 'Kész' : 'Hiányos')."\r\n";
 				$this->session->set_userdata('exercises', $exercises);
@@ -284,8 +283,7 @@ class Database extends CI_model {
 			'SELECT DISTINCT `classes`.`label` FROM `classes`
 				INNER JOIN `topics` ON `classes`.`id` = `topics`.`classID`
 				INNER JOIN `subtopics` ON `topics`.`id` = `subtopics`.`topicID`
-				INNER JOIN `quests` ON `subtopics`.`id` = `quests`.`subtopicID`
-				INNER JOIN `exercises` ON `quests`.`id` = `exercises`.`questID`
+				INNER JOIN `exercises` ON `subtopics`.`id` = `exercises`.`subtopicID`
 					WHERE `exercises`.`id` = '.$id);
 		$label = $query->result()[0]->label;
 
@@ -306,8 +304,7 @@ class Database extends CI_model {
 		$query = $this->db->query(
 			'SELECT DISTINCT `topics`.`label` FROM `topics`
 				INNER JOIN `subtopics` ON `topics`.`id` = `subtopics`.`topicID`
-				INNER JOIN `quests` ON `subtopics`.`id` = `quests`.`subtopicID`
-				INNER JOIN `exercises` ON `quests`.`id` = `exercises`.`questID`
+				INNER JOIN `exercises` ON `subtopics`.`id` = `exercises`.`subtopicID`
 					WHERE `exercises`.`id` = '.$id);
 		$label = $query->result()[0]->label;
 
@@ -327,8 +324,7 @@ class Database extends CI_model {
 
 		$query = $this->db->query(
 			'SELECT DISTINCT `subtopics`.`label` FROM `subtopics`
-				INNER JOIN `quests` ON `subtopics`.`id` = `quests`.`subtopicID`
-				INNER JOIN `exercises` ON `quests`.`id` = `exercises`.`questID`
+				INNER JOIN `exercises` ON `subtopics`.`id` = `exercises`.`subtopicID`
 					WHERE `exercises`.`id` = '.$id);
 		$label = $query->result()[0]->label;
 
@@ -367,24 +363,6 @@ class Database extends CI_model {
 			'SELECT DISTINCT `topics`.`id`, `topics`.`name` FROM `topics`
 				INNER JOIN `subtopics` ON `topics`.`id` = `subtopics`.`topicID`
 					WHERE `subtopics`.`id` = '.$id);
-		$data = $query->result_array()[0];
-
-		return $data;
-	}
-
-	/**
-	 * Get quest data for exercise
-	 *
-	 * @param int $id Exercise ID
-	 *
-	 * @return array $data Quest data
-	 */
-	public function GetExerciseQuest($id) {
-
-		$query = $this->db->query(
-			'SELECT DISTINCT `quests`.`id`, `quests`.`name` FROM `quests`
-				INNER JOIN `exercises` ON `quests`.`id` = `exercises`.`questID`
-					WHERE `exercises`.`id` = '.$id);
 		$data = $query->result_array()[0];
 
 		return $data;

@@ -23,8 +23,6 @@ function exam_iceberg($level)
     $question .= 'Hány tonnás az a jéghegy, amelynek víz alatti része $'.$difference.'$ tonnával nehezebb, mint a víz feletti része? ';
   }
 
-  $question .= '<i>(</i><a href="#" data-toggle="popover" data-trigger="focus" data-content="6 osztályos gimnáziumi felvételi feladatsor (2001. október 8.) 1. feladat"><i>Forrás</i></a><i>)</i>';
-
   $correct = $whole;
   $solution = '$'.$correct.'$';
 

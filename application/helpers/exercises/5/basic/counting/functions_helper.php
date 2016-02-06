@@ -11,7 +11,7 @@ function count_apples($level) {
 	$num = min(20, $num);
 	$num = max(0, $num);
 
-	$question = 'Hány darab alma van a fán?<div class="text-center"><img class="img-question" width="50%" src="'.RESOURCES_URL.'/count_apples/tree'.$num.'.png"></div>';
+	$question = 'Hány darab alma van a fán?<div class="text-center"><img class="img-question" height="200px" src="'.RESOURCES_URL.'/count_apples/tree'.$num.'.png"></div>';
 	$correct = $num;
 	$solution = '$'.$correct.'$';
 
@@ -29,12 +29,7 @@ function parity($level) {
 
 	$num = numGen(rand(ceil($len/2),$len), 10);
 
-	if ($level <= 3) {
-		$question = '<a tabindex="0" class="bs-docs-popover" role="button" data-placement="bottom" data-toggle="popover" data-trigger="focus" title="Páros számok" data-content="Amik $0$, $2$, $4$, $6$, $8$-ra végződnek.">Páros</a> vagy <a tabindex="0" class="bs-docs-popover" role="button" data-placement="bottom" data-toggle="popover" data-trigger="focus" title="Páratlan számok" data-content="Amik $1$, $3$, $5$, $7$, $9$-re végződnek.">páratlan</a> az alábbi szám?$$'.$num.'$$';
-	} else {
-		$question = 'Páros vagy páratlan az alábbi szám?$$'.$num.'$$';
-	}
-	
+	$question = 'Páros vagy páratlan az alábbi szám?$$'.$num.'$$';
 
 	$options = array('páros', 'páratlan');
 	$index = $num%2;

@@ -25,7 +25,7 @@
 
 		$this->load->view('Misc/BreadCrumb', $breadcrumb);
 		$this->load->view('Title/Subtopic', $title);
-		$this->load->view('Body/Quests', $quests);
+		$this->load->view('Body/Subtopic', $exercises);
 
 	} elseif ($type == 'exercise') {
 

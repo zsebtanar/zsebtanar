@@ -90,3 +90,13 @@ input.smallInput {
 #exercise_form {
     padding: 10px;
 }
+
+.panel-heading-sm {
+    height: 35px;
+    padding: 0px 0px 0px 10px;
+    font-size: 120%;
+    font-weight: bold;
+}
+.panel-heading-title {
+    color: black;
+}
