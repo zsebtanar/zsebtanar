@@ -10,23 +10,23 @@
 				<span class="icon-bar"></span>
 			</button>
 
-			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#explanation">
+			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#result_symbols">
 				<img src="<?php echo base_url();?>assets/images/trophy.png" alt="shield" width="17">
 			</a>
 
-			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#explanation"><b class="results"><?php echo $trophies;?></b></a>
+			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#result_symbols"><b class="results"><?php echo $trophies;?></b></a>
 
-			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#explanation">
+			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#result_symbols">
 				<img src="<?php echo base_url();?>assets/images/shield.png" alt="shield" width="15">
 			</a>
 
-			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#explanation"><b class="results"><?php echo $shields;?></b></a>
+			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#result_symbols"><b class="results"><?php echo $shields;?></b></a>
 
-			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#explanation">
+			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#result_symbols">
 				<img src="<?php echo base_url();?>assets/images/coin.png" alt="coin" width="15">
 			</a>
 
-			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#explanation"><b class="results"><?php echo $points;?></b></a>
+			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#result_symbols"><b class="results"><?php echo $points;?></b></a>
 
 		</div>
 

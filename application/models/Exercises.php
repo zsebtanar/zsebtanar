@@ -455,8 +455,7 @@ class Exercises extends CI_model {
 
 		if (isset($data['explanation'])) {
 			if (is_array($data['explanation'])) {
-				$explanation = '<ul>';
-				foreach ($data['explanation'] as $segment) {
+				foreach ($data['explanation'] as $key => $segment) {
 					if (is_array($segment)) {
 						$explanation .= '<ul>';
 						foreach ($segment as $subsegment) {
@@ -475,13 +474,14 @@ class Exercises extends CI_model {
 							}
 						}
 						$explanation .= '</ul>';
-					} else {
-						$explanation .= '<li>'.$segment.'</li>';
+						$data['explanation'][$key] = $segment;
 					}
 				}
-				$explanation .= '</ul>';
-				$data['explanation'] = $explanation;
 			}
+		} elseif ($this->hasHint($id)) {
+			$data['explanation'] = 'Segítségre van szükséged? Kattints a <img src="'.base_url().'assets/images/light_bulb.png" alt="hint" width="40">-ra!';
+		} else {
+			$data['explanation'] =  NULL;
 		}
 
 		return $data;
@@ -512,7 +512,10 @@ class Exercises extends CI_model {
 				$row['complete'] 	= $this->isComplete($id);
 				$row['progress'] 	= $this->Session->getUserProgress($id);
 				$row['status'] 		= $exercise->status;
+				$row['hint'] 		= $exercise->hint;
+				$row['youtube']		= $exercise->youtube;
 				$row['question']	= $exercisedata['question'];
+				$row['explanation']	= $exercisedata['explanation'];
 				$row['class'] 		= (!$exerciseID || $id == $exerciseID ? 'in' : '');
 
 				$data[] = $row;

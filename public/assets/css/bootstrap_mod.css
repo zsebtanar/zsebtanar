@@ -92,10 +92,8 @@ input.smallInput {
 }
 
 .panel-heading-sm {
-    height: 35px;
+    height: 30px;
     padding: 0px 0px 0px 10px;
-    font-size: 120%;
-    font-weight: bold;
 }
 .panel-heading-title {
     color: black;
@@ -103,4 +101,10 @@ input.smallInput {
 
 a.panel-heading-title:hover, a.panel-heading-title:visited, a.panel-heading-title:focus {
     text-decoration: none;
+}
+
+.btn-exercise-start {
+    height: 30px;
+    padding: 5px 10px;
+    margin-left: 5px;
 }

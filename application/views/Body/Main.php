@@ -21,7 +21,7 @@
 					foreach ($class['topics'] as $topic) {?>
 
 					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="heading<?php echo $topic['id'];?>">
+						<div class="panel-heading panel-heading-sm" role="tab" id="heading<?php echo $topic['id'];?>">
 							<div class="panel-title">
 								<a class="" role="button" data-toggle="collapse" href="#listgroup<?php echo $topic['id'];?>" aria-expanded="true" aria-controls="listgroup<?php echo $topic['id'];?>">
 									<?php echo $topic['name'];?>

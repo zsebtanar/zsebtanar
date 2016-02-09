@@ -34,10 +34,11 @@ class Database extends CI_model {
 				'subtopicID'=> 'FROM SESSION',
 				'level' 	=> 9,
 				'status' 	=> 'IN PROGRESS',
-				'label'		=> '',
-				'name'		=> '',
-				'youtube'	=> '',
-				'hint'		=> ''
+				'label'		=> 'NOT NULL',
+				'youtube'	=> NULL,
+				'name'		=> NULL,
+				'hint'		=> NULL,
+				'status'	=> NULL,
 				),
 			);
 
@@ -122,7 +123,7 @@ class Database extends CI_model {
 							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							subtopicID 	INT NOT NULL,
 							level		INT,
-							label 		VARCHAR(30),
+							label 		VARCHAR(30) NOT NULL,
 							name 		VARCHAR(120),
 							youtube 	VARCHAR(20),
 							hint 		VARCHAR(60),
