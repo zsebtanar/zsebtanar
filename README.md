@@ -4,10 +4,19 @@ Zsebtanár is a project aiming to provide efficient help for kids in Maths.
 
 # Setup
 
-1. Download an unzip the files
-2. Open the website
-3. Click on "Login" (password: zst)
-4. Click on "Update Databse"
+First, download an unzip the files.
+
+Type in the following URLs your browser:
+1. `http://localhost/zsebtanar_v4/public/application/login/zst`
+2. `http://localhost/zsebtanar_v4/public/update/database`
+3. `http://localhost/zsebtanar_v4/public/application/logout`
+
+If you want to log in the website, click on "login", and type in the password (zst).
+
+After logging in, you have additional features:
+1. *Update database*: run this after adding a new exercise.
+2. *Clear results*: delete points.
+3. *Log out*
 
 # Add new exercise
 In order to add new exercise, you have to do two things:
@@ -22,8 +31,7 @@ Exercises are stored in *public/resources/data.json*. The hierachy is the follow
 1. Class
 2. Topic
 3. Subtopic
-4. Quest
-5. Exercise
+4. Exercise
 
 Each of them *must* be provided with two attributes:
 - `name`: this will appear on the website
@@ -51,29 +59,17 @@ This is a sample for `data.json`:
                         {
                             "name": "Számolás",
                             "label":"counting",
-                            "quests": [
+                            "exercises": [
                                 {
-                                    "name": "Számolás",
-                                    "label": "counting",
-                                    "exercises": [
-                                        {
-                                            "label": "count_apples",
-                                            "name": "Számolás 1-től 20-ig",
-                                            "hint": "szamok_1-20.jpg",
-                                            "status": "OK"
-                                        }
-                                    ]
+                                    "label": "count_apples",
+                                    "name": "Számolás 1-től 20-ig",
+                                    "hint": "szamok_1-20.jpg",
+                                    "status": "OK"
                                 },
                                 {
-                                    "name": "Páros, páratlan",
                                     "label": "parity",
-                                    "exercises": [
-                                        {
-                                            "label": "parity",
-                                            "name": "Páros vagy páratlan?",
-                                            "level": "4"
-                                        }
-                                    ]
+                                    "name": "Páros vagy páratlan?",
+                                    "level": "4"
                                 }
                             ]
                         }
