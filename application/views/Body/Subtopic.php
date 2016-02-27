@@ -46,7 +46,7 @@
 					if (isset($exercise['explanation']) && $exercise['explanation']) {?>
 
 						<a href="#" class="pull-right" data-toggle="modal" data-target="#exercise_symbols">
-							<img src="<?php echo base_url();?>assets/images/key.png" alt="hint" width="25px">
+							<img src="<?php echo base_url();?>assets/images/buoy.png" alt="hint" width="25px">
 						</a><?php
 
 					}?>

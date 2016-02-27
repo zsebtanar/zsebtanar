@@ -7,18 +7,16 @@
 /* Count apples from 1 to 20 */
 function count_apples($level) {
 
-	$num = rand(2*($level-2), 3*$level);
-	$num = min(20, $num);
-	$num = max(0, $num);
+	$num = rand(max(0,2*($level-2)), min(20,3*$level));
 
 	$question = 'Hány darab alma van a fán?<div class="text-center"><img class="img-question" height="200px" src="'.RESOURCES_URL.'/count_apples/tree'.$num.'.png"></div>';
 	$correct = $num;
 	$solution = '$'.$correct.'$';
 
 	return array(
-		'question' 		=> $question,
-		'correct' 		=> $correct,
-		'solution'		=> $solution
+		'question' 	=> $question,
+		'correct' 	=> $correct,
+		'solution'	=> $solution
 	);
 }
 
@@ -39,7 +37,16 @@ function parity($level) {
 
 	$correct = array_search($solution, $options);
 	$type = 'quiz';
-	$explanation = 'A $'.$num.'$ azért '.$solution.' szám, mert az utolsó jegye $'.strval($num%10).'$.';
+
+	if ($num > 9) {
+		$explanation[] = 'Azt, hogy egy szám páros vagy páratlan, az <b>utolsó számjegy</b> dönti el.';
+		$explanation[] = 'Ha a szám utolsó számjegye<ul><li>$0$, $2$, $4$, $6$ vagy $8$, akkor a szám <b>páros</b>,</li><li>$1$, $3$, $5$, $7$ vagy $9$, akkor a szám <b>páratlan</b>.</li></ul>';
+		$explanation[] = ucfirst(addArticle($num)).' $'.$num.'$ utolsó jegye $'.strval($num%10).'$, ezért '.addArticle($num).' $'.$num.'$ <b class="text-success">'.$solution.'</b>.';
+	} else {
+		$explanation[] = 'A $0$, $2$, $4$, $6$, $8$ <b>páros számok</b>.';
+		$explanation[] = 'Az $1$, $3$, $5$, $7$, $9$ <b>páratlan számok</b>.';
+		$explanation[] = ucfirst(addArticle($num)).' $'.$num.'$ <b>'.$solution.'</b> szám.';
+	}
 
 	return array(
 		'question' 	=> $question,
@@ -52,7 +59,7 @@ function parity($level) {
 }
 
 /* Count even/odd numbers */
-function count_parity($level=1) {
+function count_parity($level) {
 
 	$no = max(1, $level);
 	$len = max(1, round($level/2));
@@ -66,6 +73,7 @@ function count_parity($level=1) {
 
 	$question = 'Hány szám '.$parity[$par].' az alábbiak közül?$$\begin{align}';
 	$correct = 0;
+	$explanation[] = 'Ha egy szám utolsó számjegye<ul><li>$0$, $2$, $4$, $6$ vagy $8$, akkor a szám <b>páros</b>,</li><li>$1$, $3$, $5$, $7$ vagy $9$, akkor a szám <b>páratlan</b>.</li></ul>';
 
 	foreach ($num as $key => $value) {
 		$correct = ($value%2 == $par ? ++$correct : $correct);
@@ -73,11 +81,16 @@ function count_parity($level=1) {
 			$value = number_format($value,0,',','\,');
 		}
 		$question .= $value.' & \\\\';
-		$explanation[] = 'A $\textcolor{'.($value % 2 == $par ? 'green' : 'red').'}{'.$value.'}$'
-			.' <b>'.$parity[$value%2].'</b> szám, mert az utolsó jegye $'.strval($value%10).'$.';
+		if ($value > 9) {
+			$explanation[] = 'A $'.$value.'$'
+				.' <b class="text-'.($value % 2 == $par ? 'success' : 'danger').'">'.$parity[$value%2].'</b> szám, mert az utolsó jegye $'.strval($value%10).'$.';
+		} else {
+			$explanation[] = 'A $'.$value.'$'
+				.' <b class="text-'.($value % 2 == $par ? 'success' : 'danger').'">'.$parity[$value%2].'</b> szám.';
+		}
 	}
 
-	$explanation[] = 'Mivel a számok közül összesen $'.$correct.'$ db <b>'.$parity[$par].'</b>, ezért a megoldás is $'.$correct.'$ lesz.';
+	$explanation[] = 'A számok közül összesen $'.$correct.'$ db <b>'.$parity[$par].'</b>, ezért a megoldás $\textcolor{green}{'.$correct.'}$.';
 
 	$question = rtrim($question, '\\\\').'\end{align}$$';
 	$solution = '$'.$correct.'$';

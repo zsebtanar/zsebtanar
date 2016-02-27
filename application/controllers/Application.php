@@ -70,13 +70,14 @@ class Application extends CI_controller {
 	 * Get hint for exercise
 	 *
 	 * @param string $hash Exercise hash
+	 * @param int    $id   Order of hint
 	 *
 	 * @return void
 	 */
-	public function GetHint($hash) {
+	public function GetHint($hash, $id=NULL) {
 
 		$this->load->model('Exercises');
-		$result = $this->Exercises->GetHint($hash);
+		$result = $this->Exercises->GetHint($hash, $id);
 		echo json_encode($result);
 	}
 

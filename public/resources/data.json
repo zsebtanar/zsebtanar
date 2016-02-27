@@ -21,13 +21,11 @@
 								{
 									"label": "parity",
 									"name": "Páros vagy páratlan?",
-									"hint": "paros_paratlan.jpg",
 									"status": "OK"
 								},
 								{
 									"label": "count_parity",
 									"name": "Hány darab páros/páratlan?",
-									"hint": "paros_paratlan.jpg",
 									"status": "OK"
 								}
 							]

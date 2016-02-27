@@ -11,7 +11,7 @@
 					<li>Képlet, táblázat, egyéb hasznos segítség.</li>
 					<li>Akárhányszor használhatod.</li>
 				</ul>
-				<h1><img class="img_main" src="<?php echo base_url();?>assets/images/key.png" alt="key" width="50px">&nbsp;Megoldókulcs</h1>
+				<h1><img class="img_main" src="<?php echo base_url();?>assets/images/buoy.png" alt="key" width="50px">&nbsp;Megoldókulcs</h1>
 				<ul>
 					<li>Minél többször használod egy feladatnál, annál kevesebb aranyat kapsz.</li>
 					<li>Csak akkor tudsz szintet lépni, ha nem használod a megoldáshoz.</li>

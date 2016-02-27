@@ -82,34 +82,34 @@ class Session extends CI_model {
 		$progress_old = $level_user/$level_max;
 		if ($hints_used == 0) {
 			$progress_new = ($level_user+1)/$level_max;
-		}
 
-		if (($progress_old < 1/3 && $progress_new >= 1/3) ||
-			($progress_old < 2/3 && $progress_new >= 2/3) ||
-			($progress_old < 3/3 && $progress_new >= 3/3)) {
+			if (($progress_old < 1/3 && $progress_new >= 1/3) ||
+				($progress_old < 2/3 && $progress_new >= 2/3) ||
+				($progress_old < 3/3 && $progress_new >= 3/3)) {
 
-			// Level completed
-			$prize = 200;
-			$this->Points($prize);
-			$this->Shields(1);
-			$message .= '<br /><br />Szintet léptél!<br />'.
-				'+1&nbsp;<img src="'.base_url().
-				'assets/images/shield.png" alt="coin" width="30">&nbsp;&nbsp;'.
-				'+'.$prize.
-				'&nbsp;<img src="'.base_url().
-				'assets/images/coin.png" alt="coin" width="30">';
-
-			// Execise completed
-			if ($progress_new == 1) {
-				$prize = 1000;
+				// Level completed
+				$prize = 200;
 				$this->Points($prize);
-				$this->Trophies(1);
-				$message .= '<br /><br />Elvégeztél egy feladatot!<br />'.
+				$this->Shields(1);
+				$message .= '<br /><br />Szintet léptél!<br />'.
 					'+1&nbsp;<img src="'.base_url().
-					'assets/images/trophy.png" alt="coin" width="30">&nbsp;&nbsp;'.
+					'assets/images/shield.png" alt="coin" width="30">&nbsp;&nbsp;'.
 					'+'.$prize.
 					'&nbsp;<img src="'.base_url().
 					'assets/images/coin.png" alt="coin" width="30">';
+
+				// Execise completed
+				if ($progress_new == 1) {
+					$prize = 1000;
+					$this->Points($prize);
+					$this->Trophies(1);
+					$message .= '<br /><br />Elvégeztél egy feladatot!<br />'.
+						'+1&nbsp;<img src="'.base_url().
+						'assets/images/trophy.png" alt="coin" width="30">&nbsp;&nbsp;'.
+						'+'.$prize.
+						'&nbsp;<img src="'.base_url().
+						'assets/images/coin.png" alt="coin" width="30">';
+				}
 			}
 		}
 
@@ -282,6 +282,7 @@ class Session extends CI_model {
 			'hints_all' 	=> $data['hints_all'],
 			'hints_used' 	=> $data['hints_used'],
 			'explanation' 	=> $data['explanation'],
+			'hint_replace' 	=> $data['hint_replace'],
 		);
 
 		$this->session->set_userdata('exercise', $sessiondata);
@@ -320,23 +321,40 @@ class Session extends CI_model {
 	/**
 	 * Get exercise hint from session
 	 *
-	 * @param string $hash Random string
+	 * @param string $hash Exercise hash
+	 * @param int    $id   Order of hint
 	 *
 	 * @return array $data Exercise data
 	 */
-	public function GetExerciseHint($hash) {
+	public function GetExerciseHint($hash, $id) {
 
 		$exercise = $this->session->userdata('exercise');
 
+		// print_r($id);
+
 		$hints_all 		= $exercise[$hash]['hints_all'];
 		$hints_used 	= $exercise[$hash]['hints_used'];
-		$explanation 	= $exercise[$hash]['explanation'][$hints_used];
+		$hint_replace 	= $exercise[$hash]['hint_replace'];
+
+		$hint_current = ($id !== NULL ? $id : $hints_used);
+		$hint_current = min($hints_all, $hint_current);
+
+		$explanation = $exercise[$hash]['explanation'][$hint_current];
 
 		// Update number of used hints
-		$exercise[$hash]['hints_used'] = ++$hints_used;
-		$this->session->set_userdata('exercise', $exercise);
+		if ($hint_current >= $hints_used) {
+			$exercise[$hash]['hints_used'] = ++$hints_used;
+			$this->session->set_userdata('exercise', $exercise);
+		}
 
-		return array($explanation, $hints_all, $hints_used);
+		// print_r($hint_current);
+		// print_r($explanation);
+
+		return array('explanation' 	=> $explanation,
+					'hints_all' 	=> $hints_all,
+					'hints_used' 	=> $hints_used,
+					'hint_replace' 	=> $hint_replace,
+					'hint_current' 	=> $hint_current);
 	}
 
 	/**

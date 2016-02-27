@@ -462,7 +462,6 @@ class Exercises extends CI_model {
 
 		if (isset($data['explanation'])) {
 			if (is_array($data['explanation'])) {
-				
 				foreach ($data['explanation'] as $key => $segment) {
 					if (is_array($segment)) {
 						$explanation = '<ul>';
@@ -495,6 +494,11 @@ class Exercises extends CI_model {
 		}
 		$data['hints_all'] = count($data['explanation']);
 		$data['hints_used'] = 0;
+
+		// Should hints be replaced?
+		if (!isset($data['hint_replace'])) {
+			$data['hint_replace'] = FALSE;
+		}
 
 		return $data;
 	}
@@ -578,18 +582,17 @@ class Exercises extends CI_model {
 	 * Get hint for exercise
 	 *
 	 * @param string $hash Exercise hash
+	 * @param int    $id   Order of hint
 	 *
 	 * @return string $explanation
 	 */
-	public function GetHint($hash) {
+	public function GetHint($hash, $id) {
 
 		$this->load->model('Session');
 
-		list($explanation, $hints_all, $hints_used) = $this->Session->GetExerciseHint($hash);
+		$data = $this->Session->GetExerciseHint($hash, $id);
 
-		return array('explanation' 	=> $explanation,
-					'hints_all' 	=> $hints_all,
-					'hints_used' 	=> $hints_used);
+		return $data;
 	}
 
 	/**

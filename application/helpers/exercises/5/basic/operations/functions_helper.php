@@ -6,14 +6,16 @@
 // Addition
 function basic_addition($level)
 {
-  $length1 = rand(round($level/2), $level);
-  $length2 = rand(round($level/2), $level);
-
-  $length1 = max(1, $length1);
-  $length2 = max(1, $length2);
-
-  $length1 = min(10, $length1);
-  $length2 = min(10, $length2);
+  if ($level <= 3) {
+    $length1 = 1;
+    $length2 = 1;
+  } elseif ($level <= 6) {
+    $length1 = 2;
+    $length2 = 2;
+  } else {
+    $length1 = 3;
+    $length2 = 2;
+  }
 
   $num1 = numGen($length1, 10);
   $num2 = numGen($length2, 10);
@@ -30,10 +32,11 @@ function basic_addition($level)
   $explanation = basic_addition_explanation(array($num1, $num2));
 
   return array(
-    'question'  => $question,
-    'correct'   => $correct,
-    'solution'  => $solution,
-    'explanation' => $explanation
+    'question'      => $question,
+    'correct'       => $correct,
+    'solution'      => $solution,
+    'explanation'   => $explanation,
+    'hint_replace'  => TRUE
   );
 }
 
