@@ -2,7 +2,7 @@
 	<tbody>
 		<tr>
 			<td align="center">
-				<input class="form-control smallInput" name="answer" data-autosize-input='{ "space": 20 }' />
+				<input autofocus="autofocus" class="form-control smallInput" name="answer" data-autosize-input='{ "space": 20 }' />
 			</td>
 		</tr>
 		<tr style="background-color: black; height: 2px;">

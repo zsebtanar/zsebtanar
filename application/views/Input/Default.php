@@ -3,7 +3,7 @@
 		<tbody>
 			<tr>
 				<td align="center">
-					<input type="text" align="center" class="form-control smallInput" data-autosize-input='{ "space": 20 }' name="answer">
+					<input type="text" align="center" class="form-control smallInput" autofocus="autofocus" data-autosize-input='{ "space": 20 }' name="answer">
 				</td>
 			</tr>
 		</tbody>
