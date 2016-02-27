@@ -7,7 +7,7 @@
 /* Count apples from 1 to 20 */
 function count_apples($level) {
 
-	$num = rand(2*($level-1), 3*$level);
+	$num = rand(2*($level-2), 3*$level);
 	$num = min(20, $num);
 	$num = max(0, $num);
 

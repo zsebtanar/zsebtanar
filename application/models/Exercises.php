@@ -150,7 +150,7 @@ class Exercises extends CI_model {
 		if ($answer[0] == '') {
 			$status = 'NOT_DONE';
 			$message = 'Hiányzik a válasz!';
-		} elseif ($answer[0] == $correct) {
+		} elseif (is_numeric($answer[0]) && $answer[0] == $correct) {
 			$status = 'CORRECT';
 			$message = 'Helyes válasz!';
 		} else {
@@ -350,8 +350,10 @@ class Exercises extends CI_model {
 
 		// Get exercise level
 		if (!$level) {
-			$level_current = $this->Session->getUserLevel($id);
-			$level_new = ++$level_current;
+			$level_user = $this->Session->getUserLevel($id);
+			$level_max = $this->getMaxLevel($id);
+
+			$level = min($level_max, ++$level_user);
 		}
 
 		// Generate exercise
@@ -359,7 +361,7 @@ class Exercises extends CI_model {
 		$this->load->helper('language');
 		$exercise = $this->LoadExerciseFunction($id);
 		$function = $exercise->label;
-		$data = $function($level_current);
+		$data = $function($level);
 
 		if (!isset($data['type'])) {
 			if (!isset($data['options'])) {
