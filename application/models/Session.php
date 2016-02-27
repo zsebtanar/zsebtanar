@@ -48,29 +48,41 @@ class Session extends CI_model {
 	/**
 	 * Update results
 	 *
-	 * @param int    $id      Exercise ID
-	 * @param string $message Message for user
+	 * Points will be calculated based on how many hints used.
+	 * Level will only increase if no hints were used.
+	 *
+	 * @param int    $id         Exercise ID
+	 * @param int 	 $hints_used Number of hints used
+	 * @param int 	 $hints_all  Number of all hints
+	 * @param string $message    Message for user
 	 *
 	 * @return string $message Message for user (updated)
 	 */
-	public function UpdateResults($id, $message) {
+	public function UpdateResults($id, $hints_used, $hints_all, $message) {
 
 		$level_user = $this->getUserLevel($id);
 		$level_max = $this->Exercises->getMaxLevel($id);
 
 		// Update levels
-		$levels = $this->session->userdata('levels');
-		$levels[$id] = $level_user + 1;
-		$this->session->set_userdata('levels', $levels);
+		if ($hints_used == 0) {
+			$levels = $this->session->userdata('levels');
+			$levels[$id] = $level_user + 1;
+			$this->session->set_userdata('levels', $levels);
+		}
 
 		// Add points
-		$this->Points(100);
-		$message .= '<br />+100&nbsp;<img src="'.
-			base_url().'assets/images/coin.png" alt="coin" width="30">';
+		$prize = round(100*($hints_all-$hints_used)/$hints_all);
+		if ($prize > 0) {
+			$this->Points($prize);
+			$message .= '<br />+'.$prize.'&nbsp;<img src="'.
+				base_url().'assets/images/coin.png" alt="coin" width="30">';
+		}
 
 		// Calculate progress
 		$progress_old = $level_user/$level_max;
-		$progress_new = ($level_user+1)/$level_max;
+		if ($hints_used == 0) {
+			$progress_new = ($level_user+1)/$level_max;
+		}
 
 		if (($progress_old < 1/3 && $progress_new >= 1/3) ||
 			($progress_old < 2/3 && $progress_new >= 2/3) ||
@@ -261,15 +273,15 @@ class Session extends CI_model {
 
 		$sessiondata = $this->session->userdata('exercise');
 
-		$explanation = (isset($data['explanation']) ? $data['explanation'] : NULL);
-
 		$sessiondata[$hash] = array(
-			'id'		=> $id,
-			'level' 	=> $level,
-			'correct' 	=> $data['correct'],
-			'type' 		=> $data['type'],
-			'solution'	=> $data['solution'],
-			'explanation' => $explanation
+			'id'			=> $id,
+			'level' 		=> $level,
+			'correct' 		=> $data['correct'],
+			'type' 			=> $data['type'],
+			'solution'		=> $data['solution'],
+			'hints_all' 	=> $data['hints_all'],
+			'hints_used' 	=> $data['hints_used'],
+			'explanation' 	=> $data['explanation'],
 		);
 
 		$this->session->set_userdata('exercise', $sessiondata);
@@ -293,9 +305,38 @@ class Session extends CI_model {
 		$level 		= $exercise[$hash]['level']; 
 		$type 		= $exercise[$hash]['type']; 
 		$id 		= $exercise[$hash]['id'];
+		$hints_used	= $exercise[$hash]['hints_used'];
+		$hints_all	= $exercise[$hash]['hints_all'];
 		$explanation = $exercise[$hash]['explanation'];
 
-		return array($correct, $explanation, $solution, $level, $type, $id);
+		return array($correct,
+			$explanation,
+			$hints_used,
+			$hints_all,
+			$solution,
+			$level, $type, $id);
+	}
+
+	/**
+	 * Get exercise hint from session
+	 *
+	 * @param string $hash Random string
+	 *
+	 * @return array $data Exercise data
+	 */
+	public function GetExerciseHint($hash) {
+
+		$exercise = $this->session->userdata('exercise');
+
+		$hints_all 		= $exercise[$hash]['hints_all'];
+		$hints_used 	= $exercise[$hash]['hints_used'];
+		$explanation 	= $exercise[$hash]['explanation'][$hints_used];
+
+		// Update number of used hints
+		$exercise[$hash]['hints_used'] = ++$hints_used;
+		$this->session->set_userdata('exercise', $exercise);
+
+		return array($explanation, $hints_all, $hints_used);
 	}
 
 	/**

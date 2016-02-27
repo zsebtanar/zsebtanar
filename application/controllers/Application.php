@@ -67,6 +67,20 @@ class Application extends CI_controller {
 	}
 
 	/**
+	 * Get hint for exercise
+	 *
+	 * @param string $hash Exercise hash
+	 *
+	 * @return void
+	 */
+	public function GetHint($hash) {
+
+		$this->load->model('Exercises');
+		$result = $this->Exercises->GetHint($hash);
+		echo json_encode($result);
+	}
+
+	/**
 	 * Clear results
 	 *
 	 * @param string $type View type (exercise/subtopic)

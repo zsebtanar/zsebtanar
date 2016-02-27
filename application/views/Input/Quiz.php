@@ -20,7 +20,7 @@
 
 			<div class="radio">
 				<label>
-					<input type="radio" name="answer" value="<?php echo $key; ?>"><?php echo $value; ?>
+					<input type="radio" autofocus="autofocus" name="answer" value="<?php echo $key; ?>"><?php echo $value; ?>
 				</label>
 			</div><?php
 

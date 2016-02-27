@@ -85,40 +85,63 @@
 
 						if ($this->Session->CheckLogin()) {
 
-							echo $type;
+							echo $type.'<br />';
 							echo json_encode($correct).'<br />';
 
 						}?>
 					</div>
 				</form>
 			</div>
+		</div>
+		<div class="row">
 			<div class="col-sm-12 text-center">
-					<a class="btn btn-default pull-left" href="<?php echo base_url().'view/subtopic/'.$subtopicID.'/'.$id;?>">
-						<span class="glyphicon glyphicon-chevron-left"></span>&nbsp;Vissza
-					</a>
-					<button id="next_button" class="btn btn-primary pull-right" onclick="checkSolution(event)">
-						Tovább&nbsp;<span class="glyphicon glyphicon-chevron-right">
-					</button>
+				<a class="btn btn-default pull-left" href="<?php echo base_url().'view/subtopic/'.$subtopicID.'/'.$id;?>">
+					<span class="glyphicon glyphicon-chevron-left"></span>&nbsp;Vissza
+				</a>
+				<button id="next_button" class="btn btn-primary pull-right" onclick="checkSolution(event)">
+					Tovább&nbsp;<span class="glyphicon glyphicon-chevron-right">
+				</button>
+				<br/>
+				<br/><?php
 
-					<br/>
-					<br/>
+				if ($hints_all > 0) {?>
 
-					<div id="message"></div>
-					<p id="exercise_explanation"><?php
-
-						if ($this->Session->CheckLogin() && isset($explanation)) {?>
-
-						<div class="alert alert-warning text-left"><?php
-
-								print_r($explanation);?>
-
-						</div><?php
-
-						}?>
-
+				<div>
+					<button id="hint_button" class="btn btn-danger pull-right" onclick="addexplanation(event)">
+						Segítséget kérek!
+					</button><br /><br />
+					<p id="hints_left" class="small pull-right">
+						(<?php echo $hints_all-$hints_used;?> segítség maradt.)
 					</p>
+				</div><?php
 
+				}
+
+				?>
+
+
+				<br/>
+				<br/>
+
+				<div id="message"></div>
 			</div>
+		</div>
+		<div class="row">
+			<div id="explanation" class="col-sm-12"></div>
+		</div>
+		<div class="row"><?php
+
+			if ($this->Session->CheckLogin() && isset($explanation)) {?>
+
+			<div class="col-sm-12"><?php
+
+				foreach ($explanation as $hint) {
+					print_r('<p>'.$hint.'</p>');
+				}?>
+
+			</div><?php
+
+			}?>
 		</div>
 	</div>
 	<div class="col-md-3"></div>
@@ -140,9 +163,30 @@
 		}
 	}
 
+	function addexplanation(event){
+		var hash = $('[name="hash"]').attr('value');
+		event.preventDefault();
+		$.ajax({
+			type: "GET",
+			url: "<?php echo base_url();?>application/gethint/"+hash,
+			success: function(data) {
+				var explanation = jQuery.parseJSON(data)['explanation'];
+				var hints_all = jQuery.parseJSON(data)['hints_all'];
+				var hints_used = jQuery.parseJSON(data)['hints_used'];
+				var hints_left = hints_all - hints_used;
+				$("#explanation").append('<p>'+explanation+'</p>');
+				MathJax.Hub.Queue(["Typeset",MathJax.Hub,"explanation"]);
+				$("#hints_left").html("("+hints_left+" segítség maradt.)");
+				if (hints_left == 0) {
+					$("#hint_button").attr('class',"btn btn-danger pull-right disabled");
+				}
+			}
+		});
+	}
+
 	// Check solution
 	function checkSolution(event) {
-		var queryString = $("form").serializeArray();
+		var queryString = $("#exercise_form").serializeArray();
 		event.preventDefault();
 		$.ajax({
 			type: "GET",
@@ -155,7 +199,7 @@
 				
 				// Exercise not finished
 				if (data['status'] == 'NOT_DONE') {
-					$("#message").replaceWith('<div id=\"message\">'+data['message']+'</div>');
+					$("#message").html(data['message']);
 					MathJax.Hub.Queue(["Typeset",MathJax.Hub,"message"]);
 					return;
 				}
@@ -170,7 +214,10 @@
 				} else {
 					radios.disabled = true;
 				}
-				
+
+				// Disable hint button
+				$("#hint_button").attr('class',"btn btn-danger pull-right disabled");
+
 				// Exercise finished
 				switch (data['status']) {
 					case 'CORRECT':

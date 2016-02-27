@@ -31,14 +31,19 @@ class Exercises extends CI_model {
 
 		$answerdata = json_decode($jsondata, TRUE);
 		list($answer, $hash) = $this->GetAnswerData($answerdata);
-		list($correct, $explanation, $solution, $level, $type, $id) = $this->Session->GetExerciseData($hash);
+		list($correct,
+			$explanation,
+			$hints_used,
+			$hints_all,
+			$solution,
+			$level, $type, $id) = $this->Session->GetExerciseData($hash);
 
 		list($status, $message, $submessages) = $this->GenerateMessages($type, $answer, $correct, $solution);
 
 		$this->Session->DeleteExerciseData($status, $hash);
 
 		if ($status == 'CORRECT') {
-			$message = $this->Session->UpdateResults($id, $message);
+			$message = $this->Session->UpdateResults($id, $hints_used, $hints_all, $message);
 		}
 
 		$id_next 	= $this->getIDNext($id);
@@ -455,6 +460,7 @@ class Exercises extends CI_model {
 
 		if (isset($data['explanation'])) {
 			if (is_array($data['explanation'])) {
+				
 				foreach ($data['explanation'] as $key => $segment) {
 					if (is_array($segment)) {
 						$explanation = '<ul>';
@@ -477,12 +483,16 @@ class Exercises extends CI_model {
 						$data['explanation'][$key] = $segment;
 					}
 				}
+			} else {
+				$data['explanation'] = array($data['explanation']);
 			}
 		} elseif ($this->hasHint($id)) {
-			$data['explanation'] = 'Segítségre van szükséged? Kattints a <img src="'.base_url().'assets/images/light_bulb.png" alt="hint" width="40">-ra!';
+			$data['explanation'][0] = 'Segítségre van szükséged? Kattints a <img src="'.base_url().'assets/images/light_bulb.png" alt="hint" width="40">-ra!';
 		} else {
 			$data['explanation'] =  NULL;
 		}
+		$data['hints_all'] = count($data['explanation']);
+		$data['hints_used'] = 0;
 
 		return $data;
 	}
@@ -562,6 +572,23 @@ class Exercises extends CI_model {
 		return $data;
 	}
 
+	/**
+	 * Get hint for exercise
+	 *
+	 * @param string $hash Exercise hash
+	 *
+	 * @return string $explanation
+	 */
+	public function GetHint($hash) {
+
+		$this->load->model('Session');
+
+		list($explanation, $hints_all, $hints_used) = $this->Session->GetExerciseHint($hash);
+
+		return array('explanation' 	=> $explanation,
+					'hints_all' 	=> $hints_all,
+					'hints_used' 	=> $hints_used);
+	}
 
 	/**
 	 * Check if exercise is completed
