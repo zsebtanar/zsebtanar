@@ -457,7 +457,7 @@ class Exercises extends CI_model {
 			if (is_array($data['explanation'])) {
 				foreach ($data['explanation'] as $key => $segment) {
 					if (is_array($segment)) {
-						$explanation .= '<ul>';
+						$explanation = '<ul>';
 						foreach ($segment as $subsegment) {
 							if (is_array($subsegment)) {
 								$explanation .= '<ul>';

@@ -110,7 +110,7 @@
 
 						<div class="alert alert-warning text-left"><?php
 
-								echo $explanation;?>
+								print_r($explanation);?>
 
 						</div><?php
 
@@ -155,7 +155,7 @@
 				
 				// Exercise not finished
 				if (data['status'] == 'NOT_DONE') {
-					$("#message").replaceWith(data['message']);
+					$("#message").replaceWith('<div id=\"message\">'+data['message']+'</div>');
 					MathJax.Hub.Queue(["Typeset",MathJax.Hub,"message"]);
 					return;
 				}
