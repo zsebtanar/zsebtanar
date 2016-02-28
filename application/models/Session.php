@@ -337,12 +337,13 @@ class Session extends CI_model {
 		$hint_replace 	= $exercise[$hash]['hint_replace'];
 
 		$hint_current = ($id !== NULL ? $id : $hints_used);
-		$hint_current = min($hints_all, $hint_current);
+		$hint_current = min($hints_all-1, $hint_current);
+		$hint_current = max(0, $hint_current);
 
 		$explanation = $exercise[$hash]['explanation'][$hint_current];
 
 		// Update number of used hints
-		if ($hint_current >= $hints_used) {
+		if ($hint_current >= $hints_used && $hints_used < $hints_all) {
 			$exercise[$hash]['hints_used'] = ++$hints_used;
 			$this->session->set_userdata('exercise', $exercise);
 		}

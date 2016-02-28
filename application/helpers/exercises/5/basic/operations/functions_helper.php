@@ -91,7 +91,7 @@ function basic_addition_explanation($num_array, $type='addition')
     $sum_sub = array_sum($digits) + $remain_old;
     $text = '';
 
-    $text = 'Adjuk össze '.(in_array($ind, [0,4]) ? 'az' : 'a').' '.$values[$ind].' helyén lévő számjegyeket'.
+    $text = 'Adjuk össze '.(in_array($ind, [0,4]) ? 'az' : 'a').' <b>'.$values[$ind].'</b> helyén lévő számjegyeket'.
       ($remain_old > 0 ? ' (az előző számolásnál kapott maradékkal együtt):' : ':');
 
     if (count($digits) > 1 || $remain_old > 0) {
@@ -105,14 +105,17 @@ function basic_addition_explanation($num_array, $type='addition')
       $remain_new = ($sum_sub / 10) % 10;
     }
 
-    $text .= basic_addition_generate_equation($num_array, $ind, $type); 
+    $text .= basic_addition_generate_equation($num_array, $ind, $type);
+
+    if ($ind == $length - 1 && $type == 'addition') {
+      $text .= 'Tehát az összeg $\textcolor{green}{'.array_sum($num_array).'}$.';
+    }
 
     $explanation[] = $text;
 
     $remain_old = $remain_new;
     $remain_new = 0;
   }
-
   return $explanation;
 }
 
@@ -125,10 +128,11 @@ function basic_addition_explanation($num_array, $type='addition')
  * @param array  $numbers Numbers to add
  * @param int    $col     Column index of place value
  * @param string $type    Type of addition (addition/multiplication)
+ * @param bool   $color Whether to use colors
  *
  * @return string $equation Equation
  */
-function basic_addition_generate_equation($numbers, $col=-1, $type='addition')
+function basic_addition_generate_equation($numbers, $col=-1, $type='addition', $color=TRUE)
 {
   // Get digits for each number
   foreach ($numbers as $key => $number) {
@@ -174,17 +178,21 @@ function basic_addition_generate_equation($numbers, $col=-1, $type='addition')
     if ($ind <= $col) {
       if ($ind == $col) {
 
-        if ($remain_old > 0) {
+        if ($remain_old > 0 && $color) {
           $eq_header = '\,\textcolor{blue}{\tiny{'.$remain_old.'}}\,'.$eq_header;
         } else {
           $eq_header = '\phantom{\normalsize{0}}'.$eq_header;
         }
 
-        if ($remain_new > 0) {
+        if ($remain_new > 0 && $color) {
           $eq_header = '\textcolor{red}{\tiny{'.$remain_new.'}}\,'.$eq_header;
         }
 
-        $eq_sum = '\textcolor{red}{'.$sum_sub.'}'.$eq_sum;
+        if ($color) {
+          $eq_sum = '\textcolor{red}{'.$sum_sub.'}'.$eq_sum;
+        } else {
+          $eq_sum = $sum_sub.$eq_sum;
+        }
 
       } else {
 
@@ -201,7 +209,7 @@ function basic_addition_generate_equation($numbers, $col=-1, $type='addition')
     // Store equation lines
     foreach ($digits as $key => $digit) {
       $digit = ($digit == NULL ? '\phantom{0}' : $digit);
-      if ($ind == $col) {
+      if ($ind == $col && $color) {
         $eq_lines[$key] = '\textcolor{blue}{'.$digit.'}'.$eq_lines[$key];
       } else {
         $eq_lines[$key] = $digit.$eq_lines[$key];
@@ -222,7 +230,7 @@ function basic_addition_generate_equation($numbers, $col=-1, $type='addition')
   }
 
   // Include sum
-  $equation = '$$\begin{align}'.$eq_header.'&\\\\ ';
+  $equation = '$$\begin{align}'.($color ? $eq_header.'&\\\\ ' : '');
   foreach ($eq_lines as $key => $eq_line) {
     if ($key+1 == count($eq_lines)) {
       $equation .= '+\,';
@@ -238,15 +246,16 @@ function basic_addition_generate_equation($numbers, $col=-1, $type='addition')
 // Subtraction
 function basic_subtraction($level)
 {
-
-  $length1 = rand(round($level/2), $level);
-  $length2 = rand(round($level/2), $level);
-
-  $length1 = max(1, $length1);
-  $length2 = max(1, $length2);
-
-  $length1 = min(10, $length1);
-  $length2 = min(10, $length2);
+  if ($level <= 3) {
+    $length1 = 1;
+    $length2 = 1;
+  } elseif ($level <= 6) {
+    $length1 = 2;
+    $length2 = round(1,2);
+  } else {
+    $length1 = 3;
+    $length2 = 2;
+  }
 
   $num1 = numGen($length1, 10);
   $num2 = numGen($length2, 10);
@@ -270,7 +279,8 @@ function basic_subtraction($level)
     'question'  => $question,
     'correct'   => $correct,
     'solution'  => $solution,
-    'explanation' => $explanation
+    'explanation' => $explanation,
+    'hint_replace'  => TRUE
   );
 }
 
@@ -350,6 +360,10 @@ function basic_subtraction_explanation($num1, $num2)
     }
 
     $text .= basic_subtraction_generate_equation($num1, $num2, $ind);
+
+    if ($ind == $length1 - 1) {
+      $text .= 'Tehát a különbség $\textcolor{green}{'.strval($num1-$num2).'}$.';
+    }
 
     $explanation[] = $text;
 
@@ -473,11 +487,11 @@ function basic_multiplication($level)
     $num1 = rand(1, 10);
     $num2 = rand(1, 10);
   } elseif ($level <= 7) {
-    $num1 = rand(11, 20);
-    $num2 = rand(11, 20);
+    $num1 = rand(11, 15);
+    $num2 = rand(3, 9);
   } else {
-    $num1 = rand(21, 50);
-    $num2 = rand(21, 50);
+    $num1 = rand(15, 20);
+    $num2 = rand(10, 12);
   }
 
   if ($num1 < $num2) {
@@ -501,7 +515,8 @@ function basic_multiplication($level)
     'question'  => $question,
     'correct'   => $correct,
     'solution'  => $solution,
-    'explanation' => $explanation
+    'explanation' => $explanation,
+    'hint_replace'  => TRUE
   );
 }
 
@@ -541,6 +556,8 @@ function basic_multiplication_explanation($num1, $num2)
     $num_array[] = $digit2*$num1;
     $step = $length2-$ind2;
 
+    $text = [];
+
     if ($length2 > 1) {
       $intro = '<b>'.$step.'. lépés:</b> A második szám '.$order[$ind2].' számjegye $'.$digit2.'$. ';
       if ($length1 > 1) {
@@ -556,10 +573,9 @@ function basic_multiplication_explanation($num1, $num2)
         $intro .= 'az első számot!';
       }
     }
+    $intro .= basic_multiplication_generate_equation($num1, $num2, $length1-1, $ind2, $color=FALSE);
 
-    $explanation[] = $intro;
-
-    $text = [];
+    $text[] = $intro;
 
     for ($ind1=0; $ind1 < $length1; $ind1++) {
 
@@ -596,10 +612,14 @@ function basic_multiplication_explanation($num1, $num2)
 
   // Add subtotals
   if (count($num_array) > 1) {
-    $step = $length2;
-    $explanation[] = '<b>'.$step.'. lépés:</b> Adjuk össze a szorzás során kapott számokat!';
-
-    $explanation[] = basic_addition_explanation($num_array, 'multiplication');
+    $step = $length2+1;
+    $sum = array_sum($num_array);
+    $prod = $num1*$num2;
+    $col = count(str_split($sum));
+    $subtext = [];
+    $subtext[] = '<b>'.$step.'. lépés:</b> Adjuk össze a szorzás során kapott számokat!'.basic_addition_generate_equation($num_array, $col, $type='multiplication', $color=FALSE).'Tehát a megoldás $'.$prod.'$.';
+    $subtext[] = basic_addition_explanation($num_array, $type='multiplication');
+    $explanation[] = $subtext;
   }
 
   return $explanation;
@@ -610,14 +630,15 @@ function basic_multiplication_explanation($num1, $num2)
  *
  * Generates equation for multiplying numbers at specific place value
  *
- * @param int $num1 First number
- * @param int $num2 Second number
- * @param int $col1 Column of place value for $num1
- * @param int $col2 Column of place value for $num2
+ * @param int  $num1 First number
+ * @param int  $num2 Second number
+ * @param int  $col1 Column of place value for $num1
+ * @param int  $col2 Column of place value for $num2
+ * @param bool $color Whether to use colors
  *
  * @return string $equation Equation
  */
-function basic_multiplication_generate_equation($num1, $num2, $col1=-1, $col2=-1)
+function basic_multiplication_generate_equation($num1, $num2, $col1=-1, $col2=-1, $color=TRUE)
 {
   $digits1 = str_split($num1);
   $digits2 = str_split($num2);
@@ -633,7 +654,7 @@ function basic_multiplication_generate_equation($num1, $num2, $col1=-1, $col2=-1
 
   // First number
   foreach ($digits1 as $key => $digit) {
-    if ($col1 == $length1-1-$key) {
+    if ($col1 == $length1-1-$key && $color) {
       $eq_first_row .= '\textcolor{blue}{'.$digit.'}';
     } else {
       $eq_first_row .= $digit;
@@ -644,7 +665,7 @@ function basic_multiplication_generate_equation($num1, $num2, $col1=-1, $col2=-1
 
   // Second number
   foreach ($digits2 as $key => $digit) {
-    if ($col2 == $length2-1-$key) {
+    if ($col2 == $length2-1-$key && $color) {
       $eq_first_row .= '\textcolor{blue}{'.$digit.'}';
     } else {
       $eq_first_row .= $digit;
@@ -689,7 +710,7 @@ function basic_multiplication_generate_equation($num1, $num2, $col1=-1, $col2=-1
 
           if ($ind1 == $length2-1-$col2) {
 
-            if ($ind1 == $col1) {
+            if ($ind1 == $col1 && $color) {
               $line = '\textcolor{red}{'.$mult_digit.'}&'.$line;
             } else {
               $line = $mult_digit.'&'.$line;
@@ -697,7 +718,7 @@ function basic_multiplication_generate_equation($num1, $num2, $col1=-1, $col2=-1
 
           } else {
 
-            if ($ind1 == $col1) {
+            if ($ind1 == $col1 && $color) {
               $line = '\textcolor{red}{'.$mult_digit.'}'.$line;
             } else {
               $line = $mult_digit.$line;
@@ -707,13 +728,13 @@ function basic_multiplication_generate_equation($num1, $num2, $col1=-1, $col2=-1
           // Equation header
           if ($ind1 == $col1) {
 
-            if ($remain_old != 0) {
+            if ($remain_old != 0 && $color) {
               $eq_header = '\,\tiny{\textcolor{blue}{'.$remain_old.'}}\,'.$eq_header;
             } else {
               $eq_header = '\phantom{\normalsize{0}}'.$eq_header;
             }
 
-            if ($remain_new != 0) {
+            if ($remain_new != 0 && $color) {
               $eq_header = '\tiny{\textcolor{red}{'.$remain_new.'}}\,'.$eq_header;
             }
 
@@ -747,7 +768,7 @@ function basic_multiplication_generate_equation($num1, $num2, $col1=-1, $col2=-1
 
   $eq_header .= '&\\\\ ';
 
-  $equation .= $eq_header.$eq_first_row.$eq_lines.'\end{align}$$';
+  $equation .= ($color ? $eq_header : '').$eq_first_row.$eq_lines.'\end{align}$$';
 
   return $equation;
 }

@@ -81,6 +81,7 @@
 					}?>
 
 					<input type="hidden" name="hash" value="<?php echo $hash;?>">
+					<input type="hidden" name="hints_all" value="<?php echo $hints_all;?>">
 					<div class="text-center"><?php
 
 						if ($this->Session->CheckLogin()) {
@@ -165,12 +166,13 @@
 
 	function gethint(event, id){
 		var hash = $('[name="hash"]').attr('value');
+		var hints_all = $('[name="hints_all"]').attr('value');
 
 		if (typeof id === 'undefined') {
 			id = "";
 		}
-		console.log('id: '+id);
 		event.preventDefault();
+		if (id >= 0 && id < hints_all) {
 		$.ajax({
 			type: "GET",
 			url: "<?php echo base_url();?>application/gethint/"+hash+"/"+id.toString(),
@@ -179,33 +181,29 @@
 				var hint_current = Number(data['hint_current']);
 				var hints_all = Number(data['hints_all']);
 				var hints_used = Number(data['hints_used']);
-				console.log('current '+hint_current);
 				var hints_left = hints_all - hints_used;
-				console.log('used '+hints_used);
-				console.log('all '+hints_all);
 				if (data['hint_replace'] == true) {
 					$("#explanation").html('<ul class="pager"></ul>');
-					if (hint_current > 0) {
-						var prev = hint_current-1;
-						$("#explanation").children().append('<li><a href="#" onclick="gethint(event,'+prev.toString()+')" class="small"><span class="glyphicon glyphicon-chevron-left"></span></a></li>');
-					} else {
-						$("#explanation").children().append('<li class="disabled small"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>');
+					var prev = hint_current-1;
+					$("#explanation").children().append('<li class="prev_hint small"><a onclick="gethint(event,'+prev.toString()+')"><span class="glyphicon glyphicon-chevron-left"></span></a></li>');
+					if (hint_current == 0) {
+						$(".prev_hint").attr('class', 'small disabled');
 					}
-					if (hint_current < hints_all-1) {
-						var next = hint_current+1;
-						$("#explanation").children().append('<li><a href="#" onclick="gethint(event,'+next.toString()+')" class="small"><span class="glyphicon glyphicon-chevron-right"></span></a></li>');
-					} else {
-						$("#explanation").children().append('<li class="disabled small"><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>');
+					var next = hint_current+1;
+					$("#explanation").children().append('<li class="next_hint small"><a onclick="gethint(event,'+next.toString()+')"><span class="glyphicon glyphicon-chevron-right"></span></a></li>');
+					if (hint_current >= hints_all-1) {
+						$(".next_hint").attr('class', 'small disabled');
 					}
 				}
 				$("#explanation").append('<p>'+data['explanation']+'</p>');
 				MathJax.Hub.Queue(["Typeset",MathJax.Hub,"explanation"]);
 				$("#hints_left").html("("+hints_left.toString()+" segítség maradt.)");
 				if (hints_left == 0) {
-					$("#hint_button").attr('class',"btn btn-danger pull-right disabled");
+					$("#hint_button").prop('disabled', true);
 				}
 			}
 		});
+		}
 	}
 
 	// Check solution

@@ -462,26 +462,31 @@ class Exercises extends CI_model {
 
 		if (isset($data['explanation'])) {
 			if (is_array($data['explanation'])) {
-				foreach ($data['explanation'] as $key => $segment) {
+				foreach ($data['explanation'] as $key1 => $segment) {
 					if (is_array($segment)) {
-						$explanation = '<ul>';
-						foreach ($segment as $subsegment) {
-							if (is_array($subsegment)) {
-								$explanation .= '<ul>';
-								foreach ($subsegment as $subsubsegment) {
-									if (is_array($subsubsegment)) {
-										print_r($subsubsegment);
-										break;
-									}
-									$explanation .= '<li>'.strval($subsubsegment).'</li>';
-								}
-								$explanation .= '</ul>';
+						foreach ($segment as $key2 => $subsegment) {
+							if ($key2 == 0) {
+								$explanation = $subsegment.'<button class="pull-right btn btn-default" data-toggle="collapse" data-target="#hint_details">Részletek</button><br/>';
+								$explanation .= '<div id="hint_details" class="collapse well well-sm small">';
 							} else {
-								$explanation .= '<li>'.$subsegment.'</li>';
+								if (is_array($subsegment)) {
+									foreach ($subsegment as $subsubsegment) {
+										if (is_array($subsubsegment)) {
+											print_r($subsubsegment);
+											break;
+										}
+										$explanation .= '<p>'.strval($subsubsegment).'</p>';
+									}
+									$explanation .= '</ul>';
+								} else {
+									$explanation .= '<p>'.$subsegment.'</p>';
+								}
 							}
 						}
-						$explanation .= '</ul>';
-						$data['explanation'][$key] = $segment;
+						$explanation .= '</div>';
+						// print_r($explanation);
+						// die();
+						$data['explanation'][$key1] = $explanation;
 					}
 				}
 			} else {
