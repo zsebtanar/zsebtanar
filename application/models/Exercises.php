@@ -466,7 +466,7 @@ class Exercises extends CI_model {
 					if (is_array($segment)) {
 						foreach ($segment as $key2 => $subsegment) {
 							if ($key2 == 0) {
-								$explanation = $subsegment.'<button class="pull-right btn btn-default" data-toggle="collapse" data-target="#hint_details">Részletek</button><br/>';
+								$explanation = $subsegment[0].'<button class="pull-right btn btn-default" data-toggle="collapse" data-target="#hint_details">Részletek</button><br/>';
 								$explanation .= '<div id="hint_details" class="collapse well well-sm small">';
 							} else {
 								if (is_array($subsegment)) {
