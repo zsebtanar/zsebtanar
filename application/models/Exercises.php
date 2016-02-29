@@ -44,6 +44,7 @@ class Exercises extends CI_model {
 
 		if ($status == 'CORRECT') {
 			$message = $this->Session->UpdateResults($id, $hints_used, $hints_all, $message);
+			$results = $this->Session->GetResults();
 		}
 
 		$id_next 	= $this->getIDNext($id);
@@ -57,7 +58,8 @@ class Exercises extends CI_model {
 			'id_next'		=> $id_next,
 			'subtopicID'	=> $subtopicID,
 			'explanation'	=> $explanation,
-			'progress'		=> $progress
+			'progress'		=> $progress,
+			'results' 		=> $results
 		);
 
 		return $output;

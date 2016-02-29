@@ -61,7 +61,7 @@ function parity($level) {
 /* Count even/odd numbers */
 function count_parity($level) {
 
-	$no = max(1, $level);
+	$no = max(2, $level);
 	$len = max(1, round($level/2));
 
 	for ($i=0; $i < $no; $i++) { 

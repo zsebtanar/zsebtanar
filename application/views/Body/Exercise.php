@@ -252,6 +252,16 @@
 						} else {
 							$("#next_button").replaceWith("<a id=\"next_button\" class=\"btn btn-primary pull-right\" href=\"<?php echo base_url().'view/exercise/';?>" + data['id_next'] + "\">Tovább&nbsp;<span class=\"glyphicon glyphicon-chevron-right\"></span></button>");
 						}
+						// Update results
+						$.each($('.results'),function( index, value ) {
+							if (index == 0) {
+								$(this).text(data['results']['trophies']);
+							} else if (index == 1) {
+								$(this).text(data['results']['shields']);
+							} else if (index == 2) {
+								$(this).text(data['results']['points']);
+							}
+						})
 						break;
 					case 'WRONG':
 						if (data['explanation'] != null) {
