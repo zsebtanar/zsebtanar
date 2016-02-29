@@ -44,8 +44,9 @@ class Exercises extends CI_model {
 
 		if ($status == 'CORRECT') {
 			$message = $this->Session->UpdateResults($id, $hints_used, $hints_all, $message);
-			$results = $this->Session->GetResults();
 		}
+
+		$results = $this->Session->GetResults();
 
 		$id_next 	= $this->getIDNext($id);
 		$subtopicID = $this->getSubtopicID($id);
@@ -468,7 +469,7 @@ class Exercises extends CI_model {
 					if (is_array($segment)) {
 						foreach ($segment as $key2 => $subsegment) {
 							if ($key2 == 0) {
-								$explanation = $subsegment[0].'<button class="pull-right btn btn-default" data-toggle="collapse" data-target="#hint_details">Részletek</button><br/>';
+								$explanation = $subsegment.'<button class="pull-right btn btn-default" data-toggle="collapse" data-target="#hint_details">Részletek</button><br/>';
 								$explanation .= '<div id="hint_details" class="collapse well well-sm small">';
 							} else {
 								if (is_array($subsegment)) {

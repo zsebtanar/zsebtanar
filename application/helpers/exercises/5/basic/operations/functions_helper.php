@@ -494,6 +494,9 @@ function basic_multiplication($level)
     $num2 = rand(10, 12);
   }
 
+  $num1 = 17;
+  $num2 = 10;
+
   if ($num1 < $num2) {
     list($num1, $num2) = array($num2, $num1);
   }
@@ -501,7 +504,7 @@ function basic_multiplication($level)
   $correct = $num1*$num2;
   $num1b = ($num1 > 999 ? $num1b = number_format($num1,0,',','\,') : $num1);
   $num2b = ($num2 > 999 ? $num2b = number_format($num2,0,',','\,') : $num2);
-  $question = 'Szorozzuk össze az alábbi számokat!'.basic_multiplication_generate_equation($num1, $num2);
+  $question = 'Szorozzuk össze az alábbi számokat!'.basic_multiplication_generate_equation($num1, $num2, $col1=1, $col2=0);
 
   if ($correct > 9999) {
     $solution = '$'.number_format($correct,0,',','\\,').'$';
@@ -560,7 +563,9 @@ function basic_multiplication_explanation($num1, $num2)
 
     if ($length2 > 1) {
       $intro = '<b>'.$step.'. lépés:</b> A második szám '.$order[$ind2].' számjegye $'.$digit2.'$. ';
-      if ($length1 > 1) {
+      if ($digit2 == 0) {
+        $intro .= 'Írjuk le a $0$-t a sor végére!';
+      } elseif ($length1 > 1) {
         $intro .= 'Szorozzuk meg ezzel '.AddArticle($num1).' $'.$num1.'$ minden számjegyét hátulról kezdve!';
       } else {
         $intro .= 'Szorozzuk meg ezzel '.AddArticle($num1).' $'.$num1.'$-'.AddArticle($num1).'!';
@@ -575,39 +580,49 @@ function basic_multiplication_explanation($num1, $num2)
     }
     $intro .= basic_multiplication_generate_equation($num1, $num2, $length1-1, $ind2, $color=FALSE);
 
-    $text[] = $intro;
+    if ($digit2 != 0) {
 
-    for ($ind1=0; $ind1 < $length1; $ind1++) {
+      $text[] = $intro;
 
-      $digit1 = $digits1[$length1-1-$ind1];
-      $mult = $digit1 * $digit2 + $remain_old;
+      for ($ind1=0; $ind1 < $length1; $ind1++) {
 
-      $subtext = 'Szorozzuk meg '.(in_array($length1-1-$ind1, [0, 4]) ? 'az' : 'a').' '.$order[$length1-1-$ind1].' számjegyet';
-      if ($remain_old != 0) {
-        $subtext .= ' (ne felejtsük el hozzáadni az előbb kapott $'.$remain_old.'$-'.AddSuffixDativ($remain_old).'!): $'.$digit2.'\cdot'.$digit1.'+'.$remain_old.'='.$mult.'$!';
-      } else {
-        $subtext .= ': $'.$digit2.'\cdot'.$digit1.'='.$mult.'$!';
+        $digit1 = $digits1[$length1-1-$ind1];
+        $mult = $digit1 * $digit2 + $remain_old;
+
+        $subtext = 'Szorozzuk meg '.(in_array($length1-1-$ind1, [0, 4]) ? 'az' : 'a').' '.$order[$length1-1-$ind1].' számjegyet';
+        if ($remain_old != 0) {
+          $subtext .= ' (ne felejtsük el hozzáadni az előbb kapott $'.$remain_old.'$-'.AddSuffixDativ($remain_old).'!): $'.$digit2.'\cdot'.$digit1.'+'.$remain_old.'='.$mult.'$!';
+        } else {
+          $subtext .= ': $'.$digit2.'\cdot'.$digit1.'='.$mult.'$!';
+        }
+
+        if ($mult >= 10 && $ind1 != $length1-1) {
+
+          $digit_next = $digits1[$length1-2-$ind1];
+          $remain_new = floor($mult/10);
+          $mult2 = $mult % 10;
+          $subtext .= ' Írjuk '.AddArticle($mult2).' $'.$mult2.'$-'.AddSuffixDativ($mult2).' alulra, '.AddArticle($remain_new).' $'.$remain_new.'$-'.AddSuffixDativ($remain_new).' pedig '.AddArticle($digit_next).' $'.$digit_next.'$ fölé:';
+        } else {
+          $subtext .= ' Írjuk az eredményt alulra:';
+        }
+
+        $remain_old = $remain_new;
+        $remain_new = 0;
+
+        $subtext .= basic_multiplication_generate_equation($num1, $num2, $ind1, $ind2);
+
+        $text[] = $subtext;
       }
 
-      if ($mult >= 10 && $ind1 != $length1-1) {
+      $explanation[] = $text;
+      
+    } else {
 
-        $digit_next = $digits1[$length1-2-$ind1];
-        $remain_new = floor($mult/10);
-        $mult2 = $mult % 10;
-        $subtext .= ' Írjuk '.AddArticle($mult2).' $'.$mult2.'$-'.AddSuffixDativ($mult2).' alulra, '.AddArticle($remain_new).' $'.$remain_new.'$-'.AddSuffixDativ($remain_new).' pedig '.AddArticle($digit_next).' $'.$digit_next.'$ fölé:';
-      } else {
-        $subtext .= ' Írjuk az eredményt alulra:';
-      }
+      $explanation[] = $intro;
 
-      $remain_old = $remain_new;
-      $remain_new = 0;
-
-      $subtext .= basic_multiplication_generate_equation($num1, $num2, $ind1, $ind2);
-
-      $text[] = $subtext;
     }
 
-    $explanation[] = $text;
+    
   }
 
   // Add subtotals
@@ -652,9 +667,12 @@ function basic_multiplication_generate_equation($num1, $num2, $col1=-1, $col2=-1
   $equation = '$$\begin{align}';
   $eq_first_row = '\underline{';
 
+  $digit2 = $digits2[$length2-1-$col2];
+
   // First number
   foreach ($digits1 as $key => $digit) {
-    if ($col1 == $length1-1-$key && $color) {
+
+    if ($col1 == $length1-1-$key && $color && $digit2 != 0) {
       $eq_first_row .= '\textcolor{blue}{'.$digit.'}';
     } else {
       $eq_first_row .= $digit;
@@ -691,78 +709,89 @@ function basic_multiplication_generate_equation($num1, $num2, $col1=-1, $col2=-1
       $line = '';
       $digit2 = $digits2[$length2-1-$ind2];
 
-      if ($ind2 == $col2) { // current line
+      // Multiply by 0
+      if ($digit2 == 0) {
 
-        for ($ind1=0; $ind1 < $length1; $ind1++) {
+        if ($color) {
+          $eq_lines = preg_replace('/\\\\\\\\ $/', '\textcolor{red}{0}\\\\\\ ', $eq_lines);          
+        } else {
+          $eq_lines = preg_replace('/\\\\\\\\ $/', '0\\\\\\ ', $eq_lines);
+        }
+      } else {
 
-          $digit1 = $digits1[$length1-1-$ind1];
-          $mult = $digit1 * $digit2 + $remain_old;
+        if ($ind2 == $col2) { // current line
 
-          if ($mult >= 10 && $ind1 != $length1-1) {
-            $remain_new = floor($mult / 10);
-            $mult_digit = $mult % 10;
-          } else {
-            $mult_digit = $mult;
-          }
-          
-          $mult_digit = (is_null($mult_digit) ? '\phantom{0}' : $mult_digit);
-          $mult_digit = ($ind1 > $col1 ? '\phantom{0}' : $mult_digit);
+          for ($ind1=0; $ind1 < $length1; $ind1++) {
 
-          if ($ind1 == $length2-1-$col2) {
+            $digit1 = $digits1[$length1-1-$ind1];
 
-            if ($ind1 == $col1 && $color) {
-              $line = '\textcolor{red}{'.$mult_digit.'}&'.$line;
+            $mult = $digit1 * $digit2 + $remain_old;
+
+            if ($mult >= 10 && $ind1 != $length1-1) {
+              $remain_new = floor($mult / 10);
+              $mult_digit = $mult % 10;
             } else {
-              $line = $mult_digit.'&'.$line;
+              $mult_digit = $mult;
+            }
+            
+            $mult_digit = (is_null($mult_digit) ? '\phantom{0}' : $mult_digit);
+            $mult_digit = ($ind1 > $col1 ? '\phantom{0}' : $mult_digit);
+
+            if ($ind1 == $length2-1-$col2) {
+
+              if ($ind1 == $col1 && $color) {
+                $line = '\textcolor{red}{'.$mult_digit.'}&'.$line;
+              } else {
+                $line = $mult_digit.'&'.$line;
+              }
+
+            } else {
+
+              if ($ind1 == $col1 && $color) {
+                $line = '\textcolor{red}{'.$mult_digit.'}'.$line;
+              } else {
+                $line = $mult_digit.$line;
+              }
             }
 
-          } else {
+            // Equation header
+            if ($ind1 == $col1) {
 
-            if ($ind1 == $col1 && $color) {
-              $line = '\textcolor{red}{'.$mult_digit.'}'.$line;
-            } else {
-              $line = $mult_digit.$line;
-            }
-          }
+              if ($remain_old != 0 && $color) {
+                $eq_header = '\,\tiny{\textcolor{blue}{'.$remain_old.'}}\,'.$eq_header;
+              } else {
+                $eq_header = '\phantom{\normalsize{0}}'.$eq_header;
+              }
 
-          // Equation header
-          if ($ind1 == $col1) {
+              if ($remain_new != 0 && $color) {
+                $eq_header = '\tiny{\textcolor{red}{'.$remain_new.'}}\,'.$eq_header;
+              }
 
-            if ($remain_old != 0 && $color) {
-              $eq_header = '\,\tiny{\textcolor{blue}{'.$remain_old.'}}\,'.$eq_header;
-            } else {
+            } elseif ($ind1 < $col1) {
+
               $eq_header = '\phantom{\normalsize{0}}'.$eq_header;
+
             }
-
-            if ($remain_new != 0 && $color) {
-              $eq_header = '\tiny{\textcolor{red}{'.$remain_new.'}}\,'.$eq_header;
-            }
-
-          } elseif ($ind1 < $col1) {
-
-            $eq_header = '\phantom{\normalsize{0}}'.$eq_header;
-
+            
+            $remain_old = $remain_new;
+            $remain_new = 0;
           }
-          
-          $remain_old = $remain_new;
-          $remain_new = 0;
+        } else { // complete line
+
+          $mult = $digit2 * $num1;
+          $mult_digits = str_split($mult);
+          $mult_length = count($mult_digits);
+
+          for ($ind1=0; $ind1<$mult_length; $ind1++) {
+
+            $mult_digit = $mult_digits[$mult_length-1-$ind1];
+            $ind = $length2-1-$ind2;
+            $line = $mult_digit.($ind1 == $length2-1-$ind2 ? '&' : '').$line;
+          }
         }
 
-      } else { // complete line
-
-        $mult = $digit2 * $num1;
-        $mult_digits = str_split($mult);
-        $mult_length = count($mult_digits);
-
-        for ($ind1=0; $ind1<$mult_length; $ind1++) {
-
-          $mult_digit = $mult_digits[$mult_length-1-$ind1];
-          $ind = $length2-1-$ind2;
-          $line = $mult_digit.($ind1 == $length2-1-$ind2 ? '&' : '').$line;
-        }
+        $eq_lines .= $line.'\\\\ ';
       }
-
-      $eq_lines .= $line.'\\\\ ';
     }
   }
 
