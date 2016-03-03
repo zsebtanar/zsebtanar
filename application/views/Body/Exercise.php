@@ -177,6 +177,7 @@
 			type: "GET",
 			url: "<?php echo base_url();?>application/gethint/"+hash+"/"+id.toString(),
 			success: function(data) {
+				$("#message").replaceWith('<div id="message"></div>');
 				var data = jQuery.parseJSON(data);
 				var hint_current = Number(data['hint_current']);
 				var hints_all = Number(data['hints_all']);
