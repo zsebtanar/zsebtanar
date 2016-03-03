@@ -3,12 +3,12 @@
 	<div class="col-md-6">
 		<!-- <div class="text-center alert alert-warning small">
 			<b>Figyelem!</b> A honlap tesztüzemben működik. Bármilyen észrevételt a <b>zsebtanar@gmail.com</b>-ra lehet küldeni.
-		</div> -->
+		</div>
 		<br />
 		<div class="text-center">
 			<a href="#" class="btn btn-class openall">mutat</a>&nbsp;|&nbsp;
 			<a href="#" class="btn btn-class closeall">elrejt</a>
-		</div><?php
+		</div> --><?php
 
 		foreach ($classes as $class) {
 
@@ -24,41 +24,24 @@
 
 						if ($topic['show']) {?>
 
-						<div class="panel panel-default">
-							<div class="panel-heading panel-heading-sm" role="tab" id="heading<?php echo $topic['id'];?>">
-								<div class="panel-title">
-									<a class="" role="button" data-toggle="collapse" href="#listgroup<?php echo $topic['id'];?>" aria-expanded="true" aria-controls="listgroup<?php echo $topic['id'];?>">
-										<?php echo $topic['name'];?>
-									</a>
-								</div>
-							</div><?php
+						<span class="label label-default"><?php echo $topic['name'];?></span><?php
 
-							if (count($subtopics) > 0) {?>
+							if (count($subtopics) > 0) {
 
-							<div id="listgroup<?php echo $topic['id'];?>" class="panel-collapse collapse <?php echo $topic['class'];?>" role="tabpanel" aria-labelledby="heading<?php echo $topic['id'];?>" aria-expanded="true">
-								<ul class="list-group"><?php
+								foreach ($topic['subtopics'] as $subtopic) {
 
-									foreach ($topic['subtopics'] as $subtopic) {
+									if ($subtopic['show']) {?>
 
-										if ($subtopic['show']) {?>
+									<a class="btn btn-default" href="<?php echo base_url();?>view/subtopic/<?php echo $subtopic['id'];?>">
+											<?php echo $subtopic['name'];?>
+									</a><?php
 
-										<li class="list-group-item">
-											<a href="<?php echo base_url();?>view/subtopic/<?php echo $subtopic['id'];?>">
-												<?php echo $subtopic['name'];?>
-											</a>										
-										</li><?php
+									}
 
-										}
+								}?>
 
-									}?>
-
-								</ul>
-							</div><?php
-
-							}?>
-
-						</div><?php
-
+								<br /><?php
+							}
 						}
 
 					}?>

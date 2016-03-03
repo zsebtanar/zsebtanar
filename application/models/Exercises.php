@@ -556,14 +556,18 @@ class Exercises extends CI_model {
 					$row['name'] 		= $exercise->name;
 					$row['complete'] 	= $this->isComplete($id);
 					$row['progress'] 	= $this->Session->getUserProgress($id);
+					$row['class'] 		= (!$exerciseID || $id == $exerciseID ? 'in' : '');
 
 					$exercisedata = $this->GetExerciseData($id, NULL, $save=FALSE);
-					
-					$row['hint'] 		= $exercise->hint;
-					$row['youtube']		= $exercise->youtube;
 					$row['question']	= $exercisedata['question'];
-					$row['explanation']	= $exercisedata['explanation'];
-					$row['class'] 		= (!$exerciseID || $id == $exerciseID ? 'in' : '');
+
+					if ($this->Session->CheckLogin()) {
+					
+						$row['hint'] 		= $exercise->hint;
+						$row['youtube']		= $exercise->youtube;
+						$row['explanation']	= $exercisedata['explanation'];
+						
+					}
 
 					$data[] = $row;
 

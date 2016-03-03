@@ -4,8 +4,7 @@
 		<div class="text-center">
 			<a href="#" class="btn btn-class openall">mutat</a>&nbsp;|&nbsp;
 			<a href="#" class="btn btn-class closeall">elrejt</a>
-		</div>
-		<div class="panel-group" id="accordion"><?php
+		</div><?php
 
 		if (is_array($exercises)) {
 
@@ -13,19 +12,9 @@
 
 			foreach ($exercises as $exercise) {?>
 
-			<div class="panel panel-default">
-				<div class="panel-heading panel-heading-sm clearfix" id="heading<?php echo $exercise['id'];?>">
-					<b>
-						<a class="panel-heading-title" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $exercise['id'];?>" aria-expanded="true" aria-controls="collapse<?php echo $exercise['id'];?>">
-							<?php echo $order;?>. feladat
-						</a>
-					</b>&nbsp;
-
-					<img id="star1" src="<?php echo base_url().'assets/images/star'.(33 <= $exercise['progress']['value'] ? 1 : 0).'.png';?>" alt="star"  width="15px">
-					<img id="star2" src="<?php echo base_url().'assets/images/star'.(66 <= $exercise['progress']['value'] ? 1 : 0).'.png';?>" alt="star"  width="15px">
-					<img id="star3" src="<?php echo base_url().'assets/images/star'.(100 <= $exercise['progress']['value'] ? 1 : 0).'.png';?>" alt="star"  width="15px">
-
-					<a class="btn btn-primary btn-md pull-right btn-exercise-start" href="<?php echo base_url().'view/exercise/'.$exercise['id'];?>">Mehet&nbsp;<span class="glyphicon glyphicon-chevron-right"></span></a><?php
+					<img id="star1" src="<?php echo base_url().'assets/images/star'.$exercise['progress']['stars'][0].'.png';?>" alt="star"  width="15px">
+					<img id="star2" src="<?php echo base_url().'assets/images/star'.$exercise['progress']['stars'][1].'.png';?>" alt="star"  width="15px">
+					<img id="star3" src="<?php echo base_url().'assets/images/star'.$exercise['progress']['stars'][2].'.png';?>" alt="star"  width="15px"><br /><?php
 
 					if (isset($exercise['hint']) && $exercise['hint']) {?>
 
@@ -49,18 +38,15 @@
 							<img src="<?php echo base_url();?>assets/images/buoy.png" alt="hint" width="25px">
 						</a><?php
 
-					}?>
+					}
 
-				</div>
+					echo $order.'. '.$exercise['question'];?>
 
-				<div id="collapse<?php echo $exercise['id'];?>" class="panel-collapse collapse <?php echo $exercise['class'];?>">
-					<div class="panel-body"><?php
-
-						echo $exercise['question'];?>
-
-					</div>
-				</div>
-			</div><?php
+					<div class="text-center">
+						<a class="btn btn-primary" href="<?php echo base_url().'view/exercise/'.$exercise['id'];?>">
+							Mehet&nbsp;<span class="glyphicon glyphicon-chevron-right"></span>
+						</a>
+					</div><?php
 
 			$order++;
 

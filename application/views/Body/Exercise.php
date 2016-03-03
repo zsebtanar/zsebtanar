@@ -182,13 +182,14 @@
 				var hints_all = Number(data['hints_all']);
 				var hints_used = Number(data['hints_used']);
 				var hints_left = hints_all - hints_used;
-				if (data['hint_replace'] == true) {
+				if (data['hint_replace'] == true && hints_all > 1) {
 					$("#explanation").html('<ul class="pager"></ul>');
 					var prev = hint_current-1;
 					$("#explanation").children().append('<li class="prev_hint small"><a onclick="gethint(event,'+prev.toString()+')"><span class="glyphicon glyphicon-chevron-left"></span></a></li>');
 					if (hint_current == 0) {
 						$(".prev_hint").attr('class', 'small disabled');
 					}
+					$("#explanation").children().append('<li class="small"><a onclick="gethint(event,'+prev.toString()+')">'+hints_used+'/'+hints_all+'</a></li>');
 					var next = hint_current+1;
 					$("#explanation").children().append('<li class="next_hint small"><a onclick="gethint(event,'+next.toString()+')"><span class="glyphicon glyphicon-chevron-right"></span></a></li>');
 					if (hint_current >= hints_all-1) {
