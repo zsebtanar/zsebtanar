@@ -438,11 +438,19 @@ class Exercises extends CI_model {
 
 		if (count($exercises->result()) == 1) {
 
+
 			$exercise = $exercises->result()[0];
 
-			$title = $exercise->name;
+			if ($this->Session->CheckLogin() || $exercise->status == 'OK') {
 
-			$href = base_url().'view/exercise/'.$exercise->id;
+				$title = $exercise->name;
+				$href = base_url().'view/exercise/'.$exercise->id;
+
+			} else {
+
+				$href = base_url().'view/main/';
+
+			}
 
 		} else {
 
@@ -469,6 +477,9 @@ class Exercises extends CI_model {
 					if (is_array($segment)) {
 						foreach ($segment as $key2 => $subsegment) {
 							if ($key2 == 0) {
+								if (is_array($subsegment)) {
+									print_r($subsegment);
+								}
 								$explanation = $subsegment.'<button class="pull-right btn btn-default" data-toggle="collapse" data-target="#hint_details">Részletek</button><br/>';
 								$explanation .= '<div id="hint_details" class="collapse well well-sm small">';
 							} else {
@@ -521,28 +532,42 @@ class Exercises extends CI_model {
 	 */
 	public function getSubtopicExercises($subtopicID=NULL, $exerciseID=NULL) {
 
-		$query = $this->db->get_where('exercises', array('subtopicID' => $subtopicID));
+		if ($this->Session->CheckLogin()) {
+			$query = $this->db->get_where('exercises', array('subtopicID' => $subtopicID));
+		} else {
+			$query = $this->db->get_where('exercises', array(
+				'subtopicID' => $subtopicID,
+				'status' => 'OK'
+				));
+		}
+
 		$exercises = $query->result();
 		$data = NULL;
 
 		if (count($exercises) > 0) {
 			foreach ($exercises as $exercise) {
 
-				$id = $exercise->id;
-				$exercisedata = $this->GetExerciseData($id, NULL, $save=FALSE);
+				if ($this->Session->CheckLogin() || $exercise->status == 'OK') {
 
-				$row['id'] 			= $id;
-				$row['name'] 		= $exercise->name;
-				$row['complete'] 	= $this->isComplete($id);
-				$row['progress'] 	= $this->Session->getUserProgress($id);
-				$row['status'] 		= $exercise->status;
-				$row['hint'] 		= $exercise->hint;
-				$row['youtube']		= $exercise->youtube;
-				$row['question']	= $exercisedata['question'];
-				$row['explanation']	= $exercisedata['explanation'];
-				$row['class'] 		= (!$exerciseID || $id == $exerciseID ? 'in' : '');
+					$id = $exercise->id;
 
-				$data[] = $row;
+					$row['status'] 		= $exercise->status;
+					$row['id'] 			= $id;
+					$row['name'] 		= $exercise->name;
+					$row['complete'] 	= $this->isComplete($id);
+					$row['progress'] 	= $this->Session->getUserProgress($id);
+
+					$exercisedata = $this->GetExerciseData($id, NULL, $save=FALSE);
+					
+					$row['hint'] 		= $exercise->hint;
+					$row['youtube']		= $exercise->youtube;
+					$row['question']	= $exercisedata['question'];
+					$row['explanation']	= $exercisedata['explanation'];
+					$row['class'] 		= (!$exerciseID || $id == $exerciseID ? 'in' : '');
+
+					$data[] = $row;
+
+				}
 			}
 		}
 

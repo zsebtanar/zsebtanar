@@ -368,6 +368,27 @@ class Database extends CI_model {
 
 		return $data;
 	}
+
+	/**
+	 * Check status for subtopic
+	 *
+	 * Status is 'OK' if there is >=1 exercise with 'OK' status and 'IN_PROGRESS' otherwise.
+	 *
+	 * @param int $id Subtopic ID
+	 *
+	 * @return string $status Status
+	 */
+	public function SubtopicStatus($id) {
+
+		$query = $this->db->query(
+			'SELECT DISTINCT `exercises`.`id` FROM `exercises`
+					WHERE `exercises`.`status` = \'OK\'
+					AND `exercises`.`subtopicID` = '.$id);
+		$data = $query->result_array();
+		$status = (count($data) > 1 ? 'OK' : 'IN_PROGRESS');
+
+		return $status;
+	}
 }
 
 ?>

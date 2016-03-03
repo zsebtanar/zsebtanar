@@ -92,7 +92,7 @@ class Html extends CI_model {
 	public function SubtopicData($subtopicID=NULL, $exerciseID=NULL) {
 
 		$data['type'] 		= 'subtopic';
-		$data['exercises']		= $this->Exercises->getSubtopicExercises($subtopicID, $exerciseID);
+		$data['exercises']	= $this->Exercises->getSubtopicExercises($subtopicID, $exerciseID);
 		$data['results']	= $this->Session->GetResults('subtopic', $subtopicID);
 		$data['breadcrumb'] = $this->BreadCrumb('subtopic', $subtopicID);
 		$data['title']		= $this->SubtopicTitle($subtopicID);
@@ -146,6 +146,7 @@ class Html extends CI_model {
 			$this->db->order_by('id');
 			$topics = $this->db->get_where('topics', array('classID' => $class->id));
 			$topics_menu = [];
+			$class_menu['show'] = FALSE;
 
 			if (count($topics) > 0) {
 
@@ -154,13 +155,23 @@ class Html extends CI_model {
 					$this->db->order_by('id');
 					$subtopics = $this->db->get_where('subtopics', array('topicID' => $topic->id));
 					$subtopics_menu = [];
+					$topic_menu['show'] = FALSE;
 
 					if (count($subtopics) > 0) {
 
 						foreach ($subtopics->result() as $subtopic) {
 
-							$subtopic_menu['id'] = $subtopic->id;
-							$subtopic_menu['name'] = $subtopic->name;
+							$subtopic_menu['id'] 	= $subtopic->id;
+							$subtopic_menu['name'] 	= $subtopic->name;
+							$subtopic_menu['show']	= FALSE;
+
+							$subtopic_status = $this->Database->SubtopicStatus($subtopic->id);
+
+							if ($this->Session->CheckLogin() || $subtopic_status == 'OK') {
+								$subtopic_menu['show'] 	= TRUE;
+								$topic_menu['show'] 	= TRUE;
+								$class_menu['show'] 	= TRUE;
+							}
 
 							$subtopics_menu[] = $subtopic_menu;
 						}
@@ -173,7 +184,8 @@ class Html extends CI_model {
 					if ($this->Session->CheckLogin() || $topic->id == $topicID || (!$topicID && $topic->classID == $classID)) {
 						$topic_menu['class'] = 'in';
 					} else {
-						$topic_menu['class'] = '';
+						// $topic_menu['class'] = '';
+						$topic_menu['class'] = 'in';
 					}
 					
 
@@ -235,7 +247,8 @@ class Html extends CI_model {
 
 		$subtopics = $this->db->get_where('subtopics', array('id' => $id));
 
-		if (count($subtopics->result()) > 0) {
+		if (count($subtopics->result()) > 0 &&
+			($this->Session->CheckLogin() || $this->Database->SubtopicStatus($id) == 'OK')) {
 
 			$subtopic = $subtopics->result()[0];
 			$href = base_url().'view/subtopic/'.$subtopic->id;

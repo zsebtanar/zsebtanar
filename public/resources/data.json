@@ -49,14 +49,12 @@
 								{
 									"label": "basic_multiplication",
 									"name": "Szorzás",
-									"hint": "szorzas.jpg",
-									"status": "OK"
+									"hint": "szorzas.jpg"
 								},
 								{
 									"label": "basic_division",
 									"name": "Osztás",
-									"hint": "szorzas.jpg",
-									"status": "OK"
+									"hint": "szorzas.jpg"
 								}
 							]
 						}
@@ -73,26 +71,22 @@
 								{
 									"label": "decimal_place_value1",
 									"name": "Helyiérték I.",
-									"hint": "helyiertek_tablazat_10_betuk.png",
-									"status": "OK"
+									"hint": "helyiertek_tablazat_10_betuk.png"
 								},
 								{
 									"label": "decimal_place_value2",
 									"name": "Helyiérték II.",
-									"hint": "helyiertek_tablazat_10_szamok.png",
-									"status": "OK"
+									"hint": "helyiertek_tablazat_10_szamok.png"
 								},
 								{
 									"label": "decimal_number_value",
 									"name": "Alaki érték",
-									"hint": "helyiertek_tablazat_10_betuk.png",
-									"status": "OK"
+									"hint": "helyiertek_tablazat_10_betuk.png"
 								},
 								{
 									"label": "decimal_real_value",
 									"name": "Valódi érték",
-									"hint": "helyiertek_tablazat_10_szamok.png",
-									"status": "OK"
+									"hint": "helyiertek_tablazat_10_szamok.png"
 								},
 								{
 									"label": "decimal_count_letters",
