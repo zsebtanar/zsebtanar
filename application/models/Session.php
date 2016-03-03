@@ -71,7 +71,11 @@ class Session extends CI_model {
 		}
 
 		// Add points
-		$prize = round(100*($hints_all-$hints_used)/$hints_all);
+		if ($hints_all > 0) {
+			$prize = round(100*($hints_all-$hints_used)/$hints_all);
+		} else {
+			$prize = 100;
+		}
 		if ($prize > 0) {
 			$this->Points($prize);
 			$message .= '<br />+'.$prize.'&nbsp;<img src="'.
@@ -346,7 +350,11 @@ class Session extends CI_model {
 		$hint_current = min($hints_all-1, $hint_current);
 		$hint_current = max(0, $hint_current);
 
-		$explanation = $exercise[$hash]['explanation'][$hint_current];
+		if ($id == NULL && $hints_all == $hints_used) {
+			$explanation = '';
+		} else {
+			$explanation = $exercise[$hash]['explanation'][$hint_current];
+		}
 
 		// Update number of used hints
 		if ($hint_current >= $hints_used && $hints_used < $hints_all) {

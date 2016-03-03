@@ -108,3 +108,6 @@ a.panel-heading-title:hover, a.panel-heading-title:visited, a.panel-heading-titl
     padding: 5px 10px;
     margin-left: 5px;
 }
+.hint-button {
+    padding-top: 20px;
+}

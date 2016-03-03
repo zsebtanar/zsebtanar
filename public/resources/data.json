@@ -15,7 +15,6 @@
 								{
 									"label": "count_apples",
 									"name": "Számolás 1-től 20-ig",
-									"hint": "szamok_1-20.jpg",
 									"status": "OK"
 								},
 								{
@@ -37,24 +36,20 @@
 								{
 									"label": "basic_addition",
 									"name": "Összeadás",
-									"hint": "osszeadas.jpg",
 									"status": "OK"
 								},
 								{
 									"label": "basic_subtraction",
 									"name": "Kivonás",
-									"hint": "osszeadas.jpg",
 									"status": "OK"
 								},
 								{
 									"label": "basic_multiplication",
-									"name": "Szorzás",
-									"hint": "szorzas.jpg"
+									"name": "Szorzás"
 								},
 								{
 									"label": "basic_division",
-									"name": "Osztás",
-									"hint": "szorzas.jpg"
+									"name": "Osztás"
 								}
 							]
 						}

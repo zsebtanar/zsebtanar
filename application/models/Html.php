@@ -49,30 +49,13 @@ class Html extends CI_model {
 
 		if ($type == 'subtopic') {
 
-			$data['class']	= $this->Database->GetSubtopicClass($id);
-			$data['topic']	= $this->Database->GetSubtopicTopic($id);
-
-			$query = $this->db->get_where('subtopics', array('id' => $id));
-			$data['subtopic'] = $query->result_array()[0];
-
-			$data['link_prev'] = $this->getSubtopicLink($id-1);
-			$data['link_next'] = $this->getSubtopicLink($id+1);
+			$data['prev'] = $this->getSubtopicLink($id-1);
+			$data['next'] = $this->getSubtopicLink($id+1);
 
 		} elseif ($type == 'exercise') {
 
-			$subtopicID = $this->Exercises->getSubtopicID($id);
-
-			$data['subtopic']['id']	= $subtopicID;
-			$data['subtopic']['name']	= $this->Exercises->getSubtopicName($id);
-
-			$data['class']	= $this->Database->GetSubtopicClass($subtopicID);
-			$data['topic']	= $this->Database->GetSubtopicTopic($subtopicID);
-
-			$query = $this->db->get_where('exercises', array('id' => $id));
-			$data['exercise'] = $query->result_array()[0];
-
-			$data['link_prev'] = $this->Exercises->getExerciseLink($id-1);
-			$data['link_next'] = $this->Exercises->getExerciseLink($id+1);
+			$data['prev'] = $this->Exercises->getExerciseLink($id-1);
+			$data['next'] = $this->Exercises->getExerciseLink($id+1);
 
 		}
 
@@ -96,6 +79,10 @@ class Html extends CI_model {
 		$data['results']	= $this->Session->GetResults('subtopic', $subtopicID);
 		$data['breadcrumb'] = $this->BreadCrumb('subtopic', $subtopicID);
 		$data['title']		= $this->SubtopicTitle($subtopicID);
+		$data['prev']['id']		= $subtopicID - 1;
+		$data['next']['id']		= $subtopicID + 1;
+		$data['prev']['title'] 	= $this->SubtopicTitle($subtopicID-1);
+		$data['next']['title'] 	= $this->SubtopicTitle($subtopicID+1);
 
 		return $data;
 	}
@@ -229,7 +216,7 @@ class Html extends CI_model {
 
 		} else {
 
-			$title = NULL;
+			$title = 'Kezdőlap';
 
 		}
 
@@ -241,7 +228,7 @@ class Html extends CI_model {
 	 *
 	 * @param int $id Subtopic ID
 	 *
-	 * @return string $href Link
+	 * @return string $link Link
 	 */
 	public function getSubtopicLink($id) {
 
@@ -251,15 +238,20 @@ class Html extends CI_model {
 			($this->Session->CheckLogin() || $this->Database->SubtopicStatus($id) == 'OK')) {
 
 			$subtopic = $subtopics->result()[0];
-			$href = base_url().'view/subtopic/'.$subtopic->id;
+			$link = base_url().'view/subtopic/'.$subtopic->id;
+			$name = $subtopic->name;
 
 		} else {
 
-			$href = base_url().'view/main/';
+			$link = base_url().'view/main/';
+			$name = 'Kezdőlap';
 
 		}
 
-		return $href;
+		return array(
+			'link' => $link,
+			'name' => $name
+			);
 	}
 }
 

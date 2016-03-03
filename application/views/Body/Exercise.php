@@ -99,31 +99,26 @@
 				<a class="btn btn-default pull-left" href="<?php echo base_url().'view/subtopic/'.$subtopicID.'/'.$id;?>">
 					<span class="glyphicon glyphicon-chevron-left"></span>&nbsp;Vissza
 				</a>
-				<button id="next_button" class="btn btn-primary pull-right" onclick="checkSolution(event)">
+				<a id="next_button" class="btn btn-primary pull-right" onclick="checkSolution(event)">
 					Tovább&nbsp;<span class="glyphicon glyphicon-chevron-right">
-				</button>
-				<br/>
-				<br/><?php
+				</a><br /><br /><?php
 
 				if ($hints_all > 0) {?>
 
-				<div>
-					<button id="hint_button" class="btn btn-danger pull-right" onclick="gethint(event)">
+					<p><a id="hint_button" class="btn btn-danger pull-right" onclick="gethint(event)">
 						Segítséget kérek!
-					</button><br /><br />
+					</a></p><br />
 					<p id="hints_left" class="small pull-right">
 						(<?php echo $hints_all-$hints_used;?> segítség maradt.)
-					</p>
-				</div><?php
+					</p><?php
 
 				}
 
 				?>
-
-
-				<br/>
-				<br/>
-
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 text-center">
 				<div id="message"></div>
 			</div>
 		</div>
@@ -159,7 +154,7 @@
 			if ($("#next_button").attr('href')) {
 				window.location.href = $("#next_button").attr('href');
 			} else {
-				checkSolution(event);
+				checkSolution(x);
 			}
 		}
 	}
@@ -177,7 +172,7 @@
 			type: "GET",
 			url: "<?php echo base_url();?>application/gethint/"+hash+"/"+id.toString(),
 			success: function(data) {
-				$("#message").replaceWith('<div id="message"></div>');
+				$("#message").html('');
 				var data = jQuery.parseJSON(data);
 				var hint_current = Number(data['hint_current']);
 				var hints_all = Number(data['hints_all']);
@@ -197,11 +192,13 @@
 						$(".next_hint").attr('class', 'small disabled');
 					}
 				}
-				$("#explanation").append('<p>'+data['explanation']+'</p>');
-				MathJax.Hub.Queue(["Typeset",MathJax.Hub,"explanation"]);
-				$("#hints_left").html("("+hints_left.toString()+" segítség maradt.)");
-				if (hints_left == 0) {
-					$("#hint_button").prop('disabled', true);
+				if (data['explanation'] != '') {
+					$("#explanation").append('<p>'+data['explanation']+'</p>');
+					MathJax.Hub.Queue(["Typeset",MathJax.Hub,"explanation"]);
+					$("#hints_left").html("("+hints_left.toString()+" segítség maradt.)");
+					if (hints_left == 0) {
+						$("#hint_button").attr('class', 'btn btn-danger pull-right disabled');
+					}
 				}
 			}
 		});
@@ -223,7 +220,7 @@
 				
 				// Exercise not finished
 				if (data['status'] == 'NOT_DONE') {
-					$("#message").html(data['message']);
+					$("#message").html('<span class="label label-warning">'+data['message']+'</span>');
 					MathJax.Hub.Queue(["Typeset",MathJax.Hub,"message"]);
 					return;
 				}

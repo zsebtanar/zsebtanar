@@ -444,21 +444,27 @@ class Exercises extends CI_model {
 			if ($this->Session->CheckLogin() || $exercise->status == 'OK') {
 
 				$title = $exercise->name;
-				$href = base_url().'view/exercise/'.$exercise->id;
+				$link = base_url().'view/exercise/'.$exercise->id;
+				$name = $exercise->name;
 
 			} else {
 
-				$href = base_url().'view/main/';
+				$link = base_url().'view/main/';
+				$name = 'Kezdőlap';
 
 			}
 
 		} else {
 
-			$href = base_url().'view/main/';
+			$link = base_url().'view/main/';
+			$name = 'Kezdőlap';
 
 		}
 
-		return $href;
+		return array(
+			'link' 	=> $link,
+			'name' 	=> $name
+			);
 	}
 
 	/**
@@ -560,14 +566,6 @@ class Exercises extends CI_model {
 
 					$exercisedata = $this->GetExerciseData($id, NULL, $save=FALSE);
 					$row['question']	= $exercisedata['question'];
-
-					if ($this->Session->CheckLogin()) {
-					
-						$row['hint'] 		= $exercise->hint;
-						$row['youtube']		= $exercise->youtube;
-						$row['explanation']	= $exercisedata['explanation'];
-						
-					}
 
 					$data[] = $row;
 

@@ -230,7 +230,7 @@ function basic_addition_generate_equation($numbers, $col=-1, $type='addition', $
   }
 
   // Include sum
-  $equation = '$$\begin{align}'.($color ? $eq_header.'&\\\\ ' : '');
+  $equation = '$$\begin{align}'.($color && $col != (-1) ? $eq_header.'&\\\\ ' : '');
   foreach ($eq_lines as $key => $eq_line) {
     if ($key+1 == count($eq_lines)) {
       $equation .= '+\,';

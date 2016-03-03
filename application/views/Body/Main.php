@@ -24,7 +24,7 @@
 
 						if ($topic['show']) {?>
 
-						<span class="label label-default"><?php echo $topic['name'];?></span><?php
+						<span class="label label-default"><?php echo $topic['name'];?></span><br /><?php
 
 							if (count($subtopics) > 0) {
 
@@ -32,7 +32,7 @@
 
 									if ($subtopic['show']) {?>
 
-									<a class="btn btn-default" href="<?php echo base_url();?>view/subtopic/<?php echo $subtopic['id'];?>">
+									<a class="btn btn-link" href="<?php echo base_url();?>view/subtopic/<?php echo $subtopic['id'];?>">
 											<?php echo $subtopic['name'];?>
 									</a><?php
 
