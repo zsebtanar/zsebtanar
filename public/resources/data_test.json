@@ -37,19 +37,6 @@
 									"label": "Addition",
 									"name": "Összeadás",
 									"status": "OK"
-								},
-								{
-									"label": "basic_subtraction",
-									"name": "Kivonás",
-									"status": "OK"
-								},
-								{
-									"label": "basic_multiplication",
-									"name": "Szorzás"
-								},
-								{
-									"label": "basic_division",
-									"name": "Osztás"
 								}
 							]
 						}

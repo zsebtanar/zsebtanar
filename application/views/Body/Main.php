@@ -14,17 +14,18 @@
 
 			if ($class['show']) {?>
 
-			<h2><?php echo $class['name'];?></h2><?php
+			<h1><?php echo $class['name'];?></h1><?php
 
-			if (count($class['topics']) > 0) {?>
+			if (count($class['topics']) > 0) {
 
-				<div class="panel-group" role="tablist"><?php
+				foreach ($class['topics'] as $topic) {
 
-					foreach ($class['topics'] as $topic) {
+					if ($topic['show']) {?>
 
-						if ($topic['show']) {?>
-
-						<span class="label label-default"><?php echo $topic['name'];?></span><br /><?php
+						<h3><?php echo $topic['name'];?></h3>
+						<div class="row">
+							<div class="col-md-2"></div>
+							<div class="col-md-10"><?php
 
 							if (count($subtopics) > 0) {
 
@@ -34,19 +35,18 @@
 
 									<a class="btn btn-link" href="<?php echo base_url();?>view/subtopic/<?php echo $subtopic['id'];?>">
 											<?php echo $subtopic['name'];?>
-									</a><?php
+									</a><br /><?php
 
 									}
 
 								}?>
 
-								<br /><?php
-							}
+							</div>
+						</div><?php
+
 						}
-
-					}?>
-
-				</div><?php
+					}
+				}
 			}
 
 			}

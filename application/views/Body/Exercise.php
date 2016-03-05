@@ -143,7 +143,7 @@
 						$(".prev_hint").attr('class', 'small disabled');
 					}
 					var hint_web = hint_current + 1;
-					$("#explanation").children().append('<li class="small"><a href="#"><b>'+hint_web+'/'+hints_all+'</b></a></li>');
+					$("#explanation").children().append('<li class="small"><b>'+hint_web+'/'+hints_all+'</b></li>');
 					var next = hint_current+1;
 					$("#explanation").children().append('<li class="next_hint small"><a onclick="gethint(event,'+next.toString()+')"><span class="glyphicon glyphicon-chevron-right"></span></a></li>');
 					if (hint_current >= hints_all-1) {

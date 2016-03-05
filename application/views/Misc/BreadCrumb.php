@@ -2,17 +2,17 @@
 	<div class="col-md-2"></div>
 	<div class="col-md-8">
 		<ul class="pager small">
-			<li class="previous">
-				<a href="<?php echo $prev['link'];?>">
+			<li class="previous prev_link">
+				<a href="<?php echo $prev['link'];?>"><b>
 					<span class="glyphicon glyphicon-chevron-left"></span>
-					<?php echo $prev['name'];?>
+					<?php echo $prev['name'];?></b>
 				</a>
 			</li>
 			</li>
-			<li class="next">
-				<a href="<?php echo $next['link'];?>">
+			<li class="next next_link">
+				<a href="<?php echo $next['link'];?>"><b>
 					<?php echo $next['name'];?>
-					<span class="glyphicon glyphicon-chevron-right"></span>
+					<span class="glyphicon glyphicon-chevron-right"></span></b>
 				</a>
 			</li>
 		</ul>

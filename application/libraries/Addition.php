@@ -32,11 +32,8 @@ class Addition {
 		$num1 = numGen($length1, 10);
 		$num2 = numGen($length2, 10);
 
-		$num1 = 22341;
-		$num2 = 323982;
-
 		$correct = $num1+$num2;
-		$question = 'Adjuk össze az alábbi számokat!'.equationAddition(array($num1, $num2),0);
+		$question = 'Adjuk össze az alábbi számokat!'.equationAddition(array($num1, $num2));
 
 		if ($correct > 9999) {
 		$solution = '$'.number_format($correct,0,',','\\,').'$';
@@ -45,7 +42,6 @@ class Addition {
 		}
 
 		$explanation = $this->Explanation(array($num1, $num2));
-		// $explanation = FALSE;
 
 		return array(
 			'question'		=> $question,
