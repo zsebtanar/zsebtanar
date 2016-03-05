@@ -66,21 +66,6 @@ class Addition {
 		$remain_old = 0;
 		$remain_new = 0;
 
-		$values = array(
-			"egyesek",
-			"tízesek",
-			"százasok",
-			"ezresek",
-			"tízezresek",
-			"százezresek",
-			"milliósok",
-			"tízmilliósok",
-			"százmilliósok",
-			"milliárdosok",
-			"tízmilliárdosok",
-			"százmilliárdosok"
-		);
-
 		for ($ind=0; $ind < $length; $ind++) {
 
 			$digits = [];
@@ -96,7 +81,7 @@ class Addition {
 			$sum_sub = array_sum($digits) + $remain_old;
 			$text = '';
 
-			$text = 'Adjuk össze '.(in_array($ind, [0,4]) ? 'az' : 'a').' <b>'.$values[$ind].'</b> helyén lévő számjegyeket'.
+			$text = 'Adjuk össze '.(in_array($ind, [0,4]) ? 'az' : 'a').' <b>'.placeValues($ind).'</b> helyén lévő számjegyeket'.
 				($remain_old > 0 ? ' (az előző számolásnál kapott maradékkal együtt):' : ':');
 
 			if (count($digits) > 1 || $remain_old > 0) {
@@ -105,8 +90,8 @@ class Addition {
 			}
 
 			if ($sum_sub >= 10 && $ind != $length-1) {
-				$text .= ' Írjuk le az utolsó jegyet '.$values[$ind].' oszlopába, az elsőt pedig '
-				.$values[$ind+1].' oszlopa fölé:';
+				$text .= ' Írjuk le az utolsó jegyet '.placeValues($ind).' oszlopába, az elsőt pedig '
+				.placeValues($ind+1).' oszlopa fölé:';
 				$remain_new = ($sum_sub / 10) % 10;
 			}
 

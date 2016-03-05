@@ -436,4 +436,33 @@ function equationAddition($numbers, $col=-1, $type='addition', $color=TRUE)
   return $equation;
 }
 
+/**
+ * Place values
+ *
+ * @param int $index Column index
+ *
+ * @return string $placevalue
+ */
+function placeValues($index)
+{
+  $values = array(
+    "egyesek",
+    "tízesek",
+    "százasok",
+    "ezresek",
+    "tízezresek",
+    "százezresek",
+    "milliósok",
+    "tízmilliósok",
+    "százmilliósok",
+    "milliárdosok",
+    "tízmilliárdosok",
+    "százmilliárdosok"
+  );
+
+  $placevalue = $values[$index];
+
+  return $placevalue;
+}
+
 ?>
