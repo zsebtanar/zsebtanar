@@ -1,0 +1,61 @@
+{
+	"classes": [
+		{
+			"name": "5. osztály",
+			"label": 5,
+			"topics": [
+				{
+					"name": "Alapok",
+					"label": "basic",
+					"subtopics": [
+						{
+							"name": "Számolás",
+							"label":"counting",
+							"exercises": [
+								{
+									"label": "Count_1_20",
+									"name": "Számolás 1-től 20-ig",
+									"status": "OK"
+								},
+								{
+									"label": "Parity",
+									"name": "Páros vagy páratlan?",
+									"status": "OK"
+								},
+								{
+									"label": "count_parity",
+									"name": "Hány darab páros/páratlan?",
+									"status": "OK"
+								}
+							]
+						},
+											{
+							"name": "Alapműveletek",
+							"label":"operations",
+							"exercises": [
+								{
+									"label": "Addition",
+									"name": "Összeadás",
+									"status": "OK"
+								},
+								{
+									"label": "basic_subtraction",
+									"name": "Kivonás",
+									"status": "OK"
+								},
+								{
+									"label": "basic_multiplication",
+									"name": "Szorzás"
+								},
+								{
+									"label": "basic_division",
+									"name": "Osztás"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

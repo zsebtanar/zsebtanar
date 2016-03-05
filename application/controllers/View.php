@@ -69,7 +69,9 @@ class View extends CI_controller {
 	 */
 	public function Exercise($id, $round=NULL) {
 
-		if ($this->Exercises->ExerciseExists($id)) {
+		$this->load->model('Database');
+
+		if ($this->Database->ExerciseExists($id)) {
 
 			$data = $this->Html->ExerciseData($id, $round);
 

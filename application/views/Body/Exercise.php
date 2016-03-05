@@ -2,54 +2,11 @@
 	<div class="col-md-2"></div>
 	<div class="col-md-8">
 		<div class="row">
-			<div class="col-sm-1"><?php
-
-			if ($youtube) {?>
-
-				<a href="http://www.youtube.com/watch?v=<?php echo $youtube; ?>">
-					<img src="<?php echo base_url();?>assets/images/play.png" alt="logo" width="30">
-				</a>
-
-				<div class="modal fade" id="mediaModal" tabindex="-1" role="dialog" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-body">
-							<!-- content dynamically inserted -->
-							</div>
-						</div>
-					</div>
-				</div><?php
-
-			}
-
-			if ($hint) {?>
-
-				<a href="#" data-toggle="modal" data-target="#hint">
-					<img src="<?php echo base_url();?>assets/images/light_bulb.png" alt="hint" width="40">
-				</a>
-
-				<div id="hint" class="modal fade" role="dialog">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-body text-center">
-								<img src="<?php echo base_url().'resources/download/'.$hint; ?>" class="img-responsive" alt="hint" width="100%">
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Bezár</button>
-							</div>
-						</div>
-					</div>
-				</div><?php
-
-			}?>
-
-			</div>
-			<div class="col-sm-10"><?php
+			<div class="col-sm-12"><?php
 
 			echo $question;?>
 
 			</div>
-			<div class="col-sm-1"></div>
 		</div>
 		<div class="row">
 			<div class="col-sm-12 exercise_input">
@@ -185,7 +142,8 @@
 					if (hint_current == 0) {
 						$(".prev_hint").attr('class', 'small disabled');
 					}
-					$("#explanation").children().append('<li class="small"><a onclick="gethint(event,'+prev.toString()+')">'+hints_used+'/'+hints_all+'</a></li>');
+					var hint_web = hint_current + 1;
+					$("#explanation").children().append('<li class="small"><a href="#"><b>'+hint_web+'/'+hints_all+'</b></a></li>');
 					var next = hint_current+1;
 					$("#explanation").children().append('<li class="next_hint small"><a onclick="gethint(event,'+next.toString()+')"><span class="glyphicon glyphicon-chevron-right"></span></a></li>');
 					if (hint_current >= hints_all-1) {
@@ -220,7 +178,7 @@
 				
 				// Exercise not finished
 				if (data['status'] == 'NOT_DONE') {
-					$("#message").html('<span class="label label-warning">'+data['message']+'</span>');
+					$("#message").html('<div class="alert alert-warning"><strong><span class=\"glyphicon glyphicon-remove\"></span></strong>&nbsp;&nbsp;'+data['message']+'</div>');
 					MathJax.Hub.Queue(["Typeset",MathJax.Hub,"message"]);
 					return;
 				}

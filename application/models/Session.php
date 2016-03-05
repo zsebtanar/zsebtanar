@@ -14,7 +14,6 @@ class Session extends CI_model {
 
 		$this->load->helper('url');
 		$this->load->helper('file');
-		$this->load->model('Exercises');
 		$this->load->model('Database');
 
 		return;
@@ -61,7 +60,7 @@ class Session extends CI_model {
 	public function UpdateResults($id, $hints_used, $hints_all, $message) {
 
 		$level_user = $this->getUserLevel($id);
-		$level_max = $this->Exercises->getMaxLevel($id);
+		$level_max = $this->Database->getMaxLevel($id);
 
 		// Update levels
 		if ($hints_used == 0 && $level_user < $level_max) {
@@ -207,9 +206,9 @@ class Session extends CI_model {
 	 *
 	 * @return array $data Exercise progress (value + style) 
 	 */
-	public function getUserProgress($id) {
+	public function UserProgress($id) {
 
-		$level_max = $this->Exercises->getMaxLevel($id);
+		$level_max = $this->Database->getMaxLevel($id);
 		$level_user = $this->getUserLevel($id);
 		
 		$progress = $level_user/$level_max;
@@ -415,6 +414,22 @@ class Session extends CI_model {
 		}
 
 		return $status;
+	}
+
+	/**
+	 * Check if exercise is completed
+	 *
+	 * @param int $id Exercise ID
+	 *
+	 * @return bool $isComplete Is exercise completed?
+	 */
+	public function isComplete($exerciseID) {
+
+		$exercises = $this->session->userdata('exercises');
+
+		$isComplete	= (isset($exercises[$exerciseID]) ? $exercises[$exerciseID] : FALSE);
+
+ 		return $isComplete;
 	}
 }
 

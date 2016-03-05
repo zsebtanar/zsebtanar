@@ -26,9 +26,9 @@ class Application extends CI_controller {
 	 */
 	public function CheckAnswer() {
 
-		$this->load->model('Exercises');
+		$this->load->model('Check');
 		$answer = $this->input->get('answer');
-		$result = $this->Exercises->CheckAnswer($answer);
+		$result = $this->Check->CheckAnswer($answer);
 		echo json_encode($result);
 	}
 
@@ -76,8 +76,8 @@ class Application extends CI_controller {
 	 */
 	public function GetHint($hash, $id=NULL) {
 
-		$this->load->model('Exercises');
-		$result = $this->Exercises->GetHint($hash, $id);
+		$this->load->model('Session');
+		$result = $this->Session->GetExerciseHint($hash, $id);
 		echo json_encode($result);
 	}
 

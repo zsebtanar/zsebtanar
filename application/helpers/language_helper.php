@@ -7,7 +7,7 @@
  *
  * @return string $suffix Suffix
  */
-function addSuffixTimes($num)
+function Times($num)
 {
   $abs = abs($num);
 
@@ -58,7 +58,7 @@ function addSuffixTimes($num)
  *
  * @return string $article Article
  */
-function addArticle($num)
+function The($num)
 {
   if ($num <= 0) {
     return 'a';
@@ -84,7 +84,7 @@ function addArticle($num)
  *
  * @return string $suffix Suffix
  */
-function addSuffixDativ($num)
+function Dativ($num)
 {
   $abs = abs($num);
 
@@ -137,7 +137,7 @@ function addSuffixDativ($num)
  *
  * @return string $suffix Suffix
  */
-function addSuffixBy($num)
+function By($num)
 {
   $abs = abs($num);
 
@@ -187,7 +187,7 @@ function addSuffixBy($num)
  *
  * @return string $suffix Suffix
  */
-function addSuffixWith($num)
+function With($num)
 {
   $abs = abs($num);
 
@@ -243,7 +243,7 @@ function addSuffixWith($num)
  *
  * @return string $suffix Suffix
  */
-function addSuffixTo($num)
+function To($num)
 {
   $abs = abs($num);
 
@@ -292,7 +292,7 @@ function addSuffixTo($num)
  *
  * @return string $suffix Suffix
  */
-function addSuffixIn($num)
+function In($num)
 {
   $abs = abs($num);
 

@@ -339,20 +339,20 @@ function basic_subtraction_explanation($num1, $num2)
 
     $text = 'Nézzük meg '.(in_array($ind, [0,4]) ? 'az' : 'a').' '.$values[$ind].' helyén lévő számjegyeket! ';
     if ($remain_old > 0 && $digit2 != NULL) {
-      $text .='(Az előző számolásnál kapott maradékot '.AddArticle($digit2).' $'.$digit2.'$-'.AddSuffixTo($digit2)
+      $text .='(Az előző számolásnál kapott maradékot '.The($digit2).' $'.$digit2.'$-'.To($digit2)
         .' adjuk: $'.$digit2.'+'.$remain_old.'='.$digit2b.'$.) ';
     } elseif ($digit2 == NULL) {
       $text .= 'Az üres helyre $0$-t írunk'.($remain_old > 0 ? ', viszont a maradékot ne felejtsük el hozzászámolni! ' : '. ');
     }
 
-    $text .= 'Mennyit kell adni '.AddArticle($digit2b).' $'.$digit2b.'$-'.AddSuffixTo($digit2b).', hogy $'
-      .$digit1b.'$-'.AddSuffixDativ($digit1b).' kapjunk? $'.$result_sub.'$-'.AddSuffixDativ($result_sub).', mert $'
+    $text .= 'Mennyit kell adni '.The($digit2b).' $'.$digit2b.'$-'.To($digit2b).', hogy $'
+      .$digit1b.'$-'.Dativ($digit1b).' kapjunk? $'.$result_sub.'$-'.Dativ($result_sub).', mert $'
       .$digit2b.'+'.$result_sub.'='.$digit1b.'$. ';
 
     if ($remain_new == 1) {
-      $article = AddArticle($result_digit);
+      $article = The($result_digit);
       $Article = str_replace('a', 'A', $article);
-      $text .= $Article.' $'.$result_digit.'$-'.AddSuffixDativ($result_digit).' leírjuk alulra, az $1$-et pedig '
+      $text .= $Article.' $'.$result_digit.'$-'.Dativ($result_digit).' leírjuk alulra, az $1$-et pedig '
         .(in_array($ind+1, [0,4]) ? 'az' : 'a').' '.$values[$ind+1].' fölé:';
     } elseif ($result_digit != 0 || $ind < $diff_length) {
       $text .= 'Az eredményt írjuk le alulra:';
@@ -566,12 +566,12 @@ function basic_multiplication_explanation($num1, $num2)
       if ($digit2 == 0) {
         $intro .= 'Írjuk le a $0$-t a sor végére!';
       } elseif ($length1 > 1) {
-        $intro .= 'Szorozzuk meg ezzel '.AddArticle($num1).' $'.$num1.'$ minden számjegyét hátulról kezdve!';
+        $intro .= 'Szorozzuk meg ezzel '.The($num1).' $'.$num1.'$ minden számjegyét hátulról kezdve!';
       } else {
-        $intro .= 'Szorozzuk meg ezzel '.AddArticle($num1).' $'.$num1.'$-'.AddArticle($num1).'!';
+        $intro .= 'Szorozzuk meg ezzel '.The($num1).' $'.$num1.'$-'.The($num1).'!';
       }
     } else {
-      $intro = 'Szorozzuk meg '.AddArticle($digit2).' $'.$digit2.'$-'.AddSuffixWith($digit2).' ';
+      $intro = 'Szorozzuk meg '.The($digit2).' $'.$digit2.'$-'.With($digit2).' ';
       if ($length1 > 1) {
         $intro .= 'az első szám minden számjegyét hátulról kezdve!';
       } else {
@@ -591,7 +591,7 @@ function basic_multiplication_explanation($num1, $num2)
 
         $subtext = 'Szorozzuk meg '.(in_array($length1-1-$ind1, [0, 4]) ? 'az' : 'a').' '.$order[$length1-1-$ind1].' számjegyet';
         if ($remain_old != 0) {
-          $subtext .= ' (ne felejtsük el hozzáadni az előbb kapott $'.$remain_old.'$-'.AddSuffixDativ($remain_old).'!): $'.$digit2.'\cdot'.$digit1.'+'.$remain_old.'='.$mult.'$!';
+          $subtext .= ' (ne felejtsük el hozzáadni az előbb kapott $'.$remain_old.'$-'.Dativ($remain_old).'!): $'.$digit2.'\cdot'.$digit1.'+'.$remain_old.'='.$mult.'$!';
         } else {
           $subtext .= ': $'.$digit2.'\cdot'.$digit1.'='.$mult.'$!';
         }
@@ -601,7 +601,7 @@ function basic_multiplication_explanation($num1, $num2)
           $digit_next = $digits1[$length1-2-$ind1];
           $remain_new = floor($mult/10);
           $mult2 = $mult % 10;
-          $subtext .= ' Írjuk '.AddArticle($mult2).' $'.$mult2.'$-'.AddSuffixDativ($mult2).' alulra, '.AddArticle($remain_new).' $'.$remain_new.'$-'.AddSuffixDativ($remain_new).' pedig '.AddArticle($digit_next).' $'.$digit_next.'$ fölé:';
+          $subtext .= ' Írjuk '.The($mult2).' $'.$mult2.'$-'.Dativ($mult2).' alulra, '.The($remain_new).' $'.$remain_new.'$-'.Dativ($remain_new).' pedig '.The($digit_next).' $'.$digit_next.'$ fölé:';
         } else {
           $subtext .= ' Írjuk az eredményt alulra:';
         }
@@ -878,12 +878,12 @@ function basic_division_explanation($dividend, $divisor)
     if ($remain_prev == 0) {
       $text .= 'Írjuk le alulra '.(in_array($ind, [1, 4]) ? 'az' : 'a').' '.$order[$ind].' számjegyet! ';
     } else {
-      $text .= 'Írjuk '.AddArticle($remain_prev).' $'.$remain_prev.'$ mellé '
+      $text .= 'Írjuk '.The($remain_prev).' $'.$remain_prev.'$ mellé '
         .(in_array($ind, [1, 4]) ? 'az' : 'a').' '.$order[$ind].' számjegyet! ';
     }
     if ($quotient_current == 0) {
-      $text .= 'Mivel '.AddArticle($dividend_current).' $'.$dividend_current.'$-'
-        .AddSuffixIn($dividend_current).' nincs meg '.AddArticle($divisor).' $'.$divisor.'$, ezért ';
+      $text .= 'Mivel '.The($dividend_current).' $'.$dividend_current.'$-'
+        .In($dividend_current).' nincs meg '.The($divisor).' $'.$divisor.'$, ezért ';
       if ($quotient_total == 0) {
         $text .= 'továbbmegyünk: ';
       } else {
@@ -894,19 +894,19 @@ function basic_division_explanation($dividend, $divisor)
       $divisor_round = round($divisor / 10);
       $quotient_round = floor($dividend_round / $divisor_round);
       $check_round = $quotient_round * $divisor;
-      $text .= 'Hányszor van meg '.AddArticle($dividend_current).' $'.$dividend_current.'$-'.AddSuffixIn($dividend_current)
-        .' '.AddArticle($divisor).' $'.$divisor.'$? A becsléshez kerekítsük tízesekre mind a két számot, majd '
+      $text .= 'Hányszor van meg '.The($dividend_current).' $'.$dividend_current.'$-'.In($dividend_current)
+        .' '.The($divisor).' $'.$divisor.'$? A becsléshez kerekítsük tízesekre mind a két számot, majd '
         .'mindkét számot egyszerűsítsük $10$-zel: $\require{cancel}'.$dividend_round.'0:'
         .$divisor_round.'0='.$dividend_round.'\cancel{0}:'.$divisor_round.'\cancel{0}='
         .'\textcolor{green}{'.$quotient_round.'}$. Ellenőrzésképp szorozzunk vissza az eredeti osztóval: $\textcolor{green}{'
         .$quotient_round.'}\cdot'.$divisor.'='.$check_round.'$. Mivel az eredmény '
-        .($check_round <= $dividend_current ? 'nem ' : '').'nagyobb, mint '.AddArticle($dividend_current)
-        .' $'.$dividend_current.'$, ezért az eredményhez $'.$quotient_current.'$-'.AddSuffixDativ($quotient_current)
+        .($check_round <= $dividend_current ? 'nem ' : '').'nagyobb, mint '.The($dividend_current)
+        .' $'.$dividend_current.'$, ezért az eredményhez $'.$quotient_current.'$-'.Dativ($quotient_current)
         .' írunk, alulra pedig a maradékot, ami  $'.$remain_current.'$, mert $'.$quotient_current.'\cdot'.$divisor
         .'='.$check_current.'$, és $'.$dividend_current.'-'.$check_current.'='.$remain_current.'$:';
     } else {
-      $text .= '$'.$dividend_current.'$-'.AddSuffixIn($dividend_current).' '.AddArticle($divisor).' $'.$divisor.'$ meg van $'
-        .$quotient_current.'$-'.AddSuffixTimes($quotient_current).', maradék '.AddArticle($remain_current).' $'
+      $text .= '$'.$dividend_current.'$-'.In($dividend_current).' '.The($divisor).' $'.$divisor.'$ meg van $'
+        .$quotient_current.'$-'.Times($quotient_current).', maradék '.The($remain_current).' $'
         .$remain_current.'$, mert $'.$quotient_current.'\cdot'.$divisor.'='.$check_current.'$. Az eredményt jobb '
         .'oldalra írom, a maradékot pedig alulra:';
     }
@@ -919,9 +919,9 @@ function basic_division_explanation($dividend, $divisor)
 
 
   $check = $divisor*$quotient_total;
-  $explanation[] = 'Ellenőrizzük az eredményt úgy, hogy összeszorozzuk '.AddArticle($quotient_total).' $'
-    .$quotient_total.'$-'.AddSuffixDativ($quotient_total).' '.AddArticle($divisor).' $'.$divisor.'$-'
-    .AddSuffixWith($divisor).'!';
+  $explanation[] = 'Ellenőrizzük az eredményt úgy, hogy összeszorozzuk '.The($quotient_total).' $'
+    .$quotient_total.'$-'.Dativ($quotient_total).' '.The($divisor).' $'.$divisor.'$-'
+    .With($divisor).'!';
   $explanation[] = basic_multiplication_explanation($divisor, $quotient_total);
 
   if ($remain_current != 0) {

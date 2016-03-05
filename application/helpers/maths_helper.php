@@ -309,4 +309,131 @@ function recursiveSeries($a1, $a2, $coeff_an_1, $coeff_an_2, $coeff_n, $pow_n, $
   return $res;
 }
 
+/**
+ * Generate equation for addition
+ *
+ * Generates equation for adding numbers at specific place value.
+ * For 'multiplication' type addition, digits are linearly shifted.
+ *
+ * @param array  $numbers Numbers to add
+ * @param int    $col     Column index of place value
+ * @param string $type    Type of addition (addition/multiplication)
+ * @param bool   $color Whether to use colors
+ *
+ * @return string $equation Equation
+ */
+function equationAddition($numbers, $col=-1, $type='addition', $color=TRUE)
+{
+  // Get digits for each number
+  foreach ($numbers as $key => $number) {
+    $digits_num = str_split($number);
+
+    if ($type == 'multiplication') {
+      for ($i=0; $i < count($numbers)-$key-1; $i++) { 
+        $digits_num[] = NULL;
+      }
+    }
+
+    $digits_all[] = $digits_num;
+    $lengths_all[] = count($digits_num);
+    $eq_lines[] = '';
+  }
+
+  $length = max($lengths_all);
+
+  $remain_old = 0;
+  $remain_new = 0;
+
+  $eq_header = '';
+  $eq_sum = '';
+  $show_header = FALSE;
+
+  for ($ind=0; $ind < $length; $ind++) { 
+
+    // Get digits of current column
+    $digits = [];
+
+    foreach ($digits_all as $key => $digits_num) {
+      $digits[] = array_pop($digits_num);
+      $digits_all[$key] = $digits_num;
+    }
+
+    // Define remainer
+    $sum_sub = array_sum($digits) + $remain_old;
+    if ($sum_sub >= 10 && $ind != $length-1) {
+      $remain_new = ($sum_sub/10) % 10;
+      $sum_sub = $sum_sub % 10;
+    }
+
+    // Update header
+    if ($ind <= $col) {
+      if ($ind == $col) {
+
+        if ($remain_old > 0 && $color) {
+          $eq_header = '\,\textcolor{blue}{\tiny{'.$remain_old.'}}\,'.$eq_header;
+          $show_header = TRUE;
+        } else {
+          $eq_header = '\phantom{\normalsize{0}}'.$eq_header;
+        }
+
+        if ($remain_new > 0 && $color) {
+          $eq_header = '\textcolor{red}{\tiny{'.$remain_new.'}}\,'.$eq_header;
+          $show_header = TRUE;
+        }
+
+        if ($color) {
+          $eq_sum = '\textcolor{red}{'.$sum_sub.'}'.$eq_sum;
+        } else {
+          $eq_sum = $sum_sub.$eq_sum;
+        }
+
+      } else {
+
+        $eq_header = '\phantom{\normalsize{0}}'.$eq_header;
+        $eq_sum = $sum_sub.$eq_sum;
+
+        if ($ind % 3 == 2) {
+          $eq_header = '\,'.$eq_header;
+          $eq_sum = '\,'.$eq_sum;
+        }
+      }
+    }
+
+    // Store equation lines
+    foreach ($digits as $key => $digit) {
+      $digit = ($digit == NULL ? '\phantom{0}' : $digit);
+      if ($ind == $col && $color) {
+        $eq_lines[$key] = '\textcolor{blue}{'.$digit.'}'.$eq_lines[$key];
+      } else {
+        $eq_lines[$key] = $digit.$eq_lines[$key];
+      }
+      if ($ind % 3 == 2) {
+        $eq_lines[$key] = '\,'.$eq_lines[$key];
+      }
+    }
+
+    $remain_old = $remain_new;
+    $remain_new = 0;
+  }
+
+
+
+  if ($col == -1) {
+    $eq_sum = '?';
+  }
+
+  // Include sum
+  $equation = '$$\begin{align}'.($color && $show_header ? $eq_header.'&\\\\ ' : '');
+  foreach ($eq_lines as $key => $eq_line) {
+    if ($key+1 == count($eq_lines)) {
+      $equation .= '+\,';
+    }
+    $equation .= $eq_line.'&\\\\ ';
+  }
+
+  $equation .= '\hline'.$eq_sum.'\end{align}$$';
+
+  return $equation;
+}
+
 ?>

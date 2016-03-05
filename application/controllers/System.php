@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Database extends CI_controller {
+class System extends CI_controller {
 
 	/**
-	 * Setup Database
+	 * Setup system
 	 *
 	 * @param string $type View type (exercise/subtopic)
 	 * @param int    $id   Exercise/subtopic id
@@ -14,13 +14,13 @@ class Database extends CI_controller {
 	public function Setup($type=NULL, $id=NULL) {
 
 		// setup tables
-		$this->load->model('Database');
-		$this->Database->DropTables();
-		$this->Database->CreateTables();
+		$this->load->model('Setup');
+		$this->Setup->DropTables();
+		$this->Setup->CreateTables();
 
 		// read data from file
-		$data = $this->Database->ReadFile('resources/data.json');
-		$this->Database->InsertData($data);
+		$data = $this->Setup->ReadFile('resources/data.json');
+		$this->Setup->InsertData($data);
 
 		$this->load->helper('url');
 
@@ -28,7 +28,7 @@ class Database extends CI_controller {
 	}
 
 	/**
-	 * Update Database
+	 * Update system
 	 *
 	 * @param string $type View type (exercise/subtopic)
 	 * @param int    $id   Exercise/subtopic id
@@ -38,6 +38,7 @@ class Database extends CI_controller {
 	public function Update($type=NULL, $id=NULL) {
 
 		$this->load->model('Session');
+		$this->load->model('Setup');
 
 		if ($this->Session->CheckLogin()) {
 
@@ -45,19 +46,14 @@ class Database extends CI_controller {
 			$this->Session->UnsetUserData();
 
 			// prepare tables
-			$this->load->model('Database');
-			$this->Database->DropTables();
-			$this->Database->CreateTables();
+			$this->Setup->DropTables();
+			$this->Setup->CreateTables();
 
 			// read data from file
-			$data = $this->Database->ReadFile('resources/data.json');
-			$this->Database->InsertData($data);
+			$data = $this->Setup->ReadFile('resources/data_test.json');
+			$this->Setup->InsertData($data);
 
 		}
-
-		// Print exercises
-		// $exercises = $this->session->userdata('exercises');
-		// print_r($exercises);
 
 		// redirect page
 		$this->load->helper('url');

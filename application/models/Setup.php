@@ -35,9 +35,7 @@ class Setup extends CI_model {
 				'level' 	=> 9,
 				'status' 	=> 'IN PROGRESS',
 				'label'		=> 'NOT NULL',
-				'youtube'	=> NULL,
 				'name'		=> NULL,
-				'hint'		=> NULL,
 				'status'	=> NULL,
 				),
 			);
@@ -125,8 +123,6 @@ class Setup extends CI_model {
 							level		INT,
 							label 		VARCHAR(30) NOT NULL,
 							name 		VARCHAR(120),
-							youtube 	VARCHAR(20),
-							hint 		VARCHAR(60),
 							status 		VARCHAR(20),
 							FOREIGN KEY (subtopicID) REFERENCES subtopics(id)
 						)Engine=InnoDB;'

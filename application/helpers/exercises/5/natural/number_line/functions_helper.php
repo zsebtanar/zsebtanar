@@ -222,7 +222,7 @@ function number_line_snail($level)
 
   $diff = ($no-1) * $unit;
 
-  $question = 'Csiga Béla és Csiga Boglárka elhatározták, felmásznak két szomszédos, függőlegesen álló, egyenes nádszálra, hogy többet lássanak a világból. Egy idő múlva Boglárka rémülten észlelte, hogy Béla már sokkal magasabbra jutott. Béla a földtől számítva '.$no.'-'.addSuffixTimes($no).' akkora utat tett meg, mint ő, és így éppen '.$diff.' '.$length.'rel előzte meg őt. Hány '.$length.'re volt ekkor a földtől Béla?';
+  $question = 'Csiga Béla és Csiga Boglárka elhatározták, felmásznak két szomszédos, függőlegesen álló, egyenes nádszálra, hogy többet lássanak a világból. Egy idő múlva Boglárka rémülten észlelte, hogy Béla már sokkal magasabbra jutott. Béla a földtől számítva '.$no.'-'.Times($no).' akkora utat tett meg, mint ő, és így éppen '.$diff.' '.$length.'rel előzte meg őt. Hány '.$length.'re volt ekkor a földtől Béla?';
 
   $options = '';
   $correct = $no * $unit;

@@ -216,7 +216,7 @@ function series_numerical_order($level)
   $a3 = $a2 + $d;
   $ai = $a1 + ($i-1) * $d;
 
-  $article = addArticle($ai);
+  $article = The($ai);
   $question = 'Tekintsük az alábbi számtani sorozatot:$$'.$a1.','.$a2.','.$a3.',\ldots$$Hányadik tagja ennek a sorozatnak '.$article.' $'.$ai.'$?';
   $correct = $i;
   $solution = '$'.$correct.'.$';
@@ -252,8 +252,8 @@ function series_numerical_carrot($level)
   $ai = $a1 + ($i-1) * $d;
   $Sn = (( 2*$a1 + ($n-1) * $d ) * $n) / 2;
 
-  $suffix = addSuffixWith($d);
-  $article = addArticle($ai);
+  $suffix = With($d);
+  $article = The($ai);
 
   $question = 'Nagymama kertjében $'.$n.'$ sor répa van. Minden sorban $'.$d.'$-'.$suffix.' több répa van, mint az előzőben. Hány répa van összesen nagymama kertjében, ha tudjuk, hogy '.$article.' $'.$i.'$. sorban $'.$ai.'$ darab répa van?';
   $correct = $Sn;

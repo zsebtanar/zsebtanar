@@ -76,7 +76,7 @@ function decimal_place_value1($level)
 
 	$num2 = ($num > 9999 ? number_format($num,0,',','\,') : $num);
 
-	$question = 'Melyik helyen áll '.addArticle($digit).' $'.$digit.'$ az alábbi számban?$$'.$num2.'$$';
+	$question = 'Melyik helyen áll '.The($digit).' $'.$digit.'$ az alábbi számban?$$'.$num2.'$$';
 	$place_values = array(
 		"egyesek",
 		"tízesek",
@@ -106,7 +106,7 @@ function decimal_place_value1($level)
 	}
 
 	$explanation = decimal_explanation('place_value1', $num);
-	$explanation[] = 'A feladatban '.addArticle($digit).' $'.$digit.'$ helye volt a kérdés, ami <b>'.$solution2.'</b> helyén áll.';
+	$explanation[] = 'A feladatban '.The($digit).' $'.$digit.'$ helye volt a kérdés, ami <b>'.$solution2.'</b> helyén áll.';
 
 	$type = 'quiz';
 
@@ -148,11 +148,11 @@ function decimal_explanation($type, $num)
 
 		if ($type == 'place_value1' || $type == 'number_value1') {
 
-			$text = $article.' <b>'.$values[$i].'</b> helyén '.addArticle($digit).' $'.$digit.'$ áll:';
+			$text = $article.' <b>'.$values[$i].'</b> helyén '.The($digit).' $'.$digit.'$ áll:';
 
 		} elseif ($type == 'place_value2') {
 
-			$text = $article.' <b>'.$values[$i].'</b> helyén '.addArticle($digit).' $'.$digit.'$ áll,'
+			$text = $article.' <b>'.$values[$i].'</b> helyén '.The($digit).' $'.$digit.'$ áll,'
 				.' ennek a helyiértéke $'.strval($place_value).'$:';
 
 		} elseif ($type == 'number_value2') {
@@ -161,16 +161,16 @@ function decimal_explanation($type, $num)
 
 		} elseif ($type == 'real_value1') {
 
-			$text = $article.' <b>'.$values[$i].'</b> helyén '.addArticle($digit).' $'.$digit.'$ áll,'
+			$text = $article.' <b>'.$values[$i].'</b> helyén '.The($digit).' $'.$digit.'$ áll,'
 				.' ennek a helyiértéke $'.strval($place_value).'$, ezért a valódi érték $'
 				.strval($digit).'\cdot'.strval($place_value).'='.strval($place_value*$digit).'$ lesz:';
 
 		} elseif ($type == 'real_value2') {
 
-			$text = $article.' <b>'.$values[$i].'</b> helyén '.addArticle($digit).' $'.$digit.'$ áll,'
+			$text = $article.' <b>'.$values[$i].'</b> helyén '.The($digit).' $'.$digit.'$ áll,'
 				.' ennek a helyiértéke $'.strval($place_value).'$, ezért az a számjegy $'
 				.strval($digit).'\cdot'.strval($place_value).'='.strval($place_value*$digit).'$-'
-				.addSuffixDativ($place_value*$digit).' ér:';
+				.Dativ($place_value*$digit).' ér:';
 
 		}
 
@@ -217,14 +217,14 @@ function decimal_place_value2($level)
 
 	$num = ($num > 9999 ? number_format($num,0,',','\,') : $num);
 
-	$question = 'Mi '.addArticle($digit).' $'.$digit.'$ helyiértéke az alábbi számban?$$'.$num.'$$';
+	$question = 'Mi '.The($digit).' $'.$digit.'$ helyiértéke az alábbi számban?$$'.$num.'$$';
 
 	$correct = pow(10, $place_value-1);
 	$solution = '$'.$correct.'$';
 	$solution = str_ireplace('\\,','\\\\,',$solution);
 
 	$explanation = decimal_explanation('place_value2', $num);
-	$explanation[] = 'A feladatban '.addArticle($digit).' $'.$digit.'$ helyiértéke volt a kérdés, aminek a helyiértéke '.$solution.'.';
+	$explanation[] = 'A feladatban '.The($digit).' $'.$digit.'$ helyiértéke volt a kérdés, aminek a helyiértéke '.$solution.'.';
 
 	return array(
 		'question' 	=> $question,

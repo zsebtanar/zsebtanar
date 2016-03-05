@@ -134,6 +134,55 @@ class Database extends CI_model {
 
 		return $status;
 	}
+
+	/**
+	 * Check whether exercise exists
+	 *
+	 * @param int $id Exercise ID
+	 *
+	 * @return bool $exists Whether exercise exists
+	 */
+	public function ExerciseExists($id) {
+
+		$query = $this->db->get_where('exercises', array('id' => $id));
+
+		$exists = count($query->result()) == 1;
+
+ 		return $exists;
+	}
+
+	/**
+	 * Get maximum level for exercise
+	 *
+	 * $max_level shows how many times user needs to solve the exercise to complete it.
+	 * If user is logged in, it is only 3 (for debugging purposes). 
+	 *
+	 * @param int $id Exercise ID
+	 *
+	 * @return int $max_level Maximum level
+	 */
+	public function getMaxLevel($id) {
+
+		$query 	= $this->db->get_where('exercises', array('id' => $id));
+		$max_level = $query->result()[0]->level;
+
+ 		return $max_level;
+	}
+
+	/**
+	 * Get subtopic ID for exercise
+	 *
+	 * @param int $id Exercise ID
+	 *
+	 * @return int $subtopicID Subtopic ID
+	 */
+	public function getSubtopicID($id) {
+
+		$query = $this->db->get_where('exercises', array('id' => $id));
+		$subtopicID = $query->result()[0]->subtopicID;
+
+ 		return $subtopicID;
+	}
 }
 
 ?>

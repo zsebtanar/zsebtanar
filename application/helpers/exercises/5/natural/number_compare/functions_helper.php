@@ -368,29 +368,29 @@ function number_compare_between($level)
     } else {
       $opcio_bal[0] = 'legalább $'.$szam_bal.'$';
       $opcio_bal[1] = 'nem kisebb, mint $'.$szam_bal.'$';
-      $opcio_bal[2] = 'nem kisebb $'.$szam_bal.'$-'.addSuffixBy($szam_bal);
-      $opcio_bal[3] = '$'.$szam_bal.'$-'.addSuffixBy($szam_bal).' nem kisebb';
+      $opcio_bal[2] = 'nem kisebb $'.$szam_bal.'$-'.By($szam_bal);
+      $opcio_bal[3] = '$'.$szam_bal.'$-'.By($szam_bal).' nem kisebb';
       $szoveg_bal = $opcio_bal[$opcio_kivalasztott];
     }
   } else {
     $opcio_bal[0] = 'nagyobb, mint $'.$szam_bal.'$';
     $opcio_bal[1] = 'nagyobb, mint $'.$szam_bal.'$';
-    $opcio_bal[2] = 'nagyobb $'.$szam_bal.'$-'.addSuffixBy($szam_bal);
-    $opcio_bal[3] = '$'.$szam_bal.'$-'.addSuffixBy($szam_bal).' nagyobb';
+    $opcio_bal[2] = 'nagyobb $'.$szam_bal.'$-'.By($szam_bal);
+    $opcio_bal[3] = '$'.$szam_bal.'$-'.By($szam_bal).' nagyobb';
     $szoveg_bal = $opcio_bal[$opcio_kivalasztott];
   }
   
   if ($hatarpont_jobb) {
     $opcio_jobb[0] = 'legfeljebb $'.$szam_jobb.'$';
     $opcio_jobb[1] = 'nem nagyobb, mint $'.$szam_jobb.'$';
-    $opcio_jobb[2] = 'nem nagyobb $'.$szam_jobb.'$-'.addSuffixBy($szam_jobb);
-    $opcio_jobb[3] = '$'.$szam_jobb.'$-'.addSuffixBy($szam_jobb).' nem nagyobb';
+    $opcio_jobb[2] = 'nem nagyobb $'.$szam_jobb.'$-'.By($szam_jobb);
+    $opcio_jobb[3] = '$'.$szam_jobb.'$-'.By($szam_jobb).' nem nagyobb';
     $szoveg_jobb = $opcio_jobb[$opcio_kivalasztott];
   } else {
     $opcio_jobb[0] = 'kisebb, mint $'.$szam_jobb.'$';
     $opcio_jobb[1] = 'kisebb, mint $'.$szam_jobb.'$';
-    $opcio_jobb[2] = 'kisebb $'.$szam_jobb.'$-'.addSuffixBy($szam_jobb);
-    $opcio_jobb[3] = '$'.$szam_jobb.'$-'.addSuffixBy($szam_jobb).' kisebb';
+    $opcio_jobb[2] = 'kisebb $'.$szam_jobb.'$-'.By($szam_jobb);
+    $opcio_jobb[3] = '$'.$szam_jobb.'$-'.By($szam_jobb).' kisebb';
     $szoveg_jobb = $opcio_jobb[$opcio_kivalasztott];
   }
   

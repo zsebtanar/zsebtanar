@@ -11,6 +11,7 @@ class Html extends CI_model {
 	public function __construct() {
 
 		$this->load->helper('url');
+		defined('RESOURCES_URL') OR define('RESOURCES_URL', base_url('resources/exercises'));
 	}
 
 	/**
@@ -49,17 +50,17 @@ class Html extends CI_model {
 
 		if ($type == 'subtopic') {
 
-			$data['prev'] = $this->getSubtopicLink($id-1);
-			$data['next'] = $this->getSubtopicLink($id+1);
+			$data['prev'] = $this->SubtopicLink($id-1);
+			$data['next'] = $this->SubtopicLink($id+1);
 
 		} elseif ($type == 'exercise') {
 
-			$data['prev'] = $this->Exercises->getExerciseLink($id-1);
-			$data['next'] = $this->Exercises->getExerciseLink($id+1);
+			$data['prev'] = $this->ExerciseLink($id-1);
+			$data['next'] = $this->ExerciseLink($id+1);
 
 		}
 		
-		$data['results'] 	= $this->Session->GetResults();
+		$data['results'] = $this->Session->GetResults();
 
 		return $data;
 	}
@@ -77,14 +78,10 @@ class Html extends CI_model {
 	public function SubtopicData($subtopicID=NULL, $exerciseID=NULL) {
 
 		$data['type'] 		= 'subtopic';
-		$data['exercises']	= $this->Exercises->getSubtopicExercises($subtopicID, $exerciseID);
+		$data['exercises']	= $this->SubtopicExercises($subtopicID, $exerciseID);
 		$data['results']	= $this->Session->GetResults('subtopic', $subtopicID);
 		$data['breadcrumb'] = $this->BreadCrumb('subtopic', $subtopicID);
 		$data['title']		= $this->SubtopicTitle($subtopicID);
-		$data['prev']['id']		= $subtopicID - 1;
-		$data['next']['id']		= $subtopicID + 1;
-		$data['prev']['title'] 	= $this->SubtopicTitle($subtopicID-1);
-		$data['next']['title'] 	= $this->SubtopicTitle($subtopicID+1);
 
 		return $data;
 	}
@@ -103,13 +100,13 @@ class Html extends CI_model {
 
 		$data['type'] 		= 'exercise';
 		$data['results'] 	= $this->Session->GetResults('exercise', $id);
-		$data['exercise'] 	= $this->Exercises->GetExerciseData($id, $level);
+		$data['exercise'] 	= $this->GetExerciseData($id, $level);
 		$data['breadcrumb'] = $this->BreadCrumb('exercise', $id);
 
 		$data['results']['id'] = $id;
 		$data['results']['type'] = 'exercise';
 
-		$data['progress'] 	= $this->Session->getUserProgress($id);
+		$data['progress'] 	= $this->Session->UserProgress($id);
 
 		return $data;
 	}
@@ -232,7 +229,7 @@ class Html extends CI_model {
 	 *
 	 * @return string $link Link
 	 */
-	public function getSubtopicLink($id) {
+	public function SubtopicLink($id) {
 
 		$subtopics = $this->db->get_where('subtopics', array('id' => $id));
 
@@ -254,6 +251,287 @@ class Html extends CI_model {
 			'link' => $link,
 			'name' => $name
 			);
+	}
+
+	/**
+	 * Get ID of next exercise
+	 *
+	 * Checks whether user has completed all rounds of exercise.
+	 *
+	 * @param int $id Exercise ID
+	 *
+	 * @return int $id_next Next exercise ID
+	 */
+	public function NextID($id) {
+
+		$level_max  = $this->Database->getMaxLevel($id);
+		$level_user = $this->Session->getUserLevel($id);
+
+		$id_next = ($level_user < $level_max ? $id : $id+1);
+
+ 		return $id_next;
+	}
+
+	/**
+	 * Get exercises of subtopic
+	 *
+	 * @param int $subtopicID Subtopic ID
+	 * @param int $exerciseID Exercise ID
+	 *
+	 * @return array $data Exercises
+	 */
+	public function SubtopicExercises($subtopicID=NULL, $exerciseID=NULL) {
+
+		if ($this->Session->CheckLogin()) {
+			$query = $this->db->get_where('exercises', array('subtopicID' => $subtopicID));
+		} else {
+			$query = $this->db->get_where('exercises', array(
+				'subtopicID' => $subtopicID,
+				'status' => 'OK'
+				));
+		}
+
+		$exercises = $query->result();
+		$data = NULL;
+
+		if (count($exercises) > 0) {
+			foreach ($exercises as $exercise) {
+
+				if ($this->Session->CheckLogin() || $exercise->status == 'OK') {
+
+					$id = $exercise->id;
+
+					$row['status'] 		= $exercise->status;
+					$row['id'] 			= $id;
+					$row['name'] 		= $exercise->name;
+					$row['complete'] 	= $this->Session->isComplete($id);
+					$row['progress'] 	= $this->Session->UserProgress($id);
+					$row['class'] 		= (!$exerciseID || $id == $exerciseID ? 'in' : '');
+
+					$exercisedata = $this->GetExerciseData($id, NULL, $save=FALSE);
+					$row['question']	= $exercisedata['question'];
+
+					$data[] = $row;
+
+				}
+			}
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Get link for exercise
+	 *
+	 * @param int $id Exercise ID
+	 *
+	 * @return string $href Link
+	 */
+	public function ExerciseLink($id) {
+
+		$exercises = $this->db->get_where('exercises', array('id' => $id));
+
+		if (count($exercises->result()) == 1) {
+
+
+			$exercise = $exercises->result()[0];
+
+			if ($this->Session->CheckLogin() || $exercise->status == 'OK') {
+
+				$title = $exercise->name;
+				$link = base_url().'view/exercise/'.$exercise->id;
+				$name = $exercise->name;
+
+			} else {
+
+				$link = base_url().'view/main/';
+				$name = 'Kezdőlap';
+
+			}
+
+		} else {
+
+			$link = base_url().'view/main/';
+			$name = 'Kezdőlap';
+
+		}
+
+		return array(
+			'link' 	=> $link,
+			'name' 	=> $name
+			);
+	}
+
+	/**
+	 * Get exercise data
+	 *
+	 * @param int  $id    Exercise ID
+	 * @param int  $level Exercise level
+	 * @param bool $save  Should we save exercise data in session?
+	 *
+	 * @return array $data Exercise data
+	 */
+	public function GetExerciseData($id, $level=NULL, $save=TRUE) {
+
+		$this->load->helper('string');
+
+		// Get exercise level
+		if (!$level) {
+			$level_user = $this->Session->getUserLevel($id);
+			$level_max = $this->Database->getMaxLevel($id);
+
+			$level = min($level_max, ++$level_user);
+		}
+
+		// Generate exercise
+		// $this->load->helper('maths');
+		// $this->load->helper('language');
+		$label = $this->ExerciseLabel($id);
+
+		$this->load->library($label);
+		$function = strtolower($label);
+
+		$data = $this->$function->Generate($level);
+
+		if (!isset($data['type'])) {
+			if (!isset($data['options'])) {
+				$data['type'] = 'int';
+			} elseif (is_array($data['options'])) {
+				$data['type'] = 'quiz';
+			}
+		}
+
+		if ($data['type'] == 'quiz') {
+			$data = $this->getColumnWidth($data);
+		}
+
+		$data = $this->AddExplanation($id, $data);
+		
+		$hash = random_string('alnum', 16);
+
+		if ($save) {
+			$this->Session->SaveExerciseData($id, $level, $data, $hash);
+		}
+
+		$data['level'] 		= $level;
+		$data['id'] 		= $id;
+		$data['hash']		= $hash;
+		$data['subtopicID'] = $this->Database->getSubtopicID($id);
+
+		return $data;
+	}
+
+	/**
+	 * Load exercise function
+	 *
+	 * Loads specific helper to access exercise function
+	 *
+	 * @param int $id Exercise ID
+	 *
+	 * @return array $exercise Exercise data
+	 */
+	public function ExerciseLabel($id) {
+
+		$query 		= $this->db->get_where('exercises', array('id' => $id));
+		$exercise 	= $query->result()[0]; 
+
+		return $exercise->label;
+	}
+
+	/**
+	 * Add explanation to exercise (if there is none)
+	 *
+	 * @param int   $id   Exercise id
+	 * @param array $data Exercise data
+	 *
+	 * @return array $data Exercise data (with explanation)
+	 */
+	public function AddExplanation($id, $data) {
+
+		if (isset($data['explanation'])) {
+			if (is_array($data['explanation'])) {
+				foreach ($data['explanation'] as $key1 => $segment) {
+					if (is_array($segment)) {
+						foreach ($segment as $key2 => $subsegment) {
+							if ($key2 == 0) {
+								if (is_array($subsegment)) {
+									print_r($subsegment);
+								}
+								$explanation = $subsegment.'<button class="pull-right btn btn-default" data-toggle="collapse" data-target="#hint_details">Részletek</button><br/>';
+								$explanation .= '<div id="hint_details" class="collapse well well-sm small">';
+							} else {
+								if (is_array($subsegment)) {
+									foreach ($subsegment as $subsubsegment) {
+										if (is_array($subsubsegment)) {
+											print_r($subsubsegment);
+											break;
+										}
+										$explanation .= '<p>'.strval($subsubsegment).'</p>';
+									}
+									$explanation .= '</ul>';
+								} else {
+									$explanation .= '<p>'.$subsegment.'</p>';
+								}
+							}
+						}
+						$explanation .= '</div>';
+						// print_r($explanation);
+						// die();
+						$data['explanation'][$key1] = $explanation;
+					}
+				}
+			} else {
+				$data['explanation'] = array($data['explanation']);
+			}
+		} else {
+			$data['explanation'] =  NULL;
+		}
+		$data['hints_all'] = count($data['explanation']);
+		$data['hints_used'] = 0;
+
+		// Should hints be replaced?
+		if (!isset($data['hint_replace'])) {
+			$data['hint_replace'] = FALSE;
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Get answer length
+	 *
+	 * Calculates maximum length of answers from options
+	 *
+	 * @param array $data Exercise data
+	 *
+	 * @return array $data Exercise data (completed)
+	 */
+	public function getColumnWidth($data) {
+
+		$lengths = [];
+
+		foreach ($data['options'] as $option) {
+
+			$lengths[] = count(str_split($option));
+		}
+
+		$max_length = max($lengths);
+		$min_length = min($lengths);
+
+		if ($max_length < 2) {
+			$width = 2;
+		} elseif ($max_length < 10) {
+			$width = 4;
+		} elseif ($max_length < 20) {
+			$width = 6;
+		} else {
+			$width = 8;
+		}
+
+		$data['align'] = ($max_length == $min_length ? 'center' : 'left');
+		$data['width'] = $width;
+
+		return $data;
 	}
 }
 
