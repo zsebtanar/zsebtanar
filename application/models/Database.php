@@ -130,7 +130,7 @@ class Database extends CI_model {
 					WHERE `exercises`.`status` = \'OK\'
 					AND `exercises`.`subtopicID` = '.$id);
 		$data = $query->result_array();
-		$status = (count($data) > 1 ? 'OK' : 'IN_PROGRESS');
+		$status = (count($data) > 0 ? 'OK' : 'IN_PROGRESS');
 
 		return $status;
 	}

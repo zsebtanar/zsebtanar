@@ -125,7 +125,6 @@ class Html extends CI_model {
 
 		$this->db->order_by('id');
 		$classes = $this->db->get('classes');
-		
 
 		foreach ($classes->result() as $class) {
 
@@ -193,6 +192,8 @@ class Html extends CI_model {
 		}
 
 		$data['classes'] = $classes_menu;
+
+		print_r($data);
 
 		return $data;
 	}
