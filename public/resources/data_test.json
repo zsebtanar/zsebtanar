@@ -41,6 +41,44 @@
 							]
 						}
 					]
+				},
+				{
+					"name": "Geometria",
+					"label": "basic",
+					"subtopics": [
+						{
+							"name": "Számolás",
+							"label":"counting",
+							"exercises": [
+								{
+									"label": "Count_1_20",
+									"name": "Számolás 1-től 20-ig",
+									"status": "OK"
+								},
+								{
+									"label": "Parity",
+									"name": "Páros vagy páratlan?",
+									"status": "OK"
+								},
+								{
+									"label": "count_parity",
+									"name": "Hány darab páros/páratlan?",
+									"status": "OK"
+								}
+							]
+						},
+						{
+							"name": "Alapműveletek",
+							"label":"operations",
+							"exercises": [
+								{
+									"label": "Addition",
+									"name": "Összeadás",
+									"status": "OK"
+								}
+							]
+						}
+					]
 				}
 			]
 		}

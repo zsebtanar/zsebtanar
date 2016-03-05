@@ -1,0 +1,38 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Angle {
+
+	/**
+	 * Class constructor
+	 */
+	public function __construct() {
+
+		$CI =& get_instance();
+		$CI->load->helper('url');
+	}
+
+
+	/**
+	 * Generate angle
+	 */
+	function Generate($level) {
+
+		$num = rand(max(0,2*($level-2)), min(20,3*$level));
+
+		$question = 'Hány darab alma van a fán?
+			<div class="text-center">
+				<img class="img-question" height="200px" src="'.base_url().'resources/exercises/count_apples/tree'.$num.'.png">
+			</div>';
+		$correct = $num;
+		$solution = '$'.$correct.'$';
+
+		return array(
+			'question' 	=> $question,
+			'correct' 	=> $correct,
+			'solution'	=> $solution
+		);
+	}
+}
+
+?>
