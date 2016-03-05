@@ -2,15 +2,12 @@
 	"classes": [
 		{
 			"name": "5. osztály",
-			"label": 5,
 			"topics": [
 				{
 					"name": "Alapok",
-					"label": "basic",
 					"subtopics": [
 						{
 							"name": "Számolás",
-							"label":"counting",
 							"exercises": [
 								{
 									"label": "Count_1_20",
@@ -31,7 +28,6 @@
 						},
 						{
 							"name": "Alapműveletek",
-							"label":"operations",
 							"exercises": [
 								{
 									"label": "Addition",
@@ -44,11 +40,9 @@
 				},
 				{
 					"name": "Geometria",
-					"label": "basic",
 					"subtopics": [
 						{
 							"name": "Számolás",
-							"label":"counting",
 							"exercises": [
 								{
 									"label": "Count_1_20",
@@ -69,7 +63,6 @@
 						},
 						{
 							"name": "Alapműveletek",
-							"label":"operations",
 							"exercises": [
 								{
 									"label": "Addition",

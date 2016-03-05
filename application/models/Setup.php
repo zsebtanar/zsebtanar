@@ -17,18 +17,15 @@ class Setup extends CI_model {
 	// Define name and type of table columns
 	public static $table_columns = array(
 			'classes' => array(
-				'name'	=> 'NOT NULL',
-				'label'	=> 'NOT NULL'
+				'name'	=> 'NOT NULL'
 				),
 			'topics' => array(
 				'classID'	=> 'FROM SESSION',
-				'name'		=> 'NOT NULL',
-				'label'		=> 'NOT NULL'
+				'name'		=> 'NOT NULL'
 				),
 			'subtopics' => array(
 				'topicID'	=> 'FROM SESSION',
-				'name'		=> 'NOT NULL',
-				'label'		=> 'NOT NULL'
+				'name'		=> 'NOT NULL'
 				),
 			'exercises' => array(
 				'subtopicID'=> 'FROM SESSION',
@@ -98,14 +95,12 @@ class Setup extends CI_model {
 		$sql = array(
 			'classes' => 'CREATE TABLE classes (
 							id 		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							name 	VARCHAR(60) NOT NULL,
-							label 	VARCHAR(30) NOT NULL
+							name 	VARCHAR(60) NOT NULL
 						)Engine=InnoDB;',
 			'topics' => 'CREATE TABLE topics (
 							id 		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							classID INT NOT NULL,
 							name 	VARCHAR(60) NOT NULL,
-							label 	VARCHAR(30) NOT NULL,
 							CONSTRAINT class_name UNIQUE (classID, name),
 							FOREIGN KEY (classID) REFERENCES classes(id)
 						)Engine=InnoDB;',
@@ -113,7 +108,6 @@ class Setup extends CI_model {
 							id 		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							topicID INT NOT NULL,
 							name 	VARCHAR(60) NOT NULL,
-							label 	VARCHAR(30) NOT NULL,
 							CONSTRAINT topic_name UNIQUE (topicID, name),
 							FOREIGN KEY (topicID) REFERENCES topics(id)
 						)Engine=InnoDB;',
@@ -121,7 +115,7 @@ class Setup extends CI_model {
 							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							subtopicID 	INT NOT NULL,
 							level		INT,
-							label 		VARCHAR(30) NOT NULL,
+							label 		VARCHAR(30) NOT NULL UNIQUE,
 							name 		VARCHAR(120),
 							status 		VARCHAR(20),
 							FOREIGN KEY (subtopicID) REFERENCES subtopics(id)

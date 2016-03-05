@@ -8,9 +8,7 @@ First, download an unzip the files.
 
 Type in the following URLs your browser:
 
-1. `http://localhost/zsebtanar_v4/public/application/login/zst`
-2. `http://localhost/zsebtanar_v4/public/update/database`
-3. `http://localhost/zsebtanar_v4/public/application/logout`
+`http://localhost/zsebtanar_v4/public/database/setup`
 
 If you want to log in the website, click on "login", and type in the password (zst).
 
@@ -24,7 +22,7 @@ After logging in, you have additional features:
 In order to add new exercise, you have to do two things:
 
 1. Include class, topic, subtopic, quest and exercise data in the JSON-file
-2. Create a php function to generate question and answer(s)
+2. Create a php class to generate question and answer(s)
 
 ## STEP 1: Add exercise info to JSON-file
 
@@ -35,14 +33,14 @@ Exercises are stored in *public/resources/data.json*. The hierachy is the follow
 3. Subtopic
 4. Exercise
 
-Each of them *must* be provided with two attributes:
+Each of them *must* be provided with the following attributes:
 - `name`: this will appear on the website
+
+Exercises *must* have an additional attribute:
 - `label`: this will be used to define path for php file (avoid space and accents)
- 
+
 Exercises *can* have additional attributes:
 
-- `hint`: file name stored at `public/resources/download` that can be reached by clicking on the *bulb* icon
-- `youtube`: id of youtube video that can be reached by clicking on the *play* button on the website
 - `level`: how many times user has to solve exercise to complete it (default: **9**)
 - `status`: **OK** if exercise is finished (default: **IN PROGRESS**)
 
@@ -52,20 +50,16 @@ This is a sample for `data.json`:
     "classes": [
         {
             "name": "5. osztály",
-            "label": 5,
             "topics": [
                 {
                     "name": "Alapok",
-                    "label": "basic",
                     "subtopics": [
                         {
                             "name": "Számolás",
-                            "label":"counting",
                             "exercises": [
                                 {
                                     "label": "count_apples",
                                     "name": "Számolás 1-től 20-ig",
-                                    "hint": "szamok_1-20.jpg",
                                     "status": "OK"
                                 },
                                 {
@@ -85,8 +79,8 @@ This is a sample for `data.json`:
 
 ## STEP 2: Create php-function to generate exercise
 
-1. Create file `functions_helper.php` in the `/application/helpers/exercises/class_label/topic_label/subtopic_label/` folder.
-2. Define function called `exercise_label($level)`.
+1. Create file `ExerciseClass.php` in the `/application/library/` folder where `ExerciseClass` is equal to `label`.
+2. Define function called `Generate($level)`.
     - The input is *always* one parameter (`$level`), which is the level of exercise - this can help to set the difficulty.
     - Each exercise *must* be provided with the following return values:
         1. `$question`: the main body of the exercise
