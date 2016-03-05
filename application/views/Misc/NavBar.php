@@ -13,7 +13,7 @@
 				<img src="<?php echo base_url();?>assets/images/logo_small.png" alt="logo" width="20">
 			</a>
 
-			<a class="navbar-brand" href="<?php echo base_url().'view/main/';?>">
+			<a class="navbar-brand navbar-logo" href="<?php echo base_url().'view/main/';?>">
 				<b>Zsebtanár</b>
 			</a>
 			&nbsp;&nbsp;
@@ -66,13 +66,13 @@
 			} else {?>
 
 				<li>
-					<a href="#" data-toggle="modal" data-target="#login">
-						<span class="glyphicon glyphicon-user"></span>&nbsp;Bejelentkezés
+					<a href="#" data-toggle="modal" data-target="#info">
+						<span class="glyphicon glyphicon-info-sign"></span>&nbsp;Mi ez?
 					</a>
 				</li>
 				<li>
-					<a href="#" data-toggle="modal" data-target="#info">
-						<span class="glyphicon glyphicon-info-sign"></span>&nbsp;Mi ez?
+					<a href="#" data-toggle="modal" data-target="#login">
+						<span class="glyphicon glyphicon-user"></span>&nbsp;Admin
 					</a>
 				</li><?php
 

@@ -58,15 +58,27 @@ input.smallInput {
     font-size: 60%;
 }
 
-@media (max-width: 767px) {
-    div.navbar-header>a{
-        padding: 15px 5px; 
-    }
+div.navbar-header>a{
+    padding: 15px 5px; 
+}
 
-    .results {
-        font-size: 80%;
-        margin-bottom: 5px; 
+.navbar-logo {
+    display: none;
+}
+
+.navbar-right {
+    padding-right: 10px;
+}
+
+@media (min-width: 300px) {
+    .navbar-logo {
+        display: inherit;
     }
+}
+
+.results {
+    font-size: 80%;
+    margin-bottom: 5px; 
 }
 
 .breadcrumb {
@@ -110,8 +122,4 @@ a.panel-heading-title:hover, a.panel-heading-title:visited, a.panel-heading-titl
 }
 .hint-button {
     padding-top: 20px;
-}
-
-.pager li>a {
-    color: #777;
 }
