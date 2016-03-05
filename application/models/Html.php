@@ -58,6 +58,8 @@ class Html extends CI_model {
 			$data['next'] = $this->Exercises->getExerciseLink($id+1);
 
 		}
+		
+		$data['results'] 	= $this->Session->GetResults();
 
 		return $data;
 	}

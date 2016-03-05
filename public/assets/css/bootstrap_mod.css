@@ -111,3 +111,7 @@ a.panel-heading-title:hover, a.panel-heading-title:visited, a.panel-heading-titl
 .hint-button {
     padding-top: 20px;
 }
+
+.pager li>a {
+    color: #777;
+}

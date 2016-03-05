@@ -7,6 +7,7 @@ Zsebtanár is a project aiming to provide efficient help for kids in Maths.
 First, download an unzip the files.
 
 Type in the following URLs your browser:
+
 1. `http://localhost/zsebtanar_v4/public/application/login/zst`
 2. `http://localhost/zsebtanar_v4/public/update/database`
 3. `http://localhost/zsebtanar_v4/public/application/logout`
@@ -14,6 +15,7 @@ Type in the following URLs your browser:
 If you want to log in the website, click on "login", and type in the password (zst).
 
 After logging in, you have additional features:
+
 1. *Update database*: run this after adding a new exercise.
 2. *Clear results*: delete points.
 3. *Log out*

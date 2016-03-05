@@ -1,5 +1,4 @@
 <nav class="navbar navbar-default navbar-fixed-top" role="banner">
-	<div class="container-fluid">
 
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
@@ -9,6 +8,15 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
+
+			<a class="navbar-brand" href="<?php echo base_url().'view/main/';?>">
+				<img src="<?php echo base_url();?>assets/images/logo_small.png" alt="logo" width="20">
+			</a>
+
+			<a class="navbar-brand" href="<?php echo base_url().'view/main/';?>">
+				<b>Zsebtanár</b>
+			</a>
+			&nbsp;&nbsp;
 
 			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#result_symbols">
 				<img src="<?php echo base_url();?>assets/images/trophy.png" alt="shield" width="17">
@@ -72,5 +80,4 @@
 			
 			</ul>
 		</div>
-	</div>
 </nav>

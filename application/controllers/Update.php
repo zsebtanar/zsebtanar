@@ -1,7 +1,31 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Update extends CI_controller {
+class Database extends CI_controller {
+
+	/**
+	 * Setup Database
+	 *
+	 * @param string $type View type (exercise/subtopic)
+	 * @param int    $id   Exercise/subtopic id
+	 *
+	 * @return void
+	 */
+	public function Setup($type=NULL, $id=NULL) {
+
+		// setup tables
+		$this->load->model('Database');
+		$this->Database->DropTables();
+		$this->Database->CreateTables();
+
+		// read data from file
+		$data = $this->Database->ReadFile('resources/data.json');
+		$this->Database->InsertData($data);
+
+		$this->load->helper('url');
+
+		header('Location:'.base_url().'view/main/');
+	}
 
 	/**
 	 * Update Database
@@ -11,7 +35,7 @@ class Update extends CI_controller {
 	 *
 	 * @return void
 	 */
-	public function Database($type=NULL, $id=NULL) {
+	public function Update($type=NULL, $id=NULL) {
 
 		$this->load->model('Session');
 
@@ -44,6 +68,7 @@ class Update extends CI_controller {
 			header('Location:'.base_url().'view/main/');
 		}
 	}
+
 }
 
 ?>
