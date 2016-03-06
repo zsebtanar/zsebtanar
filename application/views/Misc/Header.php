@@ -13,10 +13,10 @@
 </title>
 
 <!-- Bootstrap CSS -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"> -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.css"> -->
-<link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.css">
-<link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap-theme.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.css">
+<!-- <link rel="stylesheet" href="<?php // echo base_url();?>assets/css/bootstrap.css"> -->
+<!-- <link rel="stylesheet" href="<?php // echo base_url();?>assets/css/bootstrap-theme.css"> -->
 <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap_mod.css">
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&amp;subset=latin,latin-ext">
 
