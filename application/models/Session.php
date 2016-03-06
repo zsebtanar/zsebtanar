@@ -221,9 +221,9 @@ class Session extends CI_model {
 			$style = 'danger';
 		}
 
-		$stars[0] = (33 <= $progress ? 1 : 0);
-		$stars[1] = (66 <= $progress ? 1 : 0);
-		$stars[2] = (100 <= $progress ? 1 : 0);
+		$stars[0] = (1/3 <= $progress ? 1 : 0);
+		$stars[1] = (2/3 <= $progress ? 1 : 0);
+		$stars[2] = (1 <= $progress ? 1 : 0);
 
 		$progress = min(100, round($progress*100));
 

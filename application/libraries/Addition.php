@@ -3,9 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Addition {
 
-	/**
-	 * Class constructor
-	 */
+	// Class constructor
 	public function __construct() {
 
 		$CI =& get_instance();
@@ -13,9 +11,7 @@ class Addition {
 		$CI->load->helper('language');
 	}
 
-	/**
-	 * Add numbers
-	 */
+	// Add numbers
 	function Generate($level) {
 
 		if ($level <= 3) {

@@ -3,9 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Parity {
 
-	/**
-	 * Class constructor
-	 */
+	// Class constructor
 	public function __construct() {
 
 		$CI =& get_instance();
@@ -13,9 +11,7 @@ class Parity {
 		$CI->load->helper('language');
 	}
 
-	/**
-	 * Define parity of number
-	 */
+	// Define parity of number
 	function Generate($level) {
 
 		$len = max(1, $level);

@@ -42,31 +42,16 @@
 					"name": "Geometria",
 					"subtopics": [
 						{
-							"name": "Számolás",
+							"name": "Szögek",
 							"exercises": [
 								{
-									"label": "Count_1_20",
-									"name": "Számolás 1-től 20-ig",
+									"label": "Angletypes",
+									"name": "Szögfajták",
 									"status": "OK"
 								},
 								{
-									"label": "Parity",
-									"name": "Páros vagy páratlan?",
-									"status": "OK"
-								},
-								{
-									"label": "count_parity",
-									"name": "Hány darab páros/páratlan?",
-									"status": "OK"
-								}
-							]
-						},
-						{
-							"name": "Alapműveletek",
-							"exercises": [
-								{
-									"label": "Addition",
-									"name": "Összeadás",
+									"label": "Angletypes2",
+									"name": "Szögfajták 2",
 									"status": "OK"
 								}
 							]

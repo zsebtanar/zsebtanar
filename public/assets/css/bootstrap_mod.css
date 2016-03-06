@@ -99,8 +99,8 @@ div.navbar-header>a{
     padding: 10px;
 }
 
-#exercise_form {
-    padding: 10px;
+#exercise_form, .exercise_button {
+    padding: 20px;
 }
 
 .panel-heading-sm {

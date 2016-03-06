@@ -14,7 +14,7 @@
 
 				echo $order.'. '.$exercise['question'];?>
 
-				<div class="text-center">
+				<div class="text-center exercise_button">
 					<a class="btn btn-primary" href="<?php echo base_url().'view/exercise/'.$exercise['id'];?>">
 						Mehet&nbsp;<span class="glyphicon glyphicon-chevron-right"></span>
 					</a><?php
