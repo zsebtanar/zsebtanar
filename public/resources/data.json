@@ -2,23 +2,20 @@
 	"classes": [
 		{
 			"name": "5. osztály",
-			"label": 5,
 			"topics": [
 				{
 					"name": "Alapok",
-					"label": "basic",
 					"subtopics": [
 						{
 							"name": "Számolás",
-							"label":"counting",
 							"exercises": [
 								{
-									"label": "count_apples",
+									"label": "Count_1_20",
 									"name": "Számolás 1-től 20-ig",
 									"status": "OK"
 								},
 								{
-									"label": "parity",
+									"label": "Parity",
 									"name": "Páros vagy páratlan?",
 									"status": "OK"
 								},
@@ -29,403 +26,33 @@
 								}
 							]
 						},
-											{
+						{
 							"name": "Alapműveletek",
-							"label":"operations",
 							"exercises": [
 								{
-									"label": "basic_addition",
+									"label": "Addition",
 									"name": "Összeadás",
 									"status": "OK"
-								},
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Geometria",
+					"subtopics": [
+						{
+							"name": "Szögek",
+							"exercises": [
 								{
-									"label": "basic_subtraction",
-									"name": "Kivonás",
+									"label": "Angletypes",
+									"name": "Szögfajták",
 									"status": "OK"
 								},
 								{
-									"label": "basic_multiplication",
-									"name": "Szorzás"
-								},
-								{
-									"label": "basic_division",
-									"name": "Osztás"
-								}
-							]
-						}
-					]
-				},
-				{
-					"name": "Természetes számok",
-					"label": "natural",
-					"subtopics": [
-						{
-							"name": "Tízes számrendszer",
-							"label": "decimal",
-							"exercises": [
-								{
-									"label": "decimal_place_value1",
-									"name": "Helyiérték I.",
-									"hint": "helyiertek_tablazat_10_betuk.png"
-								},
-								{
-									"label": "decimal_place_value2",
-									"name": "Helyiérték II.",
-									"hint": "helyiertek_tablazat_10_szamok.png"
-								},
-								{
-									"label": "decimal_number_value",
-									"name": "Alaki érték",
-									"hint": "helyiertek_tablazat_10_betuk.png"
-								},
-								{
-									"label": "decimal_real_value",
-									"name": "Valódi érték",
-									"hint": "helyiertek_tablazat_10_szamok.png"
-								},
-								{
-									"label": "decimal_count_letters",
-									"name": "Betűkkel"
-								},
-								{
-									"label": "decimal_count_numbers",
-									"name": "Számokkal"
-								},
-								{
-									"label": "decimal_count_money",
-									"name": "Pénzzel"
-								},
-								{
-									"label": "decimal_count_zeros",
-									"name": "Nullák"
-								},
-								{
-									"label": "decimal_change_letters",
-									"name": "Betűkkel"
-								},
-								{
-									"label": "decimal_change_money",
-									"name": "Pénzzel"
-								},
-								{
-									"label": "decimal_write_numbers",
-									"name": "Számokkal"
-								},
-								{
-									"label": "decimal_write_hyphen",
-									"name": "Betűkkel"
-								}
-							]
-						},
-						{
-							"name": "Kettes számrendszer",
-							"label": "binary",
-							"exercises": [
-								{
-									"label": "binary_number_value",
-									"name": "Alaki érték"
-								},
-								{
-									"label": "binary_place_value1",
-									"name": "Helyiérték I."
-								},
-								{
-									"label": "binary_place_value2",
-									"name": "Helyiérték II."
-								},
-								{
-									"label": "binary_real_value",
-									"name": "Valódi érték"
-								},
-								{
-									"label": "binary_convert_2to10",
-									"name": "Kettesből tízes számrendszerbe"
-								},
-								{
-									"label": "binary_convert_2to10_bulb",
-									"name": "Kettesből tízes számrendszerbe (lámpa)"
-								},
-								{
-									"label": "binary_convert_2to10_finger",
-									"name": "Kettesből tízes számrendszerbe (ujjak)"
-								},
-								{
-									"label": "binary_convert_10to2",
-									"name": "Tízesből kettes számrendszerbe"
-								}
-							]
-						},
-						{
-							"name": "Római számrendszer",
-							"label": "roman",
-							"exercises": [
-								{
-									"label": "roman_convert_ROMto10",
-									"name": "Rómaiból tízes számrendszerbe"
-								},
-								{
-									"label": "roman_convert_10toROM",
-									"name": "Tízesből római számrendszerbe"
-								}
-							]
-						},
-						{
-							"name": "Számegyenes",
-							"label": "number_line",
-							"exercises": [
-								{
-									"label": "number_line_stepsize",
-									"name": "Osztásköz"
-								},
-								{
-									"label": "number_line_position",
-									"name": "Szám helye"
-								},
-								{
-									"label": "number_line_operation",
-									"name": "Műveletek ábrázolása"
-								},
-								{
-									"label": "number_line_snail",
-									"name": "Csiga"
-								}
-							]
-						},
-						{
-							"name": "Számok összehasonlítása",
-							"label": "number_compare",
-							"exercises": [
-								{
-									"label": "number_compare_sign",
-									"name": "Relációs jel"
-								},
-								{
-									"label": "number_compare_compare",
-									"name": "Összehasonlítás"
-								},
-								{
-									"label": "number_compare_order",
-									"name": "Számok sorrendje"
-								},
-								{
-									"label": "number_compare_missing_digit",
-									"name": "Hiányzó számjegy"
-								},
-								{
-									"label": "number_compare_between",
-									"name": "Hány természetes szám?"
-								}
-							]
-						},
-						{
-							"name": "Számok kerekítése",
-							"label": "number_round",
-							"exercises": [
-								{
-									"label": "number_round_down",
-									"name": "Lefelé"
-								},
-								{
-									"label": "number_round_up",
-									"name": "Felfelé"
-								},
-								{
-									"label": "number_round",
-									"name": "Kerekítés"
-								},
-								{
-									"label": "number_round_error_down",
-									"name": "Lefelé"
-								},
-								{
-									"label": "number_round_error_up",
-									"name": "Felfelé"
-								},
-								{
-									"label": "number_round_error",
-									"name": "Kerekítés"
-								},
-								{
-									"label": "number_round_how_many",
-									"name": "Hány szám?"
-								},
-								{
-									"label": "number_round_not_rounded",
-									"name": "Nem kerekített"
-								}
-							]
-						}
-					]
-				},
-				{
-					"name": "Törtszámok",
-					"label": "fraction",
-					"subtopics": [
-						{
-							"name": "Alapok",
-							"label": "basic",
-							"exercises": [
-								{
-									"label": "fraction_numerator",
-									"name": "Számláló"
-								},
-								{
-									"label": "fraction_denominator",
-									"name": "Nevező"
-								},
-								{
-									"label": "fraction_rectangle",
-									"name": "Tört meghatározása"
-								},
-								{
-									"label": "fraction_reciprocal",
-									"name": "Reciprok"
-								},
-								{
-									"label": "fraction_to_int",
-									"name": "Tört egésszé"
-								},
-								{
-									"label": "fraction_from_int",
-									"name": "Egész törtté"
-								},
-								{
-									"label": "fraction_expand",
-									"name": "Bővítés"
-								},
-								{
-									"label": "fraction_simplify",
-									"name": "Egyszerűsítés"
-								}
-							]
-						},
-						{
-							"name": "Műveletek",
-							"label": "operation",
-							"exercises": [
-								{
-									"label": "fraction_compare_1",
-									"name": "Összehasonlítás $1$-gyel"
-								},
-								{
-									"label": "fraction_compare",
-									"name": "Összehasonlítás"
-								},
-								{
-									"label": "fraction_add",
-									"name": "Összeadás"
-								},
-								{
-									"label": "fraction_mixed",
-									"name": "Vegyes tört"
-								},
-								{
-									"label": "fraction_subtract",
-									"name": "Kivonás"
-								},
-								{
-									"label": "fraction_multiply",
-									"name": "Szorzás"
-								},
-								{
-									"label": "fraction_divide",
-									"name": "Osztás"
-								}
-							]
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "6. osztály",
-			"label": 6,
-			"topics": [
-				{
-					"name": "Felvételi",
-					"label": "exam",
-					"subtopics": [
-						{
-							"name": "2001. október 8.",
-							"label":"2001_10_08",
-							"exercises": [
-								{
-									"label": "exam_iceberg",
-									"name": "Jéghegy",
-											"youtube": "5xeffd2FQlo"
-								},
-								{
-									"label": "exam_race",
-									"name": "Verseny",
-											"youtube": "7sZPzmVfH0w"
-								}
-							]
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "12. osztály",
-			"label": 12,
-			"topics": [
-				{
-					"name": "Sorozatok",
-					"label": "series",
-					"subtopics": [
-						{
-							"name": "Alapok",
-							"label":"basic",
-							"exercises": [
-								{
-									"label": "series_explicit",
-									"name": "Explicit"
-								},
-								{
-									"label": "series_recursive",
-									"name": "Rekurzív"
-								}
-							]
-						},
-						{
-							"name": "Számtani sorozatok",
-							"label":"numerical",
-							"exercises": [
-								{
-									"label": "series_numerical_difference",
-									"name": "Különbség"
-								},
-								{
-									"label": "series_numerical_member_1",
-									"name": "Tagból és különbségből"
-								},
-								{
-									"label": "series_numerical_member_2",
-									"name": "Két tagból"
-								},
-								{
-									"label": "series_numerical_order",
-									"name": "Hányadik tag?"
-								},
-								{
-									"label": "series_numerical_sum_1",
-									"name": "Tagból és különbségből"
-								},
-								{
-									"label": "series_numerical_sum_2",
-									"name": "Két tagból"
-								},
-								{
-									"label": "series_numerical_members",
-									"name": "Összeg tagjai"
-								},
-								{
-									"label": "series_numerical_carrot",
-									"name": "Répa"
-								},
-								{
-									"label": "series_numerical_candy",
-									"name": "Drazsé"
+									"label": "Angletypes2",
+									"name": "Szögfajták 2",
+									"status": "OK"
 								}
 							]
 						}

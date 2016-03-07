@@ -38,7 +38,7 @@ class Angletypes2 {
 		$solution 	= $angle_type;
 
 
-		$question = 'Milyen típusú '.The($angle).' $'.$angle.'°$-os szög?';
+		$question = 'Milyen típusú az a szög, ami $'.$angle.'°$-os?';
 
 		$CI->load->library('Angletypes');
 

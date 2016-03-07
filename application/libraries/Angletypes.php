@@ -3,6 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Angletypes {
 
+	// Class constructor
+	public function __construct() {
+
+		$CI =& get_instance();
+		$CI->load->helper('maths');
+	}
+
 	// Define type of angle
 	function Generate($level) {
 
@@ -52,44 +59,45 @@ class Angletypes {
 	// Generate filled arc for specific angle
 	function SVG($angle_deg, $showdegrees=FALSE) {
 
+		// $angle_deg = 200;
+
 		$width 		= 400;
 		$height 	= 260;
 		$stroke_width = 1;
-		$color1 	= '#D1D1D1';
-		$color2 	= '#5C5C5C';
+		$color1 	= '#F2F2F2';
+		$color2 	= 'black';
 
 		$centerx 	= $width/2;
 		$centery 	= $height/2;
-		$radius 	= 100;
+		$radius1 	= 100;
+		$radius2 	= 40;
 
 		$svg = '<div class="img-question text-center">
 					<svg width="'.$width.'" height="'.$height.'">
-						<circle cx="'.$centerx.'" cy="'.$centery.'" r="'.$radius.'" fill="'.$color1.'" />';
+						<circle cx="'.$centerx.'" cy="'.$centery.'" r="'.$radius1.'" fill="'.$color1.'" />
+						<line x1="'.$centerx.'" y1="'.$centery.'" x2="'.strval($centerx+$radius1).'" y2="'.$centery.'" stroke="'.$color2.'" stroke-width="'.$stroke_width.'" />';
 
-		if ($angle_deg == 0) {
+		if ($angle_deg == 360) {
 
-			$svg .= '<line x1="'.$centerx.'" y1="'.$centery.'" x2="'.strval($centerx+$radius).'" y2="'.$centery.'" stroke="'.$color2.'" stroke-width="'.$stroke_width.'" />';
-
-		} elseif ($angle_deg == 360) {
-
-			$svg .= '<circle cx="'.$centerx.'" cy="'.$centery.'" r="'.$radius.'" fill="'.$color2.'" />';
+			$svg .= '<circle cx="'.$centerx.'" cy="'.$centery.'" r="'.$radius2.'" stroke="black" fill="none" />';
 
 		} else {
 
-			$angle_rad 	= $angle_deg * pi() / 180.0;
-			$x 			= $centerx + $radius * cos($angle_rad);
-			$y 			= $centery - $radius * sin($angle_rad);
+			list($x1, $y1) = polarToCartesian($centerx, $centery, $radius1, $angle_deg);
+			list($x2, $y2) = polarToCartesian($centerx, $centery, $radius2, $angle_deg);
+
 			$large_arc_flag = ($angle_deg <= 180 ? 0 : 1);
 
-			$svg .= '<path fill="'.$color2.'" d="M'.strval($centerx+$radius).','.$centery.' A'.$radius.','.$radius.' 0 '.$large_arc_flag.',0 '.$x.','.$y.' L '.$centerx.' '.$centery.'" />';
+			$svg .= '<path stroke="black" fill="none" d="M'.strval($centerx+$radius2).','.$centery.' A'.$radius2.','.$radius2.' 0 '.$large_arc_flag.',0 '.$x2.','.$y2.'" />
+					<line x1="'.$centerx.'" y1="'.$centery.'" x2="'.$x1.'" y2="'.$y1.'" stroke="'.$color2.'" stroke-width="'.$stroke_width.'" />';
 		}
 
 		if ($showdegrees) {
 
-			$svg .= '<text x="'.strval($centerx+$radius+10).'" y="'.strval($centery+7).'">0°</text>';
-			$svg .= '<text x="'.strval($centerx-10).'" y="'.strval($centery-$radius-7).'">90°</text>';
-			$svg .= '<text x="'.strval($centerx-$radius-45).'" y="'.strval($centery+7).'">180°</text>';
-			$svg .= '<text x="'.strval($centerx-15).'" y="'.strval($centery+$radius+20).'">270°</text>';
+			$svg .= '<text x="'.strval($centerx+$radius1+10).'" y="'.strval($centery+7).'">0°</text>';
+			$svg .= '<text x="'.strval($centerx-10).'" y="'.strval($centery-$radius1-7).'">90°</text>';
+			$svg .= '<text x="'.strval($centerx-$radius1-45).'" y="'.strval($centery+7).'">180°</text>';
+			$svg .= '<text x="'.strval($centerx-15).'" y="'.strval($centery+$radius1+20).'">270°</text>';
 		}
 
 

@@ -465,4 +465,22 @@ function placeValues($index)
   return $placevalue;
 }
 
+/**
+ * Transform polar coordinates to Cartesian
+ *
+ * @param int $centerX        Center of circle
+ * @param int $centerY        Center of circle
+ * @param int $radius         Radius of circle
+ * @param int $angleInDegrees Angle in degrees
+ *
+ * @return int $x Cartesian coordinate
+ * @return int $y Cartesian coordinate
+ */
+function polarToCartesian($centerX, $centerY, $radius, $angleInDegrees) {
+  $angleInRadians = $angleInDegrees * pi() / 180.0;
+  $x = $centerX + $radius * cos($angleInRadians);
+  $y = $centerY - $radius * sin($angleInRadians); // for svg!
+  return array($x, $y);
+}
+
 ?>

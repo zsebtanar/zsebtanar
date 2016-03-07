@@ -50,7 +50,7 @@ class System extends CI_controller {
 			$this->Setup->CreateTables();
 
 			// read data from file
-			$data = $this->Setup->ReadFile('resources/data_test.json');
+			$data = $this->Setup->ReadFile('resources/data.json');
 			$this->Setup->InsertData($data);
 
 		}
