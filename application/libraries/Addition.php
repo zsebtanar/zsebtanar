@@ -43,8 +43,7 @@ class Addition {
 			'question'		=> $question,
 			'correct'		=> $correct,
 			'solution'		=> $solution,
-			'explanation'	=> $explanation,
-			'hint_replace'	=> TRUE
+			'explanation'	=> $explanation
 		);
 	}
 

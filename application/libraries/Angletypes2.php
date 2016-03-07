@@ -52,8 +52,7 @@ class Angletypes2 {
 			'correct' 	=> $correct,
 			'options' 	=> $options,
 			'solution'	=> $solution,
-			'explanation' => $explanation,
-			'hint_replace' => TRUE
+			'explanation' => $explanation
 		);
 	}
 }

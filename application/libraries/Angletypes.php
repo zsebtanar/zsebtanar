@@ -45,8 +45,7 @@ class Angletypes {
 			'correct' 	=> $correct,
 			'options' 	=> $options,
 			'solution'	=> $solution,
-			'explanation' => $explanation,
-			'hint_replace' => TRUE
+			'explanation' => $explanation
 		);
 	}
 
