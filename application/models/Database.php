@@ -199,6 +199,26 @@ class Database extends CI_model {
 			'name' => $name
 			);
 	}
+
+	/**
+	 * Get latest exercises
+	 *
+	 * @return array $data Latest exercises
+	 */
+	public function getLatest() {
+
+		$query = $this->db->query(
+			'SELECT DISTINCT `exercises`.`id`, `exercises`.`name` FROM `exercises`
+					WHERE `exercises`.`status` = \'OK\'
+					ORDER BY `exercises`.`finished` DESC');
+
+		$data = $query->result_array();
+
+		$length = min(10, count($data));
+		$data = array_slice($data, 0, $length);
+
+		return $data;
+	}
 }
 
 ?>

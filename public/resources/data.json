@@ -12,16 +12,19 @@
 								{
 									"label": "Count_1_20",
 									"name": "Számolás 1-től 20-ig",
+									"finished": "2016-03-04",
 									"status": "OK"
 								},
 								{
 									"label": "Parity",
 									"name": "Páros vagy páratlan?",
+									"finished": "2016-03-04",
 									"status": "OK"
 								},
 								{
 									"label": "count_parity",
 									"name": "Hány darab páros/páratlan?",
+									"finished": "2016-03-04",
 									"status": "OK"
 								}
 							]
@@ -32,6 +35,7 @@
 								{
 									"label": "Addition",
 									"name": "Összeadás",
+									"finished": "2016-03-04",
 									"status": "OK"
 								}
 							]
@@ -47,11 +51,13 @@
 								{
 									"label": "Angletypes",
 									"name": "Szögfajták",
+									"finished": "2016-03-05",
 									"status": "OK"
 								},
 								{
 									"label": "Angletypes2",
 									"name": "Szögfajták 2",
+									"finished": "2016-03-05",
 									"status": "OK"
 								}
 							]
@@ -71,7 +77,9 @@
 							"exercises": [
 								{
 									"label": "Quadratic_equation",
-									"name": "Másodfokú egyenlet"
+									"name": "Másodfokú egyenlet",
+									"finished": "2016-03-07",
+									"status": "OK"
 								}
 							]
 						}

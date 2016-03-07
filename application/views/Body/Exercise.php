@@ -12,33 +12,31 @@
 			<div class="col-sm-12 exercise_input">
 				<form id="exercise_form" autocomplete="off"><?php
 
-					if ($type == 'quiz') {
-
-						$this->load->view('Input/Quiz',
-							array('options' => $options,
-									'width' => $width,
-									'align' => $align));
-
-					} elseif ($type == 'int' || $type == 'text') {
-
-						$this->load->view('Input/Default');
-
-					} elseif ($type == 'multi') {
-
-						$this->load->view('Input/Multi', array('options' => $options));
-
-					} elseif ($type == 'division') {
-
-						$this->load->view('Input/Division');
-
-					} elseif ($type == 'fraction') {
-
-						$this->load->view('Input/Fraction');
-
-					} elseif ($type == 'equation2') {
-
-						$this->load->view('Input/Equation2');
-
+					switch ($type) {
+						case 'int':
+							$this->load->view('Input/Default');
+							break;
+						case 'text':
+							$this->load->view('Input/Default');
+							break;
+						case 'multi':
+							$this->load->view('Input/Multi', array('options' => $options));
+							break;
+						case 'division':
+							$this->load->view('Input/Division');
+							break;
+						case 'fraction':
+							$this->load->view('Input/Fraction');
+							break;
+						case 'equation2':
+							$this->load->view('Input/Equation2');
+							break;
+						case 'quiz':
+							$this->load->view('Input/Quiz',
+								array('options' => $options,
+										'width' => $width,
+										'align' => $align));
+							break;
 					}?>
 
 					<input type="hidden" name="hash" value="<?php echo $hash;?>">

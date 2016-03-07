@@ -26,7 +26,8 @@ class Html extends CI_model {
 	 */
 	public function MainData($classID=NULL, $topicID=NULL) {
 
-		$data['subtopics'] 	= $this->getSubtopics($classID, $topicID);
+		$data['maindata'] 	= $this->GetMainData($classID, $topicID);
+		$data['latest']		= $this->Database->getLatest();
 		$data['classID'] 	= $classID;
 		$data['topicID'] 	= $topicID;
 		$data['type'] 		= 'main';
@@ -112,16 +113,16 @@ class Html extends CI_model {
 	}
 
 	/**
-	 * Get subtopics
+	 * Get data for main page
 	 *
-	 * Gets all subtopics for each topic, and all topics for each class
+	 * Gets all classes, topics & subtopics
 	 *
 	 * @param int $classID Class id
 	 * @param int $topicID Topic id
 	 *
 	 * @return array $data Subtopics
 	 */
-	public function getSubtopics($classID=NULL, $topicID=NULL) {
+	public function GetMainData($classID=NULL, $topicID=NULL) {
 
 		$this->db->order_by('id');
 		$classes = $this->db->get('classes');

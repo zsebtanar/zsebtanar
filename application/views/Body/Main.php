@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-3"></div>
-	<div class="col-md-6">
+	<div class="col-md-4">
 		<!-- <div class="text-center alert alert-warning small">
 			<b>Figyelem!</b> A honlap tesztüzemben működik. Bármilyen észrevételt a <b>zsebtanar@gmail.com</b>-ra lehet küldeni.
 		</div>
@@ -27,7 +27,7 @@
 							<div class="col-md-2"></div>
 							<div class="col-md-10"><?php
 
-							if (count($subtopics) > 0) {
+							if (count($topic['subtopics']) > 0) {
 
 								foreach ($topic['subtopics'] as $subtopic) {
 
@@ -54,5 +54,19 @@
 		}?>
 
 	</div>
-	<div class="col-md-3"></div>
+	<div class="col-md-3">
+		<div class="panel panel-success">
+			<div class="panel-heading small"><b>Legutóbbi feladatok</b></div><?php
+
+		foreach ($latest as $exercise) {?>
+
+			<a class="btn btn-link" href="<?php echo base_url();?>view/exercise/<?php echo $exercise['id'];?>">
+					<?php echo $exercise['name'];?>
+			</a><br /><?php
+
+		}?>
+
+		</div>
+	</div>
+	<div class="col-md-2"></div>
 </div>

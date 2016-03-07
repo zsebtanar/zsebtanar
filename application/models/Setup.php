@@ -30,6 +30,7 @@ class Setup extends CI_model {
 			'exercises' => array(
 				'subtopicID'=> 'FROM SESSION',
 				'level' 	=> 9,
+				'finished'	=> 'NOT NULL',
 				'status' 	=> 'IN PROGRESS',
 				'label'		=> 'NOT NULL',
 				'name'		=> NULL,
@@ -115,6 +116,7 @@ class Setup extends CI_model {
 							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							subtopicID 	INT NOT NULL,
 							level		INT,
+							finished 	DATE NOT NULL,
 							label 		VARCHAR(30) NOT NULL,
 							name 		VARCHAR(120),
 							status 		VARCHAR(20),
