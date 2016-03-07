@@ -97,7 +97,7 @@ class Addition {
 				$text .= 'Tehát az összeg <span class="label label-success">$'.array_sum($num_array).'$</span>.';
 			}
 
-			$explanation[] = $text;
+			$explanation[][] = $text;
 
 			$remain_old = $remain_new;
 			$remain_new = 0;

@@ -116,46 +116,48 @@
 		}
 	}
 
-	function gethint(event, id){
+	function gethint(event, id, type){
 		var hash = $('[name="hash"]').attr('value');
 		var hints_all = $('[name="hints_all"]').attr('value');
 
 		if (typeof id === 'undefined') {
 			id = "";
 		}
+		if (typeof type === 'undefined') {
+			type = "";
+		}
 		event.preventDefault();
-		if (id >= 0 && id < hints_all) {
+		if (id == "" || (id > 0 && id <= hints_all)) {
 		$.ajax({
 			type: "GET",
-			url: "<?php echo base_url();?>application/gethint/"+hash+"/"+id.toString(),
+			url: "<?php echo base_url();?>application/gethint/"+hash+"/"+id.toString()+"/"+type.toString(),
 			success: function(data) {
-				$("#message").html('');
-				var data = jQuery.parseJSON(data);
-				var hint_current = Number(data['hint_current']);
-				var hints_all = Number(data['hints_all']);
-				var hints_used = Number(data['hints_used']);
-				var hints_left = hints_all - hints_used;
-				if (data['hint_replace'] == true && hints_all > 1) {
-					$("#explanation").html('<ul class="pager"></ul>');
-					var prev = hint_current-1;
-					$("#explanation").children().append('<li class="prev_hint small"><a onclick="gethint(event,'+prev.toString()+')"><span class="glyphicon glyphicon-chevron-left"></span></a></li>');
-					if (hint_current == 0) {
-						$(".prev_hint").attr('class', 'small disabled');
+				if (data != "null") {
+					$("#message").html('');
+					var data = jQuery.parseJSON(data);
+					var hint_current = Number(data['hint_current']);
+					var hints_all = Number(data['hints_all']);
+					var hints_used = Number(data['hints_used']);
+					var hints_left = hints_all - hints_used;
+					if (hints_all > 1) {
+						$("#explanation").html('<ul class="pager"></ul>');
+						$("#explanation").children().append('<li class="prev_hint small"><a onclick="gethint(event,'+hint_current+',\'prev\')"><span class="glyphicon glyphicon-chevron-left"></span></a></li>');
+						if (hint_current == 1) {
+							$(".prev_hint").attr('class', 'small disabled');
+						}
+						$("#explanation").children().append('<li class="small"><b>'+hint_current+'/'+hints_all+'</b></li>');
+						$("#explanation").children().append('<li class="next_hint small"><a onclick="gethint(event,'+hint_current+',\'next\')"><span class="glyphicon glyphicon-chevron-right"></span></a></li>');
+						if (hint_current >= hints_all) {
+							$(".next_hint").attr('class', 'small disabled');
+						}
 					}
-					var hint_web = hint_current + 1;
-					$("#explanation").children().append('<li class="small"><b>'+hint_web+'/'+hints_all+'</b></li>');
-					var next = hint_current+1;
-					$("#explanation").children().append('<li class="next_hint small"><a onclick="gethint(event,'+next.toString()+')"><span class="glyphicon glyphicon-chevron-right"></span></a></li>');
-					if (hint_current >= hints_all-1) {
-						$(".next_hint").attr('class', 'small disabled');
-					}
-				}
-				if (data['explanation'] != '') {
-					$("#explanation").append('<p>'+data['explanation']+'</p>');
-					MathJax.Hub.Queue(["Typeset",MathJax.Hub,"explanation"]);
-					$("#hints_left").html("("+hints_left.toString()+" segítség maradt.)");
-					if (hints_left == 0) {
-						$("#hint_button").attr('class', 'btn btn-danger pull-right disabled');
+					if (data['explanation'] != '') {
+						$("#explanation").append('<p>'+data['explanation']+'</p>');
+						MathJax.Hub.Queue(["Typeset",MathJax.Hub,"explanation"]);
+						$("#hints_left").html("("+hints_left.toString()+" segítség maradt.)");
+						if (hints_left == 0) {
+							$("#hint_button").attr('class', 'btn btn-danger pull-right disabled');
+						}
 					}
 				}
 			}

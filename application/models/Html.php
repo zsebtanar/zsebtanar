@@ -50,13 +50,13 @@ class Html extends CI_model {
 
 		if ($type == 'subtopic') {
 
-			$data['prev'] = $this->SubtopicLink($id-1);
-			$data['next'] = $this->SubtopicLink($id+1);
+			$data['prev'] = $this->Database->SubtopicLink($id-1);
+			$data['next'] = $this->Database->SubtopicLink($id+1);
 
 		} elseif ($type == 'exercise') {
 
-			$data['prev'] = $this->ExerciseLink($id-1);
-			$data['next'] = $this->ExerciseLink($id+1);
+			$data['prev'] = $this->Database->ExerciseLink($id-1);
+			$data['next'] = $this->Database->ExerciseLink($id+1);
 
 		}
 		
@@ -81,7 +81,7 @@ class Html extends CI_model {
 		$data['exercises']	= $this->SubtopicExercises($subtopicID, $exerciseID);
 		$data['results']	= $this->Session->GetResults('subtopic', $subtopicID);
 		$data['breadcrumb'] = $this->BreadCrumb('subtopic', $subtopicID);
-		$data['title']		= $this->SubtopicTitle($subtopicID);
+		$data['title']		= $this->Database->SubtopicTitle($subtopicID);
 
 		return $data;
 	}
@@ -197,62 +197,6 @@ class Html extends CI_model {
 	}
 
 	/**
-	 * Get subtopic title
-	 *
-	 * @param int $id Subtopic ID
-	 *
-	 * @return string $title Title
-	 */
-	public function SubtopicTitle($id) {
-
-		$subtopics = $this->db->get_where('subtopics', array('id' => $id));
-
-		if (count($subtopics->result()) > 0) {
-
-			$subtopic = $subtopics->result()[0];
-			$title = $subtopic->name;
-
-		} else {
-
-			$title = 'Kezdőlap';
-
-		}
-
-		return $title;
-	}
-
-	/**
-	 * Get link for subtopic
-	 *
-	 * @param int $id Subtopic ID
-	 *
-	 * @return string $link Link
-	 */
-	public function SubtopicLink($id) {
-
-		$subtopics = $this->db->get_where('subtopics', array('id' => $id));
-
-		if (count($subtopics->result()) > 0 &&
-			($this->Session->CheckLogin() || $this->Database->SubtopicStatus($id) == 'OK')) {
-
-			$subtopic = $subtopics->result()[0];
-			$link = base_url().'view/subtopic/'.$subtopic->id;
-			$name = $subtopic->name;
-
-		} else {
-
-			$link = base_url().'view/main/';
-			$name = 'Kezdőlap';
-
-		}
-
-		return array(
-			'link' => $link,
-			'name' => $name
-			);
-	}
-
-	/**
 	 * Get ID of next exercise
 	 *
 	 * Checks whether user has completed all rounds of exercise.
@@ -320,48 +264,6 @@ class Html extends CI_model {
 	}
 
 	/**
-	 * Get link for exercise
-	 *
-	 * @param int $id Exercise ID
-	 *
-	 * @return string $href Link
-	 */
-	public function ExerciseLink($id) {
-
-		$exercises = $this->db->get_where('exercises', array('id' => $id));
-
-		if (count($exercises->result()) == 1) {
-
-
-			$exercise = $exercises->result()[0];
-
-			if ($this->Session->CheckLogin() || $exercise->status == 'OK') {
-
-				$title = $exercise->name;
-				$link = base_url().'view/exercise/'.$exercise->id;
-				$name = $exercise->name;
-
-			} else {
-
-				$link = base_url().'view/main/';
-				$name = 'Kezdőlap';
-
-			}
-
-		} else {
-
-			$link = base_url().'view/main/';
-			$name = 'Kezdőlap';
-
-		}
-
-		return array(
-			'link' 	=> $link,
-			'name' 	=> $name
-			);
-	}
-
-	/**
 	 * Get exercise data
 	 *
 	 * @param int  $id    Exercise ID
@@ -383,9 +285,7 @@ class Html extends CI_model {
 		}
 
 		// Generate exercise
-		// $this->load->helper('maths');
-		// $this->load->helper('language');
-		$label = $this->ExerciseLabel($id);
+		$label = $this->Database->ExerciseLabel($id);
 
 		$this->load->library($label);
 		$function = strtolower($label);
@@ -421,23 +321,6 @@ class Html extends CI_model {
 	}
 
 	/**
-	 * Load exercise function
-	 *
-	 * Loads specific helper to access exercise function
-	 *
-	 * @param int $id Exercise ID
-	 *
-	 * @return array $exercise Exercise data
-	 */
-	public function ExerciseLabel($id) {
-
-		$query 		= $this->db->get_where('exercises', array('id' => $id));
-		$exercise 	= $query->result()[0]; 
-
-		return $exercise->label;
-	}
-
-	/**
 	 * Add explanation to exercise (if there is none)
 	 *
 	 * @param int   $id   Exercise id
@@ -447,53 +330,109 @@ class Html extends CI_model {
 	 */
 	public function AddExplanation($id, $data) {
 
+		$explanation = [];
 		if (isset($data['explanation'])) {
 			if (is_array($data['explanation'])) {
-				foreach ($data['explanation'] as $key1 => $segment) {
-					if (is_array($segment)) {
-						foreach ($segment as $key2 => $subsegment) {
-							if ($key2 == 0) {
-								if (is_array($subsegment)) {
-									print_r($subsegment);
-								}
-								$explanation = $subsegment.'<button class="pull-right btn btn-default" data-toggle="collapse" data-target="#hint_details">Részletek</button><br/>';
-								$explanation .= '<div id="hint_details" class="collapse well well-sm small">';
-							} else {
-								if (is_array($subsegment)) {
-									foreach ($subsegment as $subsubsegment) {
-										if (is_array($subsubsegment)) {
-											print_r($subsubsegment);
-											break;
-										}
-										$explanation .= '<p>'.strval($subsubsegment).'</p>';
-									}
-									$explanation .= '</ul>';
-								} else {
-									$explanation .= '<p>'.$subsegment.'</p>';
-								}
-							}
-						}
-						$explanation .= '</div>';
-						// print_r($explanation);
-						// die();
-						$data['explanation'][$key1] = $explanation;
+
+				// Is there more page?
+				$multipage = TRUE;
+				foreach ($data['explanation'] as $value) {
+					if (!is_array($value)) {
+						$multipage = FALSE;
 					}
 				}
+
+				// Create multipage explanation
+				if ($multipage) {
+					foreach ($data['explanation'] as $page) {
+						$page = $this->AddExplanationPage($page);
+						$explanation = array_merge($explanation, $page);
+						
+					}
+				} else {
+
+					$page = $this->AddExplanationPage($data['explanation']);
+					$explanation = array_merge($explanation, $page);
+					// print_r($explanation);
+
+				}
+
 			} else {
-				$data['explanation'] = array($data['explanation']);
+
+				// Single explanation
+				$page = $this->AddExplanationPage($data['explanation']);
+				$explanation = array_merge($explanation, $page);
+
 			}
 		} else {
-			$data['explanation'] =  NULL;
-		}
-		$data['hints_all'] = count($data['explanation']);
-		$data['hints_used'] = 0;
 
-		// Should hints be replaced?
-		if (!isset($data['hint_replace'])) {
-			$data['hint_replace'] = FALSE;
+			// No explanation
+			$explanation =  NULL;
+
 		}
+
+		$data['explanation']	= $explanation;
+		$data['hints_all'] 		= count($explanation);
+		$data['hints_used'] 	= 0;
 
 		return $data;
+	}
+
+	/**
+	 * Add page to explanation
+	 *
+	 * @param array $page Explanation data
+	 *
+	 * @return array $page_new Explanation data (restructured)
+	 */
+	public function AddExplanationPage($page) {
+
+		// Details
+		foreach ($page as $key1 => $segment) {
+			if (is_array($segment)) {
+				$details = $this->AddExplanationDetails($segment);
+				if ($key1 > 0) {
+					$page[$key1-1] .= '<button class="pull-right btn btn-default" data-toggle="collapse" data-target="#hint_details'.$key1.'">Részletek</button><br/>'
+						.'<div id="hint_details'.$key1.'" class="collapse well well-sm small">'.$details.'</div>';
+				} else {
+					print_r('Az útmutató szerkezete hibás!');
+				}
+				unset($page[$key1]);
+			}
+		}
+
+		// Restructure
+		array_values($page);
+		for ($i=0; $i < count($page); $i++) { 
+			$hint = '';
+			for ($j=0; $j <= $i; $j++) { 
+				$hint .= '<p>'.strval($page[$j]).'</p>';
+			}
+			$page_new[] = $hint;
+		}
+
+		return $page_new;
+	}
+
+	/**
+	 * Add details to explanation
+	 *
+	 * @param array $subsegment Explanation data
+	 *
+	 * @return string $details Explanation data (modified)
+	 */
+	public function AddExplanationDetails($subsegment) {
+
+		$details = '';
+		foreach ($subsegment as $subsubsegment) {
+			if (is_array($subsubsegment)) {
+				print_r('Hiba az útmutatóban!');
+				break;
+			}
+			$details .= '<p>'.strval($subsubsegment).'</p>';
+		}
+
+		return $details;
 	}
 
 	/**

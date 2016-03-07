@@ -83,6 +83,122 @@ class Database extends CI_model {
 
  		return $subtopicID;
 	}
+
+	/**
+	 * Get label for exercise
+	 *
+	 * Loads specific helper to access exercise function
+	 *
+	 * @param int $id Exercise ID
+	 *
+	 * @return array $exercise Exercise data
+	 */
+	public function ExerciseLabel($id) {
+
+		$query 		= $this->db->get_where('exercises', array('id' => $id));
+		$exercise 	= $query->result()[0]; 
+
+		return $exercise->label;
+	}
+
+
+	/**
+	 * Get subtopic title
+	 *
+	 * @param int $id Subtopic ID
+	 *
+	 * @return string $title Title
+	 */
+	public function SubtopicTitle($id) {
+
+		$subtopics = $this->db->get_where('subtopics', array('id' => $id));
+
+		if (count($subtopics->result()) > 0) {
+
+			$subtopic = $subtopics->result()[0];
+			$title = $subtopic->name;
+
+		} else {
+
+			$title = 'Kezdőlap';
+
+		}
+
+		return $title;
+	}
+
+	/**
+	 * Get link for exercise
+	 *
+	 * @param int $id Exercise ID
+	 *
+	 * @return string $href Link
+	 */
+	public function ExerciseLink($id) {
+
+		$exercises = $this->db->get_where('exercises', array('id' => $id));
+
+		if (count($exercises->result()) == 1) {
+
+
+			$exercise = $exercises->result()[0];
+
+			if ($this->Session->CheckLogin() || $exercise->status == 'OK') {
+
+				$title = $exercise->name;
+				$link = base_url().'view/exercise/'.$exercise->id;
+				$name = $exercise->name;
+
+			} else {
+
+				$link = base_url().'view/main/';
+				$name = 'Kezdőlap';
+
+			}
+
+		} else {
+
+			$link = base_url().'view/main/';
+			$name = 'Kezdőlap';
+
+		}
+
+		return array(
+			'link' 	=> $link,
+			'name' 	=> $name
+			);
+	}
+
+	/**
+	 * Get link for subtopic
+	 *
+	 * @param int $id Subtopic ID
+	 *
+	 * @return string $link Link
+	 */
+	public function SubtopicLink($id) {
+
+		$subtopics = $this->db->get_where('subtopics', array('id' => $id));
+
+		if (count($subtopics->result()) > 0 &&
+			($this->Session->CheckLogin() || $this->Database->SubtopicStatus($id) == 'OK')) {
+
+			$subtopic = $subtopics->result()[0];
+			$link = base_url().'view/subtopic/'.$subtopic->id;
+			$name = $subtopic->name;
+
+		} else {
+
+			$link = base_url().'view/main/';
+			$name = 'Kezdőlap';
+
+		}
+
+		return array(
+			'link' => $link,
+			'name' => $name
+			);
+	}
 }
 
 ?>

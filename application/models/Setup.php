@@ -115,7 +115,7 @@ class Setup extends CI_model {
 							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							subtopicID 	INT NOT NULL,
 							level		INT,
-							label 		VARCHAR(30) NOT NULL UNIQUE,
+							label 		VARCHAR(30) NOT NULL,
 							name 		VARCHAR(120),
 							status 		VARCHAR(20),
 							FOREIGN KEY (subtopicID) REFERENCES subtopics(id)

@@ -291,7 +291,6 @@ class Session extends CI_model {
 			'hints_all' 	=> $data['hints_all'],
 			'hints_used' 	=> $data['hints_used'],
 			'explanation' 	=> $data['explanation'],
-			'hint_replace' 	=> $data['hint_replace'],
 		);
 
 		$this->session->set_userdata('exercise', $sessiondata);
@@ -331,32 +330,43 @@ class Session extends CI_model {
 	 * Get exercise hint from session
 	 *
 	 * @param string $hash Exercise hash
-	 * @param int    $id   Order of hint
+	 * @param int    $id   Id of hint
+	 * @param string $type Request type (prev/next)
 	 *
 	 * @return array $data Exercise data
 	 */
-	public function GetExerciseHint($hash, $id) {
+	public function GetExerciseHint($hash, $id, $type) {
 
 		$exercise = $this->session->userdata('exercise');
 
-		// print_r($id);
+		$hints_all 	= $exercise[$hash]['hints_all'];
+		$hints_used = $exercise[$hash]['hints_used'];
+		// print_r($type);
 
-		$hints_all 		= $exercise[$hash]['hints_all'];
-		$hints_used 	= $exercise[$hash]['hints_used'];
-		$hint_replace 	= $exercise[$hash]['hint_replace'];
-
-		$hint_current = ($id !== NULL ? $id : $hints_used);
-		$hint_current = min($hints_all-1, $hint_current);
-		$hint_current = max(0, $hint_current);
-
-		if ($id == NULL && $hints_all == $hints_used) {
-			$explanation = '';
+		// Choose id of current hint
+		if ($id == NULL) {
+			if ($hints_all == $hints_used) { // no hints left
+				return NULL;
+			}
+			$hint_current = $hints_used + 1;
+		} elseif ($type == 'prev') {
+			$hint_current = --$id;
+			if ($hint_current == 0) { // no previous hint
+				return NULL;
+			}
+		} elseif ($type == 'next') {
+			$hint_current = ++$id;
+			if ($hint_current > $hints_all) { // no next hint
+				return NULL;
+			}
 		} else {
-			$explanation = $exercise[$hash]['explanation'][$hint_current];
+			$hint_current = $id;
 		}
 
+		$explanation = $exercise[$hash]['explanation'][$hint_current-1];
+
 		// Update number of used hints
-		if ($hint_current >= $hints_used && $hints_used < $hints_all) {
+		if ($hint_current > $hints_used && $hints_used <= $hints_all) {
 			$exercise[$hash]['hints_used'] = ++$hints_used;
 			$this->session->set_userdata('exercise', $exercise);
 		}
@@ -367,7 +377,6 @@ class Session extends CI_model {
 		return array('explanation' 	=> $explanation,
 					'hints_all' 	=> $hints_all,
 					'hints_used' 	=> $hints_used,
-					'hint_replace' 	=> $hint_replace,
 					'hint_current' 	=> $hint_current);
 	}
 

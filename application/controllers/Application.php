@@ -70,14 +70,15 @@ class Application extends CI_controller {
 	 * Get hint for exercise
 	 *
 	 * @param string $hash Exercise hash
-	 * @param int    $id   Order of hint
+	 * @param int    $id   Id of hint
+	 * @param string $type Request type (prev/next)
 	 *
 	 * @return void
 	 */
-	public function GetHint($hash, $id=NULL) {
+	public function GetHint($hash, $id=NULL, $type='next') {
 
 		$this->load->model('Session');
-		$result = $this->Session->GetExerciseHint($hash, $id);
+		$result = $this->Session->GetExerciseHint($hash, $id, $type);
 		echo json_encode($result);
 	}
 
