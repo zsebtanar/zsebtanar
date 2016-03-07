@@ -392,7 +392,8 @@ class Html extends CI_model {
 			if (is_array($segment)) {
 				$details = $this->AddExplanationDetails($segment);
 				if ($key1 > 0) {
-					$page[$key1-1] .= '<button class="pull-right btn btn-default" data-toggle="collapse" data-target="#hint_details'.$key1.'">Részletek</button><br/>'
+					$page[$key1-1] .= '<div><button class="pull-right btn btn-default btn-details" data-toggle="collapse" data-target="#hint_details'.$key1.'">'
+						.'Részletek</button></div><br/>'
 						.'<div id="hint_details'.$key1.'" class="collapse well well-sm small">'.$details.'</div>';
 				} else {
 					print_r('Az útmutató szerkezete hibás!');

@@ -59,6 +59,25 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "12. osztály",
+			"topics": [
+				{
+					"name": "Érettségi",
+					"subtopics": [
+						{
+							"name": "2015. október 13.",
+							"exercises": [
+								{
+									"label": "Quadratic_equation",
+									"name": "Másodfokú egyenlet"
+								}
+							]
+						}
+					]
+				}
+			]
 		}
 	]
 }

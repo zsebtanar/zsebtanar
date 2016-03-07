@@ -144,3 +144,11 @@ a.panel-heading-title:hover, a.panel-heading-title:visited, a.panel-heading-titl
 .prev_link a , .next_link a {
     border: 1px solid #ddd  !important;
 }
+
+.btn-details {
+    margin: 10px;
+}
+
+div[id^='hint_details'] {
+    margin-top: 30px;  
+}

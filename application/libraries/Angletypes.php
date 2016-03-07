@@ -3,15 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Angletypes {
 
-	// Class constructor
-	public function __construct() {
+	// Define type of angle
+	function Generate($level) {
 
 		$CI =& get_instance();
 		$CI->load->helper('maths');
-	}
-
-	// Define type of angle
-	function Generate($level) {
 
 		$options = array(
 			'nullszög',

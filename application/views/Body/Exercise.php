@@ -35,6 +35,10 @@
 
 						$this->load->view('Input/Fraction');
 
+					} elseif ($type == 'equation2') {
+
+						$this->load->view('Input/Equation2');
+
 					}?>
 
 					<input type="hidden" name="hash" value="<?php echo $hash;?>">

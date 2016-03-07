@@ -131,6 +131,10 @@ class Check extends CI_model {
 			case 'fraction':
 				list($status, $message) = $this->GenerateMessagesFraction($answer, $correct, $solution);
 				break;
+
+			case 'equation2':
+				list($status, $message) = $this->GenerateMessagesEquation2($answer, $correct, $solution);
+				break;
 		}
 
 		$submessages = (isset($submessages) ? $submessages : []);
@@ -327,6 +331,41 @@ class Check extends CI_model {
 			$frac_user = $num_user/$denom_user;
 
 			if ($frac != $frac_user) {
+				$status = 'WRONG';
+				$message = 'A helyes válasz: '.$solution;
+			} else {
+				$status = 'CORRECT';
+				$message = 'Helyes válasz!';
+			}
+		}
+
+		return array($status, $message);
+	}
+
+	/**
+	 * Generate messages for fraction type exercises
+	 *
+	 * @param array  $answer   User answer
+	 * @param int    $correct  Correct answer
+	 * @param string $solution Solution
+	 *
+	 * @return string $status     Status (NOT_DONE/CORRECT/WRONG)
+	 * @return string $message    Message
+	 * @return array  $submessage Submessages
+	 */
+	public function GenerateMessagesEquation2($answer, $correct, $solution) {
+
+		if ($answer[0] == NULL && $answer[1] == NULL) {
+			$status = 'NOT_DONE';
+			$message = 'Hiányzik a válasz!';
+		} elseif (($answer[0] == NULL || $answer[1] == NULL) && !is_array($correct)) {
+			$status = 'WRONG';
+			$message = 'A helyes válasz: '.$solution;
+		} else {
+			$answer[0] = floatval($answer[0]);
+			$answer[1] = floatval($answer[1]);
+			$result = array_diff($answer, $correct);
+			if (count($result) > 0) {
 				$status = 'WRONG';
 				$message = 'A helyes válasz: '.$solution;
 			} else {
