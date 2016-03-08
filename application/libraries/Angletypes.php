@@ -38,7 +38,7 @@ class Angletypes {
 
 		$question = 'Milyen típusú az alábbi szög?'.$this->SVG($angle);
 
-		$explanation = $this->Explanation();
+		$hints = $this->Hints();
 		
 		shuffle($options);
 		$correct = array_search($angle_type, $options);
@@ -48,7 +48,7 @@ class Angletypes {
 			'correct' 	=> $correct,
 			'options' 	=> $options,
 			'solution'	=> $solution,
-			'explanation' => $explanation
+			'hints' 	=> $hints
 		);
 	}
 
@@ -102,19 +102,19 @@ class Angletypes {
 		return $svg;
 	}
 
-	// Generate explanation
-	function Explanation() {
+	// Generate hints
+	function Hints() {
 
-		$explanation[][] = 'A $0°$-os szöget <b>nullszög</b>nek nevezzük:'.$this->SVG(0, $showdegrees=TRUE);
-		$explanation[][] = 'A $0°$-nál nagyobb, de $90°$-nál kisebb szöget <b>hegyesszög</b>nek nevezzük:'.$this->SVG(45, $showdegrees=TRUE);
-		$explanation[][] = 'A $90°$-os szöget <b>derékszög</b>nek nevezzük:'.$this->SVG(90, $showdegrees=TRUE);
-		$explanation[][] = 'A $90°$-nál nagyobb, de $180°$-nál kisebb szöget <b>tompaszög</b>nek nevezzük:'.$this->SVG(135, $showdegrees=TRUE);
-		$explanation[][] = 'A $180°$-os szöget <b>egyenesszög</b>nek nevezzük:'.$this->SVG(180, $showdegrees=TRUE);
-		$explanation[][] = 'A $180°$-nál nagyobb, de $360°$-nál kisebb szöget <b>homorúszög</b>nek nevezzük:'.$this->SVG(270, $showdegrees=TRUE);
-		$explanation[][] = 'A $360°$-os szöget (ami pont ugyanott van, mint a $0°$) <b>teljesszög</b>nek nevezzük:'.$this->SVG(360, $showdegrees=TRUE)
+		$hints[][] = 'A $0°$-os szöget <b>nullszög</b>nek nevezzük:'.$this->SVG(0, $showdegrees=TRUE);
+		$hints[][] = 'A $0°$-nál nagyobb, de $90°$-nál kisebb szöget <b>hegyesszög</b>nek nevezzük:'.$this->SVG(45, $showdegrees=TRUE);
+		$hints[][] = 'A $90°$-os szöget <b>derékszög</b>nek nevezzük:'.$this->SVG(90, $showdegrees=TRUE);
+		$hints[][] = 'A $90°$-nál nagyobb, de $180°$-nál kisebb szöget <b>tompaszög</b>nek nevezzük:'.$this->SVG(135, $showdegrees=TRUE);
+		$hints[][] = 'A $180°$-os szöget <b>egyenesszög</b>nek nevezzük:'.$this->SVG(180, $showdegrees=TRUE);
+		$hints[][] = 'A $180°$-nál nagyobb, de $360°$-nál kisebb szöget <b>homorúszög</b>nek nevezzük:'.$this->SVG(270, $showdegrees=TRUE);
+		$hints[][] = 'A $360°$-os szöget (ami pont ugyanott van, mint a $0°$) <b>teljesszög</b>nek nevezzük:'.$this->SVG(360, $showdegrees=TRUE)
 						.'A $360°$-nál nagyobb szögeket pedig <b>forgásszög</b>nek nevezzük.';
 
-		return $explanation;
+		return $hints;
 	}
 }
 

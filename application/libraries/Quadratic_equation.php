@@ -15,13 +15,17 @@ class Quadratic_equation {
 		$rand_key2 = array_rand($values, 1);
 		$x1 = $values[$rand_keys[0]];
 		$x2 = $values[$rand_keys[1]];
+		// $x1 = 0;
+		// $x2 = 1;
 		// print_r('x1='.$x1.', x2='.$x2.'<br/>');
 
 		// Generate coefficients (using Viète-formulae)
 		// ax^2+bx+c=d
 		$a = rand(1,ceil($level/3))*(-1)^(rand(1,2));
+		// $a = -3;
 		$b = $a*($x1 + $x2);
 		$d = rand(-$level, $level);
+		// $d = 1;
 		$c = $a*$x1*$x2+$d;
 		// $a = -3;
 		// $b = 0;
@@ -33,7 +37,7 @@ class Quadratic_equation {
 		$equation = $this->Equation($a, $b, $c, $d, $x1, $x2);
 
 		$question = 'Oldja meg '.The($a).' $'.$equation.'$ egyenletet a valós számok halmazán!';
-		$explanation = $this->Explanation($a, $b, $c, $d, $x1, $x2);
+		$hints = $this->Hints($a, $b, $c, $d, $x1, $x2);
 
 		if ($x1 != $x2) {
 			$correct = array($x1, $x2);
@@ -48,11 +52,11 @@ class Quadratic_equation {
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
 			'type' 		=> 'equation2',
-			'explanation' => $explanation
+			'hints' 	=> $hints
 		);
 	}
 
-	function Explanation($a, $b, $c, $d, $x1, $x2) {
+	function Hints($a, $b, $c, $d, $x1, $x2) {
 
 		if ($d != 0) {
 			$text[] = 'Először '.($d > 0 ? 'vonjunk ki' : 'adjunk hozzá').' az egyenlet mindkét '.($d > 0 ? 'oldalából' : 'oldalához').' $'.abs($d).'$-'.Dativ($d).', hogy $0$ legyen a jobb oldalon!';
@@ -60,7 +64,7 @@ class Quadratic_equation {
 			$text[] = '$$'.$equation1.'$$';
 			$equation2 = $this->Equation($a, $b, $c-$d, 0, $x1, $x2);
 			$text[] = '$$'.$equation2.'$$';
-			// $explanation[] = $text;
+			// $hints[] = $text;
 		}
 
 		$text = [];
@@ -91,9 +95,9 @@ class Quadratic_equation {
 
 		$text[] = $this->SolverDetails($a, $aa, $b, $bb, $c, $cc);
 		
-		$explanation[] = $text;
+		$hints[] = $text;
 
-		return $explanation;
+		return $hints;
 	}
 
 	// ax^2+bx+c-e=d-e (solution: x1, x2)
@@ -133,7 +137,7 @@ class Quadratic_equation {
 			.$bb.'^2-4'.$aa.$cc.'='
 			.pow($b,2).$aacc1.'='
 			.pow($b,2).$aacc2.'='
-			.($a*$c < 0 ? pow($b,2).'+'.abs(4*$a*$c) : '').'='
+			.($a*$c < 0 ? pow($b,2).'+'.abs(4*$a*$c).'=' : '')
 			.$sqr.'$$';
 
 		if ($sqr != 0) {

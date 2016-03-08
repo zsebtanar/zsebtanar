@@ -290,7 +290,7 @@ class Session extends CI_model {
 			'solution'		=> $data['solution'],
 			'hints_all' 	=> $data['hints_all'],
 			'hints_used' 	=> $data['hints_used'],
-			'explanation' 	=> $data['explanation'],
+			'hints' 		=> $data['hints'],
 		);
 
 		$this->session->set_userdata('exercise', $sessiondata);
@@ -316,10 +316,10 @@ class Session extends CI_model {
 		$id 		= $exercise[$hash]['id'];
 		$hints_used	= $exercise[$hash]['hints_used'];
 		$hints_all	= $exercise[$hash]['hints_all'];
-		$explanation = $exercise[$hash]['explanation'];
+		$hints 		= $exercise[$hash]['hints'];
 
 		return array($correct,
-			$explanation,
+			$hints,
 			$hints_used,
 			$hints_all,
 			$solution,
@@ -341,7 +341,6 @@ class Session extends CI_model {
 
 		$hints_all 	= $exercise[$hash]['hints_all'];
 		$hints_used = $exercise[$hash]['hints_used'];
-		// print_r($type);
 
 		// Choose id of current hint
 		if ($id == NULL) {
@@ -363,7 +362,7 @@ class Session extends CI_model {
 			$hint_current = $id;
 		}
 
-		$explanation = $exercise[$hash]['explanation'][$hint_current-1];
+		$hints = $exercise[$hash]['hints'][$hint_current-1];
 
 		// Update number of used hints
 		if ($hint_current > $hints_used && $hints_used <= $hints_all) {
@@ -371,10 +370,7 @@ class Session extends CI_model {
 			$this->session->set_userdata('exercise', $exercise);
 		}
 
-		// print_r($hint_current);
-		// print_r($explanation);
-
-		return array('explanation' 	=> $explanation,
+		return array('hints' 		=> $hints,
 					'hints_all' 	=> $hints_all,
 					'hints_used' 	=> $hints_used,
 					'hint_current' 	=> $hint_current);

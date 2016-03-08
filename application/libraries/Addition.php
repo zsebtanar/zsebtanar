@@ -3,16 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Addition {
 
-	// Class constructor
-	public function __construct() {
+	// Add numbers
+	function Generate($level) {
 
 		$CI =& get_instance();
 		$CI->load->helper('maths');
 		$CI->load->helper('language');
-	}
-
-	// Add numbers
-	function Generate($level) {
 
 		if ($level <= 3) {
 			$length1 = 1;
@@ -37,18 +33,18 @@ class Addition {
 		$solution = '$'.$correct.'$';
 		}
 
-		$explanation = $this->Explanation(array($num1, $num2));
+		$hints = $this->Hints(array($num1, $num2));
 
 		return array(
-			'question'		=> $question,
-			'correct'		=> $correct,
-			'solution'		=> $solution,
-			'explanation'	=> $explanation
+			'question'	=> $question,
+			'correct'	=> $correct,
+			'solution'	=> $solution,
+			'hints'		=> $hints
 		);
 	}
 
-	// Explanation for addition
-	function Explanation($num_array)
+	// Hints for addition
+	function Hints($num_array)
 	{
 		foreach ($num_array as $key => $num) {
 			$digits_num = str_split($num);
@@ -96,12 +92,12 @@ class Addition {
 				$text .= 'Tehát az összeg <span class="label label-success">$'.array_sum($num_array).'$</span>.';
 			}
 
-			$explanation[][] = $text;
+			$hints[][] = $text;
 
 			$remain_old = $remain_new;
 			$remain_new = 0;
 		}
-		return $explanation;
+		return $hints;
 	}
 }
 

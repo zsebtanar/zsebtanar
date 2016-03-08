@@ -305,7 +305,7 @@ class Html extends CI_model {
 			$data = $this->getColumnWidth($data);
 		}
 
-		$data = $this->AddExplanation($id, $data);
+		$data = $this->AddHints($id, $data);
 		
 		$hash = random_string('alnum', 16);
 
@@ -322,76 +322,76 @@ class Html extends CI_model {
 	}
 
 	/**
-	 * Add explanation to exercise (if there is none)
+	 * Add hints to exercise (if there is none)
 	 *
 	 * @param int   $id   Exercise id
 	 * @param array $data Exercise data
 	 *
-	 * @return array $data Exercise data (with explanation)
+	 * @return array $data Exercise data (with hints)
 	 */
-	public function AddExplanation($id, $data) {
+	public function AddHints($id, $data) {
 
-		$explanation = [];
-		if (isset($data['explanation'])) {
-			if (is_array($data['explanation'])) {
+		$hints = [];
+		if (isset($data['hints'])) {
+			if (is_array($data['hints'])) {
 
 				// Is there more page?
 				$multipage = TRUE;
-				foreach ($data['explanation'] as $value) {
+				foreach ($data['hints'] as $value) {
 					if (!is_array($value)) {
 						$multipage = FALSE;
 					}
 				}
 
-				// Create multipage explanation
+				// Create multipage hints
 				if ($multipage) {
-					foreach ($data['explanation'] as $page) {
-						$page = $this->AddExplanationPage($page);
-						$explanation = array_merge($explanation, $page);
+					foreach ($data['hints'] as $page) {
+						$page = $this->AddHintPage($page);
+						$hints = array_merge($hints, $page);
 						
 					}
 				} else {
 
-					$page = $this->AddExplanationPage($data['explanation']);
-					$explanation = array_merge($explanation, $page);
-					// print_r($explanation);
+					$page = $this->AddHintPage($data['hints']);
+					$hints = array_merge($hints, $page);
+					// print_r($hints);
 
 				}
 
 			} else {
 
-				// Single explanation
-				$page = $this->AddExplanationPage($data['explanation']);
-				$explanation = array_merge($explanation, $page);
+				// Single hints
+				$page = $this->AddHintPage($data['hints']);
+				$hints = array_merge($hints, $page);
 
 			}
 		} else {
 
-			// No explanation
-			$explanation =  NULL;
+			// No hints
+			$hints =  NULL;
 
 		}
 
-		$data['explanation']	= $explanation;
-		$data['hints_all'] 		= count($explanation);
-		$data['hints_used'] 	= 0;
+		$data['hints']		= $hints;
+		$data['hints_all'] 	= count($hints);
+		$data['hints_used'] = 0;
 
 		return $data;
 	}
 
 	/**
-	 * Add page to explanation
+	 * Add page to hints
 	 *
-	 * @param array $page Explanation data
+	 * @param array $page Hints data
 	 *
-	 * @return array $page_new Explanation data (restructured)
+	 * @return array $page_new Hints data (restructured)
 	 */
-	public function AddExplanationPage($page) {
+	public function AddHintPage($page) {
 
 		// Details
 		foreach ($page as $key1 => $segment) {
 			if (is_array($segment)) {
-				$details = $this->AddExplanationDetails($segment);
+				$details = $this->AddHintDetails($segment);
 				if ($key1 > 0) {
 					$page[$key1-1] .= '<div><button class="pull-right btn btn-default btn-details" data-toggle="collapse" data-target="#hint_details'.$key1.'">'
 						.'Részletek</button></div><br/>'
@@ -417,13 +417,13 @@ class Html extends CI_model {
 	}
 
 	/**
-	 * Add details to explanation
+	 * Add details to hints
 	 *
-	 * @param array $subsegment Explanation data
+	 * @param array $subsegment Hints data
 	 *
-	 * @return string $details Explanation data (modified)
+	 * @return string $details Hints data (modified)
 	 */
-	public function AddExplanationDetails($subsegment) {
+	public function AddHintDetails($subsegment) {
 
 		$details = '';
 		foreach ($subsegment as $subsubsegment) {

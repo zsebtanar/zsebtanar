@@ -42,7 +42,7 @@ class Angletypes2 {
 
 		$CI->load->library('Angletypes');
 
-		$explanation = $CI->angletypes->Explanation();
+		$hints = $CI->angletypes->Hints();
 		
 		shuffle($options);
 		$correct = array_search($angle_type, $options);
@@ -52,7 +52,7 @@ class Angletypes2 {
 			'correct' 	=> $correct,
 			'options' 	=> $options,
 			'solution'	=> $solution,
-			'explanation' => $explanation
+			'hints' 	=> $hints
 		);
 	}
 }

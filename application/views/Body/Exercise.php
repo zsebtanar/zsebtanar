@@ -82,15 +82,15 @@
 			</div>
 		</div>
 		<div class="row">
-			<div id="explanation" class="col-sm-12"></div>
+			<div id="hints" class="col-sm-12"></div>
 		</div>
 		<div class="row"><?php
 
-			if ($this->Session->CheckLogin() && isset($explanation)) {?>
+			if ($this->Session->CheckLogin() && isset($hints)) {?>
 
 			<div class="col-sm-12"><?php
 
-				foreach ($explanation as $hint) {
+				foreach ($hints as $hint) {
 					// print_r('<p>'.$hint.'</p>');
 				}?>
 
@@ -142,20 +142,20 @@
 					var hints_used = Number(data['hints_used']);
 					var hints_left = hints_all - hints_used;
 					if (hints_all > 1) {
-						$("#explanation").html('<ul class="pager"></ul>');
-						$("#explanation").children().append('<li class="prev_hint small"><a onclick="gethint(event,'+hint_current+',\'prev\')"><span class="glyphicon glyphicon-chevron-left"></span></a></li>');
+						$("#hints").html('<ul class="pager"></ul>');
+						$("#hints").children().append('<li class="prev_hint small"><a onclick="gethint(event,'+hint_current+',\'prev\')"><span class="glyphicon glyphicon-chevron-left"></span></a></li>');
 						if (hint_current == 1) {
 							$(".prev_hint").attr('class', 'small disabled');
 						}
-						$("#explanation").children().append('<li class="small"><b>'+hint_current+'/'+hints_all+'</b></li>');
-						$("#explanation").children().append('<li class="next_hint small"><a onclick="gethint(event,'+hint_current+',\'next\')"><span class="glyphicon glyphicon-chevron-right"></span></a></li>');
+						$("#hints").children().append('<li class="small"><b>'+hint_current+'/'+hints_all+'</b></li>');
+						$("#hints").children().append('<li class="next_hint small"><a onclick="gethint(event,'+hint_current+',\'next\')"><span class="glyphicon glyphicon-chevron-right"></span></a></li>');
 						if (hint_current >= hints_all) {
 							$(".next_hint").attr('class', 'small disabled');
 						}
 					}
-					if (data['explanation'] != '') {
-						$("#explanation").append('<p>'+data['explanation']+'</p>');
-						MathJax.Hub.Queue(["Typeset",MathJax.Hub,"explanation"]);
+					if (data['hints'] != '') {
+						$("#hints").append('<p>'+data['hints']+'</p>');
+						MathJax.Hub.Queue(["Typeset",MathJax.Hub,"hints"]);
 						$("#hints_left").html("("+hints_left.toString()+" segítség maradt.)");
 						if (hints_left == 0) {
 							$("#hint_button").attr('class', 'btn btn-danger pull-right disabled');
@@ -225,8 +225,8 @@
 						})
 						break;
 					case 'WRONG':
-						if (data['explanation'] != null) {
-							$("#exercise_explanation").replaceWith('<div class="alert alert-warning text-left">' + data['explanation'] + '</div>');
+						if (data['hints'] != null) {
+							$("#exercise_hints").replaceWith('<div class="alert alert-warning text-left">' + data['hints'] + '</div>');
 							MathJax.Hub.Queue(["Typeset",MathJax.Hub,"hint"]);
 						}
 						$("#message").replaceWith('<div class="alert alert-danger"><strong><span class=\"glyphicon glyphicon-remove\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>');
