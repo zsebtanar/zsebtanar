@@ -80,6 +80,10 @@
 									"name": "Másodfokú egyenlet",
 									"finished": "2016-03-07",
 									"status": "OK"
+								},
+								{
+									"label": "Triangle_angles",
+									"name": "Háromszög szögei"
 								}
 							]
 						}
