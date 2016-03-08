@@ -15,7 +15,8 @@ class Setup extends CI_model {
 	}
 
 	// Define name and type of table columns
-	public static $table_columns = array(
+	public function GetTableColumns() {
+		return array(
 			'classes' => array(
 				'name'	=> 'NOT NULL'
 				),
@@ -30,13 +31,14 @@ class Setup extends CI_model {
 			'exercises' => array(
 				'subtopicID'=> 'FROM SESSION',
 				'level' 	=> 9,
-				'finished'	=> date('Y-m-d'),
+				'finished'	=> date("Y-m-d"),
 				'status' 	=> 'IN PROGRESS',
 				'label'		=> 'NOT NULL',
 				'name'		=> NULL,
 				'status'	=> NULL,
 				),
 			);
+	}
 
 	/**
 	 * Create tables
@@ -45,7 +47,7 @@ class Setup extends CI_model {
 	 */
 	public function CreateTables() {
 
-		$tables = SELF::$table_columns;
+		$tables = $this->GetTableColumns();
 		foreach (array_keys($tables) as $table) {
 			$this->CreateTable($table);
 		}
@@ -58,7 +60,7 @@ class Setup extends CI_model {
 	 */
 	public function DropTables() {
 
-		$tables = array_reverse(SELF::$table_columns);
+		$tables = array_reverse($this->GetTableColumns());
 		foreach (array_keys($tables) as $table) {
 			$this->DropTable($table);
 		}
@@ -159,12 +161,12 @@ class Setup extends CI_model {
 		// print_r($table);
 		if ($table) {
 			// Check table
-			if (NULL === SELF::$table_columns[$table]) {
+			if (NULL === $this->GetTableColumns()[$table]) {
 				show_error('Table '.$table.' not defined!<br />');
 			} else {
 
 				// Get values
-				foreach (SELF::$table_columns[$table] as $col => $type) {
+				foreach ($this->GetTableColumns()[$table] as $col => $type) {
 					if (!isset($data[$col])) {
 
 						// error: value missing!
@@ -227,7 +229,7 @@ class Setup extends CI_model {
 		}
 
 		// Recursive check for other table names
-		foreach (array_keys(SELF::$table_columns) as $column) {
+		foreach (array_keys($this->GetTableColumns()) as $column) {
 
 			if (isset($data[$column])) {
 
