@@ -55,7 +55,7 @@
 
 	</div>
 	<div class="col-md-3">
-		<div class="panel panel-success">
+		<div id="latest_exercises" class="panel panel-success">
 			<div class="panel-heading small"><b>Legutóbbi feladatok</b></div><?php
 
 		foreach ($latest as $exercise) {?>

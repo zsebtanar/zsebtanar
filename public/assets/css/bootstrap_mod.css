@@ -152,3 +152,7 @@ a.panel-heading-title:hover, a.panel-heading-title:visited, a.panel-heading-titl
 div[id^='hint_details'] {
     margin-top: 30px;  
 }
+
+#latest_exercises {
+    margin-top: 40px;
+}

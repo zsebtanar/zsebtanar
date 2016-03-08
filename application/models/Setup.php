@@ -30,7 +30,7 @@ class Setup extends CI_model {
 			'exercises' => array(
 				'subtopicID'=> 'FROM SESSION',
 				'level' 	=> 9,
-				'finished'	=> 'NOT NULL',
+				'finished'	=> date('Y-m-d'),
 				'status' 	=> 'IN PROGRESS',
 				'label'		=> 'NOT NULL',
 				'name'		=> NULL,
