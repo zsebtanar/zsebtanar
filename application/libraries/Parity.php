@@ -3,12 +3,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Parity {
 
-	// Define parity of number
-	function Generate($level) {
+	// Class constructor
+	function __construct() {
 
 		$CI =& get_instance();
 		$CI->load->helper('maths');
 		$CI->load->helper('language');
+		
+		return;
+	}
+
+	// Define parity of number
+	function Generate($level) {
 
 		$len = max(1, $level);
 

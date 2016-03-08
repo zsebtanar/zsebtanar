@@ -3,11 +3,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Count_Parity {
 
-	// Count number of even/odd numbers
-	function Generate($level) {
+	// Class constructor
+	function __construct() {
 
 		$CI =& get_instance();
 		$CI->load->helper('maths');
+		
+		return;
+	}
+
+	// Count number of even/odd numbers
+	function Generate($level) {
 
 		$no = max(2, $level);
 		$len = max(1, round($level/2));

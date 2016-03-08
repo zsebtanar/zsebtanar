@@ -3,12 +3,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Addition {
 
-	// Add numbers
-	function Generate($level) {
+	// Class constructor
+	function __construct() {
 
 		$CI =& get_instance();
 		$CI->load->helper('maths');
 		$CI->load->helper('language');
+
+		return;
+	}
+
+	// Add numbers
+	function Generate($level) {
 
 		if ($level <= 3) {
 			$length1 = 1;

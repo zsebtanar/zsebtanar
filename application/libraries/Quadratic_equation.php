@@ -3,11 +3,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Quadratic_equation {
 
-	// Solve quadratic equation
-	function Generate($level) {
+	// Class constructor
+	function __construct() {
 
 		$CI =& get_instance();
+		$CI->load->helper('maths');
 		$CI->load->helper('language');
+		
+		return;
+	}
+
+	// Solve quadratic equation
+	function Generate($level) {
 
 		// Generate solutions
 		$values = range(-$level, $level);

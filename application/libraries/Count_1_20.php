@@ -3,11 +3,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Count_1_20 {
 
-	// Generate random number between 1 and 20
-	function Generate($level) {
+	// Class constructor
+	function __construct() {
 
 		$CI =& get_instance();
-		$CI->load->helper('url');
+		$CI->load->helper('maths');
+		
+		return;
+	}
+
+	// Generate random number between 1 and 20
+	function Generate($level) {
 
 		$num = rand(max(0,2*($level-2)), min(20,3*$level));
 

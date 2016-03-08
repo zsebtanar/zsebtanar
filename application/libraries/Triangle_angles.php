@@ -3,46 +3,91 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Triangle_angles {
 
-	// Define triangle angle based on two given angles
-	function Generate($level) {
+	// Class constructor
+	function __construct() {
 
 		$CI =& get_instance();
 		$CI->load->helper('maths');
 		$CI->load->helper('language');
+		
+		return;
+	}
 
-		$len = max(1, $level);
+	// Define triangle angle based on two given angles
+	function Generate($level) {
 
-		$num = numGen(rand(ceil($len/2),$len), 10);
+		// Define random angles
+		$angles = $this->GetAngles($level);
 
-		$question = 'Páros vagy páratlan az alábbi szám?$$'.$num.'$$';
+		// Define angle type
+		$options 	= array('belső', 'külső');
+		$types[0] 	= $options[rand(0,1)];
+		$types[1] 	= $options[rand(0,1)];
+		$types[2] 	= $options[rand(0,1)];
 
-		$options = array('páros', 'páratlan');
-		$index = $num%2;
-		$solution = $options[$index];
+		$question = 'Egy $ABC$ háromszög $A$ csúcsnál lévő <b>'.$types[0].'</b> szöge $'
+			.($types[0] == 'belső' ? $angles[0] : 180-$angles[0]).'°$-os, '
+			.'$B$ csúcsnál lévő <b>'.$types[1].'</b> szöge $'
+			.($types[1] == 'belső' ? $angles[1] : 180-$angles[1]).'°$-os. '
+			.'Hány fokos a háromszög $C$ csúcsnál lévő <b>'.$types[2].'</b> szöge?';
 
-		shuffle($options);
-
-		$correct = array_search($solution, $options);
-		$type = 'quiz';
-
-		if ($num > 9) {
-			$hints[] = 'Azt, hogy egy szám páros vagy páratlan, az <b>utolsó számjegy</b> dönti el.';
-			$hints[] = 'Ha a szám utolsó számjegye<ul><li>$0$, $2$, $4$, $6$ vagy $8$, akkor a szám <b>páros</b>,</li><li>$1$, $3$, $5$, $7$ vagy $9$, akkor a szám <b>páratlan</b>.</li></ul>';
-			$hints[] = ucfirst(The($num)).' $'.$num.'$ utolsó jegye $'.strval($num%10).'$, ezért '.The($num).' $'.$num.'$ <span class="label label-success">'.$solution.'</span>.';
-		} else {
-			$hints[] = 'A $0$, $2$, $4$, $6$, $8$ <b>páros számok</b>.';
-			$hints[] = 'Az $1$, $3$, $5$, $7$, $9$ <b>páratlan számok</b>.';
-			$hints[] = ucfirst(The($num)).' $'.$num.'$ <span class="label label-success">'.$solution.'</span> szám.';
-		}
+		$correct 	= ($types[2] == 'belső' ? $angles[2] : 180-$angles[2]);
+		$solution 	= '$'.$correct.'°$-os';
+		$hints 		= $this->Hints($angles, $types);
 
 		return array(
 			'question' 	=> $question,
-			'options' 	=> $options,
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
-			'type' 		=> $type,
-			'hints' 	=> $hints
+			'hints'		=> $hints
 		);
+	}
+
+	// Define random angles
+	function GetAngles($level) {
+
+		if ($level <= 3) { // 30°, 60°, 90° ...
+
+			$num1 = rand(1,4);
+			$num2 = rand(1,5-$num1);
+			$num3 = 6-($num1+$num2);
+			$angles[0] = $num1 * 30;
+			$angles[1] = $num2 * 30;
+			$angles[2] = $num3 * 30;
+
+		} elseif ($level <= 6) { // 10°, 20°, 30° ...
+
+			$num1 = rand(1,16);
+			$num2 = rand(1,17-$num1);
+			$num3 = 18-($num1+$num2);
+			$angles[0] = $num1 * 10;
+			$angles[1] = $num2 * 10;
+			$angles[2] = $num3 * 10;
+
+		} else { // 1°, 2°, 3° ...
+
+			$num1 = rand(1,178);
+			$num2 = rand(1,179-$num1);
+			$num3 = 180-($num1+$num2);
+			$angles[0] = $num1;
+			$angles[1] = $num2;
+			$angles[2] = $num3;
+
+		}
+
+		return $angles;
+	}
+
+	function Hints($angles, $types) {
+
+		$hints[][] = 'Rajzoljunk egy háromszöget! A csúcsoknál lévő <b>belső</b> szögeket $\alpha$-val, $\beta$-val és $\gamma$-val, '
+			.'a <b>külső</b> szögeket pedig $\alpha\'$-vel, $\beta\'$-vel és $\gamma\'$-vel jelöljük:';
+
+		return $hints;
+	}
+
+	function DrawTriangle() {
+
 	}
 }
 
