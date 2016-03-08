@@ -3,11 +3,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Angletypes {
 
-	// Define type of angle
-	function Generate($level) {
+	// Class constructor
+	function __construct() {
 
 		$CI =& get_instance();
 		$CI->load->helper('maths');
+
+		return;
+	}
+
+	// Define type of angle
+	function Generate($level) {
 
 		$options = array(
 			'nullszög',
@@ -16,7 +22,8 @@ class Angletypes {
 			'tompaszög',
 			'egyenesszög',
 			'homorúszög',
-			'teljesszög'
+			'teljesszög',
+			'forgásszög',
 		);
 
 		$angles = array(
@@ -26,7 +33,8 @@ class Angletypes {
 			rand(95,175),
 			180,
 			rand(185,355),
-			360
+			360,
+			rand(365,450)
 		);
 
 		$index 		= rand(0,count($angles)-1);
@@ -36,7 +44,7 @@ class Angletypes {
 		$solution 	= $angle_type;
 
 
-		$question = 'Milyen típusú az alábbi szög?'.$this->SVG($angle);
+		$question = 'Milyen típusú az alábbi szög?'.$this->DrawAngle($angle);
 
 		$hints = $this->Hints();
 		
@@ -52,8 +60,8 @@ class Angletypes {
 		);
 	}
 
-	// Generate filled arc for specific angle
-	function SVG($angle_deg, $showdegrees=FALSE) {
+	// Draw specific angle
+	function DrawAngle($angle_deg, $showdegrees=FALSE) {
 
 		// $angle_deg = 200;
 
@@ -77,7 +85,7 @@ class Angletypes {
 
 			$svg .= '<circle cx="'.$centerx.'" cy="'.$centery.'" r="'.$radius2.'" stroke="black" fill="none" />';
 
-		} else {
+		} elseif ($angle_deg <= 360) {
 
 			list($x1, $y1) = polarToCartesian($centerx, $centery, $radius1, $angle_deg);
 			list($x2, $y2) = polarToCartesian($centerx, $centery, $radius2, $angle_deg);
@@ -86,6 +94,23 @@ class Angletypes {
 
 			$svg .= '<path stroke="black" fill="none" d="M'.strval($centerx+$radius2).','.$centery.' A'.$radius2.','.$radius2.' 0 '.$large_arc_flag.',0 '.$x2.','.$y2.'" />
 					<line x1="'.$centerx.'" y1="'.$centery.'" x2="'.$x1.'" y2="'.$y1.'" stroke="'.$color2.'" stroke-width="'.$stroke_width.'" />';
+		} else {
+
+			$angle = 0;
+			$radius = 30;
+
+			while ($angle < $angle_deg) {
+				list($x1, $y1) = polarToCartesian($centerx, $centery, $radius, $angle);
+				list($x2, $y2) = polarToCartesian($centerx, $centery, $radius+0.1, min($angle_deg, $angle+5));
+
+				$svg .= '<path stroke="black" fill="none" d="M'.$x1.','.$y1.' A'.$radius.','.strval($radius+0.5).' 0 0,0 '.$x2.','.$y2.'" />';
+
+				$angle += 5;
+				$radius += .1;
+			}
+
+			list($x1, $y1) = polarToCartesian($centerx, $centery, $radius1, $angle_deg);
+			$svg .= '<line x1="'.$centerx.'" y1="'.$centery.'" x2="'.$x1.'" y2="'.$y1.'" stroke="'.$color2.'" stroke-width="'.$stroke_width.'" />';
 		}
 
 		if ($showdegrees) {
@@ -105,14 +130,14 @@ class Angletypes {
 	// Generate hints
 	function Hints() {
 
-		$hints[][] = 'A $0°$-os szöget <b>nullszög</b>nek nevezzük:'.$this->SVG(0, $showdegrees=TRUE);
-		$hints[][] = 'A $0°$-nál nagyobb, de $90°$-nál kisebb szöget <b>hegyesszög</b>nek nevezzük:'.$this->SVG(45, $showdegrees=TRUE);
-		$hints[][] = 'A $90°$-os szöget <b>derékszög</b>nek nevezzük:'.$this->SVG(90, $showdegrees=TRUE);
-		$hints[][] = 'A $90°$-nál nagyobb, de $180°$-nál kisebb szöget <b>tompaszög</b>nek nevezzük:'.$this->SVG(135, $showdegrees=TRUE);
-		$hints[][] = 'A $180°$-os szöget <b>egyenesszög</b>nek nevezzük:'.$this->SVG(180, $showdegrees=TRUE);
-		$hints[][] = 'A $180°$-nál nagyobb, de $360°$-nál kisebb szöget <b>homorúszög</b>nek nevezzük:'.$this->SVG(270, $showdegrees=TRUE);
-		$hints[][] = 'A $360°$-os szöget (ami pont ugyanott van, mint a $0°$) <b>teljesszög</b>nek nevezzük:'.$this->SVG(360, $showdegrees=TRUE)
-						.'A $360°$-nál nagyobb szögeket pedig <b>forgásszög</b>nek nevezzük.';
+		$hints[][] = 'A $0°$-os szöget <b>nullszög</b>nek nevezzük:'.$this->DrawAngle(0, $showdegrees=TRUE);
+		$hints[][] = 'A $0°$-nál nagyobb, de $90°$-nál kisebb szöget <b>hegyesszög</b>nek nevezzük:'.$this->DrawAngle(45, $showdegrees=TRUE);
+		$hints[][] = 'A $90°$-os szöget <b>derékszög</b>nek nevezzük:'.$this->DrawAngle(90, $showdegrees=TRUE);
+		$hints[][] = 'A $90°$-nál nagyobb, de $180°$-nál kisebb szöget <b>tompaszög</b>nek nevezzük:'.$this->DrawAngle(135, $showdegrees=TRUE);
+		$hints[][] = 'A $180°$-os szöget <b>egyenesszög</b>nek nevezzük:'.$this->DrawAngle(180, $showdegrees=TRUE);
+		$hints[][] = 'A $180°$-nál nagyobb, de $360°$-nál kisebb szöget <b>homorúszög</b>nek nevezzük:'.$this->DrawAngle(270, $showdegrees=TRUE);
+		$hints[][] = 'A $360°$-os szöget (ami pont ugyanott van, mint a $0°$) <b>teljesszög</b>nek nevezzük:'.$this->DrawAngle(360, $showdegrees=TRUE);
+		$hints[][] = 'A $360°$-nál nagyobb szögeket pedig <b>forgásszög</b>nek nevezzük:'.$this->DrawAngle(405, $showdegrees=TRUE);
 
 		return $hints;
 	}

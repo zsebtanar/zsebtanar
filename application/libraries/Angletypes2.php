@@ -7,7 +7,6 @@ class Angletypes2 {
 	function Generate($level) {
 
 		$CI =& get_instance();
-		$CI->load->helper('language');
 
 		$options = array(
 			'nullszög',
@@ -37,11 +36,9 @@ class Angletypes2 {
 		$angle 		= $angles[$index];
 		$solution 	= $angle_type;
 
-
 		$question = 'Milyen típusú az a szög, ami $'.$angle.'°$-os?';
 
 		$CI->load->library('Angletypes');
-
 		$hints = $CI->angletypes->Hints();
 		
 		shuffle($options);
