@@ -183,8 +183,8 @@ class Triangle_angles {
 		$Cy = $CCy + ($Ay - $CCy) * (1-$ratio);
 
 		$svg = '<div class="img-question text-center">
-					<svg width="'.$width.'" height="'.$height.'">
-					<rect width="'.$width.'" height="'.$height.'" fill="black" fill-opacity="0.2" />';
+					<svg width="'.$width.'" height="'.$height.'">';
+		// $svg .= '<rect width="'.$width.'" height="'.$height.'" fill="black" fill-opacity="0.2" />';
 
 		$svg .= $this->DrawLine($Ax, $Ay, $Bx, $By);
 		$svg .= $this->DrawLine($Ax, $Ay, $Cx, $Cy);
