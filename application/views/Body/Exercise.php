@@ -104,7 +104,7 @@
 
 <script>
 
-	document.onkeypress = keyPress;
+	document.onkeydown = keyPress;
 
 	function keyPress(e){
 		var x = e || window.event;
@@ -116,6 +116,23 @@
 				checkSolution(x);
 			}
 		}
+		else if(key == 37){
+			data = $('.prev_hint').children().attr('onclick');
+			if (typeof data !== 'undefined') {
+				arr = data.split(/[(,')]/);
+				gethint(x,arr[2],arr[4]);
+			}
+		}
+		else if (key == 39){
+			data = $('.next_hint').children().attr('onclick');
+			if (typeof data === 'undefined') {
+				gethint(x);
+			} else {
+				arr = data.split(/[(,')]/);
+				gethint(x,arr[2],arr[4]);
+			}
+
+		}
 	}
 
 	function gethint(event, id, type){
@@ -124,12 +141,14 @@
 
 		if (typeof id === 'undefined') {
 			id = "";
+		} else {
+			id = Number(id);
 		}
 		if (typeof type === 'undefined') {
 			type = "";
 		}
 		event.preventDefault();
-		if (id == "" || (id > 0 && id <= hints_all)) {
+		if (id == "" || (id > 0 && id <= Number(hints_all))) {
 		$.ajax({
 			type: "GET",
 			url: "<?php echo base_url();?>application/gethint/"+hash+"/"+id.toString()+"/"+type.toString(),
