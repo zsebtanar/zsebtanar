@@ -153,6 +153,7 @@
 							$(".next_hint").attr('class', 'small disabled');
 						}
 					}
+
 					if (data['hints'] != '') {
 						$("#hints").append('<p>'+data['hints']+'</p>');
 						MathJax.Hub.Queue(["Typeset",MathJax.Hub,"hints"]);

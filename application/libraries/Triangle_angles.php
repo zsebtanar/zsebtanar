@@ -26,12 +26,10 @@ class Triangle_angles {
 		$types[2] 	= $options[rand(0,1)];
 
 		$question = 'Egy $ABC$ háromszög $A$ csúcsnál lévő <b>'.$types[0].'</b> szöge $'
-			.($types[0] == 'belső' ? $angles[0] : 180-$angles[0]).'°$-os, '
+			.($types[0] == 'belső' ? $angles[0] : strval(180-$angles[0])).'°$-os, '
 			.'$B$ csúcsnál lévő <b>'.$types[1].'</b> szöge $'
-			.($types[1] == 'belső' ? $angles[1] : 180-$angles[1]).'°$-os. '
+			.($types[1] == 'belső' ? $angles[1] : strval(180-$angles[1])).'°$-os. '
 			.'Hány fokos a háromszög $C$ csúcsnál lévő <b>'.$types[2].'</b> szöge?';
-
-		$question .= $this->DrawTriangle();
 
 		$correct 	= ($types[2] == 'belső' ? $angles[2] : 180-$angles[2]);
 		$solution 	= '$'.$correct.'°$-os';
@@ -76,29 +74,92 @@ class Triangle_angles {
 			$angles[2] = $num3;
 
 		}
-
+		$angles[0] = 120;
+		$angles[1] = 30;
+		$angles[2] = 30;
 		return $angles;
 	}
 
 	function Hints($angles, $types) {
 
-		$hints[][] = 'Rajzoljunk egy háromszöget! A csúcsoknál lévő <b>belső</b> szögeket $\alpha$-val, $\beta$-val és $\gamma$-val, '
-			.'a <b>külső</b> szögeket pedig $\alpha\'$-vel, $\beta\'$-vel és $\gamma\'$-vel jelöljük:';
+		$nodes = ['A', 'B', 'C'];
+
+		$svg[] = 'Rajzoljunk egy háromszöget! (Nem fontos, hogy valósághű legyen.)';
+		$svg[] = $this->DrawTriangle();
+
+		$hints[] = $svg;
+		$svg = [];
+
+		$outer0 = 180-$angles[0];
+		$svg[] = 'Az $A$ csúcsnál lévő <b>'.$types[0].'</b> szög $'.($types[0]=='belső' ? $angles[0] : $outer0).'°$.';		
+		if ($types[0] == 'belső') {
+			$svg[] = 'Jelöljük ezt az ábrán:';
+			$svg[] = $this->DrawTriangle($angles[0]);
+		} else {
+			$svg[] = 'Tudjuk, hogy a külső és belső szög összege $180°$, ezért a <b>belső</b> szög $180°-'.$outer0.'°='.$angles[0].'°$. Jelöljük ezt az ábrán:';
+			$svg[] = $this->DrawTriangle($angles[0], $outer0);
+		}
+
+		$hints[] = $svg;
+		$svg = [];
+		
+		$outer1 = 180-$angles[1];
+		$svg[] = 'A $B$ csúcsnál lévő <b>'.$types[1].'</b> szög $'.($types[1]=='belső' ? $angles[1] : $outer1).'°$.';
+		if ($types[1] == 'belső') {
+			$svg[] = 'Jelöljük ezt az ábrán:';
+			$svg[] = $this->DrawTriangle($angles[0], 0, $angles[1]);
+		} else {
+			$svg[] = 'Tudjuk, hogy a külső és belső szög összege $180°$, ezért a <b>belső</b> szög $180°-'.$outer1.'°='.$angles[1].'°$. Jelöljük ezt az ábrán:';
+			$svg[] = $this->DrawTriangle($angles[0], 0, $angles[1], $outer1);
+		}
+
+		$hints[] = $svg;
+		$svg = [];
+
+		$svg[] = 'Tudjuk, hogy a háromszög belső szögeinek összege $180°$. Ezért a $C$ csúcsnál lévő <b>belső</b> szöget a következőképpen számolhatjuk ki:$$180°-'.$angles[0].'°-'.$angles[1].'°='.$angles[2].'°$$';
+		$svg[] = 'Jelöljük ezt az ábrán:';
+		$svg[] = $this->DrawTriangle($angles[0], 0, $angles[1], 0, $angles[2]);
+
+		$hints[] = $svg;
+		$svg = [];
+		
+		if ($types[2] == 'belső') {
+
+			$svg[] = 'Tehát a $C$ csúcs <b>belső</b> szöge <span class="label label-success">$'.$angles[2].'°$</span>.';
+
+			$hints[] = $svg;
+			$svg = [];
+
+		} else {
+
+			$outer2 = 180-$angles[2];
+			$svg[] = 'Tudjuk, hogy a külső és belső szög összege $180°$, ezért a $C$ csúcsnál lévő <b>külső</b> szög $180°-'.$outer2.'°='.$angles[2].'°$. Jelöljük ezt az ábrán:';
+			$svg[] = $this->DrawTriangle($angles[0], 0, $angles[1], 0, $angles[2], $outer2);
+			$hints[] = $svg;
+			$svg = [];
+
+			$svg[] = 'Tehát a $C$ csúcs <b>külső</b> szöge <span class="label label-success">$'.$outer2.'°$</span>.';
+			$hints[] = $svg;
+			$svg = [];
+		}
 
 		return $hints;
 	}
 
-	
-	function DrawTriangle($angle, $type) {
+	// Draw triangle (svg)
+	function DrawTriangle($Ca=NULL,$Caa=NULL,$Cb=NULL,$Cbb=NULL,$Cc=NULL,$Ccc=NULL) { // captions (c) for inner (a) and outer (aa) angles
 
 		$width 		= 400;
 		$height 	= 300;
 		$color1 	= '#F2F2F2';
 		$color2 	= 'black';
-		$padding	= 20;
+		$padding	= 30;
 
 		$arc_length = 70;
-		$arc_radius = 20;
+
+		$arc_radius_inner 	= 40;
+		$arc_radius_outer1 	= 37;
+		$arc_radius_outer2 	= 43;
 
 		// Outer points
 		$AAx = $padding;
@@ -125,11 +186,40 @@ class Triangle_angles {
 					<svg width="'.$width.'" height="'.$height.'">
 					<rect width="'.$width.'" height="'.$height.'" fill="black" fill-opacity="0.2" />';
 
-		$svg .= $this->DrawLine($AAx, $AAy, $BBx, $BBy);
-		$svg .= $this->DrawLine($Ax, $Ay, $CCx, $CCy);
+		$svg .= $this->DrawLine($Ax, $Ay, $Bx, $By);
+		$svg .= $this->DrawLine($Ax, $Ay, $Cx, $Cy);
 		$svg .= $this->DrawLine($Bx, $By, $Cx, $Cy);
 
-		$svg .= $this->DrawArc($Bx, $By, $BBx, $BBy, $Cx, $Cy, $arc_radius, '$\alpha$');
+		// Nodes
+		$svg .= '<text font-size="15" x="'.$Ax.'" y="'.strval($height-10).'" fill="black">A</text>';
+		$svg .= '<text font-size="15" x="'.$Bx.'" y="'.strval($height-10).'" fill="black">B</text>';
+		$svg .= '<text font-size="15" x="'.strval($Cx-10).'" y="'.strval($Cy-10).'" fill="black">C</text>';
+
+		// Arc
+		if ($Ca) { // caption for A inner
+			$svg .= $this->DrawArc($Ax, $Ay, $Bx, $By, $Cx, $Cy, $arc_radius_inner, 7,-2, $Ca);
+		}
+		if ($Caa) { // caption for A outer
+			$svg .= $this->DrawLine($Ax, $Ay, $AAx, $AAy);
+			$svg .= $this->DrawArc($Ax, $Ay, $Cx, $Cy, $AAx, $AAy, $arc_radius_outer1);
+			$svg .= $this->DrawArc($Ax, $Ay, $Cx, $Cy, $AAx, $AAy, $arc_radius_outer2, 5, 10, $Caa);
+		}
+		if ($Cb) { // caption for B inner
+			$svg .= $this->DrawArc($Bx, $By, $Cx, $Cy, $Ax, $Ay, $arc_radius_inner, 30, 7, $Cb);
+		}
+		if ($Cbb) { // caption for B outer
+			$svg .= $this->DrawLine($Bx, $By, $BBx, $BBy);
+			$svg .= $this->DrawArc($Bx, $By, $BBx, $BBy, $Cx, $Cy, $arc_radius_outer1);
+			$svg .= $this->DrawArc($Bx, $By, $BBx, $BBy, $Cx, $Cy, $arc_radius_outer2, 0, 0, $Cbb);
+		}
+		if ($Cc) { // caption for C inner
+			$svg .= $this->DrawArc($Cx, $Cy, $Ax, $Ay, $Bx, $By, $arc_radius_inner, 25, 20, $Cc);
+		}
+		if ($Ccc) { // caption for C outer
+			$svg .= $this->DrawLine($Cx, $Cy, $CCx, $CCy);
+			$svg .= $this->DrawArc($Cx, $Cy, $Bx, $By, $CCx, $CCy, $arc_radius_outer1);
+			$svg .= $this->DrawArc($Cx, $Cy, $Bx, $By, $CCx, $CCy, $arc_radius_outer2, 5, 5, $Ccc);
+		}
 
 		$svg .= '</svg></div>';
 
@@ -144,7 +234,7 @@ class Triangle_angles {
 	}
 
 	// Draws an arc between P1, P2, P3 (P1 is the center)
-	function DrawArc($x1, $y1, $x2, $y2, $x3, $y3, $radius, $text=NULL) {
+	function DrawArc($x1, $y1, $x2, $y2, $x3, $y3, $radius, $modx=0, $mody=0, $text=NULL) {
 
 		// Draw arc
 		$P12 = sqrt(pow($y2-$y1,2) + pow($x2-$x1,2));
@@ -157,38 +247,21 @@ class Triangle_angles {
 		$xx3 = $x1 + ($x3 - $x1)/$P13*$radius;
 		$yy3 = $y1 + ($y3 - $y1)/$P13*$radius;
 
-		$alpha = $this->Angle($x1, $y1, $x2, $y2, $x3, $y3);
-
 		$svg = '<path stroke="black" fill="none" d="M'.$xx2.','.$yy2.' A'.$radius.','.$radius.' 0 0,0 '.$xx3.','.$yy3.'" />';
 
 		// Draw text
-		$cx = ($xx2 + $xx3) / 2;
-		$cy = ($yy2 + $yy3) / 2;
-
-		$P1C = sqrt(pow($cy-$y1,2) + pow($cx-$x1,2));
-
-		$ccx = $x1 + ($cx - $x1)/$P1C*($radius+7);
-		$ccy = $y1 + ($cy - $y1)/$P1C*($radius+7);
-
 		if ($text) {
+			$cx = ($xx2 + $xx3) / 2;
+			$cy = ($yy2 + $yy3) / 2;
 
-			$svg .= '<text font-size="13" x="'.$ccx.'" y="'.$ccy.'" fill="black">'.$text.'</text>';
+			$P1C = sqrt(pow($cy-$y1,2) + pow($cx-$x1,2));
 
+			$ccx = $x1 + ($cx - $x1)/$P1C*($radius+$modx);
+			$ccy = $y1 + ($cy - $y1)/$P1C*($radius+$mody);
+			$svg .= '<text font-size="15" x="'.$ccx.'" y="'.$ccy.'" fill="black">'.$text.'°</text>';
 		}
 
 		return $svg;
-	}
-
-	// Calculate angle between three points
-	function Angle($x1, $y1, $x2, $y2, $x3, $y3) {
-
-		$P12 = sqrt(($y2-$y1)^2 + ($x2-$x1)^2);
-		$P13 = sqrt(($y3-$y1)^3 + ($x3-$x1)^2);
-		$P23 = sqrt(($y3-$y2)^3 + ($x3-$x2)^2);
-
-		$alpha = acos(($P12^2+$P13^2-$P23^2) / (2*$P12*$P13));
-
-		return $alpha;
 	}
 }
 
