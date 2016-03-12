@@ -86,6 +86,10 @@
 									"name": "Háromszög szögei",
 									"finished": "2016-03-11",
 									"status": "OK"
+								},
+								{
+									"label": "Sine_range",
+									"name": "Szinusz függvény értékkészlete"
 								}
 							]
 						}
