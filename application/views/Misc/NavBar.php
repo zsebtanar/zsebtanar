@@ -16,32 +16,29 @@
 			<a class="navbar-brand navbar-logo" href="<?php echo base_url().'view/main/';?>">
 				<b>Zsebtanár</b>
 			</a>
-			&nbsp;&nbsp;
-
-			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#result_symbols">
-				<img src="<?php echo base_url();?>assets/images/trophy.png" alt="shield" width="17">
-			</a>
-
-			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#result_symbols"><b class="results"><?php echo $trophies;?></b></a>
-
-			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#result_symbols">
-				<img src="<?php echo base_url();?>assets/images/shield.png" alt="shield" width="15">
-			</a>
-
-			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#result_symbols"><b class="results"><?php echo $shields;?></b></a>
-
-			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#result_symbols">
-				<img src="<?php echo base_url();?>assets/images/coin.png" alt="coin" width="15">
-			</a>
-
-			<a href="#" class="navbar-brand" data-toggle="modal" data-target="#result_symbols"><b class="results"><?php echo $points;?></b></a>
-
 		</div>
 
 		<div class="collapse navbar-collapse">
-			<ul class="nav navbar-nav navbar-right small"><?php
+			<ul class="nav navbar-nav navbar-right small">
+
+				<li>
+					<a href="#" data-toggle="modal" data-target="#result_symbols">
+						<img src="<?php echo base_url();?>assets/images/trophy.png" alt="shield" width="17">&nbsp;
+
+						<b><?php echo $trophies;?></b>&nbsp;&nbsp;
+
+						<img src="<?php echo base_url();?>assets/images/shield.png" alt="shield" width="15">&nbsp;
+
+						<b><?php echo $shields;?></b>&nbsp;&nbsp;
+
+						<img src="<?php echo base_url();?>assets/images/coin.png" alt="coin" width="15">&nbsp;
+
+						<b><?php echo $points;?></b>
+					</a>
+				</li><?php
 
 			if ($this->Session->CheckLogin()) {?>
+
 
 				<li>
 					<a href="<?php echo base_url().'application/clearresults/'.
