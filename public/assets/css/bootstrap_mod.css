@@ -156,3 +156,7 @@ div[id^='hint_details'] {
 #latest_exercises {
     margin-top: 40px;
 }
+
+.form-control-inline {
+    display: inline;
+}

@@ -462,7 +462,7 @@ class Html extends CI_model {
 			$width = 2;
 		} elseif ($max_length < 10) {
 			$width = 4;
-		} elseif ($max_length < 20) {
+		} elseif ($max_length < 26) {
 			$width = 6;
 		} else {
 			$width = 8;

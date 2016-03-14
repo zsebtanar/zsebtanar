@@ -52,6 +52,109 @@ function Times($num)
 }
 
 /**
+ * Add modified suffix 'times' to number (szorosára/szeresére/szörösére)
+ *
+ * @param int $num Number (< 10^600)
+ *
+ * @return string $suffix Suffix
+ */
+function Times2($num)
+{
+  $abs = abs($num);
+
+  switch ($abs % 10) {
+    case 1:
+    case 2:
+    case 4:
+    case 7:
+    case 9:
+      return 'szeresére';
+    case 3:
+    case 6:
+    case 8:
+      return 'szorosára';
+    case 5:
+      return 'szörösére';
+  }
+
+  switch (($abs / 10) % 10) {
+    case 1:
+    case 4:
+    case 5:
+    case 7:
+    case 9:
+      return 'szeresére';
+    case 2:
+    case 3:
+    case 6:
+    case 8:
+      return 'szorosára';
+  }
+
+  if ($abs == 0) {
+    return 'szorosára';
+  } elseif (100 <= $abs && $abs < 1000) {
+    return 'szorosára';
+  } elseif (1000 <= $abs && $abs < 1000000) {
+    return 'szeresére';
+  } else {
+    return 'szorosára';
+  }
+}
+
+/**
+ * Add modified suffix 'th' to number (od/ed/öd)
+ *
+ * @param int $num Number (< 10^600)
+ *
+ * @return string $suffix Suffix
+ */
+function Fraction($num)
+{
+  $abs = abs($num);
+
+  switch ($abs % 10) {
+    case 1:
+    case 2:
+    case 4:
+    case 7:
+    case 9:
+      return 'ed';
+    case 3:
+    case 8:
+      return 'ad';
+    case 6:
+      return 'od';
+    case 5:
+      return 'öd';
+  }
+
+  switch (($abs / 10) % 10) {
+    case 1:
+    case 4:
+    case 5:
+    case 7:
+    case 9:
+      return 'ed';
+    case 2:
+    case 3:
+    case 6:
+    case 8:
+      return 'ad';
+  }
+
+  if ($abs == 0) {
+    return 'ad';
+  } elseif (100 <= $abs && $abs < 1000) {
+    return 'ad';
+  } elseif (1000 <= $abs && $abs < 1000000) {
+    return 'ed';
+  } else {
+    return 'od';
+  }
+}
+
+/**
  * Add article to number
  *
  * @param int $num Number

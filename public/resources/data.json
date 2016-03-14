@@ -89,7 +89,13 @@
 								},
 								{
 									"label": "Sine_range",
-									"name": "Szinusz függvény értékkészlete"
+									"name": "Szinusz függvény értékkészlete",
+									"finished": "2016-03-14",
+									"status": "OK"
+								},
+								{
+									"label": "Proportionality",
+									"name": "Egyenes, fordított arányosság"
 								},
 								{
 									"label": "Test",
