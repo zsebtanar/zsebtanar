@@ -197,6 +197,8 @@ function With($num)
       return 'gyel';
     case 2:
       return 'vel';
+    case 3:
+      return 'mal';
     case 5:
     case 7:
       return 'tel';
