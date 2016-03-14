@@ -90,6 +90,10 @@
 								{
 									"label": "Sine_range",
 									"name": "Szinusz függvény értékkészlete"
+								},
+								{
+									"label": "Test",
+									"name": "Test"
 								}
 							]
 						}
