@@ -503,4 +503,34 @@ function divisors($num) {
   sort($divisors);
   return $divisors;
 }
+
+// calculate binomial coefficient
+function binomial_coeff($n, $k) {
+
+  $j = $res = 1;
+
+  if ($k < 0 || $k > $n) {
+    return 0;
+  }
+  if (($n - $k) < $k) {
+    $k = $n - $k;
+  }
+
+  while($j <= $k) {
+    $res *= $n--;
+    $res /= $j++;
+  }
+
+  return $res;
+}
+
+// factorial
+function fact($x) 
+{
+    $return = 1;
+    for ($i=2; $i <= $x; $i++) {
+        $return = $return * $i;
+    }
+    return $return;
+}
 ?>

@@ -106,8 +106,14 @@
 									"status": "OK"
 								},
 								{
+									"label": "Subsets",
+									"name": "Részhalmazok",
+									"finished": "2016-03-15",
+									"status": "OK"
+								},
+								{
 									"label": "Test",
-									"name": "Test"
+									"name": "Teszt"
 								}
 							]
 						}

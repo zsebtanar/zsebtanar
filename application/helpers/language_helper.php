@@ -438,4 +438,52 @@ function In($num)
   }
 }
 
+/**
+ * Write down number with letters
+ *
+ * @param int $num Number
+ *
+ * @return string $num_text Number with text
+ */
+function NumText($num) {
+  
+  $digits = str_split($num);
+  $digits = array_reverse($digits);
+  
+  $num_group = array('','ezer','millió','milliárd');
+  $nums1 = array('','egy','kettő','három','négy','öt','hat','hét','nyolc','kilenc');
+  $nums1b = array('','','két','három','négy','öt','hat','hét','nyolc','kilenc');
+  $nums2 = array('','tizen','huszon','harminc','negyven','ötven','hatvan','hetven','nyolcvan','kilencven');
+  $nums2b = array('','tíz','húsz','harminc','negyven','ötven','hatvan','hetven','nyolcvan','kilencven');
+  
+  $place = 0;
+  $num_text = '';
+  foreach ($digits as $key => $value) {
+    if ($key % 3 == 0) {
+      if ($num > 2000 && $place > 0) {
+        $num_text = $num_group[$place].'-'.$num_text;
+      } else {
+        $num_text = $num_group[$place].$num_text;
+      }
+      $num_text = $nums1[$value].$num_text;
+      $place++;
+    } elseif ($key % 3 == 1) {
+      if ($digits[$key-1] == 0) {
+        $num_text = $nums2b[$value].$num_text;
+      } else {
+        $num_text = $nums2[$value].$num_text;
+      }
+    } elseif ($key % 3 == 2) {
+      $num_text = $nums1b[$value].'száz'.$num_text;
+    }
+  }
+  
+  $num_text = str_ireplace('egyezer','ezer', $num_text);
+  $num_text = str_ireplace('kettőezer','kétezer', $num_text);
+  $num_text = str_ireplace('kettőmillió','kétmillió', $num_text);
+  $num_text = str_ireplace('kettőmilliárd','kétmilliárd', $num_text);
+
+  return $num_text;
+}
+
 ?>
