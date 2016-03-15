@@ -483,4 +483,24 @@ function polarToCartesian($centerX, $centerY, $radius, $angleInDegrees) {
   return array($x, $y);
 }
 
+/**
+ * Define divisors of a number
+ *
+ * @param int $num Number
+ *
+ * @return array $divisors Divisors
+ */
+function divisors($num) {
+  $divisors = [];
+  for ($i=1; $i <= sqrt($num); $i++) { 
+    if ($num % $i == 0) {
+      $divisors[] = $i;
+      if ($i != $num/$i) {
+        $divisors[] = $num/$i;
+      }
+    }
+  }
+  sort($divisors);
+  return $divisors;
+}
 ?>

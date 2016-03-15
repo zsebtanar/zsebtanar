@@ -97,7 +97,7 @@ class Proportionality {
 		$text[] = 'Most szorozzuk meg az $x$ értékét pl. $'.$mult.'$-'.With($mult).': '
 			.'$$x\cdot'.$mult.'='.$x.'\cdot'.$mult.'='.strval($x*$mult).'$$';
 
-		$text[] = 'Számoljuk ki itt is függvény értékét:'
+		$text[] = 'Számoljuk ki itt is a függvény értékét:'
 			.'$$f('.$mult.'\cdot x)=f('.strval($x*$mult).')='.$fun2.'$$';
 
 		if ($type == 0) {

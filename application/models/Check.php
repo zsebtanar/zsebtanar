@@ -139,6 +139,10 @@ class Check extends CI_model {
 			case 'range':
 				list($status, $message) = $this->GenerateMessagesRange($answer, $correct, $solution);
 				break;
+
+			case 'list':
+				list($status, $message) = $this->GenerateMessagesList($answer, $correct, $solution);
+				break;
 		}
 
 		$submessages = (isset($submessages) ? $submessages : []);
@@ -347,7 +351,7 @@ class Check extends CI_model {
 	}
 
 	/**
-	 * Generate messages for fraction type exercises
+	 * Generate messages for second order equation type exercises
 	 *
 	 * @param array  $answer   User answer
 	 * @param int    $correct  Correct answer
@@ -382,7 +386,7 @@ class Check extends CI_model {
 	}
 
 	/**
-	 * Generate messages for fraction type exercises
+	 * Generate messages for List type exercises
 	 *
 	 * @param array  $answer   User answer
 	 * @param int    $correct  Correct answer
@@ -392,16 +396,14 @@ class Check extends CI_model {
 	 * @return string $message    Message
 	 * @return array  $submessage Submessages
 	 */
-	public function GenerateMessagesRange($answer, $correct, $solution) {
-
-		if ($answer[0] == NULL || $answer[1] == NULL) {
+	public function GenerateMessagesList($answer, $correct, $solution) {
+		if ($answer[0] == NULL) {
 			$status = 'NOT_DONE';
 			$message = 'Hiányzik a válasz!';
 		} else {
-			$answer[0] = floatval($answer[0]);
-			$answer[1] = floatval($answer[1]);
-			$result = array_diff($answer, $correct);
-			if (count($result) > 0) {
+			$list = array_map('intval', preg_split("/[\s,;]+/", $answer[0]));
+			$diff = array_intersect($list, $correct);
+			if (count($diff) < count($correct)) {
 				$status = 'WRONG';
 				$message = 'A helyes válasz: '.$solution;
 			} else {

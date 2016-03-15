@@ -14,9 +14,8 @@
 
 					switch ($type) {
 						case 'int':
-							$this->load->view('Input/Default');
-							break;
 						case 'text':
+						case 'list':
 							$this->load->view('Input/Default');
 							break;
 						case 'multi':
@@ -48,8 +47,9 @@
 
 						if ($this->Session->CheckLogin()) {
 
-							echo $type.'<br />';
-							echo json_encode($correct).'<br />';
+							print_r($type.'<br />');
+							print_r($correct);
+							print_r('<br />');
 
 						}?>
 					</div>

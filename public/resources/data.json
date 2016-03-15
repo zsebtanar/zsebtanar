@@ -95,7 +95,15 @@
 								},
 								{
 									"label": "Proportionality",
-									"name": "Egyenes, fordított arányosság"
+									"name": "Egyenes, fordított arányosság",
+									"finished": "2016-03-15",
+									"status": "OK"
+								},
+								{
+									"label": "Set_divisor",
+									"name": "Halmazműveletek osztókkal",
+									"finished": "2016-03-15",
+									"status": "OK"
 								},
 								{
 									"label": "Test",
