@@ -112,6 +112,18 @@
 									"status": "OK"
 								},
 								{
+									"label": "Square_root_test",
+									"name": "Gyökvonás (teszt)",
+									"finished": "2016-03-19",
+									"status": "OK"
+								},
+								{
+									"label": "Absolute_value",
+									"name": "Abszolútérték",
+									"finished": "2016-03-19",
+									"status": "OK"
+								},
+								{
 									"label": "Test",
 									"name": "Teszt"
 								}
