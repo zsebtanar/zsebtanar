@@ -11,6 +11,8 @@ You need to have a running *PHP Server* to run the website and a working interne
 3. Type in the following URLs your browser: `http://localhost/zsebtanar_v4/public/application/setup`.
 4. The website can be reached through the URL: `http://localhost/zsebtanar_v4/`.
 
+*Note:* If special characters don't apper properly, check the database character set. In order to use Hungarian special characters, use `latin2_hungarian_ci`.
+
 # Log in
 If you want to log in the website, click on "Admin" on the right side, and type in the password (zst). After logging in, you have additional features:
 
