@@ -8,7 +8,7 @@ You need to have a running *PHP Server* to run the website and a working interne
 
 1. Download the repository.
 2. Unzip the file and copy the `zsebtanar_v4` folder in your `public_html` folder (or `htdocs`, you are using *Xampp*).
-3. Type in the following URLs your browser: `http://localhost/zsebtanar_v4/public/database/setup`.
+3. Type in the following URLs your browser: `http://localhost/zsebtanar_v4/public/application/setup`.
 4. The website can be reached through the URL: `http://localhost/zsebtanar_v4/`.
 
 # Log in

@@ -48,7 +48,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="<?php echo base_url().'system/update/'.
+					<a href="<?php echo base_url().'application/update/'.
 						(isset($type) ? $type : '').'/'.
 						(isset($id) ? '/'.$id : '');?>">
 						<span class="glyphicon glyphicon-refresh"></span>&nbsp;Adatbázis frissítése
