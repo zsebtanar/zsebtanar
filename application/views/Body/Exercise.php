@@ -178,7 +178,8 @@
 
 					if (data['hints'] != '') {
 						$("#hints").append('<p>'+data['hints']+'</p>');
-						MathJax.Hub.Queue(["Typeset",MathJax.Hub,"hints"]);
+						//MathJax.Hub.Queue(["Typeset",MathJax.Hub,"hints"]);
+						new Svg_MathJax().typeset("hints");
 						$("#hints_left").html("("+hints_left.toString()+" segítség maradt.)");
 						if (hints_left == 0) {
 							$("#hint_button").attr('class', 'btn btn-danger pull-right disabled');

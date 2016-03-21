@@ -29,6 +29,8 @@ class Test {
 		$correct 	= ($types[2] == 'belső' ? $angles[2] : 180-$angles[2]);
 		$solution 	= '$'.$correct.'°$-os';
 		$hints[]	= $this->DrawTriangle();
+		$hints[]        = $this->DrawTriangle('30');
+		$hints[]        = $this->DrawTriangle('60');
 
 		return array(
 			'question' 	=> $question,

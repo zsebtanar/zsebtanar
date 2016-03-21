@@ -47,6 +47,7 @@ Svg_MathJax = (function() {
 
         // Move the raw MathJax items to a temporary element
         MathJax.Hub.Register.StartupHook("Begin Typeset",function () { 
+            console.log('Begin Typeset');
             var mathbucket = document.createElement('div');
             mathbucket.setAttribute('id','mathjax_svg_bucket');
             document.body.appendChild(mathbucket);
@@ -55,11 +56,12 @@ Svg_MathJax = (function() {
                 mathbucket.appendChild(d);
                 var mathmarkup = m[2].replace(/^\$(.*)\$$/,'\\($1\\)');
                 d.appendChild(document.createTextNode(mathmarkup));
-                t.textContent = '';	
+                t.textContent = ''; 
                 items.push([t,d,m[1]]);
             });
         });
         MathJax.Hub.Register.StartupHook("End Typeset",function() {
+            console.log('End Typeset');
             forEach(items, function(x) {
                 var svgdest = x[0]; 
                 var mathjaxdiv = x[1]; 
@@ -103,11 +105,79 @@ Svg_MathJax = (function() {
         });
     }
     
+    function _typeset(options, nodeid) {
+        // Typeset newly added elements under node with ID "nodeid"
+        var items = [];
+        var bucketid = 'mathjax_svg_bucket_' + nodeid;
+
+        function prepare () { 
+            console.log('Begin New Typeset');
+            var mathbucket = document.createElement('div');
+            mathbucket.setAttribute('id',bucketid);
+            document.body.appendChild(mathbucket);
+            findSVGMathJax(function(svg, t, m) {
+                var d = document.createElement('div');
+                mathbucket.appendChild(d);
+                var mathmarkup = m[2].replace(/^\$(.*)\$$/,'\\($1\\)');
+                d.appendChild(document.createTextNode(mathmarkup));
+                t.textContent = ''; 
+                items.push([t,d,m[1]]);
+            }, document.getElementById(nodeid));
+        }
+        function finish () {
+            console.log('End New Typeset');
+            forEach(items, function(x) {
+                var svgdest = x[0]; 
+                var mathjaxdiv = x[1]; 
+                var justification = x[2];
+                var svgmath = 
+                     mathjaxdiv.getElementsByClassName('MathJax_SVG')[0]
+                               .getElementsByTagName('svg')[0];
+                var svgmathinfo = {
+                  width: svgmath.viewBox.baseVal.width, 
+                  height: svgmath.viewBox.baseVal.height
+                };
+                // get graphics nodes
+                var gnodes = 
+                    svgmath.getElementsByTagName('g')[0].cloneNode(true);
+                var fontsize = svgdest.getAttribute('font-size');
+                var scale = options.scale*fontsize;
+                var x =  +svgdest.getAttribute('x');
+                var y =  +svgdest.getAttribute('y');
+
+                var x0 = x;
+                var y0 = y;
+                var x1;
+                switch (justification.toUpperCase())
+                {
+                case 'L': x1 = 0; break;
+                case 'R': x1 = -svgmathinfo.width; break;
+                case 'C': // default to center
+                default:  x1 = -svgmathinfo.width * 0.5; break;
+                }
+                var y1 = svgmathinfo.height*0;
+                gnodes.setAttribute('transform', 'translate('+x0+' '+y0+')'
+                     +' scale('+scale+') translate('+x1+' '+y1+')'
+                     +' matrix(1 0 0 -1 0 0)');
+                if (options.escape_clip)
+                    svgdest.parentNode.removeAttribute('clip-path');
+                svgdest.parentNode.replaceChild(gnodes,svgdest);
+            });
+            // remove the temporary items
+            var mathbucket = document.getElementById(bucketid);
+            mathbucket.parentNode.removeChild(mathbucket);
+        }
+        MathJax.Hub.Queue(prepare);
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub,bucketid]);
+        MathJax.Hub.Queue(finish);
+    }
+
     var F = function()
     {
         this.scale = 0.0016;
         this.escape_clip = false;
     };
     F.prototype.install = function() { _install(this); }
+    F.prototype.typeset = function(nodeid) { _typeset(this, nodeid); }
     return F;
 })();
