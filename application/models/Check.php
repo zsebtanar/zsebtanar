@@ -414,6 +414,32 @@ class Check extends CI_model {
 
 		return array($status, $message);
 	}
+
+	/**
+	 * Generate messages for Range type exercises - e.g. [-1;2]
+	 *
+	 * @param array  $answer   User answer
+	 * @param int    $correct  Correct answer
+	 * @param string $solution Solution
+	 *
+	 * @return string $status     Status (NOT_DONE/CORRECT/WRONG)
+	 * @return string $message    Message
+	 * @return array  $submessage Submessages
+	 */
+	public function GenerateMessagesRange($answer, $correct, $solution) {
+		if ($answer[0] == NULL || $answer[1] == NULL) {
+			$status = 'NOT_DONE';
+			$message = 'Hiányzik a válasz!';
+		} elseif ($answer[0] == $correct[0] && $answer[1] == $correct[1]) {
+			$status = 'CORRECT';
+			$message = 'Helyes válasz!';
+		} else {
+			$status = 'WRONG';
+			$message = 'A helyes válasz: '.$solution;
+		}
+
+		return array($status, $message);
+	}
 }
 
 ?>
