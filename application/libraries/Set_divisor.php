@@ -181,19 +181,19 @@ class Set_divisor {
 					<rect width="400" height="300" fill="black" fill-opacity="0.2" />
 					<circle cx="130" cy="150" r="100" stroke="black" stroke-width="1" fill="none" />
 					<circle cx="260" cy="150" r="100" stroke="black" stroke-width="1" fill="none" />
-					<text x="80" y="50">A</text>
-					<text x="300" y="50">B</text>';
+					<text font-size="15" fill="black" x="80" y="50">$A$</text>
+					<text font-size="15" fill="black" x="300" y="50">$B$</text>';
 
 		foreach ($left as $key => $value) {
-			$svg .= '<text x="'.$leftx[$key].'" y="'.$lefty[$key].'">'.$value.'</text>';
+			$svg .= '<text font-size="15" fill="black" x="'.$leftx[$key].'" y="'.$lefty[$key].'">$'.$value.'$</text>';
 		}
 
 		foreach ($center as $key => $value) {
-			$svg .= '<text x="'.$centerx[$key].'" y="'.$centery[$key].'">'.$value.'</text>';
+			$svg .= '<text font-size="15" fill="black" x="'.$centerx[$key].'" y="'.$centery[$key].'">$'.$value.'$</text>';
 		}
 
 		foreach ($right as $key => $value) {
-			$svg .= '<text x="'.$rightx[$key].'" y="'.$righty[$key].'">'.$value.'</text>';
+			$svg .= '<text font-size="15" fill="black" x="'.$rightx[$key].'" y="'.$righty[$key].'">$'.$value.'$</text>';
 		}
 
 		switch ($operation) {

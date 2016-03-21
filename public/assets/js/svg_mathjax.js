@@ -117,6 +117,9 @@ Svg_MathJax = (function() {
             document.body.appendChild(mathbucket);
             findSVGMathJax(function(svg, t, m) {
                 var d = document.createElement('div');
+                if(d) {
+                    d.className += d.className ? ' hidden' : 'hidden';
+                }
                 mathbucket.appendChild(d);
                 var mathmarkup = m[2].replace(/^\$(.*)\$$/,'\\($1\\)');
                 d.appendChild(document.createTextNode(mathmarkup));

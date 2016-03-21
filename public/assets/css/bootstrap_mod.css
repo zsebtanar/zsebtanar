@@ -160,3 +160,7 @@ div[id^='hint_details'] {
 .form-control-inline {
     display: inline;
 }
+
+.hidden {
+    display: none;
+}
