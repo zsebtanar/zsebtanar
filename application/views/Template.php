@@ -12,8 +12,6 @@
 
 	$this->load->view('Modal/Info');
 	$this->load->view('Modal/Login');
-	$this->load->view('Modal/Result_symbols');
-	$this->load->view('Modal/Exercise_symbols');
 
 	$this->load->view('Misc/NavBar', $results);
 

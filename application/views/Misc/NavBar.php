@@ -22,18 +22,18 @@
 			<ul class="nav navbar-nav navbar-right small">
 
 				<li>
-					<a href="#" data-toggle="modal" data-target="#result_symbols">
+					<a href="#">
 						<img src="<?php echo base_url();?>assets/images/trophy.png" alt="shield" width="17">&nbsp;
 
-						<b><?php echo $trophies;?></b>&nbsp;&nbsp;
+						<b><span class="trophies"><?php echo $trophies;?></span></b>&nbsp;&nbsp;
 
 						<img src="<?php echo base_url();?>assets/images/shield.png" alt="shield" width="15">&nbsp;
 
-						<b><?php echo $shields;?></b>&nbsp;&nbsp;
+						<b><span class="shields"><?php echo $shields;?></span></b>&nbsp;&nbsp;
 
 						<img src="<?php echo base_url();?>assets/images/coin.png" alt="coin" width="15">&nbsp;
 
-						<b><?php echo $points;?></b>
+						<b><span class="points"><?php echo $points;?></span></b>
 					</a>
 				</li><?php
 
@@ -64,12 +64,12 @@
 
 				<li>
 					<a href="#" data-toggle="modal" data-target="#info">
-						<span class="glyphicon glyphicon-info-sign"></span>&nbsp;Mi ez?
+						<span class="glyphicon glyphicon-question-sign"></span>&nbsp;Segítség
 					</a>
 				</li>
 				<li>
 					<a href="#" data-toggle="modal" data-target="#login">
-						<span class="glyphicon glyphicon-user"></span>&nbsp;Admin
+						<span class="glyphicon glyphicon-user"></span>
 					</a>
 				</li><?php
 
