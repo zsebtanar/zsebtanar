@@ -141,7 +141,7 @@ class Sine_range {
 				$svg .= $this->DrawLine($xpos, $originy-5, $xpos, $originy+5);
 			}
 			$xtext 	= $this->Xvalue2Fraction($xval);
-			$svg 	.= $this->DrawText($xpos, $originy+15, $xtext);
+			$svg 	.= $this->DrawText($xpos, $originy+20, $xtext);
 			$xpos	+= $xunit_length;
 			$xval 	+= pi()/2;
 		}
@@ -151,7 +151,7 @@ class Sine_range {
 			if (round($ypos) != round($originy)) {
 				$ytext	= $this->Yvalue2Fraction($yval);
 				$svg 	.= $this->DrawLine($originx-5, $ypos, $originx+5, $ypos);
-				$svg 	.= $this->DrawText($originx+10, $ypos, $ytext);
+				$svg 	.= $this->DrawText($originx+20, $ypos-5, $ytext);
 			}
 			$ypos += $yunit_length;
 			$yval -= $yunit_original;
@@ -208,7 +208,7 @@ class Sine_range {
 
 	function DrawText($x, $y, $text) {
 
-		$svg = '<text font-size="15" x="'.$x.'" y="'.$y.'" fill="black">'.$text.'</text>';
+		$svg = '<text font-size="10" x="'.$x.'" y="'.$y.'" fill="black">$'.$text.'$</text>';
 
 		return $svg;
 	}

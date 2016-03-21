@@ -191,13 +191,13 @@ class Triangle_angles {
 		$svg .= $this->DrawLine($Bx, $By, $Cx, $Cy);
 
 		// Nodes
-		$svg .= '<text font-size="15" x="'.$Ax.'" y="'.strval($height-10).'" fill="black">A</text>';
-		$svg .= '<text font-size="15" x="'.$Bx.'" y="'.strval($height-10).'" fill="black">B</text>';
-		$svg .= '<text font-size="15" x="'.strval($Cx-10).'" y="'.strval($Cy-10).'" fill="black">C</text>';
+		$svg .= '<text font-size="15" x="'.$Ax.'" y="'.strval($height-5).'" fill="black">$A$</text>';
+		$svg .= '<text font-size="15" x="'.$Bx.'" y="'.strval($height-5).'" fill="black">$B$</text>';
+		$svg .= '<text font-size="15" x="'.strval($Cx-10).'" y="'.strval($Cy-5).'" fill="black">$C$</text>';
 
 		// Arc
 		if ($Ca) { // caption for A inner
-			$svg .= $this->DrawArc($Ax, $Ay, $Bx, $By, $Cx, $Cy, $arc_radius_inner, 7,-2, $Ca);
+			$svg .= $this->DrawArc($Ax, $Ay, $Bx, $By, $Cx, $Cy, $arc_radius_inner, 25, 0, $Ca);
 		}
 		if ($Caa) { // caption for A outer
 			$svg .= $this->DrawLine($Ax, $Ay, $AAx, $AAy);
@@ -205,12 +205,12 @@ class Triangle_angles {
 			$svg .= $this->DrawArc($Ax, $Ay, $Cx, $Cy, $AAx, $AAy, $arc_radius_outer2, 5, 10, $Caa);
 		}
 		if ($Cb) { // caption for B inner
-			$svg .= $this->DrawArc($Bx, $By, $Cx, $Cy, $Ax, $Ay, $arc_radius_inner, 30, 7, $Cb);
+			$svg .= $this->DrawArc($Bx, $By, $Cx, $Cy, $Ax, $Ay, $arc_radius_inner, 25, 0, $Cb);
 		}
 		if ($Cbb) { // caption for B outer
 			$svg .= $this->DrawLine($Bx, $By, $BBx, $BBy);
 			$svg .= $this->DrawArc($Bx, $By, $BBx, $BBy, $Cx, $Cy, $arc_radius_outer1);
-			$svg .= $this->DrawArc($Bx, $By, $BBx, $BBy, $Cx, $Cy, $arc_radius_outer2, 0, 0, $Cbb);
+			$svg .= $this->DrawArc($Bx, $By, $BBx, $BBy, $Cx, $Cy, $arc_radius_outer2, 25, 10, $Cbb);
 		}
 		if ($Cc) { // caption for C inner
 			$svg .= $this->DrawArc($Cx, $Cy, $Ax, $Ay, $Bx, $By, $arc_radius_inner, 25, 20, $Cc);
@@ -218,7 +218,7 @@ class Triangle_angles {
 		if ($Ccc) { // caption for C outer
 			$svg .= $this->DrawLine($Cx, $Cy, $CCx, $CCy);
 			$svg .= $this->DrawArc($Cx, $Cy, $Bx, $By, $CCx, $CCy, $arc_radius_outer1);
-			$svg .= $this->DrawArc($Cx, $Cy, $Bx, $By, $CCx, $CCy, $arc_radius_outer2, 5, 5, $Ccc);
+			$svg .= $this->DrawArc($Cx, $Cy, $Bx, $By, $CCx, $CCy, $arc_radius_outer2, 25, 5, $Ccc);
 		}
 
 		$svg .= '</svg></div>';
@@ -258,7 +258,7 @@ class Triangle_angles {
 
 			$ccx = $x1 + ($cx - $x1)/$P1C*($radius+$modx);
 			$ccy = $y1 + ($cy - $y1)/$P1C*($radius+$mody);
-			$svg .= '<text font-size="15" x="'.$ccx.'" y="'.$ccy.'" fill="black">'.$text.'°</text>';
+			$svg .= '<text font-size="10" x="'.$ccx.'" y="'.$ccy.'" fill="black">$'.$text.'°$</text>';
 		}
 
 		return $svg;

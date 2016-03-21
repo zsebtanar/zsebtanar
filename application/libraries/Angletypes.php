@@ -115,10 +115,10 @@ class Angletypes {
 
 		if ($showdegrees) {
 
-			$svg .= '<text x="'.strval($centerx+$radius1+10).'" y="'.strval($centery+7).'">0°</text>';
-			$svg .= '<text x="'.strval($centerx-10).'" y="'.strval($centery-$radius1-7).'">90°</text>';
-			$svg .= '<text x="'.strval($centerx-$radius1-45).'" y="'.strval($centery+7).'">180°</text>';
-			$svg .= '<text x="'.strval($centerx-15).'" y="'.strval($centery+$radius1+20).'">270°</text>';
+			$svg .= '<text font-size="15" fill="black" x="'.strval($centerx+$radius1+18).'" y="'.strval($centery+7).'">$0°$</text>';
+			$svg .= '<text font-size="15" fill="black" x="'.strval($centerx+5).'" y="'.strval($centery-$radius1-7).'">$90°$</text>';
+			$svg .= '<text font-size="15" fill="black" x="'.strval($centerx-$radius1-25).'" y="'.strval($centery+7).'">$180°$</text>';
+			$svg .= '<text font-size="15" fill="black" x="'.strval($centerx+5).'" y="'.strval($centery+$radius1+22).'">$270°$</text>';
 		}
 
 
