@@ -124,6 +124,12 @@
 									"status": "OK"
 								},
 								{
+									"label": "Range_mean_stdev",
+									"name": "Terjedelem, átlag, szórás",
+									"finished": "2016-03-22",
+									"status": "OK"
+								},
+								{
 									"label": "Test",
 									"name": "Teszt"
 								}

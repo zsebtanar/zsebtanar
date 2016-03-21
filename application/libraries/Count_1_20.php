@@ -8,6 +8,7 @@ class Count_1_20 {
 
 		$CI =& get_instance();
 		$CI->load->helper('maths');
+		$CI->load->helper('language');
 		
 		return;
 	}
