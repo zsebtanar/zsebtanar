@@ -61,7 +61,7 @@ class Absolute_value {
 		$page[] = ($diff < 0 ? 'Adjunk hozzá mindkét oldalhoz' : 'Vonjunk ki mindkét oldalból')
 			.' $'.abs($diff).'$-'.Dativ(abs($diff)).'!:'
 			.'$$x=-'.$abs_val.($diff < 0 ? '+' : '-').abs($diff).'='.$solution2.'$$';
-		$page[] = 'Tehát az egyik megoldás <span class="label label-success">$'.$solution2.'$</span>.';
+		$page[] = 'Tehát a másik megoldás <span class="label label-success">$'.$solution2.'$</span>.';
 		$hints[] = $page;
 
 		$correct = array($solution1, $solution2);
