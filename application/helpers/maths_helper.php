@@ -50,14 +50,14 @@ function modifySameDigits($num, $pos)
 	foreach ($digits as $key => $value) {
 		while ($value == $digit && $key != $pos) {
 			if ($key == 0) {
-				$value = rand(1, 9);   
+				$value = rand(1, 9);
 			} else {
 				$value = rand(0, 9);
 			}
 			$digits[$key] = $value;
 		}
 	}
-	$new = implode("", $digits); 
+	$new = implode("", $digits);
 	return $new;
 }
 
@@ -65,7 +65,7 @@ function modifySameDigits($num, $pos)
  * Associative array shuffle
  *
  * Shuffle for associative arrays, preserves key=>value pairs.
- * (Based on (Vladimir Kornea of typetango.com)'s function) 
+ * (Based on (Vladimir Kornea of typetango.com)'s function)
  *
  * @param array &$array Array.
  *
@@ -89,7 +89,7 @@ function shuffleAssoc(&$array)
  *
  * @return string $rom Roman number.
  */
-function convertRoman($num) 
+function convertRoman($num)
 {
   $values = array(
       1000000 => "M",
@@ -150,11 +150,11 @@ function newNum($num,$len)
     $new = numGen(rand($len-1,$len+1),10);
   } else {
     if (rand(1,2) == 1) {
-      $ujhossz = floor($len/2); 
+      $ujhossz = floor($len/2);
     } else {
       $ujhossz = $len - 1;
     }
-    
+
     $new = $num + numGen(rand(1,$ujhossz),10);
   }
   return $new;
@@ -227,7 +227,7 @@ function gcd($x, $y)
   $y = abs($y);
 
   if($x + $y == 0) {
-    
+
     return "0";
 
   } else {
@@ -329,7 +329,7 @@ function equationAddition($numbers, $col=-1, $type='addition', $color=TRUE)
     $digits_num = str_split($number);
 
     if ($type == 'multiplication') {
-      for ($i=0; $i < count($numbers)-$key-1; $i++) { 
+      for ($i=0; $i < count($numbers)-$key-1; $i++) {
         $digits_num[] = NULL;
       }
     }
@@ -348,7 +348,7 @@ function equationAddition($numbers, $col=-1, $type='addition', $color=TRUE)
   $eq_sum = '';
   $show_header = FALSE;
 
-  for ($ind=0; $ind < $length; $ind++) { 
+  for ($ind=0; $ind < $length; $ind++) {
 
     // Get digits of current column
     $digits = [];
@@ -492,7 +492,7 @@ function polarToCartesian($centerX, $centerY, $radius, $angleInDegrees) {
  */
 function divisors($num) {
   $divisors = [];
-  for ($i=1; $i <= sqrt($num); $i++) { 
+  for ($i=1; $i <= sqrt($num); $i++) {
     if ($num % $i == 0) {
       $divisors[] = $i;
       if ($i != $num/$i) {
@@ -525,7 +525,7 @@ function binomial_coeff($n, $k) {
 }
 
 // factorial
-function fact($x) 
+function fact($x)
 {
     $return = 1;
     for ($i=2; $i <= $x; $i++) {
@@ -540,8 +540,8 @@ function fact($x)
  * raise a warning if you have fewer than 2 values in your array, just like
  * the extension does (although as an E_USER_WARNING, not E_WARNING).
  * (Source: http://php.net/manual/en/function.stats-standard-deviation.php)
- * 
- * @param array $a 
+ *
+ * @param array $a
  * @param bool $sample [optional] Defaults to false
  * @return float|bool The standard deviation or false on error.
  */

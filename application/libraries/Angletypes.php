@@ -47,7 +47,7 @@ class Angletypes {
 		$question = 'Milyen típusú az alábbi szög?'.$this->DrawAngle($angle);
 
 		$hints = $this->Hints();
-		
+
 		shuffle($options);
 		$correct = array_search($angle_type, $options);
 

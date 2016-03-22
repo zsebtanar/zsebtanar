@@ -9,7 +9,7 @@ class Range_mean_stdev {
 		$CI =& get_instance();
 		$CI->load->helper('maths');
 		$CI->load->helper('language');
-		
+
 		return;
 	}
 
@@ -54,7 +54,7 @@ class Range_mean_stdev {
 		if ($level <= 3) {
 
 			$length = rand(2,3);
-			for ($i=0; $i < $length; $i++) { 
+			for ($i=0; $i < $length; $i++) {
 				$set[] = rand(1,5);
 			}
 
@@ -63,7 +63,7 @@ class Range_mean_stdev {
 			$length = rand(4,5);
 			$average = rand(2,5);
 			$total = $average*$length; // Total amount to be distributed among numbers
-			for ($i=0; $i < $length; $i++) { 
+			for ($i=0; $i < $length; $i++) {
 				$num = ($total > 0 ? rand(1, $total) : 0);
 				$set[] = $num;
 				$total -= $num;
@@ -75,7 +75,7 @@ class Range_mean_stdev {
 			$average = rand(2,5);
 			$stdev = pow(rand(1,3),2);
 			$total = $stdev*$length; // Total amount to be distributed among differences
-			for ($i=0; $i < $length/2; $i++) { 
+			for ($i=0; $i < $length/2; $i++) {
 				if ($total >= 18 && $average >= 3) {
 					$set[] = $average+3;
 					$set[] = $average-3;
