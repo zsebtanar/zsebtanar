@@ -35,9 +35,6 @@
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> -->
 <script src="<?php echo base_url();?>assets/js/bootstrap.js"></script>
 
-<!-- Query parser for youtube links JS -->
-<script type="text/javascript" src="<?php echo base_url();?>assets/js/jquery-queryParser.js"></script>
-
 <!-- MathJax JS -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
