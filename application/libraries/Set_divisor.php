@@ -9,7 +9,7 @@ class Set_divisor {
 		$CI =& get_instance();
 		$CI->load->helper('maths');
 		$CI->load->helper('language');
-		
+
 		return;
 	}
 
@@ -58,7 +58,7 @@ class Set_divisor {
 			$primes = [2, 2, 3, 5, 7, 11, 13];
 		}
 
-		for ($i=0; $i < 2; $i++) { 
+		for ($i=0; $i < 2; $i++) {
 			shuffle($primes);
 			$prime = $primes[0];
 
@@ -177,9 +177,9 @@ class Set_divisor {
 		$righty = [170, 130, 220, 120, 90, 180, 220, 150];
 
 		$svg = '<div class="img-question text-center">
-					<svg width="400" height="300">
-					<rect width="400" height="300" fill="black" fill-opacity="0.2" />
-					<circle cx="130" cy="150" r="100" stroke="black" stroke-width="1" fill="none" />
+					<svg width="400" height="300">'
+					// .'<rect width="400" height="300" fill="black" fill-opacity="0.2" />'
+					.'<circle cx="130" cy="150" r="100" stroke="black" stroke-width="1" fill="none" />
 					<circle cx="260" cy="150" r="100" stroke="black" stroke-width="1" fill="none" />
 					<text font-size="15" fill="black" x="80" y="50">$A$</text>
 					<text font-size="15" fill="black" x="300" y="50">$B$</text>';
