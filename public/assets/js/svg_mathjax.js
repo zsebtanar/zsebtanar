@@ -119,6 +119,9 @@ Svg_MathJax = (function() {
         function prepare () { 
             console.log('Begin New Typeset');
             var mathbucket = document.createElement('div');
+            if(mathbucket) {
+                mathbucket.className += mathbucket.className ? ' hidden' : 'hidden';
+            }
             mathbucket.setAttribute('id',bucketid);
             document.body.appendChild(mathbucket);
             findSVGMathJax(function(svg, t, m) {
