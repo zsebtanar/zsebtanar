@@ -9,7 +9,7 @@ class Sine_range {
 		$CI =& get_instance();
 		$CI->load->helper('maths');
 		$CI->load->helper('language');
-		
+
 		return;
 	}
 
@@ -30,13 +30,15 @@ class Sine_range {
 			$b = pow(-1, rand(0,1)) * rand(3, $level);
 		}
 
+		$a = 2;
+		$b = 1;
 		if ($a == 0) {
 			$question = 'Adja meg a valós számok halmazán értelmezett $f(x)='.($b==1 ? '' : $b).'\sin x$ függvény értékkészletét!';
 		} else {
 			if ($b == 1) {
-				$question = 'Adja meg a valós számok halmazán értelmezett $f(x)='.$a.'+\sin x$ függvény értékkészletét!';	
+				$question = 'Adja meg a valós számok halmazán értelmezett $f(x)='.$a.'+\sin x$ függvény értékkészletét!';
 			} else {
-				$question = 'Adja meg a valós számok halmazán értelmezett $f(x)='.$a.($b>0 ? '+'.$b : $b).'\sin x$ függvény értékkészletét!';	
+				$question = 'Adja meg a valós számok halmazán értelmezett $f(x)='.$a.($b>0 ? '+'.$b : $b).'\sin x$ függvény értékkészletét!';
 			}
 		}
 
@@ -85,7 +87,7 @@ class Sine_range {
 				.$this->DrawSineFunction($a, $b, 0, $b, $value_min, $value_max);
 			$hints[][] = 'Az $f(x)='.$a.'+'.($b != 1 ? $b : '').'\sin x$ függvény értékkészletét úgy kapjuk meg, hogy az előző függvény értékkészletének végpontjaihoz hozzáadunk $'
 				.$a.'$-'.Dativ($a).'. Ezért az új függvény értékkészlete $[-'.abs($b).($a > 0 ? '+'.$a : $a).';'.abs($b).($a > 0 ? '+'.$a : $a).']=['.strval(-abs($b)+$a).';'.strval(abs($b)+$a).']$ lesz.'
-				.' Tehát a megoldás <span class="label label-success">$[-'.abs($b).';'.abs($b).']$</span>.'
+				.' Tehát a megoldás <span class="label label-success">$['.strval(-abs($b)+$a).';'.strval(abs($b)+$a).']$</span>.'
 				.$this->DrawSineFunction($a, $b, 0, $b, $value_min, $value_max, 1);
 		}
 
@@ -162,9 +164,9 @@ class Sine_range {
 		if ($b2) {
 			$svg .= $this->DrawGuides($a2, $b2, $yunit_length, $yunit_original, $originy, $width);
 		}
-		
+
 		// Draw function
-		for ($i=0; $i < $width; $i++) { 
+		for ($i=0; $i < $width; $i++) {
 			$xval1 = ($i-$originx)/$xunit_length*pi()/2;
 			$xval2 = ($i+1-$originx)/$xunit_length*pi()/2;
 			$yval1 = (-$a1+$b1*sin($xval1))*$yunit_length/$yunit_original+$originy;
@@ -172,7 +174,7 @@ class Sine_range {
 			$svg .= $this->DrawLine($i, $yval1, $i+1, $yval2, 'red', 2);
 		}
 		if ($b2) {
-			for ($i=0; $i < $width; $i++) { 
+			for ($i=0; $i < $width; $i++) {
 				$xval1 = ($i-$originx)/$xunit_length*pi()/2;
 				$xval2 = ($i+1-$originx)/$xunit_length*pi()/2;
 				$yval1 = (-$a2+$b2*sin($xval1))*$yunit_length/$yunit_original+$originy;
