@@ -217,6 +217,27 @@ class Html extends CI_model {
 	}
 
 	/**
+	 * Get label of next exercise
+	 *
+	 * Checks whether user has completed all rounds of exercise.
+	 *
+	 * @param int $id Exercise ID
+	 *
+	 * @return string $label Next exercise label
+	 */
+	public function NextLabel($id) {
+
+		$level_max  = $this->Database->getMaxLevel($id);
+		$level_user = $this->Session->getUserLevel($id);
+
+		$id_next = ($level_user < $level_max ? $id : $id+1);
+
+		$label = $this->Database->ExerciseLabel($id_next);
+
+ 		return $label;
+	}
+
+	/**
 	 * Get exercises of subtopic
 	 *
 	 * @param int $subtopicID Subtopic ID
@@ -247,6 +268,7 @@ class Html extends CI_model {
 
 					$row['status'] 		= $exercise->status;
 					$row['id'] 			= $id;
+					$row['label'] 		= $exercise->label;
 					$row['name'] 		= $exercise->name;
 					$row['complete'] 	= $this->Session->isComplete($id);
 					$row['progress'] 	= $this->Session->UserProgress($id);
@@ -315,6 +337,7 @@ class Html extends CI_model {
 
 		$data['level'] 		= $level;
 		$data['id'] 		= $id;
+		$data['label'] 		= $this->Database->ExerciseLabel($id);
 		$data['hash']		= $hash;
 		$data['subtopicID'] = $this->Database->getSubtopicID($id);
 

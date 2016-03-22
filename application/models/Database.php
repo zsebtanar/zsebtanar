@@ -52,6 +52,22 @@ class Database extends CI_model {
 	}
 
 	/**
+	 * Gets id for exercise
+	 *
+	 * @param int $label Exercise label
+	 *
+	 * @return bool $exists Whether exercise exists
+	 */
+	public function ExerciseID($label) {
+
+		$query = $this->db->get_where('exercises', array('label' => $label));
+
+		$id = $query->result()[0]->id;
+
+ 		return $id;
+	}
+
+	/**
 	 * Get maximum level for exercise
 	 *
 	 * $max_level shows how many times user needs to solve the exercise to complete it.
@@ -146,7 +162,7 @@ class Database extends CI_model {
 			if ($this->Session->CheckLogin() || $exercise->status == 'OK') {
 
 				$title = $exercise->name;
-				$link = base_url().'view/exercise/'.$exercise->id;
+				$link = base_url().'view/exercise/'.$exercise->label;
 				$name = $exercise->name;
 
 			} else {
@@ -208,7 +224,7 @@ class Database extends CI_model {
 	public function getLatest() {
 
 		$query = $this->db->query(
-			'SELECT DISTINCT `exercises`.`id`, `exercises`.`name` FROM `exercises`
+			'SELECT DISTINCT `exercises`.`id`, `exercises`.`name`, `exercises`.`label` FROM `exercises`
 					WHERE `exercises`.`status` = \'OK\'
 					ORDER BY `exercises`.`finished` DESC');
 

@@ -1,4 +1,12 @@
 <div class="row">
+	<div class="col-md-12 text-center">
+		<button type="button" class="btn btn-success">
+			<span class="glyphicon glyphicon-plus"></span>
+			Új feladat
+		</button>
+	</div>
+</div>
+<div class="row">
 	<div class="col-md-3"></div>
 	<div class="col-md-4">
 		<!-- <div class="text-center alert alert-warning small">
@@ -60,7 +68,7 @@
 
 		foreach ($latest as $exercise) {?>
 
-			<a class="btn btn-link" href="<?php echo base_url();?>view/exercise/<?php echo $exercise['id'];?>">
+			<a class="btn btn-link" href="<?php echo base_url();?>view/exercise/<?php echo $exercise['label'];?>">
 					<?php echo $exercise['name'];?>
 			</a><br /><?php
 
