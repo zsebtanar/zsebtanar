@@ -63,7 +63,11 @@
 				</a>
 				<a id="next_button" class="btn btn-primary pull-right" onclick="checkSolution(event)">
 					Tovább&nbsp;<span class="glyphicon glyphicon-chevron-right">
-				</a><br /><br /><?php
+				</a>
+				<div id="loader" class="pull-center small">
+					<br />
+				</div>
+				<br /><?php
 
 				if ($hints_all > 0) {?>
 
@@ -77,6 +81,7 @@
 				}
 
 				?>
+
 			</div>
 		</div>
 		<div class="row">
@@ -139,6 +144,9 @@
 	}
 
 	function gethint(event, id, type){
+
+		$("#loader").html('Kis türelmet...&nbsp;<img src="<?php echo base_url();?>assets/images/loader.gif" />');
+
 		var hash = $('[name="hash"]').attr('value');
 		var hints_all = $('[name="hints_all"]').attr('value');
 
@@ -185,6 +193,8 @@
 							$("#hint_button").attr('class', 'btn btn-danger pull-right disabled');
 						}
 					}
+
+					$("#loader").html('<br />');
 				}
 			}
 		});
@@ -193,6 +203,9 @@
 
 	// Check solution
 	function checkSolution(event) {
+
+		$("#loader").html('Kis türelmet...&nbsp;<img src="<?php echo base_url();?>assets/images/loader.gif" />');
+
 		var queryString = $("#exercise_form").serializeArray();
 		event.preventDefault();
 		$.ajax({
@@ -203,7 +216,7 @@
 			},
 			dataType: "json",
 			success: function(data) {
-				
+
 				// Exercise not finished
 				if (data['status'] == 'NOT_DONE') {
 					$("#message").html('<div class="alert alert-warning"><strong><span class=\"glyphicon glyphicon-remove\"></span></strong>&nbsp;&nbsp;'+data['message']+'</div>');
@@ -262,6 +275,8 @@
 						MathJax.Hub.Queue(["Typeset",MathJax.Hub,"message"]);
 						break;
 				}
+
+				$("#loader").html('<br />');
 			}
 		});
 	}
