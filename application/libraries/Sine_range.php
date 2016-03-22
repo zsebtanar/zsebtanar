@@ -30,8 +30,6 @@ class Sine_range {
 			$b = pow(-1, rand(0,1)) * rand(3, $level);
 		}
 
-		$a = 2;
-		$b = 1;
 		if ($a == 0) {
 			$question = 'Adja meg a valós számok halmazán értelmezett $f(x)='.($b==1 ? '' : $b).'\sin x$ függvény értékkészletét!';
 		} else {
