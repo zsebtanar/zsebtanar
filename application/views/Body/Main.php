@@ -1,9 +1,9 @@
 <div class="row">
 	<div class="col-md-12 text-center">
-		<button type="button" class="btn btn-success">
+		<a type="button" class="btn btn-success" href="http://goo.gl/forms/Kw9aTgyo2h" target="_blank">
 			<span class="glyphicon glyphicon-plus"></span>
-			Új feladat
-		</button>
+			Új feladat beküldése
+		</a>
 	</div>
 </div>
 <div class="row">
