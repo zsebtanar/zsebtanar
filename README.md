@@ -38,7 +38,7 @@ Exercises are stored in *public/resources/data.json*. The hierachy is the follow
 3. Subtopic
 4. Exercise
 
-Each of them *must* have a `name` attribute. Exercises *must* have an additional `label` attribute, which is the name of the PHP class file (avoid space and accents). Exercises *can* have additional attributes:
+Each of them *must* have a `name` attribute. Exercises and subtopics *must* have an additional `label` attribute, which is the name of the PHP class file (avoid space and accents). Exercises *can* have additional attributes:
 
 - `level`: how many times user has to solve exercise to complete it (default: **9**)
 - `status`: **OK** if exercise is finished (default: **IN PROGRESS**)
@@ -56,6 +56,7 @@ This is a sample for `data.json`:
                     "subtopics": [
                         {
                             "name": "Számolás",
+                            "label": "Counting",
                             "exercises": [
                                 {
                                     "label": "count_apples",
@@ -155,26 +156,158 @@ class Parity {
 ```
 
 #### 3. Multi
-...
+User has to choose one or more answer for given options. To use this you have to return the following values:
+1. `$options`: array containing options
+2. `$correct`: array of **0**s and **1**s (for wrong and correct options, respectively)
+
+Example:
+```
+/* Classify square */
+class Square {
+    function Generate($level) {
+
+        $question = 'What is a square?';
+        $options = array('rectangle', 'parallelogram', 'circle');
+        $correct = array(1, 1, 0);
+        $solution = 'The square is a rectangle and a parallelogram but not a circle.';
+
+        return array(
+            'question'  => $question,
+            'options'   => $options,
+            'correct'   => $correct,
+            'solution'  => $solution,
+            'type'      => 'multi'
+        );
+    }
+}
+```
 #### 4. Fraction
-...
+User has to return a fraction. To use this you have to return the following values:
+1. `$correct`: array containing numerator and denominator
+
+Example:
+```
+/* Define reciprocal of fraction */
+class Reciprocal {
+    function Generate($level) {
+
+        $num = rand(1, $level);
+        $denom = rand(1, $level);
+
+        $question = 'What is the reciprocal of the following fraction?$$\frac{'.$num.'}{'.$denom.'}$$';
+        $correct = array($denom, $num);
+        $solution = '$\frac{'.$denom.'}{'.$num.'}$';
+
+        return array(
+            'question'  => $question,
+            'correct'   => $correct,
+            'solution'  => $solution,
+            'type'      => 'fraction'
+        );
+    }
+}
+```
 #### 5. Division
-...
-#### 6. Text
-...
+User has to return a quotient and a remainer. To use this you have to return the following values:
+1. `$correct`: array containing quotient and remainer
+
+Example:
+```
+/* Define quotient and remainer */
+class Division {
+    function Generate($level) {
+
+        $dividend = rand(1, $level);
+        $divisor = rand(1, $level);
+
+        $quotient = ceil($dividend/$divisor);
+        $remain = $dividend % $divisor;
+
+        $question = 'What is the result of the following division?$$'.$dividend.':'.$divisor.'=?$$';
+        $correct = array($quotient, $remain);
+        $solution = 'The quotient is $'.$quotient.'$ and the remain is $'.$remain.'$';
+
+        return array(
+            'question'  => $question,
+            'correct'   => $correct,
+            'solution'  => $solution,
+            'type'      => 'division'
+        );
+    }
+}
+```
+#### 6. Custom types
+In order to add a custom type:
+
+1. Choose name for type (e.g. *custom*)
+2. Create new display in `application->Views->Input->Custom.php`
+3. Add custom display in `application->Views->Body->Exercise`
+4. Define way to compare user's answer to correct solution in `application->Models->Check->GenerateMessages`
+
+
+### Hints
+You can generate hints for exercises. In this case you have to return an extra variabel in the end of the function, e.g.:
+```
+return array(
+    'question'  => $question,
+    'correct'   => $correct,
+    'solution'  => $solution,
+    'hints'     => $hints
+);
+```
+The structure of the hints can be the following:
+
+#### Single-page
+In single-page mode hints will be displayed under each other. In this case the variable `$hints` must be an array containing the hints. E.g.:
+```
+$hints[] = 'This is hint one.';
+$hints[] = 'This is hint two.';
+$hints[] = 'This is hint three.';
+```
+#### Multi-page
+In multi-page mode hints of the next page will replace earlier hints. In this case the variable `$hints` must be an array containing subarrays, where each subarray contains the hints for the given page. E.g.:
+```
+$page[] = 'This is hint 1 on page 1.';
+$page[] = 'This is hint 2 on page 1.';
+$page[] = 'This is hint 3 on page 1.';
+$hints[] = $page;
+
+$page = [];
+$page[] = 'This is hint 1 on page 2.';
+$page[] = 'This is hint 2 on page 2.';
+$page[] = 'This is hint 3 on page 2.';
+$hints[] = $page;
+```
+#### Details
+If you want to provide details for a specific hint, you need to add an array after the hint. E.g.:
+```
+$hints[] = 'This is a hint.';
+$hints[] = array('This is', 'some details', 'about the hint.');
+```
+The program will concatenate the detail elements and add a button after the hint. If the user clicks on the hint, he will see the details.
 
 ### Additional features
 #### 1. Using pictures
-- **Loading pictures**
-- **Generating pictures**
-...
+In order to include picture into exercise:
+
+1. Upload pictures in `public->resources->exercises` folder
+2. Include picture using *base_url()* function. E.g.:
+
+```
+$question = 'How many apples are there in the tree?
+    <div class="text-center">
+        <img class="img-question" height="200px" src="'.base_url().'resources/exercises/count_apples/tree1.png">
+    </div>';
+```
+
+To generate pictures, you can use the **SVG** functions (see more: http://www.w3schools.com/svg/default.asp)
 
 #### 2. Built in functions
-- **Language functions**
-- **Math functions**
+You can find language functions in the `application->helpers->language_helper.php` file (this is very useful for Hungarian exercises).
 
-#### 3. Explanation
-...
+You can find mathematical functions in the `application->helpers->language_helper.php` file.
+
+If you have a function called `function($par1, $par2)` in either of these files, you can invoke them in your class file.
 
 # Contact
 
