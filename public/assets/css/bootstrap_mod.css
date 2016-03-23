@@ -164,3 +164,11 @@ div[id^='hint_details'] {
 .hidden {
     display: none;
 }
+
+.alert-success2 {
+    color: #3c763d;
+}
+
+.alert-danger2 {
+    color: #a94442;
+}

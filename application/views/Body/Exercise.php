@@ -267,9 +267,9 @@
 							for (var i = data['submessages'].length - 1; i >= 0; i--) {
 								var submessage = data['submessages'][i];
 								if (submessage == 'CORRECT') {
-									$('#input'+i).before('<span class=\"glyphicon glyphicon-ok green\"></span>&nbsp;');
+									$('#input'+i).before('<span class=\"glyphicon glyphicon-ok alert-success2\"></span>&nbsp;');
 								} else {
-									$('#input'+i).before('<span class=\"glyphicon glyphicon-remove red\"></span>&nbsp;');
+									$('#input'+i).before('<span class=\"glyphicon glyphicon-remove alert-danger2\"></span>&nbsp;');
 								}
 							}
 						}
