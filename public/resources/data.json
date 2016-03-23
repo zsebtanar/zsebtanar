@@ -140,6 +140,12 @@
 									"status": "OK"
 								},
 								{
+									"label": "Percentage_VAT",
+									"name": "Százalékszámítás (ÁFA)",
+									"finished": "2016-03-24",
+									"status": "OK"
+								},
+								{
 									"label": "Test",
 									"name": "Teszt"
 								}

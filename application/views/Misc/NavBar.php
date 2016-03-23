@@ -22,7 +22,7 @@
 			<ul class="nav navbar-nav navbar-right small">
 
 				<li>
-					<a href="#">
+					<a href="#" data-toggle="modal" data-target="#info">
 						<img src="<?php echo base_url();?>assets/images/trophy.png" alt="shield" width="17">&nbsp;
 
 						<b><span class="trophies"><?php echo $trophies;?></span></b>&nbsp;&nbsp;
