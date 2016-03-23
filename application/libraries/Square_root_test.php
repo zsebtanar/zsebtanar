@@ -13,7 +13,7 @@ class Square_root_test {
 		return;
 	}
 
-	// Define range of sine function (a+bsin(cx))
+	// Test for square root
 	function Generate($level) {
 
 		$type = rand(1,3);

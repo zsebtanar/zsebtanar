@@ -13,7 +13,7 @@ class Subsets {
 		return;
 	}
 
-	// Generate random number between 1 and 20
+	// Define total number of subsets of a set
 	function Generate($level) {
 
 		if ($level <= 3) {

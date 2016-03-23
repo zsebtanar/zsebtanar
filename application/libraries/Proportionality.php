@@ -13,7 +13,7 @@ class Proportionality {
 		return;
 	}
 
-	// Generate random number between 1 and 20
+	// Define type of proportionality
 	function Generate($level) {
 
 		$sgn1	= rand(0, 1);

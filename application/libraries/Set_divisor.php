@@ -13,7 +13,7 @@ class Set_divisor {
 		return;
 	}
 
-	// Generate random number between 1 and 20
+	// Define members of intersection/union/difference of sets
 	function Generate($level) {
 
 		list($num1, $factors1) = $this->GetNumber($level);

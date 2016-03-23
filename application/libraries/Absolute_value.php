@@ -13,7 +13,7 @@ class Absolute_value {
 		return;
 	}
 
-	// Define range of sine function (a+bsin(cx))
+	// Define solution of equation for absolute values
 	function Generate($level) {
 
 		if ($level <= 3) {

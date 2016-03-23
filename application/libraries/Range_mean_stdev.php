@@ -13,7 +13,7 @@ class Range_mean_stdev {
 		return;
 	}
 
-	// Generate random number between 1 and 20
+	// Define range, mean, standard deviation
 	function Generate($level) {
 
 		$set = $this->Set($level);

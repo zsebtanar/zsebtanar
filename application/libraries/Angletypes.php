@@ -8,7 +8,8 @@ class Angletypes {
 
 		$CI =& get_instance();
 		$CI->load->helper('maths');
-
+		$CI->load->helper('language');
+		
 		return;
 	}
 

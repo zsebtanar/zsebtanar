@@ -13,7 +13,7 @@ class Probability_divisibility {
 		return;
 	}
 
-	// Generate random number between 1 and 20
+	// Define probability of divisibility
 	function Generate($level) {
 
 		if ($level <= 3) {

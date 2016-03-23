@@ -22,24 +22,13 @@ class Quadratic_equation {
 		$rand_key2 = array_rand($values, 1);
 		$x1 = $values[$rand_keys[0]];
 		$x2 = $values[$rand_keys[1]];
-		// $x1 = 0;
-		// $x2 = 1;
-		// print_r('x1='.$x1.', x2='.$x2.'<br/>');
 
 		// Generate coefficients (using Viète-formulae)
 		// ax^2+bx+c=d
 		$a = rand(1,ceil($level/3))*(-1)^(rand(1,2));
-		// $a = -3;
 		$b = $a*($x1 + $x2);
 		$d = rand(-$level, $level);
-		// $d = 1;
 		$c = $a*$x1*$x2+$d;
-		// $a = -3;
-		// $b = 0;
-		// $c = 2;
-		// $d = -1;
-		// print_r('a='.$a.', b='.$b.', c='.$c.', d='.$d.'<br/>');
-
 
 		$equation = $this->Equation($a, $b, $c, $d, $x1, $x2);
 
