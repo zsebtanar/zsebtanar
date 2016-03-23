@@ -61,6 +61,7 @@ This is a sample for `data.json`:
                                 {
                                     "label": "count_apples",
                                     "name": "Számolás 1-től 20-ig",
+                                    "finished": "2016-03-04",
                                     "status": "OK"
                                 },
                                 {
@@ -123,8 +124,8 @@ class Guess_number {
 ```
 
 #### 2. Quiz
-
 User has to choose one answer for given options. To use this you have to return the following values:
+
 1. `$options`: array containing options
 2. `$correct`: key of correct option
 
@@ -157,6 +158,7 @@ class Parity {
 
 #### 3. Multi
 User has to choose one or more answer for given options. To use this you have to return the following values:
+
 1. `$options`: array containing options
 2. `$correct`: array of **0**s and **1**s (for wrong and correct options, respectively)
 
@@ -183,6 +185,7 @@ class Square {
 ```
 #### 4. Fraction
 User has to return a fraction. To use this you have to return the following values:
+
 1. `$correct`: array containing numerator and denominator
 
 Example:
@@ -209,6 +212,7 @@ class Reciprocal {
 ```
 #### 5. Division
 User has to return a quotient and a remainer. To use this you have to return the following values:
+
 1. `$correct`: array containing quotient and remainer
 
 Example:
@@ -246,7 +250,7 @@ In order to add a custom type:
 
 
 ### Hints
-You can generate hints for exercises. In this case you have to return an extra variabel in the end of the function, e.g.:
+You can generate hints for exercises. In this case you have to return an extra variable in the end of the function, e.g.:
 ```
 return array(
     'question'  => $question,
@@ -257,14 +261,14 @@ return array(
 ```
 The structure of the hints can be the following:
 
-#### Single-page
+#### A) Single-page
 In single-page mode hints will be displayed under each other. In this case the variable `$hints` must be an array containing the hints. E.g.:
 ```
 $hints[] = 'This is hint one.';
 $hints[] = 'This is hint two.';
 $hints[] = 'This is hint three.';
 ```
-#### Multi-page
+#### B) Multi-page
 In multi-page mode hints of the next page will replace earlier hints. In this case the variable `$hints` must be an array containing subarrays, where each subarray contains the hints for the given page. E.g.:
 ```
 $page[] = 'This is hint 1 on page 1.';
@@ -278,7 +282,7 @@ $page[] = 'This is hint 2 on page 2.';
 $page[] = 'This is hint 3 on page 2.';
 $hints[] = $page;
 ```
-#### Details
+#### C) Details
 If you want to provide details for a specific hint, you need to add an array after the hint. E.g.:
 ```
 $hints[] = 'This is a hint.';
@@ -306,8 +310,6 @@ To generate pictures, you can use the **SVG** functions (see more: http://www.w3
 You can find language functions in the `application->helpers->language_helper.php` file (this is very useful for Hungarian exercises).
 
 You can find mathematical functions in the `application->helpers->language_helper.php` file.
-
-If you have a function called `function($par1, $par2)` in either of these files, you can invoke them in your class file.
 
 # Contact
 
