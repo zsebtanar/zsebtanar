@@ -26,7 +26,8 @@ class Setup extends CI_model {
 				),
 			'subtopics' => array(
 				'topicID'	=> 'FROM SESSION',
-				'name'		=> 'NOT NULL'
+				'name'		=> 'NOT NULL',
+				'label'		=> 'NOT NULL'
 				),
 			'exercises' => array(
 				'subtopicID'=> 'FROM SESSION',
@@ -111,7 +112,7 @@ class Setup extends CI_model {
 							id 		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							topicID INT NOT NULL,
 							name 	VARCHAR(60) NOT NULL,
-							CONSTRAINT topic_name UNIQUE (topicID, name),
+							label 	VARCHAR(60) NOT NULL UNIQUE,
 							FOREIGN KEY (topicID) REFERENCES topics(id)
 						)Engine=InnoDB;',
 			'exercises' => 'CREATE TABLE exercises (

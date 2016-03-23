@@ -21,14 +21,11 @@ class View extends CI_controller {
 	/**
 	 * View main page
 	 *
-	 * @param int $classID Class id
-	 * @param int $topicID Topic id
-	 *
 	 * @return void
 	 */
-	public function Main($classID=NULL, $topicID=NULL) {
+	public function Main() {
 
-		$data = $this->Html->MainData($classID, $topicID);
+		$data = $this->Html->MainData();
 
 		$this->load->view('Template', $data);
 		
@@ -40,17 +37,15 @@ class View extends CI_controller {
 	/**
 	 * View subtopic
 	 *
-	 * @param int $subtopicID Subtopic id
-	 * @param int $exerciseID Exercise id
+	 * @param int $subtopiclabel Subtopic label
 	 *
 	 * @return	void
 	 */
-	public function Subtopic($subtopicID=NULL, $exerciseID=NULL) {
+	public function Subtopic($subtopiclabel=NULL) {
 
-		$data = $this->Html->SubtopicData($subtopicID, $exerciseID);
+		$subtopicID = $this->Database->SubtopicID($subtopiclabel);
 
-		$data['exerciseID'] = $exerciseID;
-		$data['subtopicID'] = $subtopicID;
+		$data = $this->Html->SubtopicData($subtopicID);
 
 		$this->load->view('Template', $data);
 		

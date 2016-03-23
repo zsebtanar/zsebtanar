@@ -41,7 +41,7 @@
 
 									if ($subtopic['show']) {?>
 
-									<a class="btn btn-link" href="<?php echo base_url();?>view/subtopic/<?php echo $subtopic['id'];?>">
+									<a class="btn btn-link" href="<?php echo base_url();?>view/subtopic/<?php echo $subtopic['label'];?>">
 											<?php echo $subtopic['name'];?>
 									</a><br /><?php
 

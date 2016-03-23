@@ -8,6 +8,7 @@
 					"subtopics": [
 						{
 							"name": "Számolás",
+							"label": "Counting",
 							"exercises": [
 								{
 									"label": "Count_1_20",
@@ -31,6 +32,7 @@
 						},
 						{
 							"name": "Alapműveletek",
+							"label": "Basic_operations",
 							"exercises": [
 								{
 									"label": "Addition",
@@ -47,6 +49,7 @@
 					"subtopics": [
 						{
 							"name": "Szögek",
+							"label": "Angles",
 							"exercises": [
 								{
 									"label": "Angletypes",
@@ -74,6 +77,7 @@
 					"subtopics": [
 						{
 							"name": "2015. október 13.",
+							"label": "2015-10-13",
 							"exercises": [
 								{
 									"label": "Quadratic_equation",

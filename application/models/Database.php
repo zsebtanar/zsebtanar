@@ -56,11 +56,27 @@ class Database extends CI_model {
 	 *
 	 * @param int $label Exercise label
 	 *
-	 * @return bool $exists Whether exercise exists
+	 * @return int $id Exercise ID
 	 */
 	public function ExerciseID($label) {
 
 		$query = $this->db->get_where('exercises', array('label' => $label));
+
+		$id = $query->result()[0]->id;
+
+ 		return $id;
+	}
+
+	/**
+	 * Gets id for subtopic
+	 *
+	 * @param int $label Subtopic label
+	 *
+	 * @return int $id Subtopic ID
+	 */
+	public function SubtopicID($label) {
+
+		$query = $this->db->get_where('subtopics', array('label' => $label));
 
 		$id = $query->result()[0]->id;
 
@@ -200,7 +216,7 @@ class Database extends CI_model {
 			($this->Session->CheckLogin() || $this->Database->SubtopicStatus($id) == 'OK')) {
 
 			$subtopic = $subtopics->result()[0];
-			$link = base_url().'view/subtopic/'.$subtopic->id;
+			$link = base_url().'view/subtopic/'.$subtopic->label;
 			$name = $subtopic->name;
 
 		} else {
@@ -213,7 +229,7 @@ class Database extends CI_model {
 		return array(
 			'link' => $link,
 			'name' => $name
-			);
+		);
 	}
 
 	/**

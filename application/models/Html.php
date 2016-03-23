@@ -19,17 +19,12 @@ class Html extends CI_model {
 	 *
 	 * Collects all necessary parameters for template
 	 *
-	 * @param int $classID Class id
-	 * @param int $topicID Topic id
-	 *
 	 * @return array $data Main page data
 	 */
-	public function MainData($classID=NULL, $topicID=NULL) {
+	public function MainData() {
 
-		$data['maindata'] 	= $this->GetMainData($classID, $topicID);
+		$data['maindata'] 	= $this->GetMainData();
 		$data['latest']		= $this->Database->getLatest();
-		$data['classID'] 	= $classID;
-		$data['topicID'] 	= $topicID;
 		$data['type'] 		= 'main';
 		$data['titledata'] 	= NULL;
 		$data['results'] 	= $this->Session->GetResults();
@@ -76,10 +71,10 @@ class Html extends CI_model {
 	 *
 	 * @return array $data Subtopic data
 	 */
-	public function SubtopicData($subtopicID=NULL, $exerciseID=NULL) {
+	public function SubtopicData($subtopicID=NULL) {
 
 		$data['type'] 		= 'subtopic';
-		$data['exercises']	= $this->SubtopicExercises($subtopicID, $exerciseID);
+		$data['exercises']	= $this->SubtopicExercises($subtopicID);
 		$data['results']	= $this->Session->GetResults('subtopic', $subtopicID);
 		$data['breadcrumb'] = $this->BreadCrumb('subtopic', $subtopicID);
 		$data['title']		= $this->Database->SubtopicTitle($subtopicID);
@@ -117,12 +112,9 @@ class Html extends CI_model {
 	 *
 	 * Gets all classes, topics & subtopics
 	 *
-	 * @param int $classID Class id
-	 * @param int $topicID Topic id
-	 *
 	 * @return array $data Subtopics
 	 */
-	public function GetMainData($classID=NULL, $topicID=NULL) {
+	public function GetMainData() {
 
 		$this->db->order_by('id');
 		$classes = $this->db->get('classes');
@@ -148,6 +140,7 @@ class Html extends CI_model {
 						foreach ($subtopics->result() as $subtopic) {
 
 							$subtopic_menu['id'] 	= $subtopic->id;
+							$subtopic_menu['label'] = $subtopic->label;
 							$subtopic_menu['name'] 	= $subtopic->name;
 							$subtopic_menu['show']	= FALSE;
 
@@ -165,15 +158,7 @@ class Html extends CI_model {
 
 					$topic_menu['id'] = $topic->id;
 					$topic_menu['name'] = $topic->name;
-					$topic_menu['subtopics'] = $subtopics_menu;
-
-					if ($this->Session->CheckLogin() || $topic->id == $topicID || (!$topicID && $topic->classID == $classID)) {
-						$topic_menu['class'] = 'in';
-					} else {
-						// $topic_menu['class'] = '';
-						$topic_menu['class'] = 'in';
-					}
-					
+					$topic_menu['subtopics'] = $subtopics_menu;					
 
 					$topics_menu[] = $topic_menu;
 				}
@@ -182,12 +167,6 @@ class Html extends CI_model {
 			$class_menu['id'] = $class->id;
 			$class_menu['name'] = $class->name;
 			$class_menu['topics'] = $topics_menu;
-
-			if ($this->Session->CheckLogin() || $class->id == $classID) {
-				$class_menu['class'] = 'in';
-			} else {
-				$class_menu['class'] = '';
-			}
 
 			$classes_menu[] = $class_menu;
 		}
@@ -241,11 +220,10 @@ class Html extends CI_model {
 	 * Get exercises of subtopic
 	 *
 	 * @param int $subtopicID Subtopic ID
-	 * @param int $exerciseID Exercise ID
 	 *
 	 * @return array $data Exercises
 	 */
-	public function SubtopicExercises($subtopicID=NULL, $exerciseID=NULL) {
+	public function SubtopicExercises($subtopicID=NULL) {
 
 		if ($this->Session->CheckLogin()) {
 			$query = $this->db->get_where('exercises', array('subtopicID' => $subtopicID));
@@ -253,7 +231,7 @@ class Html extends CI_model {
 			$query = $this->db->get_where('exercises', array(
 				'subtopicID' => $subtopicID,
 				'status' => 'OK'
-				));
+			));
 		}
 
 		$exercises = $query->result();
@@ -272,7 +250,6 @@ class Html extends CI_model {
 					$row['name'] 		= $exercise->name;
 					$row['complete'] 	= $this->Session->isComplete($id);
 					$row['progress'] 	= $this->Session->UserProgress($id);
-					$row['class'] 		= (!$exerciseID || $id == $exerciseID ? 'in' : '');
 
 					$exercisedata = $this->GetExerciseData($id, NULL, $save=FALSE);
 					$row['question']	= $exercisedata['question'];
