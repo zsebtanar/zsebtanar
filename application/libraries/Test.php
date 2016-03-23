@@ -15,17 +15,18 @@ class Test {
 
     function Generate($level) {
 
-        $question = 'What is a square?';
-        $options = array('rectangle', 'parallelogram', 'circle');
-        $correct = array(1, 1, 0);
-        $solution = 'The square is a rectangle and a parallelogram but not a circle.';
+    	$numbers = ['one', 'two', 'three'];
+    	$num = rand(0,2);
+
+        $question = 'What is the name of the following number?$$'.strval($num+1).'$$';
+        $correct = $numbers[$num];
+        $solution = $correct;
 
         return array(
             'question'  => $question,
-            'options'   => $options,
             'correct'   => $correct,
             'solution'  => $solution,
-            'type'		=> 'multi'
+            'type'		=> 'text'
         );
     }
 }
