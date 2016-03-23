@@ -130,6 +130,12 @@
 									"status": "OK"
 								},
 								{
+									"label": "Probability_divisibility",
+									"name": "Valószínűség (oszthatóság)",
+									"finished": "2016-03-23",
+									"status": "OK"
+								},
+								{
 									"label": "Test",
 									"name": "Teszt"
 								}
