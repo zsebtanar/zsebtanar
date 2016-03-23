@@ -245,7 +245,6 @@ class Html extends CI_model {
 					$id = $exercise->id;
 
 					$row['status'] 		= $exercise->status;
-					$row['id'] 			= $id;
 					$row['label'] 		= $exercise->label;
 					$row['name'] 		= $exercise->name;
 					$row['complete'] 	= $this->Session->isComplete($id);
@@ -313,10 +312,9 @@ class Html extends CI_model {
 		}
 
 		$data['level'] 		= $level;
-		$data['id'] 		= $id;
-		$data['label'] 		= $this->Database->ExerciseLabel($id);
+		$data['label'] 		= $label;
 		$data['hash']		= $hash;
-		$data['subtopicID'] = $this->Database->getSubtopicID($id);
+		$data['subtopiclabel'] = $this->Database->getSubtopicLabel($id);
 
 		return $data;
 	}

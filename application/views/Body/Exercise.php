@@ -58,7 +58,7 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-12 text-center">
-				<a class="btn btn-default pull-left" href="<?php echo base_url().'view/subtopic/'.$subtopicID.'/'.$id;?>">
+				<a class="btn btn-default pull-left" href="<?php echo base_url().'view/subtopic/'.$subtopiclabel;?>">
 					<span class="glyphicon glyphicon-chevron-left"></span>&nbsp;Vissza
 				</a>
 				<a id="next_button" class="btn btn-primary pull-right" onclick="checkSolution(event)">

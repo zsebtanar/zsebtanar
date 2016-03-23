@@ -38,13 +38,13 @@ class Database extends CI_model {
 	/**
 	 * Check whether exercise exists
 	 *
-	 * @param int $id Exercise ID
+	 * @param string $label Exercise label
 	 *
 	 * @return bool $exists Whether exercise exists
 	 */
-	public function ExerciseExists($id) {
+	public function ExerciseExists($label) {
 
-		$query = $this->db->get_where('exercises', array('id' => $id));
+		$query = $this->db->get_where('exercises', array('label' => $label));
 
 		$exists = count($query->result()) == 1;
 
@@ -102,18 +102,20 @@ class Database extends CI_model {
 	}
 
 	/**
-	 * Get subtopic ID for exercise
+	 * Get subtopic label for exercise
 	 *
-	 * @param int $id Exercise ID
+	 * @param int $label Exercise label
 	 *
-	 * @return int $subtopicID Subtopic ID
+	 * @return int $subtopiclabel Subtopic label
 	 */
-	public function getSubtopicID($id) {
+	public function getSubtopicLabel($id) {
 
 		$query = $this->db->get_where('exercises', array('id' => $id));
 		$subtopicID = $query->result()[0]->subtopicID;
+		$query = $this->db->get_where('subtopics', array('id' => $subtopicID));
+		$subtopiclabel = $query->result()[0]->label;
 
- 		return $subtopicID;
+ 		return $subtopiclabel;
 	}
 
 	/**

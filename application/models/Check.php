@@ -50,7 +50,7 @@ class Check extends CI_model {
 
 		$id_next 	= $this->Html->NextID($id);
 		$label_next = $this->Html->NextLabel($id);
-		$subtopicID = $this->Database->getSubtopicID($id);
+		$subtopiclabel = $this->Database->getSubtopicLabel($id);
 		$progress 	= $this->Session->UserProgress($id);
 
 		$output = array(
@@ -59,7 +59,7 @@ class Check extends CI_model {
 			'submessages'	=> $submessages,
 			'id_next'		=> $id_next,
 			'label_next'	=> $label_next,
-			'subtopicID'	=> $subtopicID,
+			'subtopiclabel'	=> $subtopiclabel,
 			'explanation'	=> $explanation,
 			'progress'		=> $progress,
 			'results' 		=> $results

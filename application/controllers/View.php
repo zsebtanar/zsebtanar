@@ -68,7 +68,7 @@ class View extends CI_controller {
 
 		$id = $this->Database->ExerciseID($label);
 
-		if ($this->Database->ExerciseExists($id)) {
+		if ($this->Database->ExerciseExists($label)) {
 
 			$data = $this->Html->ExerciseData($id, $round);
 
