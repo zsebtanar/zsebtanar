@@ -146,6 +146,12 @@
 									"status": "OK"
 								},
 								{
+									"label": "Graph_competition",
+									"name": "Gráfok (verseny)",
+									"finished": "2016-03-25",
+									"status": "OK"
+								},
+								{
 									"label": "Test",
 									"name": "Teszt"
 								}
