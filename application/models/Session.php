@@ -195,6 +195,13 @@ class Session extends CI_model {
 
 		$data['id'] = $id;
 		$data['type'] = $type;
+		if ($id) {
+			if ($type == 'exercise') {
+				$data['label'] = $this->Database->ExerciseLabel($id);
+			} else {
+				$data['label'] = $this->Database->getSubtopicLabel($id, $type);
+			}
+		}
 
 		return $data;
 	}

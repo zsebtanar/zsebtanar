@@ -43,14 +43,14 @@
 				<li>
 					<a href="<?php echo base_url().'application/clearresults/'.
 						(isset($type) ? $type : '').
-						(isset($id) ? '/'.$id : '');?>">
+						(isset($label) ? '/'.$label : '');?>">
 						<span class="glyphicon glyphicon-remove"></span>&nbsp;Pontok törlése
 					</a>
 				</li>
 				<li>
 					<a href="<?php echo base_url().'application/update/'.
 						(isset($type) ? $type : '').'/'.
-						(isset($id) ? '/'.$id : '');?>">
+						(isset($label) ? $label : '');?>">
 						<span class="glyphicon glyphicon-refresh"></span>&nbsp;Adatbázis frissítése
 					</a>
 				</li>

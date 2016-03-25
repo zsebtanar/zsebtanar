@@ -108,12 +108,17 @@ class Database extends CI_model {
 	 *
 	 * @return int $subtopiclabel Subtopic label
 	 */
-	public function getSubtopicLabel($id) {
+	public function getSubtopicLabel($id, $type='exercise') {
 
-		$query = $this->db->get_where('exercises', array('id' => $id));
-		$subtopicID = $query->result()[0]->subtopicID;
-		$query = $this->db->get_where('subtopics', array('id' => $subtopicID));
-		$subtopiclabel = $query->result()[0]->label;
+		if ($type == 'exercise') {
+			$query = $this->db->get_where('exercises', array('id' => $id));
+			$subtopicID = $query->result()[0]->subtopicID;
+			$query = $this->db->get_where('subtopics', array('id' => $subtopicID));
+			$subtopiclabel = $query->result()[0]->label;
+		} else {
+			$query = $this->db->get_where('subtopics', array('id' => $id));
+			$subtopiclabel = $query->result()[0]->label;
+		}
 
  		return $subtopiclabel;
 	}
