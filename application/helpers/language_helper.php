@@ -439,6 +439,54 @@ function In($num)
 }
 
 /**
+ * Add suffix 'from' to number (ból/ből)
+ *
+ * @param int $num Number (<10^6)
+ *
+ * @return string $suffix Suffix
+ */
+function From($num)
+{
+  $abs = abs($num);
+
+  switch ($abs % 10) {
+    case 1:
+    case 2:
+    case 4:
+    case 5:
+    case 7:
+    case 9:
+      return 'ből';
+    case 3:
+    case 6:
+    case 8:
+      return 'ból';
+  }
+
+  switch (($abs / 10) % 10) {
+    case 1:
+    case 4:
+    case 5:
+    case 7:
+    case 9:
+      return 'ből';
+    case 2:
+    case 3:
+    case 6:
+    case 8:
+      return 'ból';
+  }
+
+  if ($abs == 0) {
+    return 'ból';
+  } elseif (1000 <= $abs && $abs < 1000000) {
+    return 'ből';
+  } else {
+    return 'ból';
+  }
+}
+
+/**
  * Write down number with letters
  *
  * @param int $num Number
