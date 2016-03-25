@@ -152,6 +152,10 @@
 									"status": "OK"
 								},
 								{
+									"label": "Series_mixed",
+									"name": "Sorozatok"
+								},
+								{
 									"label": "Test",
 									"name": "Teszt"
 								}
