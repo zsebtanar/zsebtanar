@@ -30,6 +30,9 @@
 						case 'equation2':
 							$this->load->view('Input/Equation2');
 							break;
+						case 'quotient2':
+							$this->load->view('Input/Quotient2');
+							break;
 						case 'range':
 							$this->load->view('Input/Range');
 							break;

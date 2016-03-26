@@ -135,6 +135,7 @@ class Check extends CI_model {
 				break;
 
 			case 'equation2':
+			case 'quotient2':
 				list($status, $message) = $this->GenerateMessagesEquation2($answer, $correct, $solution);
 				break;
 
