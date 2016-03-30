@@ -16,8 +16,6 @@ class Series_mixed {
 	// Define member of arithmetic & geometric series
 	function Generate($level) {
 
-		$level = 7;
-
 		if ($level <= 3) {
 
 			$d = rand(-20,20);
@@ -27,13 +25,13 @@ class Series_mixed {
 			$question = 'Egy számtani sorozat három egymást követő tagja ebben a sorrendben $'.$a0.';x$ és $'.$a2.'$. ';
 			$type = 'int';
 
-			if (rand(1,2) == 1) {
+			if (1 == 1) {
 
 				$question .= 'Határozza meg az $x$ értékét!';
 				$correct = $a1;
 				$solution = '$'.$correct.'$';
 
-				$page[] = 'A számtani sorozatban minden tagot úgy tudunk kiszámolni, hogy hozzáadunk $\textcolor{blue}{d}$-t (a <i>differenciát</i>) az előző számhoz.';
+				$page[] = 'A számtani sorozatban minden tagot úgy tudunk kiszámolni, hogy hozzáadunk $\textcolor{blue}{d}$-t (a <i>differenciát</i>) az előző számhoz:$$a_1\xrightarrow{+\textcolor{blue}{d}}a_2\xrightarrow{+\textcolor{blue}{d}}a_3$$';
 				$page[] = 'Tehát ha az első szám $'.$a0.'$, akkor'
 					.'$$\begin{eqnarray}a_1&=&'.$a0.'\\\\'
 					.' a_2&=&a_1+\textcolor{blue}{d}='.$a0.'+\textcolor{blue}{d}=\textcolor{red}{x} \\\\ '
@@ -54,7 +52,7 @@ class Series_mixed {
 				$correct = $d;
 				$solution = '$'.$correct.'$';
 
-				$page[] = 'A számtani sorozatban minden tagot úgy tudunk kiszámolni, hogy hozzáadunk $\textcolor{blue}{d}$-t (a <i>differenciát</i>) az előző számhoz.';
+				$page[] = 'A számtani sorozatban minden tagot úgy tudunk kiszámolni, hogy hozzáadunk $\textcolor{blue}{d}$-t (a <i>differenciát</i>) az előző számhoz:$$a_1\xrightarrow{+\textcolor{blue}{d}}a_2\xrightarrow{+\textcolor{blue}{d}}a_3$$';
 				$page[] = 'Tehát ha az első szám $'.$a0.'$, akkor'
 					.'$$\begin{eqnarray}a_1&=&'.$a0.'\\\\'
 					.' a_2&=&a_1+\textcolor{blue}{d}='.$a0.'+\textcolor{blue}{d}=x \\\\ '
@@ -83,7 +81,7 @@ class Series_mixed {
 				$solution = '$x_1='.$a1.'$, és $x_2='.strval(-$a1).'$$';
 				$type = 'equation2';
 
-				$page[] = 'A mértani sorozatban minden tagot úgy tudunk kiszámolni, hogy megszorozzuk $\textcolor{blue}{q}$-val (a <i>hányadossal</i>) az előző számot.';
+				$page[] = 'A mértani sorozatban minden tagot úgy tudunk kiszámolni, hogy megszorozzuk $\textcolor{blue}{q}$-val (a <i>hányadossal</i>) az előző számot:$$a_1\xrightarrow{\cdot\textcolor{blue}{q}}a_2\xrightarrow{\cdot\textcolor{blue}{q}}a_3$$';
 				$page[] = 'Tehát ha az első szám $'.$a0.'$, akkor'
 					.'$$\begin{eqnarray}a_1&=&'.$a0.'\\\\'
 					.' a_2&=&a_1\cdot\textcolor{blue}{q}='.$a0.'\cdot\textcolor{blue}{q}=\textcolor{red}{x} \\\\ '
@@ -106,7 +104,7 @@ class Series_mixed {
 				$solution = '$q_1='.$q.'$, és $q_2='.strval(-$q).'$';
 				$type = 'quotient2';
 
-				$page[] = 'A mértani sorozatban minden tagot úgy tudunk kiszámolni, hogy megszorozzuk $\textcolor{blue}{q}$-val (a <i>hányadossal</i>) az előző számot.';
+				$page[] = 'A mértani sorozatban minden tagot úgy tudunk kiszámolni, hogy megszorozzuk $\textcolor{blue}{q}$-val (a <i>hányadossal</i>) az előző számot:$$a_1\xrightarrow{\cdot\textcolor{blue}{q}}a_2\xrightarrow{\cdot\textcolor{blue}{q}}a_3$$';
 				$page[] = 'Tehát ha az első szám $'.$a0.'$, akkor'
 					.'$$\begin{eqnarray}a_1&=&'.$a0.'\\\\'
 					.' a_2&=&a_1\cdot\textcolor{blue}{q}='.$a0.'\cdot\textcolor{blue}{q}=\textcolor{red}{x} \\\\ '
@@ -128,10 +126,6 @@ class Series_mixed {
 			$a2 = ($a1 < $a3 ? rand($a1+1, $a3-1) : rand($a3+1, $a1-1));
 			$sum = $a1 + $a2 + $a3;
 			$a2 = ($a2 + 3 - $sum%3 >= max($a1, $a3) ? $a2 - $sum%3 : $a2 + 3 - $sum%3);
-
-			$a1 = 28;
-			$a2 = 37;
-			$a3 = 82;
 
 			$avg = ($a1 + $a2 + $a3)/3;
 			$diff = $avg - $a2;
