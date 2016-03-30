@@ -20,4 +20,13 @@ function DrawCircle($cx, $cy, $r, $color1='black', $width=1, $color2='none') {
 
   return $svg;
 }
+
+function DrawPath($x1, $y1, $x2, $y2, $color1='black', $width=1, $color2='none', $dasharray1=5, $dasharray2=0) {
+
+  $svg = '<g fill="'.$color2.'" stroke="'.$color1.'" stroke-width="'.$width.'">
+  			<path stroke-dasharray="'.$dasharray1.','.$dasharray2.'" d="M'.$x1.' '.$y1.' l'.strval($x2-$x1).' '.strval($y2-$y1).'" />
+  		</g>';
+
+  return $svg;
+}
 ?>
