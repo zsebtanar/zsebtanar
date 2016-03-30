@@ -246,10 +246,20 @@ class Database extends CI_model {
 	 */
 	public function getLatest() {
 
-		$query = $this->db->query(
-			'SELECT DISTINCT `exercises`.`id`, `exercises`.`name`, `exercises`.`label` FROM `exercises`
-					WHERE `exercises`.`status` = \'OK\'
-					ORDER BY `exercises`.`finished` DESC');
+		if ($this->Session->CheckLogin()) {
+
+			$query = $this->db->query(
+				'SELECT DISTINCT `exercises`.`id`, `exercises`.`name`, `exercises`.`label` FROM `exercises`
+						ORDER BY `exercises`.`finished` DESC');
+
+		} else {
+
+			$query = $this->db->query(
+				'SELECT DISTINCT `exercises`.`id`, `exercises`.`name`, `exercises`.`label` FROM `exercises`
+						WHERE `exercises`.`status` = \'OK\'
+						ORDER BY `exercises`.`finished` DESC');
+			
+		}
 
 		$data = $query->result_array();
 

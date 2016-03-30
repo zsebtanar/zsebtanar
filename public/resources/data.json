@@ -153,7 +153,13 @@
 								},
 								{
 									"label": "Series_mixed",
-									"name": "Sorozatok"
+									"name": "Sorozatok",
+									"finished": "2016-03-26",
+									"status": "OK"
+								},
+								{
+									"label": "Pentathlon",
+									"name": "Öttusa"
 								},
 								{
 									"label": "Test",
