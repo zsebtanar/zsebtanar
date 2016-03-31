@@ -1,11 +1,11 @@
-<div class="row">
+<!-- <div class="row">
 	<div class="col-md-12 text-center">
 		<a type="button" class="btn btn-success" href="http://goo.gl/forms/Kw9aTgyo2h" target="_blank">
 			<span class="glyphicon glyphicon-plus"></span>
 			Új feladat beküldése
 		</a>
 	</div>
-</div>
+</div> -->
 <div class="row">
 	<div class="col-md-3"></div>
 	<div class="col-md-4">
