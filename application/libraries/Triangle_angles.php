@@ -9,6 +9,7 @@ class Triangle_angles {
 		$CI =& get_instance();
 		$CI->load->helper('maths');
 		$CI->load->helper('language');
+		$CI->load->helper('draw');
 		
 		return;
 	}
@@ -186,9 +187,9 @@ class Triangle_angles {
 					<svg width="'.$width.'" height="'.$height.'">';
 		// $svg .= '<rect width="'.$width.'" height="'.$height.'" fill="black" fill-opacity="0.2" />';
 
-		$svg .= $this->DrawLine($Ax, $Ay, $Bx, $By);
-		$svg .= $this->DrawLine($Ax, $Ay, $Cx, $Cy);
-		$svg .= $this->DrawLine($Bx, $By, $Cx, $Cy);
+		$svg .= DrawLine($Ax, $Ay, $Bx, $By);
+		$svg .= DrawLine($Ax, $Ay, $Cx, $Cy);
+		$svg .= DrawLine($Bx, $By, $Cx, $Cy);
 
 		// Nodes
 		$svg .= '<text font-size="15" x="'.$Ax.'" y="'.strval($height-5).'" fill="black">$A$</text>';
@@ -197,69 +198,31 @@ class Triangle_angles {
 
 		// Arc
 		if ($Ca) { // caption for A inner
-			$svg .= $this->DrawArc($Ax, $Ay, $Bx, $By, $Cx, $Cy, $arc_radius_inner, 25, 0, $Ca);
+			$svg .= DrawArc($Ax, $Ay, $Bx, $By, $Cx, $Cy, $arc_radius_inner, 25, 0, $Ca);
 		}
 		if ($Caa) { // caption for A outer
-			$svg .= $this->DrawLine($Ax, $Ay, $AAx, $AAy);
-			$svg .= $this->DrawArc($Ax, $Ay, $Cx, $Cy, $AAx, $AAy, $arc_radius_outer1);
-			$svg .= $this->DrawArc($Ax, $Ay, $Cx, $Cy, $AAx, $AAy, $arc_radius_outer2, 5, 10, $Caa);
+			$svg .= DrawLine($Ax, $Ay, $AAx, $AAy);
+			$svg .= DrawArc($Ax, $Ay, $Cx, $Cy, $AAx, $AAy, $arc_radius_outer1);
+			$svg .= DrawArc($Ax, $Ay, $Cx, $Cy, $AAx, $AAy, $arc_radius_outer2, 5, 10, $Caa);
 		}
 		if ($Cb) { // caption for B inner
-			$svg .= $this->DrawArc($Bx, $By, $Cx, $Cy, $Ax, $Ay, $arc_radius_inner, 25, 0, $Cb);
+			$svg .= DrawArc($Bx, $By, $Cx, $Cy, $Ax, $Ay, $arc_radius_inner, 25, 0, $Cb);
 		}
 		if ($Cbb) { // caption for B outer
-			$svg .= $this->DrawLine($Bx, $By, $BBx, $BBy);
-			$svg .= $this->DrawArc($Bx, $By, $BBx, $BBy, $Cx, $Cy, $arc_radius_outer1);
-			$svg .= $this->DrawArc($Bx, $By, $BBx, $BBy, $Cx, $Cy, $arc_radius_outer2, 25, 10, $Cbb);
+			$svg .= DrawLine($Bx, $By, $BBx, $BBy);
+			$svg .= DrawArc($Bx, $By, $BBx, $BBy, $Cx, $Cy, $arc_radius_outer1);
+			$svg .= DrawArc($Bx, $By, $BBx, $BBy, $Cx, $Cy, $arc_radius_outer2, 25, 10, $Cbb);
 		}
 		if ($Cc) { // caption for C inner
-			$svg .= $this->DrawArc($Cx, $Cy, $Ax, $Ay, $Bx, $By, $arc_radius_inner, 25, 20, $Cc);
+			$svg .= DrawArc($Cx, $Cy, $Ax, $Ay, $Bx, $By, $arc_radius_inner, 25, 20, $Cc);
 		}
 		if ($Ccc) { // caption for C outer
-			$svg .= $this->DrawLine($Cx, $Cy, $CCx, $CCy);
-			$svg .= $this->DrawArc($Cx, $Cy, $Bx, $By, $CCx, $CCy, $arc_radius_outer1);
-			$svg .= $this->DrawArc($Cx, $Cy, $Bx, $By, $CCx, $CCy, $arc_radius_outer2, 25, 5, $Ccc);
+			$svg .= DrawLine($Cx, $Cy, $CCx, $CCy);
+			$svg .= DrawArc($Cx, $Cy, $Bx, $By, $CCx, $CCy, $arc_radius_outer1);
+			$svg .= DrawArc($Cx, $Cy, $Bx, $By, $CCx, $CCy, $arc_radius_outer2, 25, 5, $Ccc);
 		}
 
 		$svg .= '</svg></div>';
-
-		return $svg;
-	}
-
-	function DrawLine($x1, $y1, $x2, $y2) {
-
-		$svg = '<line x1="'.$x1.'" y1="'.$y1.'" x2="'.$x2.'" y2="'.$y2.'" stroke="black" stroke-width="1" />';
-
-		return $svg;
-	}
-
-	// Draws an arc between P1, P2, P3 (P1 is the center)
-	function DrawArc($x1, $y1, $x2, $y2, $x3, $y3, $radius, $modx=0, $mody=0, $text=NULL) {
-
-		// Draw arc
-		$P12 = sqrt(pow($y2-$y1,2) + pow($x2-$x1,2));
-		$P13 = sqrt(pow($y3-$y1,2) + pow($x3-$x1,2));
-		$P23 = sqrt(pow($y3-$y2,2) + pow($x3-$x2,2));
-
-		$xx2 = $x1 + ($x2 - $x1)/$P12*$radius;
-		$yy2 = $y1 + ($y2 - $y1)/$P12*$radius;
-
-		$xx3 = $x1 + ($x3 - $x1)/$P13*$radius;
-		$yy3 = $y1 + ($y3 - $y1)/$P13*$radius;
-
-		$svg = '<path stroke="black" fill="none" d="M'.$xx2.','.$yy2.' A'.$radius.','.$radius.' 0 0,0 '.$xx3.','.$yy3.'" />';
-
-		// Draw text
-		if ($text) {
-			$cx = ($xx2 + $xx3) / 2;
-			$cy = ($yy2 + $yy3) / 2;
-
-			$P1C = sqrt(pow($cy-$y1,2) + pow($cx-$x1,2));
-
-			$ccx = $x1 + ($cx - $x1)/$P1C*($radius+$modx);
-			$ccy = $y1 + ($cy - $y1)/$P1C*($radius+$mody);
-			$svg .= '<text font-size="10" x="'.$ccx.'" y="'.$ccy.'" fill="black">$'.$text.'°$</text>';
-		}
 
 		return $svg;
 	}
