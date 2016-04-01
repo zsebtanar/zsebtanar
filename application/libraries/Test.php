@@ -9,6 +9,7 @@ class Test {
 		$CI =& get_instance();
 		$CI->load->helper('maths');
 		$CI->load->helper('language');
+        $CI->load->helper('draw');
 
 		return;
 	}
