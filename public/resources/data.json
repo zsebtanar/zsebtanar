@@ -159,7 +159,9 @@
 								},
 								{
 									"label": "Pentathlon",
-									"name": "Öttusa"
+									"name": "Öttusa",
+									"finished": "2016-04-01",
+									"status": "OK"
 								},
 								{
 									"label": "Test",
