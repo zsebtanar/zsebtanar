@@ -95,36 +95,22 @@ class Pentathlon {
 			$sec = ($min == 5 && $sec < 66 ? 66 : $sec);
 			$sec = ($min == 9 && $sec >= 33 ? rand(0,32) : $sec);
 
-			$q = rand(2,10);
-			$a0 = pow(-1,rand(0,1)) * rand(1,10);
-			$a1 = $a0 * $q;
-			$a2 = $a1 * $q;
+			$point = $this->Point($min, $sec);
+
 			$question = 'Az öttusa úszás számában $200$ métert kell úszni. Az elért időeredményekért járó pontszámot mutatja a grafikon.';
 			$question .= $this->Graph();
 
 			if ($level <= 6) {
 
 				$question .= 'Hány pontot kapott Robi, akinek az időeredménye $2$ perc $'.$min.','.($sec == 0 ? '00' : $sec).'$ másodperc?';
-				$correct = $this->Point($min, $sec);
-				$correct = array($a1, -$a1);
-				$solution = '$x_1='.$a1.'$, és $x_2='.strval(-$a1).'$$';
-				$type = 'equation2';
+				$point = $this->Point($min, $sec);
+				$correct = $point;
+				$solution = '$'.$correct.'$';
+				$type = 'int';
 
-				$page[] = 'A mértani sorozatban minden tagot úgy tudunk kiszámolni, hogy megszorozzuk $\textcolor{blue}{q}$-val (a <i>hányadossal</i>) az előző számot.';
-				$page[] = 'Tehát ha az első szám $'.$a0.'$, akkor'
-					.'$$\begin{eqnarray}a_1&=&'.$a0.'\\\\'
-					.' a_2&=&a_1\cdot\textcolor{blue}{q}='.$a0.'\cdot\textcolor{blue}{q}=\textcolor{red}{x} \\\\ '
-					.' a_3&=&a_2\cdot\textcolor{blue}{q}=a_1\cdot\textcolor{blue}{q}^2='.$a2.'\end{eqnarray}$$';
-				$page[] = 'Látjuk, hogy ha '.The($a2).' $'.$a2.'$-'.Dativ($a2).' elosztjuk $'.$a0.'$-'.With($a0)
-					.', a hányados négyzetét kapjuk:$$\textcolor{blue}{q}^2='.$a2.':'.($a0<0 ? '('.$a0.')' : $a0).'='
-					.strval(pow($q,2)).'$$';
-				$page[] = 'Ha ebből négyzetgyököt vonunk, megkapjuk a $\textcolor{blue}{q}$ abszolútértékét:'
-					.'$$|\textcolor{blue}{q}|=\sqrt{'.strval(pow($q,2)).'}='.abs($q).'$$';
-				$page[] = 'Tehát a $q$ értéke $'.$q.'$, vagy $'.strval(-$q).'$.';
-				$page[] = 'Így már az $\textcolor{red}{x}$ értékét is ki tudjuk számolni:'
-					.'$$\begin{eqnarray}\textcolor{red}{x_1}&=&'.$a0.'\cdot'.($q<0 ? '('.$q.')' : $q).strval($a0*$q).'\\\\ \textcolor{red}{x_2}&=&'.$a0.'\cdot'.(-$q<0 ? '('.strval(-$q).')' : strval(-$q)).strval(-$a0*$q).'\end{eqnarray}$$';
-				$page[] = 'Tehát az $x$ értéke <span class="label label-success">$'.strval($a0*$q).'$</span>, vagy <span class="label label-success">$'.strval(-$a0*$q).'$</span>.';
-				$hints[] = $page;
+				$hints[][] = 'Keressük meg a grafikon $x$ tengelyén a $2$ perc $'.$min.','.($sec == 0 ? '00' : $sec).'$ másodpercet!'.$this->Graph($min, $sec);
+				$hints[][] = 'Keressük meg a neki megfelelő pontszámot az $y$ tengelyen!'.$this->Graph($min, $sec, $point);
+				$hints[][] = 'Tehát Robi <span class="label label-success">'.$point.'</span> pontot kapott.';
 			
 			} else {
 
@@ -158,7 +144,7 @@ class Pentathlon {
 		);
 	}
 
-	function Graph() {
+	function Graph($min=NULL, $sec=NULL, $point=NULL) {
 
 		$width 	= 400;
 		$height = 350;
@@ -170,7 +156,7 @@ class Pentathlon {
 		$unitX = ($width-30-$paddingX)/($lines+1);
 		$unitY = ($height-30-$paddingY)/$lines;
 
-		$sec = ['33', '00', '66'];
+		$secs = ['33', '00', '66'];
 		$show = [323, 320, 315, 313];
 
 		$svg = '<div class="img-question text-center">
@@ -203,11 +189,35 @@ class Pentathlon {
 			}
 			if (in_array(313+$i, $show)) {
 				$svg .= DrawText($paddingX-25, $y+4, 313+$i);
+			} elseif ($point !== NULL && $i < $lines) {
+				$svg .= DrawText($paddingX-25, $y+4, 313+$i, 10, 'blue');
 			}
-			$text = '2 perc '.strval(9-floor(($i+1)/3)).','.$sec[$i%3].' mp';
+			$text = '2 perc '.strval(9-floor(($i+1)/3)).','.$secs[$i%3].' mp';
 			$transform = 'rotate(-90 '.strval($x+3).','.strval($height-$paddingY+77).')';
 			$svg .= DrawText($x+3, $height-$paddingY+77, $text, 10, 'black', $transform);
 
+		}
+
+		// Draw time
+		if ($min !== NULL && $sec !== NULL) {
+
+			$time = $min*100 + $sec;
+			print_r($time);
+			$x1 = $paddingX + $unitX*($lines+1)*(400 - (933-$time))/400;
+			$y1 = $height - $paddingY;
+
+			$svg .= DrawCircle($x1, $y1, 3, 'blue', 1, 'blue');
+		}
+
+		if ($point !== NULL) {
+
+			$x2 = $paddingX;
+			$y2 = $height - $paddingY - ($point - 312)*$unitY;
+
+			$svg .= DrawPath($x1, $y1, $x1, $y2, 'blue', 2, 'none', 5, 5);
+			$svg .= DrawPath($x1, $y2, $x2, $y2, 'blue', 2, 'none', 5, 5);
+
+			$svg .= DrawCircle($x2, $y2, 3, 'blue', 1, 'blue');
 		}
 
 		$svg .= '</svg></div>';
@@ -217,13 +227,15 @@ class Pentathlon {
 
 	function Point($min, $sec) {
 
-		$min0 = 5;
-		$sec0 = 66;
-		$point0 = 313;
+		if ($sec < 33) {
+			$point = 313 + (9-$min)*3;
+		} elseif ($sec < 66) {
+			$point = 315 + (8-$min)*3;
+		} else {
+			$point = 314 + (8-$min)*3;
+		}
 
-		// while ($min <= 10) {
-		// 	# code...
-		// }
+		return $point;
 	}
 }
 
