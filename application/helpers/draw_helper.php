@@ -60,4 +60,103 @@ function DrawArc($x1, $y1, $x2, $y2, $x3, $y3, $radius, $modx=0, $mody=0, $text=
 
   return $svg;
 }
+
+// Calculates intersection between line1 containing A and B, and line2 containing C perpendicular to line1.
+function PerpendicularIntersect($Ax, $Ay, $Bx, $By, $Cx, $Cy) {
+
+  // Vector of line1
+  $Vx = $Bx - $Ax;
+  $Vy = $By - $Ay;
+
+  // [Nx, Ny] = [-Vy, Vx]                  <- normal vector of line1 = vector of line2
+
+  // (Px - Ax)/(Py - Ay) = Vx/Vy           <- P is on line1
+  // (Px - Cx)/(Py - Cy) = Nx/Ny = -Vy/Vx  <- P is on line2
+
+  // Px = Vx/Vy * (Py - Ay) + Ax
+  // Px = -Vy/Vx * (Py - Cy) + Cx
+
+  // Vx/Vy * (Py - Ay) + Ax = -Vy/Vx * (Py - Cy) + Cx
+  // Py * (Vx/Vy + Vy/Vx) = Vy/Vx * Cy + Vx/Vy * Ay + Cx - Ax
+  // Py = (Vy/Vx * Cy + Vx/Vy * Ay + Cx - Ax) / (Vx/Vy + Vy/Vx)
+
+  $Py = ($Vy/$Vx * $Cy + $Vx/$Vy * $Ay + $Cx - $Ax) / ($Vx/$Vy + $Vy/$Vx);
+  $Px = $Vx/$Vy * ($Py - $Ay) + $Ax;
+
+  return array($Px, $Py);
+}
+
+// Calculates third point of triangle given by two points and angles
+function Triangle($Ax, $Ay, $Bx, $By, $alpha, $beta) {
+
+  $alpha = ToRad($alpha);
+  $beta = ToRad(-$beta);
+
+  // Rotate AB vector around A with alpha
+  $BBx = $Ax + cos($alpha)*($Bx - $Ax) - sin($alpha)*($By - $Ay);
+  $BBy = $Ay - sin($alpha)*($Bx - $Ax) - cos($alpha)*($By - $Ay); // <- svg!
+
+  // Rotate AB vector around B with beta
+  $AAx = $Bx + cos($beta)*($Ax- $Bx) - sin($beta)*($Ay - $By);
+  $AAy = $By - sin($beta)*($Ax- $Bx) - cos($beta)*($Ay - $By); // <- svg!
+
+  list($Px, $Py) = IntersectLines($Ax, $Ay, $BBx, $BBy, $Bx, $By, $AAx, $AAy);
+
+  return array($Px, $Py);
+}
+
+// Calculates intersect of two lines
+function IntersectLines($A1x, $A1y, $A2x, $A2y, $B1x, $B1y, $B2x, $B2y) {
+
+  // Vector of line1
+  $Ax = $A1x - $A2x;
+  $Ay = $A1y - $A2y;
+
+  // Vector of line1
+  $Bx = $B1x - $B2x;
+  $By = $B1y - $B2y;
+
+  // (Px - A1x)/(Py - A1y) = Ax/Ay <- P is on line1
+  // (Px - B1x)/(Py - B1y) = Bx/By <- P is on line2
+
+  // Px = Ax/Ay * (Py - A1y) + A1x
+  // Px = Bx/By * (Py - B1y) + B1x
+
+  // Ax/Ay * (Py - A1y) + A1x = Bx/By * (Py - B1y) + B1x
+  // Py * (Ax/Ay - Bx/By) = - Bx/By * B1y + Ax/Ay * A1y + B1x - A1x
+  // Py = (- Bx/By * B1y + Ax/Ay * A1y + B1x - A1x) / (Ax/Ay - Bx/By)
+
+  $Py = (- $Bx/$By * $B1y + $Ax/$Ay * $A1y + $B1x - $A1x) / ($Ax/$Ay - $Bx/$By);
+  $Px = $Ax/$Ay * ($Py - $A1y) + $A1x;
+
+  return array($Px, $Py);
+}
+
+// Calculate point along line
+function LinePoint($Ax, $Ay, $Bx, $By, $length) {
+
+  $Vx = ($Bx - $Ax);
+  $Vy = ($By - $Ay);
+
+  $Vlength = sqrt(pow($Vx,2) + pow($Vy,2));
+
+  $Px = $Ax + $Vx / $Vlength * $length;
+  $Py = $Ay + $Vy / $Vlength * $length;
+
+  return array($Px, $Py);
+}
+
+// Translate point with length in direction
+function Translate($Px, $Py, $length, $Ax, $Ay, $Bx, $By) {
+
+  $Vx = ($Bx - $Ax);
+  $Vy = ($By - $Ay);
+
+  $Vlength = sqrt(pow($Vx,2) + pow($Vy,2));
+
+  $Px += $Vx / $Vlength * $length;
+  $Py += $Vy / $Vlength * $length;
+
+  return array($Px, $Py);
+}
 ?>
