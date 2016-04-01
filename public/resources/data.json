@@ -164,6 +164,10 @@
 									"status": "OK"
 								},
 								{
+									"label": "Triangle_inner_angles",
+									"name": "Háromszög belső szögei"
+								},
+								{
 									"label": "Test",
 									"name": "Teszt"
 								}
