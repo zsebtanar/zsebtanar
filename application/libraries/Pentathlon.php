@@ -91,9 +91,9 @@ class Pentathlon {
 		} else {
 
 			$min = rand(5,9);
-			$sec = (rand(1,2) == 1 ? rand(0,2)*33 : rand(10,99));
+			$sec = (rand(1,3) == 1 ? rand(10,99) : rand(0,2)*33);
 			$sec = ($min == 5 && $sec < 66 ? 66 : $sec);
-			$sec = ($min == 9 && $sec > 33 ? 33 : $sec);
+			$sec = ($min == 9 && $sec >= 33 ? rand(0,32) : $sec);
 
 			$q = rand(2,10);
 			$a0 = pow(-1,rand(0,1)) * rand(1,10);
@@ -104,7 +104,7 @@ class Pentathlon {
 
 			if ($level <= 6) {
 
-				$question .= 'Hány pontot kapott Robi, akinek az időeredménye $2$ perc $'.$min.','.$sec.'$ másodperc?';
+				$question .= 'Hány pontot kapott Robi, akinek az időeredménye $2$ perc $'.$min.','.($sec == 0 ? '00' : $sec).'$ másodperc?';
 				$correct = $this->Point($min, $sec);
 				$correct = array($a1, -$a1);
 				$solution = '$x_1='.$a1.'$, és $x_2='.strval(-$a1).'$$';
@@ -171,6 +171,7 @@ class Pentathlon {
 		$unitY = ($height-30-$paddingY)/$lines;
 
 		$sec = ['33', '00', '66'];
+		$show = [323, 320, 315, 313];
 
 		$svg = '<div class="img-question text-center">
 					<svg width="'.$width.'" height="'.$height.'">'
@@ -184,7 +185,7 @@ class Pentathlon {
 		$svg .= DrawText($width-20, $height-$paddingY+15,'idő');
 
 		// Y axis
-		$svg .= DrawLine($paddingX, 0, $paddingX, $height);
+		$svg .= DrawLine($paddingX, 0, $paddingX, $height-60);
 		$svg .= DrawLine($paddingX, 0, $paddingX-5, 5);
 		$svg .= DrawLine($paddingX, 0, $paddingX+5, 5);
 		$svg .= DrawText($paddingX+10, 15,'pontszám');
@@ -193,14 +194,14 @@ class Pentathlon {
 
 			$x = $paddingX + ($lines-$i+1)*$unitX;
 			$y = $height-$paddingY - (min($lines, $i+1))*$unitY;
-			$svg .= DrawLine($paddingX-5, $y, $x, $y, 'black', 0.5);
-			$svg .= DrawLine($x, $height-$paddingY+5, $x, $y, 'black', 0.5);
+			$svg .= DrawPath($paddingX-5, $y, $x, $y, 'black', 0.5, 'none', 5, 5);
+			$svg .= DrawPath($x, $height-$paddingY+5, $x, $y, 'black', 0.5, 'none', 5, 5);
 			if ($i < $lines) {
 				$svg .= DrawLine($x-$unitX, $y, $x, $y, 'black', 2);
 				$svg .= DrawCircle($x-$unitX, $y, 3, 'black', 1, 'black');
 				$svg .= DrawCircle($x, $y, 3, 'black', 1, 'white');
 			}
-			if ($i < $lines && ($i == 0 || $i == $lines-1 || rand(1,3) == 3)) {
+			if (in_array(313+$i, $show)) {
 				$svg .= DrawText($paddingX-25, $y+4, 313+$i);
 			}
 			$text = '2 perc '.strval(9-floor(($i+1)/3)).','.$sec[$i%3].' mp';
@@ -220,9 +221,9 @@ class Pentathlon {
 		$sec0 = 66;
 		$point0 = 313;
 
-		while ($min <= 10) {
-			# code...
-		}
+		// while ($min <= 10) {
+		// 	# code...
+		// }
 	}
 }
 
