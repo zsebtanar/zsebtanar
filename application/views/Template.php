@@ -2,7 +2,9 @@
 <html lang="hu">
 	<head><?php
 
-	$this->load->view('Misc/Header');?>
+	// $this->load->view('Misc/Header');
+	$this->load->view('Misc/Header2');
+	?>
 
 	</head>
 <body>
