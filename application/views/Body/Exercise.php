@@ -36,6 +36,9 @@
 						case 'range':
 							$this->load->view('Input/Range');
 							break;
+						case 'inner_angles':
+							$this->load->view('Input/InnerAngles');
+							break;
 						case 'quiz':
 							$this->load->view('Input/Quiz',
 								array('options' => $options,

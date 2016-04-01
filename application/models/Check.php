@@ -136,7 +136,8 @@ class Check extends CI_model {
 
 			case 'equation2':
 			case 'quotient2':
-				list($status, $message) = $this->GenerateMessagesEquation2($answer, $correct, $solution);
+			case 'inner_angles':
+				list($status, $message) = $this->GenerateMessagesArray2($answer, $correct, $solution);
 				break;
 
 			case 'range':
@@ -354,17 +355,16 @@ class Check extends CI_model {
 	}
 
 	/**
-	 * Generate messages for second order equation type exercises
+	 * Generate messages for array of two numbers
 	 *
 	 * @param array  $answer   User answer
 	 * @param int    $correct  Correct answer
 	 * @param string $solution Solution
 	 *
-	 * @return string $status     Status (NOT_DONE/CORRECT/WRONG)
-	 * @return string $message    Message
-	 * @return array  $submessage Submessages
+	 * @return string $status  Status (NOT_DONE/CORRECT/WRONG)
+	 * @return string $message Message
 	 */
-	public function GenerateMessagesEquation2($answer, $correct, $solution) {
+	public function GenerateMessagesArray2($answer, $correct, $solution) {
 
 		if ($answer[0] == NULL && $answer[1] == NULL) {
 			$status = 'NOT_DONE';
@@ -373,15 +373,26 @@ class Check extends CI_model {
 			$status = 'WRONG';
 			$message = 'A helyes válasz: '.$solution;
 		} else {
+			$answer[0] = str_replace(',', '.', $answer[0]);
+			$answer[0] = str_replace('°', '', $answer[0]);
+			$answer[1] = str_replace(',', '.', $answer[1]);
+			$answer[1] = str_replace('°', '', $answer[1]);
 			$answer[0] = floatval($answer[0]);
 			$answer[1] = floatval($answer[1]);
 			$result = array_diff($answer, $correct);
-			if (count($result) > 0) {
-				$status = 'WRONG';
-				$message = 'A helyes válasz: '.$solution;
-			} else {
+			if (count($result) == 0) {
 				$status = 'CORRECT';
 				$message = 'Helyes válasz!';
+			} else {
+				$diff1 = min(abs($answer[0]-$correct[0]), abs($answer[0]-$correct[1]));
+				$diff2 = min(abs($answer[1]-$correct[0]), abs($answer[1]-$correct[1]));
+				if ($diff1 <= 0.005 && $diff2 < 0.005) {
+					$status = 'CORRECT';
+					$message = 'Helyes válasz!';
+				} else {
+					$status = 'WRONG';
+					$message = 'A helyes válasz: '.$solution;
+				}
 			}
 		}
 
