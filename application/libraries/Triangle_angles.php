@@ -185,6 +185,7 @@ class Triangle_angles {
 
 		$svg = '<div class="img-question text-center">
 					<svg width="'.$width.'" height="'.$height.'">';
+					
 		// $svg .= '<rect width="'.$width.'" height="'.$height.'" fill="black" fill-opacity="0.2" />';
 
 		$svg .= DrawLine($Ax, $Ay, $Bx, $By);
@@ -192,9 +193,9 @@ class Triangle_angles {
 		$svg .= DrawLine($Bx, $By, $Cx, $Cy);
 
 		// Nodes
-		$svg .= '<text font-size="15" x="'.$Ax.'" y="'.strval($height-5).'" fill="black">$A$</text>';
-		$svg .= '<text font-size="15" x="'.$Bx.'" y="'.strval($height-5).'" fill="black">$B$</text>';
-		$svg .= '<text font-size="15" x="'.strval($Cx-10).'" y="'.strval($Cy-5).'" fill="black">$C$</text>';
+		$svg .= DrawText($Ax, $height-5, '$A$', 15);
+		$svg .= DrawText($Bx, $height-5, '$B$', 15);
+		$svg .= DrawText($Cx-10, $Cy-5, '$C$', 15);
 
 		// Arc
 		if ($Ca) { // caption for A inner
