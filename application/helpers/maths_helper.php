@@ -571,4 +571,10 @@ function toRad($deg) {
   $rad = $deg/180*pi();
   return $rad;
 }
+
+// Convert rad to deg
+function toDeg($rad) {
+  $deg = $rad/pi()*180;
+  return $deg;
+}
 ?>
