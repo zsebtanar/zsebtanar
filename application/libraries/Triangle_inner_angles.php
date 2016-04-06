@@ -41,14 +41,18 @@ class Triangle_inner_angles {
 				.'$$\tan\alpha=\frac{\textcolor{blue}{AC}}{\textcolor{green}{BC}}='
 				.'\frac{\textcolor{blue}{'.$AC.'}}{\textcolor{green}{'.$BC.'}}='
 				.'$$';
-			$page[] = 'A szöget megkapjuk, ha a hányados <b>arkusztangensét</b> vesszük, és az eredményt két tizedesjegyre kerekítjük:$$\alpha=\atan\frac{\textcolor{blue}{'.$AC.'}}{\textcolor{green}{'.$BC.'}}='.$alphatext.'°$$';
-			$page[] = '<b>Megjegyzés</b>: az eredményt számológéppel a <kbd>tan<sup>-1</sup></kbd> gombbal lehet kiszámolni: '
-				.'<kbd>'.$AC.'</kbd> <kbd>OSZTÁSJEL HIÁNYZIK!!!!!!!!!!!!</kbd> <kbd>'.$BC.'</kbd> <kbd>Shift</kbd> <kbd>tan<sup>-1</sup></kbd> <kbd>=</kbd>';
+			$page[] = 'A szöget megkapjuk, ha a hányados <b>arkusztangensét</b> vesszük, és az eredményt két tizedesjegyre kerekítjük:$$\alpha=\arctan\frac{\textcolor{blue}{'.$AC.'}}{\textcolor{green}{'.$BC.'}}='.$alphatext.'°$$';
+			$page[] = '<b>Megjegyzés</b>: az eredményt a következőképpen lehet kiszámolni számológéppel:
+				<ol>
+					<li>Állítsuk be a gépet <b>DEG</b> módba (ha már abban van, akkor nem kell):<br /><kbd>MODE</kbd> <kbd>DEG</kbd></li>
+					<li>Az arkusztangenst ki a <b>tan<sup>-1</sup></b> gomb segítségével lehet kiszámolni:<br />'
+				.'<kbd>'.$AC.'</kbd> <kbd>&divide;</kbd> <kbd>'.$BC.'</kbd> <kbd>=</kbd> <kbd>Shift</kbd> <kbd>tan<sup>-1</sup></kbd> <kbd>=</kbd></li>
+				</ol>';
 			$page[] = 'Tehát az $\alpha$ szög <span class="label label-success">$'.$alphatext.'°$</span>.';
 			$hints[] = $page;
 
 			$page = [];
-			$page[] = 'Mivel a háromszög belső szögeinek összege $180°$, ezért a $\beta$ szöget már könnyen ki lehet számolni:$$180°-90°-'.$alphatext.'°$$';
+			$page[] = 'Mivel a háromszög belső szögeinek összege $180°$, ezért a $\beta$ szöget már könnyen ki lehet számolni:$$\beta=180°-90°-'.$alphatext.'°$$';
 			$page[] = 'Tehát a $\beta$ szög <span class="label label-success">$'.$betatext.'°$</span>.';
 			$hints[] = $page;
 
@@ -61,7 +65,7 @@ class Triangle_inner_angles {
 
 			$question = 'Az $ABC$ derékszögű háromszög $'.$node.'$ befogója $'.$length.'$ cm, $AB$ átfogója $'.$AB.'$ cm hosszú. Számítsa ki az $ABC$ háromszög hegyesszögeinek nagyságát legalább két tizedesjegy pontossággal!';
 
-			$alpha = ($type ? toDeg(acos($length/$AB)) : toDeg(asin($length/$AB));
+			$alpha = ($type ? toDeg(acos($length/$AB)) : toDeg(asin($length/$AB)));
 			$beta = 90-$alpha;
 
 			$alphatext = str_replace('.', ',', round($alpha*100)/100);
@@ -129,7 +133,7 @@ class Triangle_inner_angles {
 			$diff1 = $BC - $AC;
 			$diff2 = $AB - $BC;
 
-			$question = 'A $ABC$ derékszögű háromszög $AC$ befogója $'.$diff1.'$ cm-rel rövidebb, mint a $BC$ befogó. Az átfogó $'.$diff2.'$ cm-rel hosszabb, mint a $BC$ befogó. Számítsa ki a $ABC$ háromszög oldalainak hosszát!'
+			$question = 'A $ABC$ derékszögű háromszög $AC$ befogója $'.$diff1.'$ cm-rel rövidebb, mint a $BC$ befogó. Az átfogó $'.$diff2.'$ cm-rel hosszabb, mint a $BC$ befogó. Számítsa ki a $ABC$ háromszög oldalainak hosszát!';
 		}
 
 		return array(
@@ -151,7 +155,7 @@ class Triangle_inner_angles {
 
 		$svg = '<div class="img-question text-center">
 					<svg width="'.$width.'" height="'.$height.'">'
-					.'<rect width="'.$width.'" height="'.$height.'" fill="black" fill-opacity="0.2" />'
+					// .'<rect width="'.$width.'" height="'.$height.'" fill="black" fill-opacity="0.2" />'
 					;
 
 		$Ax = $paddingX;
@@ -166,12 +170,14 @@ class Triangle_inner_angles {
 		$svg .= DrawLine($Ax, $Ay, $Cx, $Cy);
 		$svg .= DrawLine($Cx, $Cy, $Bx, $By);
 
-		$svg .= DrawText($Ax, $Ay+15, '$A$');
-		$svg .= DrawText($Bx, $By+15, '$B$');
-		$svg .= DrawText($Cx, $Cy-15, '$C$');
+		$svg .= DrawText($Ax, $Ay+25, '$A$', 15);
+		$svg .= DrawText($Bx, $By+25, '$B$', 15);
+		$svg .= DrawText($Cx, $Cy-10, '$C$', 15);
 
-		$svg .= DrawText($Ax+10, $Ay-5, '$\alpha$');
-		$svg .= DrawText($Bx-10, $By-5, '$\beta$');
+		$svg .= DrawText($Ax+40, $Ay-7, '$\alpha$', 15);
+		$svg .= DrawText($Bx-30, $By-10, '$\beta$', 15);
+		$svg .= DrawArc($Ax, $Ay, $Bx, $By, $Cx, $Cy, 65);
+		$svg .= DrawArc($Bx, $By, $Cx, $Cy, $Ax, $Ay, 55);
 
 		list($P1x, $P1y) = LinePoint($Cx, $Cy, $Ax, $Ay, 25);
 		list($P2x, $P2y) = LinePoint($Cx, $Cy, $Bx, $By, 25);
