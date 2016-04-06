@@ -151,8 +151,6 @@
 
 	function gethint(event, id, type){
 
-		$("#loader").html('Kis türelmet...&nbsp;<img src="<?php echo base_url();?>assets/images/loader.gif" />');
-
 		var hash = $('[name="hash"]').attr('value');
 		var hints_all = $('[name="hints_all"]').attr('value');
 
@@ -166,44 +164,44 @@
 		}
 		event.preventDefault();
 		if (id == "" || (id > 0 && id <= Number(hints_all))) {
-		$.ajax({
-			type: "GET",
-			url: "<?php echo base_url();?>application/gethint/"+hash+"/"+id.toString()+"/"+type.toString(),
-			success: function(data) {
-				if (data != "null") {
-					$("#message").html('');
-					var data = jQuery.parseJSON(data);
-					var hint_current = Number(data['hint_current']);
-					var hints_all = Number(data['hints_all']);
-					var hints_used = Number(data['hints_used']);
-					var hints_left = hints_all - hints_used;
-					if (hints_all > 1) {
-						$("#hints").html('<ul class="pager"></ul>');
-						$("#hints").children().append('<li class="prev_hint small"><a onclick="gethint(event,'+hint_current+',\'prev\')"><span class="glyphicon glyphicon-chevron-left"></span></a></li>');
-						if (hint_current == 1) {
-							$(".prev_hint").attr('class', 'small disabled');
+			$("#loader").html('Kis türelmet...&nbsp;<img src="<?php echo base_url();?>assets/images/loader.gif" />');
+			$.ajax({
+				type: "GET",
+				url: "<?php echo base_url();?>application/gethint/"+hash+"/"+id.toString()+"/"+type.toString(),
+				success: function(data) {
+					if (data != "null") {
+						$("#message").html('');
+						var data = jQuery.parseJSON(data);
+						var hint_current = Number(data['hint_current']);
+						var hints_all = Number(data['hints_all']);
+						var hints_used = Number(data['hints_used']);
+						var hints_left = hints_all - hints_used;
+						if (hints_all > 1) {
+							$("#hints").html('<ul class="pager"></ul>');
+							$("#hints").children().append('<li class="prev_hint small"><a onclick="gethint(event,'+hint_current+',\'prev\')"><span class="glyphicon glyphicon-chevron-left"></span></a></li>');
+							if (hint_current == 1) {
+								$(".prev_hint").attr('class', 'small disabled');
+							}
+							$("#hints").children().append('<li class="small"><b>'+hint_current+'/'+hints_all+'</b></li>');
+							$("#hints").children().append('<li class="next_hint small"><a onclick="gethint(event,'+hint_current+',\'next\')"><span class="glyphicon glyphicon-chevron-right"></span></a></li>');
+							if (hint_current >= hints_all) {
+								$(".next_hint").attr('class', 'small disabled');
+							}
 						}
-						$("#hints").children().append('<li class="small"><b>'+hint_current+'/'+hints_all+'</b></li>');
-						$("#hints").children().append('<li class="next_hint small"><a onclick="gethint(event,'+hint_current+',\'next\')"><span class="glyphicon glyphicon-chevron-right"></span></a></li>');
-						if (hint_current >= hints_all) {
-							$(".next_hint").attr('class', 'small disabled');
+
+						if (data['hints'] != '') {
+							$("#hints").append('<p>'+data['hints']+'</p>');
+							new Svg_MathJax().typeset("hints");
+							MathJax.Hub.Queue(["Typeset",MathJax.Hub,"hints"]);
+							$("#hints_left").html("("+hints_left.toString()+" segítség maradt.)");
+							if (hints_left == 0) {
+								$("#hint_button").attr('class', 'btn btn-danger pull-right disabled');
+							}
 						}
 					}
-
-					if (data['hints'] != '') {
-						$("#hints").append('<p>'+data['hints']+'</p>');
-						new Svg_MathJax().typeset("hints");
-						MathJax.Hub.Queue(["Typeset",MathJax.Hub,"hints"]);
-						$("#hints_left").html("("+hints_left.toString()+" segítség maradt.)");
-						if (hints_left == 0) {
-							$("#hint_button").attr('class', 'btn btn-danger pull-right disabled');
-						}
-					}
-
-					$("#loader").html('<br />');
 				}
-			}
-		});
+			});
+			$("#loader").html('<br />');
 		}
 	}
 
@@ -282,9 +280,8 @@
 						MathJax.Hub.Queue(["Typeset",MathJax.Hub,"message"]);
 						break;
 				}
-
-				$("#loader").html('<br />');
 			}
 		});
+		$("#loader").html('<br />');
 	}
 </script>
