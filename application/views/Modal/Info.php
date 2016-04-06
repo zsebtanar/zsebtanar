@@ -23,9 +23,7 @@
 				<br />
 			</div>
 			<div class="modal-footer">
-				<p class="small pull-right">A <b>Zsebtanár</b> egy interaktív matematikai feladatgyűjtemény, ahol nincs elmélet, csak feladatok, megoldókulcsokkal. Észrevételeket, javaslatokat a <b>zsebtanar@gmail.com</b>-ra, vagy a <b><a href="https://www.facebook.com/zsebtanar">Facebook-oldalra</a></b> lehet küldeni. Jó tanulást! <i>Szabó Viktor</i></p>
 				<div class="pull-left"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.hu" target="_blank"><img alt="Creative Commons Licenc" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a></div>
-				
 				<button type="button" class="pull-right btn btn-default" data-dismiss="modal">Bezár</button>
 			</div>
 		</div>

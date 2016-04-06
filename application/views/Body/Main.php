@@ -1,14 +1,18 @@
-<!-- <div class="row">
-	<div class="col-md-12 text-center">
-		<a type="button" class="btn btn-success" href="http://goo.gl/forms/Kw9aTgyo2h" target="_blank">
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-6 text-center">
+		<p>A <b>Zsebtanár</b> egy interaktív matematikai feladatgyűjtemény, ahol nincs elmélet, csak feladatok, megoldókulcsokkal. Észrevételeket, javaslatokat a <b>zsebtanar@gmail.com</b>-ra, vagy a <b><a href="https://www.facebook.com/zsebtanar" target="_blank">Facebook-oldalra</a></b> lehet küldeni. Jó tanulást!</p>
+<!-- 		<a type="button" class="btn btn-success" href="http://goo.gl/forms/Kw9aTgyo2h" target="_blank">
 			<span class="glyphicon glyphicon-plus"></span>
 			Új feladat beküldése
-		</a>
+		</a> -->
 	</div>
-</div> -->
+	<div class="col-md-3"></div>
+</div>
 <div class="row">
 	<div class="col-md-3"></div>
 	<div class="col-md-4">
+
 		<!-- <div class="text-center alert alert-warning small">
 			<b>Figyelem!</b> A honlap tesztüzemben működik. Bármilyen észrevételt a <b>zsebtanar@gmail.com</b>-ra lehet küldeni.
 		</div>
