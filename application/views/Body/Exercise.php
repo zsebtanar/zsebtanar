@@ -241,15 +241,12 @@
 						$('#progress_bar').css('width', data['progress']['value']+'%').attr('aria-valuenow', data['progress']['value']);
 						progress_bar_class = $('#progress_bar').attr('class').replace(/(progress-bar-)\w*/, '$1'+ data['progress']['style']);
 						$('#progress_bar').attr('class', progress_bar_class);
-						if (data['label_next'] == null) {
-							$("#next_button").replaceWith("<a id=\"next_button\" class=\"btn btn-primary pull-right\" href=\"<?php echo base_url().'view/subtopic/';?>" + data['subtopicID'] + '/' + data['questID'] + "\">Kész! :)</button>");
-						} else {
-							$("#next_button").replaceWith("<a id=\"next_button\" class=\"btn btn-primary pull-right\" href=\"<?php echo base_url().'view/exercise/';?>" + data['label_next'] + "\">Tovább&nbsp;<span class=\"glyphicon glyphicon-chevron-right\"></span></button>");
-						}
+						$("#next_button").replaceWith("<a id=\"next_button\" class=\"btn btn-primary pull-right\" href=\"<?php echo base_url().'view/exercise/';?>" + data['label_next'] + "\">Tovább&nbsp;<span class=\"glyphicon glyphicon-chevron-right\"></span></button>");
 						// Update results
 						$('.trophies').text(data['results']['trophies']);
 						$('.shields').text(data['results']['shields']);
 						$('.points').text(data['results']['points']);
+						setTimeout(function(){window.location="<?php echo base_url().'view/exercise/';?>" + data['label_next'];},3000);
 						break;
 					case 'WRONG':
 						if (data['hints'] != null) {
