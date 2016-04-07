@@ -89,16 +89,11 @@ function PerpendicularIntersect($Ax, $Ay, $Bx, $By, $Cx, $Cy) {
 // Calculates third point of triangle given by two points and angles
 function Triangle($Ax, $Ay, $Bx, $By, $alpha, $beta) {
 
-  $alpha = ToRad($alpha);
-  $beta = ToRad(-$beta);
-
   // Rotate AB vector around A with alpha
-  $BBx = $Ax + cos($alpha)*($Bx - $Ax) - sin($alpha)*($By - $Ay);
-  $BBy = $Ay - sin($alpha)*($Bx - $Ax) - cos($alpha)*($By - $Ay); // <- svg!
+  list($BBx, $BBy) = Rotate($Ax, $Ay, $Bx, $By, $alpha);
 
-  // Rotate AB vector around B with beta
-  $AAx = $Bx + cos($beta)*($Ax- $Bx) - sin($beta)*($Ay - $By);
-  $AAy = $By - sin($beta)*($Ax- $Bx) - cos($beta)*($Ay - $By); // <- svg!
+  // Rotate AB vector around B with -beta
+  list($AAx, $AAy) = Rotate($Bx, $By, $Ax, $Ay, -$beta);
 
   list($Px, $Py) = IntersectLines($Ax, $Ay, $BBx, $BBy, $Bx, $By, $AAx, $AAy);
 
@@ -156,6 +151,17 @@ function Translate($Px, $Py, $length, $Ax, $Ay, $Bx, $By) {
 
   $Px += $Vx / $Vlength * $length;
   $Py += $Vy / $Vlength * $length;
+
+  return array($Px, $Py);
+}
+
+// Rotate B around A with alpha
+function Rotate($Ax, $Ay, $Bx, $By, $alpha) {
+
+  $alpha = ToRad($alpha);
+
+  $Px = $Ax + cos($alpha)*($Bx - $Ax) - sin($alpha)*($By - $Ay);
+  $Py = $Ay - sin($alpha)*($Bx - $Ax) - cos($alpha)*($By - $Ay); 
 
   return array($Px, $Py);
 }
