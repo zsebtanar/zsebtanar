@@ -24,7 +24,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 // $config['base_url'] = 'http://zsebtanar.hu/public'; // web
-$config['base_url'] = 'http://localhost/zsebtanar4/public'; // laptop
+// $config['base_url'] = 'http://localhost/zsebtanar4/public'; // laptop
+$config['base_url'] = 'http://localhost/zsebtanar_v4/public'; // hds
 
 
 
