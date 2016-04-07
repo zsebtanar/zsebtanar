@@ -114,10 +114,6 @@ class Check extends CI_model {
 				list($status, $message) = $this->GenerateMessagesInt($answer, $correct, $solution);
 				break;
 
-			case 'text':
-				list($status, $message) = $this->GenerateMessagesText($answer, $correct, $solution);
-				break;
-
 			case 'quiz':
 				list($status, $message) = $this->GenerateMessagesQuiz($answer, $correct, $solution);
 				break;
@@ -126,25 +122,17 @@ class Check extends CI_model {
 				list($status, $message, $submessages) = $this->GenerateMessagesMulti($answer, $correct, $solution);
 				break;
 
-			case 'division':
-				list($status, $message) = $this->GenerateMessagesDivision($answer, $correct, $solution);
+			case 'array':
+			case 'range':
+				list($status, $message) = $this->GenerateMessagesArray($answer, $correct, $solution);
 				break;
 
 			case 'fraction':
 				list($status, $message) = $this->GenerateMessagesFraction($answer, $correct, $solution);
 				break;
 
-			case 'equation2':
-			case 'quotient2':
-			case 'inner_angles':
-				list($status, $message) = $this->GenerateMessagesArray2($answer, $correct, $solution);
-				break;
-
-			case 'range':
-				list($status, $message) = $this->GenerateMessagesRange($answer, $correct, $solution);
-				break;
-
 			case 'list':
+			case 'list2':
 				list($status, $message) = $this->GenerateMessagesList($answer, $correct, $solution);
 				break;
 		}
@@ -355,7 +343,7 @@ class Check extends CI_model {
 	}
 
 	/**
-	 * Generate messages for array of two numbers
+	 * Generate messages for array numbers
 	 *
 	 * @param array  $answer   User answer
 	 * @param int    $correct  Correct answer
@@ -364,36 +352,25 @@ class Check extends CI_model {
 	 * @return string $status  Status (NOT_DONE/CORRECT/WRONG)
 	 * @return string $message Message
 	 */
-	public function GenerateMessagesArray2($answer, $correct, $solution) {
+	public function GenerateMessagesArray($answer, $correct, $solution) {
 
-		if ($answer[0] == NULL && $answer[1] == NULL) {
+		$isempty = TRUE;
+		$iscorrect = TRUE;
+
+		foreach ($answer as $key => $item) {
+			$isempty = ($item == NULL ? $isempty : FALSE);
+			$iscorrect = ($item == NULL || $item != $correct[$key] ? FALSE : $iscorrect);
+		}
+
+		if ($isempty) {
 			$status = 'NOT_DONE';
 			$message = 'Hiányzik a válasz!';
-		} elseif (($answer[0] == NULL || $answer[1] == NULL) && !is_array($correct)) {
+		} elseif ($iscorrect) {
+			$status = 'CORRECT';
+			$message = 'Helyes válasz!';
+		} else {
 			$status = 'WRONG';
 			$message = 'A helyes válasz: '.$solution;
-		} else {
-			$answer[0] = str_replace(',', '.', $answer[0]);
-			$answer[0] = str_replace('°', '', $answer[0]);
-			$answer[1] = str_replace(',', '.', $answer[1]);
-			$answer[1] = str_replace('°', '', $answer[1]);
-			$answer[0] = floatval($answer[0]);
-			$answer[1] = floatval($answer[1]);
-			$result = array_diff($answer, $correct);
-			if (count($result) == 0) {
-				$status = 'CORRECT';
-				$message = 'Helyes válasz!';
-			} else {
-				$diff1 = min(abs($answer[0]-$correct[0]), abs($answer[0]-$correct[1]));
-				$diff2 = min(abs($answer[1]-$correct[0]), abs($answer[1]-$correct[1]));
-				if ($diff1 <= 0.005 && $diff2 < 0.005) {
-					$status = 'CORRECT';
-					$message = 'Helyes válasz!';
-				} else {
-					$status = 'WRONG';
-					$message = 'A helyes válasz: '.$solution;
-				}
-			}
 		}
 
 		return array($status, $message);
@@ -411,12 +388,23 @@ class Check extends CI_model {
 	 * @return array  $submessage Submessages
 	 */
 	public function GenerateMessagesList($answer, $correct, $solution) {
-		if ($answer[0] == NULL) {
+
+		if (count($answer) == 1) {
+			$answer = array_map('intval', preg_split("/[\s,;]+/", $answer[0]));
+		}
+
+		$isempty = TRUE;
+		$iscorrect = TRUE;
+
+		foreach ($answer as $key => $item) {
+			$isempty = ($item == NULL ? $isempty : FALSE);
+		}
+
+		if ($isempty) {
 			$status = 'NOT_DONE';
 			$message = 'Hiányzik a válasz!';
 		} else {
-			$list = array_map('intval', preg_split("/[\s,;]+/", $answer[0]));
-			$diff = array_intersect($list, $correct);
+			$diff = array_intersect($answer, $correct);
 			if (count($diff) < count($correct)) {
 				$status = 'WRONG';
 				$message = 'A helyes válasz: '.$solution;

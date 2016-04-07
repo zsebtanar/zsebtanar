@@ -23,7 +23,6 @@ class Series_mixed {
 			$a1 = $a0 + $d;
 			$a2 = $a1 + $d;
 			$question = 'Egy számtani sorozat három egymást követő tagja ebben a sorrendben $'.$a0.';x$ és $'.$a2.'$. ';
-			$type = 'int';
 
 			if (1 == 1) {
 
@@ -66,6 +65,13 @@ class Series_mixed {
 				$hints[] = $page;
 			}
 				
+			return array(
+				'question' 	=> $question,
+				'correct' 	=> $correct,
+				'solution'	=> $solution,
+				'hints'		=> $hints
+			);
+			
 		} elseif ($level <= 6) {
 
 			$q = rand(2,10);
@@ -79,7 +85,7 @@ class Series_mixed {
 				$question .= 'Határozza meg az $x$ értékét!';
 				$correct = array($a1, -$a1);
 				$solution = '$x_1='.$a1.'$, és $x_2='.strval(-$a1).'$$';
-				$type = 'equation2';
+				$labels = array('$x_1$', '$x_2$');
 
 				$page[] = 'A mértani sorozatban minden tagot úgy tudunk kiszámolni, hogy megszorozzuk $\textcolor{blue}{q}$-val (a <i>hányadossal</i>) az előző számot:$$a_1\xrightarrow{\cdot\textcolor{blue}{q}}a_2\xrightarrow{\cdot\textcolor{blue}{q}}a_3$$';
 				$page[] = 'Tehát ha az első szám $'.$a0.'$, akkor'
@@ -102,7 +108,7 @@ class Series_mixed {
 				$question .= 'Határozza meg a sorozat hányadosát!';
 				$correct = array($q, -$q);
 				$solution = '$q_1='.$q.'$, és $q_2='.strval(-$q).'$';
-				$type = 'quotient2';
+				$labels = array('$q_1$', '$q_2$');
 
 				$page[] = 'A mértani sorozatban minden tagot úgy tudunk kiszámolni, hogy megszorozzuk $\textcolor{blue}{q}$-val (a <i>hányadossal</i>) az előző számot:$$a_1\xrightarrow{\cdot\textcolor{blue}{q}}a_2\xrightarrow{\cdot\textcolor{blue}{q}}a_3$$';
 				$page[] = 'Tehát ha az első szám $'.$a0.'$, akkor'
@@ -117,6 +123,15 @@ class Series_mixed {
 				$page[] = 'Tehát a $q$ értéke <span class="label label-success">$'.$q.'$</span>, vagy <span class="label label-success">$'.strval(-$q).'$</span>.';
 				$hints[] = $page;
 			}
+
+			return array(
+				'question' 	=> $question,
+				'correct' 	=> $correct,
+				'solution'	=> $solution,
+				'labels'	=> $labels,
+				'type' 		=> 'list',
+				'hints'		=> $hints
+			);
 
 		} else {
 			
@@ -150,15 +165,13 @@ class Series_mixed {
 			$page[] = 'Tehát a megoldás <span class="label label-success">$'.$a2.'$</span>.';
 			$hints[] = $page;
 
+			return array(
+				'question' 	=> $question,
+				'correct' 	=> $correct,
+				'solution'	=> $solution,
+				'hints'		=> $hints
+			);
 		}
-
-		return array(
-			'question' 	=> $question,
-			'correct' 	=> $correct,
-			'solution'	=> $solution,
-			'type' 		=> $type,
-			'hints'		=> $hints
-		);
 	}
 }
 

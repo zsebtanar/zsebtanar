@@ -65,14 +65,16 @@ class Absolute_value {
 		$hints[] = $page;
 
 		$correct = array($solution1, $solution2);
+		$labels = array('$x_1$', '$x_2$');
 		$solution = 'a megoldások: $x_1='.$solution1.'$, $x_2='.$solution2.'$';
 
 		return array(
 			'question' 	=> $question,
 			'correct' 	=> $correct,
+			'labels'	=> $labels,
 			'solution'	=> $solution,
 			'hints'		=> $hints,
-			'type' 		=> 'equation2'
+			'type' 		=> 'list'
 		);
 	}
 }

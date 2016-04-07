@@ -301,6 +301,10 @@ class Html extends CI_model {
 
 		if ($data['type'] == 'quiz') {
 			$data = $this->getColumnWidth($data);
+		} elseif (($data['type'] == 'array'
+				|| $data['type'] == 'list')
+				&& !isset($data['labels'])) {
+			$data['labels'] = array_fill(0, count($data['correct']), NULL);
 		}
 
 		$data = $this->AddHints($id, $data);

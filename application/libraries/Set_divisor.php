@@ -41,7 +41,7 @@ class Set_divisor {
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
 			'hints'		=> $hints,
-			'type'		=> 'list'
+			'type'		=> 'list2'
 		);
 	}
 

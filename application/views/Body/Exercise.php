@@ -14,30 +14,21 @@
 
 					switch ($type) {
 						case 'int':
-						case 'text':
-						case 'list':
+						case 'list2':
 							$this->load->view('Input/Default');
 							break;
 						case 'multi':
 							$this->load->view('Input/Multi', array('options' => $options));
 							break;
-						case 'division':
-							$this->load->view('Input/Division');
+						case 'array':
+						case 'list':
+							$this->load->view('Input/Array', array('labels' => $labels));
 							break;
 						case 'fraction':
 							$this->load->view('Input/Fraction');
 							break;
-						case 'equation2':
-							$this->load->view('Input/Equation2');
-							break;
-						case 'quotient2':
-							$this->load->view('Input/Quotient2');
-							break;
 						case 'range':
 							$this->load->view('Input/Range');
-							break;
-						case 'inner_angles':
-							$this->load->view('Input/InnerAngles');
 							break;
 						case 'quiz':
 							$this->load->view('Input/Quiz',
