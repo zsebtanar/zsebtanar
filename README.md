@@ -90,7 +90,8 @@ This is a sample for `data.json`:
         2. `$correct`: correct answer that will be used to compare the user's answer against.
     - Each exercise *can* be provided with additional return values:
         1. `$type`: exercise type,
-        2. `$explanation`: explanation for exercise.
+        2. `$hints`: explanation for exercise,
+        3. `$labels`: labels for input fields.
 
 You can use **MathJax** to display formulas.
 
@@ -210,10 +211,11 @@ class Reciprocal {
     }
 }
 ```
-#### 5. Division
-User has to return a quotient and a remainer. To use this you have to return the following values:
+#### 5. Array
+User has to return an array of numbers. Order is important.
 
-1. `$correct`: array containing quotient and remainer
+1. `$correct`: array containing correct numbers.
+2. `$labels` (optional): labels for each input field
 
 Example:
 ```
@@ -227,15 +229,49 @@ class Division {
         $quotient = ceil($dividend/$divisor);
         $remain = $dividend % $divisor;
 
-        $question = 'What is the result of the following division?$$'.$dividend.':'.$divisor.'=?$$';
-        $correct = array($quotient, $remain);
-        $solution = 'The quotient is $'.$quotient.'$ and the remain is $'.$remain.'$';
+        $question  = 'What is the result of the following division?$$'.$dividend.':'.$divisor.'=?$$';
+        $correct   = array($quotient, $remain);
+        $labels    = array('quotient', 'remain');
+        $solution  = 'The quotient is $'.$quotient.'$ and the remain is $'.$remain.'$';
+
 
         return array(
             'question'  => $question,
             'correct'   => $correct,
+            'labels'    => $labels,
             'solution'  => $solution,
-            'type'      => 'division'
+            'type'      => 'array'
+        );
+    }
+}
+```
+#### 6. List
+User has to return an array of numbers. Order is not important.
+
+1. `$correct`: array containing correct numbers.
+2. `$labels` (optional): labels for each input field
+
+Example:
+```
+/* Define quotient and remainer */
+class Sqrt {
+    function Generate($level) {
+
+        $num = pow(rand(1, $level), 2);
+        $sqrt = sqrt($num);
+
+        $question  = 'What is square root of $'.$num.'$?';
+        $correct   = array(-sqrt($num), sqrt($num));
+        $labels    = array('$x_1$', '$x_2$');
+        $solution  = '$x_1='.$sqrt.'$, and $x_2=-'.$sqrt.'$';
+
+
+        return array(
+            'question'  => $question,
+            'correct'   => $correct,
+            'labels'    => $labels,
+            'solution'  => $solution,
+            'type'      => 'list'
         );
     }
 }
@@ -322,9 +358,17 @@ $question = 'How many apples are there in the tree?
 To generate pictures, you can use the **SVG** functions (see more: http://www.w3schools.com/svg/default.asp)
 
 #### 2. Built in functions
-You can find language functions in the `application->helpers->language_helper.php` file (this is very useful for Hungarian exercises).
+You can find additional functions `application/helpers` folder:
 
-You can find mathematical functions in the `application->helpers->language_helper.php` file.
+1. `language_helper.php`: language functions (e.g. for suffixes and prefixes),
+2. `maths_helper.php`: mathematical functions,
+3. `draw_helper.php`: graphical functions (for creating svg).
+
+# Licensing
+
+Copyright (c) 2015 Zsebtanár
+The exercise framework is [MIT licenced](https://en.wikipedia.org/wiki/MIT_License).
+The exercises are under a [Creative Commons by-nc-sa license](http://creativecommons.org/licenses/by-nc-sa/4.0/deed.hu).
 
 # Contact
 
