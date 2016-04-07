@@ -165,7 +165,9 @@
 								},
 								{
 									"label": "Triangle_inner_angles",
-									"name": "Háromszög belső szögei"
+									"name": "Háromszög belső szögei",
+									"finished": "2016-04-07",
+									"status": "OK"
 								},
 								{
 									"label": "Test",
