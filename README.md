@@ -288,7 +288,22 @@ If you want to provide details for a specific hint, you need to add an array aft
 $hints[] = 'This is a hint.';
 $hints[] = array('This is', 'some details', 'about the hint.');
 ```
+Or if you are using multi-page hints:
+```
+$page[] = 'This is hint 1 on page 1.';
+$page[] = 'This is hint 2 on page 1.';
+$page[] = array('This is', 'some details', 'about the hint.');
+$hints[] = $page;
+
+$page = [];
+$page[] = 'This is hint 1 on page 2.';
+$page[] = 'This is hint 2 on page 2.';
+$page[] = array('This is', 'some details', 'about the hint.');
+$hints[] = $page;
+```
 The program will concatenate the detail elements and add a button after the hint. If the user clicks on the hint, he will see the details.
+
+**Note**: Details can only be added to the last hint of a page.
 
 ### Additional features
 #### 1. Using pictures
