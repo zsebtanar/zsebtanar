@@ -39,16 +39,19 @@ class Quadratic_equation {
 			$correct = array($x1, $x2);
 			$solution = 'Az első megoldás $x_1='.$x1.'$, a második $x_2='.$x2.'$.';
 		} else {
-			$correct = $x1;
+			$correct = array($x1, NULL);
 			$solution = 'Az egyenlet megoldása: $x='.$x1.'$.';
 		}
+
+		$labels = array('$x_1$', '$x_2$');
 
 		return array(
 			'question' 	=> $question,
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
-			'type' 		=> 'equation2',
-			'hints' 	=> $hints
+			'labels'	=> $labels,
+			'hints' 	=> $hints,
+			'type' 		=> 'list'
 		);
 	}
 
