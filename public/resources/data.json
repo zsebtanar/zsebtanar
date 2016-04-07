@@ -170,6 +170,10 @@
 									"status": "OK"
 								},
 								{
+									"label": "Vector_operations",
+									"name": "Vektorműveletek"
+								},
+								{
 									"label": "Test",
 									"name": "Teszt"
 								}
