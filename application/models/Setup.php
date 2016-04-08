@@ -18,6 +18,7 @@ class Setup extends CI_model {
 	public function GetTableColumns() {
 		return array(
 			'classes' => array(
+				'label'	=> 'NOT NULL',
 				'name'	=> 'NOT NULL'
 				),
 			'topics' => array(
@@ -99,6 +100,7 @@ class Setup extends CI_model {
 		$sql = array(
 			'classes' => 'CREATE TABLE classes (
 							id 		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+							label 	VARCHAR(60) NOT NULL,
 							name 	VARCHAR(60) NOT NULL
 						)Engine=InnoDB;',
 			'topics' => 'CREATE TABLE topics (

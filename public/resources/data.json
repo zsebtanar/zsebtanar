@@ -1,6 +1,7 @@
 {
 	"classes": [
 		{
+			"label": "5",
 			"name": "5. osztály",
 			"topics": [
 				{
@@ -70,6 +71,7 @@
 			]
 		},
 		{
+			"label": "12",
 			"name": "12. osztály",
 			"topics": [
 				{

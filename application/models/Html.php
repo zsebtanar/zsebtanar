@@ -166,6 +166,7 @@ class Html extends CI_model {
 
 			$class_menu['id'] = $class->id;
 			$class_menu['name'] = $class->name;
+			$class_menu['label'] = $class->label;
 			$class_menu['topics'] = $topics_menu;
 
 			$classes_menu[] = $class_menu;
