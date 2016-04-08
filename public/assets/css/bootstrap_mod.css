@@ -172,3 +172,20 @@ div[id^='hint_details'] {
 .alert-danger2 {
     color: #a94442;
 }
+
+.btn-space-big {
+    margin: 40px;
+}
+
+.btn-space {
+    margin: 5px 0px;
+}
+
+.class-label {
+    font-size: 1000%;
+    margin-top: -40px;
+}
+
+.exercises-all {
+    margin-top: 100px;
+}

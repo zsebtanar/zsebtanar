@@ -1,17 +1,31 @@
 <div class="row">
 	<div class="col-md-3"></div>
 	<div class="col-md-6 text-center">
-		<p>A <b>Zsebtanár</b> egy interaktív matematikai feladatgyűjtemény, ahol nincs elmélet, csak feladatok, megoldókulcsokkal. Észrevételeket, javaslatokat a <b>zsebtanar@gmail.com</b>-ra, vagy a <b><a href="https://www.facebook.com/zsebtanar" target="_blank">Facebook-oldalra</a></b> lehet küldeni. Jó tanulást!</p>
-<!-- 		<a type="button" class="btn btn-success" href="http://goo.gl/forms/Kw9aTgyo2h" target="_blank">
+		<p>A <b>Zsebtanár</b> egy interaktív matematikai feladatgyűjtemény, elsősorban az érettségire készülőknek. Észrevételeket, javaslatokat a <b>zsebtanar@gmail.com</b>-ra, vagy a <b><a href="https://www.facebook.com/zsebtanar" target="_blank">Facebook-oldalra</a></b> lehet küldeni. Jó tanulást!</p>
+		<a type="button" class="btn btn-success btn-space-big btn-lg" href="http://goo.gl/forms/Kw9aTgyo2h" target="_blank">
 			<span class="glyphicon glyphicon-plus"></span>
-			Új feladat beküldése
-		</a> -->
+			Új érettségi feladat beküldése
+		</a>
 	</div>
 	<div class="col-md-3"></div>
 </div>
 <div class="row">
 	<div class="col-md-3"></div>
-	<div class="col-md-4">
+	<div class="col-md-6">
+
+		<div class="text-center">
+			<h1>Legutóbbi feladatok</h1><?php
+
+		foreach ($latest as $exercise) {?>
+
+			<a class="btn btn-default btn-lg btn-space" href="<?php echo base_url();?>view/exercise/<?php echo $exercise['label'];?>">
+					<?php echo $exercise['name'];?>
+			</a>&nbsp;<?php
+
+		}?>
+
+		</div>
+
 
 		<!-- <div class="text-center alert alert-warning small">
 			<b>Figyelem!</b> A honlap tesztüzemben működik. Bármilyen észrevételt a <b>zsebtanar@gmail.com</b>-ra lehet küldeni.
@@ -26,7 +40,13 @@
 
 			if ($class['show']) {?>
 
-			<h1><?php echo $class['name'];?></h1><?php
+			<div class="row exercises-all">
+				<div class="col-md-5">
+					<h1 class="class-label text-right">
+						<?php echo $class['label'];?>
+					</h1>
+				</div>
+				<div class="col-md-7"><?php
 
 			if (count($class['topics']) > 0) {
 
@@ -34,32 +54,28 @@
 
 					if ($topic['show']) {?>
 
-						<h3><?php echo $topic['name'];?></h3>
-						<div class="row">
-							<div class="col-md-2"></div>
-							<div class="col-md-10"><?php
+						<h3><?php echo $topic['name'];?></h3><?php
 
-							if (count($topic['subtopics']) > 0) {
+						if (count($topic['subtopics']) > 0) {
 
-								foreach ($topic['subtopics'] as $subtopic) {
+							foreach ($topic['subtopics'] as $subtopic) {
 
-									if ($subtopic['show']) {?>
+								if ($subtopic['show']) {?>
 
-									<a class="btn btn-link" href="<?php echo base_url();?>view/subtopic/<?php echo $subtopic['label'];?>">
-											<?php echo $subtopic['name'];?>
-									</a><br /><?php
+								<a class="btn btn-link btn-lg" href="<?php echo base_url();?>view/subtopic/<?php echo $subtopic['label'];?>">
+										<?php echo $subtopic['name'];?>
+								</a><br /><?php
 
-									}
+								}
 
-								}?>
-
-							</div>
-						</div><?php
-
+							}
 						}
+
 					}
 				}
-			}
+			}?>
+				</div>
+			</div><?php
 
 			}
 
@@ -67,18 +83,5 @@
 
 	</div>
 	<div class="col-md-3">
-		<div id="latest_exercises" class="panel panel-success">
-			<div class="panel-heading small"><b>Legutóbbi feladatok</b></div><?php
-
-		foreach ($latest as $exercise) {?>
-
-			<a class="btn btn-link" href="<?php echo base_url();?>view/exercise/<?php echo $exercise['label'];?>">
-					<?php echo $exercise['name'];?>
-			</a><br /><?php
-
-		}?>
-
-		</div>
 	</div>
-	<div class="col-md-2"></div>
 </div>
