@@ -16,7 +16,7 @@
 	$this->load->view('Modal/Login');
 	$this->load->view('Modal/Cookie');
 
-	$this->load->view('Misc/NavBar', $results);
+	$this->load->view('Misc/NavBar', array('results' => $results, 'type' => $type));
 
 	if ($type == 'main') {
 		

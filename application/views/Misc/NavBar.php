@@ -19,23 +19,37 @@
 		</div>
 
 		<div class="collapse navbar-collapse">
-			<ul class="nav navbar-nav navbar-right small">
+			<ul class="nav navbar-nav navbar-right small"><?php
+
+			if ($type != 'main') {?>
 
 				<li>
 					<a href="#" data-toggle="modal" data-target="#info">
 						<img src="<?php echo base_url();?>assets/images/trophy.png" alt="shield" width="17">&nbsp;
 
-						<b><span class="trophies"><?php echo $trophies;?></span></b>&nbsp;&nbsp;
+						<b><span class="trophies"><?php echo $results['trophies'];?></span></b>&nbsp;&nbsp;
 
 						<img src="<?php echo base_url();?>assets/images/shield.png" alt="shield" width="15">&nbsp;
 
-						<b><span class="shields"><?php echo $shields;?></span></b>&nbsp;&nbsp;
+						<b><span class="shields"><?php echo $results['shields'];?></span></b>&nbsp;&nbsp;
 
 						<img src="<?php echo base_url();?>assets/images/coin.png" alt="coin" width="15">&nbsp;
 
-						<b><span class="points"><?php echo $points;?></span></b>
+						<b><span class="points"><?php echo $results['points'];?></span></b>
+
+						&nbsp;&nbsp;<span class="glyphicon glyphicon-question-sign"></span>
 					</a>
 				</li><?php
+
+			} else {?>
+
+				<li>
+					<a href="#" data-toggle="modal" data-target="#info">
+						<span class="glyphicon glyphicon-question-sign"></span>
+					</a>
+				</li><?php
+
+			}
 
 			if ($this->Session->CheckLogin()) {?>
 
@@ -60,16 +74,12 @@
 					</a>
 				</li><?php
 
-			} else {?>
+			} elseif ($type == 'main') {?>
+
 
 				<li>
-					<a href="#" data-toggle="modal" data-target="#info">
-						<span class="glyphicon glyphicon-question-sign"></span>&nbsp;Segítség
-					</a>
-				</li>
-				<li>
 					<a href="#" data-toggle="modal" data-target="#login">
-						<span class="glyphicon glyphicon-user"></span>
+						<span class="glyphicon glyphicon-user"></span>&nbsp;Belépés
 					</a>
 				</li><?php
 
