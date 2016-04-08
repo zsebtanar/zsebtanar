@@ -2,8 +2,8 @@
 <html lang="hu">
 	<head><?php
 
-	// $this->load->view('Misc/Header');
-	$this->load->view('Misc/Header2');
+	$this->load->view('Misc/Header');
+	// $this->load->view('Misc/Header2');
 	?>
 
 	</head>
@@ -37,6 +37,8 @@
 		$this->load->view('Body/Exercise', $exercise);
 
 	}?>
+
+
 
 	</div><?php
 

@@ -41,14 +41,6 @@
 					</a>
 				</li><?php
 
-			} else {?>
-
-				<li>
-					<a href="#" data-toggle="modal" data-target="#info">
-						<span class="glyphicon glyphicon-question-sign"></span>
-					</a>
-				</li><?php
-
 			}
 
 			if ($this->Session->CheckLogin()) {?>
