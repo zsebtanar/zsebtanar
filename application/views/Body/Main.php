@@ -63,7 +63,7 @@
 									if ($subtopic['show']) {?>
 
 									<a class="btn btn-link btn-lg" href="<?php echo base_url();?>view/subtopic/<?php echo $subtopic['label'];?>">
-											<?php echo $subtopic['name'];?>
+										<?php echo $subtopic['name'];?> <span class="badge"><?php echo $subtopic['exercises'];?></span>
 									</a><br /><?php
 
 									}
