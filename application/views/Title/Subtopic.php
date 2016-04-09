@@ -1,5 +1,5 @@
 <div class="text-center" id="top">
-	<h1><?php
+	<h1 class="subtopic-title"><?php
 
 		echo $title;?>
 

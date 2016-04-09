@@ -144,6 +144,9 @@ class Html extends CI_model {
 							$subtopic_menu['name'] 	= $subtopic->name;
 							$subtopic_menu['show']	= FALSE;
 
+							$exercises = $this->db->get_where('exercises', array('subtopicID' => $subtopic->id));
+							$subtopic_menu['exercises'] = count($exercises->result());
+
 							$subtopic_status = $this->Database->SubtopicStatus($subtopic->id);
 
 							if ($this->Session->CheckLogin() || $subtopic_status == 'OK') {

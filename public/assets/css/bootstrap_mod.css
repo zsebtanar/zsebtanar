@@ -95,12 +95,21 @@ div.navbar-header>a{
     font-size: inherit; 
 }
 
+.subtopic-title {
+    font-size: 300%;
+    padding: 40px 0px 100px;
+}
+
 #submit_exercise {
     padding: 10px;
 }
 
-#exercise_form, .exercise_button {
+#exercise_form {
     padding: 20px;
+}
+
+.exercise_button {
+    padding: 10px 10px 100px;
 }
 
 .panel-heading-sm {
@@ -184,6 +193,11 @@ div[id^='hint_details'] {
 .class-label {
     font-size: 800%;
     margin-top: -40px;
+}
+
+.exercise-label {
+    font-size: 600%;
+    margin: -35px 0 -10px;
 }
 
 .exercises-all {
