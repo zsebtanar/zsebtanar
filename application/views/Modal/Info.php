@@ -1,11 +1,9 @@
 <div id="info" class="modal fade" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h3 class="modal-title">Jelmagyarázat</h3>
-			</div>
 			<div class="modal-body">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h1 class="modal-title">Jelmagyarázat</h1>
 				<h3><b><img class="img_main" src="<?php echo base_url();?>assets/images/coin.png" alt="coin" width="40px">&nbsp;Arany</b></h3>
 				<ul>
 					<li>Minden jó feladatmegoldásért kapsz aranyat.</li>
@@ -21,9 +19,15 @@
 					<li>Ha elvégzel egy feladatot, egy trófeát kapsz jutalomként.</li>
 				</ul>
 				<br />
+				<h1 class="modal-title">Gyorsbillentyűk</h1>
+				<ul>
+					<li>Eredmény elküldése: <kbd class="lg">Enter</kbd></li>
+					<li>Következő segítség: <kbd class="lg">&#8592;</kbd></li>
+					<li>Előző segítség: <kbd class="lg">&#8594;</kbd></li>
+				</ul>
 			</div>
+
 			<div class="modal-footer">
-				<div class="pull-left"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.hu" target="_blank"><img alt="Creative Commons Licenc" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a></div>
 				<button type="button" class="pull-right btn btn-default" data-dismiss="modal">Bezár</button>
 			</div>
 		</div>

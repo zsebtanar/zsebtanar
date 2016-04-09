@@ -38,11 +38,11 @@
 
 	}?>
 
+	</div>
 
+<?php
 
-	</div><?php
-
-	$this->load->view('Misc/Footer');?>
+	$this->load->view('Misc/Footer', array('type' => $type));?>
 
 </body>
 </html>

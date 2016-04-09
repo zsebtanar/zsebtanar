@@ -40,42 +40,42 @@
 
 			if ($class['show']) {?>
 
-			<div class="row exercises-all">
-				<div class="col-md-5">
-					<h1 class="class-label text-right">
-						<?php echo $class['label'];?>
-					</h1>
-				</div>
-				<div class="col-md-7"><?php
+				<div class="row exercises-all">
+					<div class="col-sm-5">
+						<h1 class="class-label text-right">
+							<?php echo $class['label'];?>
+						</h1>
+					</div>
+					<div class="col-sm-7"><?php
 
-			if (count($class['topics']) > 0) {
+				if (count($class['topics']) > 0) {
 
-				foreach ($class['topics'] as $topic) {
+					foreach ($class['topics'] as $topic) {
 
-					if ($topic['show']) {?>
+						if ($topic['show']) {?>
 
-						<h3><?php echo $topic['name'];?></h3><?php
+							<h3><?php echo $topic['name'];?></h3><?php
 
-						if (count($topic['subtopics']) > 0) {
+							if (count($topic['subtopics']) > 0) {
 
-							foreach ($topic['subtopics'] as $subtopic) {
+								foreach ($topic['subtopics'] as $subtopic) {
 
-								if ($subtopic['show']) {?>
+									if ($subtopic['show']) {?>
 
-								<a class="btn btn-link btn-lg" href="<?php echo base_url();?>view/subtopic/<?php echo $subtopic['label'];?>">
-										<?php echo $subtopic['name'];?>
-								</a><br /><?php
+									<a class="btn btn-link btn-lg" href="<?php echo base_url();?>view/subtopic/<?php echo $subtopic['label'];?>">
+											<?php echo $subtopic['name'];?>
+									</a><br /><?php
+
+									}
 
 								}
-
 							}
-						}
 
+						}
 					}
-				}
-			}?>
-				</div>
-			</div><?php
+				}?>
+					</div>
+				</div><?php
 
 			}
 
