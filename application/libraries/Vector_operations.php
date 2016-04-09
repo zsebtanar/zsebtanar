@@ -16,25 +16,37 @@ class Vector_operations {
 
 	function Generate($level) {
 
-		$option = rand(2,2);
-		$length = rand(2,7);
+		$Cx = rand(-4,4);
+		$Cy = rand(-4,4);
 
-		if ($option == 1) {
-			$angle = 60;
-			$correct = $length * sqrt(3);
-		} elseif ($option == 2) {
-			$angle = 90;
-			$correct = $length * sqrt(2);
-		} elseif ($option == 3) {
-			$angle = 120;
-			$correct = $length;
-		}
+		$vx = pow(-1,rand(0,1)) * rand(1,3);
+		$vy = pow(-1,rand(0,1)) * rand(1,3);
+
+		$mult = rand(2,3);
+
+		$Tx = $Cx + $vx;
+		$Ty = $Cy + $vy;
+
+		// $Cx = 2;
+		// $Cy = -4;
+		// $vx = 1;
+		// $vy = -1;
+
+		// $mult = 2;
+
+		// $Cx = 3;
+		// $Cy = -2;
+		// $vx = 2;
+		// $vy = 1;
+
+		// $mult = 3;
 		
-		$question = 'Az $\overrightarrow{AB}$ és $\overrightarrow{AC}$ vektorok $'.$angle.'°$-os szöget zárnak be egymással, és mindkét vektor hossza $'.$length.'$ egység.';
-		$solution = '$'.str_replace('.', ',', $correct).'$';
+		$question = 'A $PRST$ rombusz középpontja a $K('.$Cx.';'.$Cy.')$ pont, egyik csúcspontja a $T('.$Tx.';'.$Ty.')$ pont. Tudjuk, hogy az $RT$ átló hossza '.($mult==2 ? 'fele' : 'harmada').' a $PS$ átló hosszának. Adja meg a $P$, az $R$ és az $S$ csúcsok koordinátáit!'.$this->Rhombus($Cx, $Cy, $vx, $vy, $mult, 1);
 
-		$question .= ' Számítsa ki az $\overrightarrow{AB}+\overrightarrow{AC}$ vektor hosszát legalább két tizedesjegy pontossággal!';
-		$hints = $this->Hints($angle, $length);
+		$correct = 2;
+		$solution = '$'.$correct.'$';
+
+		$hints = $this->Hints($Cx, $Cy, $vx, $vy, $mult);
 
 		return array(
 			'question'  => $question,
@@ -44,167 +56,146 @@ class Vector_operations {
 		);
 	}
 
-	function Hints($angle, $length) {
+	function Hints($Cx, $Cy, $vx, $vy, $mult) {
 
-		
+		list($Tx,$Ty,$Rx,$Ry,$Px,$Py,$Sx,$Sy) = $this->Coordinates1($Cx, $Cy, $vx, $vy, $mult);
 
-		switch ($angle) {
-			case 60:
-				$solution = round($length*sqrt(3)*100)/100;
-				$hints[][] = 'Rajzoljuk fel az $\overrightarrow{AB}$ és $\overrightarrow{AC}$ vektorokat:'.$this->Vectors($angle, $length, 0);
-				$hints[][] = 'Ekkor az $ABC$ egy szabályos háromszög:'.$this->Vectors($angle, $length, 1);
-				$hints[][] = 'Az $\overrightarrow{AB}+\overrightarrow{AC}$ vektor kétszer akkora lesz, mint az $ABC$ háromszög magassága:'.$this->Vectors($angle, $length, 2);
-				$hints[][] = 'Tudjuk, hogy egy $a$ oldalú szabályos háromszög magassága $a\cdot\frac{\sqrt{3}}{2}$, ezért az $\overrightarrow{AB}+\overrightarrow{AC}$ vektor hossza $2\cdot a\cdot\frac{\sqrt{3}}{2}=a\cdot\sqrt{3}='.$length.'\sqrt{3}$ lesz, ami két tizedesjegyre kerekítve <span class="label label-success">$'.str_replace('.', ',', $solution).'$</span>.';
-				break;
-
-			case 90:
-				$solution = round($length*sqrt(2)*100)/100;
-				$hints[][] = 'Rajzoljuk fel az $\overrightarrow{AB}$ és $\overrightarrow{AC}$ vektorokat:'.$this->Vectors($angle, $length, 0);
-				$hints[][] = 'Ekkor a három pont egy négyzet csúcsai lesznek:'.$this->Vectors($angle, $length, 1);
-				$hints[][] = 'Az $\overrightarrow{AB}+\overrightarrow{AC}$ vektor hossza a négyzet átlója lesz:'.$this->Vectors($angle, $length, 2);
-				$hints[][] = 'Tudjuk, hogy egy $a$ oldalú négyzet átlója $a\cdot\sqrt{2}$, ezért az $\overrightarrow{AB}+\overrightarrow{AC}$ vektor hossza $a\cdot\sqrt{2}='.$length.'\cdot\sqrt{2}$ lesz, ami két tizedesjegyre kerekítve <span class="label label-success">$'.$solution.'$</span>.';
-				break;
-
-			case 120:
-				$solution = $length;
-				$hints[][] = 'Rajzoljuk fel az $\overrightarrow{AB}$ és $\overrightarrow{AC}$ vektorokat:'.$this->Vectors($angle, $length, 0);
-				$hints[][] = 'Az $\overrightarrow{AB}+\overrightarrow{AC}$, és az $\overrightarrow{AB}$ egy olyan egyenlő szárú háromszög két oldalát határozzák meg, amelynek egyik szöge $60°$-os, így a háromszög szabályos, vagyis a vektor hossza <span class="label label-success">$'.$solution.'$</span>:'.$this->Vectors($angle, $length, 1);
-				break;
-			
-			default:
-				# code...
-				break;
-		}
+		$hints[][] = 'Ábrázoljuk a $K('.$Cx.';'.$Cy.')$ pontot!'.$this->Rhombus($Cx, $Cy, $vx, $vy, $mult, 0);
+		$hints[][] = 'Ábrázoljuk a $T('.$Tx.';'.$Ty.')$ pontot!'.$this->Rhombus($Cx, $Cy, $vx, $vy, $mult, 1);
 
 		return $hints;
 	}
 
-	function Vectors($angle, $size, $option=0) {
+	function Rhombus($Cx, $Cy, $vx, $vy, $mult, $progress=0) {
 
 		$width 	= 400;
-		$height = 250;
+
+		list($Tx,$Ty,$Rx,$Ry,$Px,$Py,$Sx,$Sy) = $this->Coordinates1($Cx, $Cy, $vx, $vy, $mult);
+
+		// print_r('T('.$Tx.';'.$Ty.')<br />');
+		// print_r('R('.$Rx.';'.$Ry.')<br />');
+		// print_r('S('.$Sx.';'.$Sy.')<br />');
+		// print_r('P('.$Px.';'.$Py.')<br />');
+
+		$bottom = min($Py, $Ry, $Sy, $Ty, 0);
+		$top 	= max($Py, $Ry, $Sy, $Ty, 0);
+		$left 	= min($Px, $Rx, $Sx, $Tx, 0);
+		$right 	= max($Px, $Rx, $Sx, $Tx, 0);
+
+		// print_r('bottom: '.$bottom.'<br />');
+		// print_r('top: '.$top.'<br />');
+		// print_r('left: '.$left.'<br />');		
+		// print_r('right: '.$right.'<br />');
+
+		$linesx = $top - $bottom + 3;
+		$linesy = $right - $left + 3;
+
+		$unit = $width / $linesy;
+		if ($unit < 40) {
+			$unit = 40;
+			$width = $unit * $linesy;
+		} 
+		$height = $unit * $linesx;
 
 		$svg = '<div class="img-question text-center">
 					<svg width="'.$width.'" height="'.$height.'">'
-					.'<rect width="'.$width.'" height="'.$height.'" fill="black" fill-opacity="0.2" />'
+					// .'<rect width="'.$width.'" height="'.$height.'" fill="black" fill-opacity="0.2" />'
 					;
 
-		if ($angle == 60) {
+		// Origo
+		$Ox = (1.5 - $left)*$unit;
+		$Oy = $height - (1.5 - $bottom)*$unit;
+		if ($unit < 45) {
+			$fontsize = 10;
+		} elseif ($unit < 50) {
+			$fontsize = 11;
+		} else {
+			$fontsize = 12;
+		}
 
-			$paddingX = 50;
-			$paddingY = 50;
-			$length = 170;
-
-			$Ax = $paddingX;
-			$Ay = $height - $paddingY;
-			$Bx = $Ax + $length;
-			$By = $Ay;
-			list($Cx, $Cy) = Rotate($Ax, $Ay, $Bx, $By, 60);
-			$Dx = $Cx + $length;
-			$Dy = $Cy;
-
-			$svg .= DrawText($Ax-5, $Ay+30, '$A$', 12);
-			$svg .= DrawText($Bx-5, $By+30, '$B$', 12);
-			$svg .= DrawText($Cx-5, $Cy-10, '$C$', 12);
-
-			$svg .= DrawArc($Ax, $Ay, $Bx, $By, $Cx, $Cy, 70);
-			$svg .= DrawVector($Ax, $Ay, $Bx, $By, 'black', 10, 2, 30);
-			$svg .= DrawVector($Ax, $Ay, $Cx, $Cy, 'black', 10, 2, 30);
-
-			if (!$option) {
-				$svg .= DrawText(($Ax+$Bx)/2, ($Ay+$By)/2+30, '$'.$size.'$', 12);
-				$svg .= DrawText(($Ax+$Cx)/2-13, ($Ay+$Cy)/2, '$'.$size.'$', 12);
-				$svg .= DrawText($Ax+40, $Ay-15, '$60°$', 12);
+		// Guides
+		for ($i=0; $i < $linesy; $i++) { 
+			$x = (0.5+$i)*$unit;
+			$svg .= DrawLine($x, 0, $x, $height, '#F2F2F2');
+			$num = $i+$left-1;
+			if ($num == 0) {
+				$svg .= DrawText($Ox+$unit/3, $Oy+$unit/2, '$0$', $fontsize);
 			} else {
-				$svg .= DrawPath($Bx, $By, $Cx, $Cy, 'black', 2, 'none', 2, 2);
-				if ($option == 2) {
-					$svg .= DrawPath($Bx, $By, $Dx, $Dy, 'black', 2, 'none', 2, 2);
-					$svg .= DrawPath($Cx, $Cy, $Dx, $Dy, 'black', 2, 'none', 2, 2);
-					$svg .= DrawVector($Ax, $Ay, $Dx, $Dy, 'black', 10, 2, 30);
-					$svg .= DrawText($Dx-15, $Dy-10, '$\overrightarrow{AB}+\overrightarrow{AC}$', 12, 'black');
+				$svg .= DrawLine($x, $Oy-5, $x, $Oy+5, 'black', 2);
+				$svg .= DrawText($x, $Oy+$unit/2, '$'.$num.'$', $fontsize);
+			}
+		}
+
+		for ($i=0; $i < $linesx; $i++) { 
+			$y = (0.5+$i)*$unit;
+			$svg .= DrawLine(0, $y, $width, $y, '#F2F2F2');
+			$num = $top-$i+1;
+			if ($num != 0) {
+				$svg .= DrawLine($Ox+5, $y, $Ox-5, $y, 'black', 2);
+				if ($num <= 9 && $num > 0) {
+					$shift = $unit/3;
+				} elseif ($num > -10 || $num > 9) {
+					$shift = $unit/2;
 				} else {
-					$svg .= DrawText($Ax+40, $Ay-15, '$60°$', 12);
+					$shift = $unit/1.7;
 				}
+				$svg .= DrawText($Ox-$shift, $y+$unit/5, '$'.$num.'$', $fontsize);
 			}
+		}
 
-		} elseif ($angle == 90) {
+		// Axes
+		$svg .= DrawVector($Ox, $height, $Ox, 0, 'black', 10, 2);
+		$svg .= DrawVector(0, $Oy, $width, $Oy, 'black', 10, 2);
+		$svg .= DrawText($width-$unit/2, $Oy-$unit/3, '$x$', $fontsize*1.5);
+		$svg .= DrawText($Ox+$unit/2, $unit/3, '$y$', $fontsize*1.5);
 
-			$paddingX = 50;
-			$paddingY = 40;
-			$length = 170;
+		// Calculate coordinates
+		list($CCx, $CCy) = $this->Coordinates2($Cx, $Cy, $height, $left, $bottom, $unit);
+		list($TTx, $TTy) = $this->Coordinates2($Tx, $Ty, $height, $left, $bottom, $unit);
 
-			$Ax = ($width-$length)/2;
-			$Ay = $height - $paddingY;
-			$Bx = $Ax + $length;
-			$By = $Ay;
-			list($Cx, $Cy) = Rotate($Ax, $Ay, $Bx, $By, $angle);
-			$Dx = $Cx + $length;
-			$Dy = $Cy;
+		if ($progress == 0) {
 
-			$svg .= DrawText($Ax-5, $Ay+30, '$A$', 12);
-			$svg .= DrawText($Bx-5, $By+30, '$B$', 12);
-			$svg .= DrawText($Cx-5, $Cy-10, '$C$', 12);
+			$svg .= DrawCircle($CCx, $CCy, 3, 'red', 1, 'red');
+			$svg .= DrawPath($Ox, $CCy, $CCx, $CCy, $color1='red', $width=2, $color2='none', $dasharray1=5, $dasharray2=5);
+			$svg .= DrawPath($CCx, $CCy, $CCx, $Oy, $color1='red', $width=2, $color2='none', $dasharray1=5, $dasharray2=5);
 
-			$svg .= DrawArc($Ax, $Ay, $Bx, $By, $Cx, $Cy, 60);
-			$svg .= DrawVector($Ax, $Ay, $Bx, $By, 'black', 10, 2, 30);
-			$svg .= DrawVector($Ax, $Ay, $Cx, $Cy, 'black', 10, 2, 30);
+		} elseif ($progress == 1) {
 
-			if (!$option) {
-				$svg .= DrawText(($Ax+$Bx)/2, ($Ay+$By)/2+30, '$'.$size.'$', 12);
-				$svg .= DrawText(($Ax+$Cx)/2-13, ($Ay+$Cy)/2, '$'.$size.'$', 12);
-				$svg .= DrawText($Ax+25, $Ay-15, '$90°$', 12);
-			} else {
-				$svg .= DrawPath($Bx, $By, $Dx, $Dy, 'black', 2, 'none', 2, 2);
-				$svg .= DrawPath($Cx, $Cy, $Dx, $Dy, 'black', 2, 'none', 2, 2);
-				if ($option == 2) {
-					$svg .= DrawVector($Ax, $Ay, $Dx, $Dy, 'black', 10, 2, 30);
-					$svg .= DrawText($Dx-15, $Dy-10, '$\overrightarrow{AB}+\overrightarrow{AC}$', 12, 'black');
-				} else {
-					$svg .= DrawText($Ax+25, $Ay-15, '$90°$', 12);
-				}
-			}
-
-		} elseif ($angle == 120) {
-
-			$paddingX = 50;
-			$paddingY = 40;
-			$length = 170;
-
-			$Ax = $width - $paddingX - $length;
-			$Ay = $height - $paddingY;
-			$Bx = $Ax + $length;
-			$By = $Ay;
-			list($Cx, $Cy) = Rotate($Ax, $Ay, $Bx, $By, $angle);
-			$Dx = $Cx + $length;
-			$Dy = $Cy;
-
-			$svg .= DrawText($Ax-5, $Ay+30, '$A$', 12);
-			$svg .= DrawText($Bx-5, $By+30, '$B$', 12);
-			$svg .= DrawText($Cx-5, $Cy-10, '$C$', 12);
-			
-			$svg .= DrawVector($Ax, $Ay, $Bx, $By, 'black', 10, 2, 30);
-			$svg .= DrawVector($Ax, $Ay, $Cx, $Cy, 'black', 10, 2, 30);
-
-			if (!$option) {
-				$svg .= DrawArc($Ax, $Ay, $Bx, $By, $Cx, $Cy, 50);
-				$svg .= DrawText(($Ax+$Bx)/2, ($Ay+$By)/2+30, '$'.$size.'$', 12);
-				$svg .= DrawText(($Ax+$Cx)/2-13, ($Ay+$Cy)/2, '$'.$size.'$', 12);
-				$svg .= DrawText($Ax+20, $Ay-15, '$120°$', 12);
-			} else {
-				$svg .= DrawArc($Ax, $Ay, $Bx, $By, $Dx, $Dy, 50);
-				$svg .= DrawArc($Ax, $Ay, $Bx, $By, $Cx, $Cy, 60);
-				$svg .= DrawPath($Bx, $By, $Dx, $Dy, 'black', 2, 'none', 2, 2);
-				$svg .= DrawPath($Cx, $Cy, $Dx, $Dy, 'black', 2, 'none', 2, 2);
-				$svg .= DrawVector($Ax, $Ay, $Dx, $Dy, 'black', 10, 2, 30);
-				$svg .= DrawText($Dx-15, $Dy-10, '$\overrightarrow{AB}+\overrightarrow{AC}$', 12, 'black');
-				$svg .= DrawText($Ax+30, $Ay-10, '$60°$', 12);
-			}
+			$svg .= DrawCircle($CCx, $CCy, 3, 'blue', 1, 'blue');
+			$svg .= DrawCircle($TTx, $TTy, 3, 'red', 1, 'red');
+			$svg .= DrawPath($Ox, $TTy, $TTx, $TTy, $color1='red', $width=2, $color2='none', $dasharray1=5, $dasharray2=5);
+			$svg .= DrawPath($TTx, $TTy, $TTx, $Oy, $color1='red', $width=2, $color2='none', $dasharray1=5, $dasharray2=5);
 
 		}
 
 		$svg .= '</svg></div>';
 
 		return $svg;
+	}
+
+	function Coordinates1($Cx, $Cy, $vx, $vy, $mult) {
+
+		$Tx = $Cx + $vx;
+		$Ty = $Cy + $vy;
+
+		$Rx = $Cx - $vx;
+		$Ry = $Cy - $vy;
+
+		$Px = $Cx + $mult * $vx;
+		$Py = $Cy - $mult * $vy;
+
+		$Sx = $Cx - $mult * $vx;
+		$Sy = $Cy + $mult * $vy;
+
+		return array($Tx,$Ty,$Rx,$Ry,$Px,$Py,$Sx,$Sy);
+	}
+
+	function Coordinates2($Px, $Py, $height, $left, $bottom, $unit) {
+
+		$PPx = (1.5 - ($left - $Px))*$unit;
+		$PPy = $height - (1.5 - ($bottom - $Py))*$unit;
+
+		return array($PPx,$PPy);
 	}
 }
 
