@@ -7,9 +7,9 @@ function DrawLine($x1, $y1, $x2, $y2, $color='black', $width=1) {
   return $svg;
 }
 
-function DrawText($x, $y, $text, $fontsize=10, $color='black', $transform='') {
+function DrawText($x, $y, $text, $fontsize=10, $color='black', $alpha=0) {
 
-  $svg = '<text font-size="'.$fontsize.'" x="'.$x.'" y="'.$y.'" fill="'.$color.'" transform="'.$transform.'">'.$text.'</text>';
+  $svg = '<text font-size="'.$fontsize.'" x="'.$x.'" y="'.$y.'" fill="'.$color.'" transform="rotate('.$alpha.' '.$x.','.$y.')">'.$text.'</text>';
 
   return $svg;
 }
@@ -26,6 +26,21 @@ function DrawPath($x1, $y1, $x2, $y2, $color1='black', $width=1, $color2='none',
   $svg = '<g fill="'.$color2.'" stroke="'.$color1.'" stroke-width="'.$width.'">
   			<path stroke-dasharray="'.$dasharray1.','.$dasharray2.'" d="M'.$x1.' '.$y1.' l'.strval($x2-$x1).' '.strval($y2-$y1).'" />
   		</g>';
+
+  return $svg;
+}
+
+function DrawVector($Ax, $Ay, $Bx, $By, $color='black', $arrow_width=5, $width=1, $angle=45) {
+
+  $svg = DrawLine($Ax, $Ay, $Bx, $By, $color, $width);
+
+  list($C1x, $C1y) = Rotate($Bx, $By, $Ax, $By-($Ay-$By), $angle);
+  list($C2x, $C2y) = LinePoint($Bx, $By, $C1x, $C1y, $arrow_width);
+  $svg .= DrawLine($Bx, $By, $C2x, $C2y, $color, $width);
+
+  list($D1x, $D1y) = Rotate($Bx, $By, $Ax, $By-($Ay-$By), -$angle);
+  list($D2x, $D2y) = LinePoint($Bx, $By, $D1x, $D1y, $arrow_width);
+  $svg .= DrawLine($Bx, $By, $D2x, $D2y, $color, $width);
 
   return $svg;
 }
@@ -155,14 +170,14 @@ function Translate($Px, $Py, $length, $Ax, $Ay, $Bx, $By) {
   return array($Px, $Py);
 }
 
-// Rotate B around A with alpha
-function Rotate($Ax, $Ay, $Bx, $By, $alpha) {
+// Rotate point P around center C with angle alpha
+function Rotate($Cx, $Cy, $Px, $Py, $alpha) {
 
   $alpha = ToRad($alpha);
 
-  $Px = $Ax + cos($alpha)*($Bx - $Ax) - sin($alpha)*($By - $Ay);
-  $Py = $Ay - sin($alpha)*($Bx - $Ax) - cos($alpha)*($By - $Ay); 
+  $PPx = $Cx + cos($alpha)*($Px - $Cx) - sin($alpha)*($Py - $Cy);
+  $PPy = $Cy - sin($alpha)*($Px - $Cx) - cos($alpha)*($Py - $Cy); 
 
-  return array($Px, $Py);
+  return array($PPx, $PPy);
 }
 ?>

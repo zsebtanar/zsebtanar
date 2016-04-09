@@ -216,8 +216,7 @@ class Pentathlon {
 				$svg .= DrawText($paddingX-25, $y+4, 313+$i, 10, 'blue');
 			}
 			$text = '2 perc '.strval(9-floor(($i+1)/3)).','.$secs[$i%3].' mp';
-			$transform = 'rotate(-90 '.strval($x+3).','.strval($height-$paddingY+77).')';
-			$svg .= DrawText($x+3, $height-$paddingY+77, $text, 10, 'black', $transform);
+			$svg .= DrawText($x+3, $height-$paddingY+77, $text, 10, 'black', -90);
 
 		}
 
