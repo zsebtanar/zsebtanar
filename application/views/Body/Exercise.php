@@ -214,10 +214,12 @@
 
 				// Exercise not finished
 				if (data['status'] == 'NOT_DONE') {
+
 					$("#message").html('<div class="alert alert-warning"><strong><span class=\"glyphicon glyphicon-remove\"></span></strong>&nbsp;&nbsp;'+data['message']+'</div>');
 					MathJax.Hub.Queue(["Typeset",MathJax.Hub,"message"]);
 					$("#loader").html('<br />');
 					return;
+
 				}
 
 				// Disable buttons
@@ -232,7 +234,9 @@
 				}
 
 				// Disable hint button
-				$("#hint_button").attr('class',"btn btn-danger pull-right disabled");
+				if (data['status'] == 'CORRECT') {
+					$("#hint_button").attr('class',"btn btn-danger pull-right disabled");
+				}
 
 				// Exercise finished
 				switch (data['status']) {
