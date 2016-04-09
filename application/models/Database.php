@@ -169,11 +169,12 @@ class Database extends CI_model {
 	/**
 	 * Get link for exercise
 	 *
-	 * @param int $id Exercise ID
+	 * @param int    $id   Exercise ID
+	 * @param string $hash Exercise hash
 	 *
 	 * @return string $href Link
 	 */
-	public function ExerciseLink($id) {
+	public function ExerciseLink($id, $hash=NULL) {
 
 		$exercises = $this->db->get_where('exercises', array('id' => $id));
 
@@ -185,12 +186,12 @@ class Database extends CI_model {
 			if ($this->Session->CheckLogin() || $exercise->status == 'OK') {
 
 				$title = $exercise->name;
-				$link = base_url().'view/exercise/'.$exercise->label;
+				$link = base_url().'view/exercise/'.$exercise->label.'/'.$hash;
 				$name = $exercise->name;
 
 			} else {
 
-				$link = base_url().'view/main/';
+				$link = base_url().'view/main/'.$hash;
 				$name = 'Kezdőlap';
 
 			}

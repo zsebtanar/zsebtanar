@@ -39,10 +39,11 @@ class Html extends CI_model {
 	 *
 	 * @param string $type Type of id
 	 * @param int    $id   Id
+	 * @param string $hash Exercise hash
 	 *
 	 * @return array $data Breadcrumb data
 	 */
-	public function BreadCrumb($type, $id) {
+	public function BreadCrumb($type, $id, $hash=NULL) {
 
 		if ($type == 'subtopic') {
 
@@ -51,8 +52,8 @@ class Html extends CI_model {
 
 		} elseif ($type == 'exercise') {
 
-			$data['prev'] = $this->Database->ExerciseLink($id-1);
-			$data['next'] = $this->Database->ExerciseLink($id+1);
+			$data['prev'] = $this->Database->ExerciseLink($id-1, $hash);
+			$data['next'] = $this->Database->ExerciseLink($id+1, $hash);
 
 		}
 		
@@ -87,17 +88,16 @@ class Html extends CI_model {
 	 *
 	 * Collects all necessary parameters for template
 	 *
-	 * @param int $id    Exercise ID
-	 * @param int $level Exercise level
+	 * @param int $id Exercise ID
 	 *
 	 * @return array $data Exercise data
 	 */
-	public function ExerciseData($id, $level) {
+	public function ExerciseData($id) {
 
 		$data['type'] 		= 'exercise';
 		$data['results'] 	= $this->Session->GetResults('exercise', $id);
-		$data['exercise'] 	= $this->GetExerciseData($id, $level);
-		$data['breadcrumb'] = $this->BreadCrumb('exercise', $id);
+		$data['exercise'] 	= $this->GetExerciseData($id);
+		$data['breadcrumb'] = $this->BreadCrumb('exercise', $id, $data['exercise']['hash']);
 
 		$data['results']['id'] = $id;
 		$data['results']['type'] = 'exercise';
@@ -254,7 +254,7 @@ class Html extends CI_model {
 					$row['complete'] 	= $this->Session->isComplete($id);
 					$row['progress'] 	= $this->Session->UserProgress($id);
 
-					$exercisedata = $this->GetExerciseData($id, NULL, $save=FALSE);
+					$exercisedata = $this->GetExerciseData($id, $save=FALSE);
 					$row['question']	= $exercisedata['question'];
 
 					$data[] = $row;
@@ -270,22 +270,19 @@ class Html extends CI_model {
 	 * Get exercise data
 	 *
 	 * @param int  $id    Exercise ID
-	 * @param int  $level Exercise level
 	 * @param bool $save  Should we save exercise data in session?
 	 *
 	 * @return array $data Exercise data
 	 */
-	public function GetExerciseData($id, $level=NULL, $save=TRUE) {
+	public function GetExerciseData($id, $save=TRUE) {
 
 		$this->load->helper('string');
 
 		// Get exercise level
-		if (!$level) {
-			$level_user = $this->Session->getUserLevel($id);
-			$level_max = $this->Database->getMaxLevel($id);
+		$level_user = $this->Session->getUserLevel($id);
+		$level_max = $this->Database->getMaxLevel($id);
 
-			$level = min($level_max, ++$level_user);
-		}
+		$level = min($level_max, ++$level_user);
 
 		// Generate exercise
 		$label = $this->Database->ExerciseLabel($id);

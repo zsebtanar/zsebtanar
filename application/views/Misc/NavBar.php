@@ -13,7 +13,7 @@
 				<img src="<?php echo base_url();?>assets/images/logo_small.png" alt="logo" width="20">
 			</a>
 
-			<a class="navbar-brand navbar-logo" href="<?php echo base_url().'view/main/';?>">
+			<a class="navbar-brand navbar-logo" href="<?php echo base_url().'view/main/'.(isset($hash) ? $hash : '');?>">
 				<b>Zsebtanár</b>
 			</a>
 		</div>

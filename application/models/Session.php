@@ -270,7 +270,12 @@ class Session extends CI_model {
 		// print_r('<br />Points: ');
 		// print_r($this->session->userdata('points'));
 		// print_r('<br />Exercise: ');
-		// print_r($this->session->userdata('exercise'));
+		// $exercises = $this->session->userdata('exercise');
+		// if (count($exercises) > 0) {
+		// 	foreach ($exercises as $key => $value) {
+		// 		print_r($key.'<br />');
+		// 	}
+		// }
 
 		return;
 	}
@@ -386,21 +391,17 @@ class Session extends CI_model {
 	/**
 	 * Delete exercise data
 	 *
-	 * Removes exercise data from session if user has answered exercise (either
-	 * correct or wrong)
+	 * Removes exercise data from session
 	 *
-	 * @param string $status Status (NOT_DONE/CORRECT/WRONG)
 	 * @param string $hash   Random string
 	 *
 	 * @return void
 	 */
-	public function DeleteExerciseData($status, $hash) {
+	public function DeleteExerciseData($hash) {
 
-		if ($status != 'NOT_DONE') {
-			$exercise = $this->session->userdata('exercise');
-			unset($exercise[$hash]);
-			$this->session->set_userdata('exercise', $exercise);
-		}
+		$exercise = $this->session->userdata('exercise');
+		unset($exercise[$hash]);
+		$this->session->set_userdata('exercise', $exercise);
 
 		return;
 	}

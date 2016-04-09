@@ -6,7 +6,7 @@ class View extends CI_controller {
 	/**
 	 * Class constructor
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	public function __construct() {
 
@@ -21,11 +21,17 @@ class View extends CI_controller {
 	/**
 	 * View main page
 	 *
+	 * @param string $hash Exercise hash
+	 *
 	 * @return void
 	 */
-	public function Main() {
+	public function Main($hash=NULL) {
 
 		$data = $this->Html->MainData();
+
+		if ($hash) {
+			$this->Session->DeleteExerciseData($hash);
+		}
 
 		$this->load->view('Template', $data);
 		
@@ -37,13 +43,18 @@ class View extends CI_controller {
 	/**
 	 * View subtopic
 	 *
-	 * @param int $subtopiclabel Subtopic label
+	 * @param string $hash          Exercise hash
+	 * @param int    $subtopiclabel Subtopic label
 	 *
 	 * @return	void
 	 */
-	public function Subtopic($subtopiclabel=NULL) {
+	public function Subtopic($subtopiclabel=NULL, $hash=NULL) {
 
 		$subtopicID = $this->Database->SubtopicID($subtopiclabel);
+
+		if ($hash) {
+			$this->Session->DeleteExerciseData($hash);
+		}
 
 		$data = $this->Html->SubtopicData($subtopicID);
 
@@ -57,20 +68,24 @@ class View extends CI_controller {
 	/**
 	 * View exercise
 	 *
-	 * @param int $id    Exercise id
-	 * @param int $round Exercise round
+	 * @param int    $id   Exercise id
+	 * @param string $hash Exercise hash
 	 *
 	 * @return	void
 	 */
-	public function Exercise($label, $round=NULL) {
+	public function Exercise($label, $hash=NULL) {
 
 		$this->load->model('Database');
+
+		if ($hash) {
+			$this->Session->DeleteExerciseData($hash);
+		}
 
 		$id = $this->Database->ExerciseID($label);
 
 		if ($this->Database->ExerciseExists($label)) {
 
-			$data = $this->Html->ExerciseData($id, $round);
+			$data = $this->Html->ExerciseData($id);
 
 			$this->load->view('Template', $data);
 

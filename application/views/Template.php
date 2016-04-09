@@ -16,23 +16,23 @@
 	$this->load->view('Modal/Login');
 	$this->load->view('Modal/Cookie');
 
-	$this->load->view('Misc/NavBar', array('results' => $results, 'type' => $type));
-
 	if ($type == 'main') {
 		
+		$this->load->view('Misc/NavBar', array('results' => $results, 'type' => $type));
 		$this->load->view('Title/Main');
 		$this->load->view('Body/Main', $maindata);
 
 	} elseif ($type == 'subtopic') {
 
-
+		$this->load->view('Misc/NavBar', array('results' => $results, 'type' => $type));
 		$this->load->view('Misc/BreadCrumb', $breadcrumb);
 		$this->load->view('Title/Subtopic', $title);
 		$this->load->view('Body/Subtopic', $exercises);
 
 	} elseif ($type == 'exercise') {
 
-		$this->load->view('Misc/BreadCrumb', $breadcrumb);
+		$this->load->view('Misc/NavBar', array('results' => $results, 'type' => $type, 'hash' => $exercise['hash']));
+		$this->load->view('Misc/BreadCrumb', $breadcrumb, array('hash' => $exercise['hash']));
 		$this->load->view('Misc/Progress', $progress);
 		$this->load->view('Body/Exercise', $exercise);
 
