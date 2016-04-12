@@ -52,3 +52,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'view/main';
 $route['404_override'] = 'view/main';
 $route['translate_uri_dashes'] = FALSE;
+
+// for previously published exercises (fb)
+$route['public/view/exercise/(:any)'] = 'view/exercise/12/2015-10-13/$1';
+
+// exercises
+$route['(:num)/(:any)/(:any)'] = 'view/exercise/$1/$2/$3';
+
+// subtopics
+$route['(:num)/(:any)'] = 'view/subtopic/$1/$2';
