@@ -222,8 +222,6 @@ class Html extends CI_model {
 
 		$next = $this->Database->ExerciseLink($id_next);
 
-		// print_r($next);
-
  		return $next['link'];
 	}
 
