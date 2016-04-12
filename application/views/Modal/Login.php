@@ -31,6 +31,6 @@
     function login(event) {
     	event.preventDefault();
     	var pwd = document.getElementById('pwd').value;
-        window.location.assign("<?php echo base_url();?>application/login/"+pwd);
+        window.location.assign("<?php echo base_url();?>action/login/"+pwd);
     }
 </script>

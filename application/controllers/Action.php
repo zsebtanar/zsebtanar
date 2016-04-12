@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Application extends CI_controller {
+class Action extends CI_controller {
 
 	/**
 	 * Class constructor

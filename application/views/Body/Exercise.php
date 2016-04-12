@@ -158,7 +158,7 @@
 			$("#loader").html('Kis türelmet...&nbsp;<img src="<?php echo base_url();?>assets/images/loader.gif" />');
 			$.ajax({
 				type: "GET",
-				url: "<?php echo base_url();?>application/gethint/"+hash+"/"+id.toString()+"/"+type.toString(),
+				url: "<?php echo base_url();?>action/gethint/"+hash+"/"+id.toString()+"/"+type.toString(),
 				success: function(data) {
 					if (data != "null") {
 						$("#message").html('');
@@ -205,7 +205,7 @@
 		event.preventDefault();
 		$.ajax({
 			type: "GET",
-			url: "<?php echo base_url();?>application/checkanswer",
+			url: "<?php echo base_url();?>action/checkanswer",
 			data: {
 				answer: JSON.stringify(queryString)
 			},
