@@ -116,7 +116,7 @@ class Html extends CI_model {
 	 */
 	public function GetMainData() {
 
-		$this->db->order_by('id');
+		$this->db->order_by('id', 'desc');
 		$classes = $this->db->get('classes');
 
 		foreach ($classes->result() as $class) {
