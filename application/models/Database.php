@@ -36,33 +36,30 @@ class Database extends CI_model {
 	}
 
 	/**
-	 * Check whether exercise exists
-	 *
-	 * @param string $label Exercise label
-	 *
-	 * @return bool $exists Whether exercise exists
-	 */
-	public function ExerciseExists($label) {
-
-		$query = $this->db->get_where('exercises', array('label' => $label));
-
-		$exists = count($query->result()) == 1;
-
- 		return $exists;
-	}
-
-	/**
 	 * Gets id for exercise
 	 *
-	 * @param int $label Exercise label
+	 * @param string $classlabel    Class label
+	 * @param string $subtopiclabel Subtopic label
+	 * @param string $exerciselabel Exercise label
 	 *
 	 * @return int $id Exercise ID
 	 */
-	public function ExerciseID($label) {
+	public function ExerciseID($classlabel, $subtopiclabel, $exerciselabel) {
 
-		$query = $this->db->get_where('exercises', array('label' => $label));
+		$query = $this->db->query(
+			'SELECT `exercises`.`id` FROM `exercises`
+				WHERE `exercises`.`subtopicID` IN (
+					SELECT `subtopics`.`id` FROM `subtopics`
+						WHERE `subtopics`.`topicID` IN (
+							SELECT `topics`.`id` FROM `topics`
+								WHERE `topics`.`classID` IN (
+									SELECT `classes`.`id` FROM `classes`
+										WHERE `classes`.`label` = \''.$classlabel.'\'
+									)
+							) AND `subtopics`.`label` = \''.$subtopiclabel.'\'
+					) AND `exercises`.`label` = \''.$exerciselabel.'\'');
 
-		$id = $query->result()[0]->id;
+		$id = (count($query->result()) > 0 ? $query->result()[0]->id : NULL);
 
  		return $id;
 	}
@@ -70,13 +67,22 @@ class Database extends CI_model {
 	/**
 	 * Gets id for subtopic
 	 *
-	 * @param int $label Subtopic label
+	 * @param string $classlabel    Class label
+	 * @param string $subtopiclabel Subtopic label
 	 *
 	 * @return int $id Subtopic ID
 	 */
-	public function SubtopicID($label) {
+	public function SubtopicID($classlabel, $subtopiclabel) {
 
-		$query = $this->db->get_where('subtopics', array('label' => $label));
+		$query = $this->db->query(
+			'SELECT `subtopics`.`id` FROM `subtopics`
+				WHERE `subtopics`.`topicID` IN (
+					SELECT `topics`.`id` FROM `topics`
+						WHERE `topics`.`classID` = (
+							SELECT `classes`.`id` FROM `classes`
+								WHERE `classes`.`label` = \''.$classlabel.'\''.
+							')
+					) AND `subtopics`.`label` = \''.$subtopiclabel.'\'');
 
 		$id = $query->result()[0]->id;
 
@@ -180,13 +186,28 @@ class Database extends CI_model {
 
 		if (count($exercises->result()) == 1) {
 
+			$this->db->select('classes.label');
+			$this->db->from('classes');
+			$this->db->join('topics', 'topics.classID = classes.id');
+			$this->db->join('subtopics', 'subtopics.topicID = topics.id');
+			$this->db->join('exercises', 'exercises.subtopicID = subtopics.id');
+			$this->db->where('exercises.id', $id);
+			$classes = $this->db->get();
 
-			$exercise = $exercises->result()[0];
+			$this->db->select('subtopics.label');
+			$this->db->from('subtopics');
+			$this->db->join('exercises', 'exercises.subtopicID = subtopics.id');
+			$this->db->where('exercises.id', $id);
+			$subtopics = $this->db->get();
+
+			$class 		= $classes->result()[0];
+			$subtopic 	= $subtopics->result()[0];
+			$exercise 	= $exercises->result()[0];
 
 			if ($this->Session->CheckLogin() || $exercise->status == 'OK') {
 
 				$title = $exercise->name;
-				$link = base_url().'view/exercise/'.$exercise->label.'/'.$hash;
+				$link = base_url().'view/exercise/'.$class->label.'/'.$subtopic->label.'/'.$exercise->label.'/'.$hash;
 				$name = $exercise->name;
 
 			} else {
@@ -223,8 +244,16 @@ class Database extends CI_model {
 		if (count($subtopics->result()) > 0 &&
 			($this->Session->CheckLogin() || $this->Database->SubtopicStatus($id) == 'OK')) {
 
+			$this->db->select('classes.label');
+			$this->db->from('classes');
+			$this->db->join('topics', 'topics.classID = classes.id');
+			$this->db->join('subtopics', 'subtopics.topicID = topics.id');
+			$this->db->where('subtopics.id', $id);
+			$classes = $this->db->get();
+
 			$subtopic = $subtopics->result()[0];
-			$link = base_url().'view/subtopic/'.$subtopic->label;
+			$class = $classes->result()[0];
+			$link = base_url().'view/subtopic/'.$class->label.'/'.$subtopic->label;
 			$name = $subtopic->name;
 
 		} else {
@@ -250,15 +279,21 @@ class Database extends CI_model {
 		if ($this->Session->CheckLogin()) {
 
 			$query = $this->db->query(
-				'SELECT DISTINCT `exercises`.`id`, `exercises`.`name`, `exercises`.`label` FROM `exercises`
-						ORDER BY `exercises`.`finished` DESC');
+				'SELECT DISTINCT `exercises`.`name`, `exercises`.`label`, `subtopics`.`label`, `classes`.`label` FROM `exercises`
+					INNER JOIN `subtopics` ON `subtopics`.`id` = `exercises`.`subtopicID`
+					INNER JOIN `topics` ON `topics`.`id` = `subtopics`.`topicID`
+					INNER JOIN `classes` ON `classes`.`id` = `topics`.`classID`
+					ORDER BY `exercises`.`finished` DESC');
 
 		} else {
 
 			$query = $this->db->query(
-				'SELECT DISTINCT `exercises`.`id`, `exercises`.`name`, `exercises`.`label` FROM `exercises`
-						WHERE `exercises`.`status` = \'OK\'
-						ORDER BY `exercises`.`finished` DESC');
+				'SELECT DISTINCT `exercises`.`name`, `exercises`.`label`, `subtopics`.`label`, `classes`.`label` FROM `exercises`
+					INNER JOIN `subtopics` ON `subtopics`.`id` = `exercises`.`subtopicID`
+					INNER JOIN `topics` ON `topics`.`id` = `subtopics`.`topicID`
+					INNER JOIN `classes` ON `classes`.`id` = `topics`.`classID`
+					WHERE `exercises`.`status` = \'OK\'
+					ORDER BY `exercises`.`finished` DESC');
 			
 		}
 

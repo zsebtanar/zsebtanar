@@ -33,7 +33,7 @@
 						},
 						{
 							"name": "Alapműveletek",
-							"label": "Basic_operations",
+							"label": "Basic",
 							"exercises": [
 								{
 									"label": "Addition",

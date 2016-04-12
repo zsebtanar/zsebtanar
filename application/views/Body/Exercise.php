@@ -55,7 +55,7 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-12 text-center">
-				<a class="btn btn-default pull-left" href="<?php echo base_url().'view/subtopic/'.$subtopiclabel.(isset($hash) ? '/'.$hash : '');?>">
+				<a class="btn btn-default pull-left" href="<?php echo base_url().'view/subtopic/'.$classlabel.'/'.$subtopiclabel.(isset($hash) ? '/'.$hash : '');?>">
 					<span class="glyphicon glyphicon-chevron-left"></span>&nbsp;Vissza
 				</a>
 				<a id="next_button" class="btn btn-primary pull-right" onclick="checkSolution(event)">
@@ -245,12 +245,12 @@
 						$('#progress_bar').css('width', data['progress']['value']+'%').attr('aria-valuenow', data['progress']['value']);
 						progress_bar_class = $('#progress_bar').attr('class').replace(/(progress-bar-)\w*/, '$1'+ data['progress']['style']);
 						$('#progress_bar').attr('class', progress_bar_class);
-						$("#next_button").replaceWith("<a id=\"next_button\" class=\"btn btn-primary pull-right\" href=\"<?php echo base_url().'view/exercise/';?>" + data['label_next'] + "\">Tovább&nbsp;<span class=\"glyphicon glyphicon-chevron-right\"></span></button>");
+						$("#next_button").replaceWith("<a id=\"next_button\" class=\"btn btn-primary pull-right\" href=\"" + data['link_next'] + "\">Tovább&nbsp;<span class=\"glyphicon glyphicon-chevron-right\"></span></button>");
 						// Update results
 						$('.trophies').text(data['results']['trophies']);
 						$('.shields').text(data['results']['shields']);
 						$('.points').text(data['results']['points']);
-						setTimeout(function(){window.location="<?php echo base_url().'view/exercise/';?>" + data['label_next'];},3000);
+						setTimeout(function(){window.location=data['link_next'];},3000);
 						break;
 					case 'WRONG':
 						if (data['hints'] != null) {
@@ -258,7 +258,7 @@
 							MathJax.Hub.Queue(["Typeset",MathJax.Hub,"hint"]);
 						}
 						$("#message").replaceWith('<div class="alert alert-danger"><strong><span class=\"glyphicon glyphicon-remove\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>');
-						$("#next_button").replaceWith("<a id=\"next_button\" class=\"btn btn-primary pull-right\" href=\"<?php echo base_url();?>view/exercise/<?php echo $label;?>\">Újra&nbsp;<span class=\"glyphicon glyphicon-refresh\"></span></button>");
+						$("#next_button").replaceWith("<a id=\"next_button\" class=\"btn btn-primary pull-right\" href=\"<?php echo base_url();?>view/exercise/<?php echo $classlabel.'/'.$subtopiclabel.'/'.$exerciselabel;?>\">Újra&nbsp;<span class=\"glyphicon glyphicon-refresh\"></span></button>");
 						if (data['submessages'].length > 0) {
 							for (var i = data['submessages'].length - 1; i >= 0; i--) {
 								var submessage = data['submessages'][i];

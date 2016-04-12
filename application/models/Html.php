@@ -67,16 +67,18 @@ class Html extends CI_model {
 	 *
 	 * Collects all necessary parameters for template
 	 *
-	 * @param int $subtopicID Subtopic ID
-	 * @param int $exerciseID Exercise ID
+	 * @param string $classlabel    Class label
+	 * @param string $subtopiclabel Subtopic label
 	 *
 	 * @return array $data Subtopic data
 	 */
-	public function SubtopicData($subtopicID=NULL) {
+	public function SubtopicData($classlabel, $subtopiclabel) {
+
+		$subtopicID = $this->Database->SubtopicID($classlabel, $subtopiclabel);
 
 		$data['type'] 		= 'subtopic';
-		$data['exercises']	= $this->SubtopicExercises($subtopicID);
-		$data['results']	= $this->Session->GetResults('subtopic', $subtopicID);
+		$data['exercises']	= $this->SubtopicExercises($classlabel, $subtopiclabel, $subtopicID);
+		$data['results']	= $this->Session->GetResults('subtopic', $subtopiclabel);
 		$data['breadcrumb'] = $this->BreadCrumb('subtopic', $subtopicID);
 		$data['title']		= $this->Database->SubtopicTitle($subtopicID);
 
@@ -88,21 +90,24 @@ class Html extends CI_model {
 	 *
 	 * Collects all necessary parameters for template
 	 *
-	 * @param int $id Exercise ID
+	 * @param string $classlabel    Class label
+	 * @param string $subtopiclabel Subtopic label
+	 * @param string $exerciselabel Exercise label
+	 * @param int    $exerciseID    Exercise ID
 	 *
 	 * @return array $data Exercise data
 	 */
-	public function ExerciseData($id) {
+	public function ExerciseData($classlabel, $subtopiclabel, $exerciselabel, $exerciseID) {
 
 		$data['type'] 		= 'exercise';
-		$data['results'] 	= $this->Session->GetResults('exercise', $id);
-		$data['exercise'] 	= $this->GetExerciseData($id);
-		$data['breadcrumb'] = $this->BreadCrumb('exercise', $id, $data['exercise']['hash']);
+		$data['results'] 	= $this->Session->GetResults();
+		$data['exercise'] 	= $this->GetExerciseData($classlabel, $subtopiclabel, $exerciselabel, $exerciseID);
+		$data['breadcrumb'] = $this->BreadCrumb('exercise', $exerciseID, $data['exercise']['hash']);
 
-		$data['results']['id'] = $id;
+		$data['results']['id'] = $exerciseID;
 		$data['results']['type'] = 'exercise';
 
-		$data['progress'] 	= $this->Session->UserProgress($id);
+		$data['progress'] 	= $this->Session->UserProgress($exerciseID);
 
 		return $data;
 	}
@@ -200,34 +205,38 @@ class Html extends CI_model {
 	}
 
 	/**
-	 * Get label of next exercise
+	 * Get link of next exercise
 	 *
 	 * Checks whether user has completed all rounds of exercise.
 	 *
 	 * @param int $id Exercise ID
 	 *
-	 * @return string $label Next exercise label
+	 * @return string $link Next exercise link
 	 */
-	public function NextLabel($id) {
+	public function NextLink($id) {
 
 		$level_max  = $this->Database->getMaxLevel($id);
 		$level_user = $this->Session->getUserLevel($id);
 
 		$id_next = ($level_user < $level_max ? $id : $id+1);
 
-		$label = $this->Database->ExerciseLabel($id_next);
+		$next = $this->Database->ExerciseLink($id_next);
 
- 		return $label;
+		// print_r($next);
+
+ 		return $next['link'];
 	}
 
 	/**
 	 * Get exercises of subtopic
 	 *
-	 * @param int $subtopicID Subtopic ID
+	 * @param string $classlabel    Class label
+	 * @param string $subtopiclabel Subtopic label
+	 * @param int    $subtopicID    Subtopic ID
 	 *
 	 * @return array $data Exercises
 	 */
-	public function SubtopicExercises($subtopicID=NULL) {
+	public function SubtopicExercises($classlabel, $subtopiclabel, $subtopicID) {
 
 		if ($this->Session->CheckLogin()) {
 			$query = $this->db->get_where('exercises', array('subtopicID' => $subtopicID));
@@ -246,15 +255,16 @@ class Html extends CI_model {
 
 				if ($this->Session->CheckLogin() || $exercise->status == 'OK') {
 
-					$id = $exercise->id;
-
 					$row['status'] 		= $exercise->status;
 					$row['label'] 		= $exercise->label;
 					$row['name'] 		= $exercise->name;
-					$row['complete'] 	= $this->Session->isComplete($id);
-					$row['progress'] 	= $this->Session->UserProgress($id);
+					$row['complete'] 	= $this->Session->isComplete($exercise->id);
+					$row['progress'] 	= $this->Session->UserProgress($exercise->id);
 
-					$exercisedata = $this->GetExerciseData($id, $save=FALSE);
+					$row['classlabel'] 		= $classlabel;
+					$row['subtopiclabel'] 	= $subtopiclabel;
+
+					$exercisedata = $this->GetExerciseData($classlabel, $subtopiclabel, $exercise->label, $exercise->id, $save=FALSE);
 					$row['question']	= $exercisedata['question'];
 
 					$data[] = $row;
@@ -269,26 +279,27 @@ class Html extends CI_model {
 	/**
 	 * Get exercise data
 	 *
-	 * @param int  $id    Exercise ID
-	 * @param bool $save  Should we save exercise data in session?
+	 * @param string $classlabel    Class label
+	 * @param string $subtopiclabel Subtopic label
+	 * @param string $exerciselabel Exercise label
+	 * @param int    $exerciseID    Exercise ID
+	 * @param bool   $save          Should we save exercise data in session?
 	 *
 	 * @return array $data Exercise data
 	 */
-	public function GetExerciseData($id, $save=TRUE) {
+	public function GetExerciseData($classlabel, $subtopiclabel, $exerciselabel, $exerciseID, $save=TRUE) {
 
 		$this->load->helper('string');
 
 		// Get exercise level
-		$level_user = $this->Session->getUserLevel($id);
-		$level_max = $this->Database->getMaxLevel($id);
+		$level_user = $this->Session->getUserLevel($exerciseID);
+		$level_max = $this->Database->getMaxLevel($exerciseID);
 
 		$level = min($level_max, ++$level_user);
 
 		// Generate exercise
-		$label = $this->Database->ExerciseLabel($id);
-
-		$this->load->library($label);
-		$function = strtolower($label);
+		$this->load->library($exerciselabel);
+		$function = strtolower($exerciselabel);
 
 		$data = $this->$function->Generate($level);
 
@@ -308,18 +319,21 @@ class Html extends CI_model {
 			$data['labels'] = array_fill(0, count($data['correct']), NULL);
 		}
 
-		$data = $this->AddHints($id, $data);
+		$data = $this->AddHints($exerciseID, $data);
 		
 		$hash = random_string('alnum', 16);
 
 		if ($save) {
-			$this->Session->SaveExerciseData($id, $level, $data, $hash);
+			$this->Session->SaveExerciseData($exerciseID, $level, $data, $hash);
 		}
 
-		$data['level'] 		= $level;
-		$data['label'] 		= $label;
+		// $data['level'] 		= $level;
+		// $data['label'] 		= $label;
 		$data['hash']		= $hash;
-		$data['subtopiclabel'] = $this->Database->getSubtopicLabel($id);
+
+		$data['classlabel'] 	= $classlabel;
+		$data['subtopiclabel'] 	= $subtopiclabel;
+		$data['exerciselabel'] 	= $exerciselabel;
 
 		return $data;
 	}

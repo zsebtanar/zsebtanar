@@ -4,7 +4,7 @@ if (is_array($exercises)) {
 
 	$order = 1;
 
-	foreach ($exercises as $exercise) {?>
+	foreach ($exercises as $ex) {?>
 
 	<div class="row">
 		<div class="col-md-3 text-right">
@@ -13,22 +13,22 @@ if (is_array($exercises)) {
 			</h1>
 		</div>
 		<div class="col-md-6">
-			<img id="star1" src="<?php echo base_url().'assets/images/star'.$exercise['progress']['stars'][0].'.png';?>" alt="star"  width="15px">
-			<img id="star2" src="<?php echo base_url().'assets/images/star'.$exercise['progress']['stars'][1].'.png';?>" alt="star"  width="15px">
-			<img id="star3" src="<?php echo base_url().'assets/images/star'.$exercise['progress']['stars'][2].'.png';?>" alt="star"  width="15px"><br />
+			<img id="star1" src="<?php echo base_url().'assets/images/star'.$ex['progress']['stars'][0].'.png';?>" alt="star"  width="15px">
+			<img id="star2" src="<?php echo base_url().'assets/images/star'.$ex['progress']['stars'][1].'.png';?>" alt="star"  width="15px">
+			<img id="star3" src="<?php echo base_url().'assets/images/star'.$ex['progress']['stars'][2].'.png';?>" alt="star"  width="15px"><br />
 			<?php
 
 
-			echo $exercise['question'];?>
+			echo $ex['question'];?>
 
 			<div class="text-center exercise_button">
-				<a class="btn btn-primary" href="<?php echo base_url().'view/exercise/'.$exercise['label'];?>">
+				<a class="btn btn-primary" href="<?php echo base_url().'view/exercise/'.$ex['classlabel'].'/'.$ex['subtopiclabel'].'/'.$ex['label'];?>">
 					Mehet&nbsp;<span class="glyphicon glyphicon-chevron-right"></span>
 				</a><?php
 
 				if ($this->Session->CheckLogin()) {
 
-					if ($exercise['status'] == 'OK') {?>
+					if ($ex['status'] == 'OK') {?>
 
 					<span class="label label-success">
 						<span class="glyphicon glyphicon-ok"></span>

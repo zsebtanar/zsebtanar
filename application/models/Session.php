@@ -182,26 +182,23 @@ class Session extends CI_model {
 	/**
 	 * Get results
 	 *
-	 * @param string $type View type (exercise/subtopic)
-	 * @param int    $id   Exercise/subtopic id
-	 *
 	 * @return array $data Results
 	 */
-	public function GetResults($type=NULL, $id=NULL) {
+	public function GetResults() {
 
 		$data['points'] = $this->Points();
 		$data['shields'] = $this->Shields();
 		$data['trophies'] = $this->Trophies();
 
-		$data['id'] = $id;
-		$data['type'] = $type;
-		if ($id) {
-			if ($type == 'exercise') {
-				$data['label'] = $this->Database->ExerciseLabel($id);
-			} else {
-				$data['label'] = $this->Database->getSubtopicLabel($id, $type);
-			}
-		}
+		// $data['id'] = $id;
+		// $data['type'] = $type;
+		// if ($id) {
+		// 	if ($type == 'exercise') {
+		// 		$data['label'] = $this->Database->ExerciseLabel($id);
+		// 	} else {
+		// 		$data['label'] = $this->Database->getSubtopicLabel($id, $type);
+		// 	}
+		// }
 
 		return $data;
 	}
