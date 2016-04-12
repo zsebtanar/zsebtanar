@@ -43,37 +43,38 @@
 
 			}
 
-			if ($this->Session->CheckLogin()) {?>
+			if ($type == 'main') {
+				if ($this->Session->CheckLogin()) {?>
 
+					<li>
+						<a href="<?php echo base_url().'action/clearresults/'.
+							(isset($type) ? $type : '').
+							(isset($label) ? '/'.$label : '');?>">
+							<span class="glyphicon glyphicon-remove"></span>&nbsp;Pontok törlése
+						</a>
+					</li>
+					<li>
+						<a href="<?php echo base_url().'action/update/'.
+							(isset($type) ? $type : '').'/'.
+							(isset($label) ? $label : '');?>">
+							<span class="glyphicon glyphicon-refresh"></span>&nbsp;Adatbázis frissítése
+						</a>
+					</li>
+					<li>
+						<a href="<?php echo base_url().'action/logout';?>">
+							<span class="glyphicon glyphicon-log-out"></span>&nbsp;Kijelentkezés
+						</a>
+					</li><?php
 
-				<li>
-					<a href="<?php echo base_url().'application/clearresults/'.
-						(isset($type) ? $type : '').
-						(isset($label) ? '/'.$label : '');?>">
-						<span class="glyphicon glyphicon-remove"></span>&nbsp;Pontok törlése
-					</a>
-				</li>
-				<li>
-					<a href="<?php echo base_url().'application/update/'.
-						(isset($type) ? $type : '').'/'.
-						(isset($label) ? $label : '');?>">
-						<span class="glyphicon glyphicon-refresh"></span>&nbsp;Adatbázis frissítése
-					</a>
-				</li>
-				<li>
-					<a href="<?php echo base_url().'application/logout';?>">
-						<span class="glyphicon glyphicon-log-out"></span>&nbsp;Kijelentkezés
-					</a>
-				</li><?php
+				} else {?>
 
-			} elseif ($type == 'main') {?>
+					<li>
+						<a href="#" data-toggle="modal" data-target="#login">
+							<span class="glyphicon glyphicon-user"></span>&nbsp;Belépés
+						</a>
+					</li><?php
 
-
-				<li>
-					<a href="#" data-toggle="modal" data-target="#login">
-						<span class="glyphicon glyphicon-user"></span>&nbsp;Belépés
-					</a>
-				</li><?php
+				}
 
 			}?>
 			
