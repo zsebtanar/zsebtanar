@@ -114,7 +114,8 @@ class Setup extends CI_model {
 							id 		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							topicID INT NOT NULL,
 							name 	VARCHAR(60) NOT NULL,
-							label 	VARCHAR(60) NOT NULL UNIQUE,
+							label 	VARCHAR(60) NOT NULL,
+							CONSTRAINT subtopic_name UNIQUE (topicID, label),
 							FOREIGN KEY (topicID) REFERENCES topics(id)
 						)Engine=InnoDB;',
 			'exercises' => 'CREATE TABLE exercises (
