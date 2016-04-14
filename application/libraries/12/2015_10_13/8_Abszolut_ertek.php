@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Egyenes_forditott_aranyossag {
+class 8_Abszolut_ertek {
 
 	// Class constructor
 	function __construct() {
@@ -13,12 +13,12 @@ class Egyenes_forditott_aranyossag {
 		return;
 	}
 
-	// Define type of proportionality
+	// Define solution of equation for absolute values
 	function Generate($level) {
 
 		$CI =& get_instance();
-		$CI->load->library('9/Aranyossag/Egyenes_forditott', NULL, 'Egyenes_forditott');
-		$data = $CI->Egyenes_forditott->Generate($level);
+		$CI->load->library('5/Abszolut_ertek/Egyenlet', NULL, 'Egyenlet');
+		$data = $CI->Egyenlet->Generate($level);
 
 		return $data;
 	}

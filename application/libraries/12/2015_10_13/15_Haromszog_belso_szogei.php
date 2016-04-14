@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Haromszog_belso_szogei {
+class 15_Haromszog_belso_szogei {
 
 	// Class constructor
 	function __construct() {

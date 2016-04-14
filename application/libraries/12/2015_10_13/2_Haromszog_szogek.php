@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Szazalek_AFA {
+class 2_Haromszog_szogek {
 
 	// Class constructor
 	function __construct() {
@@ -9,16 +9,17 @@ class Szazalek_AFA {
 		$CI =& get_instance();
 		$CI->load->helper('maths');
 		$CI->load->helper('language');
+		$CI->load->helper('draw');
 		
 		return;
 	}
 
-	// Get value of VAT of a pair of jeans
+	// Define triangle angle based on two given angles
 	function Generate($level) {
 
 		$CI =& get_instance();
-		$CI->load->library('9/Szazalek/AFA', NULL, 'AFA');
-		$data = $CI->AFA->Generate($level);
+		$CI->load->library('7/Sikgeometria/Haromszog_szogei', NULL, 'Haromszog_szogei');
+		$data = $CI->Haromszog_szogei->Generate($level);
 
 		return $data;
 	}

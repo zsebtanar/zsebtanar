@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Haromszog_szogek {
+class 10_Valoszinuseg_oszthatosag {
 
 	// Class constructor
 	function __construct() {
@@ -9,17 +9,16 @@ class Haromszog_szogek {
 		$CI =& get_instance();
 		$CI->load->helper('maths');
 		$CI->load->helper('language');
-		$CI->load->helper('draw');
 		
 		return;
 	}
 
-	// Define triangle angle based on two given angles
+	// Define probability of divisibility
 	function Generate($level) {
 
 		$CI =& get_instance();
-		$CI->load->library('7/Sikgeometria/Haromszog_szogei', NULL, 'Haromszog_szogei');
-		$data = $CI->Haromszog_szogei->Generate($level);
+		$CI->load->library('11/Valoszinuseg/Oszthatosag', NULL, 'Oszthatosag');
+		$data = $CI->Oszthatosag->Generate($level);
 
 		return $data;
 	}

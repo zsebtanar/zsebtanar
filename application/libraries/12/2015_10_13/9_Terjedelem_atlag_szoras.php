@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Terjedelem_atlag_szoras {
+class 9_Terjedelem_atlag_szoras {
 
 	// Class constructor
 	function __construct() {

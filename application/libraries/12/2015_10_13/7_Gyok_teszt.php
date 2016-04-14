@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Gyok_teszt {
+class 7_Gyok_teszt {
 
 	// Class constructor
 	function __construct() {

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Vektormuveletek {
+class 16_Vektormuveletek {
 
 	// Class constructor
 	function __construct() {
