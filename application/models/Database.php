@@ -207,19 +207,19 @@ class Database extends CI_model {
 			if ($this->Session->CheckLogin() || $exercise->status == 'OK') {
 
 				$title = $exercise->name;
-				$link = base_url().'view/exercise/'.$class->label.'/'.$subtopic->label.'/'.$exercise->label.'/'.$hash;
+				$link = base_url().$class->label.'/'.$subtopic->label.'/'.$exercise->label;
 				$name = $exercise->name;
 
 			} else {
 
-				$link = base_url().'view/main/'.$hash;
+				$link = base_url();
 				$name = 'Kezdőlap';
 
 			}
 
 		} else {
 
-			$link = base_url().'view/main/';
+			$link = base_url();
 			$name = 'Kezdőlap';
 
 		}
@@ -253,12 +253,12 @@ class Database extends CI_model {
 
 			$subtopic = $subtopics->result()[0];
 			$class = $classes->result()[0];
-			$link = base_url().'view/subtopic/'.$class->label.'/'.$subtopic->label;
+			$link = base_url().$class->label.'/'.$subtopic->label;
 			$name = $subtopic->name;
 
 		} else {
 
-			$link = base_url().'view/main/';
+			$link = base_url();
 			$name = 'Kezdőlap';
 
 		}
