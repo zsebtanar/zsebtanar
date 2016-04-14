@@ -268,42 +268,6 @@ class Database extends CI_model {
 			'name' => $name
 		);
 	}
-
-	/**
-	 * Get latest exercises
-	 *
-	 * @return array $data Latest exercises
-	 */
-	public function getLatest() {
-
-		if ($this->Session->CheckLogin()) {
-
-			$query = $this->db->query(
-				'SELECT DISTINCT `exercises`.`name`, `exercises`.`label`, `subtopics`.`label`, `classes`.`label` FROM `exercises`
-					INNER JOIN `subtopics` ON `subtopics`.`id` = `exercises`.`subtopicID`
-					INNER JOIN `topics` ON `topics`.`id` = `subtopics`.`topicID`
-					INNER JOIN `classes` ON `classes`.`id` = `topics`.`classID`
-					ORDER BY `exercises`.`finished` DESC');
-
-		} else {
-
-			$query = $this->db->query(
-				'SELECT DISTINCT `exercises`.`name`, `exercises`.`label`, `subtopics`.`label`, `classes`.`label` FROM `exercises`
-					INNER JOIN `subtopics` ON `subtopics`.`id` = `exercises`.`subtopicID`
-					INNER JOIN `topics` ON `topics`.`id` = `subtopics`.`topicID`
-					INNER JOIN `classes` ON `classes`.`id` = `topics`.`classID`
-					WHERE `exercises`.`status` = \'OK\'
-					ORDER BY `exercises`.`finished` DESC');
-			
-		}
-
-		$data = $query->result_array();
-
-		$length = min(10, count($data));
-		$data = array_slice($data, 0, $length);
-
-		return $data;
-	}
 }
 
 ?>

@@ -14,15 +14,42 @@
 	<div class="col-md-6">
 
 		<div class="text-center">
-			<h1>Legutóbbi feladatok</h1><?php
+			<h1>Érettségi feladatok</h1><?php
 
-		foreach ($latest as $exercise) {?>
+			foreach ($classes as $class) {
 
-			<a class="btn btn-default btn-lg btn-space" href="<?php echo base_url().$exercise['label'];?>">
-					<?php echo $exercise['name'];?>
-			</a>&nbsp;<?php
+				if ($class['show'] && $class['label'] == 12) {
 
-		}?>
+					if (count($class['topics']) > 0) {
+
+						foreach ($class['topics'] as $topic) {
+
+							if ($topic['show'] && $topic['name'] == 'Érettségi') {
+
+								if (count($topic['subtopics']) > 0) {
+
+									foreach ($topic['subtopics'] as $subtopic) {
+
+										if ($subtopic['show']) {?>
+
+										<a class="btn btn-default btn-lg" href="<?php echo base_url().$class['label'].'/'.$subtopic['label'];?>">
+											<?php echo $subtopic['name'];?> <span class="badge"><?php echo $subtopic['exercises'];?></span>
+										</a><br /><?php
+
+										}
+
+									}
+								}
+
+							}
+						}
+					}?>
+						</div>
+					</div><?php
+
+				}
+
+			}?>
 
 		</div>
 
@@ -52,7 +79,7 @@
 
 					foreach ($class['topics'] as $topic) {
 
-						if ($topic['show']) {?>
+						if ($topic['show'] && $topic['name'] != 'Érettségi') {?>
 
 							<h3><?php echo $topic['name'];?></h3><?php
 

@@ -24,7 +24,6 @@ class Html extends CI_model {
 	public function MainData() {
 
 		$data['maindata'] 	= $this->GetMainData();
-		$data['latest']		= $this->Database->getLatest();
 		$data['type'] 		= 'main';
 		$data['titledata'] 	= NULL;
 		$data['results'] 	= $this->Session->GetResults();
