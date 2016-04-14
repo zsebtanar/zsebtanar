@@ -27,10 +27,6 @@
 <script>
 	function login(event){
 		var pwd = document.getElementById('pwd').value;
-		$.ajax({
-			type: "POST",
-			url: "<?php echo base_url();?>action/login/"+pwd
-		});
-		location.reload();
+		window.location = "<?php echo base_url();?>action/login/"+pwd;
 	}
 </script>

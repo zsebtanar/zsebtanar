@@ -47,17 +47,17 @@
 				if ($this->Session->CheckLogin()) {?>
 
 					<li>
-						<a href="#" onclick="clearpoints(event)">
+						<a href="<?php echo base_url();?>action/clearresults/">
 							<span class="glyphicon glyphicon-remove"></span>&nbsp;Pontok törlése
 						</a>
 					</li>
 					<li>
-						<a href="#" onclick="update(event)">
+						<a href="<?php echo base_url();?>action/update/">
 							<span class="glyphicon glyphicon-refresh"></span>&nbsp;Adatbázis frissítése
 						</a>
 					</li>
 					<li>
-						<a href="#" onclick="logout(event)">
+						<a href="<?php echo base_url();?>action/logout/">
 							<span class="glyphicon glyphicon-log-out"></span>&nbsp;Kijelentkezés
 						</a>
 					</li><?php

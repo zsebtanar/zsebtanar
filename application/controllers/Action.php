@@ -47,7 +47,7 @@ class Action extends CI_controller {
 
 		}
 
-		return;
+		header('Location:'.base_url());
 	}
 
 	/**
@@ -59,7 +59,7 @@ class Action extends CI_controller {
 
 		$this->session->set_userdata('Logged_in', FALSE);
 
-		return;
+		header('Location:'.base_url());
 	}
 
 	/**
@@ -92,7 +92,7 @@ class Action extends CI_controller {
 		$this->session->unset_userdata('trophies');
 		$this->session->unset_userdata('exercise');
 
-		return;
+		header('Location:'.base_url());
 	}
 
 	/**
@@ -110,6 +110,8 @@ class Action extends CI_controller {
 		// read data from file
 		$data = $this->Setup->ReadFile('resources/data.json');
 		$this->Setup->InsertData($data);
+
+		header('Location:'.base_url());
 	}
 
 	/**
@@ -126,6 +128,8 @@ class Action extends CI_controller {
 		if ($hash) {
 			$this->Session->DeleteExerciseData($hash);
 		}
+
+		return;
 	}
 
 	/**
@@ -155,6 +159,8 @@ class Action extends CI_controller {
 			$this->Setup->InsertData($data);
 
 		}
+
+		header('Location:'.base_url());
 	}
 }
 
