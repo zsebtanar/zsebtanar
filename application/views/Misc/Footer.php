@@ -11,6 +11,11 @@ if ($type == 'main') {?>
 }?>
 
 <!-- Auto resize input -->
-<script type="text/javascript" src="<?php echo base_url();?>assets/js/jquery.autosize.input.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/js/jquery.autosize.input.js"></script><?php
+
+if (base_url() == 'http://zsebtanar.hu/') {?>
+
 <!--Cookie Script-->
-<!-- <script type="text/javascript" charset="UTF-8" src="<?php // echo base_url();?>assets/js/cookie.js"></script>-->
+<script type="text/javascript" charset="UTF-8" src="<?php echo base_url();?>assets/js/cookie.js"></script><?php
+
+}
