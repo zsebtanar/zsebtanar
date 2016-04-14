@@ -267,7 +267,7 @@
 							MathJax.Hub.Queue(["Typeset",MathJax.Hub,"hint"]);
 						}
 						$("#message").replaceWith('<div class="alert alert-danger"><strong><span class=\"glyphicon glyphicon-remove\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>');
-						$("#next_button").replaceWith("<a id=\"next_button\" class=\"btn btn-primary pull-right\" href=\"<?php echo base_url();?>view/exercise/<?php echo $classlabel.'/'.$subtopiclabel.'/'.$exerciselabel;?>\">Újra&nbsp;<span class=\"glyphicon glyphicon-refresh\"></span></button>");
+						$("#next_button").replaceWith("<a id=\"next_button\" class=\"btn btn-primary pull-right\" href=\"<?php echo base_url().$classlabel.'/'.$subtopiclabel.'/'.$exerciselabel;?>\">Újra&nbsp;<span class=\"glyphicon glyphicon-refresh\"></span></button>");
 						if (data['submessages'].length > 0) {
 							for (var i = data['submessages'].length - 1; i >= 0; i--) {
 								var submessage = data['submessages'][i];

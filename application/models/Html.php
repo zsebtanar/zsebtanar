@@ -296,10 +296,13 @@ class Html extends CI_model {
 		$level = min($level_max, ++$level_user);
 
 		// Generate exercise
-		$this->load->library($exerciselabel);
-		$function = strtolower($exerciselabel);
+		$path = strtolower($classlabel)
+			.'/'.strtolower($subtopiclabel)
+			.'/'.strtolower($exerciselabel);
+		$lib_name = $classlabel.$subtopiclabel.$exerciselabel;
+		$this->load->library($path, NULL, $lib_name);
 
-		$data = $this->$function->Generate($level);
+		$data = $this->$lib_name->Generate($level);
 
 		if (!isset($data['type'])) {
 			if (!isset($data['options'])) {

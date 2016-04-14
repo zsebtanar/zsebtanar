@@ -18,7 +18,7 @@
 
 		foreach ($latest as $exercise) {?>
 
-			<a class="btn btn-default btn-lg btn-space" href="<?php echo base_url();?>view/exercise/<?php echo $exercise['label'];?>">
+			<a class="btn btn-default btn-lg btn-space" href="<?php echo base_url().$exercise['label'];?>">
 					<?php echo $exercise['name'];?>
 			</a>&nbsp;<?php
 

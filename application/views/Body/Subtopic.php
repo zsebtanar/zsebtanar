@@ -22,7 +22,7 @@ if (is_array($exercises)) {
 			echo $ex['question'];?>
 
 			<div class="text-center exercise_button">
-				<a class="btn btn-primary" href="<?php echo base_url().'view/exercise/'.$ex['classlabel'].'/'.$ex['subtopiclabel'].'/'.$ex['label'];?>">
+				<a class="btn btn-primary" href="<?php echo base_url().$ex['classlabel'].'/'.$ex['subtopiclabel'].'/'.$ex['label'];?>">
 					Mehet&nbsp;<span class="glyphicon glyphicon-chevron-right"></span>
 				</a><?php
 

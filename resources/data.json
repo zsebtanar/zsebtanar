@@ -9,22 +9,22 @@
 					"subtopics": [
 						{
 							"name": "Számolás",
-							"label": "Counting",
+							"label": "Szamolas",
 							"exercises": [
 								{
-									"label": "Count_1_20",
+									"label": "Szamolas_1_20",
 									"name": "Számolás 1-től 20-ig",
 									"finished": "2016-03-04",
 									"status": "OK"
 								},
 								{
-									"label": "Parity",
+									"label": "Paros_paratlan",
 									"name": "Páros vagy páratlan?",
 									"finished": "2016-03-04",
 									"status": "OK"
 								},
 								{
-									"label": "count_parity",
+									"label": "Paros_paratlan_szamol",
 									"name": "Hány darab páros/páratlan?",
 									"finished": "2016-03-04",
 									"status": "OK"
@@ -33,10 +33,10 @@
 						},
 						{
 							"name": "Alapműveletek",
-							"label": "Basic",
+							"label": "Alapmuveletek",
 							"exercises": [
 								{
-									"label": "Addition",
+									"label": "Osszeadas",
 									"name": "Összeadás",
 									"finished": "2016-03-04",
 									"status": "OK"
@@ -45,16 +45,16 @@
 						},
 						{
 							"name": "Szöveges feladatok",
-							"label": "Misc",
+							"label": "Szoveges",
 							"exercises": [
 								{
-									"label": "Pentathlon_points1",
+									"label": "Ottusa_pontok1",
 									"name": "Öttusa 1",
 									"finished": "2016-04-01",
 									"status": "OK"
 								},
 								{
-									"label": "Pentathlon_points2",
+									"label": "Ottusa_pontok2",
 									"name": "Öttusa 2",
 									"finished": "2016-04-01",
 									"status": "OK"
@@ -68,16 +68,16 @@
 					"subtopics": [
 						{
 							"name": "Szögek",
-							"label": "Angles",
+							"label": "Szogek",
 							"exercises": [
 								{
-									"label": "Angletypes",
+									"label": "Szogfajtak1",
 									"name": "Szögfajták",
 									"finished": "2016-03-05",
 									"status": "OK"
 								},
 								{
-									"label": "Angletypes2",
+									"label": "Szogfajtak2",
 									"name": "Szögfajták 2",
 									"finished": "2016-03-05",
 									"status": "OK"
@@ -91,11 +91,11 @@
 					"subtopics": [
 						{
 							"name": "Abszolút érték",
-							"label": "Absolute_value",
+							"label": "Abszolut_ertek",
 							"exercises": [
 								{
-									"label": "Absolute_value",
-									"name": "Abszolút érték",
+									"label": "Egyenlet",
+									"name": "Egyenlet",
 									"finished": "2016-03-19",
 									"status": "OK"
 								}
@@ -114,10 +114,10 @@
 					"subtopics": [
 						{
 							"name": "Síkgeometria",
-							"label": "Geometry2D",
+							"label": "Sikgeometria",
 							"exercises": [
 								{
-									"label": "Triangle_angles",
+									"label": "Haromszog_szogei",
 									"name": "Háromszög szögei",
 									"finished": "2016-03-11",
 									"status": "OK"
@@ -137,10 +137,10 @@
 					"subtopics": [
 						{
 							"name": "Síkgeometria",
-							"label": "Geometry2D",
+							"label": "Sikgeometria",
 							"exercises": [
 								{
-									"label": "Triangle_pythagoras",
+									"label": "Pitagorasz",
 									"name": "Pitagorasz-tétel",
 									"finished": "2016-04-07",
 									"status": "OK"
@@ -160,10 +160,10 @@
 					"subtopics": [
 						{
 							"name": "Arányosság",
-							"label": "Proportionality",
+							"label": "Aranyossag",
 							"exercises": [
 								{
-									"label": "Proportionality",
+									"label": "Egyenes_forditott",
 									"name": "Egyenes, fordított arányosság",
 									"finished": "2016-03-15",
 									"status": "OK"
@@ -172,11 +172,11 @@
 						},
 						{
 							"name": "Százalékszámítás",
-							"label": "Percentage",
+							"label": "Szazalek",
 							"exercises": [
 								{
-									"label": "Percentage_VAT",
-									"name": "Százalékszámítás (ÁFA)",
+									"label": "AFA",
+									"name": "ÁFA",
 									"finished": "2016-03-24",
 									"status": "OK"
 								}
@@ -189,16 +189,16 @@
 					"subtopics": [
 						{
 							"name": "Halmazműveletek",
-							"label": "Set_operations",
+							"label": "Halmazmuveletek",
 							"exercises": [
 								{
-									"label": "Set_divisor",
+									"label": "Osztok",
 									"name": "Halmazműveletek osztókkal",
 									"finished": "2016-03-15",
 									"status": "OK"
 								},
 								{
-									"label": "Subsets",
+									"label": "Reszhalmazok",
 									"name": "Részhalmazok",
 									"finished": "2016-03-15",
 									"status": "OK"
@@ -206,17 +206,17 @@
 							]
 						},
 						{
-							"name": "Számhalmlazok",
-							"label": "Number_sets",
+							"name": "Számhalmazok",
+							"label": "Szamhalmazok",
 							"exercises": [
 								{
-									"label": "Pentathlon_number_set1",
+									"label": "Ottusa_1",
 									"name": "Öttusa 1",
 									"finished": "2016-04-01",
 									"status": "OK"
 								},
 								{
-									"label": "Pentathlon_number_set2",
+									"label": "Ottusa_2",
 									"name": "Öttusa 2",
 									"finished": "2016-04-01",
 									"status": "OK"
@@ -229,29 +229,29 @@
 					"name": "Statisztika",
 					"subtopics": [
 						{
-							"name": "Alapfogalmak",
-							"label": "Basic_definitions",
+							"name": "Statisztika",
+							"label": "Statisztika",
 							"exercises": [
 								{
-									"label": "Range",
+									"label": "Terjedelem",
 									"name": "Terjedelem",
 									"finished": "2016-03-22",
 									"status": "OK"
 								},
 								{
-									"label": "Mean",
+									"label": "Atlag",
 									"name": "Átlag",
 									"finished": "2016-03-22",
 									"status": "OK"
 								},
 								{
-									"label": "Stdev",
+									"label": "Szoras",
 									"name": "Szórás",
 									"finished": "2016-03-22",
 									"status": "OK"
 								},
 								{
-									"label": "Median_mean",
+									"label": "Median_atlag",
 									"name": "Medián és átlag",
 									"finished": "2016-03-26",
 									"status": "OK"
@@ -271,10 +271,10 @@
 					"subtopics": [
 						{
 							"name": "Másodfokú egyenlet",
-							"label": "Quadratic_equation",
+							"label": "Masodfoku_egyenlet",
 							"exercises": [
 								{
-									"label": "Quadratic_equation",
+									"label": "Egyenlet1",
 									"name": "Másodfokú egyenlet",
 									"finished": "2016-03-07",
 									"status": "OK"
@@ -288,28 +288,28 @@
 					"subtopics": [
 						{
 							"name": "Trigonometrikus függvények",
-							"label": "Trigonometric_functions",
+							"label": "Trigonometrikus_fuggvenyek",
 							"exercises": [
 								{
-									"label": "Sine_range",
+									"label": "Szinusz_ertekkeszlet",
 									"name": "Szinusz függvény értékkészlete",
 									"finished": "2016-03-14",
 									"status": "OK"
 								},
 								{
-									"label": "Triangle_tangent",
+									"label": "Haromszog_tangens",
 									"name": "Háromszög (tangens)",
 									"finished": "2016-04-07",
 									"status": "OK"
 								},
 								{
-									"label": "Triangle_sine",
+									"label": "Haromszog_szinusz",
 									"name": "Háromszög (szinusz)",
 									"finished": "2016-04-07",
 									"status": "OK"
 								},
 								{
-									"label": "Triangle_cosine",
+									"label": "Haromszog_koszinusz",
 									"name": "Háromszög (koszinusz)",
 									"finished": "2016-04-07",
 									"status": "OK"
@@ -323,22 +323,22 @@
 					"subtopics": [
 						{
 							"name": "Gyökvonás",
-							"label": "Square_root",
+							"label": "Gyokvonas",
 							"exercises": [
 								{
-									"label": "Square_root_test1",
+									"label": "Gyok_teszt1",
 									"name": "Gyökvonás (1. teszt)",
 									"finished": "2016-03-19",
 									"status": "OK"
 								},
 								{
-									"label": "Square_root_test2",
+									"label": "Gyok_teszt2",
 									"name": "Gyökvonás (2. teszt)",
 									"finished": "2016-03-19",
 									"status": "OK"
 								},
 								{
-									"label": "Square_root_test3",
+									"label": "Gyok_teszt3",
 									"name": "Gyökvonás (3. teszt)",
 									"finished": "2016-03-19",
 									"status": "OK"
@@ -358,10 +358,10 @@
 					"subtopics": [
 						{
 							"name": "Valószínűség-számítás",
-							"label": "Probability",
+							"label": "Valoszinuseg",
 							"exercises": [
 								{
-									"label": "Probability_divisibility",
+									"label": "Oszthatosag",
 									"name": "Valószínűség (oszthatóság)",
 									"finished": "2016-03-23",
 									"status": "OK"
@@ -370,10 +370,10 @@
 						},
 						{
 							"name": "Gráfok",
-							"label": "Graphs",
+							"label": "Grafok",
 							"exercises": [
 								{
-									"label": "Graph_competition",
+									"label": "Verseny",
 									"name": "Gráfok (verseny)",
 									"finished": "2016-03-25",
 									"status": "OK"
@@ -382,10 +382,10 @@
 						},
 						{
 							"name": "Kombinatorika",
-							"label": "Combinatorics",
+							"label": "Kombinatorika",
 							"exercises": [
 								{
-									"label": "Pentathlon_variation",
+									"label": "Variacio",
 									"name": "Variáció",
 									"finished": "2016-04-01",
 									"status": "OK"
@@ -405,104 +405,104 @@
 					"subtopics": [
 						{
 							"name": "2015. október 13.",
-							"label": "2015-10-13",
+							"label": "2015_10_13",
 							"exercises": [
 								{
-									"label": "Quadratic_equation",
+									"label": "Masodfoku_egyenlet",
 									"name": "Másodfokú egyenlet",
 									"finished": "2016-03-07",
 									"status": "OK"
 								},
 								{
-									"label": "Triangle_angles",
+									"label": "Haromszog_szogek",
 									"name": "Háromszög szögei",
 									"finished": "2016-03-11",
 									"status": "OK"
 								},
 								{
-									"label": "Sine_range",
+									"label": "Szinusz_fv_ertekkeszlet",
 									"name": "Szinusz függvény értékkészlete",
 									"finished": "2016-03-14",
 									"status": "OK"
 								},
 								{
-									"label": "Proportionality",
+									"label": "Egyenes_forditott_aranyossag",
 									"name": "Egyenes, fordított arányosság",
 									"finished": "2016-03-15",
 									"status": "OK"
 								},
 								{
-									"label": "Set_divisor",
+									"label": "Halmaz_osztok",
 									"name": "Halmazműveletek osztókkal",
 									"finished": "2016-03-15",
 									"status": "OK"
 								},
 								{
-									"label": "Subsets",
-									"name": "Részhalmazok",
+									"label": "Reszhalmazok_szama",
+									"name": "Részhalmazok száma",
 									"finished": "2016-03-15",
 									"status": "OK"
 								},
 								{
-									"label": "Square_root_test",
+									"label": "Gyok_teszt",
 									"name": "Gyökvonás (teszt)",
 									"finished": "2016-03-19",
 									"status": "OK"
 								},
 								{
-									"label": "Absolute_value",
+									"label": "Abszolut_ertek",
 									"name": "Abszolútérték",
 									"finished": "2016-03-19",
 									"status": "OK"
 								},
 								{
-									"label": "Range_mean_stdev",
+									"label": "Terjedelem_atlag_szoras",
 									"name": "Terjedelem, átlag, szórás",
 									"finished": "2016-03-22",
 									"status": "OK"
 								},
 								{
-									"label": "Probability_divisibility",
+									"label": "Valoszinuseg_oszthatosag",
 									"name": "Valószínűség (oszthatóság)",
 									"finished": "2016-03-23",
 									"status": "OK"
 								},
 								{
-									"label": "Percentage_VAT",
+									"label": "Szazalek_AFA",
 									"name": "Százalékszámítás (ÁFA)",
 									"finished": "2016-03-24",
 									"status": "OK"
 								},
 								{
-									"label": "Graph_competition",
+									"label": "Grafok_verseny",
 									"name": "Gráfok (verseny)",
 									"finished": "2016-03-25",
 									"status": "OK"
 								},
 								{
-									"label": "Series_mixed",
+									"label": "Sorozatok",
 									"name": "Sorozatok",
 									"finished": "2016-03-26",
 									"status": "OK"
 								},
 								{
-									"label": "Pentathlon",
+									"label": "Ottusa",
 									"name": "Öttusa",
 									"finished": "2016-04-01",
 									"status": "OK"
 								},
 								{
-									"label": "Triangle_inner_angles",
+									"label": "Haromszog_belso_szogei",
 									"name": "Háromszög belső szögei",
 									"finished": "2016-04-07",
 									"status": "OK"
 								},
 								{
-									"label": "Vector_operations",
+									"label": "Vektormuveletek",
 									"name": "Vektorműveletek"
 								},
 								{
-									"label": "Test",
+									"label": "Teszt",
 									"name": "Teszt"
 								}
 							]
@@ -514,16 +514,16 @@
 					"subtopics": [
 						{
 							"name": "Számtani sorozatok",
-							"label": "Series_arithmetic",
+							"label": "Szamtani_sorozat",
 							"exercises": [
 								{
-									"label": "Series_arithmetic_member",
+									"label": "Tag",
 									"name": "Számtani sorozat tagja",
 									"finished": "2016-03-26",
 									"status": "OK"
 								},
 								{
-									"label": "Series_arithmetic_difference",
+									"label": "Differencia",
 									"name": "Számtani sorozat differenciája",
 									"finished": "2016-03-26",
 									"status": "OK"
@@ -532,16 +532,16 @@
 						},
 						{
 							"name": "Mértani sorozatok",
-							"label": "Series_geometric",
+							"label": "Mertani_sorozat",
 							"exercises": [
 								{
-									"label": "Series_geometric_member",
+									"label": "Tag",
 									"name": "Mértani sorozat tagja",
 									"finished": "2016-03-26",
 									"status": "OK"
 								},
 								{
-									"label": "Series_geometric_ratio",
+									"label": "Hanyados",
 									"name": "Mértani sorozat hányadosa",
 									"finished": "2016-03-26",
 									"status": "OK"
