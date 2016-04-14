@@ -295,9 +295,7 @@ class Html extends CI_model {
 		$level = min($level_max, ++$level_user);
 
 		// Generate exercise
-		$path = strtolower($classlabel)
-			.'/'.strtolower($subtopiclabel)
-			.'/'.strtolower($exerciselabel);
+		$path = $classlabel.'/'.$subtopiclabel.'/'.$exerciselabel;
 		$lib_name = $classlabel.$subtopiclabel.$exerciselabel;
 		$this->load->library($path, NULL, $lib_name);
 
