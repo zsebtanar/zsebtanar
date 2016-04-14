@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class 6_Reszhalmazok_szama {
+class Szinusz_fv_ertekkeszlet {
 
 	// Class constructor
 	function __construct() {
@@ -9,16 +9,16 @@ class 6_Reszhalmazok_szama {
 		$CI =& get_instance();
 		$CI->load->helper('maths');
 		$CI->load->helper('language');
-		
+
 		return;
 	}
 
-	// Define total number of subsets of a set
+	// Define range of sine function (a+bsin(x))
 	function Generate($level) {
 
 		$CI =& get_instance();
-		$CI->load->library('9/Halmazmuveletek/Reszhalmazok', NULL, 'Reszhalmazok');
-		$data = $CI->Reszhalmazok->Generate($level);
+		$CI->load->library('10/Trigonometrikus_fuggvenyek/Szinusz_ertekkeszlet', NULL, 'Szinusz_ertekkeszlet');
+		$data = $CI->Szinusz_ertekkeszlet->Generate($level);
 
 		return $data;
 	}

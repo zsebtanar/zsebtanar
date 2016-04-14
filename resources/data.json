@@ -377,67 +377,67 @@
 							"label": "2015_10_13",
 							"exercises": [
 								{
-									"label": "1_Masodfoku_egyenlet",
+									"label": "Masodfoku_egyenlet",
 									"name": "Másodfokú egyenlet"
 								},
 								{
-									"label": "2_Haromszog_szogek",
+									"label": "Haromszog_szogek",
 									"name": "Háromszög szögei"
 								},
 								{
-									"label": "3_Szinusz_fv_ertekkeszlet",
+									"label": "Szinusz_fv_ertekkeszlet",
 									"name": "Szinusz függvény értékkészlete"
 								},
 								{
-									"label": "4_Egyenes_forditott_aranyossag",
+									"label": "Egyenes_forditott_aranyossag",
 									"name": "Egyenes, fordított arányosság"
 								},
 								{
-									"label": "5_Halmaz_osztok",
+									"label": "Halmaz_osztok",
 									"name": "Halmazműveletek osztókkal"
 								},
 								{
-									"label": "6_Reszhalmazok_szama",
+									"label": "Reszhalmazok_szama",
 									"name": "Részhalmazok száma"
 								},
 								{
-									"label": "7_Gyok_teszt",
+									"label": "Gyok_teszt",
 									"name": "Gyökvonás (teszt)"
 								},
 								{
-									"label": "8_Abszolut_ertek",
+									"label": "Abszolut_ertek",
 									"name": "Abszolútérték"
 								},
 								{
-									"label": "9_Terjedelem_atlag_szoras",
+									"label": "Terjedelem_atlag_szoras",
 									"name": "Terjedelem, átlag, szórás"
 								},
 								{
-									"label": "10_Valoszinuseg_oszthatosag",
+									"label": "Valoszinuseg_oszthatosag",
 									"name": "Valószínűség (oszthatóság)"
 								},
 								{
-									"label": "11_Szazalek_AFA",
+									"label": "Szazalek_AFA",
 									"name": "Százalékszámítás (ÁFA)"
 								},
 								{
-									"label": "12_Grafok_verseny",
+									"label": "Grafok_verseny",
 									"name": "Gráfok (verseny)"
 								},
 								{
-									"label": "13_Sorozatok",
+									"label": "Sorozatok",
 									"name": "Sorozatok"
 								},
 								{
-									"label": "14_Ottusa",
+									"label": "Ottusa",
 									"name": "Öttusa"
 								},
 								{
-									"label": "15_Haromszog_belso_szogei",
+									"label": "Haromszog_belso_szogei",
 									"name": "Háromszög belső szögei"
 								},
 								{
-									"label": "16_Vektormuveletek",
+									"label": "Vektormuveletek",
 									"name": "Vektorműveletek",
 									"status": "IN_PROGRESS"
 								},

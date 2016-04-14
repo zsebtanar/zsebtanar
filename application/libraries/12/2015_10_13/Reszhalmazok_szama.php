@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class 11_Szazalek_AFA {
+class Reszhalmazok_szama {
 
 	// Class constructor
 	function __construct() {
@@ -13,12 +13,12 @@ class 11_Szazalek_AFA {
 		return;
 	}
 
-	// Get value of VAT of a pair of jeans
+	// Define total number of subsets of a set
 	function Generate($level) {
 
 		$CI =& get_instance();
-		$CI->load->library('9/Szazalek/AFA', NULL, 'AFA');
-		$data = $CI->AFA->Generate($level);
+		$CI->load->library('9/Halmazmuveletek/Reszhalmazok', NULL, 'Reszhalmazok');
+		$data = $CI->Reszhalmazok->Generate($level);
 
 		return $data;
 	}

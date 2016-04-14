@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class 12_Grafok_verseny {
+class Grafok_verseny {
 
 	// Class constructor
 	function __construct() {

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class 13_Sorozatok {
+class Sorozatok {
 
 	// Class constructor
 	function __construct() {

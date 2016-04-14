@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class 1_Masodfoku_egyenlet {
+class Valoszinuseg_oszthatosag {
 
 	// Class constructor
 	function __construct() {
@@ -13,12 +13,12 @@ class 1_Masodfoku_egyenlet {
 		return;
 	}
 
-	// Solve quadratic equation
+	// Define probability of divisibility
 	function Generate($level) {
 
 		$CI =& get_instance();
-		$CI->load->library('10/Masodfoku_egyenlet/Egyenlet1', NULL, 'Egyenlet1');
-		$data = $CI->Egyenlet1->Generate($level);
+		$CI->load->library('11/Valoszinuseg/Oszthatosag', NULL, 'Oszthatosag');
+		$data = $CI->Oszthatosag->Generate($level);
 
 		return $data;
 	}

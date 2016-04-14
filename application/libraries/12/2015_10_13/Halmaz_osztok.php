@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class 3_Szinusz_fv_ertekkeszlet {
+class Halmaz_osztok {
 
 	// Class constructor
 	function __construct() {
@@ -13,12 +13,12 @@ class 3_Szinusz_fv_ertekkeszlet {
 		return;
 	}
 
-	// Define range of sine function (a+bsin(x))
+	// Define members of intersection/union/difference of sets
 	function Generate($level) {
 
 		$CI =& get_instance();
-		$CI->load->library('10/Trigonometrikus_fuggvenyek/Szinusz_ertekkeszlet', NULL, 'Szinusz_ertekkeszlet');
-		$data = $CI->Szinusz_ertekkeszlet->Generate($level);
+		$CI->load->library('9/Halmazmuveletek/Osztok', NULL, 'Osztok');
+		$data = $CI->Osztok->Generate($level);
 
 		return $data;
 	}

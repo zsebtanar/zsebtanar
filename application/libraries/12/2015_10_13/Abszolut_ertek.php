@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class 5_Halmaz_osztok {
+class Abszolut_ertek {
 
 	// Class constructor
 	function __construct() {
@@ -9,16 +9,16 @@ class 5_Halmaz_osztok {
 		$CI =& get_instance();
 		$CI->load->helper('maths');
 		$CI->load->helper('language');
-
+		
 		return;
 	}
 
-	// Define members of intersection/union/difference of sets
+	// Define solution of equation for absolute values
 	function Generate($level) {
 
 		$CI =& get_instance();
-		$CI->load->library('9/Halmazmuveletek/Osztok', NULL, 'Osztok');
-		$data = $CI->Osztok->Generate($level);
+		$CI->load->library('5/Abszolut_ertek/Egyenlet', NULL, 'Egyenlet');
+		$data = $CI->Egyenlet->Generate($level);
 
 		return $data;
 	}
