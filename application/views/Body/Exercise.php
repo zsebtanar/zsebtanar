@@ -55,7 +55,7 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-12 text-center">
-				<a class="btn btn-default pull-left" href="<?php echo base_url().'view/subtopic/'.$classlabel.'/'.$subtopiclabel.(isset($hash) ? '/'.$hash : '');?>">
+				<a class="btn btn-default pull-left" href="<?php echo base_url().$classlabel.'/'.$subtopiclabel;?>" onclick="unsetexercise(event)">
 					<span class="glyphicon glyphicon-chevron-left"></span>&nbsp;Vissza
 				</a>
 				<a id="next_button" class="btn btn-primary pull-right" onclick="checkSolution(event)">
@@ -138,6 +138,15 @@
 			}
 
 		}
+	}
+
+	function unsetexercise(event){
+		var hash = $('[name="hash"]').attr('value');
+		$.ajax({
+			type: "GET",
+			url: "<?php echo base_url();?>action/unsetexercise/"+hash
+		});
+		return true;
 	}
 
 	function gethint(event, id, type){

@@ -376,11 +376,9 @@ class Session extends CI_model {
 	}
 
 	/**
-	 * Delete exercise data
+	 * Delete exercise data from session
 	 *
-	 * Removes exercise data from session
-	 *
-	 * @param string $hash   Random string
+	 * @param string $hash Random string
 	 *
 	 * @return void
 	 */

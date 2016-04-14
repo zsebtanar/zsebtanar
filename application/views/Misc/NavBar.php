@@ -9,11 +9,11 @@
 				<span class="icon-bar"></span>
 			</button>
 
-			<a class="navbar-brand" href="<?php echo base_url().'view/main/';?>">
+			<a class="navbar-brand" href="<?php echo base_url().'view/main/';?>" onclick="unsetexercise(event)">
 				<img src="<?php echo base_url();?>assets/images/logo_small.png" alt="logo" width="20">
 			</a>
 
-			<a class="navbar-brand navbar-logo" href="<?php echo base_url().'view/main/'.(isset($hash) ? $hash : '');?>">
+			<a class="navbar-brand navbar-logo" href="<?php echo base_url().'view/main/'.(isset($hash) ? $hash : '');?>" onclick="unsetexercise(event)">
 				<b>Zsebtanár</b>
 			</a>
 		</div>

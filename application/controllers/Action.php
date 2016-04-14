@@ -133,6 +133,22 @@ class Action extends CI_controller {
 	}
 
 	/**
+	 * Unset exercise data from session
+	 *
+	 * @param string $hash Exercise hash
+	 *
+	 * @return void
+	 */
+	public function UnsetExercise($hash=NULL) {
+
+		$this->load->model('Session');
+
+		if ($hash) {
+			$this->Session->DeleteExerciseData($hash);
+		}
+	}
+
+	/**
 	 * Update system
 	 *
 	 * @param string $type View type (exercise/subtopic)

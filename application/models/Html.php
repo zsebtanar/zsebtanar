@@ -325,10 +325,7 @@ class Html extends CI_model {
 			$this->Session->SaveExerciseData($exerciseID, $level, $data, $hash);
 		}
 
-		// $data['level'] 		= $level;
-		// $data['label'] 		= $label;
-		$data['hash']		= $hash;
-
+		$data['hash']			= $hash;
 		$data['classlabel'] 	= $classlabel;
 		$data['subtopiclabel'] 	= $subtopiclabel;
 		$data['exerciselabel'] 	= $exerciselabel;

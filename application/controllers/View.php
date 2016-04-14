@@ -29,10 +29,6 @@ class View extends CI_controller {
 
 		$data = $this->Html->MainData();
 
-		if ($hash) {
-			$this->Session->DeleteExerciseData($hash);
-		}
-
 		$this->load->view('Template', $data);
 		
 		if ($this->Session->CheckLogin()) {
@@ -50,10 +46,6 @@ class View extends CI_controller {
 	 * @return	void
 	 */
 	public function Subtopic($classlabel=NULL, $subtopiclabel=NULL, $hash=NULL) {
-
-		if ($hash) {
-			$this->Session->DeleteExerciseData($hash);
-		}
 
 		$data = $this->Html->SubtopicData($classlabel, $subtopiclabel);
 
@@ -77,10 +69,6 @@ class View extends CI_controller {
 	public function Exercise($classlabel, $subtopiclabel, $exerciselabel, $hash=NULL) {
 
 		$this->load->model('Database');
-
-		if ($hash) {
-			$this->Session->DeleteExerciseData($hash);
-		}
 
 		$exerciseID = $this->Database->ExerciseID($classlabel, $subtopiclabel, $exerciselabel);
 
