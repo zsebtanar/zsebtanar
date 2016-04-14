@@ -9,16 +9,13 @@
 				<div class="row">
 					<div class="col-md-3"></div>
 					<div class="col-md-6">
-						<form role="form">
-							<div class="form-group">
-								<label for="pwd">Jelszó:</label>
-								<input name="password" type="password" class="form-control" id="pwd">
-							</div>
-							<p class="text-center" id="login_message"></p>
-							<div class="text-right">
-								<button type="submit" class="btn btn-default" onclick=login(event)>Mehet</button>
-							</div>
-						</form>
+						<div class="form-group">
+							<label for="pwd">Jelszó:</label>
+							<input name="password" type="password" class="form-control" id="pwd">
+						</div>
+						<div class="text-right">
+							<a class="btn btn-default" href="#" onclick="login(event)">Mehet</a>
+						</div>
 					</div>
 					<div class="col-md-3"></div>
 				</div>
@@ -28,9 +25,12 @@
 </div>
 
 <script>
-    function login(event) {
-    	event.preventDefault();
-    	var pwd = document.getElementById('pwd').value;
-        window.location.assign("<?php echo base_url();?>action/login/"+pwd);
-    }
+	function login(event){
+		var pwd = document.getElementById('pwd').value;
+		$.ajax({
+			type: "POST",
+			url: "<?php echo base_url();?>action/login/"+pwd
+		});
+		location.reload();
+	}
 </script>

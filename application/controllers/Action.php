@@ -47,8 +47,6 @@ class Action extends CI_controller {
 
 		}
 
-		header('Location:'.base_url().'view/main/');
-
 		return;
 	}
 
@@ -60,8 +58,6 @@ class Action extends CI_controller {
 	public function Logout() {
 
 		$this->session->set_userdata('Logged_in', FALSE);
-
-		header('Location:'.base_url().'view/main/');
 
 		return;
 	}
@@ -85,12 +81,9 @@ class Action extends CI_controller {
 	/**
 	 * Clear results
 	 *
-	 * @param string $type View type (exercise/subtopic)
-	 * @param int    $id   Exercise/subtopic id
-	 *
 	 * @return void
 	 */
-	public function ClearResults($type=NULL, $id=NULL) {
+	public function ClearResults() {
 
 		$this->session->unset_userdata('levels');
 		$this->session->unset_userdata('subtopics');
@@ -99,24 +92,15 @@ class Action extends CI_controller {
 		$this->session->unset_userdata('trophies');
 		$this->session->unset_userdata('exercise');
 
-		if ($type && $id) {
-			header('Location:'.base_url().'view/'.$type.'/'.$id);
-		} else {
-			header('Location:'.base_url().'view/main/');
-		}
-
 		return;
 	}
 
 	/**
 	 * Setup system
 	 *
-	 * @param string $type View type (exercise/subtopic)
-	 * @param int    $id   Exercise/subtopic id
-	 *
 	 * @return void
 	 */
-	public function Setup($type=NULL, $id=NULL) {
+	public function Setup() {
 
 		// setup tables
 		$this->load->model('Setup');
@@ -126,10 +110,6 @@ class Action extends CI_controller {
 		// read data from file
 		$data = $this->Setup->ReadFile('resources/data.json');
 		$this->Setup->InsertData($data);
-
-		$this->load->helper('url');
-
-		header('Location:'.base_url().'view/main/');
 	}
 
 	/**
@@ -174,15 +154,6 @@ class Action extends CI_controller {
 			$data = $this->Setup->ReadFile('resources/data.json');
 			$this->Setup->InsertData($data);
 
-		}
-
-		// redirect page
-		$this->load->helper('url');
-
-		if ($type && $id) {
-			header('Location:'.base_url().'view/'.$type.'/'.$id);
-		} else {
-			header('Location:'.base_url().'view/main/');
 		}
 	}
 }
