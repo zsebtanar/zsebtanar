@@ -8,7 +8,7 @@ You need to have a running *PHP Server* to run the website and a working interne
 
 1. Download the repository.
 2. Unzip the file and copy the `zsebtanar_v4` folder in your `public_html` folder (or `htdocs`, you are using *Xampp*).
-3. Type in the following URLs your browser: `http://localhost/zsebtanar_v4/public/application/setup`.
+3. Type in the following URLs your browser: `http://localhost/zsebtanar_v4/public/action/setup`.
 4. The website can be reached through the URL: `http://localhost/zsebtanar_v4/`.
 
 *Note:* If special characters don't apper properly, check the database character set. In order to use Hungarian special characters, use `latin2_hungarian_ci`.
@@ -38,11 +38,10 @@ Exercises are stored in *public/resources/data.json*. The hierachy is the follow
 3. Subtopic
 4. Exercise
 
-Each of them *must* have a `name` attribute. Exercises and subtopics *must* have an additional `label` attribute, which is the name of the PHP class file (avoid space and accents). Exercises *can* have additional attributes:
+Each of them *must* have a `name` attribute. Classes, subtopics and exercises *must* have an additional `label` attribute, which is the name of the PHP class file (avoid space and accents). Exercises *can* have additional attributes:
 
 - `level`: how many times user has to solve exercise to complete it (default: **9**)
-- `status`: **OK** if exercise is finished (default: **IN PROGRESS**)
-- `finished`: **DATE** in `YYYY-MM-DD` format (default: **(CURRENT DATE)**)
+- `status`: **IN PROGRESS** if exercise is not finished (default: **OK**)
 
 This is a sample for `data.json`:
 ```
@@ -61,8 +60,7 @@ This is a sample for `data.json`:
                                 {
                                     "label": "count_apples",
                                     "name": "Számolás 1-től 20-ig",
-                                    "finished": "2016-03-04",
-                                    "status": "OK"
+                                    "status": "IN PROGRESS"
                                 },
                                 {
                                     "label": "parity",
@@ -81,7 +79,7 @@ This is a sample for `data.json`:
 
 ## STEP 2: Create PHP class to generate exercise
 
-1. Create file `ExerciseClass.php` in the `/application/library/` folder where `ExerciseClass` is equal to `label` of the exercise in the JSON-file.
+1. Create a file `ExerciseLabel.php` in the `/application/libraries/ClassLabel/SubtopicLabel` folder where `ClassLabel`, `SubtopicLabel` and `ExerciseLabel` is equal to `label` of the class, subtopic and the exercise as appears in the JSON-file.
 2. Define function called `Generate($level)`.
     - The input is *always* one parameter (`$level`), which is the level of exercise - this can be used to set the difficulty of the exercise.
     - Each exercise *must* be provided with the following return values:
@@ -312,7 +310,7 @@ $page[] = 'This is hint 2 on page 1.';
 $page[] = 'This is hint 3 on page 1.';
 $hints[] = $page;
 
-$page = [];
+$page = []; // empty array
 $page[] = 'This is hint 1 on page 2.';
 $page[] = 'This is hint 2 on page 2.';
 $page[] = 'This is hint 3 on page 2.';
@@ -331,7 +329,7 @@ $page[] = 'This is hint 2 on page 1.';
 $page[] = array('This is', 'some details', 'about the hint.');
 $hints[] = $page;
 
-$page = [];
+$page = []; // empty array
 $page[] = 'This is hint 1 on page 2.';
 $page[] = 'This is hint 2 on page 2.';
 $page[] = array('This is', 'some details', 'about the hint.');
