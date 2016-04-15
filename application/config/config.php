@@ -23,7 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-// $config['base_url'] = 'http://zsebtanar.hu/'; // web
+// $config['base_url'] = 'http://zsebtanar.hu/'; // web1
+// $config['base_url'] = 'http://zst-teszt.pe.hu/'; // web2
 // $config['base_url'] = 'http://localhost/zsebtanar4/'; // laptop
 $config['base_url'] = 'http://localhost/zsebtanar_v4/'; // hds
 
