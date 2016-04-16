@@ -28,7 +28,7 @@ body {
 
 /* exercise level */
 .row-buttons {
-    padding: 5px 10px 20px;
+    margin: 5px 0px 0px;
 }
 .small, small {
     font-size: 70%;

@@ -32,9 +32,30 @@
 
 										if ($subtopic['show']) {?>
 
-										<a class="btn btn-default btn-lg" href="<?php echo base_url().$class['label'].'/'.$subtopic['label'];?>">
-											<?php echo $subtopic['name'];?> <span class="badge"><?php echo $subtopic['exercises'];?></span>
-										</a><br /><?php
+										<div class="btn-group">
+											<a class="btn btn-default btn-lg" href="<?php echo base_url().$class['label'].'/'.$subtopic['label'];?>">
+											<?php echo $subtopic['name'];?> <span class="badge"><?php echo $subtopic['exercise_no'];?></span>
+											</a>
+											<a class="btn btn-default btn-lg" data-toggle="collapse" data-target="#<?php echo $class['label'].$subtopic['label'];?>">
+											<span class="caret"></span>
+											</a>
+										</div>
+
+										<div id="<?php echo $class['label'].$subtopic['label'];?>" class="collapse"><?php
+
+											foreach ($subtopic['exercises'] as $exercise) {
+
+												if ($exercise['show']) {?>
+
+												<a class="btn btn-default btn-sm row-buttons" href="<?php echo base_url().$class['label'].'/'.$subtopic['label'].'/'.$exercise['label'];?>">
+													<?php echo $exercise['name'];?>
+												</a><?php
+
+												}
+												
+											}?>
+
+										</div><?php
 
 										}
 
@@ -90,7 +111,7 @@
 									if ($subtopic['show']) {?>
 
 									<a class="btn btn-link btn-lg" href="<?php echo base_url().$class['label'].'/'.$subtopic['label'];?>">
-										<?php echo $subtopic['name'];?> <span class="badge"><?php echo $subtopic['exercises'];?></span>
+										<?php echo $subtopic['name'];?> <span class="badge"><?php echo $subtopic['exercise_no'];?></span>
 									</a><br /><?php
 
 									}

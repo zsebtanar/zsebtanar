@@ -25,7 +25,6 @@ class Html extends CI_model {
 
 		$data['maindata'] 	= $this->GetMainData();
 		$data['type'] 		= 'main';
-		$data['titledata'] 	= NULL;
 		$data['results'] 	= $this->Session->GetResults();
 
 		return $data;
@@ -143,27 +142,43 @@ class Html extends CI_model {
 
 						foreach ($subtopics->result() as $subtopic) {
 
-							$subtopic_menu['id'] 	= $subtopic->id;
-							$subtopic_menu['label'] = $subtopic->label;
-							$subtopic_menu['name'] 	= $subtopic->name;
+							$exercises 	= $this->db->get_where('exercises', array('subtopicID' => $subtopic->id));
+							$exercises_menu 		= [];
 							$subtopic_menu['show']	= FALSE;
+							$exercises_no			= 0;
 
-							$exercises = $this->db->get_where('exercises', array('subtopicID' => $subtopic->id, 'status' => 'OK'));
-							$subtopic_menu['exercises'] = count($exercises->result());
+							foreach ($exercises->result() as $exercise) {
 
-							$subtopic_status = $this->Database->SubtopicStatus($subtopic->id);
+								$exercise_menu['label'] 	= $exercise->label;
+								$exercise_menu['name'] 		= $exercise->name;
+								$exercise_menu['status'] 	= $exercise->status;
 
-							if ($this->Session->CheckLogin() || $subtopic_status == 'OK') {
-								$subtopic_menu['show'] 	= TRUE;
-								$topic_menu['show'] 	= TRUE;
-								$class_menu['show'] 	= TRUE;
+								if ($this->Session->CheckLogin() || $exercise->status == 'OK') {
+
+									$exercise_menu['show'] 	= TRUE;
+									$subtopic_menu['show'] 	= TRUE;
+									$topic_menu['show'] 	= TRUE;
+									$class_menu['show'] 	= TRUE;
+									$exercises_no++;
+
+								} else {
+
+									$exercise_menu['show'] 	= FALSE;
+
+								}
+
+								$exercises_menu[] = $exercise_menu;
 							}
+
+							$subtopic_menu['label'] 		= $subtopic->label;
+							$subtopic_menu['name'] 			= $subtopic->name;
+							$subtopic_menu['exercises'] 	= $exercises_menu;
+							$subtopic_menu['exercise_no']	= $exercises_no;
 
 							$subtopics_menu[] = $subtopic_menu;
 						}
 					}
 
-					$topic_menu['id'] = $topic->id;
 					$topic_menu['name'] = $topic->name;
 					$topic_menu['subtopics'] = $subtopics_menu;					
 
@@ -171,7 +186,6 @@ class Html extends CI_model {
 				}
 			}
 
-			$class_menu['id'] = $class->id;
 			$class_menu['name'] = $class->name;
 			$class_menu['label'] = $class->label;
 			$class_menu['topics'] = $topics_menu;
