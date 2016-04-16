@@ -217,6 +217,35 @@
 							]
 						}
 					]
+				},
+				{
+					"name": "Geometria",
+					"subtopics": [
+						{
+							"name": "Vektor",
+							"label": "Vektor",
+							"exercises": [
+								{
+									"label": "Osszeadas",
+									"name": "Összeadás"
+								},
+								{
+									"label": "Kivonas",
+									"name": "Kivonás"
+								}
+							]
+						},
+						{
+							"name": "Síkgeometria",
+							"label": "Sikgeometria",
+							"exercises": [
+								{
+									"label": "Rombusz",
+									"name": "Rombusz"
+								}
+							]
+						}
+					]
 				}
 			]
 		},
@@ -438,7 +467,11 @@
 								},
 								{
 									"label": "Vektormuveletek",
-									"name": "Vektorműveletek",
+									"name": "Vektorműveletek"
+								},
+								{
+									"label": "Viragcserep",
+									"name": "Virágcserép",
 									"status": "IN_PROGRESS"
 								},
 								{

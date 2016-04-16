@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Vector_subtraction {
+class Kivonas {
 
 	// Class constructor
 	function __construct() {

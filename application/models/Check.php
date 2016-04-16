@@ -123,6 +123,7 @@ class Check extends CI_model {
 
 			case 'array':
 			case 'range':
+			case 'coordinate':
 				list($status, $message) = $this->GenerateMessagesArray($answer, $correct, $solution);
 				break;
 
@@ -156,7 +157,24 @@ class Check extends CI_model {
 		if ($answer[0] == '') {
 			$status = 'NOT_DONE';
 			$message = 'Hiányzik a válasz!';
-		} elseif (is_numeric($answer[0]) && $answer[0] == $correct) {
+		} elseif (is_integer($correct)) {
+			if ($answer[0] == $correct) {
+				$status = 'CORRECT';
+				$message = 'Helyes válasz!';
+			} else {
+				$status = 'WRONG';
+				$message = 'A helyes válasz: '.$solution;
+			}
+		} elseif (is_float($correct)) {
+			$answer = str_replace(',', '.', $answer[0]);
+			if (abs(floatval($answer)-$correct) < 0.01) {
+				$status = 'CORRECT';
+				$message = 'Helyes válasz!';
+			} else {
+				$status = 'WRONG';
+				$message = 'A helyes válasz: '.$solution;
+			}
+		} elseif ($answer[0] == $correct) {
 			$status = 'CORRECT';
 			$message = 'Helyes válasz!';
 		} else {

@@ -24,6 +24,9 @@
 						case 'list':
 							$this->load->view('Input/Array', array('labels' => $labels));
 							break;
+						case 'coordinate':
+							$this->load->view('Input/Coordinate', array('labels' => $labels));
+							break;
 						case 'fraction':
 							$this->load->view('Input/Fraction');
 							break;
