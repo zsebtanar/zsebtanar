@@ -180,4 +180,15 @@ function Rotate($Cx, $Cy, $Px, $Py, $alpha) {
 
   return array($PPx, $PPy);
 }
+
+// Length of vector
+function Length($Ax, $Ay, $Bx, $By) {
+
+  $Vx = ($Bx - $Ax);
+  $Vy = ($By - $Ay);
+
+  $length = sqrt(pow($Vx,2) + pow($Vy,2));
+
+  return $length;
+}
 ?>
