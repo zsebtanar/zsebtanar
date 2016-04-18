@@ -30,13 +30,19 @@ class Tigris {
 		
 		$question = 'Egy $2014$ végén készült előrejelzés szerint az Indiában élő tigrisek $t$ száma az elkövetkező években (az egyes évek végén) megközelítőleg a következő összefüggés szerint alakul: $t(x) = '.$a.' \cdot '.$b2.'^x$, ahol $x$ a $2014$ óta eltelt évek számát jelöli. Számítsa ki, hogy az előrejelzés alapján $'.$year2.'$ végére hány százalékkal csökken a tigrisek száma a $2014$-es év végi adathoz képest! A megoldást egész számokban adja meg!';
 
-		$page[] = '<b>1. megoldás:</b> Ha az $x$ helyére $0$-t írunk, megkapjuk, hogy $2014$-ben hány tigris volt:$$t(0)='.$a.'\cdot'.$b2.'^0='.$a.'\cdot1='.$a.'$$';
-		$page[] = '$2014$ és $'.$year2.'$ között összesen $'.$year2.'-2014='.$year_diff.'$ év telt el.';
-		$page[] = 'Ha az $x$ helyére $'.$year_diff.'$-'.Dativ($year_diff).' írunk, megkapjuk, hogy $'.$year2.'$-'.In($year2).' hány tigris volt:'
-			.'$$t('.$year_diff.')='.$a.'\cdot'.$b2.'^{'.$year_diff.'}='.$a.'\cdot'.$c2.'='.$d2.'$$';
+		$page[] = '<b>1. megoldás:</b> Ha az $x$ helyére $0$-t írunk, megkapjuk, hogy a tigrisek számát $2014$-ben:$$t(0)='.$a.'\cdot'.$b2.'^0='.$a.'\cdot1='.$a.'$$';
+		$page[] = '$2014$ és $'.$year2.'$ között összesen $'.$year2.'-2014='.$year_diff.'$ év telik el.';
+		$page[] = 'Ezért ha az $x$ helyére $'.$year_diff.'$-'.Dativ($year_diff).' írunk, megkapjuk, hogy az előrejelzés szerint $'.$year2.'$-'.In($year2).' hány tigris lesz:'
+			.'$$t('.$year_diff.')='.$a.'\cdot'.$b2.'^{'.$year_diff.'}\approx'.$a.'\cdot'.$c2.'='.$d2.'$$';
 		$page[] = 'Osszuk el a $t('.$year_diff.')$-'.Dativ($year_diff).' elosztjuk $t(0)$-lal:'
 			.'$$\frac{t('.$year_diff.')}{t(0)}=\frac{'.$d.'}{'.$a.'}='.$c2.'$$';
-		$page[] = 'Ez azt jelenti, hogy $'.$year2.'$-'.In($year2).' a tigrisek száma a $2014$-hez képest csak $'.strval($c*100).'\%$ volt, vagyis a számuk $100\%-'.strval($c*100).'\%=$<span class="label label-success">$'.strval(100*(1-$c)).'$</span>$\%$-kal csökkent.';
+		$page[] = 'Ez azt jelenti, hogy $'.$year2.'$-'.In($year2).' a tigrisek száma a $2014$-hez képest csak $'.strval($c*100).'\%$ lesz, vagyis a számuk $100\%-'.strval($c*100).'\%=$<span class="label label-success">$'.strval(100*(1-$c)).'$</span>$\%$-kal csökken.';
+		$hints[] = $page;
+
+		$page = [];
+		$page[] = '<b>2. megoldás:</b> A tigrisek száma minden évben az előző évinek $'.$b2.'$-'.Times2($b*100).' változik.';
+		$page[] = 'Ekkor $'.$year_diff.'$ év alatt a változás $'.$b2.'^'.$year_diff.'\approx'.$c2.'$ lesz.';
+		$page[] = 'Azaz, a tigrisek száma $100\%-'.strval($c*100).'\%=$<span class="label label-success">$'.strval(100*(1-$c)).'$</span>$\%$-kal csökken.';
 		$hints[] = $page;
 
 		$correct = round(100*(1-pow($b, $year_diff)));
