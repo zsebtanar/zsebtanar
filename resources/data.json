@@ -470,6 +470,10 @@
 									"name": "Vektorműveletek"
 								},
 								{
+									"label": "Tigris",
+									"name": "Tigris"
+								},
+								{
 									"label": "Viragcserep",
 									"name": "Virágcserép",
 									"status": "IN_PROGRESS"

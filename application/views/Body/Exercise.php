@@ -15,7 +15,7 @@
 					switch ($type) {
 						case 'int':
 						case 'list2':
-							$this->load->view('Input/Default');
+							$this->load->view('Input/Default', array('labels' => $labels));
 							break;
 						case 'multi':
 							$this->load->view('Input/Multi', array('options' => $options));
