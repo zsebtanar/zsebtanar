@@ -1,0 +1,132 @@
+{
+	"classes": [
+		{
+			"label": "12",
+			"name": "12. osztály",
+			"topics": [
+				{
+					"name": "Sorozatok",
+					"subtopics": [
+						{
+							"name": "Számtani sorozatok",
+							"label": "Szamtani_sorozat",
+							"exercises": [
+								{
+									"label": "Tag",
+									"name": "Számtani sorozat tagja"
+								},
+								{
+									"label": "Differencia",
+									"name": "Számtani sorozat differenciája"
+								}
+							]
+						},
+						{
+							"name": "Mértani sorozatok",
+							"label": "Mertani_sorozat",
+							"exercises": [
+								{
+									"label": "Tag",
+									"name": "Mértani sorozat tagja"
+								},
+								{
+									"label": "Hanyados",
+									"name": "Mértani sorozat hányadosa"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Érettségi",
+					"subtopics": [
+						{
+							"name": "2015. október 13.",
+							"label": "2015_10_13",
+							"exercises": [
+								{
+									"label": "Masodfoku_egyenlet",
+									"name": "Másodfokú egyenlet"
+								},
+								{
+									"label": "Haromszog_szogek",
+									"name": "Háromszög szögei"
+								},
+								{
+									"label": "Szinusz_fv_ertekkeszlet",
+									"name": "Szinusz függvény értékkészlete"
+								},
+								{
+									"label": "Egyenes_forditott_aranyossag",
+									"name": "Egyenes, fordított arányosság"
+								},
+								{
+									"label": "Halmaz_osztok",
+									"name": "Halmazműveletek osztókkal"
+								},
+								{
+									"label": "Reszhalmazok_szama",
+									"name": "Részhalmazok száma"
+								},
+								{
+									"label": "Gyok_teszt",
+									"name": "Gyökvonás (teszt)"
+								},
+								{
+									"label": "Abszolut_ertek",
+									"name": "Abszolútérték"
+								},
+								{
+									"label": "Terjedelem_atlag_szoras",
+									"name": "Terjedelem, átlag, szórás"
+								},
+								{
+									"label": "Valoszinuseg_oszthatosag",
+									"name": "Valószínűség (oszthatóság)"
+								},
+								{
+									"label": "Szazalek_AFA",
+									"name": "Százalékszámítás (ÁFA)"
+								},
+								{
+									"label": "Grafok_verseny",
+									"name": "Gráfok (verseny)"
+								},
+								{
+									"label": "Sorozatok",
+									"name": "Sorozatok"
+								},
+								{
+									"label": "Ottusa",
+									"name": "Öttusa"
+								},
+								{
+									"label": "Haromszog_belso_szogei",
+									"name": "Háromszög belső szögei"
+								},
+								{
+									"label": "Vektormuveletek",
+									"name": "Vektorműveletek"
+								},
+								{
+									"label": "Tigris",
+									"name": "Tigris"
+								},
+								{
+									"label": "Viragcserep",
+									"name": "Virágcserép",
+									"status": "IN_PROGRESS"
+								},
+								{
+									"label": "Teszt",
+									"name": "Teszt",
+									"status": "IN_PROGRESS"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,91 @@
+{
+	"classes": [
+		{
+			"label": "5",
+			"name": "5. osztály",
+			"topics": [
+				{
+					"name": "Alapok",
+					"subtopics": [
+						{
+							"name": "Számolás",
+							"label": "Szamolas",
+							"exercises": [
+								{
+									"label": "Szamolas_1_20",
+									"name": "Számolás 1-től 20-ig"
+								},
+								{
+									"label": "Paros_paratlan",
+									"name": "Páros vagy páratlan?"
+								},
+								{
+									"label": "Paros_paratlan_szamol",
+									"name": "Hány darab páros/páratlan?"
+								}
+							]
+						},
+						{
+							"name": "Alapműveletek",
+							"label": "Alapmuveletek",
+							"exercises": [
+								{
+									"label": "Osszeadas",
+									"name": "Összeadás"
+								}
+							]
+						},
+						{
+							"name": "Szöveges feladatok",
+							"label": "Szoveges",
+							"exercises": [
+								{
+									"label": "Ottusa_pontok1",
+									"name": "Öttusa 1"
+								},
+								{
+									"label": "Ottusa_pontok2",
+									"name": "Öttusa 2"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Geometria",
+					"subtopics": [
+						{
+							"name": "Szögek",
+							"label": "Szogek",
+							"exercises": [
+								{
+									"label": "Szogfajtak1",
+									"name": "Szögfajták"
+								},
+								{
+									"label": "Szogfajtak2",
+									"name": "Szögfajták 2"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Algebra",
+					"subtopics": [
+						{
+							"name": "Abszolút érték",
+							"label": "Abszolut_ertek",
+							"exercises": [
+								{
+									"label": "Egyenlet",
+									"name": "Egyenlet"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

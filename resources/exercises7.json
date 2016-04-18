@@ -1,0 +1,25 @@
+{
+	"classes": [
+		{
+			"label": "7",
+			"name": "7. osztály",
+			"topics": [
+				{
+					"name": "Geometria",
+					"subtopics": [
+						{
+							"name": "Síkgeometria",
+							"label": "Sikgeometria",
+							"exercises": [
+								{
+									"label": "Haromszog_szogei",
+									"name": "Háromszög szögei"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

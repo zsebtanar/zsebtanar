@@ -1,0 +1,124 @@
+{
+	"classes": [
+		{
+			"label": "9",
+			"name": "9. osztály",
+			"topics": [
+				{
+					"name": "Algebra",
+					"subtopics": [
+						{
+							"name": "Arányosság",
+							"label": "Aranyossag",
+							"exercises": [
+								{
+									"label": "Egyenes_forditott",
+									"name": "Egyenes, fordított arányosság"
+								}
+							]
+						},
+						{
+							"name": "Százalékszámítás",
+							"label": "Szazalek",
+							"exercises": [
+								{
+									"label": "AFA",
+									"name": "ÁFA"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Halmazok",
+					"subtopics": [
+						{
+							"name": "Halmazműveletek",
+							"label": "Halmazmuveletek",
+							"exercises": [
+								{
+									"label": "Osztok",
+									"name": "Halmazműveletek osztókkal"
+								},
+								{
+									"label": "Reszhalmazok",
+									"name": "Részhalmazok"
+								}
+							]
+						},
+						{
+							"name": "Számhalmazok",
+							"label": "Szamhalmazok",
+							"exercises": [
+								{
+									"label": "Ottusa_1",
+									"name": "Öttusa 1"
+								},
+								{
+									"label": "Ottusa_2",
+									"name": "Öttusa 2"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Statisztika",
+					"subtopics": [
+						{
+							"name": "Statisztika",
+							"label": "Statisztika",
+							"exercises": [
+								{
+									"label": "Terjedelem",
+									"name": "Terjedelem"
+								},
+								{
+									"label": "Atlag",
+									"name": "Átlag"
+								},
+								{
+									"label": "Szoras",
+									"name": "Szórás"
+								},
+								{
+									"label": "Median_atlag",
+									"name": "Medián és átlag"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Geometria",
+					"subtopics": [
+						{
+							"name": "Vektor",
+							"label": "Vektor",
+							"exercises": [
+								{
+									"label": "Osszeadas",
+									"name": "Összeadás"
+								},
+								{
+									"label": "Kivonas",
+									"name": "Kivonás"
+								}
+							]
+						},
+						{
+							"name": "Síkgeometria",
+							"label": "Sikgeometria",
+							"exercises": [
+								{
+									"label": "Rombusz",
+									"name": "Rombusz"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

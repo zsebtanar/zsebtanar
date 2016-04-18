@@ -108,8 +108,10 @@ class Action extends CI_controller {
 		$this->Setup->CreateTables();
 
 		// read data from file
-		$data = $this->Setup->ReadFile('resources/data.json');
-		$this->Setup->InsertData($data);
+		for ($i=5; $i <= 12; $i++) { 
+			$data = $this->Setup->ReadFile('resources/exercises'.$i.'.json');
+			$this->Setup->InsertData($data);
+		}
 
 		header('Location:'.base_url());
 	}
@@ -155,9 +157,10 @@ class Action extends CI_controller {
 			$this->Setup->CreateTables();
 
 			// read data from file
-			$data = $this->Setup->ReadFile('resources/data.json');
-			$this->Setup->InsertData($data);
-
+			for ($i=5; $i <= 12; $i++) { 
+				$data = $this->Setup->ReadFile('resources/exercises'.$i.'.json');
+				$this->Setup->InsertData($data);
+			}
 		}
 
 		header('Location:'.base_url());

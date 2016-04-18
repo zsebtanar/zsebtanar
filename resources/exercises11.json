@@ -1,0 +1,45 @@
+{
+	"classes": [
+		{
+			"label": "11",
+			"name": "11. osztály",
+			"topics": [
+				{
+					"name": "Diszkrét matematika",
+					"subtopics": [
+						{
+							"name": "Valószínűség-számítás",
+							"label": "Valoszinuseg",
+							"exercises": [
+								{
+									"label": "Oszthatosag",
+									"name": "Valószínűség (oszthatóság)"
+								}
+							]
+						},
+						{
+							"name": "Gráfok",
+							"label": "Grafok",
+							"exercises": [
+								{
+									"label": "Verseny",
+									"name": "Gráfok (verseny)"
+								}
+							]
+						},
+						{
+							"name": "Kombinatorika",
+							"label": "Kombinatorika",
+							"exercises": [
+								{
+									"label": "Variacio",
+									"name": "Variáció"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

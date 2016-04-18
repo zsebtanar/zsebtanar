@@ -1,0 +1,25 @@
+{
+	"classes": [
+		{
+			"label": "8",
+			"name": "8. osztály",
+			"topics": [
+				{
+					"name": "Geometria",
+					"subtopics": [
+						{
+							"name": "Síkgeometria",
+							"label": "Sikgeometria",
+							"exercises": [
+								{
+									"label": "Pitagorasz",
+									"name": "Pitagorasz-tétel"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

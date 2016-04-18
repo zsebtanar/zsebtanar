@@ -1,0 +1,75 @@
+{
+	"classes": [
+		{
+			"label": "10",
+			"name": "10. osztály",
+			"topics": [
+				{
+					"name": "Egyenletek",
+					"subtopics": [
+						{
+							"name": "Másodfokú egyenlet",
+							"label": "Masodfoku_egyenlet",
+							"exercises": [
+								{
+									"label": "Egyenlet1",
+									"name": "Másodfokú egyenlet"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Trigonometria",
+					"subtopics": [
+						{
+							"name": "Trigonometrikus függvények",
+							"label": "Trigonometrikus_fuggvenyek",
+							"exercises": [
+								{
+									"label": "Szinusz_ertekkeszlet",
+									"name": "Szinusz függvény értékkészlete"
+								},
+								{
+									"label": "Haromszog_tangens",
+									"name": "Háromszög (tangens)"
+								},
+								{
+									"label": "Haromszog_szinusz",
+									"name": "Háromszög (szinusz)"
+								},
+								{
+									"label": "Haromszog_koszinusz",
+									"name": "Háromszög (koszinusz)"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Algebra",
+					"subtopics": [
+						{
+							"name": "Gyökvonás",
+							"label": "Gyokvonas",
+							"exercises": [
+								{
+									"label": "Gyok_teszt1",
+									"name": "Gyökvonás (1. teszt)"
+								},
+								{
+									"label": "Gyok_teszt2",
+									"name": "Gyökvonás (2. teszt)"
+								},
+								{
+									"label": "Gyok_teszt3",
+									"name": "Gyökvonás (3. teszt)"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
