@@ -158,6 +158,8 @@ class CI_DB_mysqli_driver extends CI_DB {
 			}
 		}
 
+		$socket = "/tmp/mysql51.sock"; // to use mysql 5.1
+		
 		if ($mysqli->real_connect($hostname, $this->username, $this->password, $this->database, $port, $socket, $client_flags))
 		{
 			// Prior to version 5.7.3, MySQL silently downgrades to an unencrypted connection if SSL setup fails

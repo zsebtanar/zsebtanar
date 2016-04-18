@@ -76,14 +76,19 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	// 'username' => 'u702420466_zst', // zsebtanar.hu
-	// 'username' => 'r8isixxe', // zsebtanar.hu 2
-	'username' => 'u997832275_zst', // zst-teszt.pe.hu
+
+	'username' => 'u702420466_zst', // localhost
 	'password' => 'IGprUym4KUV44q',
-	'password' => '2CryBlyd@', // zsebtanar.hu 2
-	// 'database' => 'u702420466_zst', // zsebtanar.hu
-	// 'database' => 'r8isixxe', // zsebtanar.hu 2
-	'database' => 'u997832275_zst', // zst-teszt.pe.hu
+	'database' => 'u702420466_zst',
+
+	// 'username' => 'u997832275_zst', // zst-teszt.pe.hu
+	// 'password' => 'IGprUym4KUV44q',
+	// 'database' => 'u997832275_zst',
+
+	// 'username' => 'r8isixxe', // zsebtanar.hu 2
+	// 'password' => '2CryBlyd@',
+	// 'database' => 'r8isixxe',
+
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
