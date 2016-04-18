@@ -43,15 +43,19 @@
 
 										<div id="<?php echo $class['label'].$subtopic['label'];?>" class="collapse"><?php
 
+											$order = 1;
+
 											foreach ($subtopic['exercises'] as $exercise) {
 
 												if ($exercise['show']) {?>
 
 												<a class="btn btn-default btn-sm row-buttons" href="<?php echo base_url().$class['label'].'/'.$subtopic['label'].'/'.$exercise['label'];?>">
-													<?php echo $exercise['name'];?>
+													<?php echo $order.'. '.$exercise['name'];?>
 												</a><?php
 
 												}
+
+												$order++;
 												
 											}?>
 
