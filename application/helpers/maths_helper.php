@@ -577,4 +577,17 @@ function toDeg($rad) {
   $deg = $rad/pi()*180;
   return $deg;
 }
+
+// Round number to given precision
+function round1($num, $digits=2) {
+  $num = round($num*pow(10,$digits))/pow(10,$digits);
+  return $num;
+}
+
+// Round number to given precision and replace '.' with ','
+function round2($num, $digits=2) {
+  $num = round1($num);
+  $num = str_replace('.', ',', $num);
+  return $num;
+}
 ?>
