@@ -16,24 +16,34 @@ class Viragcserep {
 
 	function Generate($level) {
 
-		$numbers = ['one', 'two', 'three'];
-		$num = rand(0,2);
+		$a = rand(10,15);	// fedőlap oldalhossz
+		$b = rand(4,9);		// alaplap oldalhossz
+		$c = rand(5,9);		// oldalél
 
-		$question = $this->Vase();
-		$correct = $numbers[$num];
+		$area = rand(75,95)/100;	// 1 kg anyag felülete
+		$area2 = str_replace('.', ',', $area);
+
+		$b -= ($a-$b) % 2;	// trapéz számoláshoz
+
+		$question = 
+		// 'Egy műanyag termékeket gyártó üzemben szabályos hatoldalú csonkagúla alakú, felül nyitott virágtartó dobozokat készítenek egy kertészet számára (lásd az ábrát). A csonkagúla alaplapja $'.$a.'\,\text{cm}$ oldalú szabályos hatszög, fedőlapja $'.$b.'\,\text{cm}$ oldalú szabályos hatszög, az oldalélei $'.$c.'\,\text{cm}$ hosszúak. Egy műanyagöntő gép $1$ kg alapanyagból (a virágtartó doboz falának megfelelő anyagvastagság mellett) $'.$area2.'\,\text{m}^2$ felületet képes készíteni. Számítsa ki, hány virágtartó doboz készíthető $1$ kg alapanyagból!'.
+		// $this->Vase(6).
+		// $this->Side($a, $b, $c).
+		'';
+		$hints = $this->Hints($a, $b, $c, $area);
+		$correct = 2;
 		$solution = $correct;
 
 		return array(
 			'question'  => $question,
 			'correct'   => $correct,
 			'solution'  => $solution,
-			'type'		=> 'text'
+			'hints'		=> $hints
 		);
 	}
 
-	function Vase() {
+	function Vase($sides) {
 
-		$sides			= 6;	// number of sides
 		$height 		= 100;	// height of vase
 		$radius_top 	= 100;	// radius of top circle
 		$radius_bottom 	= 50;	// radius of bottom circle
@@ -63,7 +73,7 @@ class Viragcserep {
 
 		$svg = '<div class="img-question text-center">
 					<svg width="'.$canvas_width.'" height="'.$canvas_height.'">'
-					.'<rect width="'.$canvas_width.'" height="'.$canvas_height.'" fill="black" fill-opacity="0.2" />'
+					// .'<rect width="'.$canvas_width.'" height="'.$canvas_height.'" fill="black" fill-opacity="0.2" />'
 		;
 
 		$center_top_x 		= $canvas_width/2;
@@ -119,7 +129,162 @@ class Viragcserep {
 			}
 		}
 
+		if ($option == 1)
 
+
+
+		$svg .= '</svg></div>';
+
+		return $svg;
+	}
+
+	function Hints($a, $b, $c, $area) {
+
+		$triangle = (sqrt(3)*pow($b,2))/4;
+		$hexagon = 6*round1($triangle);
+
+		// $page[] = '<b>1. lépés:</b> Számoljuk ki az alaplap területét!';
+		// $page[] = 'Az alaplap $6$ db $'.$b.'\,\text{cm}$ oldalú szabályos háromszögből áll.'.$this->Bottom($b);
+		// $page[] = 'Számoljuk ki egy háromszög területét!$$\begin{eqnarray}T=\frac{a\cdot m_a}{2}&=&\frac{'.$b.'\cdot\left(\frac{\sqrt{3}}{2}\cdot'.$b.'\right)}{2} \\\\ &=&\frac{\sqrt{3}\cdot'.strval(pow($b,2)).'}{4}\\\\ &\approx&'.round2($triangle).'\,\text{cm}^2\end{eqnarray}$$';
+		// $page[] = 'Tehát az alaplap területe $6\cdot'.round2($triangle).'='.round2($hexagon).'\,\text{cm}^2$.';
+		// $hints[] = $page;
+
+		// $page = [];
+		// $page[] = '<b>2. lépés:</b> Számoljuk ki az oldallapok területét!';
+		// $page[] = 'A doboznak mind a $6$ oldala egy szimmetrikus trapéz, aminek az alapjai $'.$a.'$ ill. $'.$b.'\,\text{cm}$, oldalai pedig $'.$c.'\,\text{cm}$ hosszúak.'.$this->Side($a, $b, $c);
+		// $hints[] = $page;
+
+		$d = ($a-$b)/2;
+		$e = pow($c,2)-pow($d,2);
+		$f = sqrt($e);
+
+		$page = [];
+		$page[] = 'Az alsó oldalt mérjük rá a felsőre, és nézzük meg, hány centi marad jobb és baloldalon:'.$this->Side($a, $b, $c, 1);
+		$page[] = 'Ekkor a jobb és a bal oldalon egy olyan derékszögű háromszöget kaptunk, aminek az átfogója $'.$c.'\,\text{cm}$, az egyik befogója pedig $'.$d.'\,\text{cm}$.';
+		$page[] = 'A másik befogót ($x$) - ami egyben a trapéz magassága - Pitagorasz-tétellel tudjuk kiszámolni:$$\begin{eqnarray}
+				x^2+'.$d.'^2&=&'.$c.'^2\\\\
+				x^2+'.strval(pow($d,2)).'&=&'.strval(pow($c,2)).'\\\\
+				x^2&=&'.$e.'\\\\
+				x&=&\sqrt{'.$e.'}\\\\
+				x&'.(round1($f)==$f ? '=' : '\approx').'&'.strval(round2($f)).
+				'\end{eqnarray}$$';
+		$hints[] = $page;
+
+		return $hints;
+	}
+
+	function Bottom($a) {
+
+		$width 	= 250;
+		$height = 250;
+
+		$centerX = $width/2;
+		$centerY = $height/2;
+		$radius = 100;
+
+		$svg = '<div class="img-question text-center">
+				<svg width="'.$width.'" height="'.$height.'">'
+				// .'<rect width="'.$width.'" height="'.$height.'" fill="black" fill-opacity="0.2" />'
+			;
+
+		for ($i=0; $i < 6; $i++) {
+
+			$alfa = $i*60;
+
+			// Rotate point
+			list($Px, $Py) = Rotate($centerX, $centerY, $centerX+$radius, $centerY, $alfa);
+
+			$points[] = [$Px, $Py];
+
+			// Draw side
+			if ($i > 0) {
+				$svg .= DrawLine($points[$i-1][0], $points[$i-1][1], $Px, $Py, 'black', 2);
+
+				$side_x = ($points[$i-1][0] + $Px)/2;
+				$side_y = ($points[$i-1][1] + $Py)/2;
+
+				// Node
+				list($Ex, $Ey) = LinePoint($centerX, $centerY, $side_x, $side_y, $radius);
+				$svg .= DrawText($Ex-7, $Ey+7, $a, 'black', 15);
+
+			}
+			if ($i == 5) {
+				$svg .= DrawLine($points[0][0], $points[0][1], $Px, $Py, 'black', 2);
+
+				$side_x = ($points[0][0] + $Px)/2;
+				$side_y = ($points[0][1] + $Py)/2;
+
+				// Node
+				list($Ex, $Ey) = LinePoint($centerX, $centerY, $side_x, $side_y, $radius);
+				$svg .= DrawText($Ex-7, $Ey+7, $a, 'black', 15);
+			}
+
+			// Draw edge
+			$svg .= DrawPath($centerX, $centerY, $Px, $Py, $color1='black', $width=1, $color2='none', $dasharray1=5, $dasharray2=5);
+		}
+
+		$svg .= '</svg></div>';
+
+		return $svg;
+	}
+
+	function Side($a, $b, $c, $option=0) {
+
+		$width 	= 250;
+		$height = 250;
+
+		$paddingX_top 		= 20;
+		$paddingX_bottom 	= 70;
+		$paddingY 			= 50;
+
+		$Ax = $paddingX_top;
+		$Ay = $paddingY;
+		$Bx = $paddingX_bottom;
+		$By = $height - $paddingY;
+		$Cx = $width - $Bx;
+		$Cy = $By;
+		$Dx = $width - $Ax;
+		$Dy = $Ay;
+
+		$Ex = $paddingX_bottom;
+		$Ey = $Ay;
+		$Fx = $width - $Ex;
+		$Fy = $Ay;
+
+		$svg = '<div class="img-question text-center">
+				<svg width="'.$width.'" height="'.$height.'">'
+				// .'<rect width="'.$width.'" height="'.$height.'" fill="black" fill-opacity="0.2" />'
+		;
+
+		// Sides
+		$svg .= DrawLine($Ax, $Ay, $Bx, $By, 'black', 2);
+		$svg .= DrawLine($Bx, $By, $Cx, $Cy, 'black', 2);
+		$svg .= DrawLine($Cx, $Cy, $Dx, $Dy, 'black', 2);
+		$svg .= DrawLine($Dx, $Dy, $Ax, $Ay, 'black', 2);
+		
+		if ($option == 0) {
+
+			// Nodes
+			$svg .= DrawText(($Ax+$Bx)/2-17, ($Ay+$By)/2+7, $c, 'black', 15);
+			$svg .= DrawText(($Bx+$Cx)/2-5, ($By+$Cy)/2+20, $b, 'black', 15);
+			$svg .= DrawText(($Cx+$Dx)/2+7, ($Cy+$Dy)/2+7, $c, 'black', 15);
+			$svg .= DrawText(($Dx+$Ax)/2-14, ($Dy+$Ay)/2-10, $a, 'black', 15);
+
+		} else {
+
+			// Nodes
+			$svg .= DrawText(($Ax+$Bx)/2-17, ($Ay+$By)/2+7, $c, 'black', 15);
+			$svg .= DrawText(($Bx+$Cx)/2-5, ($By+$Cy)/2+20, $b, 'black', 15);
+			$svg .= DrawText(($Cx+$Dx)/2+7, ($Cy+$Dy)/2+7, $c, 'black', 15);
+			$svg .= DrawText(($Dx+$Ax)/2-5, ($Dy+$Ay)/2-10, $b, 'black', 15);
+			$svg .= DrawText(($Ex+$Ax)/2-5, ($Ey+$Ay)/2-10, ($a-$b)/2, 'black', 15);
+			$svg .= DrawText(($Fx+$Dx)/2-5, ($Fy+$Dy)/2-10, ($a-$b)/2, 'black', 15);
+
+			// Extra edges
+			$svg .= DrawPath($Bx, $By, $Ex, $Ey, $color1='black', $width=1, $color2='none', $dasharray1=5, $dasharray2=5);
+			$svg .= DrawPath($Cx, $Cy, $Fx, $Fy, $color1='black', $width=1, $color2='none', $dasharray1=5, $dasharray2=5);
+
+		}
 
 		$svg .= '</svg></div>';
 
