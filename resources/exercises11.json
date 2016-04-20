@@ -38,6 +38,21 @@
 							]
 						}
 					]
+				},
+				{
+					"name": "Algebra",
+					"subtopics": [
+						{
+							"name": "Hatvány",
+							"label": "Hatvany",
+							"exercises": [
+								{
+									"label": "Exponencialis_egyenlet",
+									"name": "Exponenciális egyenlet"
+								}
+							]
+						}
+					]
 				}
 			]
 		}
