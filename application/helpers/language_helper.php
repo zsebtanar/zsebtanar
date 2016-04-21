@@ -294,6 +294,13 @@ function With($num)
 {
   $abs = abs($num);
 
+  // fraction
+  if ($abs*100 > 0 && $abs*100 < 100) {
+    return 'dal';
+  } elseif ($abs < 1 && $abs > 0) {
+    return 'del';
+  }
+
   switch ($abs % 10) {
     case 1:
     case 4:
