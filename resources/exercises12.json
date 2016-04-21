@@ -38,6 +38,21 @@
 					]
 				},
 				{
+					"name": "Geometria",
+					"subtopics": [
+						{
+							"name": "Testek felszíne",
+							"label": "Felszin",
+							"exercises": [
+								{
+									"label": "Csonkagula",
+									"name": "Csonkagúla"
+								}
+							]
+						}
+					]
+				},
+				{
 					"name": "Érettségi",
 					"subtopics": [
 						{
