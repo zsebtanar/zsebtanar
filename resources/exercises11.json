@@ -48,7 +48,11 @@
 							"exercises": [
 								{
 									"label": "Exponencialis_egyenlet",
-									"name": "Exponenciális egyenlet"
+									"name": "Exponenciális egyenlet 1"
+								},
+								{
+									"label": "Exponencialis_egyenlet2",
+									"name": "Exponenciális egyenlet 2"
 								}
 							]
 						}
