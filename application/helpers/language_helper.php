@@ -330,13 +330,13 @@ function With($num)
       return 'nal';
   }
 
-  if ($abs == 0) {
+  if (($abs / 100) % 10 != 0) {
+    return 'zal';
+  } elseif ($abs == 0) {
     return 'val';
-  }
-  elseif (1000 <= $abs && $abs < 1000000) {
+  } elseif (1000 <= $abs && $abs < 1000000) {
     return 'rel';
-  }
-  else {
+  } else {
     return 'val';
   }
 }
