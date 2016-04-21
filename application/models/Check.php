@@ -167,7 +167,11 @@ class Check extends CI_model {
 			}
 		} elseif (is_float($correct)) {
 			$answer = str_replace(',', '.', $answer[0]);
-			if (abs(floatval($answer)-$correct) < 0.01) {
+			while (round($correct) != $correct) {
+				$answer *= 10;
+				$correct *= 10;
+			}
+			if (round($answer) == $correct) {
 				$status = 'CORRECT';
 				$message = 'Helyes válasz!';
 			} else {
@@ -375,8 +379,14 @@ class Check extends CI_model {
 		$iscorrect = TRUE;
 
 		foreach ($answer as $key => $item) {
+			$check = $correct[$key];
 			$isempty = ($item == NULL ? $isempty : FALSE);
-			$iscorrect = ($item == NULL || $item != $correct[$key] ? FALSE : $iscorrect);
+			$item = str_replace(',', '.', $item);
+			while (round($check) != $check) { // check precision
+				$check 	*= 10;
+				$item	*= 10;
+			}
+			$iscorrect = (round($item) != $check ? FALSE : $iscorrect);
 		}
 
 		if ($isempty) {

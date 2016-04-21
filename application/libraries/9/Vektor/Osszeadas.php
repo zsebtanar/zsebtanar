@@ -21,13 +21,13 @@ class Osszeadas {
 
 		if ($option == 1) {
 			$angle = 60;
-			$correct = $length * sqrt(3);
+			$correct = round1($length * sqrt(3));
 		} elseif ($option == 2) {
 			$angle = 90;
-			$correct = $length * sqrt(2);
+			$correct = round1($length * sqrt(2));
 		} elseif ($option == 3) {
 			$angle = 120;
-			$correct = $length;
+			$correct = round1($length);
 		}
 		
 		$question = 'Az $\overrightarrow{AB}$ és $\overrightarrow{AC}$ vektorok $'.$angle.'°$-os szöget zárnak be egymással, és mindkét vektor hossza $'.$length.'$ egység.';

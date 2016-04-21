@@ -18,7 +18,7 @@ class Kivonas {
 
 		$angle = rand(1,179);
 		$length = rand(2,7);
-		$correct = sqrt(pow($length,2) + pow($length,2) - 2*$length*$length*cos(toRad($angle)));
+		$correct = round1(sqrt(pow($length,2) + pow($length,2) - 2*$length*$length*cos(toRad($angle))));
 		
 		$question = 'Az $\overrightarrow{AB}$ és $\overrightarrow{AC}$ vektorok $'.$angle.'°$-os szöget zárnak be egymással, és mindkét vektor hossza $'.$length.'$ egység.';
 		$solution = '$'.str_replace('.', ',', round($correct*100)/100).'$';

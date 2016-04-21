@@ -16,8 +16,14 @@ class Haromszog_tangens {
 
 	function Generate($level) {
 
-		$AC = rand(ceil($level/2),$level);
-		$BC = rand(ceil($level/2),$level);
+		$AC = rand($level, 2*$level);
+		$BC = rand($level, 2*$level);
+
+		if ($AC == $BC && rand(1,3) < 3) {
+			while ($AC == $BC) {
+				$BC = rand($level, 2*$level);
+			}
+		}
 
 		$question = 'Az $ABC$ derékszögű háromszög $AC$ befogója $'.$AC.'$ cm, $BC$ befogója $'.$BC.'$ cm hosszú. Számítsa ki az $ABC$ háromszög hegyesszögeinek nagyságát legalább két tizedesjegy pontossággal!';
 
@@ -27,7 +33,7 @@ class Haromszog_tangens {
 		$alphatext = str_replace('.', ',', round($alpha*100)/100);
 		$betatext = str_replace('.', ',', round($beta*100)/100);
 
-		$correct = array($alpha, $beta);
+		$correct = array(round1($alpha), round1($beta));
 		$labels = array('$\alpha$', '$\beta$');
 		$solution = '$\alpha='.$alphatext.'°$ és $\beta='.$betatext.'°$.';
 

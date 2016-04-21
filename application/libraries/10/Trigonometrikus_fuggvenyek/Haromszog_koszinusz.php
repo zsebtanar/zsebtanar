@@ -31,7 +31,7 @@ class Haromszog_koszinusz {
 		$alphatext = str_replace('.', ',', round($alpha*100)/100);
 		$betatext = str_replace('.', ',', round($beta*100)/100);
 
-		$correct = array($alpha, $beta);
+		$correct = array(round1($alpha), round1($beta));
 		$labels = array('$\alpha$', '$\beta$');
 		$solution = '$\alpha='.$alphatext.'°$ és $\beta='.$betatext.'°$.';
 
