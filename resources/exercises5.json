@@ -12,10 +12,6 @@
 							"label": "Szamolas",
 							"exercises": [
 								{
-									"label": "Szamolas_1_20",
-									"name": "Számolás 1-től 20-ig"
-								},
-								{
 									"label": "Paros_paratlan",
 									"name": "Páros vagy páratlan?"
 								},
