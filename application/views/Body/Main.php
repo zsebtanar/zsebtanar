@@ -46,14 +46,14 @@
 
 										if ($subtopic['show']) {?>
 
-										<div class="btn-group">
+										<div id="final_exercises" class="btn-group">
 											<a class="btn btn-default btn-lg" href="<?php echo base_url().$class['label'].'/'.$subtopic['label'];?>">
 											<?php echo $subtopic['name'];?> <span class="badge"><?php echo $subtopic['exercise_no'];?></span>
 											</a>
 											<a class="btn btn-default btn-lg" data-toggle="collapse" data-target="#<?php echo $class['label'].$subtopic['label'];?>">
 											<span class="caret"></span>
 											</a>
-										</div>
+										</div><br />
 
 										<div id="<?php echo $class['label'].$subtopic['label'];?>" class="collapse"><?php
 
