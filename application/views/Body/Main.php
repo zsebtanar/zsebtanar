@@ -64,7 +64,7 @@
 												if ($exercise['show']) {?>
 
 												<a class="btn btn-default btn-sm row-buttons" href="<?php echo base_url().$class['label'].'/'.$subtopic['label'].'/'.$exercise['label'];?>">
-													<?php echo $order.'. '.$exercise['name'];?>
+													<?php echo ($exercise['order'] ? $exercise['order'] : $order).'. '.$exercise['name'];?>
 												</a><?php
 
 												}

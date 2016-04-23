@@ -35,7 +35,8 @@ class Setup extends CI_model {
 				'level' 	=> 9,
 				'status' 	=> 'OK',
 				'label'		=> 'NOT NULL',
-				'name'		=> 'NOT NULL'
+				'name'		=> 'NOT NULL',
+				'no'		=> ''
 				),
 			);
 	}
@@ -121,6 +122,7 @@ class Setup extends CI_model {
 							subtopicID 	INT NOT NULL,
 							level		INT,
 							label 		VARCHAR(30) NOT NULL,
+							no 			INT,
 							name 		VARCHAR(120),
 							status 		VARCHAR(20),
 							FOREIGN KEY (subtopicID) REFERENCES subtopics(id)

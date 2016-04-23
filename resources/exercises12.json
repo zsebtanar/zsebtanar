@@ -61,7 +61,8 @@
 							"exercises": [
 								{
 									"label": "TV_jatek",
-									"name": "Televíziós játék"
+									"name": "Televíziós játék",
+									"no": 17
 								}
 							]
 						},

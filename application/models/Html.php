@@ -152,6 +152,7 @@ class Html extends CI_model {
 								$exercise_menu['label'] 	= $exercise->label;
 								$exercise_menu['name'] 		= $exercise->name;
 								$exercise_menu['status'] 	= $exercise->status;
+								$exercise_menu['order'] 	= $exercise->no;
 
 								if ($this->Session->CheckLogin() || $exercise->status == 'OK') {
 
