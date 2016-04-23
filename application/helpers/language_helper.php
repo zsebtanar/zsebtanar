@@ -541,4 +541,78 @@ function NumText($num) {
   return $num_text;
 }
 
+/**
+ * Write down number array
+ *
+ * @param array  $num_array Numbers
+ * @param string $last      Proposition for last element
+ * @param string $glue      Text after each number
+ *
+ * @return string $array_text Numbers in text
+ */
+function NumArray($num_array, $last='vagy', $glue='') {
+  
+  $array_text = '';
+  for ($i=0; $i < count($num_array); $i++) { 
+    $array_text .= '$'.$num_array[$i].$glue.'$';
+    if ($i < count($num_array)-2) {
+      $array_text .= ', ';
+    } elseif ($i == count($num_array)-2) {
+      $array_text .= ' '.$last.' ';
+    }
+  }
+
+  return $array_text;
+}
+
+/**
+ * Write order of number
+ *
+ * @param int $num Number (<=10!)
+ *
+ * @return string $text Order (text)
+ */
+function OrderText($num) {
+
+  $text_array = array(
+    0 => 'nulladik',
+    1 => 'első',
+    2 => 'második',
+    3 => 'harmadik',
+    4 => 'negyedik',
+    5 => 'ötödik',
+    6 => 'hatodik',
+    7 => 'hetedik',
+    8 => 'nyolcadik',
+    9 => 'kilencedik',
+    10 => 'tizedik'
+  );
+
+  $text = $text_array[$num];
+
+  return $text;
+}
+
+/**
+ * Format big numbers
+ *
+ * @param int $num Number
+ *
+ * @return string $num2 Number (formatted)
+ */
+function BigNum($num) {
+
+  if ($num < 10000) {
+    $num2 = $num;
+  } else {
+    if (is_integer($num)) {
+      $num2 = number_format($num, 0, ',', '\,');
+    } else {
+      $digits = strlen(substr(strrchr($num, "."), 1));
+      $num2 = number_format($num, $digits, ',', '\,');
+    }
+  }
+
+  return $num2;
+}
 ?>
