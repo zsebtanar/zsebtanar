@@ -230,3 +230,12 @@ body {
 .footer > a > img {
     margin: 10px 0px;
 }
+
+#send_explanation {
+    margin-top: -35px;
+    padding-bottom: 20px;
+}
+
+#final_exercises {
+    padding-top: 10px;
+}
