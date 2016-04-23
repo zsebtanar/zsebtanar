@@ -56,6 +56,16 @@
 					"name": "Érettségi",
 					"subtopics": [
 						{
+							"name": "2006. május 9.",
+							"label": "2006_05_09",
+							"exercises": [
+								{
+									"label": "TV_jatek",
+									"name": "Televíziós játék"
+								}
+							]
+						},
+						{
 							"name": "2015. október 13.",
 							"label": "2015_10_13",
 							"exercises": [
