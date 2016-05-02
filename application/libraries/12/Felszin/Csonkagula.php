@@ -16,13 +16,17 @@ class Csonkagula {
 
 	function Generate($level) {
 
-		$a = rand(10,15);	// fedőlap oldalhossz
-		$b = rand(4,9);		// alaplap oldalhossz
+		$a = rand(10,15);	// alaplap oldalhossz (doboz teteje)
+		$b = rand(4,9);		// fedőlap oldalhossz (doboz alja)
 		$c = rand(5,9);		// oldalél
+
+		$a = 10;
+		$b = 9;
+		$c = 9;
 
 		$area = rand(75,95)/100;	// 1 kg anyag felülete
 
-		$b -= ($a-$b) % 2;	// trapéz számoláshoz
+		$a += ($a-$b) % 2;	// trapéz számoláshoz
 
 		$question = 'Egy műanyag termékeket gyártó üzemben szabályos hatoldalú csonkagúla alakú, felül nyitott virágtartó dobozokat készítenek egy kertészet számára (lásd az ábrát). A csonkagúla alaplapja $'.$a.'\,\text{cm}$ oldalú szabályos hatszög, fedőlapja $'.$b.'\,\text{cm}$ oldalú szabályos hatszög, az oldalélei $'.$c.'\,\text{cm}$ hosszúak. Egy műanyagöntő gép $1$ kg alapanyagból (a virágtartó doboz falának megfelelő anyagvastagság mellett) $'.round2($area).'\,\text{m}^2$ felületet képes készíteni. Számítsa ki, hány virágtartó doboz készíthető $1$ kg alapanyagból!'.$this->Vase(6);
 		list($hints, $correct) = $this->Hints($a, $b, $c, $area);
@@ -43,19 +47,19 @@ class Csonkagula {
 		$triangle = (sqrt(3)*pow($b,2))/4;
 		$T_bottom = $sides*$triangle;
 
-		$page[] = '<b>1. lépés:</b> Számoljuk ki az alaplap területét!';
-		$page[] = 'Az alaplap $'.$sides.'$ db $'.$b.'\,\text{cm}$ oldalú szabályos háromszögből áll.'.$this->Bottom($b);
-		$hints[] = $page;
+		// $page[] = '<b>1. lépés:</b> Számoljuk ki az alaplap területét!';
+		// $page[] = 'Az alaplap $'.$sides.'$ db $'.$b.'\,\text{cm}$ oldalú szabályos háromszögből áll.'.$this->Bottom($b);
+		// $hints[] = $page;
 
-		$page = [];
-		$page[] = 'Számoljuk ki egy háromszög területét!'.$this->Bottom($b,1);
-		$hints[] = $page;
+		// $page = [];
+		// $page[] = 'Számoljuk ki egy háromszög területét!'.$this->Bottom($b,1);
+		// $hints[] = $page;
 
-		$page = [];
-		$page[] = '<div class="alert alert-info"><strong>Háromszög területe:</strong><br />Ha egy háromszög oldala $a$, a hozzá tartozó magasság $m_a$, akkor a területe:$$T_{\triangle}=\frac{a\cdot m_a}{2}$$<b>Szabályos háromszög magassága</b><br />Ha egy szabályos háromszög oldala $a$, akkor a magassága $$m_a=\frac{\sqrt{3}}{2}\cdot a$$</div>';
-		$page[] = 'Jelen esetben $a=7$, ezért:$$\begin{eqnarray}T_{\triangle}=\frac{a\cdot m_a}{2}&=&\frac{'.$b.'\cdot\left(\frac{\sqrt{3}}{2}\cdot'.$b.'\right)}{2} \\\\ &=&\frac{\sqrt{3}\cdot'.strval(pow($b,2)).'}{4}\\\\ &\approx&'.round2($triangle).'\,\text{cm}^2\end{eqnarray}$$';
-		$page[] = 'Tehát az alaplap területe$$T_{\text{alaplap}}='.$sides.'\cdot T_{\triangle}='.$sides.'\cdot'.round2($triangle).'\approx'.round2($T_bottom).'\,\text{cm}^2$$';
-		$hints[] = $page;
+		// $page = [];
+		// $page[] = '<div class="alert alert-info"><strong>Háromszög területe:</strong><br />Ha egy háromszög oldala $a$, a hozzá tartozó magasság $m_a$, akkor a területe:$$T_{\triangle}=\frac{a\cdot m_a}{2}$$<b>Szabályos háromszög magassága</b><br />Ha egy szabályos háromszög oldala $a$, akkor a magassága $$m_a=\frac{\sqrt{3}}{2}\cdot a$$</div>';
+		// $page[] = 'Jelen esetben $a=7$, ezért:$$\begin{eqnarray}T_{\triangle}=\frac{a\cdot m_a}{2}&=&\frac{'.$b.'\cdot\left(\frac{\sqrt{3}}{2}\cdot'.$b.'\right)}{2} \\\\ &=&\frac{\sqrt{3}\cdot'.strval(pow($b,2)).'}{4}\\\\ &\approx&'.round2($triangle).'\,\text{cm}^2\end{eqnarray}$$';
+		// $page[] = 'Tehát az alaplap területe$$T_{\text{alaplap}}='.$sides.'\cdot T_{\triangle}='.$sides.'\cdot'.round2($triangle).'\approx'.round2($T_bottom).'\,\text{cm}^2$$';
+		// $hints[] = $page;
 
 		$page = [];
 		$page[] = '<b>2. lépés:</b> Számoljuk ki az oldallapok területét!';
@@ -88,7 +92,7 @@ class Csonkagula {
 		$page[] = '<div class="alert alert-info"><strong>Trapéz területe:</strong><br />Ha egy trapéz területe $a$ és $c$, és magassága $m$, akkor a területe:$$T=\frac{a+c}{2}\cdot m$$</div>';
 		$page[] = 'Egy oldal területe:$$T=\frac{'.$a.'+'.$b.'}{2}\cdot'.strval(round2($m)).'='.round2($T_side).'$$';
 		$page[] = 'Mivel összesen $'.$sides.'$ oldal van, ezért az oldallapok összterülete:$$T_{\text{oldallapok}}='.$sides.'\cdot'.round2($T_side).'='.round2($sides*$T_side).'$$';
-		$page[] = 'Ekkor egy virágtartó doboz összterülete:$$T_{\text{össz}}=T_{\text{alaplap}}+T_{\text{oldallapok}}='.round2($T_bottom).'+'.round2($sides*$T_side).'='.round2($T_all).'$$';
+		$page[] = 'Ekkor egy virágtartó doboz összterülete:$$\begin{eqnarray}T_{\text{össz}}&=&T_{\text{alaplap}}+T_{\text{oldallapok}}\\\\ &\approx&'.round2($T_bottom).'+'.round2($sides*$T_side).'='.round2($T_all).'\end{eqnarray}$$';
 		$hints[] = $page;
 
 		$pieces = $area*10000/$T_all;
@@ -96,7 +100,6 @@ class Csonkagula {
 		$page = [];
 		$page[] = 'A gép $1$ kg alapanyagból $'.round2($area).'\,\text{m}^2$ felületet képes készíteni, ami összesen $'.round2($area).'\cdot10000='.round2($area*10000).'\,\text{cm}^2$.';
 		$page[] = 'Számoljuk ki, hogy $1$ kg anyagból hány doboz készíthető:$$\frac{'.round2($area*10000).'}{'.round2($T_all).'}\approx'.round2($pieces).'$$';
-		$page[] = 'Tehát $1$ kg alapanyagból <span class="label label-success">$'.floor($pieces).'$</span> darab doboz készíthető.';
 		$page[] = 'Tehát $1$ kg alapanyagból <span class="label label-success">$'.floor($pieces).'$</span> darab doboz készíthető.';
 		$hints[] = $page;
 
@@ -227,7 +230,7 @@ class Csonkagula {
 
 				// Node
 				list($Ex, $Ey) = LinePoint($centerX, $centerY, $side_x, $side_y, $radius);
-				$svg .= DrawText($Ex-7, $Ey+7, $a, 'black', 15);
+				$svg .= DrawText($Ex, $Ey+7, '$'.$a.'$', 12);
 
 			}
 			if ($i == 5) {
@@ -238,7 +241,7 @@ class Csonkagula {
 
 				// Node
 				list($Ex, $Ey) = LinePoint($centerX, $centerY, $side_x, $side_y, $radius);
-				$svg .= DrawText($Ex-7, $Ey+7, $a, 'black', 15);
+				$svg .= DrawText($Ex, $Ey+7, '$'.$a.'$', 12);
 			}
 
 			// Draw edge
@@ -300,20 +303,20 @@ class Csonkagula {
 		if ($option == 0) {
 
 			// Nodes
-			$svg .= DrawText(($Ax+$Bx)/2-17, ($Ay+$By)/2+7, $c, 15, 'black');
-			$svg .= DrawText(($Bx+$Cx)/2-5, ($By+$Cy)/2+20, $b, 15, 'black');
-			$svg .= DrawText(($Cx+$Dx)/2+7, ($Cy+$Dy)/2+7, $c, 15, 'black');
-			$svg .= DrawText(($Dx+$Ax)/2-14, ($Dy+$Ay)/2-10, $a, 15, 'black');
+			$svg .= DrawText(($Ax+$Bx)/2-13, ($Ay+$By)/2+7, '$'.$c.'$', 12);
+			$svg .= DrawText(($Bx+$Cx)/2-3, ($By+$Cy)/2+20, '$'.$b.'$', 12);
+			$svg .= DrawText(($Cx+$Dx)/2+10, ($Cy+$Dy)/2+7, '$'.$c.'$', 12);
+			$svg .= DrawText(($Dx+$Ax)/2-2, ($Dy+$Ay)/2-10, '$'.$a.'$', 12);
 
 		} elseif ($option == 1) {
 
 			// Nodes
-			$svg .= DrawText(($Ax+$Bx)/2-17, ($Ay+$By)/2+7, $c, 15, 'black');
-			$svg .= DrawText(($Bx+$Cx)/2-5, ($By+$Cy)/2+20, $b, 15, 'black');
-			$svg .= DrawText(($Cx+$Dx)/2+7, ($Cy+$Dy)/2+7, $c, 15, 'black');
-			$svg .= DrawText(($Dx+$Ax)/2-5, ($Dy+$Ay)/2-10, $b, 15, 'black');
-			$svg .= DrawText(($Ex+$Ax)/2-5, ($Ey+$Ay)/2-10, ($a-$b)/2, 15, 'black');
-			$svg .= DrawText(($Fx+$Dx)/2-5, ($Fy+$Dy)/2-10, ($a-$b)/2, 15, 'black');
+			$svg .= DrawText(($Ax+$Bx)/2-13, ($Ay+$By)/2+7, '$'.$c.'$', 12);
+			$svg .= DrawText(($Bx+$Cx)/2-3, ($By+$Cy)/2+20, '$'.$b.'$', 12);
+			$svg .= DrawText(($Cx+$Dx)/2+10, ($Cy+$Dy)/2+7, '$'.$c.'$', 12);
+			$svg .= DrawText(($Dx+$Ax)/2-2, ($Dy+$Ay)/2-10, '$'.$b.'$', 12);
+			$svg .= DrawText(($Ex+$Ax)/2-2, ($Ey+$Ay)/2-10, '$'.strval(($a-$b)/2).'$', 12);
+			$svg .= DrawText(($Fx+$Dx)/2-2, ($Fy+$Dy)/2-10, '$'.strval(($a-$b)/2).'$', 12);
 
 			// Extra edges
 			$svg .= DrawPath($Bx, $By, $Ex, $Ey, $color1='black', $width=1, $color2='none', $dasharray1=5, $dasharray2=5);
@@ -325,9 +328,9 @@ class Csonkagula {
 			$svg .= DrawLine($Bx, $By, $Ex, $Ey, 'blue', 2);
 			$svg .= DrawLine($Ex, $Ey, $Ax, $Ay, 'blue', 2);
 
-			$svg .= DrawText(($Ax+$Bx)/2-17, ($Ay+$By)/2+7, $c, 15, 'blue');
-			$svg .= DrawText(($Bx+$Ex)/2+10, ($By+$Ey)/2+7, 'x', 15, 'blue');
-			$svg .= DrawText(($Ex+$Ax)/2-5, ($Ey+$Ay)/2-10, ($a-$b)/2, 15, 'blue');
+			$svg .= DrawText(($Ax+$Bx)/2-13, ($Ay+$By)/2+7, '$'.$c.'$', 12, 'blue');
+			$svg .= DrawText(($Bx+$Ex)/2+10, ($By+$Ey)/2+7, '$x$', 12, 'blue');
+			$svg .= DrawText(($Ex+$Ax)/2-2, ($Ey+$Ay)/2-10, '$'.strval(($a-$b)/2).'$', 12, 'blue');
 
 		}
 
