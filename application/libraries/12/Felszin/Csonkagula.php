@@ -20,10 +20,6 @@ class Csonkagula {
 		$b = rand(4,9);		// fedőlap oldalhossz (doboz alja)
 		$c = rand(5,9);		// oldalél
 
-		$a = 10;
-		$b = 9;
-		$c = 9;
-
 		$area = rand(75,95)/100;	// 1 kg anyag felülete
 
 		$a += ($a-$b) % 2;	// trapéz számoláshoz
@@ -47,19 +43,19 @@ class Csonkagula {
 		$triangle = (sqrt(3)*pow($b,2))/4;
 		$T_bottom = $sides*$triangle;
 
-		// $page[] = '<b>1. lépés:</b> Számoljuk ki az alaplap területét!';
-		// $page[] = 'Az alaplap $'.$sides.'$ db $'.$b.'\,\text{cm}$ oldalú szabályos háromszögből áll.'.$this->Bottom($b);
-		// $hints[] = $page;
+		$page[] = '<b>1. lépés:</b> Számoljuk ki az alaplap területét!';
+		$page[] = 'Az alaplap $'.$sides.'$ db $'.$b.'\,\text{cm}$ oldalú szabályos háromszögből áll.'.$this->Bottom($b);
+		$hints[] = $page;
 
-		// $page = [];
-		// $page[] = 'Számoljuk ki egy háromszög területét!'.$this->Bottom($b,1);
-		// $hints[] = $page;
+		$page = [];
+		$page[] = 'Számoljuk ki egy háromszög területét!'.$this->Bottom($b,1);
+		$hints[] = $page;
 
-		// $page = [];
-		// $page[] = '<div class="alert alert-info"><strong>Háromszög területe:</strong><br />Ha egy háromszög oldala $a$, a hozzá tartozó magasság $m_a$, akkor a területe:$$T_{\triangle}=\frac{a\cdot m_a}{2}$$<b>Szabályos háromszög magassága</b><br />Ha egy szabályos háromszög oldala $a$, akkor a magassága $$m_a=\frac{\sqrt{3}}{2}\cdot a$$</div>';
-		// $page[] = 'Jelen esetben $a=7$, ezért:$$\begin{eqnarray}T_{\triangle}=\frac{a\cdot m_a}{2}&=&\frac{'.$b.'\cdot\left(\frac{\sqrt{3}}{2}\cdot'.$b.'\right)}{2} \\\\ &=&\frac{\sqrt{3}\cdot'.strval(pow($b,2)).'}{4}\\\\ &\approx&'.round2($triangle).'\,\text{cm}^2\end{eqnarray}$$';
-		// $page[] = 'Tehát az alaplap területe$$T_{\text{alaplap}}='.$sides.'\cdot T_{\triangle}='.$sides.'\cdot'.round2($triangle).'\approx'.round2($T_bottom).'\,\text{cm}^2$$';
-		// $hints[] = $page;
+		$page = [];
+		$page[] = '<div class="alert alert-info"><strong>Háromszög területe:</strong><br />Ha egy háromszög oldala $a$, a hozzá tartozó magasság $m_a$, akkor a területe:$$T_{\triangle}=\frac{a\cdot m_a}{2}$$<b>Szabályos háromszög magassága</b><br />Ha egy szabályos háromszög oldala $a$, akkor a magassága $$m_a=\frac{\sqrt{3}}{2}\cdot a$$</div>';
+		$page[] = 'Jelen esetben $a=7$, ezért:$$\begin{eqnarray}T_{\triangle}=\frac{a\cdot m_a}{2}&=&\frac{'.$b.'\cdot\left(\frac{\sqrt{3}}{2}\cdot'.$b.'\right)}{2} \\\\ &=&\frac{\sqrt{3}\cdot'.strval(pow($b,2)).'}{4}\\\\ &\approx&'.round2($triangle).'\,\text{cm}^2\end{eqnarray}$$';
+		$page[] = 'Tehát az alaplap területe$$T_{\text{alaplap}}='.$sides.'\cdot T_{\triangle}='.$sides.'\cdot'.round2($triangle).'\approx'.round2($T_bottom).'\,\text{cm}^2$$';
+		$hints[] = $page;
 
 		$page = [];
 		$page[] = '<b>2. lépés:</b> Számoljuk ki az oldallapok területét!';
