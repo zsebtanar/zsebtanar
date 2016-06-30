@@ -8,30 +8,6 @@
 					"name": "Alapok",
 					"subtopics": [
 						{
-							"name": "Számolás",
-							"label": "Szamolas",
-							"exercises": [
-								{
-									"label": "Paros_paratlan",
-									"name": "Páros vagy páratlan?"
-								},
-								{
-									"label": "Paros_paratlan_szamol",
-									"name": "Hány darab páros/páratlan?"
-								}
-							]
-						},
-						{
-							"name": "Alapműveletek",
-							"label": "Alapmuveletek",
-							"exercises": [
-								{
-									"label": "Osszeadas",
-									"name": "Összeadás"
-								}
-							]
-						},
-						{
 							"name": "Szöveges feladatok",
 							"label": "Szoveges",
 							"exercises": [
