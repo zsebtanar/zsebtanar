@@ -244,30 +244,6 @@ class Session extends CI_model {
 	}
 
 	/**
-	 * Print session information
-	 *
-	 * @return void
-	 */
-	public function PrintInfo() {
-
-		// print_r('Subtopics: ');
-		// print_r($this->session->userdata('subtopics'));
-		// print_r('<br />Levels: ');
-		// print_r($this->session->userdata('levels'));
-		// print_r('<br />Points: ');
-		// print_r($this->session->userdata('points'));
-		// print_r('<br />Exercise: ');
-		// $exercises = $this->session->userdata('exercise');
-		// if (count($exercises) > 0) {
-		// 	foreach ($exercises as $key => $value) {
-		// 		print_r($key.'<br />');
-		// 	}
-		// }
-
-		return;
-	}
-
-	/**
 	 * Save exercise data to session
 	 *
 	 * @param int    $id    Exercise id
