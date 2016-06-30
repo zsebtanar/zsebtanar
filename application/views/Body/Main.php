@@ -3,20 +3,14 @@
 	<div class="col-md-6 text-center">
 		<p>A <b>Zsebtanár</b> egy interaktív matematikai feladatgyűjtemény, elsősorban az érettségire készülőknek. Észrevételeket, javaslatokat a <b>zsebtanar@gmail.com</b>-ra, vagy a <b><a href="https://www.facebook.com/zsebtanar" target="_blank">Facebook-oldalra</a></b> lehet küldeni. Jó tanulást!</p><?php
 
-		$send_exercise = FALSE;?>
+		$send_exercise = FALSE;		
+
+		if ($send_exercise) {?>
 
 		<a type="button" class="btn btn-success <?php echo ($send_exercise ? '' : 'disabled');?> btn-space-big btn-lg" href="http://goo.gl/forms/Kw9aTgyo2h" target="_blank">
 			<span class="glyphicon glyphicon-plus"></span>
 			Új érettségi feladat beküldése
 		</a><?php
-
-		if (!$send_exercise) {?>
-
-		<div id="send_explanation" class="text-center small">
-			<a class="btn btn-link" href="#" data-toggle="modal" data-target="#send_explanation_modal">
-				Miért nem tudok feladatot beküldeni?
-			</a>
-		</div><?php
 
 		}?>
 
