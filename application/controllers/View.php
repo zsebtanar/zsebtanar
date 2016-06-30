@@ -29,10 +29,14 @@ class View extends CI_controller {
 
 		$data = $this->Html->MainData();
 
-		$this->load->view('Template', $data);
-		
-		if ($this->Session->CheckLogin()) {
-			$this->Session->PrintInfo();
+		if ($data) {
+
+			$this->load->view('Template', $data);
+
+		} else {
+
+			header('Location:'.base_url().'view/main/');
+
 		}
 	}
 
@@ -49,11 +53,15 @@ class View extends CI_controller {
 
 		$data = $this->Html->SubtopicData($classlabel, $subtopiclabel);
 
-		$this->load->view('Template', $data);
-		
-		if ($this->Session->CheckLogin()) {
-			$this->Session->PrintInfo();
-		}
+		if ($data) {
+
+			$this->load->view('Template', $data);
+
+		} else {
+
+			header('Location:'.base_url().'view/main/');
+			
+		}		
 	}
 
 	/**
@@ -78,12 +86,10 @@ class View extends CI_controller {
 
 			$this->load->view('Template', $data);
 
-			if ($this->Session->CheckLogin()) {
-				$this->Session->PrintInfo();
-			}
-
 		} else {
+
 			header('Location:'.base_url().'view/main/');
+
 		}
 	}
 }

@@ -74,11 +74,19 @@ class Html extends CI_model {
 
 		$subtopicID = $this->Database->SubtopicID($classlabel, $subtopiclabel);
 
-		$data['type'] 		= 'subtopic';
-		$data['exercises']	= $this->SubtopicExercises($classlabel, $subtopiclabel, $subtopicID);
-		$data['results']	= $this->Session->GetResults('subtopic', $subtopiclabel);
-		$data['breadcrumb'] = $this->BreadCrumb('subtopic', $subtopicID);
-		$data['title']		= $this->Database->SubtopicTitle($subtopicID);
+		if ($subtopicID) {
+
+			$data['type'] 		= 'subtopic';
+			$data['exercises']	= $this->SubtopicExercises($classlabel, $subtopiclabel, $subtopicID);
+			$data['results']	= $this->Session->GetResults('subtopic', $subtopiclabel);
+			$data['breadcrumb'] = $this->BreadCrumb('subtopic', $subtopicID);
+			$data['title']		= $this->Database->SubtopicTitle($subtopicID);
+
+		} else {
+
+			$data = NULL;
+
+		}
 
 		return $data;
 	}

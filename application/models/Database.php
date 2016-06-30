@@ -84,7 +84,16 @@ class Database extends CI_model {
 							')
 					) AND `subtopics`.`label` = \''.$subtopiclabel.'\'');
 
-		$id = $query->result()[0]->id;
+		if ($query->num_rows() > 0) {
+
+			$id = $query->result()[0]->id;
+		
+		} else {
+
+			$id = NULL;
+
+		}
+		
 
  		return $id;
 	}
