@@ -41,7 +41,7 @@ class Ottusa {
 
 		} else {
 
-			$CI->load->library('11/Kombinatorika/Variacio', NULL, 'Ottusa');
+			$CI->load->library('11/Kombinatorika/Ottusa', NULL, 'Ottusa');
 			$data = $CI->Ottusa->Generate($level);
 
 		}

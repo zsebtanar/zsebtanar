@@ -36,8 +36,12 @@
 							"label": "Kombinatorika",
 							"exercises": [
 								{
-									"label": "Variacio",
-									"name": "Variáció"
+									"label": "Ottusa",
+									"name": "Öttusa"
+								},
+								{
+									"label": "Tigris",
+									"name": "Tigris"
 								}
 							]
 						}

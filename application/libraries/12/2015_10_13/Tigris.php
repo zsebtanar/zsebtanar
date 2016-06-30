@@ -30,8 +30,8 @@ class Tigris {
 
 		} else {
 
-			$CI->load->library('11/Kombinatorika/Kombinacio', NULL, 'Kombinacio');
-			$data = $CI->Kombinacio->Generate($level);
+			$CI->load->library('11/Kombinatorika/Tigris', NULL, 'Tigris');
+			$data = $CI->Tigris->Generate($level);
 
 		}
 
