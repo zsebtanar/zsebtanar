@@ -60,9 +60,8 @@
 							"label": "2016_05_03",
 							"exercises": [
 								{
-									"label": "TV_kviz",
-									"name": "Televíziós játék",
-									"no": 17
+									"label": "Halmaz_szamok",
+									"name": "Halmazműveletek számokkal"
 								}
 							]
 						},
@@ -141,11 +140,6 @@
 								{
 									"label": "Viragcserep",
 									"name": "Virágcserép"
-								},
-								{
-									"label": "Teszt",
-									"name": "Teszt",
-									"status": "IN_PROGRESS"
 								}
 							]
 						},

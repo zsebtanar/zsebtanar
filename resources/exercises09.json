@@ -41,6 +41,10 @@
 							"label": "Halmazmuveletek",
 							"exercises": [
 								{
+									"label": "Szamok",
+									"name": "Halmazműveletek számokkal"
+								},
+								{
 									"label": "Osztok",
 									"name": "Halmazműveletek osztókkal"
 								},
