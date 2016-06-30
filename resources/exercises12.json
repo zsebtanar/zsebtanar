@@ -56,8 +56,8 @@
 					"name": "Érettségi",
 					"subtopics": [
 						{
-							"name": "2006. május 9.",
-							"label": "2006_05_09",
+							"name": "2016. május 3.",
+							"label": "2016_05_03",
 							"exercises": [
 								{
 									"label": "TV_kviz",
@@ -146,6 +146,17 @@
 									"label": "Teszt",
 									"name": "Teszt",
 									"status": "IN_PROGRESS"
+								}
+							]
+						},
+						{
+							"name": "2006. május 9.",
+							"label": "2006_05_09",
+							"exercises": [
+								{
+									"label": "TV_kviz",
+									"name": "Televíziós játék",
+									"no": 17
 								}
 							]
 						}

@@ -1,0 +1,26 @@
+{
+	"classes": [
+		{
+			"label": "0",
+			"name": "0. osztály (teszt)",
+			"topics": [
+				{
+					"name": "Témakör (teszt)",
+					"subtopics": [
+						{
+							"name": "Altémakör (teszt)",
+							"label": "subtopic_test",
+							"exercises": [
+								{
+									"label": "exercise_test1",
+									"name": "Minta feladat 1",
+									"status": "IN_PROGRESS"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

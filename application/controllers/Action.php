@@ -157,9 +157,12 @@ class Action extends CI_controller {
 			$this->Setup->CreateTables();
 
 			// read data from file
-			for ($i=5; $i <= 12; $i++) { 
-				$data = $this->Setup->ReadFile('resources/exercises'.$i.'.json');
-				$this->Setup->InsertData($data);
+			$files = scandir('resources');
+			foreach ($files as $file) {
+				if (preg_match('/json/', strtolower($file))) {
+					$data = $this->Setup->ReadFile('resources/'.$file);
+					$this->Setup->InsertData($data);
+				}
 			}
 		}
 
