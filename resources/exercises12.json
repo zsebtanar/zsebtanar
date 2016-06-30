@@ -66,6 +66,10 @@
 								{
 									"label": "Szazalek_szalami",
 									"name": "Százalékszámítás (szalámi)"
+								},
+								{
+									"label": "Gyokvonas",
+									"name": "Gyökvonás"
 								}
 							]
 						},

@@ -54,6 +54,10 @@
 							"label": "Gyokvonas",
 							"exercises": [
 								{
+									"label": "Egyenlet1",
+									"name": "Egyenlet"
+								},
+								{
 									"label": "Gyok_teszt1",
 									"name": "Gyökvonás (1. teszt)"
 								},
