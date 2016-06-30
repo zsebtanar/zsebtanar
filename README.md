@@ -25,13 +25,17 @@ Without login, only exercises with `status=OK` will be displayed. After logging 
 # Add new exercise
 In order to add new exercise, you have to do the following steps:
 
-1. Include exercise data in the JSON-file.
+1. Include exercise data in the JSON-file (or create new file if neede).
 2. Create a PHP class to generate exercise.
 3. Update database.
 
 ## STEP 1: Add exercise info to JSON-file
 
-Exercises are stored in *public/resources/data.json*. The hierachy is the following:
+Exercises are stored in JSON-files *public/resources* folder. For better overview, each class has a separate JSON-file containing the corresponding exercises.
+
+**Note**: The classes on the main page will appear in the same order as the files appears in the *public/resources* folder.
+
+The hierachy for each JSON-file is the following:
 
 1. Class
 2. Topic
@@ -40,8 +44,8 @@ Exercises are stored in *public/resources/data.json*. The hierachy is the follow
 
 Each of them *must* have a `name` attribute. Classes, subtopics and exercises *must* have an additional `label` attribute, which is the name of the PHP class file (avoid space and accents). Exercises *can* have additional attributes:
 
-- `level`: how many times user has to solve exercise to complete it (default: **9**)
-- `status`: **IN PROGRESS** if exercise is not finished (default: **OK**)
+- `level`: how many times user has to solve exercise to complete it (default value: **9**)
+- `status`: **IN PROGRESS** if exercise is not finished (default value: **OK**)
 
 This is a sample for `data.json`:
 ```
@@ -76,6 +80,7 @@ This is a sample for `data.json`:
     ]
 }
 ```
+
 
 ## STEP 2: Create PHP class to generate exercise
 
