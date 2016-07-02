@@ -70,6 +70,10 @@
 								{
 									"label": "Gyokvonas",
 									"name": "Gyökvonás"
+								},
+								{
+									"label": "Kulonbozo_szamjegyek",
+									"name": "Számjegyek"
 								}
 							]
 						},
