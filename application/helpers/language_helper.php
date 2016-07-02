@@ -157,11 +157,12 @@ function Fraction($num)
 /**
  * Add article to number
  *
- * @param int $num Number
+ * @param int  $num     Number
+ * @param bool $capital Capitalize letters
  *
  * @return string $article Article
  */
-function The($num)
+function The($num, $capital=FALSE)
 {
   if ($num <= 0) {
     return 'a';
@@ -172,11 +173,16 @@ function The($num)
   $len = count($digits);
 
   if ($len % 3 == 1) {
-    return (in_array($digit, ['1','5']) ? 'az' : 'a');
+    if ($capital) {
+      return (in_array($digit, ['1','5']) ? 'Az' : 'A');
+    } else {
+      return (in_array($digit, ['1','5']) ? 'az' : 'a');
+    }
+    
   } elseif ($digit == '5') {
-      return 'az';
+      return ($capital ? 'Az' : 'az');
   } else {
-    return 'a';
+    return ($capital ? 'A' : 'a');
   }
 }
 
