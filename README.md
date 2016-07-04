@@ -8,8 +8,11 @@ You need to have a running *PHP Server* to run the website and a working interne
 
 1. Download the repository.
 2. Unzip the file and copy the `zsebtanar_v4` folder in your `public_html` folder (or `htdocs`, you are using *Xampp*).
-3. Type in the following URLs your browser: `http://localhost/zsebtanar_v4/public/action/setup`.
-4. The website can be reached through the URL: `http://localhost/zsebtanar_v4/`.
+3. Make sure path to project folder is correct in `application/config/config.php` in line 28.
+4. Create user and database (e.g. through *phpMyAdmin*).
+5. Copy username, password and database name in `application/config/database.php` in lines 80-82.
+6. Copy the following URL in your browser: `http://localhost/zsebtanar_v4/public/action/setup`.
+7. If everything is set up correctly, the website can be reached through the URL: `http://localhost/zsebtanar_v4/`.
 
 *Note:* If special characters don't apper properly, check the database character set. In order to use Hungarian special characters, use `latin2_hungarian_ci`.
 
