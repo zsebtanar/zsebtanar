@@ -2,8 +2,8 @@
 <html lang="hu">
 	<head><?php
 
-	$this->load->view('Misc/Header');
-	// $this->load->view('Misc/Header2');
+	$this->load->view('Misc/Header'); // FOR ONLINE USE
+	// $this->load->view('Misc/Header2'); // FOR OFFLINE USE
 	?>
 
 	</head>

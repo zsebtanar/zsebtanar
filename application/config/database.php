@@ -77,17 +77,9 @@ $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
 
-	'username' => 'u702420466_zst', // localhost
-	'password' => 'IGprUym4KUV44q',
-	'database' => 'u702420466_zst',
-
-	// 'username' => 'u997832275_zst', // zst-teszt.pe.hu
-	// 'password' => 'IGprUym4KUV44q',
-	// 'database' => 'u997832275_zst',
-
-	// 'username' => 'r8isixxe', // zsebtanar.hu 2
-	// 'password' => '2CryBlyd@',
-	// 'database' => 'r8isixxe',
+	'username' => 'username',
+	'password' => 'password',
+	'database' => 'db_name',
 
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
