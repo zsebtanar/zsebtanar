@@ -20,13 +20,13 @@ class Tigris {
 
 		if ($level <= 3) {
 
-			$CI->load->library('11/Hatvany/Exponencialis_egyenlet', NULL, 'Exponencialis_egyenlet');
-			$data = $CI->Exponencialis_egyenlet->Generate($level);
+			$CI->load->library('11/Hatvany/Tigris1', NULL, 'Tigris1');
+			$data = $CI->Tigris1->Generate($level);
 
 		} elseif ($level <= 6) {
 
-			$CI->load->library('11/Hatvany/Exponencialis_egyenlet2', NULL, 'Exponencialis_egyenlet2');
-			$data = $CI->Exponencialis_egyenlet2->Generate($level);
+			$CI->load->library('11/Hatvany/Tigris2', NULL, 'Tigris2');
+			$data = $CI->Tigris2->Generate($level);
 
 		} else {
 

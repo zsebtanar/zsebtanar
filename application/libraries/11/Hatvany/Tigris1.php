@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Exponencialis_egyenlet {
+class Tigris1 {
 
 	// Class constructor
 	function __construct() {

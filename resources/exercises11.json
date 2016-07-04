@@ -63,12 +63,12 @@
 							"label": "Hatvany",
 							"exercises": [
 								{
-									"label": "Exponencialis_egyenlet",
-									"name": "Exponenciális egyenlet 1"
+									"label": "Tigris1",
+									"name": "Tigris 1"
 								},
 								{
-									"label": "Exponencialis_egyenlet2",
-									"name": "Exponenciális egyenlet 2"
+									"label": "Tigris2",
+									"name": "Tigris 2"
 								}
 							]
 						}
