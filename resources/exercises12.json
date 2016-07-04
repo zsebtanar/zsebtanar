@@ -78,6 +78,10 @@
 								{
 									"label": "Grafok_ismerosok",
 									"name": "Gráfok (ismerősök)"
+								},
+								{
+									"label": "Exponencialis_egyenlet",
+									"name": "Exponenciális egyenlet"
 								}
 							]
 						},
