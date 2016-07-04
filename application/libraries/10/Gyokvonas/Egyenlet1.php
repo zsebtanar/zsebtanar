@@ -36,7 +36,7 @@ class Egyenlet1 {
 		
 
 		$page[] = 'Emeljük négyzetre az egyenlet mindkét oldalát:$$x=\left('.$num.'^'.$exp.'\right)^2$$';
-		$page[] = 'Hatványt úgy hatványozunk, hogy a kitevőket összeszorozzuk:$$\left(a^n\right)^k=a^{n\cdot k}$$';
+		$page[] = '<div class="alert alert-info"><b>Hatványazonosság:</b> Hatványt úgy hatványozunk, hogy a kitevőket összeszorozzuk:$$\left(a^n\right)^k=a^{n\cdot k}$$</div>';
 		$page[] = 'A fenti azonosságot felhasználva átírhatjuk a jobb oldalt:'
 			.'$$\left('.$num.'^'.$exp.'\right)^2='.$num.'^{'.$exp2.'}$$';
 		$page[] = '<b>Megjegyzés</b>: egy szám hatványát az <b>x<sup>y</sup></b> gomb segítségével lehet kiszámolni:<div class="text-center"><kbd>'.$num.'</kbd> <kbd>x<sup>y</sup></kbd> <kbd>'.$exp2.'</kbd> <kbd>=</kbd></div>';
