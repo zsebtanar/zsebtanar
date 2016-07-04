@@ -74,6 +74,10 @@
 								{
 									"label": "Kulonbozo_szamjegyek",
 									"name": "Számjegyek"
+								},
+								{
+									"label": "Grafok_ismerosok",
+									"name": "Gráfok (ismerősök)"
 								}
 							]
 						},

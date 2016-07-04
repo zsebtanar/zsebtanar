@@ -27,7 +27,11 @@
 							"exercises": [
 								{
 									"label": "Verseny",
-									"name": "Gráfok (verseny)"
+									"name": "Verseny"
+								},
+								{
+									"label": "Ismerosok",
+									"name": "Ismerősök"
 								}
 							]
 						},
