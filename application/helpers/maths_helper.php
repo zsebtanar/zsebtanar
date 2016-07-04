@@ -11,8 +11,7 @@
  *
  * @return int $num Random number.
  */
-function numGen($len, $numSys)
-{
+function numGen($len, $numSys) {
 	if ($len > 1) {
 		// first digit non-0
 		$num = rand(1, $numSys-1);
@@ -43,8 +42,7 @@ function numGen($len, $numSys)
  *
  * @return int $new New number.
  */
-function modifySameDigits($num, $pos)
-{
+function modifySameDigits($num, $pos) {
 	$digits = str_split($num);
 	$digit = $digits[$pos];
 	foreach ($digits as $key => $value) {
@@ -71,8 +69,7 @@ function modifySameDigits($num, $pos)
  *
  * @return NULL
  */
-function shuffleAssoc(&$array)
-{
+function shuffleAssoc(&$array) {
   $keys = array_keys($array);
   shuffle($keys);
   foreach ($keys as $key) {
@@ -89,8 +86,7 @@ function shuffleAssoc(&$array)
  *
  * @return string $rom Roman number.
  */
-function convertRoman($num)
-{
+function convertRoman($num) {
   $values = array(
       1000000 => "M",
        900000 => "CM",
@@ -144,8 +140,7 @@ function convertRoman($num)
  *
  * @return int $new New number
  */
-function newNum($num,$len)
-{
+function newNum($num,$len) {
   if (rand(1,3) == 1) {
     $new = numGen(rand($len-1,$len+1),10);
   } else {
@@ -168,8 +163,7 @@ function newNum($num,$len)
  *
  * @return bool TRUE if digit occurs.
  */
-function hasDigit($digits,$digit)
-{
+function hasDigit($digits,$digit) {
   $ugyanaze = 0;
   foreach ($digits as $value) {
     if ($value == $digit) {
@@ -192,8 +186,7 @@ function hasDigit($digits,$digit)
  *
  * @return int $num Modified number.
  */
-function replaceDigit($num,$pos,$digit)
-{
+function replaceDigit($num,$pos,$digit) {
   $digits = str_split($num);
   $hossz = strlen($num);
   foreach ($digits as $key => $value) {
@@ -220,8 +213,7 @@ function replaceDigit($num,$pos,$digit)
  *
  * @return int $z Greatest common divisor
  */
-function gcd($x, $y)
-{
+function gcd($x, $y) {
   $z = 1;
   $x = abs($x);
   $y = abs($y);
@@ -288,8 +280,7 @@ function combos($arr, $k) {
  *
  * @return int $res Result
  */
-function recursiveSeries($a1, $a2, $coeff_an_1, $coeff_an_2, $coeff_n, $pow_n, $coeff_a0, $index)
-{
+function recursiveSeries($a1, $a2, $coeff_an_1, $coeff_an_2, $coeff_n, $pow_n, $coeff_a0, $index) {
   if ($index == 1) {
     $res = $a1;
   } elseif ($index == 2 && $coeff_an_2 != 0) {
@@ -322,8 +313,7 @@ function recursiveSeries($a1, $a2, $coeff_an_1, $coeff_an_2, $coeff_n, $pow_n, $
  *
  * @return string $equation Equation
  */
-function equationAddition($numbers, $col=-1, $type='addition', $color=TRUE)
-{
+function equationAddition($numbers, $col=-1, $type='addition', $color=TRUE) {
   // Get digits for each number
   foreach ($numbers as $key => $number) {
     $digits_num = str_split($number);
@@ -443,8 +433,7 @@ function equationAddition($numbers, $col=-1, $type='addition', $color=TRUE)
  *
  * @return string $placevalue
  */
-function placeValues($index)
-{
+function placeValues($index) {
   $values = array(
     "egyesek",
     "tízesek",
@@ -590,4 +579,19 @@ function round2($num, $digits=2) {
   $num = str_replace('.', ',', $num);
   return $num;
 }
+
+/**
+ * Least common multiple of numbers "a" and "b"
+ * @param $a number "a"
+ * @param $b number "b"
+ * @return lcm(a, b)
+ * @author Thomas (www.adamjak.net)
+ */
+function lcm($a, $b) {
+    if ($a == 0 || $b == 0) {
+        return 0;
+    }
+    return ($a * $b) / gcd($a, $b);
+}
+
 ?>
