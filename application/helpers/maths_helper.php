@@ -580,18 +580,23 @@ function round2($num, $digits=2) {
   return $num;
 }
 
-/**
- * Least common multiple of numbers "a" and "b"
- * @param $a number "a"
- * @param $b number "b"
- * @return lcm(a, b)
- * @author Thomas (www.adamjak.net)
- */
+// Least common multiple of numbers "a" and "b" (www.adamjak.net)
 function lcm($a, $b) {
-    if ($a == 0 || $b == 0) {
-        return 0;
+  if ($a == 0 || $b == 0) {
+      return 0;
+  }
+  return ($a * $b) / gcd($a, $b);
+}
+
+// Prime factorization (https://www.fusionswift.com/2010/06/php-prime-factors/)
+function primefactor($num) {
+  $sqrt = sqrt($num);
+  for ($i = 2; $i <= $sqrt; $i++) {
+    if ($num % $i == 0) {
+      return array_merge(primefactor($num/$i), array($i));
     }
-    return ($a * $b) / gcd($a, $b);
+  }
+  return array($num);
 }
 
 ?>
