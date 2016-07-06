@@ -59,15 +59,15 @@
 								},
 								{
 									"label": "Gyok_teszt1",
-									"name": "Gyökvonás (1. teszt)"
+									"name": "Teszt 1."
 								},
 								{
 									"label": "Gyok_teszt2",
-									"name": "Gyökvonás (2. teszt)"
+									"name": "Teszt 2."
 								},
 								{
 									"label": "Gyok_teszt3",
-									"name": "Gyökvonás (3. teszt)"
+									"name": "Teszt 3."
 								}
 							]
 						}
