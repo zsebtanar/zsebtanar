@@ -82,6 +82,10 @@
 								{
 									"label": "Exponencialis_egyenlet",
 									"name": "Exponenciális egyenlet"
+								},
+								{
+									"label": "Osztas_teszt",
+									"name": "Osztás (teszt)"
 								}
 							]
 						},

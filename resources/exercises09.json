@@ -30,6 +30,24 @@
 									"name": "TV játék"
 								}
 							]
+						},
+						{
+							"name": "Oszthatóság",
+							"label": "Oszthatosag",
+							"exercises": [
+								{
+									"label": "Osztas_teszt1",
+									"name": "Teszt 1."
+								},
+								{
+									"label": "Osztas_teszt2",
+									"name": "Teszt 2."
+								},
+								{
+									"label": "Osztas_teszt3",
+									"name": "Teszt 3."
+								}
+							]
 						}
 					]
 				},
