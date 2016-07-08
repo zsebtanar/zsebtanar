@@ -12,8 +12,12 @@
 							"label": "Szamtani_sorozat",
 							"exercises": [
 								{
-									"label": "Tag",
-									"name": "Számtani sorozat tagja"
+									"label": "Tag1",
+									"name": "Tag 1"
+								},
+								{
+									"label": "Tag2",
+									"name": "Tag 2"
 								},
 								{
 									"label": "Differencia",
@@ -86,6 +90,10 @@
 								{
 									"label": "Osztas_teszt",
 									"name": "Osztás (teszt)"
+								},
+								{
+									"label": "Szamtani_sorozat",
+									"name": "Számtani sorozat"
 								}
 							]
 						},

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Tag {
+class Tag2 {
 
 	// Class constructor
 	function __construct() {

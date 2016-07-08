@@ -22,7 +22,7 @@ class Sorozatok {
 
 			if (rand(1,2) == 1) {
 
-				$CI->load->library('12/Szamtani_sorozat/Tag', NULL, 'Szamtani_tag');
+				$CI->load->library('12/Szamtani_sorozat/Tag2', NULL, 'Szamtani_tag');
 				$data = $CI->Szamtani_tag->Generate($level);
 			
 			} else {
