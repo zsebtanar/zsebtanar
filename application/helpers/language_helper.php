@@ -452,6 +452,54 @@ function In($num)
 }
 
 /**
+ * Add suffix 'on' to number (ra/re)
+ *
+ * @param int $num Number (<10^6)
+ *
+ * @return string $suffix Suffix
+ */
+function On($num)
+{
+  $abs = abs($num);
+
+  switch ($abs % 10) {
+    case 1:
+    case 2:
+    case 4:
+    case 5:
+    case 7:
+    case 9:
+      return 're';
+    case 3:
+    case 6:
+    case 8:
+      return 'ra';
+  }
+
+  switch (($abs / 10) % 10) {
+    case 1:
+    case 4:
+    case 5:
+    case 7:
+    case 9:
+      return 're';
+    case 2:
+    case 3:
+    case 6:
+    case 8:
+      return 'ra';
+  }
+
+  if ($abs == 0) {
+    return 'ra';
+  } elseif (1000 <= $abs && $abs < 1000000) {
+    return 're';
+  } else {
+    return 'ra';
+  }
+}
+
+/**
  * Add suffix 'from' to number (ból/ből)
  *
  * @param int $num Number (<10^6)
