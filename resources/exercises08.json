@@ -18,6 +18,21 @@
 							]
 						}
 					]
+				},
+				{
+					"name": "Függvények",
+					"subtopics": [
+						{
+							"name": "Függvényábrázolás",
+							"label": "Fuggvenyabrazolas",
+							"exercises": [
+								{
+									"label": "Abszolutertek",
+									"name": "Abszolútérték függvény"
+								}
+							]
+						}
+					]
 				}
 			]
 		}

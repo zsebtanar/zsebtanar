@@ -113,6 +113,14 @@
 								{
 									"label": "Logika",
 									"name": "Logika"
+								},
+								{
+									"label": "Abszolutertek_fuggveny",
+									"name": "Értelmezési tartomány"
+								},
+								{
+									"label": "Szinusz_egyenlet",
+									"name": "Szinusz függvény"
 								}
 							]
 						},
