@@ -57,6 +57,21 @@
 					]
 				},
 				{
+					"name": "Logika",
+					"subtopics": [
+						{
+							"name": "Állítások",
+							"label": "Allitasok",
+							"exercises": [
+								{
+									"label": "Sapka",
+									"name": "Sapka"
+								}
+							]
+						}
+					]
+				},
+				{
 					"name": "Érettségi",
 					"subtopics": [
 						{
@@ -94,6 +109,10 @@
 								{
 									"label": "Szamtani_sorozat",
 									"name": "Számtani sorozat"
+								},
+								{
+									"label": "Logika",
+									"name": "Logika"
 								}
 							]
 						},
