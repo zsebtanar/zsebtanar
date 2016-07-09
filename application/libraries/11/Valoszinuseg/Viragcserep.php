@@ -58,7 +58,7 @@ class Viragcserep {
 			$order++;
 		}
 
-		$hints[][] = 'A keresett valószínűség tehát $'.implode('+', $p_all2).'='.array_sum($p_all1)'$, aminek a három tizedesjegyre kerekített értéke $<span class="label label-success">$'.round2(array_sum($p_all1), 3).'$</span>.';
+		$hints[][] = 'A keresett valószínűség tehát $'.implode('+', $p_all2).'='.round2(array_sum($p_all1), 5).'$, aminek a három tizedesjegyre kerekített értéke <span class="label label-success">$'.round2(array_sum($p_all1), 3).'$</span>.';
 		
 		$correct = round1(array_sum($p_all1), 3);
 		$solution = '$'.$correct.'$';
