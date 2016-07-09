@@ -17,7 +17,7 @@ class Pitagorasz {
 	function Generate($level) {
 
 		$CI =& get_instance();
-		$CI->load->library('10/Trigonometrikus_fuggvenyek/Haromszog_tangens', NULL, 'tangens');
+		$CI->load->library('10/Szogfuggvenyek/Haromszog_tangens', NULL, 'tangens');
 
 		if ($level <= 3) {
 			$mult = rand(3,9);
