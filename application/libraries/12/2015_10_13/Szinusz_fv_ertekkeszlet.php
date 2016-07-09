@@ -17,7 +17,7 @@ class Szinusz_fv_ertekkeszlet {
 	function Generate($level) {
 
 		$CI =& get_instance();
-		$CI->load->library('10/Trigonometrikus_fuggvenyek/Szinusz_ertekkeszlet', NULL, 'Szinusz_ertekkeszlet');
+		$CI->load->library('10/Szogfuggvenyek/Szinusz_ertekkeszlet', NULL, 'Szinusz_ertekkeszlet');
 		$data = $CI->Szinusz_ertekkeszlet->Generate($level);
 
 		return $data;

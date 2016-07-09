@@ -20,11 +20,11 @@
 					]
 				},
 				{
-					"name": "Trigonometria",
+					"name": "Geometria",
 					"subtopics": [
 						{
-							"name": "Trigonometrikus függvények",
-							"label": "Trigonometrikus_fuggvenyek",
+							"name": "Szögfüggvények",
+							"label": "Szogfuggvenyek",
 							"exercises": [
 								{
 									"label": "Szinusz_ertekkeszlet",

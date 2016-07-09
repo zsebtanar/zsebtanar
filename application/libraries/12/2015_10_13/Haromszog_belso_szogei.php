@@ -20,7 +20,7 @@ class Haromszog_belso_szogei {
 
 		if ($level <= 3) {
 
-			$CI->load->library('10/Trigonometrikus_fuggvenyek/Haromszog_tangens', NULL, 'Haromszog');
+			$CI->load->library('10/Szogfuggvenyek/Haromszog_tangens', NULL, 'Haromszog');
 			$data = $CI->Haromszog->Generate($level);
 
 		} elseif ($level <= 6) {
@@ -29,12 +29,12 @@ class Haromszog_belso_szogei {
 
 			if ($type) {
 
-				$CI->load->library('10/Trigonometrikus_fuggvenyek/Haromszog_koszinusz', NULL, 'Haromszog');
+				$CI->load->library('10/Szogfuggvenyek/Haromszog_koszinusz', NULL, 'Haromszog');
 				$data = $CI->Haromszog->Generate($level);
 
 			} else {
 
-				$CI->load->library('10/Trigonometrikus_fuggvenyek/Haromszog_szinusz', NULL, 'Haromszog');
+				$CI->load->library('10/Szogfuggvenyek/Haromszog_szinusz', NULL, 'Haromszog');
 				$data = $CI->Haromszog->Generate($level);
 
 			}
