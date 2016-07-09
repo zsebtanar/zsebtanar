@@ -13,7 +13,6 @@ class Exponencialis_egyenlet {
 		return;
 	}
 
-	// Solve equation for square root
 	function Generate($level) {
 
 		$CI =& get_instance();
