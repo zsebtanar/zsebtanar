@@ -168,16 +168,16 @@ class Szinusz_ertekkeszlet {
 		for ($i=0; $i < $width; $i++) {
 			$xval1 = ($i-$originx)/$xunit_length*pi()/2;
 			$xval2 = ($i+1-$originx)/$xunit_length*pi()/2;
-			$yval1 = (-$a1+$b1*sin($xval1))*$yunit_length/$yunit_original+$originy;
-			$yval2 = (-$a1+$b1*sin($xval2))*$yunit_length/$yunit_original+$originy;
+			$yval1 = ($a1-$b1*sin($xval1))*$yunit_length/$yunit_original+$originy;
+			$yval2 = ($a1-$b1*sin($xval2))*$yunit_length/$yunit_original+$originy;
 			$svg .= DrawLine($i, $yval1, $i+1, $yval2, 'red', 2);
 		}
 		if ($b2) {
 			for ($i=0; $i < $width; $i++) {
 				$xval1 = ($i-$originx)/$xunit_length*pi()/2;
 				$xval2 = ($i+1-$originx)/$xunit_length*pi()/2;
-				$yval1 = (-$a2+$b2*sin($xval1))*$yunit_length/$yunit_original+$originy;
-				$yval2 = (-$a2+$b2*sin($xval2))*$yunit_length/$yunit_original+$originy;
+				$yval1 = ($a2-$b2*sin($xval1))*$yunit_length/$yunit_original+$originy;
+				$yval2 = ($a2-$b2*sin($xval2))*$yunit_length/$yunit_original+$originy;
 				$svg .= DrawLine($i, $yval1, $i+1, $yval2, 'grey', 1);
 			}
 		}
