@@ -26,6 +26,7 @@ class Abszolutertek {
 		// f(x) = |x+a|+b
 		$a = rand(-$x2+1,-$x1-1); // avoid excluding minimum
 		$b = rand(-$level, $level);
+		$b = 0;
 
 		if ($level <= 3) {
 			list($a, $b) = (rand(1,2) == 1 ? [0,$b] : [$a,0]);
@@ -35,7 +36,7 @@ class Abszolutertek {
 		$y1 = $b;
 		$y2 = max(abs($x1+$a), abs($x2+$a)) + $b;
 		
-		$question = 'Ábrázolja a $['.$x1.';'.$x2.']$ intervallumon értelmezett $x\rightarrow'.$this->AbsFunctionText($a,$b).'$ függvényt! Mekkor a függvény értékkészlete?';		;
+		$question = 'Ábrázolja a $['.$x1.';'.$x2.']$ intervallumon értelmezett $x\rightarrow'.$this->AbsFunctionText($a,$b).'$ függvényt! Mekkora függvény értékkészlete?';		;
 
 		$hints = $this->Hints($x1, $x2, $a, $b, $y1, $y2);
 
@@ -221,17 +222,23 @@ class Abszolutertek {
 			// Lines between end points and y axis
 			if (abs($x1+$a) > abs($x2+$a)) {
 
-				list($X1D, $Y1D) = $this->Coordinates2(0, abs($x1+$a)+$b, $height, $left, $bottom, $unit);
-				$svg .= DrawPath($X1C, $Y1C, $X1D, $Y1D, $color1='green', $width=2, $color2='none', $dasharray2asharray1=5, $dasharray2=5);
+				if (abs($x1+$a)+$b != 0) {
+					list($X1D, $Y1D) = $this->Coordinates2(0, abs($x1+$a)+$b, $height, $left, $bottom, $unit);
+					$svg .= DrawPath($X1C, $Y1C, $X1D, $Y1D, $color1='green', $width=2, $color2='none', $dasharray2asharray1=5, $dasharray2=5);
+				}
 
 			} else {
 
-				list($X3D, $Y3D) = $this->Coordinates2(0, abs($x2+$a)+$b, $height, $left, $bottom, $unit);
-				$svg .= DrawPath($X3C, $Y3C, $X3D, $Y3D, $color1='green', $width=2, $color2='none', $dasharray2asharray1=5, $dasharray2=5);
+				if (abs($x2+$a)+$b != 0) {
+					list($X3D, $Y3D) = $this->Coordinates2(0, abs($x2+$a)+$b, $height, $left, $bottom, $unit);
+					$svg .= DrawPath($X3C, $Y3C, $X3D, $Y3D, $color1='green', $width=2, $color2='none', $dasharray2asharray1=5, $dasharray2=5);
+				}
 			}
 
-			list($X2D, $Y2D) = $this->Coordinates2(0, $b, $height, $left, $bottom, $unit);
-			$svg .= DrawPath($X2C, $Y2C, $X2D, $Y2D, $color1='green', $width=2, $color2='none', $dasharray2asharray1=5, $dasharray2=5);
+			if ($b != 0) {
+				list($X2D, $Y2D) = $this->Coordinates2(0, $b, $height, $left, $bottom, $unit);
+				$svg .= DrawPath($X2C, $Y2C, $X2D, $Y2D, $color1='green', $width=2, $color2='none', $dasharray2asharray1=5, $dasharray2=5);
+			}
 
 			// End points for |x+a|+b
 			$svg .= DrawCircle($X1C, $Y1C, 3, 'red', 1, 'red');
