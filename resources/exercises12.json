@@ -121,6 +121,10 @@
 								{
 									"label": "Szinusz_egyenlet",
 									"name": "Szinusz függvény"
+								},
+								{
+									"label": "Lottoszelveny",
+									"name": "Lottószelvény"
 								}
 							]
 						},

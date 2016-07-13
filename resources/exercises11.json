@@ -50,6 +50,10 @@
 								{
 									"label": "Szamjegyek",
 									"name": "Számjegyek"
+								},
+								{
+									"label": "Lotto",
+									"name": "Lottó"
 								}
 							]
 						}
