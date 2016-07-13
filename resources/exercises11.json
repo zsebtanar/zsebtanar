@@ -77,6 +77,21 @@
 							]
 						}
 					]
+				},
+				{
+					"name": "Geometria",
+					"subtopics": [
+						{
+							"name": "Trigonometrikus egyenletek",
+							"label": "Trigonometrikus_egyenletek",
+							"exercises": [
+								{
+									"label": "Szinusz",
+									"name": "Szinusz függvény"
+								}
+							]
+						}
+					]
 				}
 			]
 		}
