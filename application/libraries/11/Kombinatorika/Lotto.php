@@ -49,7 +49,7 @@ class Lotto {
 		$page[] = 'Az összes lehetséges húzás száma:$${'.$max.'\choose '.$pull.'}='.$all.'$$';
 		$page[] = '<b>Megjegyzés</b>: az eredményt számológéppel a <b>nCr</b> gombbal lehet kiszámolni:<br /><div class="text-center"><kbd>'.$max.'</kbd> <kbd>Shift</kbd> <kbd>nCr</kbd> <kbd>'.$pull.'</kbd> <kbd>=</kbd></div>';
 		$page[] = 'A kedvező esetek száma $1$.';
-		$page[] = 'A keresett valószínűség a két szám hányagosa, tehát <span class="label label-success">$\frac{1}{'.$all.'}$</span>.';
+		$page[] = 'A keresett valószínűség a kedvező és összes eset hányadosa, tehát <span class="label label-success">$\frac{1}{'.$all.'}$</span>.';
 		$hints[] = $page;
 
 		$correct = array(1, $all);
