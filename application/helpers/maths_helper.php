@@ -585,6 +585,8 @@ function lcm($a, $b) {
   if ($a == 0 || $b == 0) {
       return 0;
   }
+  $a = abs($a);
+  $b = abs($b);
   return ($a * $b) / gcd($a, $b);
 }
 
