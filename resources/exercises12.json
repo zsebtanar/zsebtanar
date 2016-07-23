@@ -125,6 +125,14 @@
 								{
 									"label": "Lottoszelveny",
 									"name": "Lottószelvény"
+								},
+								{
+									"label": "Tort_egyenlet",
+									"name": "Egyenlet (törtek)"
+								},
+								{
+									"label": "Egyenlotlenseg",
+									"name": "Egyenlőtlenség"
 								}
 							]
 						},

@@ -48,6 +48,16 @@
 									"name": "Teszt 3."
 								}
 							]
+						},
+						{
+							"name": "Egyenletek",
+							"label": "Egyenletek",
+							"exercises": [
+								{
+									"label": "Tortek",
+									"name": "Törtek"
+								}
+							]
 						}
 					]
 				},
