@@ -16,18 +16,16 @@ class Teszt {
 
 	function Generate($level) {
 
-		$numbers = ['one', 'two', 'three'];
-		$num = rand(0,2);
-
-		$question = 'What is the name of the following number?$$'.strval($num+1).'$$<span class="label label-success">egyik arányosságot sem</span> ';
-		$correct = $numbers[$num];
-		$solution = $correct;
+		$question 	= 'Melyik a legkisebb természetes szám?';
+		$correct 	= 0;
+		$solution 	= '$'.$correct.'$';
+		$hints[][]	= 'A megoldás a <span class="label label-success">0</span>';
 
 		return array(
 			'question'  => $question,
 			'correct'   => $correct,
 			'solution'  => $solution,
-			'type'		=> 'text'
+			'hints'		=> $hints
 		);
 	}
 }
