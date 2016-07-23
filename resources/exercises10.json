@@ -14,6 +14,10 @@
 								{
 									"label": "Egyenlet1",
 									"name": "Másodfokú egyenlet"
+								},
+								{
+									"label": "Egyenlotlenseg_grafikus",
+									"name": "Egyenlőtlenség (grafikus megoldás)"
 								}
 							]
 						}
