@@ -26,9 +26,18 @@ class Egyenlet1 {
 		// Generate coefficients (using Viète-formulae)
 		// ax^2+bx+c=d
 		$a = rand(1,ceil($level/3))*(-1)^(rand(1,2));
-		$b = $a*($x1 + $x2);
+		$b = -$a*($x1 + $x2);
 		$d = rand(-$level, $level);
 		$c = $a*$x1*$x2+$d;
+
+		// // Original exercise
+		// $x1 = -3;
+		// $x2 = 7;
+		// $a = 1;
+		// $b = -$a*($x1 + $x2);
+		// $d = 0;
+		// $c = $a*$x1*$x2+$d;
+
 
 		$equation = $this->Equation($a, $b, $c, $d, $x1, $x2);
 
@@ -82,7 +91,7 @@ class Egyenlet1 {
 		$cc = ($c >= 0 ? $c : '('.$c.')');
 		// print_r('a='.$a.', b='.$b.', c='.$c.', aa='.$aa.', bb='.$bb.', cc='.$cc.'<br/>');
 
-		$text[] = '$$x_{1,2}=\frac{-'.$bb.'\pm\sqrt{'.$bb.'^2-4'.$aa.$cc.'}}{2'.$aa.'}$$';
+		$text[] = '$$x_{1,2}=\frac{-'.$bb.'\pm\sqrt{'.$bb.'^2-4\cdot'.$aa.'\cdot'.$cc.'}}{2\cdot'.$aa.'}$$';
 
 		if ($x1 != $x2) {
 			$text[] = 'Ezt kiszámolva az egyik megoldás <span class="label label-success">$'.$x1.'$</span>,'
@@ -102,6 +111,12 @@ class Egyenlet1 {
 	// ax^2+bx+c-e=d-e (solution: x1, x2)
 	function Equation($a, $b, $c, $d, $x1, $x2, $e=NULL) {
 
+		if (abs($a) == 1) {
+			$part1 = ($a == 1 ? '' : '-');
+		} else {
+			$part1 = $a;
+		}
+
 		if ($b != 0) {
 			$part2 = ($b > 0 ? '+'.$b.'x' : $b.'x'); 
 		} else {
@@ -120,7 +135,7 @@ class Egyenlet1 {
 			$part4 = '';
 		}
 
-		$equation = $a.'x^2'.$part2.$part3.$part4.'='.$d.$part4;
+		$equation = $part1.'x^2'.$part2.$part3.$part4.'='.$d.$part4;
 
 		return $equation;
 	}
@@ -133,7 +148,7 @@ class Egyenlet1 {
 		$aacc2 = ($a*$c >= 0 ? '+'.strval(4*$a*$c) : '-('.strval(4*$a*$c).')');
 		$sqr = pow($b,2)-4*$a*$c;
 		$text[] = 'Először számoljuk ki a gyökjel alatti kifejezést!$$'
-			.$bb.'^2-4'.$aa.$cc.'='
+			.$bb.'^2-4\cdot'.$aa.'\cdot'.$cc.'='
 			.pow($b,2).$aacc1.'='
 			.pow($b,2).$aacc2.'='
 			.($a*$c < 0 ? pow($b,2).'+'.abs(4*$a*$c).'=' : '')
@@ -141,22 +156,22 @@ class Egyenlet1 {
 
 		if ($sqr != 0) {
 			$text[] = 'Az egyik megoldás:$$'
-				.'x_1=\frac{'.$bb.'+\sqrt{'.$sqr.'}}{2'.$aa.'}='
-				.'\frac{'.$bb.'+'.sqrt($sqr).'}{'.strval(2*$a).'}='
-				.'\frac{'.strval($b+sqrt($sqr)).'}{'.strval(2*$a).'}='
-				.strval(intval(($b+sqrt($sqr))/(2*$a))).'$$';
+				.'x_1=\frac{-'.$bb.'+\sqrt{'.$sqr.'}}{2\cdot'.$aa.'}='
+				.'\frac{'.strval(-$b).'+'.sqrt($sqr).'}{'.strval(2*$a).'}='
+				.'\frac{'.strval(-$b+sqrt($sqr)).'}{'.strval(2*$a).'}='
+				.strval(intval((-$b+sqrt($sqr))/(2*$a))).'$$';
 
 			$text[] = 'A másik megoldás:$$'
-				.'x_2=\frac{'.$bb.'-\sqrt{'.$sqr.'}}{2'.$aa.'}='
-				.'\frac{'.$bb.'-'.sqrt($sqr).'}{'.strval(2*$a).'}='
-				.'\frac{'.strval($b-sqrt($sqr)).'}{'.strval(2*$a).'}='
-				.strval(intval(($b-sqrt($sqr))/(2*$a))).'$$';
+				.'x_2=\frac{-'.$bb.'-\sqrt{'.$sqr.'}}{2\cdot'.$aa.'}='
+				.'\frac{'.strval(-$b).'-'.sqrt($sqr).'}{'.strval(2*$a).'}='
+				.'\frac{'.strval(-$b-sqrt($sqr)).'}{'.strval(2*$a).'}='
+				.strval(intval((-$b-sqrt($sqr))/(2*$a))).'$$';
 		} else {
 
 			$text[] = 'Mivel a gyökjel alatti kifejezés értéke $0$, az egyenletnek csak egyik megoldása van:$$'
-				.'x=\frac{'.$bb.'}{2'.$aa.'}='
-				.'\frac{'.$b.'}{'.strval(2*$a).'}='
-				.strval(intval($b/2/$a)).'$$';
+				.'x=\frac{-'.$bb.'}{2'.$aa.'}='
+				.'\frac{'.strval(-$b).'}{'.strval(2*$a).'}='
+				.strval(intval(-$b/2/$a)).'$$';
 		}
 
 		return $text;
