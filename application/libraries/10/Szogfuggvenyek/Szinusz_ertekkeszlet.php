@@ -31,6 +31,10 @@ class Szinusz_ertekkeszlet {
 			$b = pow(-1, rand(0,1)) * rand(3, $level);
 		}
 
+		// Original exercise
+		$a = 1;
+		$b = 1;
+
 		if ($a == 0) {
 			$question = 'Adja meg a valós számok halmazán értelmezett $f(x)='.($b==1 ? '' : $b).'\sin x$ függvény értékkészletét!';
 		} else {
@@ -85,15 +89,14 @@ class Szinusz_ertekkeszlet {
 				.'Ezt úgy kapjuk, hogy az előző függvényt "eltoljuk" '.($a>0 ? 'fölfelé' : 'lefelé').' $'.$a.'$-'.With($a).':'
 				.$this->DrawSineFunction($a, $b, 0, $b, $value_min, $value_max);
 			$hints[][] = 'Az $f(x)='.$a.'+'.($b != 1 ? $b : '').'\sin x$ függvény értékkészletét úgy kapjuk meg, hogy az előző függvény értékkészletének végpontjaihoz hozzáadunk $'
-				.$a.'$-'.Dativ($a).'. Ezért az új függvény értékkészlete $[-'.abs($b).($a > 0 ? '+'.$a : $a).';'.abs($b).($a > 0 ? '+'.$a : $a).']=['.strval(-abs($b)+$a).';'.strval(abs($b)+$a).']$ lesz.'
-				.' Tehát a megoldás <span class="label label-success">$['.strval(-abs($b)+$a).';'.strval(abs($b)+$a).']$</span>.'
+				.$a.'$-'.Dativ($a).'. Ezért a megoldás $[-'.abs($b).($a > 0 ? '+'.$a : $a).';'.abs($b).($a > 0 ? '+'.$a : $a).']=$<span class="label label-success">$['.strval(-abs($b)+$a).';'.strval(abs($b)+$a).']$</span>.'
 				.$this->DrawSineFunction($a, $b, 0, $b, $value_min, $value_max, 1);
 		}
 
 		return $hints;
 	}
 
-	// Draw sine function (a+bsin(cx))
+	// Draw sine function in red (a1+b1sin(cx)) and in grey (a2+b1sin(cx))
 	function DrawSineFunction($a1=0, $b1=1, $a2=0, $b2=0, $value_min=-1, $value_max=1, $drawRange=0) {
 
 		$width 	= 400;
@@ -168,16 +171,16 @@ class Szinusz_ertekkeszlet {
 		for ($i=0; $i < $width; $i++) {
 			$xval1 = ($i-$originx)/$xunit_length*pi()/2;
 			$xval2 = ($i+1-$originx)/$xunit_length*pi()/2;
-			$yval1 = ($a1-$b1*sin($xval1))*$yunit_length/$yunit_original+$originy;
-			$yval2 = ($a1-$b1*sin($xval2))*$yunit_length/$yunit_original+$originy;
+			$yval1 = (-$a1-$b1*sin($xval1))*$yunit_length/$yunit_original+$originy;
+			$yval2 = (-$a1-$b1*sin($xval2))*$yunit_length/$yunit_original+$originy;
 			$svg .= DrawLine($i, $yval1, $i+1, $yval2, 'red', 2);
 		}
 		if ($b2) {
 			for ($i=0; $i < $width; $i++) {
 				$xval1 = ($i-$originx)/$xunit_length*pi()/2;
 				$xval2 = ($i+1-$originx)/$xunit_length*pi()/2;
-				$yval1 = ($a2-$b2*sin($xval1))*$yunit_length/$yunit_original+$originy;
-				$yval2 = ($a2-$b2*sin($xval2))*$yunit_length/$yunit_original+$originy;
+				$yval1 = (-$a2-$b2*sin($xval1))*$yunit_length/$yunit_original+$originy;
+				$yval2 = (-$a2-$b2*sin($xval2))*$yunit_length/$yunit_original+$originy;
 				$svg .= DrawLine($i, $yval1, $i+1, $yval2, 'grey', 1);
 			}
 		}
