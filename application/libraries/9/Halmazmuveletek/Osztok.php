@@ -22,6 +22,12 @@ class Osztok {
 			list($num2, $factors2) = $this->GetNumber($level);
 		}
 
+		// Original exercise
+		$num1 = 28;
+		$num2 = 49;
+		$factors1 = [2,2,7];
+		$factors2 = [7,7];
+
 		$divisors1 = divisors($num1);
 		$divisors2 = divisors($num2);
 
@@ -85,6 +91,10 @@ class Osztok {
 
 			$operation = $operations[0];
 
+			// Original exercise
+			// $operation = 'A\cap B';
+			$operation = 'B\setminus A';
+
 			switch ($operation) {
 				case 'A\setminus B': // A\B
 					$result = array_diff($divisors1, $divisors2);
@@ -112,28 +122,21 @@ class Osztok {
 		$page[] = 'Írjuk fel '.The($num2).' $'.$num2.'$ összes pozitív osztóját:$$B=\{'.implode(";", $divisors2).'\}$$';
 		$page[] = 'Ábrázoljuk az osztókat <b>Venn-diagramm</b>ban!';
 		$hints[] = $page;
-		$page 	= [];
 
 		$left 	= array_diff($divisors1, $divisors2);
 		$center = array_intersect($divisors1, $divisors2);
 		$right 	= array_diff($divisors2, $divisors1);
 
 		if (count($left) > 0) {
-			$page[0] = 'Azokat az osztókat, amik benne vannak az $A$ halmazban, de nincsenek benne a $B$-ben, a <b>bal</b> oldalra írjuk:'
-				.$this->VennDiagram($left);
-			$hints[] = $page;
+			$hints[][] = 'Azokat az osztókat, amik benne vannak az $A$ halmazban, de nincsenek benne a $B$-ben, a <b>bal</b> oldalra írjuk:'.$this->VennDiagram($left);
 		}
 
 		if (count($right) > 0) {
-			$page[0] = 'Azokat az osztókat, amik benne vannak a $B$ halmazban, de nincsenek benne a $B$-ben, a <b>jobb</b> oldalra írjuk:'
-				.$this->VennDiagram($left, [], $right);
-			$hints[] = $page;
+			$hints[][] = 'Azokat az osztókat, amik benne vannak a $B$ halmazban, de nincsenek benne a $B$-ben, a <b>jobb</b> oldalra írjuk:'.$this->VennDiagram($left, [], $right);
 		}
 
 		if (count($center) > 0) {
-			$page[0] = 'Azokat az osztókat, amik az $A$ és $B$ halmazban is benne vannak, <b>középre</b> írjuk:'
-				.$this->VennDiagram($left, $center, $right);
-			$hints[] = $page;
+			$hints[][] = 'Azokat az osztókat, amik az $A$ és $B$ halmazban is benne vannak, <b>középre</b> írjuk:'.$this->VennDiagram($left, $center, $right);
 		}
 
 		switch ($operation) {
@@ -151,10 +154,9 @@ class Osztok {
 				break;
 		}
 
-		$page[0] = $text.$this->VennDiagram($left, $center, $right, $operation);
-		$page[1] = 'Tehát '.($operation == 'B\setminus A' ? 'a' : 'az').' $'.$operation.'$ halmaz elemei <span class="label label-success">$'.implode(";", $result).'$</span>.';
+		$hints[][] = $text.$this->VennDiagram($left, $center, $right, $operation);
 
-		$hints[] = $page;
+		$hints[][] = 'Tehát '.($operation == 'B\setminus A' ? 'a' : 'az').' $'.$operation.'$ halmaz elemei <span class="label label-success">$'.implode(";", $result).'$</span>.';
 
 		return $hints;
 	}
