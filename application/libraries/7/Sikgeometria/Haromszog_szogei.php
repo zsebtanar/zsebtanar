@@ -26,6 +26,10 @@ class Haromszog_szogei {
 		$types[1] 	= $options[rand(0,1)];
 		$types[2] 	= $options[rand(0,1)];
 
+		// Original exercise
+		$types 	= ['külső', 'belső', 'külső'];
+		$angles = [76, 74, 30];
+
 		$question = 'Egy $ABC$ háromszög $A$ csúcsnál lévő <b>'.$types[0].'</b> szöge $'
 			.($types[0] == 'belső' ? $angles[0] : strval(180-$angles[0])).'°$-os, '
 			.'$B$ csúcsnál lévő <b>'.$types[1].'</b> szöge $'
@@ -85,70 +89,38 @@ class Haromszog_szogei {
 
 		$nodes = ['A', 'B', 'C'];
 
-		$svg[] = 'Rajzoljunk egy háromszöget! (Nem fontos, hogy valósághű legyen.)';
-		$svg[] = $this->DrawTriangle();
+		$hints[][] = 'Rajzoljunk egy háromszöget! (Nem fontos, hogy valósághű legyen.)'.$this->DrawTriangle();
 
-		$hints[] = $svg;
-		$svg = [];
-
-		$outer0 = 180-$angles[0];
-		$svg[] = 'Az $A$ csúcsnál lévő <b>'.$types[0].'</b> szög $'.($types[0]=='belső' ? $angles[0] : $outer0).'°$.';		
 		if ($types[0] == 'belső') {
-			$svg[] = 'Jelöljük ezt az ábrán:';
-			$svg[] = $this->DrawTriangle($angles[0]);
+			$hints[][] = 'Az $A$ csúcsnál lévő <b>belső</b> szög $'.$angles[0].'°$:'.$this->DrawTriangle($angles[0]);
 		} else {
-			$svg[] = 'Tudjuk, hogy a külső és belső szög összege $180°$, ezért a <b>belső</b> szög $180°-'.$outer0.'°='.$angles[0].'°$. Jelöljük ezt az ábrán:';
-			$svg[] = $this->DrawTriangle($angles[0], $outer0);
+			$outer0 = 180-$angles[0];
+			$hints[][] = 'Az $A$ csúcsnál lévő <b>külső</b> szög $'.$outer0.'°$:'.$this->DrawTriangle(NULL, $outer0);
+			$hints[][] = 'Tudjuk, hogy a külső és belső szög összege $180°$, ezért az $A$ csúcsnál lévő <b>belső</b> szög $180°-'.$outer0.'°='.$angles[0].'°$:'.$this->DrawTriangle($angles[0], $outer0);
 		}
 
-		$hints[] = $svg;
-		$svg = [];
-		
-		$outer1 = 180-$angles[1];
-		$svg[] = 'A $B$ csúcsnál lévő <b>'.$types[1].'</b> szög $'.($types[1]=='belső' ? $angles[1] : $outer1).'°$.';
 		if ($types[1] == 'belső') {
-			$svg[] = 'Jelöljük ezt az ábrán:';
-			$svg[] = $this->DrawTriangle($angles[0], 0, $angles[1]);
+			$hints[][] = 'A $B$ csúcsnál lévő <b>belső</b> szög $'.$angles[1].'°$:'.$this->DrawTriangle($angles[0], NULL, $angles[1]);
 		} else {
-			$svg[] = 'Tudjuk, hogy a külső és belső szög összege $180°$, ezért a <b>belső</b> szög $180°-'.$outer1.'°='.$angles[1].'°$. Jelöljük ezt az ábrán:';
-			$svg[] = $this->DrawTriangle($angles[0], 0, $angles[1], $outer1);
+			$outer1 = 180-$angles[1];
+			$hints[][] = 'A $B$ csúcsnál lévő <b>külső</b> szög $'.$outer1.'°$:'.$this->DrawTriangle($angles[0], NULL, NULL, $outer1);
+			$hints[][] = 'Tudjuk, hogy a külső és belső szög összege $180°$, ezért a $B$ csúcsnál lévő <b>belső</b> szög $180°-'.$outer1.'°='.$angles[1].'°$:'.$this->DrawTriangle($angles[0], NULL, $angles[1], $outer1);
 		}
 
-		$hints[] = $svg;
-		$svg = [];
-
-		$svg[] = 'Tudjuk, hogy a háromszög belső szögeinek összege $180°$. Ezért a $C$ csúcsnál lévő <b>belső</b> szöget a következőképpen számolhatjuk ki:$$180°-'.$angles[0].'°-'.$angles[1].'°='.$angles[2].'°$$';
-		$svg[] = 'Jelöljük ezt az ábrán:';
-		$svg[] = $this->DrawTriangle($angles[0], 0, $angles[1], 0, $angles[2]);
-
-		$hints[] = $svg;
-		$svg = [];
-		
 		if ($types[2] == 'belső') {
-
-			$svg[] = 'Tehát a $C$ csúcs <b>belső</b> szöge <span class="label label-success">$'.$angles[2].'°$</span>.';
-
-			$hints[] = $svg;
-			$svg = [];
-
+			$hints[][] = 'Tudjuk, hogy a háromszög belső szögeinek összege $180°$. Ezért a $C$ csúcsnál lévő <b>belső</b> szög $180°-'.$angles[0].'°-'.$angles[1].'°=$<span class="label label-success">$'.$angles[2].'°$</span>.'.$this->DrawTriangle($angles[0], NULL, $angles[1], NULL, $angles[2]);
 		} else {
-
 			$outer2 = 180-$angles[2];
-			$svg[] = 'Tudjuk, hogy a külső és belső szög összege $180°$, ezért a $C$ csúcsnál lévő <b>külső</b> szög $180°-'.$outer2.'°='.$angles[2].'°$. Jelöljük ezt az ábrán:';
-			$svg[] = $this->DrawTriangle($angles[0], 0, $angles[1], 0, $angles[2], $outer2);
-			$hints[] = $svg;
-			$svg = [];
-
-			$svg[] = 'Tehát a $C$ csúcs <b>külső</b> szöge <span class="label label-success">$'.$outer2.'°$</span>.';
-			$hints[] = $svg;
-			$svg = [];
+			$hints[][] = 'Tudjuk, hogy a háromszög belső szögeinek összege $180°$. Ezért a $C$ csúcsnál lévő <b>belső</b> szög $180°-'.$angles[0].'°-'.$angles[1].'°='.$angles[2].'°$.'.$this->DrawTriangle($angles[0], NULL, $angles[1], NULL, $angles[2]);
+			$hints[][] = 'Tudjuk, hogy a külső és belső szög összege $180°$, ezért a $C$ csúcsnál lévő <b>külső</b> szög $180°-'.$angles[2].'°=$<span class="label label-success">$'.$outer2.'°$</span>.'.$this->DrawTriangle($angles[0], NULL, $angles[1], NULL, $angles[2], $outer2);
 		}
 
 		return $hints;
 	}
 
 	// Draw triangle (svg)
-	function DrawTriangle($Ca=NULL,$Caa=NULL,$Cb=NULL,$Cbb=NULL,$Cc=NULL,$Ccc=NULL) { // captions (c) for inner (a) and outer (aa) angles
+	// captions (C) for inner (a/b/c) and outer (aa/bb/cc) angles
+	function DrawTriangle($Ca=NULL,$Caa=NULL,$Cb=NULL,$Cbb=NULL,$Cc=NULL,$Ccc=NULL) {
 
 		$width 		= 400;
 		$height 	= 300;
