@@ -38,7 +38,6 @@ class Egyenlet1 {
 		// $d = 0;
 		// $c = $a*$x1*$x2+$d;
 
-
 		$equation = $this->Equation($a, $b, $c, $d, $x1, $x2);
 
 		$question = 'Oldja meg '.The($a).' $'.$equation.'$ egyenletet a valós számok halmazán!';
@@ -76,7 +75,7 @@ class Egyenlet1 {
 		}
 
 		$text = [];
-		$text[] = 'Írjuk fel az $ax^2+bx+c=0$ másodfokú egyenlet megoldóképetét:$$x_{1,2}=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$$';
+		$text[] = '<div class="alert alert-info"><b>Megoldóképlet:</b><br />Az $a\cdot x^2+b\cdot x+c=0$ alakú másodfokú egyenlet megoldásai:$$x_{1,2}=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$$</div>';
 
 		if ($d != 0) {
 			$text[] = 'Az egyenletet az előbb a következő alakra egyszerűsítettűk:$$'.$equation2.'$$';
@@ -97,8 +96,7 @@ class Egyenlet1 {
 			$text[] = 'Ezt kiszámolva az egyik megoldás <span class="label label-success">$'.$x1.'$</span>,'
 			.' a másik pedig <span class="label label-success">$'.$x2.'$</span>.';	
 		} else {
-			$text[] = 'Ezt kiszámolva a megoldás <span class="label label-success">$'.$x1.'$</span>,'
-			.' a másik pedig <span class="label label-success">$'.$x2.'$</span>.';
+			$text[] = 'Ezt kiszámolva az egyenlet megoldása <span class="label label-success">$'.$x1.'$</span>.';
 		}
 
 		$text[] = $this->SolverDetails($a, $aa, $b, $bb, $c, $cc);
@@ -168,7 +166,7 @@ class Egyenlet1 {
 				.strval(intval((-$b-sqrt($sqr))/(2*$a))).'$$';
 		} else {
 
-			$text[] = 'Mivel a gyökjel alatti kifejezés értéke $0$, az egyenletnek csak egyik megoldása van:$$'
+			$text[] = 'Mivel a gyökjel alatti kifejezés értéke $0$, az egyenletnek csak egy megoldása van:$$'
 				.'x=\frac{-'.$bb.'}{2'.$aa.'}='
 				.'\frac{'.strval(-$b).'}{'.strval(2*$a).'}='
 				.strval(intval(-$b/2/$a)).'$$';
