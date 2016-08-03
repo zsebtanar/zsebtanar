@@ -32,7 +32,7 @@ class Egyenes_forditott {
 				} else {
 					$fun = $const.'x';
 				}
-				$correct 	= 0;
+				$correct = 0;
 				break;
 			
 			case 1:
@@ -47,15 +47,26 @@ class Egyenes_forditott {
 				break;
 
 			case 2:
-				$fun 		= ($const < 0 ? '-' : '').'\frac{'.abs($const).'}{x}';
-				$correct 	= 1;
+				$fun = ($const < 0 ? '-' : '').'\frac{'.abs($const).'}{x}';
+				$correct = 1;
 				break;
 
 			case 3:
-				$fun 		= $const.($sgn2 == 0 ? '+' : '-').'x';
-				$correct 	= 2;
+				$fun = $const.($sgn2 == 0 ? '+' : '-').'x';
+				$correct = 2;
 				break;
 		}
+
+		// Original exercise
+		$type 	= 3;
+		$const 	= 5;
+		$sgn2 	= 1;
+
+		$funs = ['-5x','5\sqrt{x}','\frac{5}{x}','5-x'];
+		$corrects = [0,2,1,2];
+
+		$fun = $funs[$type];
+		$correct = $corrects[$type];
 
 		$question 	= 'Az alábbi függvény a pozitív számok halmazán értelmezett:$$f(x)='.$fun.'$$Milyen arányosságot ír le a függvény?';
 		$solution 	= $options[$correct];
@@ -83,44 +94,65 @@ class Egyenes_forditott {
 		list($y1, $fun1) = $this->GetFunValue($sgn2, $const, $type, $x);
 		list($y2, $fun2) = $this->GetFunValue($sgn2, $const, $type, $x*$mult);
 
-		$text[] = 'Az <b>egyenes arányosság</b> azt jelenti, hogy ahányszor megnövelem az $x$ értékét, '
-			.'az $f(x)$ értéke is annyiszorosára nő:$$f(c\cdot x)=c\cdot f(x)$$';
-
-		$text[] = 'Az <b>fordítot arányosság</b> azt jelenti, hogy ahányszor megnövelem az $x$ értékét, '
-			.'az $f(x)$ értéke annyiadrészére csökken:$$f(c\cdot x)=\frac{1}{c}\cdot f(x)$$';
-
+		$text[] = 'Számoljuk ki a függvény értékét valahol, pl. az $x='.$x.'$ helyen:$$f('.$x.')='.$fun1.'$$';
+		$text[] = 'Most szorozzuk meg az $x$ értékét pl. $'.$mult.'$-'.With($mult).': '
+			.'$$'.$mult.'\cdot x='.strval($x*$mult).'$$';
+		$text[] = 'Számoljuk ki itt is a függvény értékét:'
+			.'$$f('.$mult.'\cdot'.$x.')=f('.strval($x*$mult).')='.$fun2.'$$';
 		$hints[] = $text;
 		$text = [];
 
-		$text[] = 'Számoljuk ki a függvény értékét valahol, pl. az $x='.$x.'$ helyen:$$f('.$x.')='.$fun1.'$$';
-
-		$text[] = 'Most szorozzuk meg az $x$ értékét pl. $'.$mult.'$-'.With($mult).': '
-			.'$$x\cdot'.$mult.'='.$x.'\cdot'.$mult.'='.strval($x*$mult).'$$';
-
-		$text[] = 'Számoljuk ki itt is a függvény értékét:'
-			.'$$f('.$mult.'\cdot x)=f('.strval($x*$mult).')='.$fun2.'$$';
-
 		if ($type == 0) {
-			$text[] = 'Ez az érték pont $'.$mult.'$-'.Times($mult).' akkora, mint az eredeti érték, ugyanis:'
-				.'$$'.$mult.'\cdot'.($y1 < 0 ? '('.$y1.')' : $y1).'='.$y2.'$$';
+
+			$text[] = 'A <b>fordított arányosság</b> azt jelenti, hogy ahányszor megnövelem az $x$ értékét, '
+				.'az $f(x)$ értéke annyiadrészére csökken:$$f('.$mult.'\cdot x)=\frac{1}{'.$mult.'}\cdot f(x)$$';
+			$text[] = 'Ez most nem teljesül, mert: $$'.$y2.'\neq\frac{1}{'.$mult.'}\cdot '.($y1>=0 ? $y1 : '('.$y1.')').'$$';
+			$text[] = 'Tehát a függvény nem fordított arányosságot ír le.';
+			$hints[] = $text;
+			$text = [];
+
+			$text[] = 'Az <b>egyenes arányosság</b> azt jelenti, hogy ahányszor megnövelem az $x$ értékét, '
+				.'az $f(x)$ értéke is annyiszorosára nő:$$f('.$mult.'\cdot x)='.$mult.'\cdot f(x)$$';
+			$text[] = 'Ez most teljesül, mert: $$'.$y2.'='.$mult.'\cdot '.($y1>=0 ? $y1 : '('.$y1.')').'$$';
 			$text[] = 'Könnyen belátható, hogy ez nem csak az $x='.$x.'$-re igaz, hanem akármelyik $x$-re.';
 			$text[] = 'Tehát a függvény <span class="label label-success">egyenes arányosságot</span> ír le.';
+			$hints[] = $text;
+			$text = [];
+
 		} elseif ($type == 2) {
-			$text[] = 'Ez az érték pont $'.$mult.'$-'.Fraction($mult).'akkora, mint az eredeti érték, ugyanis:'
-				.'$$\frac{1}{'.$mult.'}\cdot'.($y1 < 0 ? '('.$fun1.')' : $fun1 ).'='.$fun2.'$$';
+
+			$text[] = 'Az <b>egyenes arányosság</b> azt jelenti, hogy ahányszor megnövelem az $x$ értékét, '
+				.'az $f(x)$ értéke is annyiszorosára nő:$$f('.$mult.'\cdot x)='.$mult.'\cdot f(x)$$';
+			$text[] = 'Ez most nem teljesül, mert: $$'.$y2.'\neq'.$mult.'\cdot '.($y1>=0 ? $y1 : '('.$y1.')').'$$';
+			$text[] = 'Tehát a függvény nem egyenes arányosságot ír le.';
+			$hints[] = $text;
+			$text = [];
+
+			$text[] = 'A <b>fordított arányosság</b> azt jelenti, hogy ahányszor megnövelem az $x$ értékét, '
+				.'az $f(x)$ értéke annyiadrészére csökken:$$f('.$mult.'\cdot x)=\frac{1}{'.$mult.'}\cdot f(x)$$';
+			$text[] = 'Ez most teljesül, mert: $$'.$y2.'=\frac{1}{'.$mult.'}\cdot '.($y1>=0 ? $y1 : '('.$y1.')').'$$';
 			$text[] = 'Könnyen belátható, hogy ez nem csak az $x='.$x.'$-re igaz, hanem akármelyik $x$-re.';
 			$text[] = 'Tehát a függvény <span class="label label-success">fordított arányosságot</span> ír le.';
-		} else {
-			$text[] = 'Ez az érték nem $'.$mult.'$-'.Times($mult).' akkora, mint az eredeti érték, mert:'
-				.'$$'.$mult.'\cdot'.($y1 < 0 ? '('.$y1.')' : $y1).'\neq'.$y2.',$$'
-				.'azaz a függvény <b>nem</b> egyenes arányosságot ír le.';
-			$text[] = 'Viszont ez az érték nem is $'.$mult.'$-'.Fraction($mult).' akkora, mint az eredeti érték, mert:'
-				.'$$\frac{1}{'.$mult.'}\cdot'.($y1 < 0 ? '('.$y1.')' : $y1 ).'\neq'.$y2.'$$'
-				.'vagyis a függvény <b>nem</b> fordított arányosságot ír le.';
-			$text[] = 'Tehát a függvény <span class="label label-success">egyik arányosságot sem</span> írja le.';
-		}
+			$hints[] = $text;
+			$text = [];
 
-		$hints[] = $text;
+		} else {
+
+			$text[] = 'Az <b>egyenes arányosság</b> azt jelenti, hogy ahányszor megnövelem az $x$ értékét, '
+				.'az $f(x)$ értéke is annyiszorosára nő:$$f('.$mult.'\cdot x)='.$mult.'\cdot f(x)$$';
+			$text[] = 'Ez most nem teljesül, mert: $$'.$y2.'\neq'.$mult.'\cdot '.($y1>=0 ? $y1 : '('.$y1.')').'$$';
+			$text[] = 'Tehát a függvény nem egyenes arányosságot ír le.';
+			$hints[] = $text;
+			$text = [];
+
+			$text[] = 'A <b>fordított arányosság</b> azt jelenti, hogy ahányszor megnövelem az $x$ értékét, '
+				.'az $f(x)$ értéke annyiadrészére csökken:$$f('.$mult.'\cdot x)=\frac{1}{'.$mult.'}\cdot f(x)$$';
+			$text[] = 'Ez most nem teljesül, mert: $$'.$y2.'\neq\frac{1}{'.$mult.'}\cdot '.($y1>=0 ? $y1 : '('.$y1.')').'$$';
+			$text[] = 'Tehát a függvény nem fordított arányosságot ír le.';
+			$text[] = 'Tehát a függvény <span class="label label-success">egyik arányosságot sem</span> írja le.';
+			$hints[] = $text;
+			$text = [];		
+		}
 
 		return $hints;
 	}
