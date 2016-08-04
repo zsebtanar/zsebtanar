@@ -26,9 +26,9 @@ class Haromszog_szogei {
 		$types[1] 	= $options[rand(0,1)];
 		$types[2] 	= $options[rand(0,1)];
 
-		// Original exercise
-		$types 	= ['külső', 'belső', 'külső'];
-		$angles = [76, 74, 30];
+		// // Original exercise
+		// $types 	= ['külső', 'belső', 'külső'];
+		// $angles = [76, 74, 30];
 
 		$question = 'Egy $ABC$ háromszög $A$ csúcsnál lévő <b>'.$types[0].'</b> szöge $'
 			.($types[0] == 'belső' ? $angles[0] : strval(180-$angles[0])).'°$-os, '
@@ -44,6 +44,7 @@ class Haromszog_szogei {
 			'question' 	=> $question,
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
+			'labels'	=> ['right' => '$°$'],
 			'hints'		=> $hints
 		);
 	}
