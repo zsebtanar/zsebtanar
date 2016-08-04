@@ -22,11 +22,11 @@ class Osztok {
 			list($num2, $factors2) = $this->GetNumber($level);
 		}
 
-		// Original exercise
-		$num1 = 28;
-		$num2 = 49;
-		$factors1 = [2,2,7];
-		$factors2 = [7,7];
+		// // Original exercise
+		// $num1 = 28;
+		// $num2 = 49;
+		// $factors1 = [2,2,7];
+		// $factors2 = [7,7];
 
 		$divisors1 = divisors($num1);
 		$divisors2 = divisors($num2);
@@ -35,7 +35,7 @@ class Osztok {
 
 		$question = 'Az $A$ halmaz elemei '.The($num1).' $'.$num1.'$ pozitív osztói, '
 			.'a $B$ halmaz elemei '.The($num2).' $'.$num2.'$ pozitív osztói. '
-			.'Adja meg '.($operation == 'B\setminus A' ? 'a' : 'az').' $'.$operation.'$ halmazt elemei felsorolásával! <i>(Például: 2;3;4)</i>';
+			.'Adja meg '.($operation == 'B\setminus A' ? 'a' : 'az').' $'.$operation.'$ halmazt elemei felsorolásával! <i>(Például: $\{2;3;4\}$)</i>';
 		$correct = $result;
 		$solution = '$'.implode("$$;$$", $result).'$';
 
@@ -47,6 +47,7 @@ class Osztok {
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
 			'hints'		=> $hints,
+			'labels'	=> ['left' => '$\{$', 'right' => '$\}$'],
 			'type'		=> 'list2'
 		);
 	}
@@ -91,9 +92,9 @@ class Osztok {
 
 			$operation = $operations[0];
 
-			// Original exercise
+			// // Original exercise
 			// $operation = 'A\cap B';
-			$operation = 'B\setminus A';
+			// $operation = 'B\setminus A';
 
 			switch ($operation) {
 				case 'A\setminus B': // A\B
@@ -132,7 +133,7 @@ class Osztok {
 		}
 
 		if (count($right) > 0) {
-			$hints[][] = 'Azokat az osztókat, amik benne vannak a $B$ halmazban, de nincsenek benne a $B$-ben, a <b>jobb</b> oldalra írjuk:'.$this->VennDiagram($left, [], $right);
+			$hints[][] = 'Azokat az osztókat, amik benne vannak a $B$ halmazban, de nincsenek benne az $A$-ban, a <b>jobb</b> oldalra írjuk:'.$this->VennDiagram($left, [], $right);
 		}
 
 		if (count($center) > 0) {
@@ -156,7 +157,7 @@ class Osztok {
 
 		$hints[][] = $text.$this->VennDiagram($left, $center, $right, $operation);
 
-		$hints[][] = 'Tehát '.($operation == 'B\setminus A' ? 'a' : 'az').' $'.$operation.'$ halmaz elemei <span class="label label-success">$'.implode(";", $result).'$</span>.';
+		$hints[][] = 'Tehát '.($operation == 'B\setminus A' ? 'a' : 'az').' $'.$operation.'$ halmaz '.(count($result)==1 ? 'eleme' : 'elemei').': <span class="label label-success">$\{'.implode(";", $result).'\}$</span>.';
 
 		return $hints;
 	}
