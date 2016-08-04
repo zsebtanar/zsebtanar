@@ -57,16 +57,16 @@ class Egyenes_forditott {
 				break;
 		}
 
-		// Original exercise
-		$type 	= 3;
-		$const 	= 5;
-		$sgn2 	= 1;
+		// // Original exercise
+		// $type 	= 3;
+		// $const 	= 5;
+		// $sgn2 	= 1;
 
-		$funs = ['-5x','5\sqrt{x}','\frac{5}{x}','5-x'];
-		$corrects = [0,2,1,2];
+		// $funs = ['-5x','5\sqrt{x}','\frac{5}{x}','5-x'];
+		// $corrects = [0,2,1,2];
 
-		$fun = $funs[$type];
-		$correct = $corrects[$type];
+		// $fun = $funs[$type];
+		// $correct = $corrects[$type];
 
 		$question 	= 'Az alábbi függvény a pozitív számok halmazán értelmezett:$$f(x)='.$fun.'$$Milyen arányosságot ír le a függvény?';
 		$solution 	= $options[$correct];
@@ -107,14 +107,14 @@ class Egyenes_forditott {
 			$text[] = 'A <b>fordított arányosság</b> azt jelenti, hogy ahányszor megnövelem az $x$ értékét, '
 				.'az $f(x)$ értéke annyiadrészére csökken:$$f('.$mult.'\cdot x)=\frac{1}{'.$mult.'}\cdot f(x)$$';
 			$text[] = 'Ez most nem teljesül, mert: $$'.$y2.'\neq\frac{1}{'.$mult.'}\cdot '.($y1>=0 ? $y1 : '('.$y1.')').'$$';
-			$text[] = 'Tehát a függvény nem fordított arányosságot ír le.';
+			$text[] = 'Tehát a függvény <span class="label label-danger">nem</span> fordított arányosságot ír le.';
 			$hints[] = $text;
 			$text = [];
 
 			$text[] = 'Az <b>egyenes arányosság</b> azt jelenti, hogy ahányszor megnövelem az $x$ értékét, '
 				.'az $f(x)$ értéke is annyiszorosára nő:$$f('.$mult.'\cdot x)='.$mult.'\cdot f(x)$$';
 			$text[] = 'Ez most teljesül, mert: $$'.$y2.'='.$mult.'\cdot '.($y1>=0 ? $y1 : '('.$y1.')').'$$';
-			$text[] = 'Könnyen belátható, hogy ez nem csak az $x='.$x.'$-re igaz, hanem akármelyik $x$-re.';
+			$text[] = 'Könnyen belátható, hogy ez nem csak az $x='.$x.'$-'.On($x).' igaz, hanem akármelyik $x$-re.';
 			$text[] = 'Tehát a függvény <span class="label label-success">egyenes arányosságot</span> ír le.';
 			$hints[] = $text;
 			$text = [];
@@ -123,15 +123,15 @@ class Egyenes_forditott {
 
 			$text[] = 'Az <b>egyenes arányosság</b> azt jelenti, hogy ahányszor megnövelem az $x$ értékét, '
 				.'az $f(x)$ értéke is annyiszorosára nő:$$f('.$mult.'\cdot x)='.$mult.'\cdot f(x)$$';
-			$text[] = 'Ez most nem teljesül, mert: $$'.$y2.'\neq'.$mult.'\cdot '.($y1>=0 ? $y1 : '('.$y1.')').'$$';
-			$text[] = 'Tehát a függvény nem egyenes arányosságot ír le.';
+			$text[] = 'Ez most nem teljesül, mert: $$'.$fun2.'\neq'.$mult.'\cdot '.($y1>=0 ? $fun1 : '('.$fun1.')').'$$';
+			$text[] = 'Tehát a függvény <span class="label label-danger">nem</span> egyenes arányosságot ír le.';
 			$hints[] = $text;
 			$text = [];
 
 			$text[] = 'A <b>fordított arányosság</b> azt jelenti, hogy ahányszor megnövelem az $x$ értékét, '
 				.'az $f(x)$ értéke annyiadrészére csökken:$$f('.$mult.'\cdot x)=\frac{1}{'.$mult.'}\cdot f(x)$$';
-			$text[] = 'Ez most teljesül, mert: $$'.$y2.'=\frac{1}{'.$mult.'}\cdot '.($y1>=0 ? $y1 : '('.$y1.')').'$$';
-			$text[] = 'Könnyen belátható, hogy ez nem csak az $x='.$x.'$-re igaz, hanem akármelyik $x$-re.';
+			$text[] = 'Ez most teljesül, mert: $$'.$fun2.'=\frac{1}{'.$mult.'}\cdot '.($fun1>=0 ? $fun1 : '('.$fun1.')').'$$';
+			$text[] = 'Könnyen belátható, hogy ez nem csak az $x='.$x.'$-'.On($x).' igaz, hanem akármelyik $x$-re.';
 			$text[] = 'Tehát a függvény <span class="label label-success">fordított arányosságot</span> ír le.';
 			$hints[] = $text;
 			$text = [];
@@ -141,14 +141,14 @@ class Egyenes_forditott {
 			$text[] = 'Az <b>egyenes arányosság</b> azt jelenti, hogy ahányszor megnövelem az $x$ értékét, '
 				.'az $f(x)$ értéke is annyiszorosára nő:$$f('.$mult.'\cdot x)='.$mult.'\cdot f(x)$$';
 			$text[] = 'Ez most nem teljesül, mert: $$'.$y2.'\neq'.$mult.'\cdot '.($y1>=0 ? $y1 : '('.$y1.')').'$$';
-			$text[] = 'Tehát a függvény nem egyenes arányosságot ír le.';
+			$text[] = 'Tehát a függvény <span class="label label-danger">nem</span> egyenes arányosságot ír le.';
 			$hints[] = $text;
 			$text = [];
 
 			$text[] = 'A <b>fordított arányosság</b> azt jelenti, hogy ahányszor megnövelem az $x$ értékét, '
 				.'az $f(x)$ értéke annyiadrészére csökken:$$f('.$mult.'\cdot x)=\frac{1}{'.$mult.'}\cdot f(x)$$';
 			$text[] = 'Ez most nem teljesül, mert: $$'.$y2.'\neq\frac{1}{'.$mult.'}\cdot '.($y1>=0 ? $y1 : '('.$y1.')').'$$';
-			$text[] = 'Tehát a függvény nem fordított arányosságot ír le.';
+			$text[] = 'Tehát a függvény <span class="label label-danger">nem</span> fordított arányosságot ír le.';
 			$text[] = 'Tehát a függvény <span class="label label-success">egyik arányosságot sem</span> írja le.';
 			$hints[] = $text;
 			$text = [];		
