@@ -27,6 +27,10 @@ class Egyenlet {
 			$abs_val = rand(1,15);
 		}
 
+		// Original exercise
+		$diff = 2;
+		$abs_val = 6;
+
 		$solution1 = $abs_val-$diff;
 		$solution2 = -$abs_val-$diff;
 
