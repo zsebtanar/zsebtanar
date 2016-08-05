@@ -28,6 +28,9 @@ class Gyok_teszt2 {
 
 		$subtype = rand(1,4);
 
+		// // Original exercise
+		// $subtype = 1;
+
 		if ($subtype == 1) {
 
 			$question .= '<br /><br /><div class="text-center">Minden $x\in\mathbf{R}$ esetén '.

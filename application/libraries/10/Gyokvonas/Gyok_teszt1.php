@@ -28,6 +28,10 @@ class Gyok_teszt1 {
 
 		$subtype = rand(1,2);
 
+		// // Original exercise
+		// $num = 5;
+		// $subtype = 1;
+
 		if ($subtype == 1) {
 			$question .= '$$\sqrt{(-'.$num.')^2}='.$num.'$$';
 			$answer = TRUE;

@@ -28,6 +28,10 @@ class Gyok_teszt3 {
 
 		$subtype = rand(1,4);
 
+		// // Original exercise
+		// $num = 5;
+		// $subtype = 1;
+
 		if ($subtype == 1) {
 
 			$question .= '$$2^\frac{'.$num.'}{2}=\sqrt{'.strval(pow(2,$num)).'}$$';
