@@ -33,7 +33,10 @@ class Reszhalmazok {
 		$set = $this->Set($numbers, $set_size);
 		$subset = NumText($subset_size);
 
-		$num = rand(max(0,2*($level-2)), min(20,3*$level));
+		// // Original exercise
+		// $set_size = 5;
+		// $set = [2,3,5,7,11];
+		// $subset = 'kettő';
 
 		$question = 'Hány darab '.($subset == 'kettő' ? 'két' : $subset).'elemű részhalmaza van '
 			.The($set[0]).' $\{'.implode(";", $set).'\}$ halmaznak?';
@@ -71,12 +74,10 @@ class Reszhalmazok {
 		$page[] = '$'.$n.'$ elem közül $'.$k.'$ különböző darabot '
 			.'${'.$n.'\choose '.$k.'}$-féleképpen (ejtsd: <i>"'.$n.' alatt a '
 			.$k.'"</i>) lehet kiválasztani.';
-		$page[] = '$${'.$n.'\choose '.$k.'}=\frac{'.$n.'!}{'.$n.'!('
+		$page[] = '$${'.$n.'\choose '.$k.'}=\frac{'.$n.'!}{'.$k.'!('
 			.$n.'-'.$k.')!}=\frac{'.strval(fact($n)).'}{'
-			.strval(fact($n)).'\cdot'.strval(fact($n-$k)).'}='.$binom.'$$';
-		$page[] = '<b>Megjegyzés</b>: az eredményt számológéppel a <kbd>nCr</kbd> gombbal lehet kiszámolni: '
-			.'<kbd>'.$n.'</kbd> <kbd>Shift</kbd> <kbd>nCr</kbd> <kbd>'.$k.'</kbd> <kbd>=</kbd> '
-			.'<kbd>'.$binom.'</kbd>.';
+			.strval(fact($k)).'\cdot'.strval(fact($n-$k)).'}='.$binom.'$$';
+		$page[] = '<b>Megjegyzés</b>: az eredményt számológéppel a <b>nCr</b> gombbal lehet kiszámolni:<div class="text-center"><kbd>'.$n.'</kbd> <kbd>Shift</kbd> <kbd>nCr</kbd> <kbd>'.$k.'</kbd> <kbd>=</kbd></div>';
 		$page[] = 'Tehát a részhalmazok száma <span class="label label-success">$'.$binom.'$</span>.';
 
 		$hints[] = $page;
