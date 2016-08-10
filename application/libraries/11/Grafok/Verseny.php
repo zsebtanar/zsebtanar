@@ -26,6 +26,12 @@ class Verseny {
 
 		$names 		= $this->Names($num);
 		$degrees 	= $this->Degrees($level, $num);
+
+		// // Original exercise
+		// $num = 7;
+		// $names = ['Anita', 'Orsi', 'Gabi', 'Szilvi', 'Kati', 'Zsuzsa', 'Flóra'];
+		// $degrees = [6,1,1,1,1,2,2];
+
 		$question 	= $this->Question($names, $degrees);
 		$hints 		= $this->Hints($names, $degrees);
 
