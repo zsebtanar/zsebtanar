@@ -48,7 +48,7 @@ class Sorozatok {
 
 		} else {
 			
-			$CI->load->library('19/Statisztika/Median_atlag', NULL, 'Median_atlag');
+			$CI->load->library('9/Statisztika/Median_atlag', NULL, 'Median_atlag');
 			$data = $CI->Median_atlag->Generate($level);
 
 		}
