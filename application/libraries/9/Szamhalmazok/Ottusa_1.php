@@ -22,6 +22,10 @@ class Ottusa_1 {
 		$sec = ($min == 5 && $sec < 66 ? 66 : $sec);
 		$sec = ($min == 9 && $sec >= 33 ? rand(0,32) : $sec);
 
+		// // Original exercise
+		// $min = 6;
+		// $sec = 28;
+
 		$question = 'Az öttusa úszás számában $200$ métert kell úszni. Az elért időeredményekért járó pontszámot mutatja a grafikon.';
 		$question .= $this->Graph();
 

@@ -21,9 +21,17 @@ class Ottusa_pontok1 {
 		$rounds = rand(round($ppl/2), round($ppl*4/5));
 		$default = rand(3,7)*50;
 		$extra = rand(5,9);
-
 		$total = $ppl-1;
 		$wins = rand(0, $total);
+
+		// // Original exercise
+		// $ppl = 31;
+		// $rounds = 21;
+		// $default = 250;
+		// $extra = 7;
+		// $total = $ppl-1;
+		// $wins = 25;
+
 		$wins = ($wins == $rounds ? $wins+pow(-1,rand(0,1)) : $wins);
 		$defeats = $total - $wins;
 		$points = $default+($wins-$rounds)*$extra;
@@ -40,6 +48,7 @@ class Ottusa_pontok1 {
 
 		if ($diff > 0) {
 
+			$page[] = 'Mivel mindenki mindenkivel vívott, ezért Péternek összesen $'.$ppl.'-1='.$total.'$ mérkőzése volt.';
 			$page[] = 'Péter $'.$total.'$ mérkőzésből $'.$defeats.'$-'.Dativ($defeats).' vesztett el, azaz a többi $'.$total.'-'.$defeats.'='.$wins.'$ mérkőzést megnyerte.';
 			$page[] = 'Mivel Péter legalább $'.$rounds.'$ mérkőzést nyert, ezért kap $'.$default.'$ pontot.';
 			$page[] = 'Az előírt $'.$rounds.'$ mérkőzésen túl további $'.$wins.'-'.$rounds.'='.$diff.'$ alkalommal nyert, ami további $'.$diff.'\cdot'.$extra.'='.strval($diff*$extra).'$ pontot jelent.';
@@ -49,6 +58,7 @@ class Ottusa_pontok1 {
 		} else {
 
 			$diff *= -1;
+			$page[] = 'Mivel mindenki mindenkivel vívott, ezért Péternek összesen $'.$ppl.'-1='.$total.'$ mérkőzése volt.';
 			$page[] = 'Péter győztes meccseinek száma $'.$rounds.'$ helyett mindössze $'.$wins.'$ volt, ami $'.$diff.'$-'.With($diff).' kevesebb.';
 			$page[] = 'Ezért a $'.$default.'$ pontnál $'.$diff.'\cdot'.$extra.'='.strval($diff*$extra).'$-'.By($diff*$extra).' kevesebb pontot kap.';
 			$page[] = 'Tehát Péter összesen $'.$default.'-'.strval($diff*$extra).'=$ <span class="label label-success">$'.$correct.'$</span> pontot kapott.';

@@ -29,6 +29,9 @@ class Ottusa_2 {
 
 		$point = rand(314, 322);
 
+		// // Original exercise
+		// $point = 317;
+
 		$question .= 'Péter $'.$point.'$ pontot kapott. Az alábbiak közül válassza ki Péter összes lehetséges időeredményét!';
 		list($options, $correct, $times) = $this->Options($point);
 		$solution = '';
@@ -36,7 +39,7 @@ class Ottusa_2 {
 
 		foreach ($times as $time) {
 			$point2 = $CI->ottusa->Point($time[0], $time[1]);
-			$hints[][] = 'Ha Péter időeredménye $2$ perc $'.$time[0].','.($time[1] == 0 ? '00' : $time[1]).'$ lett volna, akkor $'.$point2.'$ pontot kapott volna, tehát ez egy '.($point2 == $point ? '<span class="label label-success">jó</span>' : '<span class="label label-danger">rossz</span>').' megoldás.'.$CI->ottusa->Graph($time[0], $time[1], $point2);
+			$hints[][] = 'Ha Péter időeredménye $2$ perc $'.$time[0].','.($time[1] == 0 ? '00' : $time[1]).'$ mp lett volna, akkor $'.$point2.'$ pontot kapott volna, tehát ez egy '.($point2 == $point ? '<span class="label label-success">jó</span>' : '<span class="label label-danger">rossz</span>').' megoldás.'.$CI->ottusa->Graph($time[0], $time[1], $point2);
 		}
 
 		return array(
@@ -89,6 +92,13 @@ class Ottusa_2 {
 		}
 
 		shuffle($times);
+
+		// // Original exercise
+		// $times = [];
+		// $times[] = [7,00];
+		// $times[] = [7,60];
+		// $times[] = [7,80];
+		// $times[] = [8,00];
 
 		foreach ($times as $time) {
 			

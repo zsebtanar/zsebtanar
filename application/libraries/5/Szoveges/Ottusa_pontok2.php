@@ -21,9 +21,17 @@ class Ottusa_pontok2 {
 		$rounds = rand(round($ppl/2), round($ppl*4/5));
 		$default = rand(3,7)*50;
 		$extra = rand(5,9);
-
 		$total = $ppl-1;
 		$wins = rand(0, $total);
+
+		// // Original exercise
+		// $ppl = 31;
+		// $rounds = 21;
+		// $default = 250;
+		// $extra = 7;
+		// $total = $ppl-1;
+		// $wins = 16;
+
 		$wins = ($wins == $rounds ? $wins+pow(-1,rand(0,1)) : $wins);
 		$defeats = $total - $wins;
 		$points = $default+($wins-$rounds)*$extra;
@@ -49,7 +57,7 @@ class Ottusa_pontok2 {
 			$diff *= -1;
 			$page[] = 'Bence $'.$default.'$ pontnál kevesebbet szerzett, ami azt jelenti, hogy kevesebb, mint $'.$rounds.'$ mérkőzést nyert.';
 			$page[] = 'Számoljuk ki, Bence pontjainak száma mennyivel kevesebb, mint $'.$default.'$:$$'.$default.'-'.$points.'='.strval($diff*$extra).'$$';
-			$page[] = 'Ha ezt a számot elosztjuk $'.$extra.'$-'.With($extra).', megkapjuk, hogy hány további versenyt nyert Bence:$$'.strval($diff*$extra).':'.$extra.'='.$diff.'$$';
+			$page[] = 'Ha ezt a számot elosztjuk $'.$extra.'$-'.With($extra).', megkapjuk, hogy hány további versenyt vesztett el Bence:$$'.strval($diff*$extra).':'.$extra.'='.$diff.'$$';
 			$page[] = 'Tehát Bencének összesen $'.$rounds.'-'.$diff.'=$ <span class="label label-success">$'.$correct.'$</span> győzelme volt.';
 			$hints[] = $page;
 
