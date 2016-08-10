@@ -19,6 +19,10 @@ class AFA {
 		$unit = rand($level, 3*$level)*10;
 		$vat = rand(3+$level, 9+3*$level);
 
+		// // Original exercise
+		// $unit = 50;
+		// $vat = 27;
+
 		$price = (100+$vat)*$unit;
 
 		$question = 'A ruházati cikkek nettó árát $'.$vat.'\%$-kal növeli meg az áfa (általános forgalmi adó). A nettó
@@ -33,6 +37,7 @@ Hány forint áfát tartalmaz a nadrág ára?';
 			'question' 	=> $question,
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
+			'labels'	=> ['right' => '$\text{Ft}$'],
 			'hints'		=> $hints
 		);
 	}
