@@ -31,6 +31,13 @@ class Oszthatosag {
 		$option2 = (rand(1,2) == 1 ? 'pozitív' : 'nemnegatív');
 		$option3 = (rand(1,2) == 1 ? 'páros' : 'páratlan');
 
+		// // Original exercise
+		// $num = 50;
+		// $divisor = 4;
+		// $option1 = 'nem nagyobb';
+		// $option2 = 'pozitív';
+		// $option3 = 'páros';
+
 		$divisors = array(
 			'nullával',
 			'eggyel',
@@ -46,7 +53,7 @@ class Oszthatosag {
 
 		list($hints, $good, $total) = $this->Hints($num, $option1, $option2, $option3, $divisor);
 
-		$question = strtoupper(The($num)).' $'.$num.'$-'.By($num).' '.$option1.' '.$option2.' '
+		$question = The($num, TRUE).' $'.$num.'$-'.By($num).' '.$option1.' '.$option2.' '
 			.$option3.' számok közül egyet véletlenszerűen kiválasztunk. Mennyi a valószínűsége '
 			.'annak, hogy '.$divisors[$divisor].' osztható számot választunk?';
 		$correct = array($good, $total);
