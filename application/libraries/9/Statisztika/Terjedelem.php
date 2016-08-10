@@ -18,10 +18,12 @@ class Terjedelem {
 
 		$set = $this->Set($level);
 
+		// // Original exercise
+		// $set = [1,1,1,1,3,3,3,5,5,7];
+
 		$question = 'Határozza meg az alábbi adatsor terjedelmét!';
-		$correct = array(min($set), max($set));
-		$solution = 'az adatsor terjedelme: $['.min($set).';'.max($set).']$';
-		$type = 'range';
+		$correct = max($set)-min($set);
+		$solution = '$'.$correct.'$';
 		$hints = $this->Hints($set);
 
 		$question .= '$$'.implode(';', $set).'$$';
@@ -30,7 +32,6 @@ class Terjedelem {
 			'question' 	=> $question,
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
-			'type'		=> $type,
 			'hints' 	=> $hints
 		);
 	}
@@ -51,9 +52,9 @@ class Terjedelem {
 	function Hints($set) {
 
 		$page[] = 'A terjedelemhez meg kell határoznunk az adatsor minimumát és maximumát.';
-		$page[] = 'A minimum: $'.min($set).'$';
-		$page[] = 'A maximum: $'.max($set).'$';
-		$page[] = 'Az adatsor terjedelme: <span class="label label-success">$['.min($set).';'.max($set).']$</span>.';
+		$page[] = 'A minimum: $'.min($set).'$.';
+		$page[] = 'A maximum: $'.max($set).'$.';
+		$page[] = 'A terjedelem a kettő különbsége: $'.max($set).'-'.min($set).'=$<span class="label label-success">$'.strval(max($set)-min($set)).'$</span>.';
 		$hints[] = $page;
 
 		return $hints;

@@ -18,6 +18,9 @@ class Szoras {
 
 		$set = $this->Set($level);
 
+		// // Original exercise
+		// $set = [1,1,1,1,3,3,3,5,5,7];
+
 		$question = 'Határozza meg az alábbi adatsor szórását!';
 		$correct = stdev($set);
 		$solution = '$'.$correct.'$';

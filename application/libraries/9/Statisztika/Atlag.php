@@ -18,6 +18,9 @@ class Atlag {
 
 		$set = $this->Set($level);
 
+		// // Original exercise
+		// $set = [1,1,1,1,3,3,3,5,5,7];
+
 		$question = 'Határozza meg az alábbi adatsor átlagát!';
 		$correct = array_sum($set)/count($set);
 		$solution = '$'.$correct.'$';
