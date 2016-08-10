@@ -46,7 +46,7 @@ function DrawVector($Ax, $Ay, $Bx, $By, $color='black', $arrow_width=5, $width=1
 }
 
 // Draws an arc between P1, P2, P3 (P1 is the center)
-function DrawArc($x1, $y1, $x2, $y2, $x3, $y3, $radius, $modx=0, $mody=0, $text=NULL) {
+function DrawArc($x1, $y1, $x2, $y2, $x3, $y3, $radius, $modx=0, $mody=0, $text=NULL, $color1='black', $color2='none', $option1=0, $option2=0) {
 
   // Draw arc
   $P12 = sqrt(pow($y2-$y1,2) + pow($x2-$x1,2));
@@ -59,7 +59,7 @@ function DrawArc($x1, $y1, $x2, $y2, $x3, $y3, $radius, $modx=0, $mody=0, $text=
   $xx3 = $x1 + ($x3 - $x1)/$P13*$radius;
   $yy3 = $y1 + ($y3 - $y1)/$P13*$radius;
 
-  $svg = '<path stroke="black" fill="none" d="M'.$xx2.','.$yy2.' A'.$radius.','.$radius.' 0 0,0 '.$xx3.','.$yy3.'" />';
+  $svg = '<path stroke="'.$color1.'" fill="'.$color2.'" d="M'.$xx2.','.$yy2.' A'.$radius.','.$radius.' '.$option1.' '.$option2.',0 '.$xx3.','.$yy3.'" />';
 
   // Draw text
   if ($text) {
@@ -70,7 +70,12 @@ function DrawArc($x1, $y1, $x2, $y2, $x3, $y3, $radius, $modx=0, $mody=0, $text=
 
     $ccx = $x1 + ($cx - $x1)/$P1C*($radius+$modx);
     $ccy = $y1 + ($cy - $y1)/$P1C*($radius+$mody);
-    $svg .= '<text font-size="10" x="'.$ccx.'" y="'.$ccy.'" fill="black">$'.$text.'°$</text>';
+
+    if (is_numeric($text)) {
+      $svg .= '<text font-size="10" x="'.$ccx.'" y="'.$ccy.'" fill="black">$'.$text.'°$</text>';  
+    } else {
+      $svg .= '<text font-size="10" x="'.$ccx.'" y="'.$ccy.'" fill="black">'.$text.'</text>';
+    }
   }
 
   return $svg;
