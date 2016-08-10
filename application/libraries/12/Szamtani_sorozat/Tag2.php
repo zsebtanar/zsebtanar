@@ -18,6 +18,11 @@ class Tag2 {
 
 		$d = rand(-2*$level,2*$level);
 		$a0 = rand(-2*$level,2*$level);
+
+		// // Original exercise
+		// $d = -7;
+		// $a0 = 32;
+
 		$a1 = $a0 + $d;
 		$a2 = $a1 + $d;
 		$question = 'Egy számtani sorozat három egymást követő tagja ebben a sorrendben $'.$a0.';x$ és $'.$a2.'$. ';

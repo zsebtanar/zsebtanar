@@ -13,27 +13,32 @@ class Median_atlag {
 		return;
 	}
 
-	// Define member of arithmetic & geometric series
 	function Generate($level) {
 		
 		$a1 = rand(-10*$level,10*$level);
 		$a3 = rand(-10*$level,10*$level);
 		$a3 = (abs($a1-$a3) < 6 ? $a1 + 6 : $a3);
 		$a2 = ($a1 < $a3 ? rand($a1+1, $a3-1) : rand($a3+1, $a1-1));
+
+		// // Original exercise
+		// $a1 = 32;
+		// $a2 = 28;
+		// $a3 = 18;
+
 		$sum = $a1 + $a2 + $a3;
 		$a2 = ($a2 + 3 - $sum%3 >= max($a1, $a3) ? $a2 - $sum%3 : $a2 + 3 - $sum%3);
 
 		$avg = ($a1 + $a2 + $a3)/3;
 		$diff = $avg - $a2;
 
-		$question = strtoupper(The($a1)).' $'.$a1.';x$ és $'.$a3.'$ számokról tudjuk, hogy a három szám átlaga $'.abs($diff).'$-'.With(abs($diff)).' '.($diff > 0 ? 'nagyobb' : 'kisebb').', mint a mediánja, továbbá $'.$a1.($a1<$a3 ? '\lt ' : '\gt ').'x'.($a1<$a3 ? '\lt ' : '\gt ').$a3.'$. Határozza meg az $x$ értékét!';
+		$question = The($a1,TRUE).' $'.$a1.';x$ és $'.$a3.'$ számokról tudjuk, hogy a három szám átlaga $'.abs($diff).'$-'.With(abs($diff)).' '.($diff > 0 ? 'nagyobb' : 'kisebb').', mint a mediánja, továbbá $'.$a1.($a1<$a3 ? '\lt ' : '\gt ').'x'.($a1<$a3 ? '\lt ' : '\gt ').$a3.'$. Határozza meg az $x$ értékét!';
 		$correct = $a2;
 		$solution = '$'.$correct.'$';
 		$type = 'int';
 
 		$page[] = 'Írjuk fel az átlagot ($A$):$$'.($a3 > 0 ? 'A=\frac{'.$a1.'+x+'.$a3.'}{3}' : '\begin{eqnarray}A&=&\frac{'.$a1.'+x+('.$a3.')}{3}\\\\ &=&\frac{'.$a1.'+x'.$a3.'}{3}\end{eqnarray}').'$$';
 		$page[] = 'Három szám közül a medián ($M$) a nagyság szerinti középső, vagyis $M=x$.';
-		$page[] = 'A feladat szerint az átlag $'.abs($diff).'$-'.With(abs($diff)).' '.($diff > 0 ? 'nagyobb' : 'kisebb').', mint a medián, azaz:$$A=M'.($diff > 0 ? '-' : '+').abs($diff).'$$';
+		$page[] = 'A feladat szerint az átlag $'.abs($diff).'$-'.With(abs($diff)).' '.($diff > 0 ? 'nagyobb' : 'kisebb').', mint a medián, azaz:$$M=A'.($diff > 0 ? '-' : '+').abs($diff).'$$';
 		$hints[] = $page;
 
 		$page = [];
