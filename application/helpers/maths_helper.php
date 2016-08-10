@@ -576,7 +576,7 @@ function round1($num, $digits=2) {
 // Round number to given precision and replace '.' with ','
 function round2($num, $digits=2) {
   $num = round1($num, $digits);
-  $num = str_replace('.', ',', $num);
+  $num = number_format($num, $digits,',','\,');
   return $num;
 }
 
