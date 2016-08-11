@@ -576,7 +576,13 @@ function round1($num, $digits=2) {
 // Round number to given precision and replace '.' with ','
 function round2($num, $digits=2) {
   $num = round1($num, $digits);
-  $num = number_format($num, $digits,',','\,');
+  $digits_try = 0;
+  $num_try = round1($num, $digits_try);
+  while ($num != $num_try) { // elinimate 0-s at end
+    $digits_try++;
+    $num_try = round1($num, $digits_try);
+  }
+  $num = number_format($num, $digits_try,',','\,');
   return $num;
 }
 
