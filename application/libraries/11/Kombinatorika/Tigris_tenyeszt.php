@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Tigris {
+class Tigris_tenyeszt {
 
 	// Class constructor
 	function __construct() {
@@ -26,6 +26,10 @@ class Tigris {
 			$male 	= rand(4,5);
 			$female = $male + rand(3,4);
 		}
+
+		// // Original exercise
+		// $male = 4;
+		// $female = 5;
 
 		$total	= $male + $female;
 		$min 	= $male-1;

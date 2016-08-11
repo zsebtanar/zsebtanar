@@ -25,39 +25,40 @@ class Haromszog_tangens {
 			}
 		}
 
+		// // Original exercise
+		// $AC = 6;
+		// $BC = 8;
+
 		$question = 'Az $ABC$ derékszögű háromszög $AC$ befogója $'.$AC.'$ cm, $BC$ befogója $'.$BC.'$ cm hosszú. Számítsa ki az $ABC$ háromszög hegyesszögeinek nagyságát legalább két tizedesjegy pontossággal!';
 
 		$alpha = toDeg(atan($AC/$BC));
 		$beta = toDeg(atan($BC/$AC));
 
-		$alphatext = str_replace('.', ',', round($alpha*100)/100);
-		$betatext = str_replace('.', ',', round($beta*100)/100);
-
 		$correct = array(round1($alpha), round1($beta));
 		$labels = array('$\alpha$', '$\beta$');
-		$solution = '$\alpha='.$alphatext.'°$ és $\beta='.$betatext.'°$.';
+		$solution = '$\alpha='.round2($alpha).'°$ és $\beta='.round2($beta).'°$.';
 
 		$hints[][] = 'Rajzoljunk egy derékszögű háromszöget:'.$this->Triangle();
 		$hints[][] = 'Tudjuk, hogy az $\textcolor{blue}{AC}$ befogó $'.$AC.'$ cm hosszú:'.$this->Triangle(['AC'], [$AC], ['blue']);
-		$hints[][] = 'Tudjuk, hogy az $\textcolor{green}{BC}$ befogó $'.$AC.'$ cm hosszú:'.$this->Triangle(['AC','BC'], [$AC,$BC], ['blue','green']);
+		$hints[][] = 'Tudjuk, hogy az $\textcolor{green}{BC}$ befogó $'.$BC.'$ cm hosszú:'.$this->Triangle(['AC','BC'], [$AC,$BC], ['blue','green']);
 
-		$page[] = 'Egy szög <b>tangense</b> egyenlő a távolabbi és a közelebbi befogó hányadosával:'
+		$page[] = 'Tudjuk, hogy az $\alpha$ szög <b>tangense</b> egyenlő a távolabbi és a közelebbi befogó hányadosával:'
 			.'$$\tan\alpha=\frac{\textcolor{blue}{AC}}{\textcolor{green}{BC}}='
 			.'\frac{\textcolor{blue}{'.$AC.'}}{\textcolor{green}{'.$BC.'}}'
 			.'$$';
-		$page[] = 'A szöget megkapjuk, ha a hányados <b>arkusz tangensét</b> vesszük (ami a tangens függvény inverze), és az eredményt két tizedesjegyre kerekítjük:$$\alpha=\arctan\frac{\textcolor{blue}{'.$AC.'}}{\textcolor{green}{'.$BC.'}}='.$alphatext.'°$$';
+		$page[] = 'Az $\alpha$ szöget megkapjuk, ha a hányados <b>arkusz tangensét</b> vesszük (ami a tangens függvény inverze), és az eredményt két tizedesjegyre kerekítjük:$$\alpha=\arctan\frac{\textcolor{blue}{'.$AC.'}}{\textcolor{green}{'.$BC.'}}\approx'.round2($alpha).'°$$';
 		$page[] = '<b>Megjegyzés</b>: az eredményt a következőképpen lehet kiszámolni számológéppel:
 			<ol>
 				<li>Állítsuk be a gépet <b>DEG</b> módba (ha még nem tettük):<br /><kbd>MODE</kbd> <kbd>DEG</kbd></li>
 				<li>Az arkusz tangenst a <b>tan<sup>-1</sup></b> gomb segítségével lehet kiszámolni:<br />'
 			.'<kbd>'.$AC.'</kbd> <kbd>&divide;</kbd> <kbd>'.$BC.'</kbd> <kbd>=</kbd> <kbd>Shift</kbd> <kbd>tan<sup>-1</sup></kbd> <kbd>=</kbd></li>
 			</ol>';
-		$page[] = 'Tehát az $\alpha$ szög <span class="label label-success">$'.$alphatext.'°$</span>.';
+		$page[] = 'Tehát az $\alpha$ szög <span class="label label-success">$'.round2($alpha).'°$</span>.';
 		$hints[] = $page;
 
 		$page = [];
-		$page[] = 'Mivel a háromszög belső szögeinek összege $180°$, ezért a $\beta$ szöget már könnyen ki lehet számolni:$$\beta=180°-90°-'.$alphatext.'°$$';
-		$page[] = 'Tehát a $\beta$ szög <span class="label label-success">$'.$betatext.'°$</span>.';
+		$page[] = 'Mivel a háromszög belső szögeinek összege $180°$, ezért a $\beta$ szöget már könnyen ki lehet számolni:$$\beta=180°-90°-'.round2($alpha).'°$$';
+		$page[] = 'Tehát a $\beta$ szög <span class="label label-success">$'.round2($beta).'°$</span>.';
 		$hints[] = $page;
 
 		return array(

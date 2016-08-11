@@ -18,13 +18,18 @@ class Kivonas {
 
 		$angle = rand(1,179);
 		$length = rand(2,7);
+
+		// // Original exercise
+		// $angle = 120;
+		// $length = 5;
+
 		$correct = round1(sqrt(pow($length,2) + pow($length,2) - 2*$length*$length*cos(toRad($angle))));
 		
 		$question = 'Az $\overrightarrow{AB}$ és $\overrightarrow{AC}$ vektorok $'.$angle.'°$-os szöget zárnak be egymással, és mindkét vektor hossza $'.$length.'$ egység.';
-		$solution = '$'.str_replace('.', ',', round($correct*100)/100).'$';
+		$solution = '$'.round2($correct).'$';
 
 		$question .= ' Számítsa ki az $\overrightarrow{AB}-\overrightarrow{AC}$ vektor hosszát legalább két tizedesjegy pontossággal!';
-		$hints = $this->Hints($angle, $length);
+		$hints = $this->Hints($angle, $length, $correct);
 
 		return array(
 			'question'  => $question,
@@ -34,17 +39,15 @@ class Kivonas {
 		);
 	}
 
-	function Hints($angle, $length) {
-
-		$solution = round(sqrt(pow($length,2) + pow($length,2) - 2*$length*$length*cos(toRad($angle)))*100)/100;
+	function Hints($angle, $length, $correct) {
 
 		$hints[][] = 'Rajzoljuk fel az $\overrightarrow{AB}$ és $\overrightarrow{AC}$ vektorokat (nem kell, hogy valósághű legyen az ábra):'.$this->Vectors($angle, $length, 0);
 		$hints[][] = 'Az $\overrightarrow{AB}-\overrightarrow{AC}$ vektor a $C$ pontból a $B$-be megy. Ekkor az $ABC$ egy egyenlő szárú háromszög, aminek két oldala $'.$length.'-'.$length.'$ egység, és a közbezárt szög $'.$angle.'°$:'.$this->Vectors($angle, $length, 1);
-		$page[] = 'Ha egy háromszög két oldalát ($a$ és $b$) és a közbezárt szöget ($\alpha$) ismerjük, akkor a harmadik oldal hosszát a <b>koszinusz-tétel</b> segítségével tudjuk kiszámolni:$$c=\sqrt{a^2+b^2-2\cdot a\cdot b\cdot\cos\alpha}$$.';
+		$page[] = 'Ha egy háromszög két oldalát ($a$ és $b$) és a közbezárt szöget ($\alpha$) ismerjük, akkor a harmadik oldal hosszát a <b>koszinusz-tétel</b> segítségével tudjuk kiszámolni:$$c=\sqrt{a^2+b^2-2\cdot a\cdot b\cdot\cos\alpha}$$';
 		$page[] = 'Most az $a=b='.$length.'$, és $\alpha='.$angle.'°$. Ekkor a harmadik oldal hossza:$$\begin{eqnarray}'
 			.'|\overrightarrow{AB}-\overrightarrow{AC}|&=&\sqrt{'.$length.'^2+'.$length.'^2-2\cdot '.$length.'\cdot '.$length.'\cdot\cos'.$angle.'°}\\\\'
 			.' &=&\sqrt{'.strval(2*pow($length,2)).'-'.strval(2*pow($length,2)).'\cdot\cos'.$angle.'°}\end{eqnarray}$$';
-		$page[] = 'Ennek a két tizedesjegyre kerekített értéke: <span class="label label-success">$'.$solution.'$</span>.';
+		$page[] = 'Ennek a két tizedesjegyre kerekített értéke, vagyis a vektor hossza: <span class="label label-success">$'.round2($correct).'$</span> egység.';
 		$hints[] = $page;
 
 		return $hints;

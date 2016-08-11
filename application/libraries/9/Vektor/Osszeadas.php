@@ -16,7 +16,7 @@ class Osszeadas {
 
 	function Generate($level) {
 
-		$option = rand(2,2);
+		$option = rand(1,3);
 		$length = rand(2,7);
 
 		if ($option == 1) {
@@ -27,13 +27,19 @@ class Osszeadas {
 			$correct = round1($length * sqrt(2));
 		} elseif ($option == 3) {
 			$angle = 120;
-			$correct = round1($length);
+			$correct = $length;
 		}
+
+		// // Original exercise
+		// $length = 5;
+		// $angle = 120;
+		// $correct = $length;
 		
 		$question = 'Az $\overrightarrow{AB}$ és $\overrightarrow{AC}$ vektorok $'.$angle.'°$-os szöget zárnak be egymással, és mindkét vektor hossza $'.$length.'$ egység.';
 		$solution = '$'.str_replace('.', ',', round($correct*100)/100).'$';
 
 		$question .= ' Számítsa ki az $\overrightarrow{AB}+\overrightarrow{AC}$ vektor hosszát legalább két tizedesjegy pontossággal!';
+		// $question .= ' Számítsa ki az $\overrightarrow{AB}+\overrightarrow{AC}$ vektor hosszát!';
 		$hints = $this->Hints($angle, $length);
 
 		return array(
@@ -54,7 +60,7 @@ class Osszeadas {
 				$hints[][] = 'Rajzoljuk fel az $\overrightarrow{AB}$ és $\overrightarrow{AC}$ vektorokat:'.$this->Vectors($angle, $length, 0);
 				$hints[][] = 'Ekkor az $ABC$ egy szabályos háromszög:'.$this->Vectors($angle, $length, 1);
 				$hints[][] = 'Az $\overrightarrow{AB}+\overrightarrow{AC}$ vektor kétszer akkora lesz, mint az $ABC$ háromszög magassága:'.$this->Vectors($angle, $length, 2);
-				$hints[][] = 'Tudjuk, hogy egy $a$ oldalú szabályos háromszög magassága $a\cdot\frac{\sqrt{3}}{2}$, ezért az $\overrightarrow{AB}+\overrightarrow{AC}$ vektor hossza $2\cdot a\cdot\frac{\sqrt{3}}{2}=a\cdot\sqrt{3}='.$length.'\sqrt{3}$ lesz, ami két tizedesjegyre kerekítve <span class="label label-success">$'.str_replace('.', ',', $solution).'$</span>.';
+				$hints[][] = 'Tudjuk, hogy egy $a$ oldalú szabályos háromszög magassága $a\cdot\frac{\sqrt{3}}{2}$, ezért az $\overrightarrow{AB}+\overrightarrow{AC}$ vektor hossza $2\cdot a\cdot\frac{\sqrt{3}}{2}=a\cdot\sqrt{3}='.$length.'\sqrt{3}$ lesz, ami két tizedesjegyre kerekítve <span class="label label-success">$'.str_replace('.', ',', $solution).'$</span> egység.';
 				break;
 
 			case 90:
@@ -62,13 +68,13 @@ class Osszeadas {
 				$hints[][] = 'Rajzoljuk fel az $\overrightarrow{AB}$ és $\overrightarrow{AC}$ vektorokat:'.$this->Vectors($angle, $length, 0);
 				$hints[][] = 'Ekkor a három pont egy négyzet csúcsai lesznek:'.$this->Vectors($angle, $length, 1);
 				$hints[][] = 'Az $\overrightarrow{AB}+\overrightarrow{AC}$ vektor hossza a négyzet átlója lesz:'.$this->Vectors($angle, $length, 2);
-				$hints[][] = 'Tudjuk, hogy egy $a$ oldalú négyzet átlója $a\cdot\sqrt{2}$, ezért az $\overrightarrow{AB}+\overrightarrow{AC}$ vektor hossza $a\cdot\sqrt{2}='.$length.'\cdot\sqrt{2}$ lesz, ami két tizedesjegyre kerekítve <span class="label label-success">$'.$solution.'$</span>.';
+				$hints[][] = 'Tudjuk, hogy egy $a$ oldalú négyzet átlója $a\cdot\sqrt{2}$, ezért az $\overrightarrow{AB}+\overrightarrow{AC}$ vektor hossza $a\cdot\sqrt{2}='.$length.'\cdot\sqrt{2}$ lesz, ami két tizedesjegyre kerekítve <span class="label label-success">$'.$solution.'$</span> egység.';
 				break;
 
 			case 120:
 				$solution = $length;
 				$hints[][] = 'Rajzoljuk fel az $\overrightarrow{AB}$ és $\overrightarrow{AC}$ vektorokat:'.$this->Vectors($angle, $length, 0);
-				$hints[][] = 'Az $\overrightarrow{AB}+\overrightarrow{AC}$, és az $\overrightarrow{AB}$ egy olyan egyenlő szárú háromszög két oldalát határozzák meg, amelynek egyik szöge $60°$-os, így a háromszög szabályos, vagyis a vektor hossza <span class="label label-success">$'.$solution.'$</span>:'.$this->Vectors($angle, $length, 1);
+				$hints[][] = 'Az $\overrightarrow{AB}+\overrightarrow{AC}$, és az $\overrightarrow{AB}$ egy olyan egyenlő szárú háromszög két oldalát határozzák meg, amelynek egyik szöge $60°$-os, így a háromszög szabályos, vagyis a vektor hossza <span class="label label-success">$'.$solution.'$</span> egység:'.$this->Vectors($angle, $length, 1);
 				break;
 			
 			default:

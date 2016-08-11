@@ -24,18 +24,19 @@ class Rombusz {
 
 		$mult = rand(2,3);
 
-		// $Cx = 0;
-		// $Cy = 2;
-
-		// $mult = 2;
-
-		// $vx = 0;
-		// $vy = 2;
-
 		$Tx = $Cx + $vx;
 		$Ty = $Cy + $vy;
+
+		// // Original exercise
+		// $Cx = 4;
+		// $Cy = -3;
+		// $Tx = 7;
+		// $Ty = 1;
+		// $vx = $Tx - $Cx;
+		// $vy = $Ty - $Cy;
+		// $mult = 2;
 		
-		$question = 'A $PRST$ rombusz középpontja a $K('.$Cx.';'.$Cy.')$ pont, egyik csúcspontja a $T('.$Tx.';'.$Ty.')$ pont. Tudjuk, hogy az $RT$ átló hossza '.($mult==2 ? 'fele' : 'harmada').' a $PS$ átló hosszának. Adja meg a $P$, az $R$ és az $S$ csúcsok koordinátáit!'
+		$question = 'A $PRST$ rombusz középpontja a $K('.$Cx.';'.$Cy.')$ pont, egyik csúcspontja a $T('.$Tx.';'.$Ty.')$ pont. Tudjuk, hogy az $RT$ átló hossza '.($mult==2 ? 'fele' : 'harmada').' a $PS$ átló hosszának. Adja meg a $P$, az $R$ és az $S$ csúcsok koordinátáit! <i>(A rombusz csúcsai az óramutató járásával ellentétes irányban helyezkednek el.)</i>'
 			// .$this->Rhombus($Cx, $Cy, $vx, $vy, $mult, 4);
 		;
 
@@ -69,7 +70,7 @@ class Rombusz {
 		$hints[][] = 'Ábrázoljuk a $T('.$Tx.';'.$Ty.')$ pontot!'.$this->Rhombus($Cx, $Cy, $vx, $vy, $mult, 1);
 		$hints[][] = 'Az $R$ pontot úgy kapjuk meg, hogy a $T$ pontot tükrözzük a $K$ pontra:'
 			.$this->Rhombus($Cx, $Cy, $vx, $vy, $mult, 2);
-		$hints[][] = 'Tudjuk, hogy az $RT$ átló hossza '.($mult==2 ? 'kétszer' : 'háromszor').' akkora, mint a $PS$ átló hosszának. Ezért a $P$ és az $S$ pontokat úgy kapjuk meg, hogy az $RT$ átlót elforgatjuk a $K$ körül $90°$-kal, és '.($mult==2 ? 'kétszeresére' : 'háromszorása').' nyújtjuk:'.$this->Rhombus($Cx, $Cy, $vx, $vy, $mult, 3);
+		$hints[][] = 'Tudjuk, hogy az $RT$ átló hossza '.($mult==2 ? 'kétszer' : 'háromszor').' akkora, mint a $PS$ átló. Ezért a $P$ és az $S$ pontokat úgy kapjuk meg, hogy az $RT$ átlót elforgatjuk a $K$ körül $90°$-kal, és '.($mult==2 ? 'kétszeresére' : 'háromszorása').' nyújtjuk:'.$this->Rhombus($Cx, $Cy, $vx, $vy, $mult, 3);
 		$hints[][] = 'Tehát a koordináták:<br />'
 			.'$P=($<span class="label label-success">$'.$Px.'$</span>$,$<span class="label label-success">$'.$Py.'$</span>$)$<br />'
 			.'$R=($<span class="label label-success">$'.$Rx.'$</span>$,$<span class="label label-success">$'.$Ry.'$</span>$)$<br />'
