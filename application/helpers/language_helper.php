@@ -165,7 +165,7 @@ function Fraction($num)
 function The($num, $capital=FALSE)
 {
   if ($num <= 0) {
-    return 'a';
+    return ($capital ? 'A' : 'a');
   }
 
   $digits = str_split($num);
