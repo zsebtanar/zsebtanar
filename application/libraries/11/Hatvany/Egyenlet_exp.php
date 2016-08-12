@@ -26,6 +26,10 @@ class Egyenlet_exp {
 			$base 	= rand(6,7);
 			$result	= rand(15,20);
 		}
+
+		// // Original exercise
+		// $base = 2;
+		// $result = 10;
 		
 		$question = 'Oldja meg a következő egyenletet a valós számok halmazán! Válaszát három tizedesjegyre kerekítve adja meg!$$'.$base.'^x='.$result.'$$';
 
@@ -42,10 +46,8 @@ class Egyenlet_exp {
 		$page = [];
 		$page[] = 'Osszuk el mindkét oldalt $\log_{10}'.$base.'$-'.With($base).'!$$x=\frac{\log_{10}'.$result.'}{\log_{10}'.$base.'}\approx'.$exponent2.'$$';
 		$page[] = '<b>Megjegyzés</b>: a számológépen a tízes alapú logaritmust a <b>log</b> gomb jelöli:<div class="text-center"><kbd>'.$result.'</kbd> <kbd>log</kbd> <kbd>&divide;</kbd> <kbd>'.$base.'</kbd>  <kbd>log</kbd> <kbd>=</kbd></div>';
-		$page[] = 'A megoldás három tízedesjegyre kerekített értéke <span class="label label-success">$'.$correct.'$</span>.';
+		$page[] = 'A megoldás három tizedesjegyre kerekített értéke <span class="label label-success">$'.$correct.'$</span>.';
 		$hints[] = $page;
-
-
 
 		return array(
 			'question'  => $question,

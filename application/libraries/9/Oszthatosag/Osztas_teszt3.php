@@ -27,13 +27,20 @@ class Osztas_teszt3 {
 			$num2 = pow(2,rand(1,4)) * pow(3,rand(0,3)) * pow(5,rand(2,3));
 		}
 
-		$gcd 		= gcd($num1, $num2);
-		$num3 		= (rand(1,2) == 1 ? $gcd : $gcd/2);
+		$gcd = gcd($num1, $num2);
+		$num3 = (rand(1,2) == 1 ? $gcd : $gcd/2);
+
+		// // Original exercise
+		// $num1 = 48;
+		// $num2 = 120;
+		// $num3 = 12;
+		// $gcd = gcd($num1, $num2);
+
 		$correct 	= ($num3 == $gcd ? 0 : 1);
 		$options 	= ['Igaz', 'Hamis'];
 		$solution 	= $options[$correct];
 
-		$question = The($num1, TRUE).' $'.$num1.'$ és '.The($num2).' $'.$num2.'$ legnagyobb közös osztója '.The($num3).' $'.$num3.'$.';
+		$question = 'Adja meg az alábbi állítás logikai értékét (igaz vagy hamis)!<br />'.The($num1, TRUE).' $'.$num1.'$ és '.The($num2).' $'.$num2.'$ legnagyobb közös osztója '.The($num3).' $'.$num3.'$.';
 
 		$page[] = '<div class="alert alert-info"><strong>Közös osztó:</strong> az a szám, amivel mind a két szám osztható.</div>';
 		$page[] = '<div class="alert alert-info"><strong>Legnagyobb közös osztó:</strong> a közös osztók közül a legnagyobb. Az $a$ és $b$ számok legnagyobb közös osztóját $(a;b)$-vel jelöljük.</div>';
@@ -45,7 +52,7 @@ class Osztas_teszt3 {
 
 		$page = [];
 		$page[] = 'Most gyűjtsünk össze a közös prímtényezőket (ha mindkét számban előfordul, akkor a kisebb kitevőt nézzük): $$('.$num1.';'.$num2.')='.implode('\cdot',$this->CanonicForm($gcd)).'='.$gcd.'$$';
-		$page[] = 'Mivel a legnagyobb közös osztó '.($gcd == $num3 ? 'megegyezik' : 'nem egyezik meg').' '.The($num3).' $'.$num3.'$-'.With($num3).', ezért az állítás <span class="label label-success">'.strtoupper($solution).'</span>.';
+		$page[] = 'Mivel a legnagyobb közös osztó '.($gcd == $num3 ? 'megegyezik' : 'nem egyezik meg').' '.The($num3).' $'.$num3.'$-'.With($num3).', ezért az állítás <span class="label label-success">'.strtolower($solution).'</span>.';
 		$hints[] = $page;
 
 		return array(

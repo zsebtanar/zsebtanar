@@ -27,6 +27,10 @@ class Osztas_teszt1 {
 			$num2 = rand(10,20);
 		}
 
+		// // Original exercise
+		// $num1 = 6;
+		// $num2 = 8;
+
 		$mult 		= $num1 * $num2;
 		$lcm 		= lcm($num1, $num2);
 		$correct 	= ($mult == $lcm ? 0 : 1);
@@ -45,7 +49,7 @@ class Osztas_teszt1 {
 
 		$page = [];
 		$page[] = 'Most gyűjtsünk össze minden prímtényezőt a hozzátartozó kitevővel (ha mindkét számban előfordul, akkor a nagyobb kitevőt nézzük): $$['.$num1.';'.$num2.']='.implode('\cdot',$this->CanonicForm($lcm)).'='.$lcm.'$$';
-		$page[] = 'Mivel a legkisebb közös többszörös '.($lcm == $mult ? 'megegyezik' : 'nem egyezik meg').' '.The($mult).' $'.$mult.'$-'.With($mult).', ezért az állítás <span class="label label-success">'.strtoupper($solution).'</span>.';
+		$page[] = 'Mivel a legkisebb közös többszörös '.($lcm == $mult ? 'megegyezik' : 'nem egyezik meg').' '.The($mult).' $'.$mult.'$-'.With($mult).', ezért az állítás <span class="label label-success">'.strtolower($solution).'</span>.';
 		$hints[] = $page;
 
 		return array(
