@@ -25,8 +25,8 @@ class Viragcserep {
 
 		} else {
 
-			$CI->load->library('11/Valoszinuseg/Viragcserep', NULL, 'Viragcserep');
-			$data = $CI->Viragcserep->Generate($level);
+			$CI->load->library('11/Valoszinuseg/Kerteszet', NULL, 'Kerteszet');
+			$data = $CI->Kerteszet->Generate($level);
 
 		}
 

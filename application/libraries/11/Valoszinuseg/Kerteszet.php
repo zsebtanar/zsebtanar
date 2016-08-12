@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Viragcserep {
+class Kerteszet {
 
 	// Class constructor
 	function __construct() {
@@ -19,6 +19,11 @@ class Viragcserep {
 		$flower = rand($level, 2*$level);
 		$all 	= $flower + rand(1,2);
 		$p 		= rand(80,95) / 100;
+
+		// // Original exercise
+		// $flower = 8;
+		// $all 	= 10;
+		// $p 		= 0.91;
 
 		$question = 'A kertészetben a sok virághagymának csak egy része hajt ki: $'.round2($p).'$ annak a valószínűsége, hogy egy elültetett virághagyma kihajt. Számítsa ki annak a valószínűségét, hogy $'.$all.'$ darab elültetett virághagyma közül legalább $'.$flower.'$ kihajt! Válaszát három tizedesjegyre kerekítve adja meg!';
 		
@@ -47,9 +52,9 @@ class Viragcserep {
 			$page = [];
 			$page[] = '<b>'.$order.'. eset:</b> $'.$all.'$ virághagyma közül $'.$i.'$ hajt ki.';
 			$page[] = '$'.$all.'$ virághagyma közül $'.$i.'$-'.Dativ($i).' összesen ${'.$all.'\choose '.$i.'}$-féleképpen lehet kiválasztani.';
-			$page[] = 'Annak a valószínűsége, hogy '.The($i).' $'.$i.'$ hagyma kihajt: $'.round2($p, 4).'^'.$i.'$.';
-			$page[] = 'Annak a valószínűsége, hogy '.The($all-$i).' $'.strval($all-$i).'$ hagyma nem hajt ki: $(1-'.round2($p, 4).')^'.strval($all-$i).'$.';
-			$page[] = 'Így ennek az esetnek a valószínűsége összesen:$${'.$all.'\choose '.$i.'}\cdot'.round2($p, 4).'^'.$i.'\cdot(1-'.round2($p, 4).')^'.strval($all-$i).'\approx'.round2($p_i, 4).'$$';
+			$page[] = 'Annak a valószínűsége, hogy '.The($i).' $'.$i.'$ hagyma kihajt: $'.round2($p, 4).'^{'.$i.'}$.';
+			$page[] = 'Annak a valószínűsége, hogy '.The($all-$i).' $'.strval($all-$i).'$ hagyma nem hajt ki: $(1-'.round2($p, 4).')^{'.strval($all-$i).'}$.';
+			$page[] = 'Így ennek az esetnek a valószínűsége összesen:$${'.$all.'\choose '.$i.'}\cdot'.round2($p, 4).'^{'.$i.'}\cdot(1-'.round2($p, 4).')^{'.strval($all-$i).'}\approx'.round2($p_i, 4).'$$';
 			$hints[] = $page;
 
 			$p_all1[] = round1($p_i, 4);
