@@ -18,18 +18,27 @@ class Ismerosok {
 	function Generate($level) {
 
 		if ($level <= 3) {
-			$num = rand(4,5);
+			$size = rand(4,5);
 		} elseif ($level <= 6) {
-			$num = rand(5,6);
+			$size = rand(5,6);
 		} else {
-			$num = rand(7,8);
+			$size = rand(7,8);
 		}
 
-		$degrees 	= $this->Degrees($level, $num);
-		$question 	= 'Egy '.NumText($num).'fős társaságban mindenkit megkérdeztek, hány ismerőse van a többiek között (az ismeretségek kölcsönösek). Az első '.NumText($num-1).' megkérdezett személy válasza: $'.implode(',', $degrees).'$. Hány ismerőse van '.The($num).' '.OrderText($num).' személynek a társaságban?';
-		$hints 		= $this->Hints($degrees);
+		// // Original exercise
+		// $size = 6;
 
-		$correct = $degrees[$num-1];
+		list($graph, $degrees) = $this->Degrees($size);
+
+		$degrees_known = $degrees;
+		unset($degrees_known[$size-1]);
+		rsort($degrees_known);
+
+		$question = 'Egy '.NumText($size).'fős társaságban mindenkit megkérdeztek, hány ismerőse van a többiek között (az ismeretségek kölcsönösek). Az első '.NumText($size-1).' megkérdezett személy válasza: $'.implode(',', $degrees_known).'$. Hány ismerőse van '.The($size).' '.OrderText($size).' személynek a társaságban?';
+
+		$hints = $this->Hints($graph, $degrees);
+
+		$correct = $degrees[$size-1];
 		$solution = '$'.$correct.'$';
 
 		return array(
@@ -40,49 +49,44 @@ class Ismerosok {
 		);
 	}
 
-	function Degrees($level, $num) {
+	function Degrees($size) {
 
-		if ($level <= 3) {
-			$group1 = 0;
-			$group2 = rand(1,2);
-			$group4 = ($num-$group1 >= 2 ? rand(0,1)*2 : 0);
-			$group3 = $num-$group1-$group2-$group4;
-		} elseif ($level <= 6) {
-			$group1 = rand(1,2);
-			$group2 = rand(1,2);
-			$group4 = ($num-$group1 >= 2 ? rand(0,1)*2 : 0);
-			$group3 = $num-$group1-$group2-$group4;
-		} else {
-			$group1 = rand(1,2);
-			$group2 = rand(2,3);
-			$group4 = ($num-$group1 >= 2 ? rand(0,1)*2 : 0);
-			$group3 = $num-$group1-$group2-$group4;
+		$degrees = array_fill(0, $size, 0);
+		$nodes_left = range($size-1,0);
+
+		// // Original exercise
+		// $options = [1,1,2,1,2,1];
+
+		while (count($nodes_left) > 0) {
+
+			$node1 = array_pop($nodes_left);
+			// $type = array_pop($options);
+
+			// if ($type == 1 || count($nodes_left) == $size-1) {
+			if (rand(1,2) == 1 || count($nodes_left) == $size-1) {
+
+				// Node is connected with every nodes left
+				if (count($nodes_left) > 0) {
+					foreach ($nodes_left as $node2) {
+						$graph[$node1][] = $node2;
+						$degrees[$node1]++;
+						$degrees[$node2]++;
+					}
+				} else {
+					$graph[$node1][] = [];
+				}
+
+			} else {
+
+				// Person has no more nodes
+				$graph[$node1][] = [];
+			}
 		}
 
-		// group1: they haven't played with anyone yet
-		for ($i=0; $i < $group1; $i++) { 
-			$degrees[] = 0;
-		}
-
-		// group2: they have played with everyone except group1
-		for ($i=0; $i < $group2; $i++) { 
-			$degrees[] = $num - $group1 - 1;
-		}
-
-		// group3: they have only played with group2
-		for ($i=0; $i < $group3; $i++) { 
-			$degrees[] = $group2;
-		}
-
-		// group4: they have played with group2 and group3 (0 or 2 ppl)
-		for ($i=0; $i < $group4; $i++) { 
-			$degrees[] = $group2 + 1;
-		}
-
-		return $degrees;
+		return array($graph, $degrees);
 	}
 
-	function Graph($degrees=[], $step=NULL) {
+	function Graph($graph, $step=NULL) {
 
 		$width 	= 400;
 		$height = 300;
@@ -95,24 +99,49 @@ class Ismerosok {
 					<svg width="'.$width.'" height="'.$height.'">';
 		// $svg .= '<rect width="'.$width.'" height="'.$height.'" fill="black" fill-opacity="0.2" />';
 
-		$points = count($degrees);
-		$angle0 = ($points == 4 ? 45 : 90);
-		for ($i=0; $i < $points; $i++) {
-			$angle = $angle0 + $i*360/$points;
-			if ($step && $i < $step) {
-				$color = ($i == $step-1 ? '#B155CF' : 'black');
-				$svg .= $this->DrawEdges($centerX, $centerY, $radius, $angle, $degrees, $i, $color);
+		$size = count($graph);
+		$angle0 = ($size == 4 ? 45 : 90);
+
+		// Edges
+		for ($node1=0; $node1 < $size; $node1++) { 
+
+			if ($node1 < $step) {
+
+				$color = ($node1 == $step-1 ? '#B155CF' : 'black');
+
+				foreach ($graph[$node1] as $node2) {
+
+					if (!is_array($node2)) {
+
+						$angle1 = $angle0 + $node1 * 360/$size;
+						$angle2 = $angle0 + $node2 * 360/$size;
+
+						list($x1, $y1) = polarToCartesian($centerX, $centerY, $radius, $angle1);
+						list($x2, $y2) = polarToCartesian($centerX, $centerY, $radius, $angle2);
+
+						$svg .= DrawLine($x1, $y1, $x2, $y2, $color, 2);
+					}
+				}
 			}
 		}
 
-		for ($i=0; $i < $points; $i++) {
-			$angle = $angle0 + $i*360/$points;
-			if ($step && $i < $step) {
-				$color = ($i == $step-1 ? '#B155CF' : '#A1D490');
+		// Nodes
+		for ($node=0; $node < $size; $node++) { 
+
+			$angle = $angle0 + $node * 360/$size;
+			
+			if ($node < $step-1) {
+				$color = '#A1D490';
+			} elseif ($node == $step-1) {
+				$color = '#B155CF';
 			} else {
 				$color = 'white';
 			}
-			$svg .= $this->DrawNode($centerX, $centerY, $radius, $angle, $color);
+
+			list($x, $y) = polarToCartesian($centerX, $centerY, $radius, $angle);
+
+			$svg .= DrawCircle($x, $y, 10, 'black', $width=2, $color);
+
 		}
 
 		$svg .= '</svg></div>';
@@ -120,91 +149,36 @@ class Ismerosok {
 		return $svg;
 	}
 
-	function DrawNode($centerX, $centerY, $radius, $angle, $color) {
+	function Hints($graph, $degrees) {
 
-		list($x, $y) = polarToCartesian($centerX, $centerY, $radius, $angle);
+		$size = count($graph);
 
-		$svg = '<circle cx="'.$x.'" cy="'.$y.'" r="10" stroke="black" stroke-width="2" fill="'.$color.'" />';
+		$hints[][] = 'Rajzoljunk annyi kört, ahány fős a társaság! Ha két ember ismeri egymást, akkor a nekik megfelelő két kört össze fogjuk kötni. Ha valakinek már minden ismerősét bejelöltük, akkor vele "végeztünk", úgyhogy zöldre színezzük a neki megfelelő kört:'.$this->Graph($graph, 0);
 
-		return $svg;
-	}
+		for ($node=0; $node < $size-1 ; $node++) {
 
-	function DrawEdges($centerX, $centerY, $radius, $angle0, $degrees, $i, $color) {
+			if (isset($graph[$node])) {
 
-		$points = count($degrees);
-		$svg = '';
-		$prev_degrees = 0;
-		$zeros = 0;
+				$prev_degree = 0;
+				foreach ($graph as $prev_node => $prev_edges) {
+					if (in_array($node, $prev_edges)) {
+						$prev_degree++;
+					}
+					if ($prev_node == $node) {
+						break;
+					}
+				}
+				$degree_left = $degrees[$node]-$prev_degree;
 
-		list($x1, $y1) = polarToCartesian($centerX, $centerY, $radius, $angle0);
+				$hints[][] = 'Most vizsgáljuk meg azt a személyt, akinek $'.$degrees[$node].'$ ismerőse van. Mivel őt '.($prev_degree==0 ? 'még senkivel nem kötöttük össze' : 'már $'.$prev_degree.'$ személlyel összekötöttük').($degree_left>0 ? ', és összesen $'.$degree_left.'$ olyan személy maradt, akivel még nem végeztünk, ez azt jelenti, hogy minden lehetséges emberrel össze kell kötnünk őt:' : ', ez azt jelenti, hogy az összes ismerősét bejelöltük:').$this->Graph($graph, $node+1);
 
-
-		// calculate nodes with zero edges
-		for ($j=0; $j < $i; $j++) { 
-			$zeros += ($degrees[$j] == 0 ? 1 : 0);
-		}
-
-		// calculate previous degrees
-		for ($j=0; $j < $i; $j++) { 
-			$prev_degrees += ($degrees[$j] == count($degrees)-$zeros-1 ? 1 : 0);
-		}
-
-		if ($i < count($degrees)-1) {
-			for ($j=1; $j <= $degrees[$i]-$prev_degrees; $j++) { 
-				$angle = $angle0 + $j*360/$points;
-
-				list($x2, $y2) = polarToCartesian($centerX, $centerY, $radius, $angle);
-
-				$svg .= DrawLine($x1, $y1, $x2, $y2, $color, 2);
-			}
-		}
-
-		return $svg;
-	}
-
-	function Hints($degrees) {
-
-		$hints[][] = 'Rajzoljunk annyi kört, ahány fős a társaság!'
-			.' Ha két ember ismeri egymást, akkor a nekik megfelelő két kört össze fogjuk kötni.'
-			.' Ha valakinek már minden ismerősét bejelöltük, akkor vele "végeztünk", úgyhogy zöldre színezzük a neki megfelelő kört.'
-			.$this->Graph($degrees, 0);
-
-		for ($i=0; $i < count($degrees)-1 ; $i++) {
-			if ($degrees[$i] == 0) {
-				$text = The($i+1, TRUE).' '.OrderText($i+1).' ember egy embert sem ismet, úgyhogy az ő köréből nem húzunk sehova vonalat:';
 			} else {
 
-
-				// calculate nodes with zero edges
-				$zeros = 0;
-				for ($j=0; $j < $i; $j++) { 
-					$zeros += ($degrees[$j] == 0 ? 1 : 0);
-				}
-
-				// calculate previous degrees
-				$prev_degrees = 0;
-				for ($j=0; $j < $i; $j++) { 
-					$prev_degrees += ($degrees[$j] == count($degrees)-$zeros-1 ? 1 : 0);
-				}
-				$left_degrees = $degrees[$i] - $prev_degrees;
-
-				if ($prev_degrees == 0) {
-					$text = The($i+1, TRUE).' '.OrderText($i+1).' embernek $'.$degrees[$i].'$ ismerőse van, úgyhogy ennyi vonalat húzunk belőle a többi játékos felé '
-						.'(Figyelem: csak ahhoz a körhöz húzhatunk vonalat, amivel még nem végeztünk!):';
-				} elseif ($prev_degrees == $degrees[$i]) {
-					$text = The($i+1, TRUE).' '.OrderText($i+1).' embernek $'.$degrees[$i].'$ ismerőse van, viszont már mindegyik be van húzva, úgyhogy készen vagyunk:';
-				} else {
-					$text = The($i+1, TRUE).' '.OrderText($i+1).' embernek $'.$degrees[$i].'$ ismerőse van, viszont ebből már $'.$prev_degrees.'$-'
-						.Dativ($prev_degrees).' behúztunk, úgyhogy már csak $'.$left_degrees.'$-'.Dativ($left_degrees)
-						.' kell (Figyelem: csak ahhoz a körhöz húzhatunk vonalat, amivel még nem végeztünk!):';
-				}
+				$hints[][] = 'Most vizsgáljuk meg azt a személyt, akinek $'.$degrees[$node].'$ ismerőse van.Mivel őt már $'.$degrees[$node].'$ emberrel összekötöttük, ez azt jelenti, hogy az összes ismerősét bejelöltük:'.$this->Graph($graph, $node+1);
 			}
-			$hints[][] = $text.$this->Graph($degrees, $i+1);
 		}
 
-		$hints[][] = 'Az ábra szerint '.The($i+1).' '.OrderText($i+1).' embernek $'.$degrees[count($degrees)-1].'$ ismerőse van. '
-			.'Tehát a megoldás <span class="label label-success">$'.$degrees[count($degrees)-1].'$</span>.'
-			.$this->Graph($degrees, count($degrees));
+		$hints[][] = 'Az ábráról leolvasható, hogy '.The($size).' '.OrderText($size).' személynek <span class="label label-success">$'.$degrees[count($degrees)-1].'$</span> ismerőse van.'.$this->Graph($graph, $size);
 
 		return $hints;
 	}
