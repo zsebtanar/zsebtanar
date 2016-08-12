@@ -27,6 +27,10 @@ class Egyenlet1 {
 			$exp = rand(3,4);
 		}
 
+		// // Original exercise
+		// $num = 4;
+		// $exp = 3;
+
 		$question = 'Oldja meg az alábbi egyenletet a nemnegatív valós számok halmazán!'
 			.'$$\sqrt{x}='.$num.'^'.$exp.'$$';
 
@@ -39,7 +43,7 @@ class Egyenlet1 {
 		$page[] = '<div class="alert alert-info"><b>Hatványazonosság:</b> Hatványt úgy hatványozunk, hogy a kitevőket összeszorozzuk:$$\left(a^n\right)^k=a^{n\cdot k}$$</div>';
 		$page[] = 'A fenti azonosságot felhasználva átírhatjuk a jobb oldalt:'
 			.'$$\left('.$num.'^'.$exp.'\right)^2='.$num.'^{'.$exp2.'}$$';
-		$page[] = '<b>Megjegyzés</b>: egy szám hatványát az <b>x<sup>y</sup></b> gomb segítségével lehet kiszámolni:<div class="text-center"><kbd>'.$num.'</kbd> <kbd>x<sup>y</sup></kbd> <kbd>'.$exp2.'</kbd> <kbd>=</kbd></div>';
+		$page[] = '<b>Megjegyzés</b>: az eredményt a számológépen az <b>x<sup>y</sup></b> gomb segítségével lehet kiszámolni:<div class="text-center"><kbd>'.$num.'</kbd> <kbd>Shift</kbd> <kbd>x<sup>y</sup></kbd> <kbd>'.$exp2.'</kbd> <kbd>=</kbd></div>';
 		$page[] = 'Tehát a megoldás <span class="label label-success">$'.$correct.'$</span>.';
 		$hints[] = $page;
 

@@ -24,6 +24,12 @@ class Csonkagula {
 
 		$a += ($a-$b) % 2;	// trapéz számoláshoz
 
+		// // Original exercise
+		// $a = 13;
+		// $b = 7;
+		// $c = 8;
+		// $area = 0.93;
+
 		$question = 'Egy műanyag termékeket gyártó üzemben szabályos hatoldalú csonkagúla alakú, felül nyitott virágtartó dobozokat készítenek egy kertészet számára (lásd az ábrát). A csonkagúla alaplapja $'.$a.'\,\text{cm}$ oldalú szabályos hatszög, fedőlapja $'.$b.'\,\text{cm}$ oldalú szabályos hatszög, az oldalélei $'.$c.'\,\text{cm}$ hosszúak. Egy műanyagöntő gép $1$ kg alapanyagból (a virágtartó doboz falának megfelelő anyagvastagság mellett) $'.round2($area).'\,\text{m}^2$ felületet képes készíteni. Számítsa ki, hány virágtartó doboz készíthető $1$ kg alapanyagból!'.$this->Vase(6);
 		list($hints, $correct) = $this->Hints($a, $b, $c, $area);
 		$solution = '$'.$correct.'$';
@@ -85,7 +91,7 @@ class Csonkagula {
 		$T_all = $T_bottom + $sides * $T_side;
 
 		$page = [];
-		$page[] = '<div class="alert alert-info"><strong>Trapéz területe:</strong><br />Ha egy trapéz területe $a$ és $c$, és magassága $m$, akkor a területe:$$T=\frac{a+c}{2}\cdot m$$</div>';
+		$page[] = '<div class="alert alert-info"><strong>Trapéz területe:</strong><br />Ha egy trapéz két párhuzamos oldala $a$ és $c$, és magassága $m$, akkor a területe:$$T=\frac{a+c}{2}\cdot m$$</div>';
 		$page[] = 'Egy oldal területe:$$T=\frac{'.$a.'+'.$b.'}{2}\cdot'.strval(round2($m)).'='.round2($T_side).'$$';
 		$page[] = 'Mivel összesen $'.$sides.'$ oldal van, ezért az oldallapok összterülete:$$T_{\text{oldallapok}}='.$sides.'\cdot'.round2($T_side).'='.round2($sides*$T_side).'$$';
 		$page[] = 'Ekkor egy virágtartó doboz összterülete:$$\begin{eqnarray}T_{\text{össz}}&=&T_{\text{alaplap}}+T_{\text{oldallapok}}\\\\ &\approx&'.round2($T_bottom).'+'.round2($sides*$T_side).'='.round2($T_all).'\end{eqnarray}$$';

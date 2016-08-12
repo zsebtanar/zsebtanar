@@ -19,6 +19,10 @@ class Szalami {
 		$unit = rand($level, 10*$level);
 		$weight = rand(3+$level, 9+3*$level);
 
+		// // Original exercise
+		// $unit = 28;
+		// $weight = 35;
+
 		$total = $unit * 100;
 
 		$question = 'Ha $1\,\text{kg}$ szalámi ára $'.$total.'\,\text{Ft}$, akkor hány forintba kerül $'.$weight.'\,\text{dkg}$ szalámi?';
@@ -31,7 +35,8 @@ class Szalami {
 			'question' 	=> $question,
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'labels'	=> ['right' => '$\text{Ft}$']
 		);
 	}
 

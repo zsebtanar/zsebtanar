@@ -33,20 +33,24 @@ class Szamok {
 		$set1 = $this->DefineSet($max_num, $set_size1);
 		$set2 = $this->DefineSet($max_num, $set_size2);
 
+		// // Original exercise
+		// $set1 = [1,2,3,4,6,12];
+		// $set2 = [1,2,4,8,16];
+
 		list($operation, $result) = $this->SetOperation($set1, $set2, $level);
 
-		$question = 'Tekintsük a következő két halmazt: $G=\{'.implode(";", $set1).'\}$ és $H=\{'.implode(";", $set2).'\}$. Elemei felsorolásával adja meg a $'.$operation.'$ halmazt! <i>(Például: 2;3;4)</i>';
+		$question = 'Tekintsük a következő két halmazt: $G=\{'.implode(";", $set1).'\}$ és $H=\{'.implode(";", $set2).'\}$. Elemei felsorolásával adja meg a $'.$operation.'$ halmazt! <i>(Például: $\{2;3;4\}$)</i>';
 		$correct = $result;
 		$solution = '$'.implode("$$;$$", $result).'$';
 
 		$hints = $this->Hints($set1, $set2, $result, $operation);
-		// print_r($solution);
 
 		return array(
 			'question' 	=> $question,
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
 			'hints'		=> $hints,
+			'labels'	=> ['right' => '$\}$', 'left' => '$\{$'],
 			'type'		=> 'list2'
 		);
 	}
@@ -76,6 +80,10 @@ class Szamok {
 			shuffle($operations);
 
 			$operation = $operations[0];
+
+			// // Original exercise
+			// $operation = 'G\cap H';
+			// $operation = 'H\setminus G';
 
 			switch ($operation) {
 				case 'G\setminus H': // G\H
@@ -109,13 +117,13 @@ class Szamok {
 		$right 	= array_diff($set2, $set1);
 
 		if (count($left) > 0) {
-			$page[0] = 'Azokat az osztókat, amik benne vannak a $G$ halmazban, de nincsenek benne a $H$-ban, a <b>bal</b> oldalra írjuk:'
+			$page[0] = 'Azokat a számokat, amik benne vannak a $G$ halmazban, de nincsenek benne a $H$-ban, a <b>bal</b> oldalra írjuk:'
 				.$this->VennDiagram($left);
 			$hints[] = $page;
 		}
 
 		if (count($right) > 0) {
-			$page[0] = 'Azokat az osztókat, amik benne vannak a $H$ halmazban, de nincsenek benne a $H$-ban, a <b>jobb</b> oldalra írjuk:'
+			$page[0] = 'Azokat a számokat, amik benne vannak a $H$ halmazban, de nincsenek benne a $G$-ben, a <b>jobb</b> oldalra írjuk:'
 				.$this->VennDiagram($left, [], $right);
 			$hints[] = $page;
 		}
@@ -123,23 +131,23 @@ class Szamok {
 		$page 	= [];
 
 		if (count($center) > 0) {
-			$page[0] = 'Azokat az osztókat, amik a $G$ és $H$ halmazban is benne vannak, <b>középre</b> írjuk:'
+			$page[0] = 'Azokat a számokat, amik a $G$ és $H$ halmazban is benne vannak, <b>középre</b> írjuk:'
 				.$this->VennDiagram($left, $center, $right);
 			$hints[] = $page;
 		}
 
 		switch ($operation) {
 			case 'G\setminus H': // G\H
-				$text = 'Az $G\setminus H$ azokat az osztókat jelöli, amik a $G$ halmazban benne vannak, de a $H$ halmazban nem, vagyis a <b>bal</b> oldali részt:';
+				$text = 'Az $G\setminus H$ azokat a számokat jelöli, amik a $G$ halmazban benne vannak, de a $H$ halmazban nem, vagyis a <b>bal</b> oldali részt:';
 				break;
 			case 'H\setminus G': // H\G
-				$text = 'Az $H\setminus G$ azokat az osztókat jelöli, amik a $H$ halmazban benne vannak, de a $G$ halmazban nem, vagyis a <b>jobb</b> oldali részt:';
+				$text = 'Az $H\setminus G$ azokat a számokat jelöli, amik a $H$ halmazban benne vannak, de a $G$ halmazban nem, vagyis a <b>jobb</b> oldali részt:';
 				break;
 			case 'G\cup H': // union(H,G)
-				$text = 'Az $G\cup H$ azokat az osztókat jelöli, amik a $G$ vagy a $H$ halmazban vannak, vagyis az <b>összes</b> osztót:';
+				$text = 'Az $G\cup H$ azokat a számokat jelöli, amik a $G$ vagy a $H$ halmazban vannak, vagyis az <b>összes</b> osztót:';
 				break;
 			case 'G\cap H': // intersect(H,G)
-				$text = 'Az $G\cap H$ azokat az osztókat jelöli, amik a $G$ és $H$ halmazban is benne vannak, vagyis a <b>középső részt</b>:';
+				$text = 'Az $G\cap H$ azokat a számokat jelöli, amik a $G$ és $H$ halmazban is benne vannak, vagyis a <b>középső részt</b>:';
 				break;
 		}
 

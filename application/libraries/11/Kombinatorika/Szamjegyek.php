@@ -18,10 +18,13 @@ class Szamjegyek {
 
 		$length = 1 + $level;
 
+		// // Original exercise
+		// $length = 3;
+
 		$question = 'Hány olyan '.($length == 2 ? 'két' : NumText($length)).'jegyű pozitív egész szám van, amelynek minden számjegye különböző?';
 
-		$num_list = range(9, 9-$level+1);
-		$correct = 9 * array_product($num_list);
+		$num_list = range(9, 9-$length+2);
+		$correct = 9*array_product($num_list);
 		$solution = '$'.$correct.'$';
 
 		$page[] = 'Összesen $10$ számjegy van: $0,1,2,3,4,5,6,7,8,9$.';
