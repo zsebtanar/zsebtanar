@@ -14,16 +14,23 @@ function DrawText($x, $y, $text, $fontsize=10, $color='black', $alpha=0) {
   return $svg;
 }
 
-function DrawCircle($cx, $cy, $r, $color1='black', $width=1, $color2='none') {
+function DrawRectangle($x, $y, $width, $height, $fill, $stroke='black', $strokewidth=0, $opacity=1) {
 
-  $svg = '<circle cx="'.$cx.'" cy="'.$cy.'" r="'.$r.'" stroke="'.$color1.'" stroke-width="'.$width.'" fill="'.$color2.'" />';
+  $svg = '<rect x="'.$x.'" y="'.$y.'" width="'.$width.'" height="'.$height.'" style="fill:'.$fill.';stroke:'.$stroke.';stroke-width:'.$strokewidth.';opacity:'.$opacity.'" />';
 
   return $svg;
 }
 
-function DrawPath($x1, $y1, $x2, $y2, $color1='black', $width=1, $color2='none', $dasharray1=5, $dasharray2=0) {
+function DrawCircle($cx, $cy, $r, $stroke='black', $strokewidth=1, $fill='none') {
 
-  $svg = '<g fill="'.$color2.'" stroke="'.$color1.'" stroke-width="'.$width.'">
+  $svg = '<circle cx="'.$cx.'" cy="'.$cy.'" r="'.$r.'" stroke="'.$stroke.'" stroke-width="'.$strokewidth.'" fill="'.$fill.'" />';
+
+  return $svg;
+}
+
+function DrawPath($x1, $y1, $x2, $y2, $stroke='black', $width=1, $color2='none', $dasharray1=5, $dasharray2=0) {
+
+  $svg = '<g fill="'.$color2.'" stroke="'.$stroke.'" stroke-width="'.$width.'">
   			<path stroke-dasharray="'.$dasharray1.','.$dasharray2.'" d="M'.$x1.' '.$y1.' l'.strval($x2-$x1).' '.strval($y2-$y1).'" />
   		</g>';
 
@@ -77,6 +84,23 @@ function DrawArc($x1, $y1, $x2, $y2, $x3, $y3, $radius, $modx=0, $mody=0, $text=
       $svg .= '<text font-size="10" x="'.$ccx.'" y="'.$ccy.'" fill="black">'.$text.'</text>';
     }
   }
+
+  return $svg;
+}
+
+// Pie slice between P1, P2, P3 (P1 is the center)
+function DrawPieChart($cx, $cy, $r, $angle1=0, $angle2=0, $fill='red', $fill_opacity=1, $stroke='black', $strokewidth=0) {
+
+  list($x1, $y1) = polarToCartesian($cx, $cy, $r, $angle1);
+  list($x2, $y2) = polarToCartesian($cx, $cy, $r, $angle2);
+
+  if ($angle2-$angle1 >= 360) {
+    $long_arc_flag = 1;
+  } else {
+    $long_arc_flag = ($angle2-$angle1 > 180 ? 1 : 0);
+  }
+
+  $svg = '<path d="M'.$cx.','.$cy.' L'.$x1.','.$y1.' A'.$r.','.$r.' 0 '.$long_arc_flag.',0 '.$x2.','.$y2.' z" fill="'.$fill.'" fill-opacity="'.$fill_opacity.'" stroke-width="'.$strokewidth.'"/>';
 
   return $svg;
 }
