@@ -36,6 +36,10 @@
 								{
 									"label": "Hanyados",
 									"name": "Mértani sorozat hányadosa"
+								},
+								{
+									"label": "Osszeg",
+									"name": "Mértani sorozat összege"
 								}
 							]
 						}
@@ -151,6 +155,10 @@
 								{
 									"label": "Hurtrapez",
 									"name": "Húrtrapéz"
+								},
+								{
+									"label": "Fizetes",
+									"name": "Fizetés"
 								}
 							]
 						},

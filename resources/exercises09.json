@@ -120,6 +120,10 @@
 								{
 									"label": "Median_atlag",
 									"name": "Medián és átlag"
+								},
+								{
+									"label": "Atlag_munkaora",
+									"name": "Átlag munkaóra"
 								}
 							]
 						}
