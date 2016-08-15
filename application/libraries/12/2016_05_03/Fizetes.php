@@ -17,7 +17,7 @@ class Fizetes {
 
 		$CI =& get_instance();
 
-		if ($level <= 3) {
+		if ($level <= 4) {
 
 			$CI->load->library('12/Mertani_sorozat/Osszeg', NULL, 'Osszeg');
 			$data = $CI->Osszeg->Generate($level);
