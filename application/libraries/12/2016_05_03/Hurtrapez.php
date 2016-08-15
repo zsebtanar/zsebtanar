@@ -20,19 +20,19 @@ class Hurtrapez {
 
 		if ($level <= 3) {
 
-			$CI->load->library('12/Sikidom/Hurtrapez_szog', NULL, 'Feladat');
+			$CI->load->library('12/Sikidom/Hurtrapez_szog', NULL, 'Hurtrapez_Exercise');
 
 		} elseif ($level <= 6) {
 
-			$CI->load->library('12/Sikidom/Hurtrapez_terulet', NULL, 'Feladat');
+			$CI->load->library('12/Sikidom/Hurtrapez_terulet', NULL, 'Hurtrapez_Exercise');
 
 		} else {
 
-			$CI->load->library('12/Sikidom/Hurtrapez_koriv', NULL, 'Feladat');
+			$CI->load->library('12/Sikidom/Hurtrapez_koriv', NULL, 'Hurtrapez_Exercise');
 
 		}
 
-		$data = $CI->Feladat->Generate($level);
+		$data = $CI->Hurtrapez_Exercise->Generate($level);
 
 		return $data;
 	}

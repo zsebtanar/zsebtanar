@@ -52,13 +52,13 @@ class Hurtrapez_szog {
 
 		$alpha = toDeg(acos($ae/$side));
 		
-		$hints[][] = 'Az $AE$ és $AD$ szakasz hányadosa az $A$ csúcsnál lévő $\alpha$ szög szinuszával egyenlő:$$\cos\alpha=\frac{AE}{AD}=\frac{'.round2($ae).'}{'.round2($side).'}$$'.$this->Trapez($bottom, $top, $side, 4);
+		$hints[][] = 'Az $AE$ és $AD$ szakasz hányadosa az $A$ csúcsnál lévő $\alpha$ szög koszinuszával egyenlő:$$\cos\alpha=\frac{AE}{AD}=\frac{'.round2($ae).'}{'.round2($side).'}$$'.$this->Trapez($bottom, $top, $side, 4);
 
 		$page[] = 'Ekkor az $\alpha$ szög a hányados arkusz koszinuszával egyenlő:$$\alpha=\arccos\left(\frac{'.round2($ae).'}{'.round2($side).'}\right)$$';
 		$page[] = '<b>Megjegyzés</b>: az eredményt a következőképpen lehet kiszámolni számológéppel:
 			<ol>
 				<li>Állítsuk be a gépet <b>DEG</b> módba (ha még nem tettük):<br /><kbd>MODE</kbd> <kbd>DEG</kbd></li>
-				<li>Az szinusz függvény inverzét a <b>cos<sup>-1</sup></b> gomb segítségével lehet kiszámolni:<br />'
+				<li>A koszinusz függvény inverzét a <b>cos<sup>-1</sup></b> gomb segítségével lehet kiszámolni:<br />'
 			.'<kbd>'.round2($ae).'</kbd> <kbd>&divide;</kbd> <kbd>'.round2($side).'</kbd> <kbd>=</kbd> <kbd>Shift</kbd> <kbd>cos<sup>-1</sup></kbd> <kbd>=</kbd></li>
 			</ol>';
 		$hints[] = $page;
@@ -67,7 +67,7 @@ class Hurtrapez_szog {
 
 		$page = [];
 		$page[] = 'Tehát az $A$ csúcsnál lévő szög nagysága $'.Round2($alpha).'°$.';
-		$page[] = 'Tudjuk, hogy a trapéz két oldalsó szöge $180°$-ra egészítik ki egymást, ezért a $D$ csúcsnál lévő szöget úgy tudjuk kiszámolni, hogy a $180°$-ból kivonjuk az $\alpha$ szöget:$180°-'.round2($alpha).'°='.round2($beta).'°$, aminek az egészekre kerekített értéke <span class="label label-success">$'.round($beta).'°$</span>.';
+		$page[] = 'Tudjuk, hogy a trapéz két oldalsó szöge $180°$-ra egészíti ki egymást, ezért a $D$ csúcsnál lévő szöget úgy tudjuk kiszámolni, hogy a $180°$-ból kivonjuk az $\alpha$ szöget: $180°-'.round2($alpha).'°='.round2($beta).'°$, aminek az egészekre kerekített értéke <span class="label label-success">$'.round($beta).'°$</span>.';
 		$hints[] = $page;
 
 		return array($hints, round($beta));

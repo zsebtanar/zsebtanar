@@ -13,7 +13,6 @@ class Grafok_ismerosok {
 		return;
 	}
 
-	// Get value of VAT of a pair of jeans
 	function Generate($level) {
 
 		$CI =& get_instance();

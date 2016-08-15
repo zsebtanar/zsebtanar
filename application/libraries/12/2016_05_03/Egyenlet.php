@@ -19,15 +19,15 @@ class Egyenlet {
 
 		if ($level <= 4) {
 
-			$CI->load->library('9/Egyenletek/Tortek', NULL, 'Egyenlet');
+			$CI->load->library('9/Egyenletek/Tortek', NULL, 'Tortek');
+			$data = $CI->Tortek->Generate($level);
 
 		} else {
 
-			$CI->load->library('10/Masodfoku_egyenlet/Egyenlotlenseg_grafikus', NULL, 'Egyenlet');
+			$CI->load->library('10/Masodfoku_egyenlet/Egyenlotlenseg_grafikus', NULL, 'Egyenlotlenseg_grafikus');
+			$data = $CI->Egyenlotlenseg_grafikus->Generate($level);
 			
 		}
-		
-		$data = $CI->Egyenlet->Generate($level);
 
 		return $data;
 	}
