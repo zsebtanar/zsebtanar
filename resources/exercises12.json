@@ -45,12 +45,30 @@
 					"name": "Geometria",
 					"subtopics": [
 						{
-							"name": "Testek felszíne",
+							"name": "Felszín, térfogat",
 							"label": "Felszin",
 							"exercises": [
 								{
 									"label": "Csonkagula",
 									"name": "Csonkagúla"
+								}
+							]
+						},
+						{
+							"name": "Síkidomok",
+							"label": "Sikidom",
+							"exercises": [
+								{
+									"label": "Hurtrapez_szog",
+									"name": "Húrtrapéz szöge"
+								},
+								{
+									"label": "Hurtrapez_terulet",
+									"name": "Húrtrapéz területe"
+								},
+								{
+									"label": "Hurtrapez_koriv",
+									"name": "Húrtrapéz (körív)"
 								}
 							]
 						}
@@ -116,7 +134,7 @@
 								},
 								{
 									"label": "Abszolutertek_fuggveny",
-									"name": "Értelmezési tartomány"
+									"name": "Abszolútérték függvény"
 								},
 								{
 									"label": "Szinusz_egyenlet",
@@ -129,6 +147,10 @@
 								{
 									"label": "Egyenlet",
 									"name": "Egyenlet"
+								},
+								{
+									"label": "Hurtrapez",
+									"name": "Húrtrapéz"
 								}
 							]
 						},
