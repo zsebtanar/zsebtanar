@@ -500,6 +500,54 @@ function On($num)
 }
 
 /**
+ * Add suffix 'on' to number (on/en/ön)
+ *
+ * @param int $num Number (<10^6)
+ *
+ * @return string $suffix Suffix
+ */
+function On2($num)
+{
+  $abs = abs($num);
+
+  switch ($abs % 10) {
+    case 1:
+    case 2:
+    case 4:
+    case 5:
+    case 7:
+    case 9:
+      return 'en';
+    case 6:
+    case 3:
+    case 8:
+      return 'an';
+  }
+
+  switch (($abs / 10) % 10) {
+    case 1:
+    case 4:
+    case 5:
+    case 7:
+    case 9:
+      return 'en';
+    case 2:
+    case 3:
+    case 6:
+    case 8:
+      return 'an';
+  }
+
+  if ($abs == 0) {
+    return 'n';
+  } elseif (1000 <= $abs && $abs < 1000000) {
+    return 'en';
+  } else {
+    return 'an';
+  }
+}
+
+/**
  * Add suffix 'from' to number (ból/ből)
  *
  * @param int $num Number (<10^6)
@@ -550,11 +598,12 @@ function From($num)
 /**
  * Write down number with letters
  *
- * @param int $num Number
+ * @param int  $num     Number
+ * @param bool $capital Return capital letters?
  *
  * @return string $num_text Number with text
  */
-function NumText($num) {
+function NumText($num, $capital=FALSE) {
   
   $digits = str_split($num);
   $digits = array_reverse($digits);
@@ -592,6 +641,12 @@ function NumText($num) {
   $num_text = str_ireplace('kettőmillió','kétmillió', $num_text);
   $num_text = str_ireplace('kettőmilliárd','kétmilliárd', $num_text);
 
+  if ($capital) {
+    $letters = str_split($num_text);
+    $letters[0] = strtoupper($letters[0]);
+    $num_text = implode('', $letters);
+  }
+
   return $num_text;
 }
 
@@ -617,6 +672,30 @@ function NumArray($num_array, $last='vagy', $glue='') {
   }
 
   return $array_text;
+}
+
+/**
+ * Write down string array
+ *
+ * @param array  $array Strings
+ * @param string $last  Proposition for last element
+ * @param string $glue  Text after each number
+ *
+ * @return string $text Strings in text
+ */
+function StringArray($array, $last='vagy', $glue='') {
+  
+  $text = '';
+  for ($i=0; $i < count($array); $i++) { 
+    $text .= $array[$i].$glue;
+    if ($i < count($array)-2) {
+      $text .= ', ';
+    } elseif ($i == count($array)-2) {
+      $text .= ' '.$last.' ';
+    }
+  }
+
+  return $text;
 }
 
 /**
