@@ -159,6 +159,10 @@
 								{
 									"label": "Fizetes",
 									"name": "Fizetés"
+								},
+								{
+									"label": "Teszt",
+									"name": "Teszt"
 								}
 							]
 						},

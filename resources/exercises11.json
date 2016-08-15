@@ -18,6 +18,10 @@
 								{
 									"label": "Kerteszet",
 									"name": "Kertészet"
+								},
+								{
+									"label": "Teszt_pontok",
+									"name": "Teszt pontok"
 								}
 							]
 						},

@@ -18,6 +18,21 @@
 							]
 						}
 					]
+				},
+				{
+					"name": "Függvények",
+					"subtopics": [
+						{
+							"name": "Grafikonok, diagramok",
+							"label": "Grafikon",
+							"exercises": [
+								{
+									"label": "Teszt_grafikon",
+									"name": "Teszt grafikon"
+								}
+							]
+						}
+					]
 				}
 			]
 		}

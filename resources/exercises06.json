@@ -1,0 +1,25 @@
+{
+	"classes": [
+		{
+			"label": "6",
+			"name": "6. osztály",
+			"topics": [
+				{
+					"name": "Statisztika",
+					"subtopics": [
+						{
+							"name": "Statisztika",
+							"label": "Statisztika",
+							"exercises": [
+								{
+									"label": "Teszt_kordiagram",
+									"name": "Kördiagram"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

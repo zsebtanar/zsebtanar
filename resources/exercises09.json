@@ -79,6 +79,10 @@
 								{
 									"label": "Reszhalmazok",
 									"name": "Részhalmazok"
+								},
+								{
+									"label": "Teszt_diagram",
+									"name": "Teszt"
 								}
 							]
 						},
