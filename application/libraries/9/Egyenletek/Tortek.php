@@ -45,8 +45,10 @@ class Tortek {
 		// print('r2='.$r[2].'<br />');
 		// print('r3='.$r[3].'<br />');
 
-		$numbers = ['one', 'two', 'three'];
-		$num = rand(0,2);
+		// // Original exercise
+		// $x = -2;
+		// $l = [7,-2,5];
+		// $r = [6,4,2,2];
 
 		$question 	= 'Oldja meg az alábbi egyenletet a valós számok halmazán!'
 			.$this->Equation($l, $r, 0)
@@ -207,7 +209,7 @@ class Tortek {
 		$page[] = 'Vonjuk össze az egynemű tagokat!'.
 			$this->Equation($l, $r, 4);
 
-		$page[] = 'Gyűjtsük $x$-et tartalmazó tagokat jobb oldalra, a többit pedig balra!'.
+		$page[] = 'Gyűjtsük össze az $x$-et tartalmazó tagokat jobb oldalra, a többit pedig balra!'.
 			$this->Equation($l, $r, 5);
 
 		$page[] = 'Ha mindkét oldalt leosztjuk az $x$ együtthatójával, azt kapjuk, hogy a megoldás <span class="label label-success">$'.$x.'$</span>.';

@@ -16,33 +16,23 @@ class Egyenlotlenseg_grafikus {
 
 	function Generate($level) {
 
-		// $level = 5;
-
 		// solutions
 		$numbers = array_diff(range(-$level, $level), [0]);
 		shuffle($numbers);
 		$x1 = $numbers[0];
 		$x2 = $numbers[1];
-		$x1 = -2;
-		$x2 = 2;
 		if ($x2 < $x1) {
 			list($x1, $x2) = array($x2, $x1);
 		}
 
 		// number of solutions
 		$no_solutions = rand(0,2);
-		$no_solutions = 2;
 		$x2 = ($no_solutions == 1 ? $x1 : $x2);
 
 		// coefficients: a*x^2 + b*x + c = 0
 		$a = pow(-1,rand(0,1)) * rand(1,$level);
-		$a = -1;
 		$b = -$a * ($x1 + $x2);
 		$c = $a * ($x1 * $x2);
-
-		// $a = 1;
-		// $b = 1;
-		// $c = -2;
 
 		// no solution if: b^2 - 4ac < 0 => b^2 < 4ac
 		// b^2 / 4a < c (if a>0)
@@ -54,7 +44,15 @@ class Egyenlotlenseg_grafikus {
 		// relation: <=, <, >, >=
 		$relations 	= ['\leq', '<', '>', '\geq'];
 		$relation 	= $relations[rand(0,3)];
-		$relation = '>';
+
+		// // Original exercise
+		// $x1 = -1;
+		// $x2 = 2;
+		// $a = 1;
+		// $b = -1;
+		// $c = -2;
+		// $no_solutions = 2;
+		// $relation = '\leq';
 
 		$question 	= 'Oldja meg az alábbi egyenlőtlenséget a valós számok halmazán!'
 			.$this->Equation_text($a, $b, $c, $x1, $x2, 0, $relation)
@@ -240,8 +238,8 @@ class Egyenlotlenseg_grafikus {
 		} elseif ($no_solutions == 1) {
 
 			$page = [];
-			$page[] = 'Látható, hogy a gyökjel alatti kifejezés értéke $0$, ezért az egyenletnek csak egy megoldása van, az $x='.$x1.'$.';
-			$page[] = 'Ábrázoljuk az eredeti kifejezés jobb oldalát grafikonon!';
+			$page[] = 'Mivel a gyökjel alatti kifejezés értéke $0$, ezért az egyenletnek csak egy megoldása van, az $x='.$x1.'$.';
+			$page[] = 'Ábrázoljuk az eredeti egyenlőtlenséget grafikonon!';
 			$page[] = 'Mivel a kifejezés másodfokú, ezért a képe egy parabola lesz.';
 			$page[] = 'Mivel az $x^2$ együtthatója '.($a>0 ? 'pozitív' : 'negatív').', ezért a parabola '.($a>0 ? 'fölfelé' : 'lefelé').' áll.';
 			$page[] = 'Mivel csak egy zérushely van, ezért a parabola csak egy pontban (a zérushelyen) érinti az $x$ tengelyt.';
@@ -284,8 +282,8 @@ class Egyenlotlenseg_grafikus {
 		} elseif ($no_solutions == 2) {
 
 			$page = [];
-			$page[] = 'Látható, hogy a gyökjel alatti kifejezés értéke pozitív, ezért az egyenletnek két megoldása van, az $x_1='.$x1.'$ és az $x_2='.$x2.'$.';
-			$page[] = 'Ábrázoljuk az eredeti kifejezés jobb oldalát grafikonon!';
+			$page[] = 'Mivel a gyökjel alatti kifejezés értéke pozitív, ezért az egyenletnek két megoldása van, az $x_1='.$x1.'$ és az $x_2='.$x2.'$.';
+			$page[] = 'Ábrázoljuk az eredeti egyenlőtlenséget grafikonon!';
 			$page[] = 'Mivel a kifejezés másodfokú, ezért a képe egy parabola lesz.';
 			$page[] = 'Mivel az $x^2$ együtthatója '.($a>0 ? 'pozitív' : 'negatív').', ezért a parabola '.($a>0 ? 'fölfelé' : 'lefelé').' áll.';
 			$page[] = 'Mivel két zérushely van, ezért a parabola két pontban (a zérushelyeken) metszi az $x$ tengelyt.';

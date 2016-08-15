@@ -23,6 +23,11 @@ class Sapka {
 		$ind = range(0,3);
 		shuffle($ind);
 
+		// // Original exercise
+		// $colors = ['fekete', 'fehér'];
+		// $type = 0;
+		// $ind = range(0,3);
+
 		if ($type == 0) {
 
 			$question = 'Egy fiókban néhány sapka van. Tekintsük a következő állítást:<br />

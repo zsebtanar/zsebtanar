@@ -42,6 +42,12 @@ class Lotto {
 		$chosen = array_slice($chosen, 0, $pull);
 		sort($chosen);
 
+		// // Original exercise
+		// $max = 5;
+		// $pull = 3;
+		// $numbers = [1,2,3,4,5];
+		// $chosen = [2,3,5];
+
 		$question = 'Az osztály lottót szervez, melyben az $'.implode(',', $numbers).'$ számok közül húznak ki '.$pull_text[$pull].'. Tamás '.The($chosen[0]).' $'.implode(',', $chosen).'$ számokat jelöli be a szelvényen. Számítsa ki annak a valószínűségét, hogy Tamásnak telitalálata lesz!';
 
 		$all = binomial_coeff($max, $pull);

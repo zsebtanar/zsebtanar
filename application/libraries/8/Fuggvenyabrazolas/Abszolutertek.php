@@ -20,9 +20,6 @@ class Abszolutertek {
 		$x1 = -rand(3, max(5,$level));
 		$x2 = rand(3, max(5,$level));
 
-		$x1 = -5;
-		$x2 = 3;
-
 		// f(x) = |x+a|+b
 		$a = rand(-$x2+1,-$x1-1); // avoid excluding minimum
 		$b = rand(-$level, $level);
@@ -31,12 +28,18 @@ class Abszolutertek {
 		if ($level <= 3) {
 			list($a, $b) = (rand(1,2) == 1 ? [0,$b] : [$a,0]);
 		}
+
+		// // Original exercise
+		// $x1 = -3;
+		// $x2 = 6;
+		// $a = -2;
+		// $b = -3;
 		
 		// Range = [y1, y2]
 		$y1 = $b;
 		$y2 = max(abs($x1+$a), abs($x2+$a)) + $b;
 		
-		$question = 'Ábrázolja a $['.$x1.';'.$x2.']$ intervallumon értelmezett $x\rightarrow'.$this->AbsFunctionText($a,$b).'$ függvényt! Mekkora függvény értékkészlete?';		;
+		$question = 'Ábrázolja a $['.$x1.';'.$x2.']$ intervallumon értelmezett $x\rightarrow'.$this->AbsFunctionText($a,$b).'$ függvényt! Mekkora a függvény értékkészlete?';		;
 
 		$hints = $this->Hints($x1, $x2, $a, $b, $y1, $y2);
 
@@ -86,8 +89,8 @@ class Abszolutertek {
 	// Draws function f(x) = |x+a|+b on [x1,x2]
 	function AbsFunctionGraph($x1, $x2, $a, $b, $progress=0) {
 
-		$bottom = min(abs($x1+$a), abs($x2+$a), 0) + $b;
-		$top 	= max(abs($x1+$a), abs($x2+$a)) + $b;
+		$bottom = min(abs($x1+$a), abs($x2+$a), 0) + ($b<0 ? $b : 0);
+		$top 	= max(abs($x1+$a), abs($x2+$a)) + ($b>0 ? $b : 0);
 		$left 	= $x1;
 		$right 	= $x2;
 

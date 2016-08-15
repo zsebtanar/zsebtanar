@@ -26,8 +26,12 @@ class Szinusz {
 		$a = $a_options[0];
 		$b = $b_options[0];
 		$a = ($level <= 3 ? 1 : $a);
-		// $a = 1;
-		// $b = 0;
+
+		// // Original exercise
+		// $a_options = [1, 0.5, 2];
+		// $b_options = [1, -2, -1, 0, 2];
+		// $a = $a_options[0];
+		// $b = $b_options[0];
 
 		$question = 'Oldja meg a $'.$this->SinFunctionText($a).'='.$b.'$ egyenletet a valós számok halmazán! Válassza ki a jó megoldást az alábbiak közül:';
 
@@ -296,7 +300,7 @@ class Szinusz {
 				$xval1 = ($i-$originx)/$xunit_length*pi()/2;
 				$yval1 = -sin($a*$xval1)*$yunit_length/$yunit_original+$originy;
 				$yval2 = round(-$yunit_length/$yunit_original)+$originy;
-				if (abs(sin($a*$xval1)-$b) < 0.01) {
+				if (abs(sin($a*$xval1)-$b) < 0.00001) {
 					$svg .= DrawCircle($i, $yval1, 5, 'red', 1, 'red');
 					if ($progress == 3 && $b != 0) {
 						$svg .= '<g fill="none" stroke="red" stroke-width="2"><path stroke-dasharray="5,5" d="M'.$i.' '.$originy.' l0 '.round(-$yunit_length/$yunit_original).'" /></g>';
