@@ -27,19 +27,19 @@ class Teszt_diagram {
 		$ca = rand(0,3);
 		$single = rand(0,3);
 
-		// Original exercise
-		$names = ['Éva', 'János', 'Nóra'];
-		$abc = 1;
-		$ab = 0;
-		$bc = 1;
-		$ca = 2;
-		$single = 2;
+		// // Original exercise
+		// $names = ['Éva', 'János', 'Nóra'];
+		// $abc = 1;
+		// $ab = 2;
+		// $bc = 1;
+		// $ca = 0;
+		// $single = 2;
 
-		$question = $names[0].', '.$names[1].' és '.$names[2].' tesztet írnak. '.
+		$question = $names[0].', '.$names[1].' és '.$names[2].' tesztet írnak. A teszt értékelésekor minden helyes válaszra $1$ pont, helytelen válaszra pedig $0$ pont jár. '.
 			($abc==0 ? 'Egyetlen kérdése sem volt,' : NumText($abc,TRUE).' olyan kérdés volt,').' amelyre mindhárman jól válaszoltak. '.
 			($abc+$ab==0 ? 'Egy kérdés sem volt,' : NumText($abc+$ab,TRUE).' olyan kérdés volt,').' amit '.$names[0].' és '.$names[1].' is jól válaszolt meg, '.
-			($abc+$bc==0 ? 'egy kérdés sem volt,' : NumText($abc+$bc,TRUE).' olyan kérdés volt,').' amit '.$names[1].' és '.$names[2].' is, és '.
-			($abc+$bc==0 ? 'egy sem,' : NumText($abc+$bc,TRUE).' olyan,').' amire '.$names[2].' és '.$names[0].' is jó választ adott. '.
+			($abc+$bc==0 ? 'egy kérdés sem volt,' : NumText($abc+$bc).' olyan kérdés volt,').' amit '.$names[1].' és '.$names[2].' is, és '.
+			($abc+$ca==0 ? 'egy sem,' : NumText($abc+$ca).' olyan,').' amire '.$names[2].' és '.$names[0].' is jó választ adott. '.
 			($single==2 ? 'Két' : NumText($single,TRUE)).' olyan kérdés volt, amelyet csak egyvalaki oldott meg helyesen hármuk közül. '.
 			'Hány pontot szereztek ők hárman összesen ezen a teszten?';
 
@@ -59,10 +59,10 @@ class Teszt_diagram {
 
 		$hints[][] = 'Írjuk egy Venn-diagram megfelelő részeibe a legalább két diák által jól megoldott feladatok számát.'.$this->VennDiagram($names, $abc, $ab, $bc, $ca);
 		$hints[][] = '$'.$abc.'$ olyan kérdés volt, amire mindhárman jól válaszoltak, ezt középre írjuk:'.$this->VennDiagram($names, $abc, $ab, $bc, $ca, 1);
-		$hints[][] = '$'.strval($abc+$ab).'$ olyan kérdés volt, amire '.$names[0].' és '.$names[1].' is jól válaszolt meg, ezért hozzájuk $'.$ab.'$-'.Dativ($ab).' írunk, mert így lesz ennyi a két szám összege:'.$this->VennDiagram($names, $abc, $ab, $bc, $ca, 2);
-		$hints[][] = '$'.strval($abc+$bc).'$ olyan kérdés volt, amire '.$names[1].' és '.$names[2].' is jól válaszolt meg, ezért hozzájuk $'.$bc.'$-'.Dativ($bc).' írunk, mert így lesz ennyi a két szám összege:'.$this->VennDiagram($names, $abc, $ab, $bc, $ca, 3);
-		$hints[][] = '$'.strval($abc+$ca).'$ olyan kérdés volt, amire '.$names[2].' és '.$names[0].' is jól válaszolt meg, ezért hozzájuk $'.$ca.'$-'.Dativ($ca).' írunk, mert így lesz ennyi a két szám összege:'.$this->VennDiagram($names, $abc, $ab, $bc, $ca, 4);
-		$hints[][] = 'Azért a $'.$single.'$ feladatért, amit csak egy diák oldott meg helyesen, $\color{green}{'.$single.'}$ pont jár. Így a három tanuló összesen $\color{red}{3\cdot'.$abc.'}\color{black}{+}\color{blue}{2\cdot('.$ab.'+'.$bc.'+'.$ca.')}\color{black}{+}\color{green}{'.$single.'}\color{black}{=}$<span class="label label-success">$'.$correct.'$</span>:'.$this->VennDiagram($names, $abc, $ab, $bc, $ca, 5);
+		$hints[][] = '$'.strval($abc+$ab).'$ olyan kérdés volt, amire '.$names[0].' és '.$names[1].' is jól válaszolt, ezért hozzájuk $'.$ab.'$-'.Dativ($ab).' írunk, mert így lesz ennyi a két szám összege:'.$this->VennDiagram($names, $abc, $ab, $bc, $ca, 2);
+		$hints[][] = '$'.strval($abc+$bc).'$ olyan kérdés volt, amire '.$names[1].' és '.$names[2].' is jól válaszolt, ezért hozzájuk $'.$bc.'$-'.Dativ($bc).' írunk, mert így lesz ennyi a két szám összege:'.$this->VennDiagram($names, $abc, $ab, $bc, $ca, 3);
+		$hints[][] = '$'.strval($abc+$ca).'$ olyan kérdés volt, amire '.$names[2].' és '.$names[0].' is jól válaszolt, ezért hozzájuk $'.$ca.'$-'.Dativ($ca).' írunk, mert így lesz ennyi a két szám összege:'.$this->VennDiagram($names, $abc, $ab, $bc, $ca, 4);
+		$hints[][] = 'Azért a $'.$single.'$ feladatért, amit csak egy diák oldott meg helyesen, $\color{green}{'.$single.'}$ pont jár. Így a három tanuló összesen $\color{red}{3\cdot'.$abc.'}\color{black}{+}\color{blue}{2\cdot('.$ab.'+'.$bc.'+'.$ca.')}\color{black}{+}\color{green}{'.$single.'}\color{black}{=}$<span class="label label-success">$'.$correct.'$</span> pontot szerzett.'.$this->VennDiagram($names, $abc, $ab, $bc, $ca, 5);
 
 		return $hints;
 	}

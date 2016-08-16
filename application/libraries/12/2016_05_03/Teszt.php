@@ -17,8 +17,6 @@ class Teszt {
 
 		$CI =& get_instance();
 
-		$level = 9;
-
 		if ($level <= 2) {
 
 			$CI->load->library('6/Statisztika/Teszt_kordiagram', NULL, 'Teszt_Exercise');
