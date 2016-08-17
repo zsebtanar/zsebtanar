@@ -77,7 +77,7 @@ class Gula {
 		$page = [];
 		$page[] = 'Egy $'.$cube_edge.'\,\text{cm}$ oldalú kocka térfogata:$$V_{kocka}='.$cube_edge.'\cdot'.$cube_edge.'\cdot'.$cube_edge.'='.$cube_volume.'\,\text{cm}^3$$';
 		$page[] = 'Számoljuk ki, hogy egy kockából hány gyertya készíthető:$$\frac{V_{kocka}}{V_{gyertya}}=\frac{'.round2($cube_volume).'}{'.round2($pyramid_volume).'}\approx'.round2($pieces).'$$';
-		$page[] = 'Tehát egy kockából alapanyagból <span class="label label-success">$'.floor($pieces).'$</span> darab doboz készíthető.';
+		$page[] = 'Tehát egy kockából alapanyagból legfeljebb <span class="label label-success">$'.floor($pieces).'$</span> darab doboz készíthető.';
 		$hints[] = $page;
 
 		return array($hints, floor($pieces));
@@ -86,8 +86,8 @@ class Gula {
 	function Pyramid($pyramid_base, $pyramid_side, $progress=0) {
 
 		$sides = 4; // sides of pyramid
-		$height	= 200; // height of pyramid
-		$radius = 200; // radius of base circle
+		$height	= 150; // height of pyramid
+		$radius = 150; // radius of base circle
 		$alfa0 = 15; // starting angle of nodes
 		$visible = [1,0,1,1]; // ids of visible edges
 		$perspective = 0.4;	// 0 (view from side) ... 1 (view from top)

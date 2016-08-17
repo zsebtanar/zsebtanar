@@ -29,21 +29,21 @@ class Gula_szinezes {
 		$correct = ($side==3 ? 8 : 12);
 		$solution = '$'.$correct.'$';
 
-		$page[] = 'Az alaplapot kétféleképpen lehet kiszínezni.';
-		$page[] = 'Az oldallapok lehetnek ugyanolyan színűek, mindegyik '.$colors[0][0].', vagy mindegyik '.$colors[1][0].' (két eset).';
+		$page[] = 'Az <b>alaplapot</b> <span class="label label-warning">kétféleképpen</span> lehet kiszínezni.';
+		$page[] = 'Az <b>oldallapok</b> lehetnek ugyanolyan színűek, <span class="label label-info">mindegyik</span> '.$colors[0][0].', vagy <span class="label label-info">mindegyik</span> '.$colors[1][0].' (két eset).';
 
 		if ($side == 3) {
 
-			$page[] = 'Lehet két oldallap '.$colors[0][0].' és egy '.$colors[1][0].', vagy két oldallap '.$colors[1][0].' és egy '.$colors[0][0].' (két eset).';
-			$page[] = 'Az oldallapokat tehát négyféleképpen lehet kiszínezni.';
-			$page[] = 'Összesen $2\cdot4=8$-féle különböző színezés készíthető.';
+			$page[] = 'Lehet <span class="label label-info">két</span> oldallap '.$colors[0][0].' és <span class="label label-info">egy</span> '.$colors[1][0].', vagy <span class="label label-info">két</span> oldallap '.$colors[1][0].' és <span class="label label-info">egy</span> '.$colors[0][0].' (két eset).';
+			$page[] = 'Az oldallapokat tehát <span class="label label-warning">négyféleképpen</span> lehet kiszínezni.';
+			$page[] = 'Összesen $2\cdot4=$<span class="label label-success">$8$</span>-féle különböző színezés készíthető.';
 
 		} else {
 
-			$page[] = 'Lehet három oldallap '.$colors[0][0].' és egy '.$colors[1][0].', vagy három oldallap '.$colors[1][0].' és egy '.$colors[0][0].' (két eset).';
-			$page[] = 'Olyan festésből, amikor két oldallap '.$colors[0][0].' és két oldallap '.$colors[1][0].', szintén kétféle lehet, attól függően, hogy az ugyanolyan színű lapok szomszédosak vagy szemköztiek.';
-			$page[] = 'Az oldallapokat tehát hatféleképpen lehet kiszínezni.';
-			$page[] = 'Összesen $2\cdot6=12$-féle különböző színezés készíthető.';
+			$page[] = 'Lehet <span class="label label-info">három</span> oldallap '.$colors[0][0].' és <span class="label label-info">egy</span> '.$colors[1][0].', vagy <span class="label label-info">három</span> oldallap '.$colors[1][0].' és <span class="label label-info">egy</span> '.$colors[0][0].' (két eset).';
+			$page[] = 'Olyan festésből, amikor <span class="label label-info">két</span> oldallap '.$colors[0][0].' és <span class="label label-info">két</span> oldallap '.$colors[1][0].', szintén kétféle lehet, attól függően, hogy az ugyanolyan színű lapok szomszédosak vagy szemköztiek.';
+			$page[] = 'Az oldallapokat tehát <span class="label label-warning">hatféleképpen</span> lehet kiszínezni.';
+			$page[] = 'Összesen $2\cdot6=$<span class="label label-success">$12$</span>-féle különböző színezés készíthető.';
 
 		}
 		$hints[] = $page;
