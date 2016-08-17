@@ -16,10 +16,10 @@ class Teszt {
 
 	function Generate($level) {
 
-		$question 	= 'Melyik a legkisebb természetes szám?';
-		$correct 	= 0;
-		$solution 	= '$'.$correct.'$';
-		$hints[][]	= 'A megoldás a <span class="label label-success">0</span>';
+		$question = 'Melyik a legkisebb természetes szám?';
+		$correct = 0;
+		$solution = '$'.$correct.'$';
+		$hints[][] = 'A megoldás a <span class="label label-success">0</span>';
 
 		return array(
 			'question'  => $question,
