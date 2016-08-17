@@ -49,12 +49,22 @@
 					"name": "Geometria",
 					"subtopics": [
 						{
-							"name": "Felszín, térfogat",
+							"name": "Felszín",
 							"label": "Felszin",
 							"exercises": [
 								{
 									"label": "Csonkagula",
 									"name": "Csonkagúla"
+								}
+							]
+						},
+						{
+							"name": "Térfogat",
+							"label": "Terfogat",
+							"exercises": [
+								{
+									"label": "Gula",
+									"name": "Gúla"
 								}
 							]
 						},
@@ -167,6 +177,10 @@
 								{
 									"label": "Koordinatageometria",
 									"name": "Koordinatageometria"
+								},
+								{
+									"label": "Gyertya",
+									"name": "Gyertya"
 								}
 							]
 						},

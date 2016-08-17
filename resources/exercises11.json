@@ -58,6 +58,14 @@
 								{
 									"label": "Lotto",
 									"name": "Lottó"
+								},
+								{
+									"label": "Gula_szinezes",
+									"name": "Gúla színezés"
+								},
+								{
+									"label": "Varazskanoc",
+									"name": "Varázskanóc"
 								}
 							]
 						}
