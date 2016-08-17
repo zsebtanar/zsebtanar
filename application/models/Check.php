@@ -133,6 +133,7 @@ class Check extends CI_model {
 
 			case 'list':
 			case 'list2':
+			case 'coordinatelist':
 				list($status, $message) = $this->GenerateMessagesList($answer, $correct, $solution);
 				break;
 		}
@@ -428,9 +429,32 @@ class Check extends CI_model {
 		}
 
 		if ($isempty) {
+
 			$status = 'NOT_DONE';
 			$message = 'Hiányzik a válasz!';
+
 		} else {
+
+			if (is_array($correct[0])) { // correct answer contains subarrays
+				
+				foreach ($correct as $key => $value) {
+
+					$length = count($value);
+					$answertext = '';
+					for ($i=0; $i < $length; $i++) { 
+						$answertext .= $answer[$key*$length+$i];
+					}
+
+					// implode subarrays in correct answer
+					$correct2[] = implode('', $value);
+					// create array from answer data
+					$answer2[] = $answertext;
+				}
+				
+				$answer = $answer2;
+				$correct = $correct2;
+			}
+
 			$diff = array_intersect($answer, $correct);
 			if (count($diff) < count($correct)) {
 				$status = 'WRONG';

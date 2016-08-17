@@ -29,6 +29,7 @@
 							$this->load->view('Input/Array', array('labels' => $labels));
 							break;
 						case 'coordinate':
+						case 'coordinatelist':
 							$this->load->view('Input/Coordinate', array('labels' => $labels));
 							break;
 						case 'fraction':
