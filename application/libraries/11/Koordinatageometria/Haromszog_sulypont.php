@@ -36,19 +36,17 @@ class Haromszog_sulypont {
 		3\cdot0&=&'.$A[0].($B[0]<0 ? '' : '+').$B[0].'+c_1\\\\
 		'.strval(-$A[0]).(-$B[0]<0 ? '' : '+').strval(-$B[0]).'&=&c_1\\\\
 		'.$C[0].'&=&c_1\\\\
-		\end{eqnarray}$$';
-		$page[] = 'Tehát a $C$ csúcs $x$ koordinátája <span class="label label-success">$'.$C[0].'$</span>.';
+		\end{eqnarray}$$
+		Tehát a $C$ csúcs $x$-koordinátája <span class="label label-success">$'.$C[0].'$</span>.';
 		$hints[] = $page;
 
-		$page = [];
-		$page[] = 'Írjuk fel ezt az összefüggést először a $C(c_1;c_2)$ csúcs $y$-koordinájára:$$
+		$hints[][] = 'Írjuk fel ezt az összefüggést először a $C(c_1;c_2)$ csúcs $y$-koordinájára:$$
 		\begin{eqnarray}0&=&\frac{'.$A[1].($B[1]<0 ? '' : '+').$B[1].'+c_2}{3}\\\\
 		3\cdot0&=&'.$A[1].($B[1]<0 ? '' : '+').$B[1].'+c_2\\\\
 		'.strval(-$A[1]).(-$B[1]<0 ? '' : '+').strval(-$B[1]).'&=&c_2\\\\
 		'.$C[1].'&=&c_2\\\\
-		\end{eqnarray}$$';
-		$page[] = 'Tehát a $C$ csúcs $y$-koordinátája <span class="label label-success">$'.$C[1].'$</span>.';
-		$hints[] = $page;		
+		\end{eqnarray}$$
+		Tehát a $C$ csúcs $y$-koordinátája <span class="label label-success">$'.$C[1].'$</span>.';
 
 		return array(
 			'question'  => $question,

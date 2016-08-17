@@ -80,7 +80,7 @@ class Kor_egyenlet {
 		$hints[] = $page;
 
 		$page = [];
-		$page[] = 'A kör középpontja az $AB$ szakasz felezőpontja:$$\left(\frac{'.$A[0].($B[0]<0 ? '' : '+').$B[0].'}{2};\frac{'.$A[1].($B[1]<0 ? '' : '+').$B[1].'}{2}\right)=('.$C[0].';'.$C[1].')$$'.$this->Graph($A, $B, $axis, 2);
+		$page[] = 'A kör középpontja az $AB$ szakasz felezőpontja:$$C\left(\frac{'.$A[0].($B[0]<0 ? '' : '+').$B[0].'}{2};\frac{'.$A[1].($B[1]<0 ? '' : '+').$B[1].'}{2}\right)=C('.$C[0].';'.$C[1].')$$'.$this->Graph($A, $B, $axis, 2);
 		$hints[] = $page;
 
 		$page = [];
@@ -88,30 +88,31 @@ class Kor_egyenlet {
 			r=\frac{AB}{2}&=&\frac{\sqrt{('.$A[0].(-$B[0]<0 ? '' : '+').strval(-$B[0]).')^2+('.$A[1].(-$B[1]<0 ? '' : '+').strval(-$B[1]).')^2}}{2}\\\\
 			&=&\frac{\sqrt{('.strval($A[0]-$B[0]).')^2+('.strval($A[1]-$B[1]).')^2}}{2}\\\\
 			&=&\frac{\sqrt{'.pow($A[0]-$B[0],2).'+'.pow($A[1]-$B[1],2).'}}{2}='.$r.'\end{eqnarray}$$';
-		$page[] = 'A háromszög köré írható kör egyenlete:$$'.($C[0]==0 ? 'x^2' : '(x'.($C[0]<0 ? '' : '+').$C[0].')^2').'+'.($C[1]==0 ? 'y^2' : '(y'.($C[1]<0 ? '' : '+').$C[1].')^2').'='.($r<0 ? '('.$r.')^2' : $r.'^2').'$$'.$this->Graph($A, $B, $axis, 3);
+		$page[] = '<div class="alert alert-info"><b>Kör egyenlete</b><br />A $C(c_1;c_2)$ középpontú, $r$ sugarú kör egyenlete:$$(x-c_1)^2+(y-c_2)^2=r^2$$</div>';
+		$page[] = 'Ez alapján a háromszög köré írható kör egyenlete:$$'.($C[0]==0 ? 'x^2' : '(x'.(-$C[0]<0 ? '' : '+').strval(-$C[0]).')^2').'+'.($C[1]==0 ? 'y^2' : '(y'.(-$C[1]<0 ? '' : '+').strval(-$C[1]).')^2').'='.($r<0 ? '('.$r.')^2' : $r.'^2').'$$'.$this->Graph($A, $B, $axis, 3);
 		$hints[] = $page;
 
 		$page = [];
 		$page[] = 'A kör $'.$axis.'$ tengellyel való metszéspontját az $'.($axis=='x' ? 'y' : 'x').'=0$ helyettesítéssel kapjuk, így $$'.
 				($axis=='y' ?
-					($C[0]<0 ?
-						'('.$C[0].')^2' : 
-						$C[0].'^2'
+					(-$C[0]<0 ?
+						'('.strval(-$C[0]).')^2' : 
+						strval(-$C[0]).'^2'
 					) :
 					($C[0]==0 ?
 						'x^2' :
-						'(x'.($C[0]<0 ? '' : '+').$C[0].')^2'
+						'(x'.(-$C[0]<0 ? '' : '+').strval(-$C[0]).')^2'
 					)
 				).
 				'+'.
 				($axis=='x' ?
-					($C[1]<0 ?
-						'('.$C[1].')^2' : 
-						$C[1].'^2'
+					(-$C[1]<0 ?
+						'('.strval(-$C[1]).')^2' : 
+						strval(-$C[1]).'^2'
 					) :
 					($C[1]==0 ?
 						'y^2' :
-						'(y'.($C[1]<0 ? '' : '+').$C[1].')^2'
+						'(y'.(-$C[1]<0 ? '' : '+').strval(-$C[1]).')^2'
 					)
 				).
 				'='.($r<0 ? '('.$r.')^2' : $r.'^2').'$$';
