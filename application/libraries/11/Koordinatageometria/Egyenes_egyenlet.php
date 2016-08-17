@@ -19,7 +19,8 @@ class Egyenes_egyenlet {
 		$m = pow(-1,rand(1,2)) * rand(1,2);
 		$b = rand(-5,5);
 
-		$A[0] = rand(-10,10);
+		$A[0] = pow(-1,rand(1,2)) * rand(1,10); // Ax != 0
+		// $A[0] = 0;
 		$A[1] = $A[0]*$m + $b;
 		$B[0] = -$A[0];
 		$B[1] = $B[0]*$m + $b;
@@ -30,10 +31,13 @@ class Egyenes_egyenlet {
 		// $m = ($A[1]-$B[1])/($A[0]-$B[0]);
 		// $b = $A[1] - $A[0]*$m;
 
+		// print_r('m='.$m.', b='.$b.'<br />');
+		// print_r('A('.$A[0].';'.$A[1].'), B('.$B[0].';'.$B[1].')	<br />');
+
 		$mfrac['nom'] = ($B[1]-$A[1]) / gcd($B[1]-$A[1],$B[0]-$A[0]);
 		$mfrac['denum'] = ($B[0]-$A[0]) / gcd($B[1]-$A[1],$B[0]-$A[0]);
 
-		$question 	= 'Írja fel a hozzárendelési utasítását annak a lineáris függvénynek, mely $'.$A[0].'$-'.To($A[0]).' $'.$A[1].'$-'.Dativ($A[1]).' és $'.$B[0].'$-'.To($B[0]).' $'.$B[1].'$-'.Dativ($A[1]).' rendel! (A hozzárendelési utasítást $x\rightarrow mx+b$ alakban adja meg!)';
+		$question 	= 'Írja fel a hozzárendelési utasítását annak a lineáris függvénynek, mely $'.($A[0]<0 ? '('.$A[0].')' : $A[0]).'$-'.To($A[0]).' $'.($A[1]<0 ? '('.$A[1].')' : $A[1]).'$-'.Dativ($A[1]).' és $'.($B[0]<0 ? '('.$B[0].')' : $B[0]).'$-'.To($B[0]).' $'.($B[1]<0 ? '('.$B[1].')' : $B[1]).'$-'.Dativ($B[1]).' rendel! (A hozzárendelési utasítást $x\rightarrow mx+b$ alakban adja meg!)';
 
 		$page[] = 'A lineáris függvényt $y=mx+b$ alakban keressük.';
 		$page[] = 'A feladat alapján írjuk fel az első összefüggést:$$'.$A[1].'='.$A[0].'\cdot m+b$$';
