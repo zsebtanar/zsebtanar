@@ -514,9 +514,9 @@ function binomial_coeff($n, $k) {
 }
 
 // factorial
-function fact($x) {
-  $return = 1;
-  for ($i=2; $i <= $x; $i++) {
+function fact($x, $start=1) {
+  $return = $start;
+  for ($i=$start+1; $i <= $x; $i++) {
       $return = $return * $i;
   }
   return $return;
