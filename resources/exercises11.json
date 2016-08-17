@@ -98,6 +98,24 @@
 									"name": "Szinusz függvény"
 								}
 							]
+						},
+						{
+							"name": "Koordinátageometria",
+							"label": "Koordinatageometria",
+							"exercises": [
+								{
+									"label": "Haromszog_sulypont",
+									"name": "Háromszög súlypontja"
+								},
+								{
+									"label": "Egyenes_egyenlet",
+									"name": "Egyenes egyenlete"
+								},
+								{
+									"label": "Kor_egyenlet",
+									"name": "Kör egyenlete"
+								}
+							]
 						}
 					]
 				}

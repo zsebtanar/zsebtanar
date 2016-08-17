@@ -163,6 +163,10 @@
 								{
 									"label": "Teszt",
 									"name": "Teszt"
+								},
+								{
+									"label": "Koordinatageometria",
+									"name": "Koordinatageometria"
 								}
 							]
 						},
