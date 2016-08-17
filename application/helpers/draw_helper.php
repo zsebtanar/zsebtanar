@@ -28,6 +28,19 @@ function DrawCircle($cx, $cy, $r, $stroke='black', $strokewidth=1, $fill='none')
   return $svg;
 }
 
+function DrawPolygon($points, $stroke='black', $strokewidth=1, $fill='none', $opacity=1) {
+
+  $svg = '<polygon points="';
+
+  foreach ($points as $point) {
+    $svg .= $point[0].','.$point[1].' ';
+  }
+
+  $svg .= '"stroke="'.$stroke.'" stroke-width="'.$strokewidth.'" fill="'.$fill.'" opacity="'.$opacity.'"/>';
+
+  return $svg;
+}
+
 function DrawPath($x1, $y1, $x2, $y2, $stroke='black', $width=1, $color2='none', $dasharray1=5, $dasharray2=0) {
 
   $svg = '<g fill="'.$color2.'" stroke="'.$stroke.'" stroke-width="'.$width.'">
