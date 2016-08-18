@@ -203,8 +203,66 @@ class Html extends CI_model {
 		}
 
 		$data['classes'] = $classes_menu;
+		$data['random_exercises'] = $this->RandomExercises();
 
 		return $data;
+	}
+
+	/**
+	 * Get random exercises
+	 *
+	 * Gets link to an easy/medium/hard exercise
+	 *
+	 * @return array $links Exercise links
+	 */
+	public function RandomExercises() {
+
+		// Get only final exam exercises (e.g. 2016_05_03)
+		$this->db->like('label', '20', 'after'); 
+		$subtopics = $this->db->get('subtopics')->result_array();
+		shuffle($subtopics);
+
+		$easy_id = 0;
+		$medium_id = 0;
+		$hard_id = 0;
+
+		foreach ($subtopics as $subtopic) {
+
+			$this->db->order_by('id', 'asc');
+			$exercises = $this->db
+				->get_where('exercises', ['subtopicid' => $subtopic['id']])
+				->result_array();
+
+			if ($exercises[0]['no'] == 0) { // Exercise order is not specified
+				$first_id = $exercises[0]['id'];
+			}
+
+			shuffle($exercises);
+
+			foreach ($exercises as $exercise) {
+				if ($exercise['no'] == 0) {
+					$current_id = $exercise['id'];
+					if ($current_id-$first_id+1 <= 6 && $easy_id == 0) {
+						$easy_id = $current_id;
+					} elseif ($current_id-$first_id+1 <= 12 && $medium_id == 0) {
+						$medium_id = $current_id;
+					} elseif ($hard_id == 0) {
+						$hard_id = $current_id;
+					}
+				}
+				
+			}
+
+			if ($easy_id!=0 && $medium_id!=0 && $hard_id!=0) {
+				break;
+			}
+		}
+		
+		$links['easy'] 		= $this->Database->ExerciseLink($easy_id);
+		$links['medium'] 	= $this->Database->ExerciseLink($medium_id);
+		$links['hard'] 		= $this->Database->ExerciseLink($hard_id);
+
+ 		return $links;
 	}
 
 	/**

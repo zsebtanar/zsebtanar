@@ -1,15 +1,46 @@
+<?php 
+
+				print_r($random_exercises['easy']['link']);?>
 <div class="row">
 	<div class="col-md-3"></div>
 	<div class="col-md-6 text-center">
-		<p>A <b>Zsebtanár</b> egy interaktív matematikai feladatgyűjtemény, elsősorban az érettségire készülőknek. Észrevételeket, javaslatokat a <b>zsebtanar@gmail.com</b>-ra, vagy a <b><a href="https://www.facebook.com/zsebtanar" target="_blank">Facebook-oldalra</a></b> lehet küldeni. Jó tanulást!</p><?php
 
-		$send_exercise = FALSE;		
+		<p>A <b>Zsebtanár</b> egy interaktív matematikai feladatgyűjtemény, elsősorban az érettségire készülőknek. Észrevételeket, javaslatokat a <b>zsebtanar@gmail.com</b>-ra lehet küldeni.<br />Jó tanulást! ;)</p>
+
+		<button type="button" class="btn btn-default">Kövess minket <b><a href="https://www.facebook.com/zsebtanar" target="_blank">Facebook</a></b>-on <b><a href="https://www.youtube.com/channel/UCqtj_u2Otbf-9D0sJcb1zMw" target="_blank">Youtube</a></b>-on!</button><br /><br />
+
+		<h2>Gyakorolni szeretnél?</h2>
+		<p>Válassz nehézségi szintet!</p><br />
+		<div class="row">
+			<div class="col-xs-4 text-center"><?php
+
+				$this->load->view('Svg/Pawn');?>
+
+				<br />
+				<a class="btn btn-lg btn-success" href="<?php echo $random_exercises['easy']['link'];?>">Könnyű&nbsp;<span class="glyphicon glyphicon-chevron-right"></span></a></div>
+			<div class="col-xs-4 text-center"><?php
+			
+				$this->load->view('Svg/Knight');?>
+
+				<br />
+				<a class="btn btn-lg btn-warning" href="<?php echo $random_exercises['medium']['link'];?>">Közepes&nbsp;<span class="glyphicon glyphicon-chevron-right"></span></a></div>
+			<div class="col-xs-4 text-center"><?php
+			
+				$this->load->view('Svg/King');?>
+
+				<br />
+				<a class="btn btn-lg btn-danger" href="<?php echo $random_exercises['hard']['link'];?>">Nehéz&nbsp;<span class="glyphicon glyphicon-chevron-right"></span></a></div>
+		</div><br /><br /><?php
+
+		$send_exercise = TRUE;		
 
 		if ($send_exercise) {?>
 
-		<a type="button" class="btn btn-success <?php echo ($send_exercise ? '' : 'disabled');?> btn-space-big btn-lg" href="http://goo.gl/forms/Kw9aTgyo2h" target="_blank">
-			<span class="glyphicon glyphicon-plus"></span>
-			Új érettségi feladat beküldése
+		<p>Nem találod, amit kerestél?</p>
+
+		<a type="button" class="btn btn-info btn-lg" href="http://goo.gl/forms/Kw9aTgyo2h" target="_blank">
+			<span class="glyphicon glyphicon-send"></span>&nbsp;
+			Küldj be egy feladatot!
 		</a><?php
 
 		}?>
