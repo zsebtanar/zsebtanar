@@ -1,6 +1,3 @@
-<?php 
-
-				print_r($random_exercises['easy']['link']);?>
 <div class="row">
 	<div class="col-md-3"></div>
 	<div class="col-md-6 text-center">
@@ -12,24 +9,27 @@
 		<h2>Gyakorolni szeretnél?</h2>
 		<p>Válassz nehézségi szintet!</p><br />
 		<div class="row">
-			<div class="col-xs-4 text-center"><?php
-
-				$this->load->view('Svg/Pawn');?>
-
-				<br />
-				<a class="btn btn-lg btn-success" href="<?php echo $random_exercises['easy']['link'];?>">Könnyű&nbsp;<span class="glyphicon glyphicon-chevron-right"></span></a></div>
-			<div class="col-xs-4 text-center"><?php
-			
-				$this->load->view('Svg/Knight');?>
-
-				<br />
-				<a class="btn btn-lg btn-warning" href="<?php echo $random_exercises['medium']['link'];?>">Közepes&nbsp;<span class="glyphicon glyphicon-chevron-right"></span></a></div>
-			<div class="col-xs-4 text-center"><?php
-			
-				$this->load->view('Svg/King');?>
-
-				<br />
-				<a class="btn btn-lg btn-danger" href="<?php echo $random_exercises['hard']['link'];?>">Nehéz&nbsp;<span class="glyphicon glyphicon-chevron-right"></span></a></div>
+			<div class="col-xs-4 text-center">
+				<img src="<?php echo base_url();?>assets/images/pawn.svg" alt="pawn"><br />
+				<a class="btn btn-lg btn-space btn-success" href="<?php echo $random_exercises['easy']['link'];?>">
+					Könnyű&nbsp;
+					<span class="glyphicon glyphicon-chevron-right"></span>
+				</a>
+			</div>
+			<div class="col-xs-4 text-center">
+				<img src="<?php echo base_url();?>assets/images/knight.svg" alt="knight"><br />
+				<a class="btn btn-lg btn-space btn-warning" href="<?php echo $random_exercises['medium']['link'];?>">
+					Közepes&nbsp;
+					<span class="glyphicon glyphicon-chevron-right"></span>
+				</a>
+			</div>
+			<div class="col-xs-4 text-center">
+				<img src="<?php echo base_url();?>assets/images/king.svg" alt="king"><br />
+				<a class="btn btn-lg btn-space btn-danger" href="<?php echo $random_exercises['hard']['link'];?>">
+					Nehéz&nbsp;
+					<span class="glyphicon glyphicon-chevron-right"></span>
+				</a>
+			</div>
 		</div><br /><br /><?php
 
 		$send_exercise = TRUE;		
