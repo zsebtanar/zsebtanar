@@ -16,7 +16,32 @@ class Session extends CI_model {
 		$this->load->helper('file');
 		$this->load->model('Database');
 
+		$this->DeleteOldSessions();
+
 		return;
+	}
+
+	/**
+	* Delete old sessions
+	*
+	* Deletes sessions older than given days from cache directory
+	*
+	* @return void
+	**/
+	public function DeleteOldSessions() {
+
+		$path = $this->config->item('sess_save_path');
+		$day = 1;
+		$files = scandir($path);
+
+		foreach ($files as $file) {
+			if ($file != '.' && $file != '..') {
+				$lastmodified = filemtime($path . $file);
+				if((time() - $lastmodified) > $day * 24 * 3600) {
+					unlink($path . $file);
+				}
+			}
+		}
 	}
 
 	/**
