@@ -136,7 +136,7 @@ class Setup extends CI_model {
 						)Engine=InnoDB;',
 			'users' => 'CREATE TABLE users (
 							id 		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							start 	DATETIME NOT NULL DEFAULT NOW()
+							start 	TIMESTAMP DEFAULT NOW()
 						)Engine=InnoDB;',
 			'user_exercises' => 'CREATE TABLE user_exercises (
 							id 		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -146,7 +146,7 @@ class Setup extends CI_model {
 						)Engine=InnoDB;',
 			'user_actions' => 'CREATE TABLE user_actions (
 							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							time 		DATETIME NOT NULL DEFAULT NOW(),
+							time 		TIMESTAMP DEFAULT NOW(),
 							userID		INT NOT NULL,
 							exerciseID	INT NOT NULL,
 							level		INT NOT NULL,
