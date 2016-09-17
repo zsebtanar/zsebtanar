@@ -42,7 +42,7 @@ class Szinusz {
 
 		$correct = 0;
 
-		$solution = $correct;
+		$solution = $options[$correct];
 
 		return array(
 			'question' 	=> $question,
