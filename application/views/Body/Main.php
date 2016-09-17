@@ -4,7 +4,7 @@
 
 		<p>A <b>Zsebtanár</b> egy interaktív matematikai feladatgyűjtemény, elsősorban az érettségire készülőknek. Észrevételeket, javaslatokat a <b>zsebtanar@gmail.com</b>-ra lehet küldeni.<br />Jó tanulást! ;)</p>
 
-		<button type="button" class="btn btn-default">Kövess minket <b><a href="https://www.facebook.com/zsebtanar" target="_blank">Facebook</a></b>-on <b><a href="https://www.youtube.com/channel/UCqtj_u2Otbf-9D0sJcb1zMw" target="_blank">Youtube</a></b>-on!</button><br /><br />
+		<button type="button" class="btn btn-default">Kövess minket <b><a href="https://www.facebook.com/zsebtanar" target="_blank">Facebook</a></b>-on vagy <b><a href="https://www.youtube.com/channel/UCqtj_u2Otbf-9D0sJcb1zMw" target="_blank">Youtube</a></b>-on!</button><br /><br />
 
 		<h2>Gyakorolni szeretnél?</h2>
 		<p>Válassz nehézségi szintet!</p><br />
