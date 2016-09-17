@@ -139,27 +139,31 @@ class Setup extends CI_model {
 							start 	TIMESTAMP DEFAULT NOW()
 						)Engine=InnoDB;',
 			'user_exercises' => 'CREATE TABLE user_exercises (
-							id 		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							userID	INT NOT NULL,
-							access 	VARCHAR(30),
-							FOREIGN KEY (userID) REFERENCES users(id)
-						)Engine=InnoDB;',
-			'user_actions' => 'CREATE TABLE user_actions (
 							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							time 		TIMESTAMP DEFAULT NOW(),
+							exerciseID 	INT NOT NULL,
 							userID		INT NOT NULL,
-							exerciseID	INT NOT NULL,
-							level		INT NOT NULL,
-							usedHints 	INT,
-							result 		VARCHAR(30),
+							access 		VARCHAR(30),
 							FOREIGN KEY (userID) REFERENCES users(id),
-							FOREIGN KEY (exerciseID) REFERENCES user_exercises(id)
+							FOREIGN KEY (exerciseID) REFERENCES exercises(id)
+						)Engine=InnoDB;',
+			'user_actions' => 'CREATE TABLE user_actions (
+							id 				INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+							time 			TIMESTAMP DEFAULT NOW(),
+							userID			INT NOT NULL,
+							user_exerciseID	INT NOT NULL,
+							level			INT NOT NULL,
+							usedHints 		INT,
+							allHints 		INT,
+							result 			VARCHAR(30),
+							FOREIGN KEY (userID) REFERENCES users(id),
+							FOREIGN KEY (user_exerciseID) REFERENCES user_exercises(id)
 						)Engine=InnoDB;',
 		);
 
 		// Check table
 		if (!isset($sql[$table])) {
-			show_error('Table '.$table.' not defined!<br />');				
+			show_error('Table '.$table.' not defined!<br />');	
 		}
 
 		// Create table

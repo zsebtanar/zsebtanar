@@ -67,14 +67,19 @@ class View extends CI_controller {
 	 * @param string $classlabel    Class label
 	 * @param string $subtopiclabel Subtopic label
 	 * @param string $exerciselabel Exercise label
+	 * @param string $access 		How was this exercise accessed by user?
 	 *
 	 * @return	void
 	 */
-	public function Exercise($classlabel, $subtopiclabel, $exerciselabel) {
+	public function Exercise($classlabel, $subtopiclabel, $exerciselabel, $access=NULL) {
+
 
 		$this->load->model('Database');
+		$this->load->model('Session');
 
 		$exerciseID = $this->Database->ExerciseID($classlabel, $subtopiclabel, $exerciselabel);
+
+		$this->Database->AddUserExercise($exerciseID, $access);
 
 		if ($exerciseID) {
 
@@ -87,6 +92,29 @@ class View extends CI_controller {
 			header('Location:'.base_url().'view/main/');
 
 		}
+	}
+
+	/**
+	 * View statistics
+	 *
+	 * @param int $userID User ID
+	 *
+	 * @return	void
+	 */
+	public function Statistics($userID=NULL) {
+
+		if (!$userID) {
+
+			$data = $this->Html->Users();
+
+		} else {
+
+			$data = $this->Html->UserExercises($userID);
+
+		}
+
+		$this->load->view('Template', $data);
+
 	}
 }
 

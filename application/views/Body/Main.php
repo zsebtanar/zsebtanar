@@ -88,7 +88,7 @@
 
 												if ($exercise['show']) {?>
 
-												<a class="btn btn-default btn-sm row-buttons" href="<?php echo base_url().$class['label'].'/'.$subtopic['label'].'/'.$exercise['label'];?>">
+												<a class="btn btn-default btn-sm row-buttons" href="<?php echo $exercise['link']['link'];?>">
 													<?php echo ($exercise['order'] ? $exercise['order'] : $order).'. '.$exercise['name'];?>
 												</a><?php
 

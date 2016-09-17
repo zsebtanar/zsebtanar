@@ -35,6 +35,14 @@
 		$this->load->view('Misc/Progress', $progress);
 		$this->load->view('Body/Exercise', $exercise);
 
+	} elseif ($type == 'stat_users') {
+
+		$this->load->view('Body/StatisticsUsers');
+
+	} elseif ($type == 'stat_exercises') {
+
+		$this->load->view('Body/StatisticsExercises');
+
 	}?>
 
 	</div>

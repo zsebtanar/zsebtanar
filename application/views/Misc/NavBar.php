@@ -47,6 +47,11 @@
 				if ($this->Session->CheckLogin()) {?>
 
 					<li>
+						<a href="<?php echo base_url();?>view/statistics/">
+							<span class="glyphicon glyphicon-signal"></span>&nbsp;Elemzés
+						</a>
+					</li>
+					<li>
 						<a href="<?php echo base_url();?>action/clearresults/">
 							<span class="glyphicon glyphicon-remove"></span>&nbsp;Pontok törlése
 						</a>

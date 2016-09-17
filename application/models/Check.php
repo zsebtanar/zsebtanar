@@ -40,6 +40,8 @@ class Check extends CI_model {
 
 		list($status, $message, $submessages) = $this->GenerateMessages($type, $answer, $correct, $solution);
 
+		$this->Database->AddUserAction($level, $hints_used, $hints_all, $status);
+
 		if ($status == 'CORRECT') {
 			$this->Session->DeleteExerciseData($hash);
 			$message = $this->Session->UpdateResults($id, $hints_used, $hints_all, $message);

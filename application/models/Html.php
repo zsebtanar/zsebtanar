@@ -49,8 +49,8 @@ class Html extends CI_model {
 
 		} elseif ($type == 'exercise') {
 
-			$data['prev'] = $this->Database->ExerciseLink($id-1);
-			$data['next'] = $this->Database->ExerciseLink($id+1);
+			$data['prev'] = $this->Database->ExerciseLink($id-1, 'navigacio');
+			$data['next'] = $this->Database->ExerciseLink($id+1, 'navigacio');
 
 		}
 		
@@ -157,6 +157,7 @@ class Html extends CI_model {
 							foreach ($exercises->result() as $exercise) {
 
 								$exercise_menu['label'] 	= $exercise->label;
+								$exercise_menu['link'] 		= $this->Database->ExerciseLink($exercise->id, 'fooldal');
 								$exercise_menu['name'] 		= $exercise->name;
 								$exercise_menu['status'] 	= $exercise->status;
 								$exercise_menu['order'] 	= $exercise->no;
@@ -257,9 +258,9 @@ class Html extends CI_model {
 			}
 		}
 		
-		$links['easy'] 		= $this->Database->ExerciseLink($easy_id);
-		$links['medium'] 	= $this->Database->ExerciseLink($medium_id);
-		$links['hard'] 		= $this->Database->ExerciseLink($hard_id);
+		$links['easy'] 		= $this->Database->ExerciseLink($easy_id, 'veletlen');
+		$links['medium'] 	= $this->Database->ExerciseLink($medium_id, 'veletlen');
+		$links['hard'] 		= $this->Database->ExerciseLink($hard_id, 'veletlen');
 
  		return $links;
 	}
@@ -299,7 +300,11 @@ class Html extends CI_model {
 
 		$id_next = ($level_user < $level_max ? $id : $id+1);
 
-		$next = $this->Database->ExerciseLink($id_next);
+		if ($id == $id_next) {
+			$next = $this->Database->ExerciseLink($id_next);
+		} else {
+			$next = $this->Database->ExerciseLink($id_next, 'kovetkezo');
+		}
 
  		return $next['link'];
 	}
@@ -337,6 +342,7 @@ class Html extends CI_model {
 					$row['name'] 		= $exercise->name;
 					$row['complete'] 	= $this->Session->isComplete($exercise->id);
 					$row['progress'] 	= $this->Session->UserProgress($exercise->id);
+					$row['link'] 		= $this->Database->ExerciseLink($exercise->id, 'temakor');
 
 					$row['classlabel'] 		= $classlabel;
 					$row['subtopiclabel'] 	= $subtopiclabel;
@@ -562,6 +568,88 @@ class Html extends CI_model {
 
 		$data['align'] = ($max_length == $min_length ? 'center' : 'left');
 		$data['width'] = $width;
+
+		return $data;
+	}
+
+	/**
+	 * Get users' activities
+	 *
+	 * Collects activities of all users
+	 *
+	 * @return array $data Subtopic data
+	 */
+	public function Users() {
+
+		$data['type'] 		= 'stat_users';
+		$data['results'] 	= $this->Session->GetResults();
+
+		$this->db->order_by('id', 'desc');
+		$users = $this->db->get('users');
+
+		if (count($users->result()) > 0) {
+
+			foreach ($users->result() as $user) {
+
+				$user_menu['id'] 		= $user->id;
+				$user_menu['time'] 		= $this->Database->UserTime($user->id);
+				$user_menu['exercises'] = $this->Database->UserExercises($user->id);
+				$user_menu['max_level'] = $this->Database->UserMaxLevel($user->id);
+
+				$user_data[] = $user_menu;
+
+			}
+
+			$data['users'] = $user_data;
+
+		} else {
+
+			$data['users'] = [];
+
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Get user activities
+	 *
+	 * Collects activities of specific user
+	 *
+	 * @return array $data Subtopic data
+	 */
+	public function UserExercises($userID) {
+
+		$data['type'] 		= 'stat_exercises';
+		$data['results'] 	= $this->Session->GetResults();
+
+		$users = $this->db->get_where('users', ['id' => $userID]);
+
+		$user = $users->result()[0];
+
+		$exercises = $this->db->get_where('user_exercises', ['userID' => $user->id]);
+
+		if (count($exercises->result()) > 0) {
+
+			foreach ($exercises->result() as $exercise) {
+
+				$exercise_menu['id'] 		= $exercise->exerciseID;
+				$exercise_menu['link'] 		= $this->Database->ExerciseLink($exercise->exerciseID);
+				$exercise_menu['time'] 		= $this->Database->UserExerciseTime($exercise->id);
+				$exercise_menu['actions'] 	= $this->Database->UserExerciseActions($exercise->id);
+				$exercise_menu['source'] 	= $exercise->access;
+
+				$exercise_data[] = $exercise_menu;
+
+			}
+
+			$data['exercises'] = $exercise_data;
+
+		} else {
+
+			$data['exercises'] = [];
+
+		}
 
 		return $data;
 	}
