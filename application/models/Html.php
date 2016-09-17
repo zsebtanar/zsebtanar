@@ -37,11 +37,10 @@ class Html extends CI_model {
 	 *
 	 * @param string $type Type of id
 	 * @param int    $id   Id
-	 * @param string $hash Exercise hash
 	 *
 	 * @return array $data Breadcrumb data
 	 */
-	public function BreadCrumb($type, $id, $hash=NULL) {
+	public function BreadCrumb($type, $id) {
 
 		if ($type == 'subtopic') {
 
@@ -50,8 +49,8 @@ class Html extends CI_model {
 
 		} elseif ($type == 'exercise') {
 
-			$data['prev'] = $this->Database->ExerciseLink($id-1, $hash);
-			$data['next'] = $this->Database->ExerciseLink($id+1, $hash);
+			$data['prev'] = $this->Database->ExerciseLink($id-1);
+			$data['next'] = $this->Database->ExerciseLink($id+1);
 
 		}
 		
@@ -108,7 +107,7 @@ class Html extends CI_model {
 		$data['type'] 		= 'exercise';
 		$data['results'] 	= $this->Session->GetResults();
 		$data['exercise'] 	= $this->GetExerciseData($classlabel, $subtopiclabel, $exerciselabel, $exerciseID);
-		$data['breadcrumb'] = $this->BreadCrumb('exercise', $exerciseID, $data['exercise']['hash']);
+		$data['breadcrumb'] = $this->BreadCrumb('exercise', $exerciseID);
 
 		$data['results']['id'] = $exerciseID;
 		$data['results']['type'] = 'exercise';

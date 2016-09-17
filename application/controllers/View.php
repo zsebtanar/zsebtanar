@@ -21,11 +21,9 @@ class View extends CI_controller {
 	/**
 	 * View main page
 	 *
-	 * @param string $hash Exercise hash
-	 *
 	 * @return void
 	 */
-	public function Main($hash=NULL) {
+	public function Main() {
 
 		$data = $this->Html->MainData();
 
@@ -45,11 +43,10 @@ class View extends CI_controller {
 	 *
 	 * @param string $classlabel    Class label
 	 * @param string $subtopiclabel Subtopic label
-	 * @param string $hash          Exercise hash
 	 *
 	 * @return	void
 	 */
-	public function Subtopic($classlabel=NULL, $subtopiclabel=NULL, $hash=NULL) {
+	public function Subtopic($classlabel=NULL, $subtopiclabel=NULL) {
 
 		$data = $this->Html->SubtopicData($classlabel, $subtopiclabel);
 
@@ -70,11 +67,10 @@ class View extends CI_controller {
 	 * @param string $classlabel    Class label
 	 * @param string $subtopiclabel Subtopic label
 	 * @param string $exerciselabel Exercise label
-	 * @param string $hash Exercise hash
 	 *
 	 * @return	void
 	 */
-	public function Exercise($classlabel, $subtopiclabel, $exerciselabel, $hash=NULL) {
+	public function Exercise($classlabel, $subtopiclabel, $exerciselabel) {
 
 		$this->load->model('Database');
 

@@ -184,12 +184,12 @@ class Database extends CI_model {
 	/**
 	 * Get link for exercise
 	 *
-	 * @param int    $id   Exercise ID
-	 * @param string $hash Exercise hash
+	 * @param int    $id     Exercise ID
+	 * @param string $access How was this exercise accessed by user?
 	 *
 	 * @return string $href Link
 	 */
-	public function ExerciseLink($id, $hash=NULL) {
+	public function ExerciseLink($id, $access=NULL) {
 
 		$exercises = $this->db->get_where('exercises', array('id' => $id));
 
@@ -216,7 +216,7 @@ class Database extends CI_model {
 			if ($this->Session->CheckLogin() || $exercise->status == 'OK') {
 
 				$title = $exercise->name;
-				$link = base_url().$class->label.'/'.$subtopic->label.'/'.$exercise->label;
+				$link = base_url().$class->label.'/'.$subtopic->label.'/'.$exercise->label.'/'.$access;
 				$name = $exercise->name;
 
 			} else {
