@@ -18,6 +18,27 @@ class Session extends CI_model {
 
 		$this->DeleteOldSessions();
 
+		$this->CreateUserID();
+
+		return;
+	}
+
+	/**
+	* Create user ID
+	*
+	* Create user ID if not exist
+	*
+	* @return void
+	**/
+	public function CreateUserID() {
+
+		if (!$this->session->userdata('userID')) {
+
+			$userID = $this->Database->AddUser();
+			$this->session->set_userdata('userID', $userID);
+
+		}
+
 		return;
 	}
 

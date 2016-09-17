@@ -17,6 +17,8 @@ class Setup extends CI_model {
 	// Define name and type of table columns
 	public function GetTableColumns() {
 		return array(
+
+			// Static tables for exercises
 			'classes' => array(
 				'label'	=> 'NOT NULL',
 				'name'	=> 'NOT NULL'
@@ -38,6 +40,11 @@ class Setup extends CI_model {
 				'name'		=> 'NOT NULL',
 				'no'		=> ''
 				),
+
+			// Dynamic tables to track user activity
+			'users' 			=> [],
+			'user_exercises' 	=> [],
+			'user_actions' 		=> []
 			);
 	}
 
@@ -120,13 +127,34 @@ class Setup extends CI_model {
 			'exercises' => 'CREATE TABLE exercises (
 							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							subtopicID 	INT NOT NULL,
-							level		INT,
+							level		INT NOT NULL,
 							label 		VARCHAR(30) NOT NULL,
 							no 			INT,
 							name 		VARCHAR(120),
 							status 		VARCHAR(20),
 							FOREIGN KEY (subtopicID) REFERENCES subtopics(id)
-						)Engine=InnoDB;'
+						)Engine=InnoDB;',
+			'users' => 'CREATE TABLE users (
+							id 		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+							start 	DATETIME NOT NULL DEFAULT NOW()
+						)Engine=InnoDB;',
+			'user_exercises' => 'CREATE TABLE user_exercises (
+							id 		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+							userID	INT NOT NULL,
+							access 	VARCHAR(30),
+							FOREIGN KEY (userID) REFERENCES users(id)
+						)Engine=InnoDB;',
+			'user_actions' => 'CREATE TABLE user_actions (
+							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+							time 		DATETIME NOT NULL DEFAULT NOW(),
+							userID		INT NOT NULL,
+							exerciseID	INT NOT NULL,
+							level		INT NOT NULL,
+							usedHints 	INT,
+							result 		VARCHAR(30),
+							FOREIGN KEY (userID) REFERENCES users(id),
+							FOREIGN KEY (exerciseID) REFERENCES user_exercises(id)
+						)Engine=InnoDB;',
 		);
 
 		// Check table

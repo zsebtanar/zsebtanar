@@ -277,6 +277,22 @@ class Database extends CI_model {
 			'name' => $name
 		);
 	}
+
+	/**
+	 * Add user
+	 *
+	 * Add new user in the users table
+	 *
+	 * @return int $id User ID
+	 */
+	public function AddUser() {
+
+		$this->db->insert('users', ['id' => NULL]);
+
+		$id = $this->db->insert_id();
+
+		return $id;
+	}
 }
 
 ?>
