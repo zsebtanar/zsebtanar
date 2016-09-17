@@ -57,6 +57,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['public/view/exercise/(:any)'] = 'view/exercise/12/2015-10-13/$1';
 
 // exercise 
+$route['(:num)/(:any)/(:any)/(:any)'] = 'view/exercise/$1/$2/$3/$4';
 $route['(:num)/(:any)/(:any)'] = 'view/exercise/$1/$2/$3';
 // subtopic
 $route['(:num)/(:any)'] = 'view/subtopic/$1/$2';
