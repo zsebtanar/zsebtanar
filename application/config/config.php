@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 // PATH TO PROJECT FOLDER
-$config['base_url'] = 'http://localhost/zsebtanar_v4/';
+$config['base_url'] = 'http://localhost/zsebtanar/';
 
 /*
 |--------------------------------------------------------------------------
