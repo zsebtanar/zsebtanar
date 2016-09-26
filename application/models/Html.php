@@ -592,11 +592,12 @@ class Html extends CI_model {
 			foreach ($users->result() as $user) {
 
 				$user_menu['id'] 		= $user->id;
-				$user_menu['time'] 		= $this->Database->UserTime($user->id);
+				$user_menu['start'] 	= $this->Database->UserSessionStart($user->id);
+				$user_menu['duration'] 	= $this->Database->UserDuration($user->id);
 				$user_menu['exercises'] = $this->Database->UserExercises($user->id);
 				$user_menu['max_level'] = $this->Database->UserMaxLevel($user->id);
 
-				if ($user_menu['time']) {
+				if ($user_menu['duration']) {
 					$user_data[] = $user_menu;
 				}
 

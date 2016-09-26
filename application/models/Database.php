@@ -360,15 +360,33 @@ class Database extends CI_model {
 	}
 
 	/**
-	* User time
+	* User session start
+	*
+	* Define when user started session
+	*
+	* @param int $userID User ID
+	*
+	* @return string $time_start time
+	**/
+	public function UserSessionStart($userID) {
+
+		$user = $this->db->get_where('users', array('id' => $userID));
+
+		$time_start = $user->result()[0]->start;
+
+		return $time_start;
+	}
+
+	/**
+	* User duration
 	*
 	* Define how much time user spent on website
 	*
 	* @param int $userID User ID
 	*
-	* @return string $time Time
+	* @return string $duration Time
 	**/
-	public function UserTime($userID) {
+	public function UserDuration($userID) {
 
 		$user = $this->db->get_where('users', array('id' => $userID));
 
@@ -391,12 +409,12 @@ class Database extends CI_model {
 		$time_diff = date_diff($time_start, $time_end);
 
 		if ($time_end > $time_start) {
-			$time = $this->FormatTime($time_diff);
+			$duration = $this->FormatTime($time_diff);
 		} else {
-			$time = NULL;
+			$duration = NULL;
 		}
 
-		return $time;
+		return $duration;
 	}
 
 	/**

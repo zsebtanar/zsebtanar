@@ -64,6 +64,7 @@
 											</td>
 											<td class="small text-center">
 												<?php echo preg_replace('/\d{4}-\d{2}-\d{2}\s/', '', $action['time']);?>
+												<?php // echo preg_replace('/\s\d{2}:\d{2}:\d{2}/', '', $action['time']);?>
 											</td>
 											<td class="small text-center">
 												<?php echo $action['level'];?>
