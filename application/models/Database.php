@@ -550,6 +550,34 @@ class Database extends CI_model {
 
 		return $time;
 	}
+
+	/**
+	* Delete user
+	*
+	* Delete activities of user
+	*
+	* @param int $userID User ID
+	*
+	* @return void
+	**/
+	public function DeleteUser($userID) {
+
+		// Delete actions
+		$query = $this->db->query('DELETE FROM `user_actions`
+				WHERE `user_actions`.`user_exerciseID` IN(
+					SELECT `id` FROM `user_exercises`
+						WHERE `user_exercises`.`userID` = '.$userID.'
+				)');
+
+		// Delete exercises
+		$query = $this->db->query('DELETE FROM `user_exercises`
+						WHERE `user_exercises`.`userID` = '.$userID);
+
+		// Delete user
+		$query = $this->db->delete('users', ['id' => $userID]);
+
+		return;
+	}
 }
 
 ?>

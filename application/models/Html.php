@@ -589,6 +589,8 @@ class Html extends CI_model {
 
 		if (count($users->result()) > 0) {
 
+			$user_data = [];
+
 			foreach ($users->result() as $user) {
 
 				$user_menu['id'] 		= $user->id;

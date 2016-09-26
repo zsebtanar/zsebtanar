@@ -138,6 +138,25 @@ class Action extends CI_controller {
 	}
 
 	/**
+	 * Delete user
+	 *
+	 * @param int $userID User ID
+	 *
+	 * @return void
+	 */
+	public function DeleteUser($userID=NULL) {
+
+		if ($userID) {
+	
+			$this->load->model('Database');
+			$this->Database->DeleteUser($userID);
+	
+		}
+
+		header('Location:'.base_url().'view/statistics');
+	}
+
+	/**
 	 * Update system
 	 *
 	 * @param string $type View type (exercise/subtopic)

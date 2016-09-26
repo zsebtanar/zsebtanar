@@ -21,8 +21,14 @@
     	                <td class="text-center"><?php echo $user['duration'];?></td>
                         <td class="text-center"><?php echo count($user['exercises']);?></td>
     	                <td class="text-center"><?php echo $user['max_level'];?></td>
-    	                <td><a class="btn btn-primary" href="<?php echo base_url();?>/view/statistics/<?php echo $user['id'];?>">Részletek
-    	                	&nbsp;<span class="glyphicon glyphicon-chevron-right"></span></a></td>
+    	                <td>
+                            <a class="btn btn-primary" href="<?php echo base_url();?>view/statistics/<?php echo $user['id'];?>">
+                                Részletek&nbsp;<span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>&nbsp;
+                            <a class="btn btn-danger" href="<?php echo base_url();?>action/deleteuser/<?php echo $user['id'];?>">
+                                Törlés&nbsp;<span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                        </td>
     	            </tr><?php
 
             	}
