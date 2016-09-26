@@ -7,7 +7,7 @@ Zsebtanár is a collection of interactive Maths exercises.
 You need to have a running *PHP Server* to run the website and a working internet connection for best display.
 
 1. Download the repository.
-2. Unzip the file and copy the `zsebtanar_v4` folder in your `public_html` folder (or `htdocs`, you are using *Xampp*).
+2. Unzip the file and copy the `zsebtanar` folder in your `public_html` folder (or `htdocs`, you are using *Xampp*).
 3. Make sure path to project folder is correct in `application/config/config.php` in line 28.
 4. Create user and database (e.g. through *phpMyAdmin*).
 5. Copy username, password and database name in `application/config/database.php` in lines 80-82.
