@@ -267,7 +267,12 @@
 						$('.trophies').text(data['results']['trophies']);
 						$('.shields').text(data['results']['shields']);
 						$('.points').text(data['results']['points']);
-						setTimeout(function(){window.location=data['link_next'];},3000);
+						var seconds = parseInt($('#time').text());
+						jQuery(function ($) {
+							var time = seconds, display = $('#time');
+							startTimer(time, display);
+						});
+						setTimeout(function(){window.location=data['link_next'];},(seconds+1)*1000);
 						break;
 					case 'WRONG':
 						if (data['hints'] != null) {
@@ -292,5 +297,17 @@
 			}
 		});
 		$("#loader").html('<br />');
+	}
+
+	function startTimer(seconds, display) {
+		var timer = seconds;
+		setInterval(function () {
+
+			display.text(timer);
+
+			if (--timer < 0) {
+				timer = 0;
+			}
+		}, 1000);
 	}
 </script>

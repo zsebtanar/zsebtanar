@@ -92,7 +92,7 @@ class Session extends CI_model {
 		// Update levels
 		if ($hints_used == 0 && $level_user < $level_max) {
 			$levels = $this->session->userdata('levels');
-			$levels[$id] = $level_user + 1;
+			$levels[$id] = $level_user + 3;
 			$this->session->set_userdata('levels', $levels);
 		}
 
@@ -111,7 +111,7 @@ class Session extends CI_model {
 		// Calculate progress
 		$progress_old = $level_user/$level_max;
 		if ($hints_used == 0) {
-			$progress_new = ($level_user+1)/$level_max;
+			$progress_new = ($level_user+3)/$level_max;
 
 			if (($progress_old < 1/3 && $progress_new >= 1/3) ||
 				($progress_old < 2/3 && $progress_new >= 2/3) ||
@@ -140,7 +140,13 @@ class Session extends CI_model {
 						'&nbsp;<img src="'.base_url().
 						'assets/images/coin.png" alt="coin" width="30">';
 				}
+
+				$message .= '</div><div class="small">Továbblépés <span id="time">5</span> másodperc múlva.<br />';
 			}
+		} else {
+
+			$message .= '</div><div class="alert alert-info text-center"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;<b>Szeretnél szintet ugrani?</b><br />Próbáld meg megoldani a feladatot segítség nélkül!</div><div class="small">Továbblépés <span id="time">10</span> másodperc múlva.<br />';
+
 		}
 
 		return $message;

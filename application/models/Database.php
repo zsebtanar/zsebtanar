@@ -287,7 +287,8 @@ class Database extends CI_model {
 	 */
 	public function AddUser() {
 
-		if (!$this->session->userdata('userID')) {
+		if (!$this->session->userdata('userID') &&
+			$this->db->table_exists('users')) {
 
 			$this->db->insert('users', ['id' => NULL]);
 			$id = $this->db->insert_id();
