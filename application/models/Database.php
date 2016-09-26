@@ -390,7 +390,11 @@ class Database extends CI_model {
 
 		$time_diff = date_diff($time_start, $time_end);
 
-		$time = $this->FormatTime($time_diff);
+		if ($time_end > $time_start) {
+			$time = $this->FormatTime($time_diff);
+		} else {
+			$time = NULL;
+		}
 
 		return $time;
 	}

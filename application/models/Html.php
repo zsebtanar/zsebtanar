@@ -596,7 +596,9 @@ class Html extends CI_model {
 				$user_menu['exercises'] = $this->Database->UserExercises($user->id);
 				$user_menu['max_level'] = $this->Database->UserMaxLevel($user->id);
 
-				$user_data[] = $user_menu;
+				if ($user_menu['time']) {
+					$user_data[] = $user_menu;
+				}
 
 			}
 
