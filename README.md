@@ -11,7 +11,7 @@ You need to have a running *PHP Server* to run the website and a working interne
 3. Make sure path to project folder is correct in `application/config/config.php` in line 28.
 4. Create user and database (e.g. through *phpMyAdmin*).
 5. Copy username, password and database name in `application/config/database.php` in lines 80-82.
-6. Copy the following URL in your browser: `http://localhost/zsebtanar/public/action/setup`.
+6. Copy the following URL in your browser: `http://localhost/zsebtanar/action/setup`.
 7. If everything is set up correctly, the website can be reached through the URL: `http://localhost/zsebtanar/`.
 
 *Note:* If special characters don't apper properly, check the database character set. In order to use Hungarian special characters, use `latin2_hungarian_ci`.
