@@ -30,8 +30,13 @@ class Szamok {
 			$set_size2	= rand(6,8);
 		}
 
-		$set1 = $this->DefineSet($max_num, $set_size1);
-		$set2 = $this->DefineSet($max_num, $set_size2);
+		$set1 = [];
+		$set2 = [];
+
+		while (!$this->CheckSetSizes($set1, $set2)) {
+			$set1 = $this->DefineSet($max_num, $set_size1);
+			$set2 = $this->DefineSet($max_num, $set_size2);
+		}
 
 		// // Original exercise
 		// $set1 = [1,2,3,4,6,12];
@@ -112,9 +117,9 @@ class Szamok {
 		$hints[] = $page;
 		$page 	= [];
 
-		$left 	= array_diff($set1, $set2);
-		$center = array_intersect($set1, $set2);
-		$right 	= array_diff($set2, $set1);
+		$left 	= array_values(array_diff($set1, $set2));
+		$center = array_values(array_intersect($set1, $set2));
+		$right 	= array_values(array_diff($set2, $set1));
 
 		if (count($left) > 0) {
 			$page[0] = 'Azokat a számokat, amik benne vannak a $G$ halmazban, de nincsenek benne a $H$-ban, a <b>bal</b> oldalra írjuk:'
@@ -222,6 +227,33 @@ class Szamok {
 
 		return $svg;
 	}
+
+	function CheckSetSizes($set1, $set2) {
+
+		if (count($set1) == 0 && count($set2) == 0) {
+
+			return FALSE;
+
+		} else {
+
+			$diff1 		= array_diff($set1, $set2);
+			$diff2 		= array_diff($set2, $set1);
+			$intersect 	= array_intersect($set2, $set1);
+
+			if (count($diff1) <= 8 &&
+				count($diff2) <= 8 &&
+				count($intersect) <= 4) {
+
+				return TRUE;
+
+			} else {
+
+				return FALSE;
+
+			}
+		}
+	}
+
 }
 
 ?>
