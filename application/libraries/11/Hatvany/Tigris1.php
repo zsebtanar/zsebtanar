@@ -3,8 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Tigris1 {
 
-	// Class tiger1ructor
-	function __tiger1ruct() {
+	// Class constructor
+	function __construct() {
 
 		$CI =& get_instance();
 		$CI->load->helper('maths');
