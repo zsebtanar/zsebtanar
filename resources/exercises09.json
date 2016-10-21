@@ -28,6 +28,10 @@
 								{
 									"label": "TV_jatek",
 									"name": "TV játék"
+								},
+								{
+									"label": "Szalami",
+									"name": "Szalámi"
 								}
 							]
 						},
