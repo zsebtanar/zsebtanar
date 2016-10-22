@@ -269,7 +269,7 @@
 								{
 									"label": "TV_kviz",
 									"name": "Televíziós játék",
-									"no": 17
+									"ex_order": 17
 								}
 							]
 						}

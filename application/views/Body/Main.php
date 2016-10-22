@@ -89,7 +89,7 @@
 												if ($exercise['show']) {?>
 
 												<a class="btn btn-default btn-sm row-buttons" href="<?php echo $exercise['link']['link'];?>">
-													<?php echo ($exercise['order'] ? $exercise['order'] : $order).'. '.$exercise['name'];?>
+													<?php echo ($exercise['ex_order'] ? $exercise['ex_order'] : $order).'. '.$exercise['name'];?>
 												</a><?php
 
 												}

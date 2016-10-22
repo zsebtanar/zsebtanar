@@ -38,7 +38,8 @@ class Setup extends CI_model {
 				'status' 	=> 'OK',
 				'label'		=> 'NOT NULL',
 				'name'		=> 'NOT NULL',
-				'no'		=> ''
+				'difficulty'=> 3,
+				'ex_order'	=> ''
 				),
 
 			// Dynamic tables to track user activity
@@ -129,7 +130,8 @@ class Setup extends CI_model {
 							subtopicID 	INT NOT NULL,
 							level		INT NOT NULL,
 							label 		VARCHAR(30) NOT NULL,
-							no 			INT,
+							ex_order	INT,
+							difficulty	INT,
 							name 		VARCHAR(120),
 							status 		VARCHAR(20),
 							FOREIGN KEY (subtopicID) REFERENCES subtopics(id)

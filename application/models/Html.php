@@ -160,7 +160,7 @@ class Html extends CI_model {
 								$exercise_menu['link'] 		= $this->Database->ExerciseLink($exercise->id, 'fooldal');
 								$exercise_menu['name'] 		= $exercise->name;
 								$exercise_menu['status'] 	= $exercise->status;
-								$exercise_menu['order'] 	= $exercise->no;
+								$exercise_menu['ex_order'] 	= $exercise->ex_order;
 
 								if ($this->Session->CheckLogin() || $exercise->status == 'OK') {
 
@@ -233,14 +233,14 @@ class Html extends CI_model {
 				->get_where('exercises', ['subtopicid' => $subtopic['id']])
 				->result_array();
 
-			if ($exercises[0]['no'] == 0) { // Exercise order is not specified
+			if ($exercises[0]['ex_order'] == 0) { // Exercise order is not specified
 				$first_id = $exercises[0]['id'];
 			}
 
 			shuffle($exercises);
 
 			foreach ($exercises as $exercise) {
-				if ($exercise['no'] == 0) {
+				if ($exercise['ex_order'] == 0) {
 					$current_id = $exercise['id'];
 					if ($current_id-$first_id+1 <= 6 && $easy_id == 0) {
 						$easy_id = $current_id;

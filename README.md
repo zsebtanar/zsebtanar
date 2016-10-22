@@ -47,7 +47,7 @@ The hierachy for each JSON-file is the following:
 
 Each of them *must* have a `name` attribute. Classes, subtopics and exercises *must* have an additional `label` attribute, which is the name of the PHP class file (avoid space and accents). Exercises *can* have additional attributes:
 
-- `no`: number of exercise (by default, numbers are generated automatically)
+- `ex_order`: order of exercise (if not set, order of exercise will be generated automatically)
 - `level`: how many times user has to solve exercise to complete it (default value: **9**)
 - `status`: **IN PROGRESS** if exercise is not finished (default value: **OK**)
 
