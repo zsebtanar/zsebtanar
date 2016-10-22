@@ -55,7 +55,7 @@ class Atlag {
 		$total = $average*$length; // Total amount to be distributed among numbers
 
 		for ($i=0; $i < $length; $i++) {
-			$num = ($total > 0 ? rand(1, $total) : 0);
+			$num = ($i==$length-1 ? $total : rand(1, $total));
 			$set[] = $num;
 			$total -= $num;
 		}
