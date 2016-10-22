@@ -272,12 +272,12 @@ class Check extends CI_model {
 						$submessages[$key] = 'CORRECT';
 					} else {
 						$status = 'WRONG';
-						$message = 'Hibás válasz!';
+						$message = 'A helyes válasz: '.$solution;
 					}
 				} else {
 					if (in_array($key, $answer)) {
 						$status = 'WRONG';
-						$message = 'Hibás válasz!';
+						$message = 'A helyes válasz: '.$solution;
 					} else {
 						$submessages[$key] = 'CORRECT';
 					}
