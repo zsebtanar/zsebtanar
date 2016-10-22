@@ -29,7 +29,7 @@ class Tag {
 
 		$question .= 'Határozza meg az $x$ értékét!';
 		$correct = array($a1, -$a1);
-		$solution = '$x_1='.$a1.'$, és $x_2='.strval(-$a1).'$$';
+		$solution = '$x_1='.$a1.'$, és $x_2='.strval(-$a1).'$';
 		$labels = array('$x_1$', '$x_2$');
 
 		$page[] = 'A mértani sorozatban minden tagot úgy tudunk kiszámolni, hogy megszorozzuk $\textcolor{blue}{q}$-val (a <i>hányadossal</i>) az előző számot:$$a_1\xrightarrow{\cdot\textcolor{blue}{q}}a_2\xrightarrow{\cdot\textcolor{blue}{q}}a_3$$';
