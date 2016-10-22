@@ -78,7 +78,8 @@ class Egyenlet {
 			'labels'	=> $labels,
 			'solution'	=> $solution,
 			'hints'		=> $hints,
-			'type' 		=> 'list'
+			'type' 		=> 'list',
+			'youtube'	=> 'mJ8nwXuEQck'
 		);
 	}
 }

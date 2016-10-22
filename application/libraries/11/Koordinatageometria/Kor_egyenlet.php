@@ -36,7 +36,8 @@ class Kor_egyenlet {
 			'solution'  => $solution,
 			'hints'		=> $hints,
 			'type'		=> 'coordinatelist',
-			'labels'	=> ['$P_1$', '$P_2$']
+			'labels'	=> ['$P_1$', '$P_2$'],
+			'youtube'	=> 'oRt7JiZPphY'
 		);
 	}
 

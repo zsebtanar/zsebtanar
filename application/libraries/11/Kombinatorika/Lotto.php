@@ -66,7 +66,8 @@ class Lotto {
 			'correct'   => $correct,
 			'solution'  => $solution,
 			'hints'		=> $hints,
-			'type'		=> 'fraction'
+			'type'		=> 'fraction',
+			'youtube'	=> 'rjob4Rgh8lI'
 		);
 	}
 }

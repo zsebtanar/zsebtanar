@@ -43,7 +43,8 @@ class Ottusa_lovaglas {
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
 			'type' 		=> $type,
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> 'XnOnVCUMHtA'
 		);
 	}
 }

@@ -54,7 +54,8 @@ class Tag1 {
 			'question' 	=> $question,
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> 'AE4dzJdVRyk'
 		);
 	}
 }

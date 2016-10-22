@@ -38,7 +38,8 @@ Hány forint áfát tartalmaz a nadrág ára?';
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
 			'labels'	=> ['right' => '$\text{Ft}$'],
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> 'WwQxDo54HE8'
 		);
 	}
 

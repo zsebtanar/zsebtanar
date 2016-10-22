@@ -57,7 +57,8 @@ class Szinusz_ertekkeszlet {
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
 			'hints'		=> $hints,
-			'type'		=> 'range'
+			'type'		=> 'range',
+			'youtube'	=> 'H_GoeJERZZ8'
 		);
 	}
 

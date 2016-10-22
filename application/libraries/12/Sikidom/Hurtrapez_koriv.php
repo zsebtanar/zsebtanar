@@ -42,7 +42,8 @@ class Hurtrapez_koriv {
 			'correct'   => $correct,
 			'solution'  => $solution,
 			'hints'		=> $hints,
-			'labels'	=> ['right' => '$\,\text{mm}$']
+			'labels'	=> ['right' => '$\,\text{mm}$'],
+			'youtube'	=> 'Y2AmVpdhfv0'
 		);
 	}
 

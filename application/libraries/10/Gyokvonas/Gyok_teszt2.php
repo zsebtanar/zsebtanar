@@ -100,7 +100,8 @@ class Gyok_teszt2 {
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
 			'options'	=> $options,
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> 'GEU_Eg745W4'
 		);
 	}
 }

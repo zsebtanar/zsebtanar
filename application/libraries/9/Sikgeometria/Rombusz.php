@@ -58,7 +58,8 @@ class Rombusz {
 			'solution'  => $solution,
 			'labels'	=> $labels,
 			'hints'		=> $hints,
-			'type'		=> $type
+			'type'		=> $type,
+			'youtube'	=> 'En5N2JWdeNQ'
 		);
 	}
 

@@ -55,7 +55,8 @@ class Median_atlag {
 			'question' 	=> $question,
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> '0A1ztUwk0LA'
 		);
 	}
 }

@@ -71,7 +71,8 @@ class Ottusa_pontok1 {
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
 			'type' 		=> $type,
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> 'KaTnbjOtcO4'
 		);
 	}
 }

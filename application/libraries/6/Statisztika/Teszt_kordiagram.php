@@ -58,7 +58,8 @@ class Teszt_kordiagram {
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
 			'hints'		=> $hints,
-			'labels'	=> ['right' => '$°$']
+			'labels'	=> ['right' => '$°$'],
+			'youtube'	=> 'tMzy4WL53O4'
 		);
 	}
 

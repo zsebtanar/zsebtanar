@@ -155,7 +155,8 @@ class Sapka {
 			'solution'	=> $solution,
 			'options'	=> $options,
 			'type' 		=> 'multi',
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> 'f3NBvA09O_w'
 		);
 	}
 }

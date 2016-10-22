@@ -33,6 +33,7 @@ class Egyenes_forditott {
 					$fun = $const.'x';
 				}
 				$correct = 0;
+				$youtube = 'KiaRH4rRLMA';
 				break;
 			
 			case 1:
@@ -43,17 +44,20 @@ class Egyenes_forditott {
 				} else {
 					$fun = $const.'\sqrt{x}';
 				}
-				$correct 	= 2;
+				$correct = 2;
+				$youtube = 'p3ml365Ee5M';
 				break;
 
 			case 2:
 				$fun = ($const < 0 ? '-' : '').'\frac{'.abs($const).'}{x}';
 				$correct = 1;
+				$youtube = 'rEwn_dEmC7Y';
 				break;
 
 			case 3:
 				$fun = $const.($sgn2 == 0 ? '+' : '-').'x';
 				$correct = 2;
+				$youtube = '3msLTYtm_yE';
 				break;
 		}
 
@@ -77,7 +81,8 @@ class Egyenes_forditott {
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
 			'options'	=> $options,
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> $youtube
 		);
 	}
 

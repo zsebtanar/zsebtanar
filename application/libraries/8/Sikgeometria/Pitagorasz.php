@@ -113,7 +113,8 @@ class Pitagorasz {
 			'solution'  => $solution,
 			'hints'		=> $hints,
 			'labels'	=> $labels,
-			'type'		=> 'array'
+			'type'		=> 'array',
+			'youtube'	=> 'AExeQUfkFMs'
 		);
 	}
 }

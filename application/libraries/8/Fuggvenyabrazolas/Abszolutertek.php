@@ -52,7 +52,8 @@ class Abszolutertek {
 			'correct'   => $correct,
 			'solution'  => $solution,
 			'hints'		=> $hints,
-			'type'		=> $type
+			'type'		=> $type,
+			'youtube'	=> 'yhGcVAzgUjE'
 		);
 	}
 

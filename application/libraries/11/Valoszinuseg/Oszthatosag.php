@@ -64,7 +64,8 @@ class Oszthatosag {
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
 			'hints'		=> $hints,
-			'type'		=> 'fraction'
+			'type'		=> 'fraction',
+			'youtube'	=> 'H51FC47N4Ws'
 		);
 	}
 

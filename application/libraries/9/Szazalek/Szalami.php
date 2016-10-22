@@ -36,7 +36,8 @@ class Szalami {
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
 			'hints'		=> $hints,
-			'labels'	=> ['right' => '$\text{Ft}$']
+			'labels'	=> ['right' => '$\text{Ft}$'],
+			'youtube'	=> 'zOhJGFh8bG0'
 		);
 	}
 

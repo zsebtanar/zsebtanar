@@ -18,4 +18,17 @@ if (base_url() == 'http://zsebtanar.hu/') {?>
 <!--Cookie Script-->
 <script type="text/javascript" charset="UTF-8" src="<?php echo base_url();?>assets/js/cookie.js"></script><?php
 
-}
+}?>
+
+<script>
+	// Close youtube video on collapse close
+	$(document).ready(function() { 
+		var src = $('.videoplayer').children('iframe').attr('src');
+
+		$('.collapse-button').click(function(e) {
+			e.preventDefault();
+			$('.videoplayer').children('iframe').attr('src', src);
+			$('.modal-background').fadeIn();
+		});
+	});
+</script>

@@ -49,7 +49,8 @@ class Szinusz {
 			'correct' 	=> $correct,
 			'options'	=> $options,
 			'solution'	=> $solution,
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> 'zELZ8zuTfCw'
 		);
 	}
 

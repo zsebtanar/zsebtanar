@@ -42,7 +42,8 @@ class Teszt_pontok {
 			'question' 	=> $question,
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> '8XkxL5HPVf0'
 		);
 	}
 }

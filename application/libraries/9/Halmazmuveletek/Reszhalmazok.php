@@ -48,7 +48,8 @@ class Reszhalmazok {
 			'question' 	=> $question,
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> 'Knx-CY4DCFA'
 		);
 	}
 

@@ -78,7 +78,8 @@ class Egyenes_egyenlet {
 			'type'		=> 'array',
 			'solution'  => $solution,
 			'hints'		=> $hints,
-			'labels'	=> ['$m$', '$b$']
+			'labels'	=> ['$m$', '$b$'],
+			'youtube'	=> 'Lke1xUXycZ4'
 		);
 	}
 }

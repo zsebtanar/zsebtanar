@@ -45,7 +45,8 @@ class Haromszog_szogei {
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
 			'labels'	=> ['right' => '$°$'],
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> 'twqKGlKtUB4'
 		);
 	}
 

@@ -69,7 +69,8 @@ class Egyenlotlenseg_grafikus {
 			'correct'   => $correct,
 			'solution'  => $solution,
 			'options'	=> $options,
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> 'YBaNfDtzJvU'
 		);
 	}
 

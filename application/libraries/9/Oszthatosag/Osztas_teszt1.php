@@ -57,7 +57,8 @@ class Osztas_teszt1 {
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
 			'options'	=> $options,
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> '-x85gDUMsio'
 		);
 	}
 

@@ -66,19 +66,39 @@
 				<a class="btn btn-default pull-left" href="<?php echo base_url().$classlabel.'/'.$subtopiclabel;?>" onclick="unsetexercise(event)">
 					<span class="glyphicon glyphicon-chevron-left"></span>&nbsp;Vissza
 				</a>
-				<a id="next_button" class="btn btn-primary pull-right" onclick="checkSolution(event)">
+				<a id="next_button" class="btn btn-lg btn-primary pull-right" onclick="checkSolution(event)">
 					Tovább&nbsp;<span class="glyphicon glyphicon-chevron-right">
 				</a>
 				<div id="loader" class="pull-center small">
 					<br />
 				</div>
-				<br /><?php
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 text-center">
+				<p><?php
+
+				if (isset($youtube)) {?>
+
+					<a data-toggle="collapse" data-target="#videoModal" class="btn btn-warning pull-left collapse-button">
+						<span class="glyphicon glyphicon-play"></span>&nbsp;Videó megoldás
+					</a>
+
+					<?php
+
+				}?>
+
+				</p><?php
 
 				if ($hints_all > 0) {?>
 
 					<p><a id="hint_button" class="btn btn-danger pull-right" onclick="gethint(event)">
 						Segítséget kérek!
 					</a></p><br />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 text-center">
 					<p id="hints_left" class="small pull-right">
 						(<?php echo $hints_all-$hints_used;?> segítség maradt.)
 					</p><?php
@@ -93,7 +113,23 @@
 			<div class="col-sm-12 text-center">
 				<div id="message"></div>
 			</div>
-		</div>
+		</div><?php
+
+		if (isset($youtube)) {?>
+
+		<div class="row">
+			<div class="col-sm-12 text-center collapse" id="videoModal">
+				<div class="embed-responsive embed-responsive-16by9 videoplayer">
+					<iframe style="border: 3px solid #000;" class="embed-responsive-item" src="//www.youtube.com/embed/<?php echo $youtube;?>?rel=0&amp;showinfo=0&amp;iv_load_policy=3" allowfullscreen=""></iframe>
+				</div>
+				<a data-toggle="collapse" data-target="#videoModal" class="btn btn-default text-center collapse-button">
+					<span class="glyphicon glyphicon-remove"></span>&nbsp;Bezár
+				</a>
+			</div>
+		</div><?php
+
+		}?>
+
 		<div class="row">
 			<div id="hints" class="col-sm-12"></div>
 		</div>

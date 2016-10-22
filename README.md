@@ -92,13 +92,14 @@ This is a sample for `data.json`:
 2. Define function called `Generate($level)`.
     - The input is *always* one parameter (`$level`), which is the level of exercise - this can be used to set the difficulty of the exercise.
     - Each exercise *must* be provided with the following return values:
-        1. `$question`: the main body of the exercise,
-        2. `$solution`: this is what the user will see if the answer is wrong.
-        2. `$correct`: correct answer that will be used to compare the user's answer against.
+        1. `'question'`: the main body of the exercise,
+        2. `'solution'`: this is what the user will see if the answer is wrong.
+        2. `'correct'`: correct answer that will be used to compare the user's answer against.
     - Each exercise *can* be provided with additional return values:
-        1. `$type`: exercise type,
-        2. `$hints`: explanation for exercise,
-        3. `$labels`: labels for input fields.
+        1. `'type'`: exercise type,
+        2. `'hints'`: explanation for exercise,
+        3. `'labels'`: labels for input fields,
+        4. `'youtube'`: youtube video ID.
 
 You can use **MathJax** to display formulas.
 

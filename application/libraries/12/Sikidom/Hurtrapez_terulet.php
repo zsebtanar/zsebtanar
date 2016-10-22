@@ -40,7 +40,8 @@ class Hurtrapez_terulet {
 			'correct'   => $correct,
 			'solution'  => $solution,
 			'hints'		=> $hints,
-			'type'		=> 'fraction'
+			'type'		=> 'fraction',
+			'youtube'	=> 'nUqjMJLVX40'
 		);
 	}
 

@@ -75,7 +75,8 @@ class Teszt_grafikon {
 			'options'	=> $options,
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> 'Zsys2Dn3KS8'
 		);
 	}
 

@@ -43,7 +43,8 @@ class Osszeg {
 			'correct'   => $correct,
 			'solution'  => $solution,
 			'hints'		=> $hints,
-			'options'	=> $options
+			'options'	=> $options,
+			'youtube'	=> 'v7QDOm25VJM'
 		);
 	}
 

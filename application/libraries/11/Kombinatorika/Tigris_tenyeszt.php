@@ -115,7 +115,8 @@ class Tigris_tenyeszt {
 			'question'  => $question,
 			'correct'   => $correct,
 			'solution'  => $solution,
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> 'ymyhQ4Dm9wA'
 		);
 	}
 }

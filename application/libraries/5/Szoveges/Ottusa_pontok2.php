@@ -68,7 +68,8 @@ class Ottusa_pontok2 {
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
 			'type' 		=> $type,
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> 'k5QljCHp8iw'
 		);
 	}
 }

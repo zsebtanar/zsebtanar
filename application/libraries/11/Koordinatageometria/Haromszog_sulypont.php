@@ -54,7 +54,8 @@ class Haromszog_sulypont {
 			'solution'  => $solution,
 			'hints'		=> $hints,
 			'labels' 	=> '$C$',
-			'type'		=> 'coordinate'
+			'type'		=> 'coordinate',
+			'youtube'	=> '8dcR97_Qy90'
 		);
 	}
 }

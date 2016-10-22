@@ -51,7 +51,8 @@ class Teszt_diagram {
 			'question' 	=> $question,
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> 'nARVy532Dms'
 		);
 	}
 

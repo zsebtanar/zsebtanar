@@ -46,7 +46,8 @@ class Hanyados {
 			'solution'	=> $solution,
 			'labels'	=> $labels,
 			'type' 		=> 'list',
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> '0uM4dWKk24g'
 		);
 	}
 }

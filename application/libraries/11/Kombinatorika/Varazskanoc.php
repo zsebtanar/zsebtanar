@@ -52,7 +52,8 @@ class Varazskanoc {
 			'correct'   => $correct,
 			'solution'  => $solution,
 			'hints'		=> $hints,
-			'type'		=> 'fraction'
+			'type'		=> 'fraction',
+			'youtube'	=> 'vA1_vCeLK3U'
 		);
 	}
 }

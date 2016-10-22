@@ -88,7 +88,8 @@ class Gyok_teszt3 {
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
 			'options'	=> $options,
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> 'zZ1rNPV7mMM'
 		);
 	}
 }

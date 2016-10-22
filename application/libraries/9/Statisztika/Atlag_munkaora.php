@@ -30,7 +30,7 @@ class Atlag_munkaora {
 		// );
 		// $unknown = [8,9];
 
-		$question = 'A Péter szerződésében szereplő napi $8$ óra munkaidő rugalmas, azaz lehetnek olyan napok, amikor $8$ óránál többet, és olyanok is, amikor kevesebbet dolgozik. $6$ óránál kevesebbet, illetve $10$ óránál többet sosem dolgozik egy nap. Az alábbi táblázatban Péter januári munkaidő-kimutatásának néhány adata látható.
+		$question = 'A Péter szerződésében szereplő napi $8$ óra munkaidő rugalmas, azaz lehetnek olyan napok, amikor $8$ óránál többet, és olyanok is, amikor kevesebbet dolgozik. $6$ óránál kevesebbet, illetve $10$ óránál többet sosem dolgozik egy nap. Az alábbi táblázatban Péter januári munkaidő-kimutatásának néhány adata látható.<br/><br/>
 			<table class="table table-bordered">
 				<tr>
 					<td>Napi munkaidő (óra)</td>
@@ -67,7 +67,8 @@ class Atlag_munkaora {
 			'solution'  => $solution,
 			'hints'		=> $hints,
 			'type'		=> 'array',
-			'labels'	=> ['$A$', '$B$']
+			'labels'	=> ['$A$', '$B$'],
+			'youtube'	=> '4jhPnZMtsBU'
 		);
 	}
 

@@ -52,7 +52,8 @@ class Gula_szinezes {
 			'question'  => $question,
 			'correct'   => $correct,
 			'solution'  => $solution,
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> 'AWSk0pLWlwk'
 		);
 	}
 }

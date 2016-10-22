@@ -56,7 +56,8 @@ class Szamok {
 			'solution'	=> $solution,
 			'hints'		=> $hints,
 			'labels'	=> ['right' => '$\}$', 'left' => '$\{$'],
-			'type'		=> 'list2'
+			'type'		=> 'list2',
+			'youtube'	=> (rand(1,2)==1 ? 'o7paig2EeVo' : 'h5XnAK5QHWQ')
 		);
 	}
 

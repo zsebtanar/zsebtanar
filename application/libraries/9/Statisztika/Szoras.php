@@ -34,7 +34,8 @@ class Szoras {
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
 			'type'		=> $type,
-			'hints' 	=> $hints
+			'hints' 	=> $hints,
+			'youtube'	=> 'ztweYz-EeXE'
 		);
 	}
 

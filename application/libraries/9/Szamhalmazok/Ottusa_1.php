@@ -44,7 +44,8 @@ class Ottusa_1 {
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
 			'type' 		=> $type,
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> '54r2uD-v8vs'
 		);
 	}
 

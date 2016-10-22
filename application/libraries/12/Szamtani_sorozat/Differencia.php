@@ -48,7 +48,8 @@ class Differencia {
 			'question' 	=> $question,
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> 'KPNSHAfLbCc'
 		);
 	}
 }

@@ -57,7 +57,8 @@ class Tigris1 {
 			'correct'   => $correct,
 			'solution'  => $solution,
 			'labels'	=> ['right' => '$\%$'],
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> 'Mda-b7lVWMI'
 		);
 	}
 }

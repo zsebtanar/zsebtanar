@@ -67,7 +67,8 @@ class Haromszog_tangens {
 			'solution'  => $solution,
 			'hints'		=> $hints,
 			'labels'	=> $labels,
-			'type'		=> 'array'
+			'type'		=> 'array',
+			'youtube'	=> 'SyQeTYX1y7Y'
 		);
 	}
 

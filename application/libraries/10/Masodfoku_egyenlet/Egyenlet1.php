@@ -59,7 +59,8 @@ class Egyenlet1 {
 			'solution'	=> $solution,
 			'labels'	=> $labels,
 			'hints' 	=> $hints,
-			'type' 		=> 'list'
+			'type' 		=> 'list',
+			'youtube'	=> 'GwtcU9kr5Xg'
 		);
 	}
 

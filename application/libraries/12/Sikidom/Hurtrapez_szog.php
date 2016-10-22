@@ -38,7 +38,8 @@ class Hurtrapez_szog {
 			'correct'   => $correct,
 			'solution'  => $solution,
 			'hints'		=> $hints,
-			'labels'	=> ['right' => '$°$']
+			'labels'	=> ['right' => '$°$'],
+			'youtube'	=> 'w_hevrYC4ds'
 		);
 	}
 

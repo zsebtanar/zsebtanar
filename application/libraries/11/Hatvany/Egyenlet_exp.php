@@ -53,7 +53,8 @@ class Egyenlet_exp {
 			'question'  => $question,
 			'correct'   => $correct,
 			'solution'  => $solution,
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> 'SjUJ6ah1-pU'
 		);
 	}
 }

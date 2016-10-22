@@ -60,7 +60,8 @@ class Osztas_teszt3 {
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
 			'options'	=> $options,
-			'hints'		=> $hints
+			'hints'		=> $hints,
+			'youtube'	=> 'Jy-K7iCVi98'
 		);
 	}
 
