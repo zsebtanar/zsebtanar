@@ -300,11 +300,11 @@ class Szinusz {
 			for ($i=0; $i < $width; $i++) {
 				$xval1 = ($i-$originx)/$xunit_length*pi()/2;
 				$yval1 = -sin($a*$xval1)*$yunit_length/$yunit_original+$originy;
-				$yval2 = round(-$yunit_length/$yunit_original)+$originy;
+				$yval2 = round(-$b*$yunit_length/$yunit_original)+$originy;
 				if (abs(sin($a*$xval1)-$b) < 0.00001) {
 					$svg .= DrawCircle($i, $yval1, 5, 'red', 1, 'red');
 					if ($progress == 3 && $b != 0) {
-						$svg .= '<g fill="none" stroke="red" stroke-width="2"><path stroke-dasharray="5,5" d="M'.$i.' '.$originy.' l0 '.round(-$yunit_length/$yunit_original).'" /></g>';
+						$svg .= '<g fill="none" stroke="red" stroke-width="2"><path stroke-dasharray="5,5" d="M'.$i.' '.$originy.' l0 '.round(-$b*$yunit_length/$yunit_original).'" /></g>';
 
 						// for some mysterious reasons this is not working... (produces the same, though):
 						// $svg .= DrawPath($i, $originy, $i, $yval2, $color1='red', $width=2, $color2='none', $dasharray1=5, $dasharray2=5);
