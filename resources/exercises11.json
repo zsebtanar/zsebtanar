@@ -13,15 +13,18 @@
 							"exercises": [
 								{
 									"label": "Oszthatosag",
-									"name": "Valószínűség (oszthatóság)"
+									"name": "Valószínűség (oszthatóság)",
+									"difficulty": 2
 								},
 								{
 									"label": "Kerteszet",
-									"name": "Kertészet"
+									"name": "Kertészet",
+									"difficulty": 3
 								},
 								{
 									"label": "Teszt_pontok",
-									"name": "Teszt pontok"
+									"name": "Teszt pontok",
+									"difficulty": 3
 								}
 							]
 						},
@@ -31,11 +34,13 @@
 							"exercises": [
 								{
 									"label": "Verseny",
-									"name": "Verseny"
+									"name": "Verseny",
+									"difficulty": 2
 								},
 								{
 									"label": "Ismerosok",
-									"name": "Ismerősök"
+									"name": "Ismerősök",
+									"difficulty": 2
 								}
 							]
 						},
@@ -45,27 +50,33 @@
 							"exercises": [
 								{
 									"label": "Ottusa_lovaglas",
-									"name": "Öttusa (lovaglás)"
+									"name": "Öttusa (lovaglás)",
+									"difficulty": 3
 								},
 								{
 									"label": "Tigris_tenyeszt",
-									"name": "Tigris"
+									"name": "Tigris",
+									"difficulty": 3
 								},
 								{
 									"label": "Szamjegyek",
-									"name": "Számjegyek"
+									"name": "Számjegyek",
+									"difficulty": 1
 								},
 								{
 									"label": "Lotto",
-									"name": "Lottó"
+									"name": "Lottó",
+									"difficulty": 2
 								},
 								{
 									"label": "Gula_szinezes",
-									"name": "Gúla színezés"
+									"name": "Gúla színezés",
+									"difficulty": 2
 								},
 								{
 									"label": "Varazskanoc",
-									"name": "Varázskanóc"
+									"name": "Varázskanóc",
+									"difficulty": 3
 								}
 							]
 						}
@@ -80,15 +91,18 @@
 							"exercises": [
 								{
 									"label": "Egyenlet_exp",
-									"name": "Egyenlet"
+									"name": "Egyenlet",
+									"difficulty": 2
 								},
 								{
 									"label": "Tigris1",
-									"name": "Tigris 1"
+									"name": "Tigris 1",
+									"difficulty": 3
 								},
 								{
 									"label": "Tigris2",
-									"name": "Tigris 2"
+									"name": "Tigris 2",
+									"difficulty": 3
 								}
 							]
 						}
@@ -103,7 +117,8 @@
 							"exercises": [
 								{
 									"label": "Szinusz",
-									"name": "Szinusz függvény"
+									"name": "Szinusz függvény",
+									"difficulty": 2
 								}
 							]
 						},
@@ -113,15 +128,18 @@
 							"exercises": [
 								{
 									"label": "Haromszog_sulypont",
-									"name": "Háromszög súlypontja"
+									"name": "Háromszög súlypontja",
+									"difficulty": 2
 								},
 								{
 									"label": "Egyenes_egyenlet",
-									"name": "Egyenes egyenlete"
+									"name": "Egyenes egyenlete",
+									"difficulty": 2
 								},
 								{
 									"label": "Kor_egyenlet",
-									"name": "Kör egyenlete"
+									"name": "Kör egyenlete",
+									"difficulty": 3
 								}
 							]
 						}

@@ -13,7 +13,8 @@
 							"exercises": [
 								{
 									"label": "Egyenes_forditott",
-									"name": "Egyenes, fordított arányosság"
+									"name": "Egyenes, fordított arányosság",
+									"difficulty": 1
 								}
 							]
 						},
@@ -23,15 +24,18 @@
 							"exercises": [
 								{
 									"label": "AFA",
-									"name": "ÁFA"
+									"name": "ÁFA",
+									"difficulty": 2
 								},
 								{
 									"label": "TV_jatek",
-									"name": "TV játék"
+									"name": "TV játék",
+									"difficulty": 3
 								},
 								{
 									"label": "Szalami",
-									"name": "Szalámi"
+									"name": "Szalámi",
+									"difficulty": 1
 								}
 							]
 						},
@@ -41,15 +45,18 @@
 							"exercises": [
 								{
 									"label": "Osztas_teszt1",
-									"name": "Teszt 1."
+									"name": "Oszthatóság 1.",
+									"difficulty": 1
 								},
 								{
 									"label": "Osztas_teszt2",
-									"name": "Teszt 2."
+									"name": "Oszthatóság 2.",
+									"difficulty": 1
 								},
 								{
 									"label": "Osztas_teszt3",
-									"name": "Teszt 3."
+									"name": "Oszthatóság 3.",
+									"difficulty": 1
 								}
 							]
 						},
@@ -59,7 +66,8 @@
 							"exercises": [
 								{
 									"label": "Tortek",
-									"name": "Törtek"
+									"name": "Törtek",
+									"difficulty": 3
 								}
 							]
 						}
@@ -74,19 +82,23 @@
 							"exercises": [
 								{
 									"label": "Szamok",
-									"name": "Halmazműveletek számokkal"
+									"name": "Halmazműveletek számokkal",
+									"difficulty": 1
 								},
 								{
 									"label": "Osztok",
-									"name": "Halmazműveletek osztókkal"
+									"name": "Halmazműveletek osztókkal",
+									"difficulty": 1
 								},
 								{
 									"label": "Reszhalmazok",
-									"name": "Részhalmazok"
+									"name": "Részhalmazok",
+									"difficulty": 1
 								},
 								{
 									"label": "Teszt_diagram",
-									"name": "Teszt"
+									"name": "Teszt",
+									"difficulty": 2
 								}
 							]
 						},
@@ -96,11 +108,13 @@
 							"exercises": [
 								{
 									"label": "Ottusa_1",
-									"name": "Öttusa 1"
+									"name": "Öttusa 1",
+									"difficulty": 2
 								},
 								{
 									"label": "Ottusa_2",
-									"name": "Öttusa 2"
+									"name": "Öttusa 2",
+									"difficulty": 2
 								}
 							]
 						}
@@ -115,23 +129,28 @@
 							"exercises": [
 								{
 									"label": "Terjedelem",
-									"name": "Terjedelem"
+									"name": "Terjedelem",
+									"difficulty": 1
 								},
 								{
 									"label": "Atlag",
-									"name": "Átlag"
+									"name": "Átlag",
+									"difficulty": 1
 								},
 								{
 									"label": "Szoras",
-									"name": "Szórás"
+									"name": "Szórás",
+									"difficulty": 2
 								},
 								{
 									"label": "Median_atlag",
-									"name": "Medián és átlag"
+									"name": "Medián és átlag",
+									"difficulty": 3
 								},
 								{
 									"label": "Atlag_munkaora",
-									"name": "Átlag munkaóra"
+									"name": "Átlag munkaóra",
+									"difficulty": 3
 								}
 							]
 						}
@@ -146,11 +165,13 @@
 							"exercises": [
 								{
 									"label": "Osszeadas",
-									"name": "Összeadás"
+									"name": "Összeadás",
+									"difficulty": 3
 								},
 								{
 									"label": "Kivonas",
-									"name": "Kivonás"
+									"name": "Kivonás",
+									"difficulty": 3
 								}
 							]
 						},
@@ -160,7 +181,8 @@
 							"exercises": [
 								{
 									"label": "Rombusz",
-									"name": "Rombusz"
+									"name": "Rombusz",
+									"difficulty": 3
 								}
 							]
 						}

@@ -161,6 +161,7 @@ class Html extends CI_model {
 								$exercise_menu['name'] 		= $exercise->name;
 								$exercise_menu['status'] 	= $exercise->status;
 								$exercise_menu['ex_order'] 	= $exercise->ex_order;
+								$exercise_menu['difficulty']= $exercise->difficulty;
 
 								if ($this->Session->CheckLogin() || $exercise->status == 'OK') {
 
@@ -217,46 +218,23 @@ class Html extends CI_model {
 	 */
 	public function RandomExercises() {
 
-		// Get only final exam exercises (e.g. 2016_05_03)
-		$this->db->like('label', '20', 'after'); 
-		$subtopics = $this->db->get('subtopics')->result_array();
-		shuffle($subtopics);
+		$this->db->order_by('id', 'random');
 
-		$easy_id = 0;
-		$medium_id = 0;
-		$hard_id = 0;
+		$easy_exercises = $this->db
+			->get_where('exercises', ['difficulty' => 1, 'status' => 'OK'])
+			->result_array();
 
-		foreach ($subtopics as $subtopic) {
+		$medium_exercises = $this->db
+			->get_where('exercises', ['difficulty' => 2, 'status' => 'OK'])
+			->result_array();
 
-			$this->db->order_by('id', 'asc');
-			$exercises = $this->db
-				->get_where('exercises', ['subtopicid' => $subtopic['id']])
-				->result_array();
+		$hard_exercises = $this->db
+			->get_where('exercises', ['difficulty' => 3, 'status' => 'OK'])
+			->result_array();
 
-			if ($exercises[0]['ex_order'] == 0) { // Exercise order is not specified
-				$first_id = $exercises[0]['id'];
-			}
-
-			shuffle($exercises);
-
-			foreach ($exercises as $exercise) {
-				if ($exercise['ex_order'] == 0) {
-					$current_id = $exercise['id'];
-					if ($current_id-$first_id+1 <= 6 && $easy_id == 0) {
-						$easy_id = $current_id;
-					} elseif ($current_id-$first_id+1 <= 12 && $medium_id == 0) {
-						$medium_id = $current_id;
-					} elseif ($hard_id == 0) {
-						$hard_id = $current_id;
-					}
-				}
-				
-			}
-
-			if ($easy_id!=0 && $medium_id!=0 && $hard_id!=0) {
-				break;
-			}
-		}
+		$easy_id 	= $easy_exercises[0]['id'];
+		$medium_id 	= $medium_exercises[0]['id'];
+		$hard_id 	= $hard_exercises[0]['id'];
 		
 		$links['easy'] 		= $this->Database->ExerciseLink($easy_id, 'veletlen');
 		$links['medium'] 	= $this->Database->ExerciseLink($medium_id, 'veletlen');

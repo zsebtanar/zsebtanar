@@ -13,7 +13,8 @@
 							"exercises": [
 								{
 									"label": "Haromszog_szogei",
-									"name": "Háromszög szögei"
+									"name": "Háromszög szögei",
+									"difficulty": 2
 								}
 							]
 						}
@@ -28,7 +29,8 @@
 							"exercises": [
 								{
 									"label": "Teszt_grafikon",
-									"name": "Teszt grafikon"
+									"name": "Teszt grafikon",
+									"difficulty": 2
 								}
 							]
 						}

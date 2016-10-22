@@ -13,15 +13,18 @@
 							"exercises": [
 								{
 									"label": "Tag1",
-									"name": "Tag 1"
+									"name": "Tag 1",
+									"difficulty": 2
 								},
 								{
 									"label": "Tag2",
-									"name": "Tag 2"
+									"name": "Tag 2",
+									"difficulty": 2
 								},
 								{
 									"label": "Differencia",
-									"name": "Számtani sorozat differenciája"
+									"name": "Számtani sorozat differenciája",
+									"difficulty": 2
 								}
 							]
 						},
@@ -31,15 +34,18 @@
 							"exercises": [
 								{
 									"label": "Tag",
-									"name": "Mértani sorozat tagja"
+									"name": "Mértani sorozat tagja",
+									"difficulty": 3
 								},
 								{
 									"label": "Hanyados",
-									"name": "Mértani sorozat hányadosa"
+									"name": "Mértani sorozat hányadosa",
+									"difficulty": 3
 								},
 								{
 									"label": "Osszeg",
-									"name": "Mértani sorozat összege"
+									"name": "Mértani sorozat összege",
+									"difficulty": 3
 								}
 							]
 						}
@@ -54,7 +60,8 @@
 							"exercises": [
 								{
 									"label": "Csonkagula",
-									"name": "Csonkagúla"
+									"name": "Csonkagúla",
+									"difficulty": 3
 								}
 							]
 						},
@@ -64,7 +71,8 @@
 							"exercises": [
 								{
 									"label": "Gula",
-									"name": "Gúla"
+									"name": "Gúla",
+									"difficulty": 3
 								}
 							]
 						},
@@ -74,15 +82,18 @@
 							"exercises": [
 								{
 									"label": "Hurtrapez_szog",
-									"name": "Húrtrapéz szöge"
+									"name": "Húrtrapéz szöge",
+									"difficulty": 3
 								},
 								{
 									"label": "Hurtrapez_terulet",
-									"name": "Húrtrapéz területe"
+									"name": "Húrtrapéz területe",
+									"difficulty": 2
 								},
 								{
 									"label": "Hurtrapez_koriv",
-									"name": "Húrtrapéz (körív)"
+									"name": "Húrtrapéz (körív)",
+									"difficulty": 2
 								}
 							]
 						}
@@ -97,7 +108,8 @@
 							"exercises": [
 								{
 									"label": "Sapka",
-									"name": "Sapka"
+									"name": "Sapka",
+									"difficulty": 3
 								}
 							]
 						}

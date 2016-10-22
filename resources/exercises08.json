@@ -13,7 +13,8 @@
 							"exercises": [
 								{
 									"label": "Pitagorasz",
-									"name": "Pitagorasz-tétel"
+									"name": "Pitagorasz-tétel",
+									"difficulty": 3
 								}
 							]
 						}
@@ -28,7 +29,8 @@
 							"exercises": [
 								{
 									"label": "Abszolutertek",
-									"name": "Abszolútérték függvény"
+									"name": "Abszolútérték függvény",
+									"difficulty": 2
 								}
 							]
 						}

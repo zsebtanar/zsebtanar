@@ -13,11 +13,13 @@
 							"exercises": [
 								{
 									"label": "Ottusa_pontok1",
-									"name": "Öttusa 1"
+									"name": "Öttusa 1",
+									"difficulty": 2
 								},
 								{
 									"label": "Ottusa_pontok2",
-									"name": "Öttusa 2"
+									"name": "Öttusa 2",
+									"difficulty": 2
 								}
 							]
 						}
@@ -32,11 +34,13 @@
 							"exercises": [
 								{
 									"label": "Szogfajtak1",
-									"name": "Szögfajták"
+									"name": "Szögfajták",
+									"difficulty": 1
 								},
 								{
 									"label": "Szogfajtak2",
-									"name": "Szögfajták 2"
+									"name": "Szögfajták 2",
+									"difficulty": 1
 								}
 							]
 						}
@@ -51,7 +55,8 @@
 							"exercises": [
 								{
 									"label": "Egyenlet",
-									"name": "Egyenlet"
+									"name": "Egyenlet",
+									"difficulty": 1
 								}
 							]
 						}

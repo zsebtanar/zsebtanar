@@ -13,7 +13,8 @@
 							"exercises": [
 								{
 									"label": "Teszt_kordiagram",
-									"name": "Kördiagram"
+									"name": "Kördiagram",
+									"difficulty": 2
 								}
 							]
 						}

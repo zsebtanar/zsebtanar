@@ -50,6 +50,7 @@ Each of them *must* have a `name` attribute. Classes, subtopics and exercises *m
 - `ex_order`: order of exercise (if not set, order of exercise will be generated automatically)
 - `level`: how many times user has to solve exercise to complete it (default value: **9**)
 - `status`: **IN PROGRESS** if exercise is not finished (default value: **OK**)
+- `difficulty`: how much time needed to solve problem (**1**: 1-2 mins, **2**: 2-5 mins, **3**:5+ mins)
 
 This is a sample for `data.json`:
 ```
