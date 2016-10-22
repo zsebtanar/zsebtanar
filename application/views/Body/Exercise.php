@@ -80,7 +80,7 @@
 
 				if (isset($youtube)) {?>
 
-					<a data-toggle="collapse" data-target="#videoModal" class="btn btn-warning pull-left collapse-button">
+					<a data-toggle="collapse" data-target="#videoCollapse" class="btn btn-warning pull-left collapse-button">
 						<span class="glyphicon glyphicon-play"></span>&nbsp;Videó megoldás
 					</a>
 
@@ -118,11 +118,11 @@
 		if (isset($youtube)) {?>
 
 		<div class="row">
-			<div class="col-sm-12 text-center collapse" id="videoModal">
+			<div class="col-sm-12 text-center collapse" id="videoCollapse">
 				<div class="embed-responsive embed-responsive-16by9 videoplayer">
 					<iframe style="border: 3px solid #000;" class="embed-responsive-item" src="//www.youtube.com/embed/<?php echo $youtube;?>?rel=0&amp;showinfo=0&amp;iv_load_policy=3" allowfullscreen=""></iframe>
 				</div>
-				<a data-toggle="collapse" data-target="#videoModal" class="btn btn-default text-center collapse-button">
+				<a data-toggle="collapse" data-target="#videoCollapse" class="btn btn-default text-center collapse-button">
 					<span class="glyphicon glyphicon-remove"></span>&nbsp;Bezár
 				</a>
 			</div>
@@ -298,7 +298,7 @@
 						$('#progress_bar').css('width', data['progress']['value']+'%').attr('aria-valuenow', data['progress']['value']);
 						progress_bar_class = $('#progress_bar').attr('class').replace(/(progress-bar-)\w*/, '$1'+ data['progress']['style']);
 						$('#progress_bar').attr('class', progress_bar_class);
-						$("#next_button").replaceWith("<a id=\"next_button\" class=\"btn btn-primary pull-right\" href=\"" + data['link_next'] + "\">Tovább&nbsp;<span class=\"glyphicon glyphicon-chevron-right\"></span></button>");
+						$("#next_button").replaceWith("<a id=\"next_button\" class=\"btn btn-primary btn-lg pull-right\" href=\"" + data['link_next'] + "\">Tovább&nbsp;<span class=\"glyphicon glyphicon-chevron-right\"></span></button>");
 						// Update results
 						$('.trophies').text(data['results']['trophies']);
 						$('.shields').text(data['results']['shields']);
@@ -316,7 +316,7 @@
 							MathJax.Hub.Queue(["Typeset",MathJax.Hub,"hint"]);
 						}
 						$("#message").replaceWith('<div class="alert alert-danger"><strong><span class=\"glyphicon glyphicon-remove\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>');
-						$("#next_button").replaceWith("<a id=\"next_button\" class=\"btn btn-primary pull-right\" href=\"<?php echo base_url().$classlabel.'/'.$subtopiclabel.'/'.$exerciselabel;?>\">Újra&nbsp;<span class=\"glyphicon glyphicon-refresh\"></span></button>");
+						$("#next_button").replaceWith("<a id=\"next_button\" class=\"btn btn-lg btn-primary pull-right\" href=\"<?php echo base_url().$classlabel.'/'.$subtopiclabel.'/'.$exerciselabel;?>\">Újra&nbsp;<span class=\"glyphicon glyphicon-refresh\"></span></button>");
 						if (data['submessages'].length > 0) {
 							for (var i = data['submessages'].length - 1; i >= 0; i--) {
 								var submessage = data['submessages'][i];
