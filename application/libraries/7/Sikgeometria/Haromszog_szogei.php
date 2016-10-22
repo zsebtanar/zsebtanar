@@ -81,9 +81,7 @@ class Haromszog_szogei {
 			$angles[2] = $num3;
 
 		}
-		$angles[0] = 120;
-		$angles[1] = 30;
-		$angles[2] = 30;
+
 		return $angles;
 	}
 
