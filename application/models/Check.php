@@ -266,20 +266,22 @@ class Check extends CI_model {
 			$status = 'CORRECT';
 			$message = 'Helyes válasz!';
 			foreach ($correct as $key => $value) {
-				$submessages[$key] = 'WRONG';
+				$submessages[$key] = 'EMPTY';
 				if ($value == 1) {
 					if (in_array($key, $answer)) {
-						$submessages[$key] = 'CORRECT';
+						$submessages[$key] = 'FILLED_CORRECT';
 					} else {
-						$status = 'WRONG';
+						$submessages[$key] = 'EMPTY_WRONG';
 						$message = 'A helyes válasz: '.$solution;
+						$status = 'WRONG';
 					}
 				} else {
 					if (in_array($key, $answer)) {
-						$status = 'WRONG';
+						$submessages[$key] = 'FILLED_WRONG';
 						$message = 'A helyes válasz: '.$solution;
+						$status = 'WRONG';
 					} else {
-						$submessages[$key] = 'CORRECT';
+						$submessages[$key] = 'EMPTY_CORRECT';
 					}
 				}
 			}

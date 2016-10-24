@@ -177,7 +177,12 @@ div[id^='hint_details'] {
 .alert-danger2 {
     color: #a94442;
 }
-
+.alert-warning2 {
+    color: #f0ad4e;
+}
+.alert-info2 {
+    color: #ffffff;
+}
 .btn-space-big {
     margin: 40px;
 }

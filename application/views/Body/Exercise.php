@@ -317,13 +317,20 @@
 						}
 						$("#message").replaceWith('<div class="alert alert-danger"><strong><span class=\"glyphicon glyphicon-remove\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>');
 						$("#next_button").replaceWith("<a id=\"next_button\" class=\"btn btn-lg btn-primary pull-right\" href=\"<?php echo base_url().$classlabel.'/'.$subtopiclabel.'/'.$exerciselabel;?>\">Újra&nbsp;<span class=\"glyphicon glyphicon-refresh\"></span></button>");
-						if (data['submessages'].length > 0) {
-							for (var i = data['submessages'].length - 1; i >= 0; i--) {
-								var submessage = data['submessages'][i];
-								if (submessage == 'CORRECT') {
+						var keys = [];
+						for(var k in data.submessages) keys.push(k);
+						if (keys.length > 0) {
+
+							for (var i = keys.length - 1; i >= 0; i--) {
+								var submessage = data.submessages[i];
+								if (submessage == 'FILLED_CORRECT') {
 									$('#input'+i).before('<span class=\"glyphicon glyphicon-ok alert-success2\"></span>&nbsp;');
-								} else {
+								} else if (submessage == 'FILLED_WRONG') {
 									$('#input'+i).before('<span class=\"glyphicon glyphicon-remove alert-danger2\"></span>&nbsp;');
+								} else if (submessage == 'EMPTY_WRONG') {
+									$('#input'+i).before('<span class=\"glyphicon glyphicon-ok alert-warning2\"></span>&nbsp;');
+								} else {
+									$('#input'+i).before('<span class=\"glyphicon glyphicon-ok alert-info2\"></span>&nbsp;');
 								}
 							}
 						}
