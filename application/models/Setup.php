@@ -41,6 +41,8 @@ class Setup extends CI_model {
 				'difficulty'=> 3,
 				'ex_order'	=> ''
 				),
+			'tags' 				=> [],
+			'exercises_tags' 	=> [],
 
 			// Dynamic tables to track user activity
 			'users' 			=> [],
@@ -136,6 +138,17 @@ class Setup extends CI_model {
 							status 		VARCHAR(20),
 							FOREIGN KEY (subtopicID) REFERENCES subtopics(id)
 						)Engine=InnoDB;',
+			'tags' => 'CREATE TABLE tags (
+							id 		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+							name 	VARCHAR(60) NOT NULL
+						)Engine=InnoDB;',
+			'exercises_tags' => 'CREATE TABLE exercises_tags (
+							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+							exerciseID 	INT NOT NULL,
+							tagID 		INT NOT NULL,
+							FOREIGN KEY (exerciseID) REFERENCES exercises(id),
+							FOREIGN KEY (tagID) REFERENCES tags(id)
+						)Engine=InnoDB;',
 			'users' => 'CREATE TABLE users (
 							id 		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							start 	TIMESTAMP DEFAULT NOW()
@@ -196,7 +209,8 @@ class Setup extends CI_model {
 	public function InsertData($data, $table=NULL) {
 
 		// print_r($table);
-		if ($table) {
+		if ($table !== NULL) {
+
 			// Check table
 			if (NULL === $this->GetTableColumns()[$table]) {
 				show_error('Table '.$table.' not defined!<br />');
@@ -236,6 +250,13 @@ class Setup extends CI_model {
 				} else {
 					show_error($this->db->_error_message());
 				}
+
+				// Insert tags separately
+				if (isset($data['tags'])) {
+
+					$exerciseID = $this->db->insert_id();
+					$this->InsertTags($data['tags'], $exerciseID);
+				}
 			}
 
 			// Store ID
@@ -268,7 +289,9 @@ class Setup extends CI_model {
 		// Recursive check for other table names
 		foreach (array_keys($this->GetTableColumns()) as $column) {
 
-			if (isset($data[$column])) {
+			if (isset($data[$column]) &&
+				$column != 'tags'&&
+				$column != 'exercises_tags') {
 
 				foreach ($data[$column] as $row) {
 
@@ -276,6 +299,56 @@ class Setup extends CI_model {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Insert tags to database
+	 *
+	 * @param string $tags       String containing tags
+	 * @param int    $exerciseID Exercise ID
+	 *
+	 * @return void
+	 */
+	public function InsertTags($tags, $exerciseID) {
+
+		// Separate tags with comma or semicolon
+		$tags = preg_split("/[,;]+/", $tags);
+
+		foreach ($tags as $tag) {
+
+			
+			$query = $this->db->get_where('tags', ['name' => $tag]);
+			$result = $query->result_array();
+
+			// Check if tag exist in database
+			if (count($result) > 0) {
+
+				$tagID = $result[0]['id'];
+
+			} else {
+
+				// Insert new tag into database
+				if ($this->db->insert('tags', ['name' => $tag])) {
+					// echo 'Data inserted into tags!<br />';
+				} else {
+					show_error($this->db->_error_message());
+				}
+
+				$tagID = $this->db->insert_id();
+			}
+
+			// Insert relationship between exercise & tag
+			if ($this->db->insert('exercises_tags', array(
+				'exerciseID' 	=> $exerciseID,
+				'tagID' 		=> $tagID
+				))) {
+				// echo 'Data inserted into exercises_tags!<br />';
+			} else {
+				show_error($this->db->_error_message());
+			}
+		}
+
+		return;
 	}
 
 	/**
