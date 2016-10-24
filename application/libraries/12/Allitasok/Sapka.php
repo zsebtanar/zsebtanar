@@ -54,8 +54,8 @@ class Sapka {
 			$correct[$ind[2]] = TRUE;
 			$correct[$ind[3]] = TRUE;
 
-			$ind1 = min($ind[2],$ind[3]);
-			$ind2 = max($ind[2],$ind[3]);
+			$ind1 = min($ind[2]+1,$ind[3]+1);
+			$ind2 = max($ind[2]+1,$ind[3]+1);
 			$solution = The($ind1,TRUE).' '.OrderText($ind1).' és '.The($ind2).' '.OrderText($ind2).' állítás igaz, a többi hamis.';
 
 		} elseif ($type == 1) {
@@ -84,7 +84,7 @@ class Sapka {
 			$correct[$ind[2]] = TRUE;
 			$correct[$ind[3]] = FALSE;
 
-			$solution = The($ind[2],TRUE).' '.OrderText($ind[2]).' állítás igaz, a többi hamis.';
+			$solution = The($ind[2]+1,TRUE).' '.OrderText($ind[2]+1).' állítás igaz, a többi hamis.';
 
 		} elseif ($type == 2) {
 
@@ -112,7 +112,7 @@ class Sapka {
 			$correct[$ind[2]] = FALSE;
 			$correct[$ind[3]] = FALSE;
 
-			$solution = The($ind[1],TRUE).' '.OrderText($ind[1]).' állítás igaz, a többi hamis.';
+			$solution = The($ind[1]+1,TRUE).' '.OrderText($ind[1]+1).' állítás igaz, a többi hamis.';
 
 		} elseif ($type == 3) {
 
@@ -140,7 +140,7 @@ class Sapka {
 			$correct[$ind[2]] = FALSE;
 			$correct[$ind[3]] = FALSE;
 
-			$solution = The($ind[1],TRUE).' '.OrderText($ind[1]).' állítás igaz, a többi hamis.';
+			$solution = The($ind[1]+1,TRUE).' '.OrderText($ind[1]+1).' állítás igaz, a többi hamis.';
 
 		}
 
