@@ -15,10 +15,11 @@ class Session extends CI_model {
 		$this->load->helper('url');
 		$this->load->helper('file');
 		$this->load->model('Database');
+		$this->load->model('User');
 
 		$this->DeleteOldSessions();
 
-		$this->Database->AddUser();
+		$this->User->AddUser();
 
 		return;
 	}

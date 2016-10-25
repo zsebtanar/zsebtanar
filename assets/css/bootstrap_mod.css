@@ -244,3 +244,6 @@ body {
 .videoplayer {
     margin-bottom: 10px;
 }
+input.ui-autocomplete-loading {
+    background: #fff url('../images/loader.gif') right center no-repeat !important;
+}

@@ -27,6 +27,7 @@ class Check extends CI_model {
 
 		$this->load->model('Session');
 		$this->load->model('Database');
+		$this->load->model('User');
 		$this->load->model('Html');
 
 		$answerdata = json_decode($jsondata, TRUE);
@@ -40,7 +41,7 @@ class Check extends CI_model {
 
 		list($status, $message, $submessages) = $this->GenerateMessages($type, $answer, $correct, $solution);
 
-		$this->Database->AddUserAction($level, $hints_used, $hints_all, $status);
+		$this->User->AddUserAction($level, $hints_used, $hints_all, $status);
 
 		if ($status == 'CORRECT') {
 			$this->Session->DeleteExerciseData($hash);

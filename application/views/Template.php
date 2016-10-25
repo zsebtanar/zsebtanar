@@ -29,6 +29,11 @@
 		$this->load->view('Title/Subtopic', $title);
 		$this->load->view('Body/Subtopic', $exercises);
 
+	} elseif ($type == 'tag') {
+
+		$this->load->view('Title/Tag', $title);
+		$this->load->view('Body/Tag', $exercises);
+
 	} elseif ($type == 'exercise') {
 
 		$this->load->view('Misc/BreadCrumb', $breadcrumb);

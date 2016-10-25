@@ -148,8 +148,8 @@ class Action extends CI_controller {
 
 		if ($userID) {
 	
-			$this->load->model('Database');
-			$this->Database->DeleteUser($userID);
+			$this->load->model('User');
+			$this->User->DeleteUser($userID);
 	
 		}
 
@@ -189,6 +189,23 @@ class Action extends CI_controller {
 		}
 
 		header('Location:'.base_url());
+	}
+
+	/**
+	 * Get exercise tags (AJAX)
+	 *
+	 * @param string $tag Exercise tag (from REQUEST)
+	 *
+	 * @return void
+	 */
+	public function GetExerciseTags() {
+
+		$this->load->model('Database');
+
+		if (isset($_GET['term'])) {
+			$tag = strtolower($_GET['term']);
+			$result = $this->Database->GetExerciseTags($tag);
+		}
 	}
 }
 

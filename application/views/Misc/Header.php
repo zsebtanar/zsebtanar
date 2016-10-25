@@ -60,7 +60,19 @@
 </script>
 
 <!-- <script type="text/javascript" src="http://localhost/MathJax-master/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
-<!-- <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> --><?php
+<!-- <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+
+<!-- Autocomplete -->
+<script type="text/javascript">
+	$(function(){
+		$("#exercise_tags").autocomplete({
+			source: "action/getexercisetags", // path to the get_birds method
+			select: function( event, ui ) { 
+            	window.location.href = ui.item.value;
+        	}
+		});
+	});
+</script><?php
 
 if (base_url() == 'http://zsebtanar.hu/') {?>
 

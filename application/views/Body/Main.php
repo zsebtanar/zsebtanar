@@ -7,7 +7,11 @@
 		<button type="button" class="btn btn-default">Kövess minket <b><a href="https://www.facebook.com/zsebtanar" target="_blank">Facebook</a></b>-on vagy <b><a href="https://www.youtube.com/channel/UCqtj_u2Otbf-9D0sJcb1zMw" target="_blank">Youtube</a></b>-on!</button><br /><br />
 
 		<h2>Gyakorolni szeretnél?</h2>
-		<p>Válassz nehézségi szintet!</p><br />
+		<p>Írd be, mit keresel:</p>
+		<div class="form-group">
+			<input type="text" class="form-control" id="exercise_tags">
+		</div>
+		<p>Vagy válassz nehézségi szintet:</p><br />
 		<div class="row">
 			<div class="col-xs-4 text-center">
 				<img src="<?php echo base_url();?>assets/images/pawn.svg" alt="pawn"><br />

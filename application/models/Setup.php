@@ -11,6 +11,7 @@ class Setup extends CI_model {
 	public function __construct() {
 
 		$this->load->helper('url');
+		$this->load->helper('language');
 		$this->load->dbforge();
 	}
 
@@ -138,10 +139,11 @@ class Setup extends CI_model {
 							status 		VARCHAR(20),
 							FOREIGN KEY (subtopicID) REFERENCES subtopics(id)
 						)Engine=InnoDB;',
-			'tags' => 'CREATE TABLE tags (
+			'tags' => "CREATE TABLE tags (
 							id 		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+							label 	VARCHAR(60) NOT NULL,
 							name 	VARCHAR(60) NOT NULL
-						)Engine=InnoDB;',
+						) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';",
 			'exercises_tags' => 'CREATE TABLE exercises_tags (
 							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							exerciseID 	INT NOT NULL,
@@ -264,7 +266,7 @@ class Setup extends CI_model {
 			$sessionID = str_split($table, 5)[0].'_ID';
 			$this->session->set_userdata($sessionID, $currentID);
 
-			// Store exercises
+			// Store exercises in session
 			if ($table == 'exercises') {
 
 				$names = $this->session->userdata('names');
@@ -328,7 +330,8 @@ class Setup extends CI_model {
 			} else {
 
 				// Insert new tag into database
-				if ($this->db->insert('tags', ['name' => $tag])) {
+				$label = slugify($tag);
+				if ($this->db->insert('tags', ['name' => $tag, 'label' => $label])) {
 					// echo 'Data inserted into tags!<br />';
 				} else {
 					show_error($this->db->_error_message());

@@ -62,6 +62,29 @@ class View extends CI_controller {
 	}
 
 	/**
+	 * View tag
+	 *
+	 * @param string $tag Tag
+	 *
+	 * @return	void
+	 */
+	public function Tag($tag=NULL) {
+
+		$data = $this->Html->TagData($tag);
+
+		if ($data) {
+
+			$this->load->view('Template', $data);
+
+		} else {
+
+			header('Location:'.base_url().'view/main/');
+			
+		}		
+	}
+
+
+	/**
 	 * View exercise
 	 *
 	 * @param string $classlabel    Class label
@@ -76,10 +99,11 @@ class View extends CI_controller {
 
 		$this->load->model('Database');
 		$this->load->model('Session');
+		$this->load->model('User');
 
 		$exerciseID = $this->Database->ExerciseID($classlabel, $subtopiclabel, $exerciselabel);
 
-		$this->Database->AddUserExercise($exerciseID, $access);
+		$this->User->AddUserExercise($exerciseID, $access);
 
 		if ($exerciseID) {
 
