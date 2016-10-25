@@ -14,11 +14,13 @@
 								{
 									"label": "Egyenlet1",
 									"name": "Másodfokú egyenlet",
+									"tags": "másodfokú egyenlet",
 									"difficulty": 3
 								},
 								{
 									"label": "Egyenlotlenseg_grafikus",
 									"name": "Egyenlőtlenség (grafikus megoldás)",
+									"tags": "másodfokú egyenlőtlenség;grafikon",
 									"difficulty": 3
 								}
 							]
@@ -35,21 +37,25 @@
 								{
 									"label": "Szinusz_ertekkeszlet",
 									"name": "Szinusz függvény értékkészlete",
+									"tags": "szinusz függvény;értékkészlet;szinusz függvény értékkészlete",
 									"difficulty": 1
 								},
 								{
 									"label": "Haromszog_tangens",
 									"name": "Háromszög (tangens)",
+									"tags": "háromszög;tangens;háromszög szögei",
 									"difficulty": 3
 								},
 								{
 									"label": "Haromszog_szinusz",
 									"name": "Háromszög (szinusz)",
+									"tags": "háromszög;szinusz;háromszög szögei",
 									"difficulty": 3
 								},
 								{
 									"label": "Haromszog_koszinusz",
 									"name": "Háromszög (koszinusz)",
+									"tags": "háromszög;koszinusz;háromszög szögei",
 									"difficulty": 3
 								}
 							]
@@ -66,21 +72,25 @@
 								{
 									"label": "Egyenlet1",
 									"name": "Egyenlet",
+									"tags": "egyenlet;gyökvonás",
 									"difficulty": 2
 								},
 								{
 									"label": "Gyok_teszt1",
 									"name": "Gyök 1.",
+									"tags": "egyenlet;gyökvonás;teszt;hatványozás",
 									"difficulty": 1
 								},
 								{
 									"label": "Gyok_teszt2",
 									"name": "Gyök 2.",
+									"tags": "egyenlet;gyökvonás;teszt;hatványozás",
 									"difficulty": 1
 								},
 								{
 									"label": "Gyok_teszt3",
 									"name": "Gyök 3.",
+									"tags": "egyenlet;gyökvonás;teszt;hatványozás",
 									"difficulty": 1
 								}
 							]

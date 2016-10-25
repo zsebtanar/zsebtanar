@@ -8,22 +8,25 @@
 					"name": "Diszkrét matematika",
 					"subtopics": [
 						{
-							"name": "Valószínűség-számítás",
+							"name": "Valószínűségszámítás",
 							"label": "Valoszinuseg",
 							"exercises": [
 								{
 									"label": "Oszthatosag",
 									"name": "Valószínűség (oszthatóság)",
+									"tags": "valószínűségszámítás;oszthatóság;páros-páratlan számok",
 									"difficulty": 2
 								},
 								{
 									"label": "Kerteszet",
 									"name": "Kertészet",
+									"tags": "valószínűségszámítás",
 									"difficulty": 3
 								},
 								{
 									"label": "Teszt_pontok",
 									"name": "Teszt pontok",
+									"tags": "valószínűségszámítás",
 									"difficulty": 3
 								}
 							]
@@ -35,11 +38,13 @@
 								{
 									"label": "Verseny",
 									"name": "Verseny",
+									"tags": "gráfok",
 									"difficulty": 2
 								},
 								{
 									"label": "Ismerosok",
 									"name": "Ismerősök",
+									"tags": "gráfok",
 									"difficulty": 2
 								}
 							]
@@ -51,31 +56,37 @@
 								{
 									"label": "Ottusa_lovaglas",
 									"name": "Öttusa (lovaglás)",
+									"tags": "kombinatorika;variáció",
 									"difficulty": 3
 								},
 								{
 									"label": "Tigris_tenyeszt",
 									"name": "Tigris",
+									"tags": "kombinatorika;ismétlés nélküli kombináció;esetszétválasztás",
 									"difficulty": 3
 								},
 								{
 									"label": "Szamjegyek",
 									"name": "Számjegyek",
+									"tags": "kombinatorika;számjegyek",
 									"difficulty": 1
 								},
 								{
 									"label": "Lotto",
 									"name": "Lottó",
+									"tags": "valószínűségszámítás;kombinatorika",
 									"difficulty": 2
 								},
 								{
 									"label": "Gula_szinezes",
 									"name": "Gúla színezés",
+									"name": "kombinatorika",
 									"difficulty": 2
 								},
 								{
 									"label": "Varazskanoc",
 									"name": "Varázskanóc",
+									"tags": "valószínűségszámítás;kombinatorika",
 									"difficulty": 3
 								}
 							]
@@ -92,16 +103,19 @@
 								{
 									"label": "Egyenlet_exp",
 									"name": "Egyenlet",
+									"tags": "exponenciális egyenlet;logaritmus",
 									"difficulty": 2
 								},
 								{
 									"label": "Tigris1",
 									"name": "Tigris 1",
+									"tags": "exponenciális egyenlet;százalékszámítás",
 									"difficulty": 3
 								},
 								{
 									"label": "Tigris2",
 									"name": "Tigris 2",
+									"tags": "exponenciális egyenlet",
 									"difficulty": 3
 								}
 							]
@@ -118,6 +132,7 @@
 								{
 									"label": "Szinusz",
 									"name": "Szinusz függvény",
+									"tags": "trigonometrikus egyenlet;szinusz függvény",
 									"difficulty": 2
 								}
 							]
@@ -129,16 +144,19 @@
 								{
 									"label": "Haromszog_sulypont",
 									"name": "Háromszög súlypontja",
+									"tags": "geometria;háromszög súlypontja",
 									"difficulty": 2
 								},
 								{
 									"label": "Egyenes_egyenlet",
 									"name": "Egyenes egyenlete",
+									"tags": "egyenes egyenlete",
 									"difficulty": 2
 								},
 								{
 									"label": "Kor_egyenlet",
 									"name": "Kör egyenlete",
+									"tags": "kör egyenlete",
 									"difficulty": 3
 								}
 							]

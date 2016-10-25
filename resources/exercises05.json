@@ -14,11 +14,13 @@
 								{
 									"label": "Ottusa_pontok1",
 									"name": "Öttusa 1",
+									"tags": "alapműveletek",
 									"difficulty": 2
 								},
 								{
 									"label": "Ottusa_pontok2",
 									"name": "Öttusa 2",
+									"tags": "alapműveletek",
 									"difficulty": 2
 								}
 							]
@@ -35,11 +37,13 @@
 								{
 									"label": "Szogfajtak1",
 									"name": "Szögfajták",
+									"tags": "szögfajták",
 									"difficulty": 1
 								},
 								{
 									"label": "Szogfajtak2",
 									"name": "Szögfajták 2",
+									"tags": "szögfajták",
 									"difficulty": 1
 								}
 							]
@@ -56,6 +60,7 @@
 								{
 									"label": "Egyenlet",
 									"name": "Egyenlet",
+									"tags": "abszolútérték",
 									"difficulty": 1
 								}
 							]

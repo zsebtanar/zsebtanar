@@ -13,17 +13,20 @@
 							"exercises": [
 								{
 									"label": "Tag1",
-									"name": "Tag 1",
+									"name": "Számtani sorozat tagja 1",
+									"tags": "számtani sorozat tagja",
 									"difficulty": 2
 								},
 								{
 									"label": "Tag2",
-									"name": "Tag 2",
+									"name": "Számtani sorozat tagja 2",
+									"tags": "számtani sorozat tagja",
 									"difficulty": 2
 								},
 								{
 									"label": "Differencia",
 									"name": "Számtani sorozat differenciája",
+									"tags": "számtani sorozat differenciája",
 									"difficulty": 2
 								}
 							]
@@ -35,16 +38,19 @@
 								{
 									"label": "Tag",
 									"name": "Mértani sorozat tagja",
+									"tags": "mértani sorozat tagja",
 									"difficulty": 3
 								},
 								{
 									"label": "Hanyados",
 									"name": "Mértani sorozat hányadosa",
+									"tags": "mértani sorozat hányadosa",
 									"difficulty": 3
 								},
 								{
 									"label": "Osszeg",
 									"name": "Mértani sorozat összege",
+									"tags": "mértani sorozat összege",
 									"difficulty": 3
 								}
 							]
@@ -61,6 +67,7 @@
 								{
 									"label": "Csonkagula",
 									"name": "Csonkagúla",
+									"tags": "csonkagúla;csonkagúla felülete;geometria;felületszámítás",
 									"difficulty": 3
 								}
 							]
@@ -72,6 +79,7 @@
 								{
 									"label": "Gula",
 									"name": "Gúla",
+									"tags": "gúla;gúla térfogata;geometria;térfogatszámítás",
 									"difficulty": 3
 								}
 							]
@@ -83,16 +91,19 @@
 								{
 									"label": "Hurtrapez_szog",
 									"name": "Húrtrapéz szöge",
+									"tags": "trapéz szöge;húrtrapéz szöge;koszinusz;arkusz koszinusz;belső szög",
 									"difficulty": 3
 								},
 								{
 									"label": "Hurtrapez_terulet",
 									"name": "Húrtrapéz területe",
+									"tags": "trapéz területe;húrtrapéz területe;területszámítás",
 									"difficulty": 2
 								},
 								{
 									"label": "Hurtrapez_koriv",
 									"name": "Húrtrapéz (körív)",
+									"tags": "belső szög;húrtrapéz;körív",
 									"difficulty": 2
 								}
 							]
@@ -109,6 +120,7 @@
 								{
 									"label": "Sapka",
 									"name": "Sapka",
+									"tags": "logika;teszt",
 									"difficulty": 3
 								}
 							]

@@ -14,6 +14,7 @@
 								{
 									"label": "Egyenes_forditott",
 									"name": "Egyenes, fordított arányosság",
+									"tags": "egyenes arányosság;fordított arányosság",
 									"difficulty": 1
 								}
 							]
@@ -25,16 +26,19 @@
 								{
 									"label": "AFA",
 									"name": "ÁFA",
+									"tags": "százalékszámítás",
 									"difficulty": 2
 								},
 								{
 									"label": "TV_jatek",
 									"name": "TV játék",
+									"tags": "százalékszámítás",
 									"difficulty": 3
 								},
 								{
 									"label": "Szalami",
 									"name": "Szalámi",
+									"tags": "százalékszámítás",
 									"difficulty": 1
 								}
 							]
@@ -46,16 +50,19 @@
 								{
 									"label": "Osztas_teszt1",
 									"name": "Oszthatóság 1.",
+									"tags": "oszthatóság;teszt",
 									"difficulty": 1
 								},
 								{
 									"label": "Osztas_teszt2",
 									"name": "Oszthatóság 2.",
+									"tags": "oszthatóság;teszt",
 									"difficulty": 1
 								},
 								{
 									"label": "Osztas_teszt3",
 									"name": "Oszthatóság 3.",
+									"tags": "oszthatóság;teszt",
 									"difficulty": 1
 								}
 							]
@@ -67,6 +74,7 @@
 								{
 									"label": "Tortek",
 									"name": "Törtek",
+									"tags": "egyenlet;törtek",
 									"difficulty": 3
 								}
 							]
@@ -83,22 +91,26 @@
 								{
 									"label": "Szamok",
 									"name": "Halmazműveletek számokkal",
+									"tags": "halmazműveletek",
 									"difficulty": 1
 								},
 								{
 									"label": "Osztok",
 									"name": "Halmazműveletek osztókkal",
+									"tags": "osztók;halmazműveletek",
 									"difficulty": 1
 								},
 								{
 									"label": "Reszhalmazok",
 									"name": "Részhalmazok",
+									"tags": "halmazműveletek;részhalmazok",
 									"difficulty": 1
 								},
 								{
 									"label": "Teszt_diagram",
 									"name": "Teszt",
-									"difficulty": 2
+									"name": "halmazműveletek",
+									"difficulty": 3
 								}
 							]
 						},
@@ -109,11 +121,13 @@
 								{
 									"label": "Ottusa_1",
 									"name": "Öttusa 1",
+									"tags": "grafikon;függvények;intervallum",
 									"difficulty": 2
 								},
 								{
 									"label": "Ottusa_2",
 									"name": "Öttusa 2",
+									"tags": "grafikon;függvények;intervallum",
 									"difficulty": 2
 								}
 							]
@@ -130,26 +144,31 @@
 								{
 									"label": "Terjedelem",
 									"name": "Terjedelem",
+									"tags": "statisztika;terjedelem",
 									"difficulty": 1
 								},
 								{
 									"label": "Atlag",
 									"name": "Átlag",
+									"tags": "statisztika;átlag",
 									"difficulty": 1
 								},
 								{
 									"label": "Szoras",
 									"name": "Szórás",
+									"tags": "statisztika;szórás",
 									"difficulty": 2
 								},
 								{
 									"label": "Median_atlag",
 									"name": "Medián és átlag",
+									"tags": "statisztika;medián;átlag",
 									"difficulty": 3
 								},
 								{
 									"label": "Atlag_munkaora",
 									"name": "Átlag munkaóra",
+									"tags": "statisztika;átlag",
 									"difficulty": 3
 								}
 							]
@@ -166,11 +185,13 @@
 								{
 									"label": "Osszeadas",
 									"name": "Összeadás",
+									"tags": "vektorműveletek",
 									"difficulty": 3
 								},
 								{
 									"label": "Kivonas",
 									"name": "Kivonás",
+									"tags": "vektorműveletek",
 									"difficulty": 3
 								}
 							]
@@ -182,6 +203,7 @@
 								{
 									"label": "Rombusz",
 									"name": "Rombusz",
+									"tags": "grafikon;geometria;rombusz;koordináta-rendszer",
 									"difficulty": 3
 								}
 							]
