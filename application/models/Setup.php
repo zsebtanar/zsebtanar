@@ -143,7 +143,7 @@ class Setup extends CI_model {
 							id 		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							label 	VARCHAR(60) NOT NULL,
 							name 	VARCHAR(60) NOT NULL
-						) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';",
+						)Engine=InnoDB;",
 			'exercises_tags' => 'CREATE TABLE exercises_tags (
 							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							exerciseID 	INT NOT NULL,

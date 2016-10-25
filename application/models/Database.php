@@ -309,6 +309,7 @@ class Database extends CI_model {
 	public function GetExerciseTags($tag) {
 
 		$this->db->select('*');
+		$this->db->order_by('name');
 		$this->db->like('name', $tag);
 		$query = $this->db->get('tags');
 
