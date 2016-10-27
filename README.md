@@ -11,13 +11,13 @@ You need to have a running *PHP Server* to run the website and a working interne
 3. Make sure path to project folder is correct in `application/config/config.php` in line 28.
 4. Create user and database (e.g. through *phpMyAdmin*).
 5. Copy username, password and database name in `application/config/database.php` in lines 80-82.
-6. Copy the following URL in your browser: `http://localhost/zsebtanar_v4/public/action/setup`.
+6. Copy the following URL in your browser: `http://localhost/zsebtanar_v4/action/setup`.
 7. If everything is set up correctly, the website can be reached through the URL: `http://localhost/zsebtanar_v4/`.
 
 *Note:* If special characters don't apper properly, check the database character set. In order to use Hungarian special characters, use `latin2_hungarian_ci`.
 
 # Log in
-If you want to log in the website, click on "Admin" on the right side, and type in the password (zst). After logging in, you have additional features:
+If you want to log in the website, copy the following URL in your browser: `http://localhost/zsebtanar_v4/action/login/`. After logging in, you have additional features:
 
 1. *Update database*: run this after adding a new exercise.
 2. *Clear results*: delete points earned by user.
@@ -51,6 +51,7 @@ Each of them *must* have a `name` attribute. Classes, subtopics and exercises *m
 - `level`: how many times user has to solve exercise to complete it (default value: **9**)
 - `status`: **IN PROGRESS** if exercise is not finished (default value: **OK**)
 - `difficulty`: how much time needed to solve problem (**1**: 1-2 mins, **2**: 2-5 mins, **3**:5+ mins)
+- `tags`: tags separated by comma (`,`) or semicolon (`;`)
 
 This is a sample for `data.json`:
 ```
@@ -69,12 +70,14 @@ This is a sample for `data.json`:
                                 {
                                     "label": "count_apples",
                                     "name": "Számolás 1-től 20-ig",
-                                    "status": "IN PROGRESS"
+                                    "status": "IN PROGRESS",
+                                    "tags": "alapműveletek;számolás"
                                 },
                                 {
                                     "label": "parity",
                                     "name": "Páros vagy páratlan?",
-                                    "level": "4"
+                                    "level": "4",
+                                    "tags": "páros,páratlan"
                                 }
                             ]
                         }

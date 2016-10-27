@@ -41,11 +41,7 @@ class Action extends CI_controller {
 	 */
 	public function Login($password) {
 
-		if ($password == 'zst') {
-
-			$this->session->set_userdata('Logged_in', TRUE);
-
-		}
+		$this->session->set_userdata('Logged_in', TRUE);
 
 		header('Location:'.base_url());
 	}
@@ -79,20 +75,19 @@ class Action extends CI_controller {
 	}
 
 	/**
-	 * Clear results
+	 * Get random exercise
+	 *
+	 * @param string $classLabe Class label
 	 *
 	 * @return void
 	 */
-	public function ClearResults() {
+	public function GetRandomExercise($classLabel=NULL) {
 
-		$this->session->unset_userdata('levels');
-		$this->session->unset_userdata('subtopics');
-		$this->session->unset_userdata('points');
-		$this->session->unset_userdata('shields');
-		$this->session->unset_userdata('trophies');
-		$this->session->unset_userdata('exercise');
+		$this->load->model('Database');
 
-		header('Location:'.base_url());
+		$link = $this->Database->RandomExerciseLink($classLabel);
+
+		header('Location:'.$link);
 	}
 
 	/**
