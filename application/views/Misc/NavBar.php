@@ -41,24 +41,6 @@
 					</a>
 				</li><?php
 
-			} elseif ($this->Session->CheckLogin()) {?>
-
-				<li>
-					<a href="<?php echo base_url();?>view/statistics/">
-						<span class="glyphicon glyphicon-signal"></span>&nbsp;Elemzés
-					</a>
-				</li>
-				<li>
-					<a href="<?php echo base_url();?>action/update/">
-						<span class="glyphicon glyphicon-refresh"></span>&nbsp;Frissítése
-					</a>
-				</li>
-				<li>
-					<a href="<?php echo base_url();?>action/logout/">
-						<span class="glyphicon glyphicon-log-out"></span>&nbsp;Kijelentkezés
-					</a>
-				</li><?php
-
 			} else {
 
 				foreach ($classes as $class) {?>
@@ -108,6 +90,26 @@
 
 			 		</ul>
 			 		</a>
+				</li><?php
+
+			}
+
+			if ($this->Session->CheckLogin()) {?>
+
+				<li>
+					<a href="<?php echo base_url();?>view/statistics/">
+						<span class="glyphicon glyphicon-signal"></span>&nbsp;Elemzés
+					</a>
+				</li>
+				<li>
+					<a href="<?php echo base_url();?>action/update/">
+						<span class="glyphicon glyphicon-refresh"></span>&nbsp;Frissítés
+					</a>
+				</li>
+				<li>
+					<a href="<?php echo base_url();?>action/logout/">
+						<span class="glyphicon glyphicon-log-out"></span>&nbsp;Kijelentkezés
+					</a>
 				</li><?php
 
 			}?>
