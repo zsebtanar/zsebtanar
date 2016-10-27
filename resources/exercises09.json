@@ -62,7 +62,7 @@
 								{
 									"label": "Osztas_teszt3",
 									"name": "Oszthatóság 3.",
-									"tags": "oszthatóság;teszt",
+									"tags": "oszthatóság;teszt;legnagyobb közös osztó",
 									"difficulty": 1
 								}
 							]
