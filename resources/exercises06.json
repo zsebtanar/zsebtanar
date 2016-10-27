@@ -33,6 +33,12 @@
 									"name": "Prímtényezős felbontás",
 									"tags": "osztók;prím;prímtényezős felbontás",
 									"difficulty": 1
+								},
+								{
+									"label": "Osztok",
+									"name": "Osztók",
+									"tags": "osztók;prím;prímtényezős felbontás",
+									"difficulty": 1
 								}
 							]
 						}
