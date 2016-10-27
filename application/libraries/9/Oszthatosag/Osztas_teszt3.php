@@ -80,7 +80,7 @@ class Osztas_teszt3 {
 			$num /= $primes[$i];
 		}
 
-		$text .= '1&\end{array}$$';
+		$text .= $num.'&\end{array}$$';
 
 		return $text;
 
