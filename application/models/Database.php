@@ -234,6 +234,8 @@ class Database extends CI_model {
 			$subtopic 	= $subtopics->result()[0];
 			$exercise 	= $exercises->result()[0];
 
+			$this->load->model('Session');
+
 			if ($this->Session->CheckLogin() || $exercise->status == 'OK') {
 
 				$title = $exercise->name;
@@ -323,6 +325,53 @@ class Database extends CI_model {
 		}
 
 		return;
+	}
+
+	/**
+	 * Get random exercise link
+	 *
+	 * @param string $classLabe Class label
+	 *
+	 * @return string $link Exercise link
+	 **/
+	public function RandomExerciseLink($classLabel=NULL) {
+
+		if ($classLabel) {
+
+			$query = $this->db->query(
+				'SELECT * FROM `exercises`
+					WHERE `exercises`.`subtopicID` IN (
+						SELECT `subtopics`.`id` FROM `subtopics`
+							WHERE `subtopics`.`topicID` IN (
+								SELECT `topics`.`id` FROM `topics`
+									WHERE `topics`.`classID` IN (
+										SELECT `classes`.`id` FROM `classes`
+											WHERE `classes`.`label` = \''.$classLabel.'\'
+										)
+								)
+						) ORDER BY `exercises`.`difficulty` ASC, RAND();');
+
+		} else {
+
+			$this->db->order_by('difficulty', 'asc');
+			$this->db->order_by('id', 'random');
+			$query = $this->db->get('exercises');
+
+		}
+
+		if ($query->num_rows() > 0) {
+
+			$id = $query->result()[0]->id;
+		
+		} else {
+
+			$id = NULL;
+
+		}
+
+		$link = $this->ExerciseLink($id)['link'];
+
+ 		return $link;
 	}
 }
 
