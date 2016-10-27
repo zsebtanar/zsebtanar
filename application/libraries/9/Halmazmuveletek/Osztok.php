@@ -48,7 +48,7 @@ class Osztok {
 			'solution'	=> $solution,
 			'hints'		=> $hints,
 			'labels'	=> ['left' => '$\{$', 'right' => '$\}$'],
-			'type'		=> 'list2',
+			'type'		=> 'single_list',
 			'youtube'	=> (rand(1,2)==1 ? '6jzZc-4RS1s' : '41h5liMYRoU')
 		);
 	}
