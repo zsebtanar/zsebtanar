@@ -11,34 +11,36 @@
 	<div class="container"><?php
 
 	$this->load->view('Misc/GoogleAnalytics');
-
-	$this->load->view('Modal/Info');
-	$this->load->view('Modal/Login');
 	$this->load->view('Modal/Cookie');
-	
-	$this->load->view('Misc/NavBar', array('results' => $results, 'type' => $type));
 
 	if ($type == 'main') {
 		
 		$this->load->view('Title/Main');
 		$this->load->view('Body/Main', $maindata);
+		$this->load->view('Misc/NavBar', $maindata);
 
 	} elseif ($type == 'subtopic') {
 
+		$this->load->view('Modal/Info');
 		$this->load->view('Misc/BreadCrumb', $breadcrumb);
 		$this->load->view('Title/Subtopic', $title);
 		$this->load->view('Body/Subtopic', $exercises);
+		$this->load->view('Misc/NavBar', array('results' => $results, 'type' => $type));
 
 	} elseif ($type == 'tag') {
 
+		$this->load->view('Modal/Info');
 		$this->load->view('Title/Tag', $title);
 		$this->load->view('Body/Tag', $exercises);
+		$this->load->view('Misc/NavBar', array('results' => $results, 'type' => $type));
 
 	} elseif ($type == 'exercise') {
 
+		$this->load->view('Modal/Info');
 		$this->load->view('Misc/BreadCrumb', $breadcrumb);
 		$this->load->view('Misc/Progress', $progress);
 		$this->load->view('Body/Exercise', $exercise);
+		$this->load->view('Misc/NavBar', array('results' => $results, 'type' => $type));
 
 	} elseif ($type == 'stat_users') {
 

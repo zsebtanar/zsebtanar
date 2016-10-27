@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top" role="banner">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="banner">
 
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
@@ -18,7 +18,7 @@
 			</a>
 		</div>
 
-		<div class="collapse navbar-collapse">
+		<div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right small"><?php
 
 			if ($type != 'main') {?>
@@ -41,68 +41,77 @@
 					</a>
 				</li><?php
 
-			}
+			} elseif ($this->Session->CheckLogin()) {?>
 
-			if ($type == 'main') {
-				if ($this->Session->CheckLogin()) {?>
+				<li>
+					<a href="<?php echo base_url();?>view/statistics/">
+						<span class="glyphicon glyphicon-signal"></span>&nbsp;Elemzés
+					</a>
+				</li>
+				<li>
+					<a href="<?php echo base_url();?>action/update/">
+						<span class="glyphicon glyphicon-refresh"></span>&nbsp;Frissítése
+					</a>
+				</li>
+				<li>
+					<a href="<?php echo base_url();?>action/logout/">
+						<span class="glyphicon glyphicon-log-out"></span>&nbsp;Kijelentkezés
+					</a>
+				</li><?php
 
+			} else {
+
+				foreach ($classes as $class) {?>
+
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						<b><?php echo $class['label'];?></b><span class="caret"></span>
+					<ul class="dropdown-menu"><?php
+
+					if (count($class['topics']) > 0) {
+						foreach ($class['topics'] as $topic) {?>
+
+							<li class="dropdown-header"><?php echo $topic['name'];?></li><?php
+
+							foreach ($topic['subtopics'] as $subtopic) {?>
+					
+							<li>
+								<a href="<?php echo base_url().$class['label'].'/'.$subtopic['label'];?>" class="navbar-submenuitem">
+									<?php echo $subtopic['name'];?>
+								</a>
+							</li><?php
+
+							}
+						}
+					}?>
+
+			 		</ul>
+			 		</a>
+				</li><?php
+
+				}?>
+
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle navbar-primary" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						<b><?php echo $final_exercises['name'];?><span class="caret"></span></b>
+					<ul class="dropdown-menu"><?php
+
+					foreach ($final_exercises['subtopics'] as $subtopic) {?>
+			
 					<li>
-						<a href="<?php echo base_url();?>view/statistics/">
-							<span class="glyphicon glyphicon-signal"></span>&nbsp;Elemzés
-						</a>
-					</li>
-					<li>
-						<a href="<?php echo base_url();?>action/clearresults/">
-							<span class="glyphicon glyphicon-remove"></span>&nbsp;Pontok törlése
-						</a>
-					</li>
-					<li>
-						<a href="<?php echo base_url();?>action/update/">
-							<span class="glyphicon glyphicon-refresh"></span>&nbsp;Adatbázis frissítése
-						</a>
-					</li>
-					<li>
-						<a href="<?php echo base_url();?>action/logout/">
-							<span class="glyphicon glyphicon-log-out"></span>&nbsp;Kijelentkezés
+						<a href="<?php echo base_url().$class['label'].'/'.$subtopic['label'];?>">
+							<?php echo $subtopic['name'];?>
 						</a>
 					</li><?php
 
-				} else {?>
+					}?>
 
-					<li>
-						<a href="#" data-toggle="modal" data-target="#login">
-							<span class="glyphicon glyphicon-user"></span>&nbsp;Belépés
-						</a>
-					</li><?php
-
-				}
+			 		</ul>
+			 		</a>
+				</li><?php
 
 			}?>
 			
 			</ul>
 		</div>
 </nav>
-
-<script>
-	function clearpoints(event){
-		$.ajax({
-			type: "POST",
-			url: "<?php echo base_url();?>action/clearresults/"
-		});
-		location.reload();
-	}
-	function update(event){
-		$.ajax({
-			type: "POST",
-			url: "<?php echo base_url();?>action/update/"
-		});
-		location.reload();
-	}
-	function logout(event){
-		$.ajax({
-			type: "POST",
-			url: "<?php echo base_url();?>action/logout/"
-		});
-		location.reload();
-	}
-</script>
