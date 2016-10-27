@@ -37,9 +37,10 @@ class Check extends CI_model {
 			$hints_used,
 			$hints_all,
 			$solution,
+			$separator,
 			$level, $type, $id) = $this->Session->GetExerciseData($hash);
 
-		list($status, $message, $submessages) = $this->GenerateMessages($type, $answer, $correct, $solution);
+		list($status, $message, $submessages) = $this->GenerateMessages($type, $answer, $correct, $solution, $separator);
 
 		$this->User->AddUserAction($level, $hints_used, $hints_all, $status);
 
@@ -108,7 +109,7 @@ class Check extends CI_model {
 	 * @return string $status  Status (NOT_DONE/CORRECT/WRONG)
 	 * @return string $message Message
 	 */
-	public function GenerateMessages($type, $answer, $correct, $solution) {
+	public function GenerateMessages($type, $answer, $correct, $solution, $separator) {
 
 		switch ($type) {
 
@@ -135,9 +136,9 @@ class Check extends CI_model {
 				break;
 
 			case 'list':
-			case 'list2':
+			case 'single_list':
 			case 'coordinatelist':
-				list($status, $message) = $this->GenerateMessagesList($answer, $correct, $solution);
+				list($status, $message) = $this->GenerateMessagesList($answer, $correct, $solution, $separator);
 				break;
 		}
 
@@ -412,18 +413,23 @@ class Check extends CI_model {
 	/**
 	 * Generate messages for List type exercises
 	 *
-	 * @param array  $answer   User answer
-	 * @param int    $correct  Correct answer
-	 * @param string $solution Solution
+	 * @param array  $answer    User answer
+	 * @param int    $correct   Correct answer
+	 * @param string $solution  Solution
+	 * @param string $separator Separator to create array from answer
 	 *
 	 * @return string $status     Status (NOT_DONE/CORRECT/WRONG)
 	 * @return string $message    Message
 	 * @return array  $submessage Submessages
 	 */
-	public function GenerateMessagesList($answer, $correct, $solution) {
+	public function GenerateMessagesList($answer, $correct, $solution, $separator) {
 
 		if (count($answer) == 1) {
-			$answer = array_map('intval', preg_split("/[\s,;]+/", $answer[0]));
+			if ($separator) {
+				$answer = array_map('intval', preg_split('/[\s'.$separator.']+/', $answer[0]));
+			} else {
+				$answer = array_map('intval', preg_split("/[\s,;]+/", $answer[0]));
+			}
 		}
 
 		$isempty = TRUE;

@@ -300,6 +300,7 @@ class Session extends CI_model {
 			'hints_all' 	=> $data['hints_all'],
 			'hints_used' 	=> $data['hints_used'],
 			'hints' 		=> $data['hints'],
+			'separator'		=> (array_key_exists('separator', $data) ? $data['separator'] : NULL)
 		);
 
 		$this->session->set_userdata('exercise', $sessiondata);
@@ -326,12 +327,14 @@ class Session extends CI_model {
 		$hints_used	= $exercise[$hash]['hints_used'];
 		$hints_all	= $exercise[$hash]['hints_all'];
 		$hints 		= $exercise[$hash]['hints'];
+		$separator	= $exercise[$hash]['separator'];
 
 		return array($correct,
 			$hints,
 			$hints_used,
 			$hints_all,
 			$solution,
+			$separator,
 			$level, $type, $id);
 	}
 

@@ -14,7 +14,7 @@
 
 					switch ($type) {
 						case 'int':
-						case 'list2':
+						case 'single_list':
 							if (isset($labels)) {
 								$this->load->view('Input/Default', array('labels' => $labels));
 							} else {
