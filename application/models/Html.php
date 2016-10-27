@@ -25,7 +25,6 @@ class Html extends CI_model {
 
 		$data['maindata'] 	= $this->GetMainData();
 		$data['type'] 		= 'main';
-		$data['results'] 	= $this->Session->GetResults();
 
 		return $data;
 	}
@@ -155,7 +154,6 @@ class Html extends CI_model {
 	 */
 	public function GetMainData() {
 
-		$this->db->order_by('id', 'desc');
 		$classes = $this->db->get('classes');
 
 		foreach ($classes->result() as $class) {
@@ -221,7 +219,12 @@ class Html extends CI_model {
 					$topic_menu['name'] = $topic->name;
 					$topic_menu['subtopics'] = $subtopics_menu;					
 
-					$topics_menu[] = $topic_menu;
+					// Collect final exercises separately
+					if ($topic->name == 'Érettségi') {
+						$final_exercises = $topic_menu;
+					} else {
+						$topics_menu[] = $topic_menu;
+					}
 				}
 			}
 
@@ -233,43 +236,9 @@ class Html extends CI_model {
 		}
 
 		$data['classes'] = $classes_menu;
-		$data['random_exercises'] = $this->RandomExercises();
+		$data['final_exercises'] = $final_exercises;
 
 		return $data;
-	}
-
-	/**
-	 * Get random exercises
-	 *
-	 * Gets link to an easy/medium/hard exercise
-	 *
-	 * @return array $links Exercise links
-	 */
-	public function RandomExercises() {
-
-		$this->db->order_by('id', 'random');
-
-		$easy_exercises = $this->db
-			->get_where('exercises', ['difficulty' => 1, 'status' => 'OK'])
-			->result_array();
-
-		$medium_exercises = $this->db
-			->get_where('exercises', ['difficulty' => 2, 'status' => 'OK'])
-			->result_array();
-
-		$hard_exercises = $this->db
-			->get_where('exercises', ['difficulty' => 3, 'status' => 'OK'])
-			->result_array();
-
-		$easy_id 	= (count($easy_exercises) > 0 ? $easy_exercises[0]['id'] : 1);
-		$medium_id 	= (count($medium_exercises) > 0 ? $medium_exercises[0]['id'] : 1);
-		$hard_id 	= (count($hard_exercises) > 0 ? $hard_exercises[0]['id'] : 1);
-		
-		$links['easy'] 		= $this->Database->ExerciseLink($easy_id, 'veletlen');
-		$links['medium'] 	= $this->Database->ExerciseLink($medium_id, 'veletlen');
-		$links['hard'] 		= $this->Database->ExerciseLink($hard_id, 'veletlen');
-
- 		return $links;
 	}
 
 	/**
