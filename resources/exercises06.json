@@ -20,6 +20,23 @@
 							]
 						}
 					]
+				},
+				{
+					"name": "Algebra",
+					"subtopics": [
+						{
+							"name": "Oszthatóság",
+							"label": "Oszthatosag",
+							"exercises": [
+								{
+									"label": "Primtenyezos_felbontas",
+									"name": "Prímtényezős felbontás",
+									"tags": "osztók;prím;prímtényezős felbontás",
+									"difficulty": 1
+								}
+							]
+						}
+					]
 				}
 			]
 		}
