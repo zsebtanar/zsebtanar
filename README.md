@@ -42,6 +42,9 @@ Each of them *must* have a `name` attribute. Classes, subtopics and exercises *m
 - `level`: how many times user has to solve exercise to complete it (default value: **9**)
 - `difficulty`: how much time needed to solve problem (**1**: 1-2 mins, **2**: 2-5 mins, **3**:5+ mins)
 - `tags`: tags separated by comma (`,`) or semicolon (`;`)
+- `link`: you can create a link to an existing exercise by providing path to it in the following form: "Classlabel/Subtopiclabel/Exerciselabel"
+
+**Note**: If you create a link to an existing exercise, you don't need to do provide tags and you can skip **STEP 2** as well.
 
 This is a sample for `data.json`:
 ```
@@ -67,6 +70,11 @@ This is a sample for `data.json`:
                                     "name": "Páros vagy páratlan?",
                                     "level": "4",
                                     "tags": "páros,páratlan"
+                                },
+                                {
+                                    "label": "parity2",
+                                    "name": "Páros vagy páratlan?",
+                                    "link": "5/Counting/count_apples"
                                 }
                             ]
                         }

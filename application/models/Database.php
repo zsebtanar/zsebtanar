@@ -234,11 +234,10 @@ class Database extends CI_model {
 	 * Get link for exercise
 	 *
 	 * @param int    $id     Exercise ID
-	 * @param string $access How was this exercise accessed by user?
 	 *
 	 * @return string $href Link
 	 */
-	public function ExerciseLink($id, $access=NULL) {
+	public function ExerciseLink($id) {
 
 		$exercises = $this->db->get_where('exercises', array('id' => $id));
 
@@ -265,7 +264,7 @@ class Database extends CI_model {
 			$this->load->model('Session');
 
 			$title = $exercise->name;
-			$link = base_url().$class->label.'/'.$subtopic->label.'/'.$exercise->label.'/'.$access;
+			$link = base_url().$class->label.'/'.$subtopic->label.'/'.$exercise->label;
 			$name = $exercise->name;
 
 		} else {
@@ -379,7 +378,7 @@ class Database extends CI_model {
 	/**
 	 * Get tags for specific exercise
 	 *
-	 * @param string $id Exercise ID
+	 * @param int $id Exercise ID
 	 *
 	 * @return array $tags Tags
 	 **/
@@ -398,9 +397,81 @@ class Database extends CI_model {
 					$tags[] = $query->result_array()[0];
 				}
 			}
+
 		}
 
 		return $tags;
+	}
+
+	/**
+	 * Get path for link (if exercise is linked to other exercise)
+	 *
+	 * @param int $id Exercise ID
+	 *
+	 * @return string $linkpath Path to exercise link
+	 **/
+	public function GetLinkPath($exerciseID) {
+
+		$linkpath = NULL;
+
+		$query = $this->db->get_where('exercises', ['id' => $exerciseID]);
+
+		if($query->num_rows() > 0){
+
+			$exercise = $query->result()[0];
+
+			if ($exercise->link) {
+				$linkpath = $exercise->link;
+			}
+		}
+
+		return $linkpath;
+	}
+
+	/**
+	 * Get id for linked exercise
+	 *
+	 * @param int $exerciseID Exercise ID
+	 *
+	 * @return int $linkID ID of linked exercise
+	 **/
+	public function GetLinkID($exerciseID) {
+
+		$linkpath 	= $this->GetLinkPath($exerciseID);
+		$labels 	= explode("/", $linkpath);
+
+		$classlabel 	= $labels[0];
+		$subtopiclabel 	= $labels[1];
+		$exerciselabel 	= $labels[2];
+
+		$linkID = $this->ExerciseID($classlabel, $subtopiclabel, $exerciselabel);
+
+		return $linkID;
+	}
+
+	/**
+	 * Does exercise have link to other exercise
+	 *
+	 * @param int $id Exercise ID
+	 *
+	 * @return bool $islinked Whether exercise is linked or not
+	 **/
+	public function HasLink($exerciseID) {
+
+		$islinked = NULL;
+
+		$query = $this->db->get_where('exercises', ['id' => $exerciseID]);
+
+		if($query->num_rows() > 0){
+
+			$exercise = $query->result()[0];
+
+			if ($exercise->link) {
+				$islinked = TRUE;
+			}
+		}
+
+		return $islinked;
 	}
 
 	/**

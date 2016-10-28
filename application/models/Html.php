@@ -49,8 +49,8 @@ class Html extends CI_model {
 
 		} elseif ($type == 'exercise') {
 
-			$data['prev'] = $this->Database->ExerciseLink($id-1, 'navigacio');
-			$data['next'] = $this->Database->ExerciseLink($id+1, 'navigacio');
+			$data['prev'] = $this->Database->ExerciseLink($id-1);
+			$data['next'] = $this->Database->ExerciseLink($id+1);
 
 		} elseif ($type == 'tag') {
 
@@ -183,27 +183,8 @@ class Html extends CI_model {
 
 						foreach ($subtopics->result() as $subtopic) {
 
-							$exercises 	= $this->db->get_where('exercises', array('subtopicID' => $subtopic->id));
-							$exercises_menu 		= [];
-							$exercises_no			= 0;
-
-							foreach ($exercises->result() as $exercise) {
-
-								$exercise_menu['label'] 	= $exercise->label;
-								$exercise_menu['link'] 		= $this->Database->ExerciseLink($exercise->id, 'fooldal');
-								$exercise_menu['name'] 		= $exercise->name;
-								$exercise_menu['ex_order'] 	= $exercise->ex_order;
-								$exercise_menu['difficulty']= $exercise->difficulty;
-
-								$exercises_no++;
-
-								$exercises_menu[] = $exercise_menu;
-							}
-
 							$subtopic_menu['label'] 		= $subtopic->label;
 							$subtopic_menu['name'] 			= $subtopic->name;
-							$subtopic_menu['exercises'] 	= $exercises_menu;
-							$subtopic_menu['exercise_no']	= $exercises_no;
 
 							$subtopics_menu[] = $subtopic_menu;
 						}
@@ -272,7 +253,7 @@ class Html extends CI_model {
 		if ($id == $id_next) {
 			$next = $this->Database->ExerciseLink($id_next);
 		} else {
-			$next = $this->Database->ExerciseLink($id_next, 'kovetkezo');
+			$next = $this->Database->ExerciseLink($id_next);
 		}
 
  		return $next['link'];
@@ -296,13 +277,21 @@ class Html extends CI_model {
 		if (count($exercises) > 0) {
 			foreach ($exercises as $exercise) {
 
+				$row['id']			= $exercise->id;
 				$row['label'] 		= $exercise->label;
 				$row['name'] 		= $exercise->name;
+				$row['ex_order']	= $exercise->ex_order;
 				$row['progress'] 	= $this->Session->UserProgress($exercise->id);
-				$row['link'] 		= $this->Database->ExerciseLink($exercise->id, 'temakor');
-				$row['tags']		= $this->Database->GetExerciseTags($exercise->id);
-				$row['id']			= $exercise->id;
+				$row['link'] 		= $this->Database->ExerciseLink($exercise->id);
 
+				// Get tags from link (if exercise is linked to another)
+				if ($this->Database->HasLink($exercise->id)) {
+					$linkID 		= $this->Database->GetLinkID($exercise->id);
+					$row['tags']	= $this->Database->GetExerciseTags($linkID);
+				} else {
+					$row['tags']	= $this->Database->GetExerciseTags($exercise->id);
+				}
+				
 				$exercisedata = $this->GetExerciseData($classlabel, $subtopiclabel, $exercise->label, $exercise->id, $save=FALSE);
 				$row['question']	= $exercisedata['question'];
 
@@ -342,12 +331,19 @@ class Html extends CI_model {
 				$query = $this->db->get_where('exercises', ['id' => $exerciseID]);
 				$exercise = $query->result()[0];
 
+				$row['id']			= $exerciseID;
 				$row['label'] 		= $exercise->label;
 				$row['name'] 		= $exercise->name;
-				$row['progress'] 	= $this->Session->UserProgress($exercise->id);
-				$row['link'] 		= $this->Database->ExerciseLink($exercise->id, 'temakor');
-				$row['tags']		= $this->Database->GetExerciseTags($exercise->id);
-				$row['id']			= $exercise->id;
+				$row['progress'] 	= $this->Session->UserProgress($exerciseID);
+				$row['link'] 		= $this->Database->ExerciseLink($exerciseID);
+				
+				// Get tags from link (if exercise is linked to another)
+				if ($this->Database->HasLink($exerciseID)) {
+					$linkID 		= $this->Database->GetLinkID($exerciseID);
+					$row['tags']	= $this->Database->GetExerciseTags($linkID);
+				} else {
+					$row['tags']	= $this->Database->GetExerciseTags($exerciseID);
+				}
 
 				$classlabel 	= $this->Database->getClassLabel($exerciseID);
 				$subtopiclabel 	= $this->Database->getSubtopicLabel($exerciseID);
@@ -357,7 +353,7 @@ class Html extends CI_model {
 				$row['subtopiclabel'] 	= $subtopiclabel;
 				$row['subtopicname'] 	= $subtopicname;
 
-				$exercisedata = $this->GetExerciseData($classlabel, $subtopiclabel, $exercise->label, $exercise->id, $save=FALSE);
+				$exercisedata = $this->GetExerciseData($classlabel, $subtopiclabel, $exercise->label, $exerciseID, $save=FALSE);
 				$row['question']	= $exercisedata['question'];
 
 				$data[] = $row;
@@ -388,9 +384,19 @@ class Html extends CI_model {
 
 		$level = min($level_max, ++$level_user);
 
+		// Check if exercise has link to other one
+		if ($this->Database->HasLink($exerciseID)) {
+
+			$path 		= $this->Database->GetLinkPath($exerciseID);
+			$lib_name 	= str_replace("/", "", $path);
+
+		} else {
+			
+			$path 		= $classlabel.'/'.$subtopiclabel.'/'.$exerciselabel;
+			$lib_name 	= $classlabel.$subtopiclabel.$exerciselabel;
+		}
+
 		// Generate exercise
-		$path = $classlabel.'/'.$subtopiclabel.'/'.$exerciselabel;
-		$lib_name = $classlabel.$subtopiclabel.$exerciselabel;
 		$this->load->library($path, NULL, $lib_name);
 
 		$data = $this->$lib_name->Generate($level);

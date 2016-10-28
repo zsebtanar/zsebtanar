@@ -1,7 +1,7 @@
 {
 	"classes": [
 		{
-			"label": "12",
+			"label": 12,
 			"name": "12. osztály",
 			"topics": [
 				{
@@ -136,75 +136,189 @@
 							"exercises": [
 								{
 									"label": "Halmaz_szamok",
-									"name": "Halmazműveletek számokkal"
+									"name": "Halmazműveletek számokkal",
+									"link": "9/Halmazmuveletek/Szamok",
+									"ex_order": 1
 								},
 								{
 									"label": "Szazalek_szalami",
-									"name": "Százalékszámítás (szalámi)"
+									"name": "Százalékszámítás (szalámi)",
+									"link": "9/Szazalek/Szalami",
+									"ex_order": 2
 								},
 								{
 									"label": "Gyokvonas",
-									"name": "Gyökvonás"
+									"name": "Gyökvonás",
+									"link": "10/Gyokvonas/Egyenlet1",
+									"ex_order": 3
 								},
 								{
 									"label": "Kulonbozo_szamjegyek",
-									"name": "Számjegyek"
+									"name": "Számjegyek",
+									"link": "11/Kombinatorika/Szamjegyek",
+									"ex_order": 4
 								},
 								{
 									"label": "Grafok_ismerosok",
-									"name": "Gráfok (ismerősök)"
+									"name": "Gráfok (ismerősök)",
+									"link": "11/Grafok/Ismerosok",
+									"ex_order": 5
 								},
 								{
 									"label": "Exponencialis_egyenlet",
-									"name": "Exponenciális egyenlet"
+									"name": "Exponenciális egyenlet",
+									"link": "11/Hatvany/Egyenlet_exp",
+									"ex_order": 6
 								},
 								{
 									"label": "Osztas_teszt",
-									"name": "Osztás (teszt)"
+									"name": "Osztás teszt 1",
+									"link": "9/Oszthatosag/Osztas_teszt1",
+									"ex_order": "7a"
+								},
+								{
+									"label": "Osztas_teszt2",
+									"name": "Osztás teszt 2",
+									"link": "9/Oszthatosag/Osztas_teszt2",
+									"ex_order": "7b"
+								},
+								{
+									"label": "Osztas_teszt3",
+									"name": "Osztás teszt 3",
+									"link": "9/Oszthatosag/Osztas_teszt3",
+									"ex_order": "7c"
 								},
 								{
 									"label": "Szamtani_sorozat",
-									"name": "Számtani sorozat"
+									"name": "Számtani sorozat",
+									"link": "12/Szamtani_sorozat/Tag1",
+									"ex_order": 8
 								},
 								{
 									"label": "Logika",
-									"name": "Logika"
+									"name": "Logika",
+									"link": "12/Allitasok/Sapka",
+									"ex_order": 9
 								},
 								{
 									"label": "Abszolutertek_fuggveny",
-									"name": "Abszolútérték függvény"
+									"name": "Abszolútérték függvény",
+									"link": "8/Fuggvenyabrazolas/Abszolutertek",
+									"ex_order": 10
 								},
 								{
 									"label": "Szinusz_egyenlet",
-									"name": "Szinusz függvény"
+									"name": "Szinusz függvény",
+									"link": "11/Trigonometrikus_egyenletek/Szinusz",
+									"ex_order": 11
 								},
 								{
 									"label": "Lottoszelveny",
-									"name": "Lottószelvény"
+									"name": "Lottószelvény",
+									"link": "11/Kombinatorika/Lotto",
+									"ex_order": 12
 								},
 								{
 									"label": "Egyenlet",
-									"name": "Egyenlet"
+									"name": "Egyenlet 1",
+									"link": "9/Egyenletek/Tortek",
+									"ex_order": "13a"
+								},
+								{
+									"label": "Egyenlet2",
+									"name": "Egyenlet 2",
+									"link": "10/Masodfoku_egyenlet/Egyenlotlenseg_grafikus",
+									"ex_order": "13b"
 								},
 								{
 									"label": "Hurtrapez",
-									"name": "Húrtrapéz"
+									"name": "Húrtrapéz 1",
+									"link": "12/Sikidom/Hurtrapez_szog",
+									"ex_order": "14a"
+								},
+								{
+									"label": "Hurtrapez2",
+									"name": "Húrtrapéz 2",
+									"link": "12/Sikidom/Hurtrapez_terulet",
+									"ex_order": "14b"
+								},
+								{
+									"label": "Hurtrapez3",
+									"name": "Húrtrapéz 3",
+									"link": "12/Sikidom/Hurtrapez_koriv",
+									"ex_order": "14c"
 								},
 								{
 									"label": "Fizetes",
-									"name": "Fizetés"
+									"name": "Fizetés 1",
+									"link": "12/Mertani_sorozat/Osszeg",
+									"ex_order": "15a"
+								},
+								{
+									"label": "Fizetes2",
+									"name": "Fizetés 2",
+									"link": "9/Statisztika/Atlag_munkaora",
+									"ex_order": "15b"
 								},
 								{
 									"label": "Teszt",
-									"name": "Teszt"
+									"name": "Teszt 1",
+									"link": "6/Statisztika/Teszt_kordiagram",
+									"ex_order": "16a"
+								},
+								{
+									"label": "Teszt2",
+									"name": "Teszt 2",
+									"link": "7/Grafikon/Teszt_grafikon",
+									"ex_order": "16b"
+								},
+								{
+									"label": "Teszt3",
+									"name": "Teszt 3",
+									"link": "9/Halmazmuveletek/Teszt_diagram",
+									"ex_order": "16c"
+								},
+								{
+									"label": "Teszt4",
+									"name": "Teszt 4",
+									"link": "11/Valoszinuseg/Teszt_pontok",
+									"ex_order": "16d"
 								},
 								{
 									"label": "Koordinatageometria",
-									"name": "Koordinatageometria"
+									"name": "Koordinatageometria 1",
+									"link": "11/Koordinatageometria/Haromszog_sulypont",
+									"ex_order": "17a"
+								},
+								{
+									"label": "Koordinatageometria2",
+									"name": "Koordinatageometria 2",
+									"link": "11/Koordinatageometria/Egyenes_egyenlet",
+									"ex_order": "17b"
+								},
+								{
+									"label": "Koordinatageometria3",
+									"name": "Koordinatageometria 3",
+									"link": "11/Koordinatageometria/Kor_egyenlet",
+									"ex_order": "17c"
 								},
 								{
 									"label": "Gyertya",
-									"name": "Gyertya"
+									"name": "Gyertya 1",
+									"link": "12/Terfogat/Gula",
+									"ex_order": "18a"
+								},
+								{
+									"label": "Gyertya2",
+									"name": "Gyertya 2",
+									"link": "11/Kombinatorika/Gula_szinezes",
+									"ex_order": "18b"
+								},
+								{
+									"label": "Gyertya3",
+									"name": "Gyertya 3",
+									"link": "11/Kombinatorika/Varazskanoc",
+									"ex_order": "18c"
 								}
 							]
 						},
@@ -214,75 +328,207 @@
 							"exercises": [
 								{
 									"label": "Masodfoku_egyenlet",
-									"name": "Másodfokú egyenlet"
+									"name": "Másodfokú egyenlet",
+									"link": "10/Masodfoku_egyenlet/Egyenlet1",
+									"ex_order": 1
 								},
 								{
 									"label": "Haromszog_szogek",
-									"name": "Háromszög szögei"
+									"name": "Háromszög szögei",
+									"link": "7/Sikgeometria/Haromszog_szogei",
+									"ex_order": 2
 								},
 								{
 									"label": "Szinusz_fv_ertekkeszlet",
-									"name": "Szinusz függvény értékkészlete"
+									"name": "Szinusz függvény értékkészlete",
+									"link": "10/Szogfuggvenyek/Szinusz_ertekkeszlet",
+									"ex_order": 3
 								},
 								{
 									"label": "Egyenes_forditott_aranyossag",
-									"name": "Egyenes, fordított arányosság"
+									"name": "Egyenes, fordított arányosság",
+									"link": "9/Aranyossag/Egyenes_forditott",
+									"ex_order": 4
 								},
 								{
 									"label": "Halmaz_osztok",
-									"name": "Halmazműveletek osztókkal"
+									"name": "Halmazműveletek osztókkal",
+									"link": "9/Halmazmuveletek/Osztok",
+									"ex_order": 5
 								},
 								{
 									"label": "Reszhalmazok_szama",
-									"name": "Részhalmazok száma"
+									"name": "Részhalmazok száma",
+									"link": "9/Halmazmuveletek/Reszhalmazok",
+									"ex_order": 6
 								},
 								{
 									"label": "Gyok_teszt",
-									"name": "Gyökvonás (teszt)"
+									"name": "Gyökvonás teszt 1",
+									"link": "10/Gyokvonas/Gyok_teszt1",
+									"ex_order": "7a"
+								},
+								{
+									"label": "Gyok_teszt2",
+									"name": "Gyökvonás teszt 2",
+									"link": "10/Gyokvonas/Gyok_teszt2",
+									"ex_order": "7b"
+								},
+								{
+									"label": "Gyok_teszt3",
+									"name": "Gyökvonás teszt 3",
+									"link": "10/Gyokvonas/Gyok_teszt3",
+									"ex_order": "7c"
 								},
 								{
 									"label": "Abszolut_ertek",
-									"name": "Abszolútérték"
+									"name": "Abszolútérték",
+									"link": "5/Abszolut_ertek/Egyenlet",
+									"ex_order": 8
 								},
 								{
 									"label": "Terjedelem_atlag_szoras",
-									"name": "Terjedelem, átlag, szórás"
+									"name": "Terjedelem",
+									"link": "9/Statisztika/Terjedelem",
+									"ex_order": "9a"
+								},
+								{
+									"label": "Terjedelem_atlag_szoras2",
+									"name": "Átlag",
+									"link": "9/Statisztika/Atlag",
+									"ex_order": "9b"
+								},
+								{
+									"label": "Terjedelem_atlag_szoras3",
+									"name": "Átlag",
+									"link": "9/Statisztika/Szoras",
+									"ex_order": "9c"
 								},
 								{
 									"label": "Valoszinuseg_oszthatosag",
-									"name": "Valószínűség (oszthatóság)"
+									"name": "Valószínűség (oszthatóság)",
+									"link": "11/Valoszinuseg/Oszthatosag",
+									"ex_order": 10
 								},
 								{
 									"label": "Szazalek_AFA",
-									"name": "Százalékszámítás (ÁFA)"
+									"name": "Százalékszámítás (ÁFA)",
+									"link": "9/Szazalek/AFA",
+									"ex_order": 11
 								},
 								{
 									"label": "Grafok_verseny",
-									"name": "Gráfok (verseny)"
+									"name": "Gráfok (verseny)",
+									"link": "11/Grafok/Verseny",
+									"ex_order": 12
 								},
 								{
 									"label": "Sorozatok",
-									"name": "Sorozatok"
+									"name": "Sorozatok 1",
+									"link": "12/Szamtani_sorozat/Differencia",
+									"ex_order": "13a"
+								},
+								{
+									"label": "Sorozatok2",
+									"name": "Sorozatok 2",
+									"link": "12/Mertani_sorozat/Hanyados",
+									"ex_order": "13b"
+								},
+								{
+									"label": "Sorozatok3",
+									"name": "Sorozatok 3",
+									"link": "9/Statisztika/Median_atlag",
+									"ex_order": "13c"
 								},
 								{
 									"label": "Ottusa",
-									"name": "Öttusa"
+									"name": "Öttusa 1",
+									"link": "5/Szoveges/Ottusa_pontok1",
+									"ex_order": "14a"
+								},
+								{
+									"label": "Ottusa2",
+									"name": "Öttusa 2",
+									"link": "5/Szoveges/Ottusa_pontok2",
+									"ex_order": "14b"
+								},
+								{
+									"label": "Ottusa3",
+									"name": "Öttusa 3",
+									"link": "9/Szamhalmazok/Ottusa_1",
+									"ex_order": "14c"
+								},
+								{
+									"label": "Ottusa4",
+									"name": "Öttusa 4",
+									"link": "9/Szamhalmazok/Ottusa_2",
+									"ex_order": "14d"
+								},
+								{
+									"label": "Ottusa5",
+									"name": "Öttusa 5",
+									"link": "11/Kombinatorika/Ottusa_lovaglas",
+									"ex_order": "14e"
 								},
 								{
 									"label": "Haromszog_belso_szogei",
-									"name": "Háromszög belső szögei"
+									"name": "Háromszög 1",
+									"link": "10/Szogfuggvenyek/Haromszog_tangens",
+									"ex_order": "15a"
+								},
+								{
+									"label": "Haromszog_belso_szogei2",
+									"name": "Háromszög 2",
+									"link": "8/Sikgeometria/Pitagorasz",
+									"ex_order": "15b"
 								},
 								{
 									"label": "Vektormuveletek",
-									"name": "Vektorműveletek"
+									"name": "Vektorműveletek 1",
+									"link": "9/Vektor/Osszeadas",
+									"ex_order": "16a"
+								},
+								{
+									"label": "Vektormuveletek2",
+									"name": "Vektorműveletek 2",
+									"link": "9/Vektor/Kivonas",
+									"ex_order": "16b"
+								},
+								{
+									"label": "Vektormuveletek3",
+									"name": "Vektorműveletek 3",
+									"link": "9/Sikgeometria/Rombusz",
+									"ex_order": "16c"
 								},
 								{
 									"label": "Tigris",
-									"name": "Tigris"
+									"name": "Tigris 1",
+									"link": "11/Hatvany/Tigris1",
+									"ex_order": "17a"
+								},
+								{
+									"label": "Tigris2",
+									"name": "Tigris 2",
+									"link": "11/Hatvany/Tigris2",
+									"ex_order": "17b"
+								},
+								{
+									"label": "Tigris3",
+									"name": "Tigris 3",
+									"link": "11/Kombinatorika/Tigris_tenyeszt",
+									"ex_order": "17c"
 								},
 								{
 									"label": "Viragcserep",
-									"name": "Virágcserép"
+									"name": "Virágcserép 1",
+									"link": "12/Felszin/Csonkagula",
+									"ex_order": "18a"
+								},
+								{
+									"label": "Viragcserep2",
+									"name": "Virágcserép 2",
+									"link": "11/Valoszinuseg/Kerteszet",
+									"ex_order": "18b"
 								}
 							]
 						},
@@ -293,6 +539,7 @@
 								{
 									"label": "TV_kviz",
 									"name": "Televíziós játék",
+									"link": "9/Szazalek/TV_jatek",
 									"ex_order": 17
 								}
 							]

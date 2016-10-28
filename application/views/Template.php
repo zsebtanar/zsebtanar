@@ -35,14 +35,6 @@
 		$this->load->view('Body/Exercise', $exercise);
 		$this->load->view('Misc/NavBar', array('results' => $results, 'type' => $type));
 
-	} elseif ($type == 'stat_users') {
-
-		$this->load->view('Body/StatisticsUsers');
-
-	} elseif ($type == 'stat_exercises') {
-
-		$this->load->view('Body/StatisticsExercises');
-
 	}?>
 
 	</div>

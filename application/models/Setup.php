@@ -39,7 +39,8 @@ class Setup extends CI_model {
 				'label'		=> 'NOT NULL',
 				'name'		=> 'NOT NULL',
 				'difficulty'=> 3,
-				'ex_order'	=> ''
+				'ex_order'	=> '',
+				'link'		=> ''
 				),
 			'tags' 				=> [],
 			'exercises_tags' 	=> [],
@@ -125,9 +126,10 @@ class Setup extends CI_model {
 							subtopicID 	INT NOT NULL,
 							level		INT NOT NULL,
 							label 		VARCHAR(30) NOT NULL,
-							ex_order	INT,
-							difficulty	INT,
 							name 		VARCHAR(120),
+							ex_order	VARCHAR(30),
+							difficulty	INT,
+							link		VARCHAR(120),
 							FOREIGN KEY (subtopicID) REFERENCES subtopics(id)
 						)Engine=InnoDB;',
 			'tags' => 'CREATE TABLE tags (
@@ -227,38 +229,20 @@ class Setup extends CI_model {
 				}
 			}
 
-			// Store ID
+			// Store ID in session
 			$currentID = $this->db->insert_id();
 			$sessionID = str_split($table, 5)[0].'_ID';
 			$this->session->set_userdata($sessionID, $currentID);
 
-			// Store exercises in session
-			if ($table == 'exercises') {
-
-				$names = $this->session->userdata('names');
-				$exercises = $this->session->userdata('exercises');
-				$exercises .= $names['classes']."\t"
-						.$names['topics']."\t"
-						.$names['subtopics']."\t"
-						.$data['name']."\r\n";
-				$this->session->set_userdata('exercises', $exercises);
-
-			} else {
-
-				if (isset($data['name'])) {
-					$names = $this->session->userdata('names');
-					$names[$table] = $data['name'];
-					$this->session->set_userdata('names', $names);
-				}
-			}
 		}
 
 		// Recursive check for other table names
 		foreach (array_keys($this->GetTableColumns()) as $column) {
 
 			if (isset($data[$column]) &&
-				$column != 'tags'&&
-				$column != 'exercises_tags') {
+				$column != 'tags' &&
+				$column != 'exercises_tags' &&
+				$column != 'link') {
 
 				foreach ($data[$column] as $row) {
 
