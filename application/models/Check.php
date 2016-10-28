@@ -27,7 +27,6 @@ class Check extends CI_model {
 
 		$this->load->model('Session');
 		$this->load->model('Database');
-		$this->load->model('User');
 		$this->load->model('Html');
 
 		$answerdata = json_decode($jsondata, TRUE);
@@ -42,8 +41,6 @@ class Check extends CI_model {
 
 		list($status, $message, $submessages) = $this->GenerateMessages($type, $answer, $correct, $solution, $separator);
 
-		$this->User->AddUserAction($level, $hints_used, $hints_all, $status);
-
 		if ($status == 'CORRECT') {
 			$this->Session->DeleteExerciseData($hash);
 			$message = $this->Session->UpdateResults($id, $hints_used, $hints_all, $message);
@@ -51,10 +48,10 @@ class Check extends CI_model {
 
 		$results = $this->Session->GetResults();
 
-		$id_next 	= $this->Html->NextID($id);
-		$link_next = $this->Html->NextLink($id);
-		$subtopiclabel = $this->Database->getSubtopicLabel($id);
-		$progress 	= $this->Session->UserProgress($id);
+		$id_next 		= $this->Html->NextID($id);
+		$link_next 		= $this->Html->NextLink($id);
+		$subtopiclabel 	= $this->Database->getSubtopicLabel($id);
+		$progress 		= $this->Session->UserProgress($id);
 
 		$output = array(
 			'status' 		=> $status,

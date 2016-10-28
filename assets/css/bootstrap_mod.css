@@ -291,3 +291,6 @@ input.ui-autocomplete-loading {
 	    font-weight: normal;
 	}
 }
+.progress {
+	margin-top: 20px;
+}

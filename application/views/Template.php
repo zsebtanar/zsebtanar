@@ -30,7 +30,6 @@
 	} elseif ($type == 'exercise') {
 
 		$this->load->view('Modal/Info');
-		$this->load->view('Misc/BreadCrumb', $breadcrumb);
 		$this->load->view('Misc/Progress', $progress);
 		$this->load->view('Body/Exercise', $exercise);
 		$this->load->view('Misc/NavBar', array('results' => $results, 'type' => $type));

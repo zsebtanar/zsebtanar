@@ -47,11 +47,6 @@ class Html extends CI_model {
 			$data['prev'] = $this->Database->SubtopicLink($id-1);
 			$data['next'] = $this->Database->SubtopicLink($id+1);
 
-		} elseif ($type == 'exercise') {
-
-			$data['prev'] = $this->Database->ExerciseLink($id-1);
-			$data['next'] = $this->Database->ExerciseLink($id+1);
-
 		} elseif ($type == 'tag') {
 
 			$data['prev'] = $this->Database->TagLink($id, 'previous');
@@ -144,7 +139,6 @@ class Html extends CI_model {
 		$data['type'] 		= 'exercise';
 		$data['results'] 	= $this->Session->GetResults();
 		$data['exercise'] 	= $this->GetExerciseData($classlabel, $subtopiclabel, $exerciselabel, $exerciseID);
-		$data['breadcrumb'] = $this->BreadCrumb('exercise', $exerciseID);
 
 		$data['results']['id'] = $exerciseID;
 		$data['results']['type'] = 'exercise';
