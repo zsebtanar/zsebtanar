@@ -7,36 +7,36 @@
  */
 
 body {
-    font-family: 'Open Sans', sans-serif;
-    padding-top: 50px; /* adjust navbar */
-    padding-bottom: 200px; /* add space */
-    font-size: 20px;
+	font-family: 'Open Sans', sans-serif;
+	padding-top: 50px; /* adjust navbar */
+	padding-bottom: 200px; /* add space */
+	font-size: 20px;
 }
 
 .img_main {
-    display:inline;
+	display:inline;
 }
 
 .img-question {
-    padding: 20px 0px;
+	padding: 20px 0px;
 }
 
 .jumbotron {
-    padding-bottom: 50px;
-    margin: 0px;
+	padding-bottom: 50px;
+	margin: 0px;
 }
 
 /* exercise level */
 .row-buttons {
-    margin: 5px 0px 0px;
+	margin: 5px 0px 0px;
 }
 .small, small {
-    font-size: 70%;
-    /*padding: 0px;*/
+	font-size: 70%;
+	/*padding: 0px;*/
 }
 
 h1 {
-    padding-top: 20px;
+	padding-top: 20px;
 }
 
 /* remove background color */
@@ -44,169 +44,170 @@ h1 {
 	background-color: #fff; 
 }
 .jumbotron h1 {
-    font-weight: 700;
+	font-weight: 700;
 }
 
 /* auto size input */
 input.smallInput {
-    width: 60px;
-    text-align: center;
-    margin: 5px;
+	width: 60px;
+	text-align: center;
+	margin: 5px;
 }
 
 .title-icon {
-    font-size: 60%;
+	font-size: 60%;
 }
 
 div.navbar-header>a{
-    padding: 15px 5px; 
+	padding: 15px 5px; 
 }
 
 .navbar-logo {
-    display: none;
+	display: none;
 }
 
 .navbar-right {
-    padding-right: 10px;
+	padding-right: 10px;
 }
 
 @media (min-width: 300px) {
-    .navbar-logo {
-        display: inherit;
-    }
+	.navbar-logo {
+		display: inherit;
+	}
 }
 
 .results {
-    font-size: 80%;
-    margin-bottom: 5px; 
+	font-size: 80%;
+	margin-bottom: 5px; 
 }
 
 .breadcrumb {
-    background-color: #FFFFFF;
-    padding-top: 15px;
+	background-color: #FFFFFF;
+	padding-top: 15px;
 }
 
 .nounderline, .nounderline:hover {
-    text-decoration: none !important;
-    color: #333;
+	text-decoration: none !important;
+	color: #333;
 }
 
 .panel-title {
-    font-size: inherit; 
+	font-size: inherit; 
 }
 
 .subtopic-title {
-    font-size: 300%;
-    padding: 40px 0px 100px;
+	font-size: 300%;
+	padding: 40px 0px 100px;
 }
 
 #submit_exercise {
-    padding: 10px;
+	padding: 10px;
 }
 
 #exercise_form {
-    padding: 20px;
+	padding: 20px;
 }
 
 .exercise_button {
-    padding: 10px 10px 100px;
+	padding: 10px 10px 100px;
 }
 
 .panel-heading-sm {
-    height: 30px;
-    padding: 0px 0px 0px 10px;
+	height: 30px;
+	padding: 0px 0px 0px 10px;
 }
 .panel-heading-title {
-    color: black;
+	color: black;
 }
 
 a.panel-heading-title:hover, a.panel-heading-title:visited, a.panel-heading-title:focus {
-    text-decoration: none;
+	text-decoration: none;
 }
 
 .btn-exercise-start {
-    height: 30px;
-    padding: 5px 10px;
-    margin-left: 5px;
+	height: 30px;
+	padding: 5px 10px;
+	margin-left: 5px;
 }
 
 .hint_progress a {
-    border: none;
+	border: none;
 }
 
 .pager li > a, .pager li > span {
-    border: none;
+	border: none;
 }
 
 .pager li {
-    padding: 5px 10px;
+	padding: 5px 10px;
 }
 
 .prev_hint a , .next_hint a {
-    border: 1px solid #ddd  !important;
+	border: 1px solid #ddd  !important;
 }
 
 .prev_link a , .next_link a {
-    border: 1px solid #ddd  !important;
+	border: 1px solid #ddd  !important;
 }
 
 .btn-details {
-    margin: 10px;
+	margin: 10px;
 }
 
 div[id^='hint_details'] {
-    margin-top: 30px;  
+	margin-top: 30px;  
 }
 
 #latest_exercises {
-    margin-top: 40px;
+	margin-top: 40px;
 }
 
 .form-control-inline {
-    display: inline;
+	display: inline;
 }
 
 .hidden {
-    display: none;
+	display: none;
 }
 
 .alert-success2 {
-    color: #3c763d;
+	color: #3c763d;
 }
 
 .alert-danger2 {
-    color: #a94442;
+	color: #a94442;
 }
 .alert-warning2 {
-    color: #f0ad4e;
+	color: #f0ad4e;
 }
 .alert-info2 {
-    color: #ffffff;
+	color: #ffffff;
 }
 .btn-space-big {
-    margin: 40px;
+	margin: 40px;
 }
 
 .btn-space {
-    margin: 5px 0px;
+	margin: 5px 0px;
 }
 
 .class-label {
-    font-size: 800%;
-    margin-top: -40px;
+	font-size: 800%;
+	margin-top: -40px;
 }
 
 .exercise-label {
-    font-size: 600%;
-    margin: -35px 0 -10px;
+	font-size: 400%;
+	font-weight: bold;
+	margin: -35px 0 -10px;
 }
 
 .exercises-all {
-    margin-top: 100px;
+	margin-top: 100px;
 }
 
 .lg {
-    font-size: 120%;
+	font-size: 120%;
 }
 
 /* Sticky footer styles
@@ -229,59 +230,65 @@ body {
   text-align: center;
 }
 .footer > a > img {
-    margin: 10px 0px;
+	margin: 10px 0px;
 }
 
 #send_explanation {
-    margin-top: -35px;
-    padding-bottom: 20px;
+	margin-top: -35px;
+	padding-bottom: 20px;
 }
 
 #final_exercises {
-    padding-top: 10px;
+	padding-top: 10px;
 }
 
 .videoplayer {
-    margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 input.ui-autocomplete-loading {
-    background: #fff url('../images/loader.gif') right center no-repeat !important;
+	background: #fff url('../images/loader.gif') right center no-repeat !important;
 }
 
 @media (min-width: 768px) {
   .navbar > .container .navbar-brand,
   .navbar > .container-fluid .navbar-brand {
-    margin-left: 0px; 
+	margin-left: 0px; 
   }
 }
 
 .dropdown-header {
-    padding: 3px 10px;
-    font-size: 11px;
-    font-weight: bold;
-    white-space: nowrap;
-    text-decoration: none;
+	padding: 3px 10px;
+	font-size: 11px;
+	font-weight: bold;
+	white-space: nowrap;
+	text-decoration: none;
 }
 
 @media (max-width: 767px) {
-    .navbar-nav .open .dropdown-menu .dropdown-header {
-        padding: 3px 10px;
-    }
-    .navbar-submenuitem {
-        padding: 3px 20px;
-    }
+	.navbar-nav .open .dropdown-menu .dropdown-header {
+		padding: 3px 10px;
+	}
+	.navbar-submenuitem {
+		padding: 3px 20px;
+	}
 }
 .navbar-label {
-    font-size: 100%;
+	font-size: 100%;
 }
 .navbar-inverse .navbar-nav > li > a.navbar-primary, .navbar-inverse .navbar-nav > li > a.navbar-primary:hover, .navbar-inverse .navbar-nav > li > a.navbar-primary:focus {
-    color: #fff;
-    background-color: #d9534f;
+	color: #fff;
+	background-color: #d9534f;
 }
 .navbar-inverse .navbar-nav > .open > a.navbar-primary, .navbar-inverse .navbar-nav > .open > a.navbar-primary:hover, .navbar-inverse .navbar-nav > .open > a.navbar-primary:focus {
-    color: #fff;
-    background-color: #d9534f;
+	color: #fff;
+	background-color: #d9534f;
 }
 .footer {
-    position: fixed;
+	position: fixed;
+}
+@media (min-width: 992px) {
+	.exercise-label {
+	    font-size: 600%;
+	    font-weight: normal;
+	}
 }

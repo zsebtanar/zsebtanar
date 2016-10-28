@@ -51,6 +51,11 @@ class Html extends CI_model {
 			$data['prev'] = $this->Database->ExerciseLink($id-1, 'navigacio');
 			$data['next'] = $this->Database->ExerciseLink($id+1, 'navigacio');
 
+		} elseif ($type == 'tag') {
+
+			$data['prev'] = $this->Database->TagLink($id-1);
+			$data['next'] = $this->Database->TagLink($id+1);
+
 		}
 		
 		$data['results'] = $this->Session->GetResults();
@@ -79,6 +84,8 @@ class Html extends CI_model {
 			$data['results']	= $this->Session->GetResults('subtopic', $subtopiclabel);
 			$data['breadcrumb'] = $this->BreadCrumb('subtopic', $subtopicID);
 			$data['title']		= $this->Database->SubtopicTitle($subtopicID);
+			$data['subtitle']	= $this->Database->ClassName($classlabel);
+
 
 		} else {
 
@@ -100,12 +107,13 @@ class Html extends CI_model {
 	 */
 	public function TagData($tag) {
 
-		list($exercises, $tagName) = $this->TagExercises($tag);
+		list($exercises, $tagName, $tagID) = $this->TagExercises($tag);
 
 		if ($exercises) {
 
 			$data['type'] 		= 'tag';
 			$data['exercises']	= $exercises;
+			$data['breadcrumb'] = $this->BreadCrumb('tag', $tagID);
 			$data['results']	= $this->Session->GetResults();
 			$data['title']		= ucfirst($tagName);
 
@@ -319,9 +327,8 @@ class Html extends CI_model {
 					$row['complete'] 	= $this->Session->isComplete($exercise->id);
 					$row['progress'] 	= $this->Session->UserProgress($exercise->id);
 					$row['link'] 		= $this->Database->ExerciseLink($exercise->id, 'temakor');
-
-					$row['classlabel'] 		= $classlabel;
-					$row['subtopiclabel'] 	= $subtopiclabel;
+					$row['tags']		= $this->Database->GetExerciseTags($exercise->id);
+					$row['id']			= $exercise->id;
 
 					$exercisedata = $this->GetExerciseData($classlabel, $subtopiclabel, $exercise->label, $exercise->id, $save=FALSE);
 					$row['question']	= $exercisedata['question'];
@@ -340,7 +347,9 @@ class Html extends CI_model {
 	 *
 	 * @param string $tag Tag
 	 *
-	 * @return array $data Exercises
+	 * @return array  $data    Exercises
+	 * @return string $tagName Tag name
+	 * @return int    $tagID   Tag id
 	 */
 	public function TagExercises($tag) {
 
@@ -369,12 +378,16 @@ class Html extends CI_model {
 					$row['complete'] 	= $this->Session->isComplete($exercise->id);
 					$row['progress'] 	= $this->Session->UserProgress($exercise->id);
 					$row['link'] 		= $this->Database->ExerciseLink($exercise->id, 'temakor');
+					$row['tags']		= $this->Database->GetExerciseTags($exercise->id);
+					$row['id']			= $exercise->id;
 
-					$classlabel = $this->Database->getClassLabel($exerciseID);
-					$subtopiclabel = $this->Database->getSubtopicLabel($exerciseID);
+					$classlabel 	= $this->Database->getClassLabel($exerciseID);
+					$subtopiclabel 	= $this->Database->getSubtopicLabel($exerciseID);
+					$subtopicname 	= $this->Database->SubtopicName($classlabel, $subtopiclabel);
 
 					$row['classlabel'] 		= $classlabel;
 					$row['subtopiclabel'] 	= $subtopiclabel;
+					$row['subtopicname'] 	= $subtopicname;
 
 
 					$exercisedata = $this->GetExerciseData($classlabel, $subtopiclabel, $exercise->label, $exercise->id, $save=FALSE);
@@ -386,7 +399,7 @@ class Html extends CI_model {
 			}
 		}
 
-		return array($data, $tagName);
+		return array($data, $tagName, $tagID);
 	}
 
 	/**

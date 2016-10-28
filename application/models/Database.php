@@ -100,6 +100,40 @@ class Database extends CI_model {
 	}
 
 	/**
+	 * Gets subtopic name
+	 *
+	 * @param string $classlabel    Class label
+	 * @param string $subtopiclabel Subtopic label
+	 *
+	 * @return string $name Subtopic name
+	 */
+	public function SubtopicName($classlabel, $subtopiclabel) {
+
+		$query = $this->db->query(
+			'SELECT `subtopics`.`name` FROM `subtopics`
+				WHERE `subtopics`.`topicID` IN (
+					SELECT `topics`.`id` FROM `topics`
+						WHERE `topics`.`classID` = (
+							SELECT `classes`.`id` FROM `classes`
+								WHERE `classes`.`label` = \''.$classlabel.'\''.
+							')
+					) AND `subtopics`.`label` = \''.$subtopiclabel.'\'');
+
+		if ($query->num_rows() > 0) {
+
+			$name = $query->result()[0]->name;
+		
+		} else {
+
+			$name = NULL;
+
+		}
+		
+
+ 		return $name;
+	}
+
+	/**
 	 * Get maximum level for exercise
 	 *
 	 * $max_level shows how many times user needs to solve the exercise to complete it.
@@ -136,6 +170,21 @@ class Database extends CI_model {
 		$subtopiclabel = $query->result()[0]->label;
 
  		return $subtopiclabel;
+	}
+
+	/**
+	 * Get class name
+	 *
+	 * @param string $classlabel Class label
+	 *
+	 * @return string $classname Class name
+	 */
+	public function ClassName($classlabel) {
+
+		$query = $this->db->get_where('classes', array('label' => $classlabel));
+		$classname = $query->result()[0]->name;
+
+ 		return $classname;
 	}
 
 	/**
@@ -302,13 +351,44 @@ class Database extends CI_model {
 	}
 
 	/**
-	 * Get exercise tags
+	 * Get link for tag
 	 *
-	 * @param string $tag Exercise tag
+	 * @param int $id Subtopic ID
+	 *
+	 * @return string $link Link
+	 */
+	public function TagLink($id) {
+
+		$tags = $this->db->get_where('tags', array('id' => $id));
+
+		if (count($tags->result()) > 0) {
+
+			$tag = $tags->result()[0];
+
+			$link = base_url().'view/tag/'.$tag->label;
+			$name = ucfirst($tag->name);
+
+		} else {
+
+			$link = base_url();
+			$name = 'Kezdőlap';
+
+		}
+
+		return array(
+			'link' => $link,
+			'name' => $name
+		);
+	}
+
+	/**
+	 * Get exercises for specific tag
+	 *
+	 * @param string $tag Tag name
 	 *
 	 * @return void
 	 **/
-	public function GetExerciseTags($tag) {
+	public function GetTagExercises($tag) {
 
 		$this->db->select('*');
 		$this->db->order_by('name');
@@ -325,6 +405,33 @@ class Database extends CI_model {
 		}
 
 		return;
+	}
+
+	/**
+	 * Get tags for specific exercise
+	 *
+	 * @param string $id Exercise ID
+	 *
+	 * @return array $tags Tags
+	 **/
+	public function GetExerciseTags($exerciseID) {
+
+		$tags = [];
+
+		$query = $this->db->get_where('exercises_tags', ['exerciseID' => $exerciseID]);
+
+		if($query->num_rows() > 0){
+
+			foreach ($query->result() as $tag) {
+				$query = $this->db->get_where('tags', ['id' => $tag->tagID]);
+
+				if ($query->num_rows() > 0) {
+					$tags[] = $query->result_array()[0];
+				}
+			}
+		}
+
+		return $tags;
 	}
 
 	/**

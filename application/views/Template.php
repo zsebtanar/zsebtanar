@@ -19,19 +19,12 @@
 		$this->load->view('Body/Main', $maindata);
 		$this->load->view('Misc/NavBar', $maindata);
 
-	} elseif ($type == 'subtopic') {
+	} elseif ($type == 'subtopic' || $type == 'tag') {
 
 		$this->load->view('Modal/Info');
 		$this->load->view('Misc/BreadCrumb', $breadcrumb);
-		$this->load->view('Title/Subtopic', $title);
-		$this->load->view('Body/Subtopic', $exercises);
-		$this->load->view('Misc/NavBar', array('results' => $results, 'type' => $type));
-
-	} elseif ($type == 'tag') {
-
-		$this->load->view('Modal/Info');
-		$this->load->view('Title/Tag', $title);
-		$this->load->view('Body/Tag', $exercises);
+		$this->load->view('Title/SubtopicTag', $title);
+		$this->load->view('Body/SubtopicTag', $exercises);
 		$this->load->view('Misc/NavBar', array('results' => $results, 'type' => $type));
 
 	} elseif ($type == 'exercise') {

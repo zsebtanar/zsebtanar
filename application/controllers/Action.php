@@ -187,19 +187,19 @@ class Action extends CI_controller {
 	}
 
 	/**
-	 * Get exercise tags (AJAX)
+	 * Get exercises for specific tagt (AJAX)
 	 *
 	 * @param string $tag Exercise tag (from REQUEST)
 	 *
 	 * @return void
 	 */
-	public function GetExerciseTags() {
+	public function GetTagExercises() {
 
 		$this->load->model('Database');
 
 		if (isset($_GET['term'])) {
 			$tag = strtolower($_GET['term']);
-			$result = $this->Database->GetExerciseTags($tag);
+			$result = $this->Database->GetTagExercises($tag);
 		}
 	}
 }

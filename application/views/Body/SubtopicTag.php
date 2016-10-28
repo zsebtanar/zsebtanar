@@ -18,6 +18,34 @@ if (is_array($exercises)) {
 			<img id="star3" src="<?php echo base_url().'assets/images/star'.$ex['progress']['stars'][2].'.png';?>" alt="star"  width="15px"><br />
 			<?php
 
+			if (array_key_exists('classlabel', $ex) &&
+				array_key_exists('subtopiclabel', $ex) &&
+				array_key_exists('subtopicname', $ex)) {?>
+
+				<p>
+					<a class="label label-warning" href="<?php echo base_url().$ex['classlabel'].'/'.$ex['subtopiclabel'];?>">
+						<?php echo $ex['classlabel'].'/'.$ex['subtopicname'];?>
+					</a>
+				</p><?php
+
+			}
+
+			if (count($ex['tags']) > 0) {?>
+		
+				<p class="small">
+					<span class="glyphicon glyphicon-tags"></span>&nbsp;
+
+					<?php
+
+					foreach ($ex['tags'] as $key => $tag) {?>
+
+						<a class="label label-default" href="<?php echo base_url().'view/tag/'.$tag['label'];?>"><?php echo $tag['name'];?></a><?php
+
+					}?>
+
+				</p><?php
+
+			}
 
 			echo $ex['question'];?>
 

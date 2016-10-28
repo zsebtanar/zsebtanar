@@ -62,7 +62,7 @@
 <script type="text/javascript">
 	$(function(){
 		$("#exercise_tags").autocomplete({
-			source: "action/getexercisetags", // path to the get_birds method
+			source: "action/gettagexercises", // path to the get_birds method
 			select: function( event, ui ) { 
             	window.location.href = ui.item.value;
         	}
