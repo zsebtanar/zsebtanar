@@ -36,7 +36,6 @@ class Setup extends CI_model {
 			'exercises' => array(
 				'subtopicID'=> 'FROM SESSION',
 				'level' 	=> 9,
-				'status' 	=> 'OK',
 				'label'		=> 'NOT NULL',
 				'name'		=> 'NOT NULL',
 				'difficulty'=> 3,
@@ -44,11 +43,6 @@ class Setup extends CI_model {
 				),
 			'tags' 				=> [],
 			'exercises_tags' 	=> [],
-
-			// Dynamic tables to track user activity
-			'users' 			=> [],
-			'user_exercises' 	=> [],
-			'user_actions' 		=> []
 			);
 	}
 
@@ -93,8 +87,6 @@ class Setup extends CI_model {
 			} else {
 				show_error($this->db->_error_message());
 			}
-		} else {
-			echo 'Table '.$table.' does not exist!<br />';
 		}
 	}
 
@@ -136,46 +128,20 @@ class Setup extends CI_model {
 							ex_order	INT,
 							difficulty	INT,
 							name 		VARCHAR(120),
-							status 		VARCHAR(20),
 							FOREIGN KEY (subtopicID) REFERENCES subtopics(id)
 						)Engine=InnoDB;',
-			'tags' => "CREATE TABLE tags (
+			'tags' => 'CREATE TABLE tags (
 							id 		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							label 	VARCHAR(60) NOT NULL,
 							name 	VARCHAR(60) NOT NULL
-						)Engine=InnoDB;",
+						)Engine=InnoDB;',
 			'exercises_tags' => 'CREATE TABLE exercises_tags (
 							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							exerciseID 	INT NOT NULL,
 							tagID 		INT NOT NULL,
 							FOREIGN KEY (exerciseID) REFERENCES exercises(id),
 							FOREIGN KEY (tagID) REFERENCES tags(id)
-						)Engine=InnoDB;',
-			'users' => 'CREATE TABLE users (
-							id 		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							start 	TIMESTAMP DEFAULT NOW()
-						)Engine=InnoDB;',
-			'user_exercises' => 'CREATE TABLE user_exercises (
-							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							time 		TIMESTAMP DEFAULT NOW(),
-							exerciseID 	INT NOT NULL,
-							userID		INT NOT NULL,
-							access 		VARCHAR(30),
-							FOREIGN KEY (userID) REFERENCES users(id),
-							FOREIGN KEY (exerciseID) REFERENCES exercises(id)
-						)Engine=InnoDB;',
-			'user_actions' => 'CREATE TABLE user_actions (
-							id 				INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							time 			TIMESTAMP DEFAULT NOW(),
-							userID			INT NOT NULL,
-							user_exerciseID	INT NOT NULL,
-							level			INT NOT NULL,
-							usedHints 		INT,
-							allHints 		INT,
-							result 			VARCHAR(30),
-							FOREIGN KEY (userID) REFERENCES users(id),
-							FOREIGN KEY (user_exerciseID) REFERENCES user_exercises(id)
-						)Engine=InnoDB;',
+						)Engine=InnoDB;'
 		);
 
 		// Check table
@@ -274,8 +240,7 @@ class Setup extends CI_model {
 				$exercises .= $names['classes']."\t"
 						.$names['topics']."\t"
 						.$names['subtopics']."\t"
-						.$data['name']."\t"
-						.(isset($data['status']) && $data['status'] == 'OK' ? 'Kész' : 'Hiányos')."\r\n";
+						.$data['name']."\r\n";
 				$this->session->set_userdata('exercises', $exercises);
 
 			} else {

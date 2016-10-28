@@ -11,6 +11,7 @@ class Html extends CI_model {
 	public function __construct() {
 
 		$this->load->helper('url');
+		$this->load->helper('language');
 		defined('RESOURCES_URL') OR define('RESOURCES_URL', base_url('resources/exercises'));
 	}
 
@@ -115,7 +116,7 @@ class Html extends CI_model {
 			$data['exercises']	= $exercises;
 			$data['breadcrumb'] = $this->BreadCrumb('tag', $tagID);
 			$data['results']	= $this->Session->GetResults();
-			$data['title']		= ucfirst($tagName);
+			$data['title']		= mb_ucfirst($tagName);
 
 		} else {
 
@@ -169,7 +170,6 @@ class Html extends CI_model {
 			$this->db->order_by('id');
 			$topics = $this->db->get_where('topics', array('classID' => $class->id));
 			$topics_menu = [];
-			$class_menu['show'] = FALSE;
 
 			if (count($topics) > 0) {
 
@@ -178,7 +178,6 @@ class Html extends CI_model {
 					$this->db->order_by('id');
 					$subtopics = $this->db->get_where('subtopics', array('topicID' => $topic->id));
 					$subtopics_menu = [];
-					$topic_menu['show'] = FALSE;
 
 					if (count($subtopics) > 0) {
 
@@ -186,7 +185,6 @@ class Html extends CI_model {
 
 							$exercises 	= $this->db->get_where('exercises', array('subtopicID' => $subtopic->id));
 							$exercises_menu 		= [];
-							$subtopic_menu['show']	= FALSE;
 							$exercises_no			= 0;
 
 							foreach ($exercises->result() as $exercise) {
@@ -194,23 +192,10 @@ class Html extends CI_model {
 								$exercise_menu['label'] 	= $exercise->label;
 								$exercise_menu['link'] 		= $this->Database->ExerciseLink($exercise->id, 'fooldal');
 								$exercise_menu['name'] 		= $exercise->name;
-								$exercise_menu['status'] 	= $exercise->status;
 								$exercise_menu['ex_order'] 	= $exercise->ex_order;
 								$exercise_menu['difficulty']= $exercise->difficulty;
 
-								if ($this->Session->CheckLogin() || $exercise->status == 'OK') {
-
-									$exercise_menu['show'] 	= TRUE;
-									$subtopic_menu['show'] 	= TRUE;
-									$topic_menu['show'] 	= TRUE;
-									$class_menu['show'] 	= TRUE;
-									$exercises_no++;
-
-								} else {
-
-									$exercise_menu['show'] 	= FALSE;
-
-								}
+								$exercises_no++;
 
 								$exercises_menu[] = $exercise_menu;
 							}
@@ -304,38 +289,25 @@ class Html extends CI_model {
 	 */
 	public function SubtopicExercises($classlabel, $subtopiclabel, $subtopicID) {
 
-		if ($this->Session->CheckLogin()) {
-			$query = $this->db->get_where('exercises', array('subtopicID' => $subtopicID));
-		} else {
-			$query = $this->db->get_where('exercises', array(
-				'subtopicID' => $subtopicID,
-				'status' => 'OK'
-			));
-		}
-
+		$query = $this->db->get_where('exercises', array('subtopicID' => $subtopicID));
 		$exercises = $query->result();
 		$data = NULL;
 
 		if (count($exercises) > 0) {
 			foreach ($exercises as $exercise) {
 
-				if ($this->Session->CheckLogin() || $exercise->status == 'OK') {
+				$row['label'] 		= $exercise->label;
+				$row['name'] 		= $exercise->name;
+				$row['progress'] 	= $this->Session->UserProgress($exercise->id);
+				$row['link'] 		= $this->Database->ExerciseLink($exercise->id, 'temakor');
+				$row['tags']		= $this->Database->GetExerciseTags($exercise->id);
+				$row['id']			= $exercise->id;
 
-					$row['status'] 		= $exercise->status;
-					$row['label'] 		= $exercise->label;
-					$row['name'] 		= $exercise->name;
-					$row['complete'] 	= $this->Session->isComplete($exercise->id);
-					$row['progress'] 	= $this->Session->UserProgress($exercise->id);
-					$row['link'] 		= $this->Database->ExerciseLink($exercise->id, 'temakor');
-					$row['tags']		= $this->Database->GetExerciseTags($exercise->id);
-					$row['id']			= $exercise->id;
+				$exercisedata = $this->GetExerciseData($classlabel, $subtopiclabel, $exercise->label, $exercise->id, $save=FALSE);
+				$row['question']	= $exercisedata['question'];
 
-					$exercisedata = $this->GetExerciseData($classlabel, $subtopiclabel, $exercise->label, $exercise->id, $save=FALSE);
-					$row['question']	= $exercisedata['question'];
+				$data[] = $row;
 
-					$data[] = $row;
-
-				}
 			}
 		}
 
@@ -370,32 +342,25 @@ class Html extends CI_model {
 				$query = $this->db->get_where('exercises', ['id' => $exerciseID]);
 				$exercise = $query->result()[0];
 
-				if ($this->Session->CheckLogin() || $exercise->status == 'OK') {
+				$row['label'] 		= $exercise->label;
+				$row['name'] 		= $exercise->name;
+				$row['progress'] 	= $this->Session->UserProgress($exercise->id);
+				$row['link'] 		= $this->Database->ExerciseLink($exercise->id, 'temakor');
+				$row['tags']		= $this->Database->GetExerciseTags($exercise->id);
+				$row['id']			= $exercise->id;
 
-					$row['status'] 		= $exercise->status;
-					$row['label'] 		= $exercise->label;
-					$row['name'] 		= $exercise->name;
-					$row['complete'] 	= $this->Session->isComplete($exercise->id);
-					$row['progress'] 	= $this->Session->UserProgress($exercise->id);
-					$row['link'] 		= $this->Database->ExerciseLink($exercise->id, 'temakor');
-					$row['tags']		= $this->Database->GetExerciseTags($exercise->id);
-					$row['id']			= $exercise->id;
+				$classlabel 	= $this->Database->getClassLabel($exerciseID);
+				$subtopiclabel 	= $this->Database->getSubtopicLabel($exerciseID);
+				$subtopicname 	= $this->Database->SubtopicName($classlabel, $subtopiclabel);
 
-					$classlabel 	= $this->Database->getClassLabel($exerciseID);
-					$subtopiclabel 	= $this->Database->getSubtopicLabel($exerciseID);
-					$subtopicname 	= $this->Database->SubtopicName($classlabel, $subtopiclabel);
+				$row['classlabel'] 		= $classlabel;
+				$row['subtopiclabel'] 	= $subtopiclabel;
+				$row['subtopicname'] 	= $subtopicname;
 
-					$row['classlabel'] 		= $classlabel;
-					$row['subtopiclabel'] 	= $subtopiclabel;
-					$row['subtopicname'] 	= $subtopicname;
+				$exercisedata = $this->GetExerciseData($classlabel, $subtopiclabel, $exercise->label, $exercise->id, $save=FALSE);
+				$row['question']	= $exercisedata['question'];
 
-
-					$exercisedata = $this->GetExerciseData($classlabel, $subtopiclabel, $exercise->label, $exercise->id, $save=FALSE);
-					$row['question']	= $exercisedata['question'];
-
-					$data[] = $row;
-
-				}
+				$data[] = $row;
 			}
 		}
 
@@ -611,97 +576,6 @@ class Html extends CI_model {
 
 		$data['align'] = ($max_length == $min_length ? 'center' : 'left');
 		$data['width'] = $width;
-
-		return $data;
-	}
-
-	/**
-	 * Get users' activities
-	 *
-	 * Collects activities of all users
-	 *
-	 * @return array $data Subtopic data
-	 */
-	public function Users() {
-
-		$this->load->model('User');
-
-		$data['type'] 		= 'stat_users';
-		$data['results'] 	= $this->Session->GetResults();
-
-		$this->db->order_by('id', 'desc');
-		$users = $this->db->get('users');
-
-		if (count($users->result()) > 0) {
-
-			$user_data = [];
-
-			foreach ($users->result() as $user) {
-
-				$user_menu['id'] 		= $user->id;
-				$user_menu['start'] 	= $this->User->UserSessionStart($user->id);
-				$user_menu['duration'] 	= $this->User->UserDuration($user->id);
-				$user_menu['exercises'] = $this->User->UserExercises($user->id);
-				$user_menu['max_level'] = $this->User->UserMaxLevel($user->id);
-
-				if ($user_menu['duration']) {
-					$user_data[] = $user_menu;
-				}
-
-			}
-
-			$data['users'] = $user_data;
-
-		} else {
-
-			$data['users'] = [];
-
-		}
-
-		return $data;
-	}
-
-	/**
-	 * Get user activities
-	 *
-	 * Collects activities of specific user
-	 *
-	 * @return array $data Subtopic data
-	 */
-	public function UserExercises($userID) {
-
-		$this->load->model('User');
-
-		$data['type'] 		= 'stat_exercises';
-		$data['results'] 	= $this->Session->GetResults();
-
-		$users = $this->db->get_where('users', ['id' => $userID]);
-
-		$user = $users->result()[0];
-
-		$exercises = $this->db->get_where('user_exercises', ['userID' => $user->id]);
-
-		if (count($exercises->result()) > 0) {
-
-			foreach ($exercises->result() as $exercise) {
-
-				$exercise_menu['id'] 		= $exercise->exerciseID;
-				$exercise_menu['link'] 		= $this->Database->ExerciseLink($exercise->exerciseID);
-				$exercise_menu['time'] 		= $this->User->UserExerciseTime($exercise->id);
-				$exercise_menu['actions'] 	= $this->User->UserExerciseActions($exercise->id);
-				$exercise_menu['source'] 	= $exercise->access;
-
-				$exercise_data[] = $exercise_menu;
-
-			}
-
-			$data['exercises'] = $exercise_data;
-
-		} else {
-
-			$data['exercises'] = [];
-
-		}
 
 		return $data;
 	}

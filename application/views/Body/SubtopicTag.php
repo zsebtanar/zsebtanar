@@ -52,25 +52,7 @@ if (is_array($exercises)) {
 			<div class="text-center exercise_button">
 				<a class="btn btn-primary" href="<?php print_r($ex['link']['link']);?>">
 					Mehet&nbsp;<span class="glyphicon glyphicon-chevron-right"></span>
-				</a><?php
-
-				if ($this->Session->CheckLogin()) {
-
-					if ($ex['status'] == 'OK') {?>
-
-					<span class="label label-success">
-						<span class="glyphicon glyphicon-ok"></span>
-					</span><?php
-
-					} else {?>
-
-					<span class="label label-warning">
-						<span class="glyphicon glyphicon-remove"></span>
-					</span><?php
-
-					}
-				}?>
-
+				</a>
 			</div>
 
 

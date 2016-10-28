@@ -16,21 +16,12 @@ You need to have a running *PHP Server* to run the website and a working interne
 
 *Note:* If special characters don't apper properly, check the database character set. In order to use Hungarian special characters, use `latin2_hungarian_ci`.
 
-# Log in
-If you want to log in the website, copy the following URL in your browser: `http://localhost/zsebtanar_v4/action/login/`. After logging in, you have additional features:
-
-1. *Update database*: run this after adding a new exercise.
-2. *Clear results*: delete points earned by user.
-3. *Log out*: log out the website.
-
-Without login, only exercises with `status=OK` will be displayed. After logging in, all exercises are displayed.
-
 # Add new exercise
 In order to add new exercise, you have to do the following steps:
 
 1. Include exercise data in the JSON-file (or create new file if neede).
 2. Create a PHP class to generate exercise.
-3. Update database.
+3. Update database by copying the following URL in your browser: `http://localhost/zsebtanar/action/update`.
 
 ## STEP 1: Add exercise info to JSON-file
 
@@ -49,7 +40,6 @@ Each of them *must* have a `name` attribute. Classes, subtopics and exercises *m
 
 - `ex_order`: order of exercise (if not set, order of exercise will be generated automatically)
 - `level`: how many times user has to solve exercise to complete it (default value: **9**)
-- `status`: **IN PROGRESS** if exercise is not finished (default value: **OK**)
 - `difficulty`: how much time needed to solve problem (**1**: 1-2 mins, **2**: 2-5 mins, **3**:5+ mins)
 - `tags`: tags separated by comma (`,`) or semicolon (`;`)
 
@@ -70,7 +60,6 @@ This is a sample for `data.json`:
                                 {
                                     "label": "count_apples",
                                     "name": "Számolás 1-től 20-ig",
-                                    "status": "IN PROGRESS",
                                     "tags": "alapműveletek;számolás"
                                 },
                                 {

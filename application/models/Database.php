@@ -16,27 +16,6 @@ class Database extends CI_model {
 	}
 
 	/**
-	 * Check status for subtopic
-	 *
-	 * Status is 'OK' if there is >=1 exercise with 'OK' status and 'IN_PROGRESS' otherwise.
-	 *
-	 * @param int $id Subtopic ID
-	 *
-	 * @return string $status Status
-	 */
-	public function SubtopicStatus($id) {
-
-		$query = $this->db->query(
-			'SELECT DISTINCT `exercises`.`id` FROM `exercises`
-					WHERE `exercises`.`status` = \'OK\'
-					AND `exercises`.`subtopicID` = '.$id);
-		$data = $query->result_array();
-		$status = (count($data) > 0 ? 'OK' : 'IN_PROGRESS');
-
-		return $status;
-	}
-
-	/**
 	 * Gets id for exercise
 	 *
 	 * @param string $classlabel    Class label
@@ -285,18 +264,9 @@ class Database extends CI_model {
 
 			$this->load->model('Session');
 
-			if ($this->Session->CheckLogin() || $exercise->status == 'OK') {
-
-				$title = $exercise->name;
-				$link = base_url().$class->label.'/'.$subtopic->label.'/'.$exercise->label.'/'.$access;
-				$name = $exercise->name;
-
-			} else {
-
-				$link = base_url();
-				$name = 'Kezdőlap';
-
-			}
+			$title = $exercise->name;
+			$link = base_url().$class->label.'/'.$subtopic->label.'/'.$exercise->label.'/'.$access;
+			$name = $exercise->name;
 
 		} else {
 
@@ -322,8 +292,7 @@ class Database extends CI_model {
 
 		$subtopics = $this->db->get_where('subtopics', array('id' => $id));
 
-		if (count($subtopics->result()) > 0 &&
-			($this->Session->CheckLogin() || $this->Database->SubtopicStatus($id) == 'OK')) {
+		if (count($subtopics->result())) {
 
 			$this->db->select('classes.label');
 			$this->db->from('classes');
@@ -366,7 +335,7 @@ class Database extends CI_model {
 			$tag = $tags->result()[0];
 
 			$link = base_url().'view/tag/'.$tag->label;
-			$name = ucfirst($tag->name);
+			$name = mb_ucfirst($tag->name);
 
 		} else {
 

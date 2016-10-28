@@ -99,11 +99,8 @@ class View extends CI_controller {
 
 		$this->load->model('Database');
 		$this->load->model('Session');
-		$this->load->model('User');
 
 		$exerciseID = $this->Database->ExerciseID($classlabel, $subtopiclabel, $exerciselabel);
-
-		$this->User->AddUserExercise($exerciseID, $access);
 
 		if ($exerciseID) {
 
@@ -116,29 +113,6 @@ class View extends CI_controller {
 			header('Location:'.base_url().'view/main/');
 
 		}
-	}
-
-	/**
-	 * View statistics
-	 *
-	 * @param int $userID User ID
-	 *
-	 * @return	void
-	 */
-	public function Statistics($userID=NULL) {
-
-		if (!$userID) {
-
-			$data = $this->Html->Users();
-
-		} else {
-
-			$data = $this->Html->UserExercises($userID);
-
-		}
-
-		$this->load->view('Template', $data);
-
 	}
 }
 

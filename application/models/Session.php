@@ -15,11 +15,8 @@ class Session extends CI_model {
 		$this->load->helper('url');
 		$this->load->helper('file');
 		$this->load->model('Database');
-		$this->load->model('User');
 
 		$this->DeleteOldSessions();
-
-		$this->User->AddUser();
 
 		return;
 	}
@@ -402,45 +399,6 @@ class Session extends CI_model {
 		$this->session->set_userdata('exercise', $exercise);
 
 		return;
-	}
-
-	/**
-	 * Check login
-	 *
-	 * Checks if user is logged in
-	 *
-	 * @return bool $status Whether user logged in or not
-	 */
-	public function CheckLogin() {
-
-		if (NULL !== $this->session->userdata('Logged_in') &&
-			$this->session->userdata('Logged_in')) {
-
-			$status = TRUE;
-
-		} else {
-
-			$status = FALSE;
-
-		}
-
-		return $status;
-	}
-
-	/**
-	 * Check if exercise is completed
-	 *
-	 * @param int $id Exercise ID
-	 *
-	 * @return bool $isComplete Is exercise completed?
-	 */
-	public function isComplete($exerciseID) {
-
-		$exercises = $this->session->userdata('exercises');
-
-		$isComplete	= (isset($exercises[$exerciseID]) ? $exercises[$exerciseID] : FALSE);
-
- 		return $isComplete;
 	}
 }
 

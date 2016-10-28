@@ -33,32 +33,6 @@ class Action extends CI_controller {
 	}
 
 	/**
-	 * Log in to website
-	 *
-	 * @param string $password Password
-	 *
-	 * @return void
-	 */
-	public function Login($password) {
-
-		$this->session->set_userdata('Logged_in', TRUE);
-
-		header('Location:'.base_url());
-	}
-
-	/**
-	 * Log out from website
-	 *
-	 * @return void
-	 */
-	public function Logout() {
-
-		$this->session->set_userdata('Logged_in', FALSE);
-
-		header('Location:'.base_url());
-	}
-
-	/**
 	 * Get hint for exercise
 	 *
 	 * @param string $hash Exercise hash
@@ -164,22 +138,19 @@ class Action extends CI_controller {
 		$this->load->model('Session');
 		$this->load->model('Setup');
 
-		if ($this->Session->CheckLogin()) {
+		// unset user data in session
+		$this->Session->UnsetUserData();
 
-			// unset user data in session
-			$this->Session->UnsetUserData();
+		// prepare tables
+		$this->Setup->DropTables();
+		$this->Setup->CreateTables();
 
-			// prepare tables
-			$this->Setup->DropTables();
-			$this->Setup->CreateTables();
-
-			// read data from file
-			$files = scandir('resources');
-			foreach ($files as $file) {
-				if (preg_match('/json/', strtolower($file))) {
-					$data = $this->Setup->ReadFile('resources/'.$file);
-					$this->Setup->InsertData($data);
-				}
+		// read data from file
+		$files = scandir('resources');
+		foreach ($files as $file) {
+			if (preg_match('/json/', strtolower($file))) {
+				$data = $this->Setup->ReadFile('resources/'.$file);
+				$this->Setup->InsertData($data);
 			}
 		}
 

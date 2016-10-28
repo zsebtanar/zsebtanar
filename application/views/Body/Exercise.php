@@ -50,13 +50,10 @@
 					<input type="hidden" name="hints_all" value="<?php echo $hints_all;?>">
 					<div class="text-center"><?php
 
-						if ($this->Session->CheckLogin()) {
+						// print_r($type.'<br />');
+						// print_r($correct);
+						// print_r('<br />');?>
 
-							print_r($type.'<br />');
-							print_r($correct);
-							print_r('<br />');
-
-						}?>
 					</div>
 				</form>
 			</div>
@@ -132,20 +129,6 @@
 
 		<div class="row">
 			<div id="hints" class="col-sm-12"></div>
-		</div>
-		<div class="row"><?php
-
-			if ($this->Session->CheckLogin() && isset($hints)) {?>
-
-			<div class="col-sm-12"><?php
-
-				foreach ($hints as $hint) {
-					// print_r('<p>'.$hint.'</p>');
-				}?>
-
-			</div><?php
-
-			}?>
 		</div>
 	</div>
 	<div class="col-md-2"></div>
