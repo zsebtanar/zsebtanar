@@ -65,30 +65,6 @@ class Action extends CI_controller {
 	}
 
 	/**
-	 * Setup system
-	 *
-	 * @return void
-	 */
-	public function Setup() {
-
-		// setup tables
-		$this->load->model('Setup');
-		$this->Setup->DropTables();
-		$this->Setup->CreateTables();
-
-		// read data from file
-		$files = scandir('resources');
-		foreach ($files as $file) {
-			if (preg_match('/json/', strtolower($file))) {
-				$data = $this->Setup->ReadFile('resources/'.$file);
-				$this->Setup->InsertData($data);
-			}
-		}
-
-		header('Location:'.base_url());
-	}
-
-	/**
 	 * Unset exercise data from session
 	 *
 	 * @param string $hash Exercise hash
@@ -126,14 +102,11 @@ class Action extends CI_controller {
 	}
 
 	/**
-	 * Update system
-	 *
-	 * @param string $type View type (exercise/subtopic)
-	 * @param int    $id   Exercise/subtopic id
+	 * Setup system
 	 *
 	 * @return void
 	 */
-	public function Update($type=NULL, $id=NULL) {
+	public function Setup() {
 
 		$this->load->model('Session');
 		$this->load->model('Setup');

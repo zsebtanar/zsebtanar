@@ -21,7 +21,7 @@ In order to add new exercise, you have to do the following steps:
 
 1. Include exercise data in the JSON-file (or create new file if neede).
 2. Create a PHP class to generate exercise.
-3. Update database by copying the following URL in your browser: `http://localhost/zsebtanar/action/update`.
+3. Update database by copying the following URL in your browser: `http://localhost/zsebtanar/action/setup`.
 
 ## STEP 1: Add exercise info to JSON-file
 
