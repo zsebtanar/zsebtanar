@@ -321,26 +321,37 @@ class Database extends CI_model {
 	/**
 	 * Get link for tag
 	 *
-	 * @param int $id Subtopic ID
+	 * @param int    $id   Subtopic ID
+	 * @param string $type Type of link ('previous'/'next')
 	 *
 	 * @return string $link Link
 	 */
-	public function TagLink($id) {
+	public function TagLink($id, $type) {
+
+		$link = base_url();
+		$name = 'Kezdőlap';
 
 		$tags = $this->db->get_where('tags', array('id' => $id));
 
+		$order 		= ($type == 'previous' ? 'DESC' : 'ASC');
+		$relation 	= ($type == 'previous' ? '<' : '>');
+
 		if (count($tags->result()) > 0) {
 
-			$tag = $tags->result()[0];
+			$currenttag = $tags->result()[0];
 
-			$link = base_url().'view/tag/'.$tag->label;
-			$name = mb_ucfirst($tag->name);
+			$query = $this->db->query("SELECT * FROM tags ".
+					"WHERE name ".$relation." '".$currenttag->name."' ".
+					"ORDER BY name ".$order." LIMIT 1");
 
-		} else {
+			if($query->num_rows() > 0) {
 
-			$link = base_url();
-			$name = 'Kezdőlap';
+				$tag = $query->result()[0];
 
+				$link = base_url().'view/tag/'.$tag->label;
+				$name = mb_ucfirst($tag->name);
+
+			}
 		}
 
 		return array(

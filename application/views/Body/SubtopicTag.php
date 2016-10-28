@@ -9,7 +9,7 @@ if (is_array($exercises)) {
 	<div class="row">
 		<div class="col-md-3 text-right">
 			<h1 class="exercise-label">
-				<?php echo ($ex['ex_order'] != 0 ? $ex['ex_order'] : $order);?>
+				<?php echo (array_key_exists('ex_order', $ex) && $ex['ex_order'] != 0 ? $ex['ex_order'] : $order);?>
 			</h1>
 		</div>
 		<div class="col-md-6">

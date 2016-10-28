@@ -54,8 +54,8 @@ class Html extends CI_model {
 
 		} elseif ($type == 'tag') {
 
-			$data['prev'] = $this->Database->TagLink($id-1);
-			$data['next'] = $this->Database->TagLink($id+1);
+			$data['prev'] = $this->Database->TagLink($id, 'previous');
+			$data['next'] = $this->Database->TagLink($id, 'next');
 
 		}
 		
