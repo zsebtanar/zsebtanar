@@ -50,9 +50,13 @@
 					<input type="hidden" name="hints_all" value="<?php echo $hints_all;?>">
 					<div class="text-center"><?php
 
-						// print_r($type.'<br />');
-						// print_r($correct);
-						// print_r('<br />');?>
+					if ($debugMode) {
+
+						print_r($type.'<br />');
+						print_r($correct);
+						print_r('<br />');
+
+					}?>
 
 					</div>
 				</form>
@@ -204,7 +208,7 @@
 						var hints_used = Number(data['hints_used']);
 						var hints_left = hints_all - hints_used;
 						if (hints_all > 1) {
-							$("#hints").html('<ul class="pager"></ul>');
+							$("#hints").html('<ul class="pager pager-bottom"></ul>');
 							$("#hints").children().append('<li class="prev_hint small"><a onclick="gethint(event,'+hint_current+',\'prev\')"><span class="glyphicon glyphicon-chevron-left"></span></a></li>');
 							if (hint_current == 1) {
 								$(".prev_hint").attr('class', 'small disabled');

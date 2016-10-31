@@ -52,9 +52,30 @@ class Html extends CI_model {
 			$data['prev'] = $this->Database->TagLink($id, 'previous');
 			$data['next'] = $this->Database->TagLink($id, 'next');
 
-		}
+		}	
 		
 		$data['results'] = $this->Session->GetResults();
+
+		return $data;
+	}
+
+	/**
+	 * Get breadcrumb for exercises
+	 *
+	 * Collects links to easier/harder/random exercises
+	 *
+	 * @param string $classlabel    Class label
+	 * @param string $subtopiclabel Subtopic label
+	 * @param string $exerciselabel Exercise label
+	 * @param int    $exerciseID    Exercise ID
+	 *
+	 * @return array $data Breadcrumb data
+	 */
+	public function BreadCrumbExercise($classlabel, $subtopiclabel, $exerciselabel, $exerciseID) {
+
+		$data['easier'] = $this->Database->GetEasierExercises($exerciseID);
+		$data['harder'] = $this->Database->GetHarderExercises($classlabel, $subtopiclabel, $exerciselabel);
+		$data['random'] = $this->Database->RandomExerciseLink();
 
 		return $data;
 	}
@@ -139,11 +160,12 @@ class Html extends CI_model {
 		$data['type'] 		= 'exercise';
 		$data['results'] 	= $this->Session->GetResults();
 		$data['exercise'] 	= $this->GetExerciseData($classlabel, $subtopiclabel, $exerciselabel, $exerciseID);
+		$data['breadcrumb'] = $this->BreadCrumbExercise($classlabel, $subtopiclabel, $exerciselabel, $exerciseID);
 
-		$data['results']['id'] = $exerciseID;
+		$data['results']['id'] 	 = $exerciseID;
 		$data['results']['type'] = 'exercise';
 
-		$data['progress'] 	= $this->Session->UserProgress($exerciseID);
+		$data['progress'] = $this->Session->UserProgress($exerciseID);
 
 		return $data;
 	}
@@ -156,6 +178,8 @@ class Html extends CI_model {
 	 * @return array $data Subtopics
 	 */
 	public function GetMainData() {
+
+		$this->db->order_by('id', 'DESC');
 
 		$classes = $this->db->get('classes');
 
@@ -190,6 +214,7 @@ class Html extends CI_model {
 					// Collect final exercises separately
 					if ($topic->name == 'Érettségi') {
 						$final_exercises = $topic_menu;
+						$final_exercises['classlabel'] = $class->label;
 					} else {
 						$topics_menu[] = $topic_menu;
 					}
@@ -244,15 +269,11 @@ class Html extends CI_model {
 
 		$id_next = ($level_user < $level_max ? $id : $id+1);
 
-		if ($id == $id_next) {
-			$next = $this->Database->ExerciseLink($id_next);
-		} else {
-			$next = $this->Database->ExerciseLink($id_next);
-		}
+		$next = $this->Database->ExerciseLink($id_next);
 
  		return $next['link'];
 	}
-
+	
 	/**
 	 * Get exercises of subtopic
 	 *
@@ -371,6 +392,7 @@ class Html extends CI_model {
 	public function GetExerciseData($classlabel, $subtopiclabel, $exerciselabel, $exerciseID, $save=TRUE) {
 
 		$this->load->helper('string');
+		$this->load->model('Hints');
 
 		// Get exercise level
 		$level_user = $this->Session->getUserLevel($exerciseID);
@@ -411,7 +433,7 @@ class Html extends CI_model {
 			$data['labels'] = array_fill(0, count($data['correct']), NULL);
 		}
 
-		$data = $this->AddHints($exerciseID, $data);
+		$data = $this->Hints->AddHints($exerciseID, $data);
 		
 		$hash = random_string('alnum', 16);
 
@@ -425,122 +447,6 @@ class Html extends CI_model {
 		$data['exerciselabel'] 	= $exerciselabel;
 
 		return $data;
-	}
-
-	/**
-	 * Add hints to exercise (if there is none)
-	 *
-	 * @param int   $id   Exercise id
-	 * @param array $data Exercise data
-	 *
-	 * @return array $data Exercise data (with hints)
-	 */
-	public function AddHints($id, $data) {
-
-		$hints = [];
-		if (isset($data['hints'])) {
-			if (is_array($data['hints'])) {
-
-				// Is there more page?
-				$multipage = TRUE;
-				foreach ($data['hints'] as $value) {
-					if (!is_array($value)) {
-						$multipage = FALSE;
-					}
-				}
-
-				// Create multipage hints
-				if ($multipage) {
-					foreach ($data['hints'] as $page) {
-						$page = $this->AddHintPage($page);
-						$hints = array_merge($hints, $page);
-						
-					}
-				} else {
-
-					$page = $this->AddHintPage($data['hints']);
-					$hints = array_merge($hints, $page);
-					// print_r($hints);
-
-				}
-
-			} else {
-
-				// Single hints
-				$page = $this->AddHintPage($data['hints']);
-				$hints = array_merge($hints, $page);
-
-			}
-		} else {
-
-			// No hints
-			$hints =  NULL;
-
-		}
-
-		$data['hints']		= $hints;
-		$data['hints_all'] 	= count($hints);
-		$data['hints_used'] = 0;
-
-		return $data;
-	}
-
-	/**
-	 * Add page to hints
-	 *
-	 * @param array $page Hints data
-	 *
-	 * @return array $page_new Hints data (restructured)
-	 */
-	public function AddHintPage($page) {
-
-		// Details
-		foreach ($page as $key1 => $segment) {
-			if (is_array($segment)) {
-				$details = $this->AddHintDetails($segment);
-				if ($key1 > 0) {
-					$page[$key1-1] .= '<div><button class="pull-right btn btn-default btn-details" data-toggle="collapse" data-target="#hint_details'.$key1.'">'
-						.'Részletek</button></div><br/>'
-						.'<div id="hint_details'.$key1.'" class="collapse well well-sm small">'.$details.'</div>';
-				} else {
-					print_r('Az útmutató szerkezete hibás!');
-				}
-				unset($page[$key1]);
-			}
-		}
-
-		// Restructure
-		array_values($page);
-		for ($i=0; $i < count($page); $i++) { 
-			$hint = '';
-			for ($j=0; $j <= $i; $j++) { 
-				$hint .= '<p>'.strval($page[$j]).'</p>';
-			}
-			$page_new[] = $hint;
-		}
-
-		return $page_new;
-	}
-
-	/**
-	 * Add details to hints
-	 *
-	 * @param array $subsegment Hints data
-	 *
-	 * @return string $details Hints data (modified)
-	 */
-	public function AddHintDetails($subsegment) {
-
-		$details = '';
-		foreach ($subsegment as $subsubsegment) {
-			if (is_array($subsubsegment)) {
-				print_r('Hiba az útmutatóban!');
-				break;
-			}
-			$details .= '<p>'.strval($subsubsegment).'</p>';
-		}
-
-		return $details;
 	}
 
 	/**

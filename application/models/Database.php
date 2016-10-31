@@ -237,7 +237,7 @@ class Database extends CI_model {
 	 *
 	 * @return string $href Link
 	 */
-	public function ExerciseLink($id) {
+	public function ExerciseLink($id=NULL) {
 
 		$exercises = $this->db->get_where('exercises', array('id' => $id));
 
@@ -531,6 +531,143 @@ class Database extends CI_model {
 
  		return $link;
 	}
+
+	/**
+	 * Get easier exercises
+	 *
+	 * Collects all exercises which are required to solve exercise from "dependencies" table
+	 *
+	 * @param int $exerciseID Exercise ID
+	 *
+	 * @return array $result Exercise data
+	 */
+	public function GetEasierExercises($exerciseID) {
+
+		$this->load->model('Session');
+
+		$result = [];
+
+		$query = $this->db->get_where('dependencies', ['exerciseID' => $exerciseID]);
+
+		if ($query->num_rows() > 0) {
+			$dependencies = $query->result_array();
+			foreach ($dependencies as $dependency) {
+
+				$classlabel 	= $dependency['classLabel'];
+				$subtopiclabel 	= $dependency['subtopicLabel'];
+				$exerciselabel 	= $dependency['exerciseLabel'];
+
+				$dependency_ID = $this->ExerciseID($classlabel, $subtopiclabel, $exerciselabel);
+
+				$exercisedata = $this->ExerciseLink($dependency_ID);
+				$exercisedata['progress'] = $this->Session->UserProgress($dependency_ID);
+
+				$result[] = $exercisedata;
+			}
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Get harder exercises
+	 *
+	 * Collects all exercises which are built upon this exercise
+	 *
+	 * @param string $classlabel    Class label
+	 * @param string $subtopiclabel Subtopic label
+	 * @param string $exerciselabel Exercise label
+	 *
+	 * @return array $result Exercise data
+	 */
+	public function GetHarderExercises($classlabel, $subtopiclabel, $exerciselabel) {
+
+		$result = [];
+
+		$query = $this->db->get_where('dependencies', [
+			'classLabel' 	=> $classlabel,
+			'subtopicLabel' => $subtopiclabel,
+			'exerciseLabel' => $exerciselabel
+			]);
+
+		if ($query->num_rows() > 0) {
+			$dependencies = $query->result_array();
+			foreach ($dependencies as $dependency) {
+
+				$dependency_ID = $dependency['exerciseID'];
+
+				$exercisedata 				= $this->ExerciseLink($dependency_ID);
+				$exercisedata['id'] 		= $dependency_ID;
+				$exercisedata['progress'] 	= $this->Session->UserProgress($dependency_ID);
+
+				$result[] = $exercisedata;
+			}
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Get next exercise
+	 *
+	 * Checks whether user has completed all rounds of exercise.
+	 *
+	 * @param int $id Exercise ID
+	 *
+	 * @return string $link Next exercise link
+	 */
+	public function NextExercise($id) {
+
+		$id_next = NULL;
+
+		$level_max  = $this->getMaxLevel($id);
+		$level_user = $this->Session->getUserLevel($id);
+
+		if ($level_user < $level_max) {
+
+			// User has not finished exercise yet
+			$id_next = $id;
+
+		} else {
+
+			$classlabel = $this->getClassLabel($id);
+			$subtopiclabel = $this->getSubtopicLabel($id);
+			$exerciselabel = $this->ExerciseLabel($id);
+
+			$exercises = $this->GetHarderExercises($classlabel, $subtopiclabel, $exerciselabel);
+
+			// There is an exercise which is build on this one
+			if (count($exercises) > 0) {
+
+
+				foreach ($exercises as $exercise) {
+
+					$level_max  = $this->getMaxLevel($exercise['id']);
+					$level_user = $this->Session->getUserLevel($exercise['id']);
+
+					if ($level_user < $level_max) {
+
+						// User has not finished exercise yet
+						$id_next = $exercise['id'];
+						break;
+
+					}
+				}
+
+			} else {
+
+				$id_next = $id + 1;
+			}
+
+		}
+
+
+
+		$next = $this->ExerciseLink($id_next);
+
+ 		return array($id_next, $next['link']);
+	}
+
 }
 
 ?>

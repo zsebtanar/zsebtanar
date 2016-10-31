@@ -42,6 +42,12 @@ class Setup extends CI_model {
 				'ex_order'	=> '',
 				'link'		=> ''
 				),
+			'dependencies' => array(
+				'exerciseID'	=> 'FROM SESSION',
+				'classLabel'	=> 'NOT NULL',
+				'subtopicLabel'	=> 'NOT NULL',
+				'exerciseLabel'	=> 'NOT NULL'
+				),
 			'tags' 				=> [],
 			'exercises_tags' 	=> [],
 			);
@@ -125,7 +131,7 @@ class Setup extends CI_model {
 							id 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							subtopicID 	INT NOT NULL,
 							level		INT NOT NULL,
-							label 		VARCHAR(30) NOT NULL,
+							label 		VARCHAR(60) NOT NULL,
 							name 		VARCHAR(120),
 							ex_order	VARCHAR(30),
 							difficulty	INT,
@@ -143,7 +149,15 @@ class Setup extends CI_model {
 							tagID 		INT NOT NULL,
 							FOREIGN KEY (exerciseID) REFERENCES exercises(id),
 							FOREIGN KEY (tagID) REFERENCES tags(id)
-						)Engine=InnoDB;'
+						)Engine=InnoDB;',
+			'dependencies' => 'CREATE TABLE dependencies (
+							id 				INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+							exerciseID 		INT NOT NULL,
+							classLabel 		VARCHAR(60) NOT NULL,
+							subtopicLabel 	VARCHAR(60) NOT NULL,
+							exerciseLabel 	VARCHAR(60) NOT NULL,
+							FOREIGN KEY (exerciseID) REFERENCES exercises(id)
+						)Engine=InnoDB;',
 		);
 
 		// Check table

@@ -48,8 +48,8 @@ class Check extends CI_model {
 
 		$results = $this->Session->GetResults();
 
-		$id_next 		= $this->Html->NextID($id);
-		$link_next 		= $this->Html->NextLink($id);
+		list($id_next, $link_next) = $this->Database->NextExercise($id);
+
 		$subtopiclabel 	= $this->Database->getSubtopicLabel($id);
 		$progress 		= $this->Session->UserProgress($id);
 
