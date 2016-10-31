@@ -41,13 +41,32 @@
 					</a>
 				</li><?php
 
-			} else {
+			} else {?>
+
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle navbar-primary" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						<b><?php echo $final_exercises['name'];?><span class="caret"></span></b>
+					<ul class="dropdown-menu"><?php
+
+					foreach ($final_exercises['subtopics'] as $subtopic) {?>
+			
+					<li>
+						<a href="<?php echo base_url().$final_exercises['classlabel'].'/'.$subtopic['label'];?>">
+							<?php echo $subtopic['name'];?>
+						</a>
+					</li><?php
+
+					}?>
+
+			 		</ul>
+			 		</a>
+				</li><?php
 
 				foreach ($classes as $class) {?>
 
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<b><?php echo $class['label'];?></b><span class="caret"></span>
+						<b><?php echo $class['name'];?></b><span class="caret"></span>
 					<ul class="dropdown-menu"><?php
 
 					if (count($class['topics']) > 0) {
@@ -71,26 +90,7 @@
 			 		</a>
 				</li><?php
 
-				}?>
-
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle navbar-primary" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<b><?php echo $final_exercises['name'];?><span class="caret"></span></b>
-					<ul class="dropdown-menu"><?php
-
-					foreach ($final_exercises['subtopics'] as $subtopic) {?>
-			
-					<li>
-						<a href="<?php echo base_url().$class['label'].'/'.$subtopic['label'];?>">
-							<?php echo $subtopic['name'];?>
-						</a>
-					</li><?php
-
-					}?>
-
-			 		</ul>
-			 		</a>
-				</li><?php
+				}
 
 			}?>
 			

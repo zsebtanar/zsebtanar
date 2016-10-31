@@ -276,21 +276,69 @@ input.ui-autocomplete-loading {
 }
 .navbar-inverse .navbar-nav > li > a.navbar-primary, .navbar-inverse .navbar-nav > li > a.navbar-primary:hover, .navbar-inverse .navbar-nav > li > a.navbar-primary:focus {
 	color: #fff;
-	background-color: #d9534f;
+	background-image: linear-gradient(to bottom, #d9534f 0%, #c12e2a 100%);
+	border-color: #b92c28;
+	border: 1px solid transparent;
+
 }
 .navbar-inverse .navbar-nav > .open > a.navbar-primary, .navbar-inverse .navbar-nav > .open > a.navbar-primary:hover, .navbar-inverse .navbar-nav > .open > a.navbar-primary:focus {
 	color: #fff;
-	background-color: #d9534f;
+	background-image: linear-gradient(to bottom, #d9534f 0%, #c12e2a 100%);
+	border-color: #b92c28;
+	border: 1px solid transparent;
 }
 .footer {
-	position: fixed;
+	position: absolute;
+	margin-bottom: 30px;
 }
 @media (min-width: 992px) {
 	.exercise-label {
-	    font-size: 600%;
-	    font-weight: normal;
+		font-size: 600%;
+		font-weight: normal;
 	}
 }
 .progress {
 	margin-top: 20px;
+}
+.btn-space {
+	margin: 20px;
+}
+.star {
+	padding-bottom: 3px;
+}
+@media (max-width: 1120px) {
+  .navbar-header {
+      float: none;
+  }
+  .navbar-left,.navbar-right {
+      float: none !important;
+  }
+  .navbar-toggle {
+      display: block;
+  }
+  .navbar-collapse {
+      border-top: 1px solid transparent;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+  .navbar-fixed-top {
+      top: 0;
+      border-width: 0 0 1px;
+  }
+  .navbar-collapse.collapse {
+      display: none!important;
+  }
+  .navbar-nav {
+      float: none!important;
+      margin-top: 7.5px;
+  }
+  .navbar-nav>li {
+      float: none;
+  }
+  .navbar-nav>li>a {
+      padding-top: 10px;
+      padding-bottom: 10px;
+  }
+  .collapse.in{
+      display:block !important;
+  }
 }

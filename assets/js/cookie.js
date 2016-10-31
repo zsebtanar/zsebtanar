@@ -9,7 +9,7 @@ var cookieScripts = document.getElementsByTagName("script"),
     cookieScriptDebug = 0,
     cookieScriptCurrentUrl = window.location.href,
     cookieScriptTitle = "",
-    cookieScriptDesc = "A weboldal cookie-kat haszn\u00e1l a szolg\u00e1ltat\u00e1sok min\u0151s\u00e9g\u00e9nek jav\u00edt\u00e1s\u00e1ra. A weboldal tov\u00e1bbi haszn\u00e1lat\u00e1val j\u00f3v\u00e1hagyja a cookie-k haszn\u00e1lat\u00e1t. ",
+    cookieScriptDesc = "<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc-sa/4.0/deed.hu\" target=\"_blank\"><img alt=\"Creative Commons Licenc\" style=\"border-width:0\" src=\"https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png\" /><br /></a>A weboldal cookie-kat haszn\u00e1l a szolg\u00e1ltat\u00e1sok min\u0151s\u00e9g\u00e9nek jav\u00edt\u00e1s\u00e1ra. A weboldal tov\u00e1bbi haszn\u00e1lat\u00e1val j\u00f3v\u00e1hagyja a cookie-k haszn\u00e1lat\u00e1t. ",
     cookieScriptAccept = "Elfogadom",
     cookieScriptMore = "Tov\u00e1bbi inform\u00e1ci\u00f3",
     cookieScriptCopyrights = "Elfogadom",
@@ -92,12 +92,11 @@ var cookieScripts = document.getElementsByTagName("script"),
             cookieScriptCurrentValue = cookieScriptReadCookie("cookiescriptaccept");
             if ("visit" == cookieScriptCurrentValue) return !1;
             cookieQuery("body", cookieScriptWindow).append('<div id="cookiescript_injected"><div id="cookiescript_wrapper">' +
-                cookieScriptDesc + '&nbsp;&nbsp;<a id="cookiescript_readmore">' + cookieScriptMore + '</a><div id="cookiescript_accept">' + cookieScriptAccept + '</div><div id="cookiescript_pixel"></div></div>');
+                cookieScriptDesc + '&nbsp;&nbsp;<a id="cookiescript_readmore" class="btn btn-xs btn-link">' + cookieScriptMore + '</a><div id="cookiescript_accept" class="btn btn-success btn-xs">' + cookieScriptAccept + '</div><div id="cookiescript_pixel"></div></div>');
             cookieQuery("#cookiescript_injected", cookieScriptWindow).css({
-                "background-color": "#111111",
+                "background-color": "#f5f5f5",
                 "z-index": 999999,
-                opacity: .7,
-                position: "fixed",
+                position: "absolute",
                 padding: "10px 0",
                 width: "100%",
                 left: 0,
@@ -105,12 +104,8 @@ var cookieScripts = document.getElementsByTagName("script"),
                 "font-weight": "normal",
                 "text-align": "left",
                 "letter-spacing": "normal",
-                color: "#FFFFFF",
-                "font-family": "Arial, sans-serif",
-                display: "none",
-                "-moz-box-shadow": "0px 0px 8px #000000",
-                "-webkit-box-shadow": "0px 0px 8px #000000",
-                "box-shadow": "0px 0px 8px #000000"
+                color: "#333",
+                display: "none"
             });
             cookieQuery("#cookiescript_buttons", cookieScriptWindow).css({
                 width: "200px",
@@ -118,16 +113,14 @@ var cookieScripts = document.getElementsByTagName("script"),
                 "font-size": "13px",
                 "font-weight": "normal",
                 "text-align": "center",
-                color: "#FFFFFF",
-                "font-family": "Arial, sans-serif"
+                color: "#333",
             });
             cookieQuery("#cookiescript_wrapper", cookieScriptWindow).css({
                 margin: "0 10px",
                 "font-size": "13px",
                 "font-weight": "normal",
                 "text-align": "center",
-                color: "#FFFFFF",
-                "font-family": "Arial, sans-serif",
+                color: "#333",
                 "line-height": "23px",
                 "letter-spacing": "normal"
             });
@@ -137,9 +130,7 @@ var cookieScripts = document.getElementsByTagName("script"),
                 "z-index": 999999,
                 padding: "0 0 7px 0",
                 "text-align": "center",
-                color: "#FFFFFF",
-                "font-family": "Arial, sans-serif",
-                display: "block",
+                color: "#333",
                 "font-size": "15px",
                 "font-weight": "bold",
                 margin: "0"
@@ -151,11 +142,11 @@ var cookieScripts = document.getElementsByTagName("script"),
             });
             cookieQuery("#cookiescript_injected a", cookieScriptWindow).css({
                 "text-decoration": "underline",
-                color: "#FFFFFF"
+                color: "#333"
             });
             cookieQuery("#cookiescript_injected a#cookiescript_link", cookieScriptWindow).css({
                 "text-decoration": "none",
-                color: "#FFFFFF",
+                color: "#333",
                 "font-size": "85%",
                 "text-decoration": "none",
                 "float": "right",
@@ -164,31 +155,31 @@ var cookieScripts = document.getElementsByTagName("script"),
                 "font-weight": "normal"
             });
             cookieQuery("#cookiescript_injected div#cookiescript_accept", cookieScriptWindow).css({
-                "-webkit-border-radius": "5px",
-                "-khtml-border-radius": "5px",
-                "-moz-border-radius": "5px",
-                "border-radius": "5px",
-                "background-color": "#5BB75B",
-                border: 0,
-                padding: "6px 10px",
-                "font-weight": "bold",
-                cursor: "pointer",
-                margin: "0 10px 0 30px",
-                color: "#FFFFFF",
-                "-webkit-transition": "0.25s",
-                "-moz-transition": "0.25s",
-                transition: "0.25s",
-                display: "inline",
-                "text-shadow": "rgb(0, 0, 0) 0px 0px 2px",
-                "white-space": "nowrap"
+                // "-webkit-border-radius": "5px",
+                // "-khtml-border-radius": "5px",
+                // "-moz-border-radius": "5px",
+                // "border-radius": "5px",
+                // "background-color": "#5BB75B",
+                // border: 0,
+                // padding: "6px 10px",
+                // "font-weight": "bold",
+                // cursor: "pointer",
+                // margin: "0 10px 0 30px",
+                // color: "#333",
+                // "-webkit-transition": "0.25s",
+                // "-moz-transition": "0.25s",
+                // transition: "0.25s",
+                // display: "inline",
+                // "text-shadow": "rgb(0, 0, 0) 0px 0px 2px",
+                // "white-space": "nowrap"
             });
             cookieQuery("#cookiescript_injected #cookiescript_readmore", cookieScriptWindow).css({
-                cursor: "pointer",
-                "text-decoration": "underline",
-                padding: 0,
-                margin: 0,
-                color: "#FFFFFF",
-                "white-space": "nowrap"
+                // cursor: "pointer",
+                // "text-decoration": "underline",
+                // padding: 0,
+                // margin: 0,
+                // color: "#333",
+                // "white-space": "nowrap"
             });
             cookieQuery("#cookiescript_injected div#cookiescript_pixel", cookieScriptWindow).css({
                 width: "1px",
@@ -202,9 +193,9 @@ var cookieScripts = document.getElementsByTagName("script"),
                     nonInteraction: 1
                 });
             cookieQuery("#cookiescript_injected div#cookiescript_accept", cookieScriptWindow).hover(function() {
-                cookieQuery(this).css("background-color", "#5BB75B")
+                // cookieQuery(this).css("background-color", "#5BB75B")
             }, function() {
-                cookieQuery(this).css("background-color", "#5BB75B")
+                // cookieQuery(this).css("background-color", "#5BB75B")
             });
             cookieQuery("#cookiescript_injected", cookieScriptWindow).fadeIn(1E3);
             cookieQuery("#cookiescript_injected div#cookiescript_accept", cookieScriptWindow).click(function() {

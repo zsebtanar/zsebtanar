@@ -9,15 +9,14 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<input type="text" class="form-control input-lg" id="exercise_tags" placeholder="Írd be, mit szeretnél gyakorolni!">
+			<input type="text" class="form-control input-lg" id="exercise_tags" placeholder="Válassz témakört!">
 		</div>
 		<div class="btn-group">
 			<button type="button" class="btn btn-lg btn-primary dropdown-toggle" data-toggle="dropdown">
 				Kérek egy feladatot! <span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu"><?php
-				foreach ($classes as $class) {
-					if ($class['show']) {?>
+				foreach ($classes as $class) {?>
 
 				 	<li>
 				 		<a href="action/getrandomexercise/<?php echo $class['label'];?>">
@@ -25,7 +24,6 @@
 				 		</a>
 				 	</li><?php
 					
-					}
 				}?>
 			</ul>
 		</div>
