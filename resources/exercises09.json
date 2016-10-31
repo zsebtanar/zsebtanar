@@ -16,6 +16,12 @@
 									"name": "Egyenes, fordított arányosság",
 									"tags": "egyenes arányosság;fordított arányosság",
 									"difficulty": 1
+								},
+								{
+									"label": "Szalami",
+									"name": "Szalámi",
+									"tags": "százalékszámítás;arányosság",
+									"difficulty": 1
 								}
 							]
 						},
@@ -34,12 +40,6 @@
 									"name": "TV játék",
 									"tags": "százalékszámítás",
 									"difficulty": 3
-								},
-								{
-									"label": "Szalami",
-									"name": "Szalámi",
-									"tags": "százalékszámítás",
-									"difficulty": 1
 								}
 							]
 						},
@@ -89,15 +89,21 @@
 							"label": "Halmazmuveletek",
 							"exercises": [
 								{
+									"label": "Halmazmuveletek",
+									"name": "Halmazműveletek",
+									"tags": "halmazműveletek;Venn-diagram",
+									"difficulty": 1
+								},
+								{
 									"label": "Szamok",
 									"name": "Halmazműveletek számokkal",
-									"tags": "halmazműveletek",
+									"tags": "halmazműveletek;Venn-diagram",
 									"difficulty": 1
 								},
 								{
 									"label": "Osztok",
 									"name": "Halmazműveletek osztókkal",
-									"tags": "osztók;halmazműveletek",
+									"tags": "osztók;halmazműveletek;Venn-diagram",
 									"difficulty": 1
 								},
 								{

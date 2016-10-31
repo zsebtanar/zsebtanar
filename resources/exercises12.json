@@ -138,13 +138,27 @@
 									"label": "Halmaz_szamok",
 									"name": "Halmazműveletek számokkal",
 									"link": "9/Halmazmuveletek/Szamok",
-									"ex_order": 1
+									"ex_order": 1,
+									"dependencies": [
+										{
+											"classLabel": 9,
+											"subtopicLabel": "Halmazmuveletek",
+											"exerciseLabel": "Halmazmuveletek"
+										}
+									]
 								},
 								{
 									"label": "Szazalek_szalami",
 									"name": "Százalékszámítás (szalámi)",
-									"link": "9/Szazalek/Szalami",
-									"ex_order": 2
+									"link": "9/Aranyossag/Szalami",
+									"ex_order": 1,
+									"dependencies": [
+										{
+											"classLabel": 5,
+											"subtopicLabel": "Mertekegysegek",
+											"exerciseLabel": "Tomeg"
+										}
+									]
 								},
 								{
 									"label": "Gyokvonas",

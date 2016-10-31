@@ -24,6 +24,18 @@
 									"difficulty": 2
 								}
 							]
+						},
+						{
+							"name": "Mértékegységek",
+							"label": "Mertekegysegek",
+							"exercises": [
+								{
+									"label": "Tomeg",
+									"name": "Tömeg",
+									"tags": "alapműveletek;szorzás;osztás;mértékegységek;mértékegységek átváltása",
+									"difficulty": 1
+								}
+							]
 						}
 					]
 				},
