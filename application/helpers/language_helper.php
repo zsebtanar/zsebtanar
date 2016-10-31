@@ -7,8 +7,7 @@
  *
  * @return string $suffix Suffix
  */
-function Times($num)
-{
+function Times($num) {
   $abs = abs($num);
 
   switch ($abs % 10) {
@@ -58,8 +57,7 @@ function Times($num)
  *
  * @return string $suffix Suffix
  */
-function Times2($num)
-{
+function Times2($num) {
   $abs = abs($num);
 
   switch ($abs % 10) {
@@ -109,8 +107,7 @@ function Times2($num)
  *
  * @return string $suffix Suffix
  */
-function Fraction($num)
-{
+function Fraction($num) {
   $abs = abs($num);
 
   switch ($abs % 10) {
@@ -162,8 +159,7 @@ function Fraction($num)
  *
  * @return string $article Article
  */
-function The($num, $capital=FALSE)
-{
+function The($num, $capital=FALSE) {
   if ($num <= 0) {
     return ($capital ? 'A' : 'a');
   }
@@ -193,8 +189,7 @@ function The($num, $capital=FALSE)
  *
  * @return string $suffix Suffix
  */
-function Dativ($num)
-{
+function Dativ($num) {
   $abs = abs($num);
 
   switch ($abs % 10) {
@@ -246,8 +241,7 @@ function Dativ($num)
  *
  * @return string $suffix Suffix
  */
-function By($num)
-{
+function By($num) {
   $abs = abs($num);
 
   switch ($abs % 10) {
@@ -296,8 +290,7 @@ function By($num)
  *
  * @return string $suffix Suffix
  */
-function With($num)
-{
+function With($num) {
   $abs = abs($num);
 
   // fraction
@@ -361,8 +354,7 @@ function With($num)
  *
  * @return string $suffix Suffix
  */
-function To($num)
-{
+function To($num) {
   $abs = abs($num);
 
   switch ($abs % 10) {
@@ -410,8 +402,7 @@ function To($num)
  *
  * @return string $suffix Suffix
  */
-function In($num)
-{
+function In($num) {
   $abs = abs($num);
 
   switch ($abs % 10) {
@@ -458,8 +449,7 @@ function In($num)
  *
  * @return string $suffix Suffix
  */
-function On($num)
-{
+function On($num) {
   $abs = abs($num);
 
   switch ($abs % 10) {
@@ -506,8 +496,7 @@ function On($num)
  *
  * @return string $suffix Suffix
  */
-function On2($num)
-{
+function On2($num) {
   $abs = abs($num);
 
   switch ($abs % 10) {
@@ -554,8 +543,7 @@ function On2($num)
  *
  * @return string $suffix Suffix
  */
-function From($num)
-{
+function From($num) {
   $abs = abs($num);
 
   switch ($abs % 10) {
@@ -603,8 +591,7 @@ function From($num)
  *
  * @return string $num_text Number with text
  */
-function NumText($num, $capital=FALSE) {
-  
+function NumText($num, $capital=FALSE) {   
   $digits = str_split($num);
   $digits = array_reverse($digits);
   
@@ -659,8 +646,7 @@ function NumText($num, $capital=FALSE) {
  *
  * @return string $array_text Numbers in text
  */
-function NumArray($num_array, $last='vagy', $glue='') {
-  
+function NumArray($num_array, $last='vagy', $glue='') {   
   $array_text = '';
   for ($i=0; $i < count($num_array); $i++) { 
     $array_text .= '$'.$num_array[$i].$glue.'$';
@@ -683,8 +669,7 @@ function NumArray($num_array, $last='vagy', $glue='') {
  *
  * @return string $text Strings in text
  */
-function StringArray($array, $last='vagy', $glue='') {
-  
+function StringArray($array, $last='vagy', $glue='') {   
   $text = '';
   for ($i=0; $i < count($array); $i++) { 
     $text .= $array[$i].$glue;
@@ -705,8 +690,7 @@ function StringArray($array, $last='vagy', $glue='') {
  *
  * @return string $text Order (text)
  */
-function OrderText($num) {
-
+function OrderText($num) { 
   $text_array = array(
     0 => 'nulladik',
     1 => 'első',
@@ -733,8 +717,7 @@ function OrderText($num) {
  *
  * @return string $num2 Number (formatted)
  */
-function BigNum($num) {
-
+function BigNum($num) { 
   if ($num < 10000) {
     $num2 = $num;
   } else {
@@ -756,8 +739,7 @@ function BigNum($num) {
  *
  * @return string $text Text (formatted)
  */
-function slugify($text)
-{
+function slugify($text) {
   // replace non letter or digits by -
   $text = preg_replace('~[^\pL\d]+~u', '-', $text);
 
@@ -790,8 +772,7 @@ function slugify($text)
  *
  * @return string $text Text (formatted)
  */
-function mb_ucfirst($string, $encoding='UTF8')
-{
+function mb_ucfirst($string, $encoding='UTF8') {
     $strlen = mb_strlen($string, $encoding);
     $firstChar = mb_substr($string, 0, 1, $encoding);
     $then = mb_substr($string, 1, $strlen - 1, $encoding);
