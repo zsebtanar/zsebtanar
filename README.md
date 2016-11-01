@@ -42,15 +42,18 @@ Each of them *must* have a `name` attribute. Classes, subtopics and exercises *m
 - `level`: how many times user has to solve exercise to complete it (default value: **9**)
 - `difficulty`: how much time needed to solve problem (**1**: 1-2 mins, **2**: 2-5 mins, **3**:5+ mins)
 - `tags`: tags separated by comma (`,`) or semicolon (`;`)
-- `link`: you can create a link to an existing exercise by providing path to it in the following form: "Classlabel/Subtopiclabel/Exerciselabel"
-
-**Note**: If you create a link to an existing exercise, you don't need to do provide tags and you can skip **STEP 2** as well.
+- `link`: you can create a link to an existing exercise by providing path to it in the following form: "Classlabel/Subtopiclabel/Exerciselabel". **Note**: If you create a link to an existing exercise, you don't need to do provide tags and you can skip **STEP 2** as well.
+- `dependencies`: these are those "warm-up" exercises which are recommended to solve beforehand. For each such exercise, the following data need to be provided:
+    - `classLabel`: class label of exercise
+    - `subtopicLabel`: subtopic label of exercise
+    - `exerciseLabel`: exercise label
 
 This is a sample for `data.json`:
 ```
 {
     "classes": [
         {
+            "label": "5",
             "name": "5. osztály",
             "topics": [
                 {
@@ -74,7 +77,14 @@ This is a sample for `data.json`:
                                 {
                                     "label": "parity2",
                                     "name": "Páros vagy páratlan?",
-                                    "link": "5/Counting/count_apples"
+                                    "link": "5/Counting/count_apples",
+                                    "dependencies": [
+                                        {
+                                            "classLabel": 5,
+                                            "subtopicLabel": "Counting",
+                                            "exerciseLabel": "count_apples"
+                                        }
+                                    ]
                                 }
                             ]
                         }
