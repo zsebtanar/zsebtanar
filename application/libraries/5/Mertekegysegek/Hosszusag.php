@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Tomeg {
+class Hosszusag {
 
 	// Class constructor
 	function __construct() {
@@ -17,33 +17,28 @@ class Tomeg {
 
 		$units = array(
 			array(
-				'short' => 'mg',
-				'long'	=> 'milligramm',
-				'long2'	=> 'milligrammnak',
+				'short' => 'mm',
+				'long'	=> 'milliméter',
 				'mult'	=> 10
 				),
 			array(
-				'short' => 'g',
-				'long'	=> 'gramm',
-				'long2'	=> 'grammnak',
+				'short' => 'cm',
+				'long'	=> 'centiméter',
 				'mult'	=> 10
 				),
 			array(
-				'short' => 'dkg',
-				'long'	=> 'dekagramm',
-				'long2'	=> 'dekagrammnak',
-				'mult'	=> 100
+				'short' => 'dm',
+				'long'	=> 'deciméter',
+				'mult'	=> 10
 				),
 			array(
-				'short' => 'kg',
-				'long'	=> 'kilogramm',
-				'long2'	=> 'kilogrammnak',
+				'short' => 'm',
+				'long'	=> 'méter',
 				'mult'	=> 1000
 				),
 			array(
-				'short' => 't',
-				'long'	=> 'tonna',
-				'long2'	=> 'tonnának',
+				'short' => 'km',
+				'long'	=> 'kilométer'
 				)
 			);
 
@@ -54,7 +49,7 @@ class Tomeg {
 			$indexFrom 	= rand(2,3);
 			$indexTo 	= $indexFrom - rand(1,2);
 		} else {
-			$indexFrom 	= rand(3,3);
+			$indexFrom 	= rand(3,4);
 			$indexTo 	= $indexFrom - rand(2,3);
 		}
 
@@ -81,7 +76,7 @@ class Tomeg {
 		$unitFrom	= $units[$indexFrom];
 		$unitTo 	= $units[$indexTo];
 
-		$question = 'Számoljuk ki, hogy $'.$valueText.'$ '.$unitFrom['long'].' hány '.$unitTo['long2'].' felel meg!';
+		$question = 'Számoljuk ki, hogy $'.$valueText.'$ '.$unitFrom['long'].' hány '.$unitTo['long'].'nek felel meg!';
 
 		$solution = '$'.$correctText.'\,\text{'.$unitTo['long'].'}$';
 
@@ -109,10 +104,10 @@ class Tomeg {
 			$unitFrom1 	= $units[$i]['short'];
 			$unitFrom2 	= $units[$i]['long'];
 			$unitTo1 	= $units[$i+1]['short'];
-			$unitTo2 	= $units[$i+1]['long2'];
+			$unitTo2 	= $units[$i+1]['long'];
 			$end 		= ($i<count($units)-2 ? ',' : '.');
 
-			$details .= '<li>$'.$mult.'\,\text{'.$unitFrom1.'}=1\,\text{'.$unitTo1.'}$, azaz $'.$mult.'$ '.$unitFrom2.' $1$ '.$unitTo2.' felel meg'.$end.'</li>';
+			$details .= '<li>$'.$mult.'\,\text{'.$unitFrom1.'}=1\,\text{'.$unitTo1.'}$, azaz $'.$mult.'$ '.$unitFrom2.' $1$ '.$unitTo2.'nek felel meg'.$end.'</li>';
 
 		}
 
@@ -167,7 +162,7 @@ class Tomeg {
 
 	function UnitsSummary($units) {
 
-		$text = '<div class="alert alert-info"><strong>Tömeg-mértékegységek</strong>$$';
+		$text = '<div class="alert alert-info"><strong>Hosszúság-mértékegységek</strong>$$';
 
 		foreach ($units as $index => $unit) {
 			$text .= '\text{'.$unit['short'].'}';

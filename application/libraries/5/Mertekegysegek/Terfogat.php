@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Tomeg {
+class Terfogat {
 
 	// Class constructor
 	function __construct() {
@@ -17,33 +17,23 @@ class Tomeg {
 
 		$units = array(
 			array(
-				'short' => 'mg',
-				'long'	=> 'milligramm',
-				'long2'	=> 'milligrammnak',
-				'mult'	=> 10
-				),
-			array(
-				'short' => 'g',
-				'long'	=> 'gramm',
-				'long2'	=> 'grammnak',
-				'mult'	=> 10
-				),
-			array(
-				'short' => 'dkg',
-				'long'	=> 'dekagramm',
-				'long2'	=> 'dekagrammnak',
-				'mult'	=> 100
-				),
-			array(
-				'short' => 'kg',
-				'long'	=> 'kilogramm',
-				'long2'	=> 'kilogrammnak',
+				'short' => 'mm',
+				'long'	=> 'köbmilliméter',
 				'mult'	=> 1000
 				),
 			array(
-				'short' => 't',
-				'long'	=> 'tonna',
-				'long2'	=> 'tonnának',
+				'short' => 'cm',
+				'long'	=> 'köbcentiméter',
+				'mult'	=> 1000
+				),
+			array(
+				'short' => 'dm',
+				'long'	=> 'köbdeciméter',
+				'mult'	=> 1000
+				),
+			array(
+				'short' => 'm',
+				'long'	=> 'köbméter'
 				)
 			);
 
@@ -81,7 +71,7 @@ class Tomeg {
 		$unitFrom	= $units[$indexFrom];
 		$unitTo 	= $units[$indexTo];
 
-		$question = 'Számoljuk ki, hogy $'.$valueText.'$ '.$unitFrom['long'].' hány '.$unitTo['long2'].' felel meg!';
+		$question = 'Számoljuk ki, hogy $'.$valueText.'$ '.$unitFrom['long'].' hány '.$unitTo['long'].'nek felel meg!';
 
 		$solution = '$'.$correctText.'\,\text{'.$unitTo['long'].'}$';
 
@@ -92,7 +82,7 @@ class Tomeg {
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
 			'hints'		=> $hints,
-			'labels'	=> ['right' => '$\text{'.$unitTo['short'].'}$']
+			'labels'	=> ['right' => '$\text{'.$unitTo['short'].'}^3$']
 		);
 	}
 
@@ -105,14 +95,14 @@ class Tomeg {
 
 		for ($i=0; $i < count($units)-1; $i++) {
 
-			$mult 		= $units[$i]['mult'];
+			$mult 		= BigNum($units[$i]['mult']);
 			$unitFrom1 	= $units[$i]['short'];
 			$unitFrom2 	= $units[$i]['long'];
 			$unitTo1 	= $units[$i+1]['short'];
-			$unitTo2 	= $units[$i+1]['long2'];
+			$unitTo2 	= $units[$i+1]['long'];
 			$end 		= ($i<count($units)-2 ? ',' : '.');
 
-			$details .= '<li>$'.$mult.'\,\text{'.$unitFrom1.'}=1\,\text{'.$unitTo1.'}$, azaz $'.$mult.'$ '.$unitFrom2.' $1$ '.$unitTo2.' felel meg'.$end.'</li>';
+			$details .= '<li>$'.$mult.'\,\text{'.$unitFrom1.'}^3=1\,\text{'.$unitTo1.'}^3$, azaz $'.$mult.'$ '.$unitFrom2.' $1$ '.$unitTo2.'nek felel meg'.$end.'</li>';
 
 		}
 
@@ -127,7 +117,7 @@ class Tomeg {
 
 			for ($i=$indexFrom; $i > $indexTo; $i--) {
 
-				$mult 		= $units[$i-1]['mult'];
+				$mult 		= BigNum($units[$i-1]['mult']);
 				$unitFrom 	= $units[$i]['short'];
 				$unitTo 	= $units[$i-1]['short'];
 				$valueNew 	= $value * $mult;
@@ -137,7 +127,7 @@ class Tomeg {
 
 				$result 	= ($i == $indexTo+1 ? '$<span class="label label-success">$'.$valueNewText.'$</span>$' : $valueNewText); 
 
-				$hints[][] 	= $this->UnitsSummary($units).'Az ábráról leolvasható, hogy $1\,\text{'.$unitFrom.'}='.$mult.'\,\text{'.$unitTo.'}$, azaz<br /><br /><div class="text-center">$'.$valueText.'\,\text{'.$unitFrom.'}='.$valueText.'\cdot'.$mult.'\,\text{'.$unitTo.'}='.$result.'\,\text{'.$units[$i-1]['short'].'}$</div>';
+				$hints[][] 	= $this->UnitsSummary($units).'Az ábráról leolvasható, hogy $1\,\text{'.$unitFrom.'}^3='.$mult.'\,\text{'.$unitTo.'}^3$, azaz<br /><br /><div class="text-center">$'.$valueText.'\,\text{'.$unitFrom.'}^3='.$valueText.'\cdot'.$mult.'\,\text{'.$unitTo.'}^3='.$result.'\,\text{'.$units[$i-1]['short'].'}^3$</div>';
 
 				$value = $valueNew;
 			}
@@ -146,7 +136,7 @@ class Tomeg {
 
 			for ($i=$indexFrom; $i < $indexTo; $i++) { 
 
-				$mult 		= $units[$i]['mult'];
+				$mult 		= BigNum($units[$i]['mult']);
 				$unitTo 	= $units[$i+1]['short'];
 				$unitFrom 	= $units[$i]['short'];
 				$valueNew 	= $value / $mult;
@@ -156,7 +146,7 @@ class Tomeg {
 
 				$result 	= ($i == $indexTo-1 ? '$<span class="label label-success">$'.$valueNewText.'$</span>$' : $valueNewText); 
 
-				$hints[][] = $this->UnitsSummary($units).'Az ábráról leolvasható, hogy $'.$mult.'\,\text{'.$unitFrom.'}=1\,\text{'.$unitTo.'}$, azaz<br /><br /><div class="text-center">$'.$valueText.'\,\text{'.$unitFrom.'}='.$valueText.':'.$mult.'\,\text{'.$unitTo.'}='.$result.'\,\text{'.$unitTo.'}$</div>';
+				$hints[][] = $this->UnitsSummary($units).'Az ábráról leolvasható, hogy $'.$mult.'\,\text{'.$unitFrom.'}^3=1\,\text{'.$unitTo.'}^3$, azaz<br /><br /><div class="text-center">$'.$valueText.'\,\text{'.$unitFrom.'}^3='.$valueText.':'.$mult.'\,\text{'.$unitTo.'}^3='.$result.'\,\text{'.$unitTo.'}^3$</div>';
 
 				$value = $valueNew;
 			}
@@ -167,12 +157,12 @@ class Tomeg {
 
 	function UnitsSummary($units) {
 
-		$text = '<div class="alert alert-info"><strong>Tömeg-mértékegységek</strong>$$';
+		$text = '<div class="alert alert-info"><strong>Hosszúság-mértékegységek</strong>$$';
 
 		foreach ($units as $index => $unit) {
-			$text .= '\text{'.$unit['short'].'}';
+			$text .= '\text{'.$unit['short'].'}^3';
 			if ($index < count($units)-1) {
-				$text .= '\overset{\small{\cdot'.$unit['mult'].'}}{\longrightarrow}';
+				$text .= '\overset{\small{\cdot'.BigNum($unit['mult']).'}}{\longrightarrow}';
 			}
 		}
 

@@ -32,7 +32,37 @@
 								{
 									"label": "Tomeg",
 									"name": "Tömeg",
-									"tags": "alapműveletek;szorzás;osztás;mértékegységek;mértékegységek átváltása",
+									"tags": "mértékegységek;tömeg átváltása",
+									"difficulty": 1
+								},
+								{
+									"label": "Hosszusag",
+									"name": "Hosszúság",
+									"tags": "mértékegységek;hosszúság átváltása",
+									"difficulty": 1
+								},
+								{
+									"label": "Urtartalom",
+									"name": "Űrtartalom",
+									"tags": "mértékegységek;űrtartalom átváltása",
+									"difficulty": 1
+								},
+								{
+									"label": "Terulet",
+									"name": "Terület",
+									"tags": "mértékegységek;terület átváltása",
+									"difficulty": 1
+								},
+								{
+									"label": "Terfogat",
+									"name": "Térfogat",
+									"tags": "mértékegységek;térfogat átváltása",
+									"difficulty": 1
+								},
+								{
+									"label": "Ido",
+									"name": "Idő",
+									"tags": "mértékegységek;idő átváltása",
 									"difficulty": 1
 								}
 							]
