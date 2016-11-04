@@ -15,22 +15,32 @@ class Halmazmuveletek {
 
 	function Generate($level) {
 
+		print_r($level);
+
 		// Select operation
-		$operations = ['$A\setminus B$', '$B\setminus A$', '$A\cap B$', '$A\cup B$'];
-		shuffle($operations);
-		$correct = 3;
-		$operation = $operations[$correct];
+		$options = ['$A\setminus B$', '$B\setminus A$', '$A\cap B$', '$A\cup B$'];
 
-		$question = 'Melyik halmazművelet eredménye látható az alábbi ábrán?'.$this->VennDiagram($operation);
-		$solution = $operation;
+		if ($level <= 3) {
+			$correct = 0;
+		} elseif ($level <= 6) {
+			$correct = 1;
+		} else {
+			$correct = 2;
+		}
 
-		$hints = $this->Hints($operations);
+		$operation = $options[$correct];
 
+		$question 	= 'Melyik halmazművelet eredménye látható az alábbi ábrán?'.$this->VennDiagram($operation);
+		$solution 	= $operation;
+		$hints 		= $this->Hints($options);
+
+		shuffleAssoc($options);
+		
 		return array(
 			'question' 	=> $question,
 			'correct' 	=> $correct,
 			'solution'	=> $solution,
-			'options'	=> $operations,
+			'options'	=> $options,
 			'hints'		=> $hints
 		);
 	}

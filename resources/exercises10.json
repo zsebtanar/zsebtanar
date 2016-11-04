@@ -70,6 +70,12 @@
 							"label": "Gyokvonas",
 							"exercises": [
 								{
+									"label": "Gyokvonas",
+									"name": "Gyökvonás",
+									"tags": "gyökvonás",
+									"difficulty": 1
+								},
+								{
 									"label": "Egyenlet1",
 									"name": "Egyenlet",
 									"tags": "egyenlet;gyökvonás",

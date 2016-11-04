@@ -26,6 +26,42 @@
 							]
 						},
 						{
+							"name": "Hatványozás",
+							"label": "Hatvanyozas",
+							"exercises": [
+								{
+									"label": "Hatvany_10",
+									"name": "Hatványozás",
+									"tags": "hatványozás",
+									"difficulty": 1
+								},
+								{
+									"label": "Hatvany",
+									"name": "Hatványozás 2",
+									"tags": "hatványozás",
+									"difficulty": 1
+								},
+								{
+									"label": "Hatvany_szorzat",
+									"name": "Hatványok szorzata",
+									"tags": "hatványozás;hatványazonosság;hatványok szorzata",
+									"difficulty": 1
+								},
+								{
+									"label": "Hatvany_tort",
+									"name": "Hatványok hányadosa",
+									"tags": "hatványozás;hatványazonosság;hatványok hányadosa",
+									"difficulty": 1
+								},
+								{
+									"label": "Hatvany_hatvany",
+									"name": "Hatvány hatványa",
+									"tags": "hatványozás;hatványazonosság;hatvány hatványa",
+									"difficulty": 1
+								}
+							]
+						},
+						{
 							"name": "Százalékszámítás",
 							"label": "Szazalek",
 							"exercises": [

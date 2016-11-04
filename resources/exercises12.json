@@ -149,7 +149,7 @@
 								},
 								{
 									"label": "Szazalek_szalami",
-									"name": "Százalékszámítás (szalámi)",
+									"name": "Szalámi",
 									"link": "9/Aranyossag/Szalami",
 									"ex_order": 1,
 									"dependencies": [
@@ -164,7 +164,24 @@
 									"label": "Gyokvonas",
 									"name": "Gyökvonás",
 									"link": "10/Gyokvonas/Egyenlet1",
-									"ex_order": 3
+									"ex_order": 3,
+									"dependencies": [
+										{
+											"classLabel": 9,
+											"subtopicLabel": "Hatvanyozas",
+											"exerciseLabel": "Hatvany_hatvany"
+										},
+										{
+											"classLabel": 9,
+											"subtopicLabel": "Hatvanyozas",
+											"exerciseLabel": "Hatvany"
+										},
+										{
+											"classLabel": 10,
+											"subtopicLabel": "Gyokvonas",
+											"exerciseLabel": "Gyokvonas"
+										}
+									]
 								},
 								{
 									"label": "Kulonbozo_szamjegyek",
