@@ -6,9 +6,7 @@
 				if (count($easier) > 0) {?>
 
 				<ul class="pager small dropdown">
-					<li class="previous prev_link"><?php
-
-						if (count($easier) == 1) {?>
+					<li class="previous prev_link">
 
 						<a href="#" onclick="unsetexercise(event)" data-toggle="dropdown"><b>
 							<span class="glyphicon glyphicon-chevron-left"></span>
@@ -29,9 +27,7 @@
 
 							}?>
 
-						</ul><?php
-
-						}?>
+						</ul>
 
 					</li>
 				</ul><?php
@@ -54,9 +50,7 @@
 				if (count($harder) > 0) {?>
 
 				<ul class="pager small dropdown">
-					<li class="next next_link"><?php
-
-						if (count($harder) == 1) {?>
+					<li class="next next_link">
 
 						<a href="#" onclick="unsetexercise(event)" data-toggle="dropdown"><b>
 							<span class="breadcumb-title">Nehezebb</span>
@@ -77,9 +71,7 @@
 
 							}?>
 
-						</ul><?php
-
-						}?>
+						</ul>
 
 					</li>
 				</ul><?php
