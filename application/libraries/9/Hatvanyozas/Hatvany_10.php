@@ -42,7 +42,6 @@ class Hatvany_10 {
 
 	function Hints($base, $exp, $level) {
 
-		$mult = array_fill(0, $exp, $base);
 		$result = pow($base, $exp);
 
 		if ($level <= 3) {
