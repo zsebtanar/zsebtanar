@@ -322,7 +322,7 @@ input.ui-autocomplete-loading {
 .star-last {
 	margin-right: 3px;
 }
-@media (max-width: 1120px) {
+@media (max-width: 1250px) {
 	.navbar-header {
 			float: none;
 	}
@@ -375,6 +375,28 @@ input.ui-autocomplete-loading {
 	}
 	.navbar-nav .open .dropdown-menu > li > a, .navbar-nav .open .dropdown-menu .dropdown-header {
 	    padding: 5px 15px 5px 25px;
+	}
+	.navbar-right {
+	    padding-right: 0px; 
+	}
+	.navbar-collapse.in {
+	    overflow-y: auto;
+	}
+	.navbar-collapse.collapse {
+	    overflow-y: auto;
+	}
+}
+@media (min-width: 760px) {
+	.navbar-collapse.in {
+	    overflow-y: auto;
+	}
+	.navbar-collapse.collapse {
+	    overflow-x: hidden!important;
+	}
+}
+@media (min-width: 1250px) {
+	.navbar-collapse.collapse {
+	    overflow: visible !important;
 	}
 }
 .breadcumb-title {
