@@ -151,7 +151,7 @@
 								{
 									"label": "Teszt_diagram",
 									"name": "Teszt",
-									"name": "halmazműveletek",
+									"tags": "halmazműveletek",
 									"difficulty": 3
 								}
 							]
