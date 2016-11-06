@@ -8,6 +8,18 @@
 					"name": "Alapok",
 					"subtopics": [
 						{
+							"name": "Alapműveletek",
+							"label": "Alapmuveletek",
+							"exercises": [
+								{
+									"label": "Szamjegyek",
+									"name": "Számjegyek",
+									"tags": "számjegyek",
+									"difficulty": 1
+								}
+							]
+						},
+						{
 							"name": "Szöveges feladatok",
 							"label": "Szoveges",
 							"exercises": [

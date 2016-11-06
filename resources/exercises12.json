@@ -187,13 +187,27 @@
 									"label": "Kulonbozo_szamjegyek",
 									"name": "Számjegyek",
 									"link": "11/Kombinatorika/Szamjegyek",
-									"ex_order": 4
+									"ex_order": 4,
+									"dependencies": [
+										{
+											"classLabel": 5,
+											"subtopicLabel": "Alapmuveletek",
+											"exerciseLabel": "Szamjegyek"
+										}
+									]
 								},
 								{
 									"label": "Grafok_ismerosok",
 									"name": "Gráfok (ismerősök)",
 									"link": "11/Grafok/Ismerosok",
-									"ex_order": 5
+									"ex_order": 5,
+									"dependencies": [
+										{
+											"classLabel": 11,
+											"subtopicLabel": "Grafok",
+											"exerciseLabel": "Fokszam"
+										}
+									]
 								},
 								{
 									"label": "Exponencialis_egyenlet",

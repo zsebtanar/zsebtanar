@@ -36,6 +36,24 @@
 							"label": "Grafok",
 							"exercises": [
 								{
+									"label": "Meret",
+									"name": "Gráf mérete",
+									"tags": "gráfok;gráf mérete",
+									"difficulty": 1
+								},
+								{
+									"label": "Fokszam",
+									"name": "Fokszám",
+									"tags": "gráfok;csúcs fokszáma",
+									"difficulty": 1
+								},
+								{
+									"label": "Elekszama",
+									"name": "Élek száma",
+									"tags": "gráfok;gráf éleinek száma",
+									"difficulty": 1
+								},
+								{
 									"label": "Verseny",
 									"name": "Verseny",
 									"tags": "gráfok",
