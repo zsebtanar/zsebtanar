@@ -407,3 +407,29 @@ input.ui-autocomplete-loading {
 		display: inline;
 	}
 }
+.pager-danger li > a,
+.pager-danger li > a:hover,
+.pager-danger li > a:focus {
+    color: #a94442;
+    border-color: #ebccd1;
+    background-color: #f2dede;
+}
+.pager-danger li > ul > li > a,
+.pager-danger li > ul > li > a:hover,
+.pager-danger li > ul > li > a:focus {
+    background-color: #e8e8e8;
+    color: #262626;
+}
+.pager-success li > a,
+.pager-success li > a:hover,
+.pager-success li > a:focus {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;;
+}
+.pager-success li > ul > li > a,
+.pager-success li > ul > li > a:hover,
+.pager-success li > ul > li > a:focus {
+    background-color: #e8e8e8;
+    color: #262626;
+}

@@ -76,6 +76,8 @@ class Html extends CI_model {
 		$data['easier'] = $this->Database->GetEasierExercises($exerciseID);
 		$data['harder'] = $this->Database->GetHarderExercises($classlabel, $subtopiclabel, $exerciselabel);
 		$data['random'] = $this->Database->RandomExerciseLink();
+		$data['prev'] 	= $this->Database->ExerciseLink($exerciseID-1);
+		$data['next'] 	= $this->Database->ExerciseLink($exerciseID+1);
 
 		return $data;
 	}
