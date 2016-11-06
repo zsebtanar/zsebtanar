@@ -15,8 +15,6 @@ class Halmazmuveletek {
 
 	function Generate($level) {
 
-		print_r($level);
-
 		// Select operation
 		$options = ['$A\setminus B$', '$B\setminus A$', '$A\cap B$', '$A\cup B$'];
 
