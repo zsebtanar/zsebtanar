@@ -64,18 +64,8 @@ div.navbar-header>a{
 	padding: 15px 5px; 
 }
 
-.navbar-logo {
-	display: none;
-}
-
 .navbar-right {
 	padding-right: 10px;
-}
-
-@media (min-width: 300px) {
-	.navbar-logo {
-		display: inherit;
-	}
 }
 
 .results {
@@ -324,7 +314,7 @@ input.ui-autocomplete-loading {
 .star-last {
 	margin-right: 3px;
 }
-@media (max-width: 1250px) {
+@media (max-width: 830px) {
 	.navbar-header {
 			float: none;
 	}
@@ -396,16 +386,16 @@ input.ui-autocomplete-loading {
 	    overflow-x: hidden!important;
 	}
 }
-@media (min-width: 1250px) {
+@media (min-width: 830px) {
 	.navbar-collapse.collapse {
 	    overflow: visible !important;
 	}
 }
-.breadcumb-title {
+.breadcumb-title, .search-title, .navbar-logo {
 	display: none;
 }
 @media (min-width: 500px) {
-	.breadcumb-title {
+	.breadcumb-title, .search-title, .navbar-logo {
 		display: inline;
 	}
 }
@@ -434,4 +424,16 @@ input.ui-autocomplete-loading {
 .pager-success li > ul > li > a:focus {
     background-color: #e8e8e8;
     color: #262626;
+}
+
+/*Autocomplete search*/
+.ui-autocomplete {
+	max-height: 200px;
+	overflow-y: auto;
+	/* prevent horizontal scrollbar */
+	overflow-x: hidden;
+}
+/* IE 6 doesn't support max-height we use height instead, but this forces the menu to always be this tall */
+* html .ui-autocomplete {
+	height: 200px;
 }

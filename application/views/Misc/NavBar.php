@@ -66,7 +66,7 @@
 
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<b><?php echo $class['name'];?></b><span class="caret"></span>
+						<b><?php echo str_replace("osztály", "o.", $class['name']);?></b><span class="caret"></span>
 					<ul class="dropdown-menu"><?php
 
 					if (count($class['topics']) > 0) {

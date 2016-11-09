@@ -58,17 +58,36 @@
 <!-- <script type="text/javascript" src="http://localhost/MathJax-master/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
 <!-- <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
 
-<!-- Autocomplete -->
+
 <script type="text/javascript">
+
+	// Autocomplete
 	$(function(){
 		$("#exercise_tags").autocomplete({
-			source: "action/gettagexercises", // path to the get_birds method
-			select: function( event, ui ) { 
-            	window.location.href = ui.item.value;
-        	}
+			source: "action/gettagexercises",
+			minLength: 1000,
+			close: function(event, ui) {
+				$('#exercise_tags').autocomplete('option', 'minLength', 1000);
+			}
+		});
+
+		$("#search_button").click(function() {
+			var width = $(".input-group").width();
+			$("#exercise_tags").autocomplete({
+				select: function( event, ui ) { 
+	            	window.location.href = ui.item.value;
+	        	},
+	        	search: $('#exercise_tags').val(),
+	        	minLength: 0,
+	        	open: function() { $('.ui-menu').width(width) }  
+	        });
+	        $('#exercise_tags').autocomplete('search', $('#exercise_tags').val());
 		});
 	});
-</script><?php
+</script>
+
+
+<?php
 
 if (base_url() == 'http://zsebtanar.hu/') {?>
 
