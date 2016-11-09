@@ -45,14 +45,6 @@
 			
 			</div>
 			<div class="col-xs-4">
-				<ul class="pager small text-center">
-					<li class="prev_link">
-						<a href="<?php echo $random;?>" onclick="unsetexercise(event)"><b>
-							<span class="glyphicon glyphicon-refresh"></span>
-							<span class="breadcumb-title">Véletlen</span></b>
-						</a>
-					</li>
-				</ul>
 			</div>
 			<div class="col-xs-4">
 				<ul class="pager small">
