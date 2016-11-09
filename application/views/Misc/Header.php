@@ -6,7 +6,7 @@
 <meta name="google-site-verification" content="zDMT36c6WVy68sDdP-1BBbCVeAYEu2P3RUTXkHyWVDw" />
 
 <meta charset="UTF-8">
-<link rel="icon" type="image/png" href="<?php echo base_url();?>assets/images/logo_small.png">
+<link rel="icon" type="image/png" href="<?php echo base_url();?>assets/images/logo.png">
 
 <title>
 

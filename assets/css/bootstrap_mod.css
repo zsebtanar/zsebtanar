@@ -13,8 +13,10 @@ body {
 	font-size: 20px;
 }
 
-.img_main {
+.img-main {
 	display:inline;
+	max-width: 100%;
+	height: auto;
 }
 
 .img-question {

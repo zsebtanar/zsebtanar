@@ -10,7 +10,7 @@
 			</button>
 
 			<a class="navbar-brand" href="<?php echo base_url();?>" onclick="unsetexercise(event)">
-				<img src="<?php echo base_url();?>assets/images/logo_small.png" alt="logo" width="20">
+				<img src="<?php echo base_url();?>assets/images/logo.svg" alt="logo" width="20">
 			</a>
 
 			<a class="navbar-brand navbar-logo" href="<?php echo base_url();?>" onclick="unsetexercise(event)">
