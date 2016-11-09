@@ -17,9 +17,9 @@ class Ismerosok {
 	// Define degree of unknown point of graph
 	function Generate($level) {
 
-		if ($level <= 3) {
+		if ($level <= 1) {
 			$size = rand(4,5);
-		} elseif ($level <= 6) {
+		} elseif ($level <= 2) {
 			$size = rand(5,6);
 		} else {
 			$size = rand(7,8);

@@ -90,7 +90,7 @@ class Session extends CI_model {
 		// Update levels
 		if ($hints_used == 0 && $level_user < $level_max) {
 			$levels = $this->session->userdata('levels');
-			$levels[$id] = $level_user + 3;
+			$levels[$id] = $level_user + 1;
 			$this->session->set_userdata('levels', $levels);
 		}
 

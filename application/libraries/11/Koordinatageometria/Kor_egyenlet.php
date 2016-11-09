@@ -48,9 +48,9 @@ class Kor_egyenlet {
 		// Calculate distances
 		// dist1 : distance between circle and axis
 		// dist2 : distance between circle and point
-		if ($level <= 3) {
+		if ($level <= 1) {
 			list($dist1,$dist2) = (rand(1,2)==1 ? [3,4] : [4,3]);
-		} elseif ($level <= 6) {
+		} elseif ($level <= 2) {
 			list($dist1,$dist2) = (rand(1,2)==1 ? [5,12] : [12,5]);
 		} else {
 			list($dist1,$dist2) = (rand(1,2)==1 ? [8,15] : [15,8]);

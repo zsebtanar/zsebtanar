@@ -18,9 +18,9 @@ class Halmazmuveletek {
 		// Select operation
 		$options = ['$A\setminus B$', '$B\setminus A$', '$A\cap B$', '$A\cup B$'];
 
-		if ($level <= 3) {
+		if ($level <= 1) {
 			$correct = 0;
-		} elseif ($level <= 6) {
+		} elseif ($level <= 2) {
 			$correct = 1;
 		} else {
 			$correct = 2;

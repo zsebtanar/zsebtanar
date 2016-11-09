@@ -16,11 +16,11 @@ class Szamok {
 	// Define members of intersection/union/difference of sets
 	function Generate($level) {
 
-		if ($level <= 3) {
+		if ($level <= 1) {
 			$max_num 	= 10;
 			$set_size1 	= rand(2,4);
 			$set_size2	= rand(2,4);
-		} elseif ($level <= 6) {
+		} elseif ($level <= 2) {
 			$max_num 	= 15;
 			$set_size1 	= rand(4,6);
 			$set_size2	= rand(4,6);

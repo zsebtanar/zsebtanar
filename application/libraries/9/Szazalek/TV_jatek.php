@@ -16,9 +16,9 @@ class TV_jatek {
 
 	function Generate($level) {
 
-		if ($level <= 3) {
+		if ($level <= 1) {
 			$questions = rand(2,3);
-		} elseif ($level <= 6) {
+		} elseif ($level <= 2) {
 			$questions = rand(3,4);
 		} else {
 			$questions = rand(4,5);

@@ -16,10 +16,10 @@ class Oszthatosag {
 	// Define probability of divisibility
 	function Generate($level) {
 
-		if ($level <= 3) {
+		if ($level <= 1) {
 			$num = rand(3,10);
 			$divisor = 3;
-		} elseif ($level <= 6) {
+		} elseif ($level <= 2) {
 			$num = rand(10,30);
 			$divisor = rand(4,5);
 		} else {

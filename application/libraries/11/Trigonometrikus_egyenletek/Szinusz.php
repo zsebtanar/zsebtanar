@@ -25,7 +25,7 @@ class Szinusz {
 		// sin(a*x) = b
 		$a = $a_options[0];
 		$b = $b_options[0];
-		$a = ($level <= 3 ? 1 : $a);
+		$a = ($level <= 1 ? 1 : $a);
 
 		// // Original exercise
 		// $a_options = [1, 0.5, 2];

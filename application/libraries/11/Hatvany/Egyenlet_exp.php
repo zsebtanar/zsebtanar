@@ -16,10 +16,10 @@ class Egyenlet_exp {
 
 	function Generate($level) {
 
-		if ($level <= 3) {
+		if ($level <= 1) {
 			$base 	= rand(2,3);
 			$result	= rand(5,10);
-		} elseif ($level <= 6) {
+		} elseif ($level <= 2) {
 			$base 	= rand(4,5);
 			$result	= rand(10,15);
 		} else {

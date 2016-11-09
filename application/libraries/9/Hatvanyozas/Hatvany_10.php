@@ -15,10 +15,10 @@ class Hatvany_10 {
 
 	function Generate($level) {
 
-		if ($level <= 3) {
+		if ($level <= 1) {
 			$base 	= rand(10,15);
 			$exp 	= 0;
-		} elseif ($level <= 6) {
+		} elseif ($level <= 2) {
 			$base 	= 1;
 			$exp 	= rand(3,9);
 		} else {
@@ -44,9 +44,9 @@ class Hatvany_10 {
 
 		$result = pow($base, $exp);
 
-		if ($level <= 3) {
+		if ($level <= 1) {
 			$hints[][]	= '<div class="alert alert-info"><b>Nulladik hatvány</b><br/>Minden szám $0$-adik hatványa $1$-gyel egyenlő (a $0^0$ kifejezést nem értelmezzük).</div>';
-		} elseif ($level <= 6) {
+		} elseif ($level <= 2) {
 			$hints[][]	= '<div class="alert alert-info"><b>Egy hatványa</b><br/>Az $1$ akármelyik hatványa $1$-gyel egyenlő.</div>';
 		} else {
 			$hints[][]	= '<div class="alert alert-info"><b>Nulla hatványa</b><br/>A $0$ minden hatványa $0$-val egyenlő (a $0^0$ kifejezést nem értelmezzük).</div>';

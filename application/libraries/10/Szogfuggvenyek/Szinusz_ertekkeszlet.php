@@ -20,10 +20,10 @@ class Szinusz_ertekkeszlet {
 		$a = rand(-$level, $level);
 		$b = rand(-$level, $level);
 
-		if ($level <= 3) {
+		if ($level <= 1) {
 			$a = rand(-$level, $level);
 			$b = 1;
-		} elseif ($level <= 6) {
+		} elseif ($level <= 2) {
 			$a = 0;
 			$b = pow(-1, rand(0,1)) * rand(3, $level);
 		} else {

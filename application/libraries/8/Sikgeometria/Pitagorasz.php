@@ -19,12 +19,12 @@ class Pitagorasz {
 		$CI =& get_instance();
 		$CI->load->library('10/Szogfuggvenyek/Haromszog_tangens', NULL, 'tangens');
 
-		if ($level <= 3) {
+		if ($level <= 1) {
 			$mult = rand(3,9);
 			$AC = 3*$mult;
 			$BC = 4*$mult;
 			$AB = 5*$mult;
-		} elseif ($level <= 6) {
+		} elseif ($level <= 2) {
 			$mult = rand(2,3);
 			$AC = 5*$mult;
 			$BC = 12*$mult;

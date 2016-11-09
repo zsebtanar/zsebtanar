@@ -35,7 +35,7 @@ class Setup extends CI_model {
 				),
 			'exercises' => array(
 				'subtopicID'=> 'FROM SESSION',
-				'level' 	=> 9,
+				'level' 	=> 3,
 				'label'		=> 'NOT NULL',
 				'name'		=> 'NOT NULL',
 				'difficulty'=> 3,

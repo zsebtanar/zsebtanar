@@ -53,7 +53,7 @@ class Haromszog_szogei {
 	// Define random angles
 	function GetAngles($level) {
 
-		if ($level <= 3) { // 30°, 60°, 90° ...
+		if ($level <= 1) { // 30°, 60°, 90° ...
 
 			$num1 = rand(1,4);
 			$num2 = rand(1,5-$num1);
@@ -62,7 +62,7 @@ class Haromszog_szogei {
 			$angles[1] = $num2 * 30;
 			$angles[2] = $num3 * 30;
 
-		} elseif ($level <= 6) { // 10°, 20°, 30° ...
+		} elseif ($level <= 2) { // 10°, 20°, 30° ...
 
 			$num1 = rand(1,16);
 			$num2 = rand(1,17-$num1);

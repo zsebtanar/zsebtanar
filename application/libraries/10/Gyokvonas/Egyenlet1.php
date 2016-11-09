@@ -16,10 +16,10 @@ class Egyenlet1 {
 	// Solve equation for square root
 	function Generate($level) {
 
-		if ($level <= 3) {
+		if ($level <= 1) {
 			$num = rand(2,5);
 			$exp = 2;
-		} elseif ($level <= 6) {
+		} elseif ($level <= 2) {
 			$num = rand(5,10);
 			$exp = rand(2,3);
 		} else {

@@ -16,10 +16,10 @@ class Tigris_tenyeszt {
 
 	function Generate($level) {
 
-		if ($level <= 3) {
+		if ($level <= 1) {
 			$male 	= rand(2,3);
 			$female = $male + rand(1,2);
-		} elseif ($level <= 6) {
+		} elseif ($level <= 2) {
 			$male 	= rand(3,4);
 			$female = $male + rand(2,3);
 		} else {

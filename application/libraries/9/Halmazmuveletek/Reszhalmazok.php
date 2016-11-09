@@ -16,11 +16,11 @@ class Reszhalmazok {
 	// Define total number of subsets of a set
 	function Generate($level) {
 
-		if ($level <= 3) {
+		if ($level <= 1) {
 			$numbers = range(1,5);
 			$set_size = rand(3,4);
 			$subset_size = 2;
-		} elseif ($level <= 6) {
+		} elseif ($level <= 2) {
 			$numbers = range(1,10);
 			$set_size = rand(4,6);
 			$subset_size = rand(2,3);

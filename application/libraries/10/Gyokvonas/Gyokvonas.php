@@ -15,9 +15,9 @@ class Gyokvonas {
 
 	function Generate($level) {
 
-		if ($level <= 3) {
+		if ($level <= 1) {
 			$num = rand(2,3);
-		} elseif ($level <= 6) {
+		} elseif ($level <= 2) {
 			$num = rand(4,6);
 		} else {
 			$num = rand(7,15);

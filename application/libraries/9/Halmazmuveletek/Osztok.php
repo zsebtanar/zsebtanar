@@ -58,9 +58,9 @@ class Osztok {
 		$num = 1;
 		$factors = [];
 
-		if ($level <= 3) {
+		if ($level <= 1) {
 			$primes = [2, 2, 3, 3, 5];
-		} elseif ($level <= 6) {
+		} elseif ($level <= 2) {
 			$primes = [2, 2, 3, 3, 5, 7];
 		} else {
 			$primes = [2, 2, 3, 5, 7, 11, 13];

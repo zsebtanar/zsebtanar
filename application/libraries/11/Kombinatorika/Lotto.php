@@ -16,10 +16,10 @@ class Lotto {
 
 	function Generate($level) {
 
-		if ($level <= 3) {
+		if ($level <= 1) {
 			$max 	= rand(4,5);
 			$pull 	= rand(2,3);
-		} elseif ($level <= 6) {
+		} elseif ($level <= 2) {
 			$max 	= rand(6,8);
 			$pull 	= rand(3,5);
 		} else {

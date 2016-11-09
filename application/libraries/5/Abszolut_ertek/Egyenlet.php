@@ -16,10 +16,10 @@ class Egyenlet {
 	// Define solution of equation for absolute values
 	function Generate($level) {
 
-		if ($level <= 3) {
+		if ($level <= 1) {
 			$diff = pow(-1,rand(1,2))*rand(2,3);
 			$abs_val = rand(1,3);
-		} elseif ($level <= 6) {
+		} elseif ($level <= 2) {
 			$diff = pow(-1,rand(1,2))*rand(4,6);
 			$abs_val = rand(1,6);
 		} else {

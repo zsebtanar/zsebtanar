@@ -42,10 +42,10 @@ class Hosszusag {
 				)
 			);
 
-		if ($level <= 3) {
+		if ($level <= 1) {
 			$indexFrom 	= rand(1,2);
 			$indexTo 	= $indexFrom - rand(1,1);
-		} elseif ($level <= 6) {
+		} elseif ($level <= 2) {
 			$indexFrom 	= rand(2,3);
 			$indexTo 	= $indexFrom - rand(1,2);
 		} else {

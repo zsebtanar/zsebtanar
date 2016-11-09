@@ -15,10 +15,10 @@ class Hatvany {
 
 	function Generate($level) {
 
-		if ($level <= 3) {
+		if ($level <= 1) {
 			$base 	= rand(2,3);
 			$exp 	= rand(2,3);
-		} elseif ($level <= 6) {
+		} elseif ($level <= 2) {
 			$base 	= rand(4,9);
 			$exp 	= rand(4,5);
 		} else {

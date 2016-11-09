@@ -16,10 +16,10 @@ class Osztas_teszt3 {
 	// Test for square root
 	function Generate($level) {
 
-		if ($level <= 3) {
+		if ($level <= 1) {
 			$num1 = pow(2,rand(2,3));
 			$num2 = pow(2,rand(4,5));
-		} elseif ($level <= 6) {
+		} elseif ($level <= 2) {
 			$num1 = pow(2,rand(1,3)) * pow(3,rand(0,1));
 			$num2 = pow(2,rand(1,4)) * pow(3,rand(2,3));
 		} else {

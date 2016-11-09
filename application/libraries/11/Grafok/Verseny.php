@@ -16,9 +16,9 @@ class Verseny {
 	// Define degree of unknown point of graph
 	function Generate($level) {
 
-		if ($level <= 3) {
+		if ($level <= 1) {
 			$num = rand(4,5);
-		} elseif ($level <= 6) {
+		} elseif ($level <= 2) {
 			$num = rand(5,6);
 		} else {
 			$num = rand(7,8);
@@ -58,12 +58,12 @@ class Verseny {
 
 	function Degrees($level, $num) {
 
-		if ($level <= 3) {
+		if ($level <= 1) {
 			$group1 = 0;
 			$group2 = rand(1,2);
 			$group4 = ($num-$group1 >= 2 ? rand(0,1)*2 : 0);
 			$group3 = $num-$group1-$group2-$group4;
-		} elseif ($level <= 6) {
+		} elseif ($level <= 2) {
 			$group1 = rand(1,2);
 			$group2 = rand(1,2);
 			$group4 = ($num-$group1 >= 2 ? rand(0,1)*2 : 0);

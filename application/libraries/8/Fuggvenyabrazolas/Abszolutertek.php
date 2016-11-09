@@ -25,7 +25,7 @@ class Abszolutertek {
 		$b = rand(-$level, $level);
 		$b = 0;
 
-		if ($level <= 3) {
+		if ($level <= 1) {
 			list($a, $b) = (rand(1,2) == 1 ? [0,$b] : [$a,0]);
 		}
 

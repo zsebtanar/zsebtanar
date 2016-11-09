@@ -41,10 +41,10 @@ class Atlag {
 
 	function Set($level) {
 
-		if ($level <= 3) {
+		if ($level <= 1) {
 			$length = rand(2,3);
 			$average = rand(2,3);
-		} elseif ($level <= 6) {
+		} elseif ($level <= 2) {
 			$length = rand(4,6);
 			$average = rand(4,6);
 		} else {
