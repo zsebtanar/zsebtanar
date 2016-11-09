@@ -58,6 +58,13 @@
 									"name": "Hatvány hatványa",
 									"tags": "hatványozás;hatványazonosság;hatvány hatványa",
 									"difficulty": 1
+								},
+								{
+									"label": "Nevezetes_azonossag",
+									"name": "Nevezetes azonosság",
+									"tags": "nevezetes azonosság",
+									"difficulty": 1,
+									"level": 6
 								}
 							]
 						},
