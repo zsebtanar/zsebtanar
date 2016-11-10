@@ -39,7 +39,7 @@ The hierachy for each JSON-file is the following:
 Each of them *must* have a `name` attribute. Classes, subtopics and exercises *must* have an additional `label` attribute, which is the name of the PHP class file (avoid space and accents). Exercises *can* have additional attributes:
 
 - `ex_order`: order of exercise (if not set, order of exercise will be generated automatically)
-- `level`: how many times user has to solve exercise to complete it (default value: **9**)
+- `level`: how many times user has to solve exercise to complete it (default value: **3**)
 - `difficulty`: how much time needed to solve problem (**1**: 1-2 mins, **2**: 2-5 mins, **3**:5+ mins)
 - `tags`: tags separated by comma (`,`) or semicolon (`;`)
 - `link`: you can create a link to an existing exercise by providing path to it in the following form: "Classlabel/Subtopiclabel/Exerciselabel". **Note**: If you create a link to an existing exercise, you don't need to do provide tags and you can skip **STEP 2** as well.
