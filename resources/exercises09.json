@@ -60,10 +60,10 @@
 									"difficulty": 1
 								},
 								{
-									"label": "Nevezetes_azonossag",
-									"name": "Nevezetes azonosság",
-									"tags": "nevezetes azonosság",
-									"difficulty": 1,
+									"label": "Nevezetes_azonossagok",
+									"name": "Nevezetes azonosságok",
+									"tags": "nevezetes azonosságok",
+									"difficulty": 2,
 									"level": 6
 								}
 							]

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Nevezetes_azonossag {
+class Nevezetes_azonossagok {
 
 	// Class constructor
 	function __construct() {
