@@ -165,7 +165,8 @@ class Action extends CI_controller {
 
 		$this->load->library('email');
 
-		if (isset($_GET['search_tag']) && base_url() == 'http://zsebtanar.hu/') {
+
+		if (isset($_GET['search_tag']) && base_url() != 'http://localhost/zsebtanar/') {
 
 			$search_tag = $_GET['search_tag'];
 
@@ -175,7 +176,9 @@ class Action extends CI_controller {
 			$this->email->subject('Új keresés kifejezés a zsebtanar.hu-n!');
 			$this->email->message($search_tag);
 
-			$this->email->send();
+			if (!$this->email->send()) {
+				print_r($this->email->print_debugger());
+			}
 
 		}
 

@@ -90,7 +90,7 @@
 
 <?php
 
-if (base_url() == 'http://zsebtanar.hu/') {?>
+if (base_url() != 'http://localhost/zsebtanar/') {?>
 
 <!-- Smartlook -->
 <script type="text/javascript">
