@@ -64,7 +64,7 @@
 	// Autocomplete
 	$(function(){
 		$("#exercise_tags").autocomplete({
-			source: "action/gettagexercises",
+			source: "<?php echo base_url();?>action/gettagexercises",
 			select: function( event, ui ) { 
 	            	window.location.href = ui.item.value;
 	        	}
