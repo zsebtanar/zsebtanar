@@ -215,6 +215,18 @@
 									"difficulty": 1
 								},
 								{
+									"label": "Median",
+									"name": "Medián",
+									"tags": "statisztika;medián",
+									"difficulty": 1
+								},
+								{
+									"label": "Modusz",
+									"name": "Módusz",
+									"tags": "statisztika;módusz",
+									"difficulty": 1
+								},
+								{
 									"label": "Szoras",
 									"name": "Szórás",
 									"tags": "statisztika;szórás",
