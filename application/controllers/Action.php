@@ -131,7 +131,7 @@ class Action extends CI_controller {
 	}
 
 	/**
-	 * Get exercises for specific tagt (AJAX)
+	 * Get exercises for specific tag (AJAX)
 	 *
 	 * @param string $tag Exercise tag (from REQUEST)
 	 *
@@ -144,7 +144,35 @@ class Action extends CI_controller {
 		if (isset($_GET['term'])) {
 			$tag = strtolower($_GET['term']);
 			$result = $this->Database->GetTagExercises($tag);
+			echo json_encode($result);
 		}
+	}
+
+	/**
+	 * Save search tag (AJAX)
+	 *
+	 * When user uses the search bar for the first time,
+	 * the program will automatically save the search tag.
+	 *
+	 * @param string $search_tag Search tag (from REQUEST)
+	 *
+	 * @return void
+	 */
+	public function SaveSearchTag() {
+
+		$_SESSION['show_search_message'] = TRUE;
+		$_SESSION['first_search_done'] = TRUE;
+
+		if (isset($_GET['search_tag'])) {
+
+			$search_tag = $_GET['search_tag'];
+			$logfile = 'resources/search_tags.txt';
+			$search_info = date("Y-m-d H:i:s")." - ".$search_tag."\n";
+			file_put_contents($logfile, $search_info, FILE_APPEND | LOCK_EX);
+
+		}
+
+		echo json_encode(TRUE);
 	}
 }
 

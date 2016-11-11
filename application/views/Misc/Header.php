@@ -65,23 +65,24 @@
 	$(function(){
 		$("#exercise_tags").autocomplete({
 			source: "action/gettagexercises",
-			minLength: 1000,
-			close: function(event, ui) {
-				$('#exercise_tags').autocomplete('option', 'minLength', 1000);
-			}
+			select: function( event, ui ) { 
+	            	window.location.href = ui.item.value;
+	        	}
 		});
 
 		$("#search_button").click(function() {
-			var width = $(".input-group").width();
-			$("#exercise_tags").autocomplete({
-				select: function( event, ui ) { 
-	            	window.location.href = ui.item.value;
-	        	},
-	        	search: $('#exercise_tags').val(),
-	        	minLength: 0,
-	        	open: function() { $('.ui-menu').width(width) }  
-	        });
-	        $('#exercise_tags').autocomplete('search', $('#exercise_tags').val());
+			var search_tag = $("#search_tag").val();
+			$.ajax({
+				type: "GET",
+				url: "<?php echo base_url();?>action/savesearchtag",
+				data: {
+					search_tag: JSON.stringify(search_tag)
+				},
+				dataType: "json",
+				success: function(data) {
+					location.reload();
+				}
+			});
 		});
 	});
 </script>

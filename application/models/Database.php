@@ -380,10 +380,10 @@ class Database extends CI_model {
 				$new_row['value'] = base_url().'view/tag/'.$row['label'];
 				$row_set[] = $new_row; //build an array
 			}
-			echo json_encode($row_set); //format the array into json data
+			return $row_set; //format the array into json data
+		} else {
+			return;
 		}
-
-		return;
 	}
 
 	/**
