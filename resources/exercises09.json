@@ -65,6 +65,18 @@
 									"tags": "nevezetes azonosságok",
 									"difficulty": 2,
 									"level": 6
+								},
+								{
+									"label": "Normal_alak1",
+									"name": "Normál alak 1",
+									"tags": "normál alak",
+									"difficulty": 2
+								},
+								{
+									"label": "Normal_alak2",
+									"name": "Normál alak 2",
+									"tags": "normál alak",
+									"difficulty": 2
 								}
 							]
 						},
