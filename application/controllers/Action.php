@@ -152,7 +152,7 @@ class Action extends CI_controller {
 	 * Save search tag (AJAX)
 	 *
 	 * When user uses the search bar for the first time,
-	 * the program will automatically save the search tag.
+	 * the program will automatically sends the search tag via email.
 	 *
 	 * @param string $search_tag Search tag (from REQUEST)
 	 *
@@ -163,12 +163,19 @@ class Action extends CI_controller {
 		$_SESSION['show_search_message'] = TRUE;
 		$_SESSION['first_search_done'] = TRUE;
 
-		if (isset($_GET['search_tag'])) {
+		$this->load->library('email');
+
+		if (isset($_GET['search_tag']) && base_url() == 'http://zsebtanar.hu/') {
 
 			$search_tag = $_GET['search_tag'];
-			$logfile = 'resources/search_tags.txt';
-			$search_info = date("Y-m-d H:i:s")." - ".$search_tag."\n";
-			file_put_contents($logfile, $search_info, FILE_APPEND | LOCK_EX);
+
+			$this->email->from('noreply@zsebtanar.hu', 'Zsebtanár');
+			$this->email->to('szaboviktor1988@gmail.com');
+
+			$this->email->subject('Új keresés kifejezés a zsebtanar.hu-n!');
+			$this->email->message($search_tag);
+
+			$this->email->send();
 
 		}
 

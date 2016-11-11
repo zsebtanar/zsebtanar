@@ -13,13 +13,15 @@
 
 		if (isset($_SESSION['show_search_message']) && $_SESSION['show_search_message']) {?>
 
-			<div class="alert alert-danger text-center">
-				<b>Hoppá... </b>Sajnos nem találtunk ilyen témakört. Próbáld meg még egyszer!
+			<div class="alert alert-danger text-center small">
+				<b>Hoppá... </b>Úgy tűnik, valami hiba történt. Megpróbálnád még egyszer?
 			</div><?php
 
 			$_SESSION['show_search_message'] = FALSE;
 
 		}
+
+		// unset($_SESSION['first_search_done']);
 
 		if (!isset($_SESSION['first_search_done']) || $_SESSION['first_search_done']==FALSE) {?>
 
