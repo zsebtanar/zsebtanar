@@ -10,10 +10,14 @@
 <body>
 	<div class="container"><?php
 
+	$debugMode = 0;
+
 	$this->load->view('Misc/GoogleAnalytics');
 	$this->load->view('Modal/Cookie');
 
 	if ($type == 'main') {
+
+		$maindata['debugMode'] = $debugMode;
 		
 		$this->load->view('Title/Main');
 		$this->load->view('Body/Main', $maindata);
@@ -29,7 +33,7 @@
 
 	} elseif ($type == 'exercise') {
 
-		$exercise['debugMode'] = 0;
+		$exercise['debugMode'] = $debugMode;
 
 		$this->load->view('Modal/Info');
 		$this->load->view('Misc/BreadCrumbExercise', $breadcrumb);
