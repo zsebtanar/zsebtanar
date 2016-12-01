@@ -109,7 +109,7 @@ class Session extends CI_model {
 		// Calculate progress
 		$progress_old = $level_user/$level_max;
 		if ($hints_used == 0) {
-			$progress_new = ($level_user+3)/$level_max;
+			$progress_new = ($level_user+1)/$level_max;
 
 			if (($progress_old < 1/3 && $progress_new >= 1/3) ||
 				($progress_old < 2/3 && $progress_new >= 2/3) ||
