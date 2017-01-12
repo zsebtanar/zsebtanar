@@ -16,6 +16,24 @@
 									"name": "Számjegyek",
 									"tags": "számjegyek",
 									"difficulty": 1
+								},
+								{
+									"label": "Osszeadas",
+									"name": "Összeadás",
+									"tags": "alapműveletek;összeadás",
+									"difficulty": 1
+								},
+								{
+									"label": "Kivonas",
+									"name": "Kivonás",
+									"tags": "alapműveletek;kivonás",
+									"difficulty": 1
+								},
+								{
+									"label": "Szorzas",
+									"name": "Szorzás",
+									"tags": "alapműveletek;szorzás",
+									"difficulty": 1
 								}
 							]
 						},
