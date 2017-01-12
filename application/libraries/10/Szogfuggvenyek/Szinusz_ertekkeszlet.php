@@ -17,18 +17,15 @@ class Szinusz_ertekkeszlet {
 	// Define range of sine function (a+bsin(x))
 	function Generate($level) {
 
-		$a = rand(-$level, $level);
-		$b = rand(-$level, $level);
-
 		if ($level <= 1) {
 			$a = rand(-$level, $level);
 			$b = 1;
 		} elseif ($level <= 2) {
 			$a = 0;
-			$b = pow(-1, rand(0,1)) * rand(3, $level);
+			$b = pow(-1, rand(0,1)) * rand(3, 2*$level);
 		} else {
-			$a = pow(-1, rand(0,1)) * rand(3, $level);
-			$b = pow(-1, rand(0,1)) * rand(3, $level);
+			$a = pow(-1, rand(0,1)) * rand(3, 2*$level);
+			$b = pow(-1, rand(0,1)) * rand(3, 2*$level);
 		}
 
 		// // Original exercise
@@ -64,8 +61,8 @@ class Szinusz_ertekkeszlet {
 
 	function Hints($a, $b) {
 
-		$value_min = min(-1, -$b, $a-abs($b));
-		$value_max = max(1, $b, $a+abs($b));
+		$value_min = min(-1, -abs($b), $a-abs($b));
+		$value_max = max(1, abs($b), $a+abs($b));
 
 		$hints[][] = 'Rajzoljuk fel először az $f(x)=\sin x$ függvényt!'
 			.$this->DrawSineFunction(0, 1, 0, 0, $value_min, $value_max);
