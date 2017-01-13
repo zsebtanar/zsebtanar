@@ -20,7 +20,7 @@ class Tomeg {
 				'short' => 'mg',
 				'long'	=> 'milligramm',
 				'long2'	=> 'milligrammnak',
-				'mult'	=> 10
+				'mult'	=> 1000
 				),
 			array(
 				'short' => 'g',
