@@ -151,7 +151,7 @@
 									"label": "Szazalek_szalami",
 									"name": "Szalámi",
 									"link": "9/Aranyossag/Szalami",
-									"ex_order": 1,
+									"ex_order": 2,
 									"dependencies": [
 										{
 											"classLabel": 5,
