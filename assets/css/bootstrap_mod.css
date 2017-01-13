@@ -14,10 +14,26 @@ body {
 }
 
 .img-main {
-	display:inline;
+	display: inline;
 	max-width: 100%;
 	height: auto;
 }
+@media (min-width: 300px) {
+	.img-main {
+		max-width: 80%;
+	}
+}
+@media (min-width: 500px) {
+	.img-main {
+		max-width: 60%;
+	}
+}
+@media (min-width: 992px) {
+	.img-main {
+		max-width: 40%;
+	}
+}
+
 
 .img-question {
 	padding: 20px 0px;
