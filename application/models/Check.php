@@ -108,6 +108,18 @@ class Check extends CI_model {
 	 */
 	public function GenerateMessages($type, $answer, $correct, $solution, $separator) {
 
+		// Check for letters in answers
+		if ($type != 'quiz' && $type != 'multi') {
+			if ($this->AnswerHasLetter($answer, $separator)) {
+
+				$status 	= 'WRONG';
+				$message 	= 'A helyes válasz: '.$solution;
+
+				// Finish checking, answer is wrong
+				return array($status, $message, []);
+			}
+		}
+
 		switch ($type) {
 
 			case 'int':
@@ -142,6 +154,38 @@ class Check extends CI_model {
 		$submessages = (isset($submessages) ? $submessages : []);
 
 		return array($status, $message, $submessages);
+	}
+
+	/**
+	 * Check if answer has letters
+	 *
+	 * @param array  $answer    User answer
+	 * @param string $separator Separator for inline lists
+	 *
+	 * @return bool $hasletter Whether array has letters
+	 */
+	public function AnswerHasLetter($answer, $separator=NULL) {
+
+		$hasletter = FALSE;
+
+		foreach ($answer as $row) {
+
+			// Split each row (if possible)
+			if ($separator) {
+				$row = preg_split('/[\s'.$separator.']+/', $row);
+			} else {
+				$row = preg_split("/[\s,;]+/", $row);
+			}
+
+			// Check for letter
+			foreach ($row as $element) {
+				if (preg_match("/[a-z]/i", $element)) {
+					$hasletter = TRUE;
+				}
+			}
+		}
+
+		return $hasletter;
 	}
 
 	/**
