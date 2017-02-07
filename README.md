@@ -1,4 +1,4 @@
-# Introduction
+﻿# Introduction
 
 Zsebtanár is a collection of interactive Maths exercises.
 
@@ -21,7 +21,9 @@ You need to have a running *PHP Server* to run the website and a working interne
 
 ## For Docker   
 
-**Only** for development
+**Only** for development.
+
+It tested on Ubuntu and Windows 10 with Docker 1.13
 
 1. [Install Docker](https://docs.docker.com/engine/installation/)
 2. Clone project `git clone https://github.com/zsebtanar/zsebtanar.git`
@@ -33,6 +35,12 @@ You need to have a running *PHP Server* to run the website and a working interne
 5. Use this url [http://localhost/action/setup](http://localhost/action/setup) for the DB initialization
 6. If everything is set up correctly, the website can be reached through the URL: [http://localhost/](http://localhost/).
 
+By default the docker container do not store permanently any data (ex: MySQL data), if you want to keep it, you need to do this:
+
+1. Create docker volume: `docker volume create --name zsebtanar_db`
+2. Run Docker container with this new volume
+
+        `docker run -d -p 80:80 -p 3306:3306 -v zsebtanar_db:/var/lib/mysql `pwd`:/app zsebtanar/lamp`
 
 Useful commands:  
     

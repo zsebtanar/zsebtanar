@@ -77,9 +77,9 @@ $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => '127.0.0.1',
 
-	'username' => isset($_SERVER['MYSQL_USER']) ? $_SERVER['MYSQL_USER'] : 'root',
-	'password' => isset($_SERVER['MYSQL_PASS']) ? $_SERVER['MYSQL_PASS'] : 'password',
-	'database' => isset($_SERVER['MYSQL_DB']) ? $_SERVER['MYSQL_DB'] : 'zsebtanar',
+	'username' => empty(getenv('MYSQL_USER')) ? 'admin_' : getenv('MYSQL_USER'),
+	'password' => empty(getenv('MYSQL_PASS')) ? 'password_' : getenv('MYSQL_PASS'),
+	'database' => empty(getenv('MYSQL_DB'))   ? 'zsebtanar_' : getenv('MYSQL_DB'),
 
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
