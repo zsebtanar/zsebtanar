@@ -4,6 +4,8 @@ Zsebtanár is a collection of interactive Maths exercises.
 
 # Setup
 
+## For Windwos
+
 You need to have a running *PHP Server* to run the website and a working internet connection for best display.
 
 1. Download the repository.
@@ -15,6 +17,31 @@ You need to have a running *PHP Server* to run the website and a working interne
 7. If everything is set up correctly, the website can be reached through the URL: `http://localhost/zsebtanar/`.
 
 *Note:* If special characters don't apper properly, check the database character set. In order to use Hungarian special characters, use `latin2_hungarian_ci`.
+
+
+## For Docker   
+
+**Only** for development
+
+1. [Install Docker](https://docs.docker.com/engine/installation/)
+2. Clone project `git clone https://github.com/zsebtanar/zsebtanar.git`
+3. Build docker image: `docker build -t zsebtanar/lamp .`
+4. Run Zsebtanár in Docker container 
+        
+        docker run -d -p 80:80 -p 3306:3306 -v `pwd`:/app zsebtanar/lamp
+        
+5. Use this url [http://localhost/action/setup](http://localhost/action/setup) for the DB initialization
+6. If everything is set up correctly, the website can be reached through the URL: [http://localhost/](http://localhost/).
+
+
+Useful commands:  
+    
+    docker stop `docker ps -q`                  # stop docker
+    docker logs `docker ps -q`                  # show logs
+    docker exec -it `docker ps -q` /bin/bash    # interactive terminal for the container
+
+The `Dockerfile` contains environment variables and the `mysql-setup.sh` create the database
+
 
 # Add new exercise
 In order to add new exercise, you have to do the following steps:
