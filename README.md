@@ -383,6 +383,79 @@ You can find additional functions `application/helpers` folder:
 2. `maths_helper.php`: mathematical functions,
 3. `draw_helper.php`: graphical functions (for creating svg).
 
+**Note**: The following list of functions may not be exhaustive! Please check the files for new functions.
+
+##### Language functions #####
+
+|**Name**|**Description**|
+|---|---|
+|```Times```|Add suffix 'times' to number (szor/szer/ször)|
+|```Times2```|Add modified suffix 'times' to number (szorosára/szeresére/szörösére)|
+|```Fraction```|Add modified suffix 'th' to number (od/ed/öd)|
+|```The```|Add article to number|
+|```Dativ```|Add suffix dativus to number (at/et/öt/t)|
+|```By```|Add suffix 'by' to number (nál/nél)|
+|```With```|Add suffix 'with' to number (val/vel)|
+|```To```|Add suffix 'to' to number (hoz/hez/höz)|
+|```In```|Add suffix 'in' to number (ban/ben)|
+|```On```|Add suffix 'on' to number (ra/re)|
+|```On2```|Add suffix 'on' to number (on/en/ön)|
+|```From```|Add suffix 'from' to number (ból/ből)|
+|```NumText```|Write down number with letters|
+|```NumArray```|Write down number array|
+|```StringArray```|Write down string array|
+|```OrderText```|Write order of number|
+|```BigNum```|Format big numbers|
+
+##### Maths functions #####
+
+|**Name**|**Description**|
+|---|---|
+|```numGen```|Random number generator|
+|```modifySameDigits```|Modify same digits|
+|```shuffleAssoc```|Associative array shuffle|
+|```convertRoman```|Convert to Roman number|
+|```newNum```|Generate new random number based on given number|
+|```hasDigit```|Check if number has digit|
+|```replaceDigit```|Replace digit in number|
+|```gcd```|Get greatest common divisor of two numbers|
+|```combos```|Combinations with repetitions|
+|```recursiveSeries```|Get member of series defined by recursive formula|
+|```equationAddition```|Generate equation for addition|
+|```placeValues```|Place values|
+|```polarToCartesian```|Transform polar coordinates to Cartesian|
+|```divisors```|Define divisors of a number|
+|```binomial_coeff```|binomial coefficient|
+|```fact```|factorial|
+|```stdev```|standard deviation|
+|```toRad```|Convert deg to rad|
+|```toDeg```|Convert rad to deg|
+|```round1```|Round number to given precision|
+|```round2```|Round number to given precision and replace '.' with ','|
+|```lcm```|Least common multiple of numbers "a" and "b"|
+|```primefactor```|Prime factorization|
+
+##### Draw functions #####
+
+|**Name**|**Description**|
+|---|---|
+|```DrawLine```|Draw line|
+|```DrawText```|Draw text|
+|```DrawRectangle```|Draw rectangle|
+|```DrawCircle```|Draw circle|
+|```DrawPolygon```|Draw polygon|
+|```DrawPath```|Draw path|
+|```DrawVector```|Draw vector|
+|```DrawArc```|Draws an arc between P1, P2, P3 (P1 is the center)|
+|```DrawPieChart```|Pie slice between P1, P2, P3 (P1 is the center)|
+|```PerpendicularIntersect```|Calculates intersection between line1 containing A and B, and line2 containing C perpendicular to line1.|
+|```Triangle```|Calculates third point of triangle given by two points and angles|
+|```IntersectLines```|Calculates intersect of two lines|
+|```LinePoint```|Calculate point along line|
+|```Translate```|Translate point with length in direction|
+|```Rotate```|Rotate point P around center C with angle alpha|
+|```Length```|Length of vector|
+
 # Licensing
 
 Copyright (c) 2015 Zsebtanár
