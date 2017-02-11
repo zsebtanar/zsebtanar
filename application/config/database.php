@@ -75,11 +75,11 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => '127.0.0.1',
 
-	'username' => 'username',
-	'password' => 'password',
-	'database' => 'db_name',
+	'username' => empty(getenv('MYSQL_USER')) ? 'root' : getenv('MYSQL_USER'),
+	'password' => empty(getenv('MYSQL_PASS')) ? '' : getenv('MYSQL_PASS'),
+	'database' => empty(getenv('MYSQL_DB'))   ? 'zsebtanar' : getenv('MYSQL_DB'),
 
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',

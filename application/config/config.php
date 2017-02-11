@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 // PATH TO PROJECT FOLDER
-$config['base_url'] = 'http://localhost/zsebtanar/';
+$config['base_url'] = 'http://localhost' . (empty(getenv('DEV_BASE_URL')) ? '/zsebtanar/' : getenv('DEV_BASE_URL'));
 // $config['base_url'] = 'http://www.zsebtanar.hu/';
 
 /*
@@ -373,7 +373,7 @@ $config['encryption_key'] = '';
 $config['sess_driver'] = 'files';
 $config['sess_cookie_name'] = 'ci_session';
 $config['sess_expiration'] = 7200;
-$config['sess_save_path'] = BASEPATH . 'cache/';
+$config['sess_save_path'] = empty(getenv('SESSION_CACHE')) ? (BASEPATH . 'cache/') : getenv('SESSION_CACHE');
 // $config['sess_save_path'] = NULL;
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 300;
