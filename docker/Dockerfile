@@ -13,7 +13,5 @@ ADD mysql-setup.sh /mysql-setup.sh
 RUN chmod 755 /*.sh
 
 
-VOLUME /app
-
 EXPOSE 80 3306
 CMD ["/run.sh"]
