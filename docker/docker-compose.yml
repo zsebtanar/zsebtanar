@@ -5,7 +5,7 @@ services:
         build:
           context: .
         volumes:
-            - ../:/app
+            - ..:/app
             - mysql:/var/lib/mysql
         ports:
           - "80:80"
