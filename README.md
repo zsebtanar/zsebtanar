@@ -27,28 +27,18 @@ It tested on Ubuntu and Windows 10 with Docker 1.13
 
 1. [Install Docker](https://docs.docker.com/engine/installation/)
 2. Clone project `git clone https://github.com/zsebtanar/zsebtanar.git`
-3. Build docker image: `docker build -t zsebtanar/lamp .`
-4. Run Zsebtanár in Docker container 
-        
-        docker run -d -p 80:80 -p 3306:3306 -v `pwd`:/app zsebtanar/lamp
-        
+2. step into the docker folder `cd /path/to/zsebtanar/docker`
+3. Run the docker container: `docker-compose up`        
 5. Use this url [http://localhost/action/setup](http://localhost/action/setup) for the DB initialization
 6. If everything is set up correctly, the website can be reached through the URL: [http://localhost/](http://localhost/).
 
-By default the docker container do not store permanently any data (ex: MySQL data), if you want to keep it, you need to do this:
-
-1. Create docker volume: `docker volume create --name zsebtanar_db`
-2. Run Docker container with this new volume
-
-        `docker run -d -p 80:80 -p 3306:3306 -v zsebtanar_db:/var/lib/mysql `pwd`:/app zsebtanar/lamp`
-
-Useful commands:  
-    
-    docker stop `docker ps -q`                  # stop docker
-    docker logs `docker ps -q`                  # show logs
-    docker exec -it `docker ps -q` /bin/bash    # interactive terminal for the container
-
-The `Dockerfile` contains environment variables and the `mysql-setup.sh` create the database
+Notes:  
+- The `docker/Dockerfile` contains environment variables and the `mysql-setup.sh` create the database
+- You must run all `docker-compose` commands in the docker folder
+- Open interactive bash terminal: `docker-compose exec zsebtanar /bin/bash`
+- Run docker in background `docker-compose up -d`    
+- Stop docker `Ctrl+C` or if you run in background `docker-compose stop`
+- More options `docker-compoes --help`
 
 
 # Add new exercise

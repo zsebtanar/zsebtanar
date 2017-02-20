@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+    zsebtanar:
+        build:
+          context: .
+        volumes:
+            - ..:/app
+            - mysql:/var/lib/mysql
+        ports:
+          - "80:80"
+          - "3306:3306"
+
+volumes:
+    mysql:
+        driver: "local"
