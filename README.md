@@ -1,5 +1,7 @@
 ﻿# Introduction
 
+[![Join the chat at https://gitter.im/zsebtanar-dev/Lobby](https://badges.gitter.im/zsebtanar-dev/Lobby.svg)](https://gitter.im/zsebtanar-dev/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Zsebtanár is a collection of interactive Maths exercises.
 
 # Setup
