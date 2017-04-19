@@ -75,3 +75,6 @@ Thumbs.db
 */cache/*
 !*/cache/index.html
 !*/cache/.htaccess
+
+node_modules/
+assets/css/*.map

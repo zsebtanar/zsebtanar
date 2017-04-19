@@ -1,0 +1,29 @@
+{
+  "name": "zsebtanar",
+  "version": "1.0.0",
+  "description": "Zsebtanar client application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node-sass --watch --source-comments --source-map assets/css --output assets/css client/style/style.scss",
+    "build": "node-sass -x --output assets/css client/style/style.scss"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxinteger/zsebtanar.git"
+  },
+  "keywords": [
+    "math",
+    "learning"
+  ],
+  "author": "Laszló Vadász",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/maxinteger/zsebtanar/issues"
+  },
+  "homepage": "https://github.com/maxinteger/zsebtanar#readme",
+  "devDependencies": {
+    "bootstrap-sass": "3.3.7",
+    "node-sass": "4.5.2"
+  }
+}

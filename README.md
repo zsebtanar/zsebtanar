@@ -42,6 +42,13 @@ Notes:
 - Stop docker `Ctrl+C` or if you run in background `docker-compose stop`
 - More options `docker-compoes --help`
 
+# Working with client side code
+
+0. Install [nodejs](https://nodejs.org/en/)
+1. Install dependencies `npm install`
+2. Run one of the build command:
+   - `npm run dev` when you are working on the code
+   - `npm run build` before you push your changes into the repository
 
 # Add new exercise
 In order to add new exercise, you have to do the following steps:

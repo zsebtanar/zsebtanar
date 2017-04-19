@@ -1,0 +1,456 @@
+
+/**
+ * Modifications for bootstrap template
+ *
+ * Author:  Viktor Szabó <zsebtanar@gmail.com>;
+ * License: http://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0;
+ * Website: zsebtanar.hu;
+ */
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  padding-top: 50px; /* adjust navbar */
+  padding-bottom: 200px; /* add space */
+  font-size: 20px;
+}
+
+.img-main {
+  display: inline;
+  max-width: 100%;
+  height: auto;
+}
+@media (min-width: 300px) {
+  .img-main {
+    max-width: 80%;
+  }
+}
+@media (min-width: 500px) {
+  .img-main {
+    max-width: 60%;
+  }
+}
+@media (min-width: 992px) {
+  .img-main {
+    max-width: 40%;
+  }
+}
+
+
+.img-question {
+  padding: 20px 0px;
+}
+
+.jumbotron {
+  padding-bottom: 50px;
+  margin: 0px;
+}
+
+/* exercise level */
+.row-buttons {
+  margin: 5px 0px 0px;
+}
+.small, small {
+  font-size: 70%;
+  /*padding: 0px;*/
+}
+
+h1 {
+  padding-top: 20px;
+}
+
+/* remove background color */
+.jumbotron {
+  background-color: #fff;
+}
+.jumbotron h1 {
+  font-weight: 700;
+}
+
+/* auto size input */
+input.smallInput {
+  width: 60px;
+  text-align: center;
+  margin: 5px;
+}
+
+.title-icon {
+  font-size: 60%;
+}
+
+div.navbar-header>a{
+  padding: 15px 5px;
+}
+
+.navbar-right {
+  padding-right: 10px;
+}
+
+.results {
+  font-size: 80%;
+  margin-bottom: 5px;
+}
+
+.breadcrumb {
+  background-color: #FFFFFF;
+  padding-top: 15px;
+}
+
+.nounderline, .nounderline:hover {
+  text-decoration: none !important;
+  color: #333;
+}
+
+.panel-title {
+  font-size: inherit;
+}
+
+.subtopic-title {
+  font-size: 300%;
+  padding: 40px 0px 100px;
+}
+
+#submit_exercise {
+  padding: 10px;
+}
+
+#exercise_form {
+  padding: 20px;
+}
+
+.exercise_button {
+  padding: 10px 10px 100px;
+}
+
+.panel-heading-sm {
+  height: 30px;
+  padding: 0px 0px 0px 10px;
+}
+.panel-heading-title {
+  color: black;
+}
+
+a.panel-heading-title:hover, a.panel-heading-title:visited, a.panel-heading-title:focus {
+  text-decoration: none;
+}
+
+.btn-exercise-start {
+  height: 30px;
+  padding: 5px 10px;
+  margin-left: 5px;
+}
+
+.hint_progress a {
+  border: none;
+}
+
+/*.dropdown-menu-li {
+  display: list-item;
+  text-align: -webkit-match-parent;
+}*/
+li.dropdown-menu-li > a {
+  display: block;
+  padding: 3px 10px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+  border: 0;
+  border-radius: 0;
+}
+
+.pager > li > a, .pager li > span {
+  border: none;
+}
+
+.pager-bottom > li {
+  padding: 5px 10px;
+}
+
+.prev_hint > a , .next_hint > a {
+  border: 1px solid #ddd  !important;
+}
+
+.prev_link > a , .next_link > a {
+  border: 1px solid #ddd  !important;
+}
+
+.btn-details {
+  margin: 10px;
+}
+
+div[id^='hint_details'] {
+  margin-top: 30px;
+}
+
+#latest_exercises {
+  margin-top: 40px;
+}
+
+.form-control-inline {
+  display: inline;
+}
+
+.hidden {
+  display: none;
+}
+
+.alert-success2 {
+  color: #3c763d;
+}
+
+.alert-danger2 {
+  color: #a94442;
+}
+.alert-warning2 {
+  color: #f0ad4e;
+}
+.alert-info2 {
+  color: #ffffff;
+}
+.btn-space-big {
+  margin: 40px;
+}
+
+.btn-space {
+  margin: 5px 0px;
+}
+
+.class-label {
+  font-size: 800%;
+  margin-top: -40px;
+}
+
+.exercise-label {
+  font-size: 400%;
+  margin: -35px 0 -10px;
+}
+
+.exercises-all {
+  margin-top: 100px;
+}
+
+.lg {
+  font-size: 120%;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 50px;
+  background-color: #f5f5f5;
+  text-align: center;
+}
+.footer > a > img {
+  margin: 10px 0px;
+}
+
+#send_explanation {
+  margin-top: -35px;
+  padding-bottom: 20px;
+}
+
+#final_exercises {
+  padding-top: 10px;
+}
+
+.videoplayer {
+  margin-bottom: 10px;
+}
+input.ui-autocomplete-loading {
+  background: #fff url('../images/loader.gif') right center no-repeat !important;
+}
+
+@media (min-width: 768px) {
+  .navbar > .container .navbar-brand,
+  .navbar > .container-fluid .navbar-brand {
+    margin-left: 0px;
+  }
+}
+
+.dropdown-header {
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: bold;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+@media (max-width: 767px) {
+  .navbar-nav .open .dropdown-menu .dropdown-header {
+    padding: 3px 10px;
+  }
+  .navbar-submenuitem {
+    padding: 3px 20px;
+  }
+}
+.navbar-label {
+  font-size: 100%;
+}
+.navbar-inverse .navbar-nav > li > a.navbar-primary, .navbar-inverse .navbar-nav > li > a.navbar-primary:hover, .navbar-inverse .navbar-nav > li > a.navbar-primary:focus {
+  color: #fff;
+  background-image: linear-gradient(to bottom, #d9534f 0%, #c12e2a 100%);
+  border-color: #b92c28;
+  border: 1px solid transparent;
+
+}
+.navbar-inverse .navbar-nav > .open > a.navbar-primary, .navbar-inverse .navbar-nav > .open > a.navbar-primary:hover, .navbar-inverse .navbar-nav > .open > a.navbar-primary:focus {
+  color: #fff;
+  background-image: linear-gradient(to bottom, #d9534f 0%, #c12e2a 100%);
+  border-color: #b92c28;
+  border: 1px solid transparent;
+}
+.footer {
+  position: absolute;
+  margin-bottom: 30px;
+}
+@media (min-width: 992px) {
+  .exercise-label {
+    font-size: 600%;
+    font-weight: normal;
+  }
+}
+.btn-space {
+  margin: 20px;
+}
+.star {
+  padding-bottom: 3px;
+}
+.star-last {
+  margin-right: 3px;
+}
+@media (max-width: 830px) {
+  .navbar-header {
+    float: none;
+  }
+  .navbar-left,.navbar-right {
+    float: none !important;
+  }
+  .navbar-toggle {
+    display: block;
+  }
+  .navbar-collapse {
+    border-top: 1px solid transparent;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+  .navbar-fixed-top {
+    top: 0;
+    border-width: 0 0 1px;
+  }
+  .navbar-collapse.collapse {
+    display: none!important;
+  }
+  .navbar-nav {
+    float: none!important;
+    margin-top: 7.5px;
+  }
+  .navbar-nav>li {
+    float: none;
+  }
+  .navbar-nav>li>a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .collapse.in{
+    display:block !important;
+  }
+  .navbar-nav .open .dropdown-menu {
+    position: static;
+    float: none;
+    width: auto;
+    margin-top: 0;
+    background-color: transparent;
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+    color: #9d9d9d;
+  }
+  .navbar-nav .open .dropdown-menu > li > a {
+    line-height: 20px;
+  }
+  .navbar-nav .open .dropdown-menu > li > a, .navbar-nav .open .dropdown-menu .dropdown-header {
+    padding: 5px 15px 5px 25px;
+  }
+  .navbar-right {
+    padding-right: 0px;
+  }
+  .navbar-collapse.in {
+    overflow-y: auto;
+  }
+  .navbar-collapse.collapse {
+    overflow-y: auto;
+  }
+}
+@media (min-width: 760px) {
+  .navbar-collapse.in {
+    overflow-y: auto;
+  }
+  .navbar-collapse.collapse {
+    overflow-x: hidden!important;
+  }
+}
+@media (min-width: 830px) {
+  .navbar-collapse.collapse {
+    overflow: visible !important;
+  }
+}
+.breadcumb-title, .search-title, .navbar-logo {
+  display: none;
+}
+@media (min-width: 500px) {
+  .breadcumb-title, .search-title, .navbar-logo {
+    display: inline;
+  }
+}
+.pager-danger li > a,
+.pager-danger li > a:hover,
+.pager-danger li > a:focus {
+  color: #a94442;
+  border-color: #ebccd1;
+  background-color: #f2dede;
+}
+.pager-danger li > ul > li > a,
+.pager-danger li > ul > li > a:hover,
+.pager-danger li > ul > li > a:focus {
+  background-color: #e8e8e8;
+  color: #262626;
+}
+.pager-success li > a,
+.pager-success li > a:hover,
+.pager-success li > a:focus {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;;
+}
+.pager-success li > ul > li > a,
+.pager-success li > ul > li > a:hover,
+.pager-success li > ul > li > a:focus {
+  background-color: #e8e8e8;
+  color: #262626;
+}
+
+/*Autocomplete search*/
+.ui-autocomplete {
+  max-height: 200px;
+  overflow-y: auto;
+  /* prevent horizontal scrollbar */
+  overflow-x: hidden;
+}
+/* IE 6 doesn't support max-height we use height instead, but this forces the menu to always be this tall */
+* html .ui-autocomplete {
+  height: 200px;
+}
