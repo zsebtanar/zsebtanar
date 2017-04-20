@@ -10,39 +10,11 @@
 body {
   font-family: 'Open Sans', sans-serif;
   padding-top: 50px; /* adjust navbar */
-  padding-bottom: 200px; /* add space */
-  font-size: 20px;
-}
-
-.img-main {
-  display: inline;
-  max-width: 100%;
-  height: auto;
-}
-@media (min-width: 300px) {
-  .img-main {
-    max-width: 80%;
-  }
-}
-@media (min-width: 500px) {
-  .img-main {
-    max-width: 60%;
-  }
-}
-@media (min-width: 992px) {
-  .img-main {
-    max-width: 40%;
-  }
 }
 
 
 .img-question {
   padding: 20px 0px;
-}
-
-.jumbotron {
-  padding-bottom: 50px;
-  margin: 0px;
 }
 
 /* exercise level */
@@ -223,7 +195,8 @@ div[id^='hint_details'] {
 
 .exercise-label {
   font-size: 400%;
-  margin: -35px 0 -10px;
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .exercises-all {
@@ -239,10 +212,6 @@ div[id^='hint_details'] {
 html {
   position: relative;
   min-height: 100%;
-}
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
 }
 .footer {
   position: absolute;

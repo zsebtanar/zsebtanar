@@ -1,6 +1,76 @@
+@import "variables";
+@import "navbar";
+@import "dropdown-submenu";
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "libs/typeahead";
 @import "libs/jquery-ui";
-@import "libs/bootstrap-theme";
 @import "libs/bootstrap-modifications";
 
+body {
+  position: relative;
+  background: #f0f0f0;
+  &.page-main {
+    background-color: #11a8ff;
+
+    .teacher {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: url(../images/main-page-teacher.png) no-repeat bottom center;
+      -webkit-background-size: contain;
+      background-size: contain;
+    }
+  }
+}
+
+.bg-logo {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.1;
+  z-index: -1;
+  svg {
+    position: absolute;
+    right: -150px;
+    bottom: -150px;
+    path {
+      fill: black;
+    }
+  }
+}
+
+.exercise-panel {
+  border-radius: 1.5em;
+  .panel-body {
+    padding: 3em;
+
+    .question {
+      margin-top: 3em;
+      font-size: 120%;
+    }
+  }
+  .panel-footer {
+    border-bottom-right-radius: 1.5em;
+    border-bottom-left-radius: 1.5em;
+  }
+}
+
+.label{
+  padding-bottom: .2em;
+}
+
+.topic-panel{
+  .tag-list{
+    margin-top: 1em;
+    .label{
+      text-overflow: ellipsis;
+      max-width: 100%;
+      display: inline-block;
+      overflow: hidden;
+    }
+  }
+}

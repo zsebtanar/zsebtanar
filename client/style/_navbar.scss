@@ -1,0 +1,19 @@
+@import "variables";
+
+.navbar-nav {
+  @media (min-width: $grid-float-breakpoint) {
+    float: left;
+    margin: 0;
+
+    > li {
+      float: left;
+      > a {
+        padding-top: $navbar-padding-vertical;
+        padding-bottom: $navbar-padding-vertical;
+        margin-top: $navbar-padding-vertical;
+        margin-bottom: $navbar-padding-vertical;
+        margin-left: $navbar-padding-vertical;
+      }
+    }
+  }
+}
