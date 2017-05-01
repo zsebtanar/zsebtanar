@@ -2,8 +2,8 @@
 <html lang="hu">
 <head><?php
 
-    $this->load->view('Misc/Header'); // FOR ONLINE USE
-    // $this->load->view('Misc/Header2'); // FOR OFFLINE USE
+    $this->load->view('misc/Header'); // FOR ONLINE USE
+    // $this->load->view('misc/Header2'); // FOR OFFLINE USE
     ?>
 
 </head>
@@ -15,8 +15,8 @@
 
     $exercise['debugMode'] = $debugMode;
 
-    $this->load->view('Misc/GoogleAnalytics');
-    $this->load->view('Misc/NavBar', isset($results) ? array('results' => $results, 'type' => $type) : $maindata);
+    $this->load->view('misc/GoogleAnalytics');
+    $this->load->view('misc/NavBar', isset($results) ? array('results' => $results, 'type' => $type) : $maindata);
 
     if ($type == 'main') {
         $this->load->view('landingPage/Main', $maindata);
@@ -36,9 +36,9 @@
 </div>
 <?php
 
-$this->load->view('Modal/Cookie');
-$this->load->view('Modal/Info');
-$this->load->view('Misc/Footer', array('type' => $type)); ?>
+$this->load->view('modal/Cookie');
+$this->load->view('modal/Info');
+$this->load->view('misc/Footer', array('type' => $type)); ?>
 
 </body>
 </html>

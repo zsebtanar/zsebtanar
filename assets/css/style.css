@@ -10091,24 +10091,76 @@ input.ui-autocomplete-loading {
   height: 200px; }
 
 /* line 9, client/style/style.scss */
+html, body, body > .container {
+  height: 100%; }
+
+/* line 13, client/style/style.scss */
 body {
   position: relative;
   background: #f0f0f0; }
-  /* line 12, client/style/style.scss */
+  /* line 16, client/style/style.scss */
   body.page-main {
     background-color: #11a8ff; }
-    /* line 15, client/style/style.scss */
+    /* line 19, client/style/style.scss */
     body.page-main .teacher {
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: url(../images/main-page-teacher.png) no-repeat bottom center;
-      -webkit-background-size: contain;
-      background-size: contain; }
+      position: relative;
+      display: flex;
+      flex-flow: column;
+      height: 100%; }
+      /* line 24, client/style/style.scss */
+      body.page-main .teacher .top {
+        flex: 0 1 auto;
+        min-height: 1em; }
+      /* line 28, client/style/style.scss */
+      body.page-main .teacher .content {
+        flex: 1 1 auto; }
+        /* line 30, client/style/style.scss */
+        body.page-main .teacher .content .bg {
+          background: url(../images/main-page-teacher.png) no-repeat bottom center;
+          -webkit-background-size: contain;
+          background-size: contain;
+          width: 100%;
+          padding-top: 61.68%;
+          margin-bottom: -1px; }
+      /* line 39, client/style/style.scss */
+      body.page-main .teacher .bottom {
+        flex: 1 1 auto;
+        background: url(../images/main-page-teacher_bottom.png) repeat-y bottom center;
+        background-size: contain;
+        height: 100%; }
+      /* line 46, client/style/style.scss */
+      body.page-main .teacher .exercises {
+        margin-top: 2em;
+        margin-bottom: 2em; }
+        /* line 49, client/style/style.scss */
+        body.page-main .teacher .exercises p {
+          margin: 1em 0; }
+      /* line 54, client/style/style.scss */
+      body.page-main .teacher .table-content .site-description {
+        background: white;
+        padding: 1em;
+        border-radius: .5em; }
+    @media (min-width: 768px) {
+      /* line 64, client/style/style.scss */
+      body.page-main .teacher .top {
+        min-height: 2em; }
+      /* line 67, client/style/style.scss */
+      body.page-main .teacher .table-content {
+        position: absolute;
+        left: 24%;
+        top: 4em;
+        color: #fff; }
+        /* line 72, client/style/style.scss */
+        body.page-main .teacher .table-content .site-description {
+          background: transparent;
+          padding: 0; } }
+    @media (min-width: 992px) {
+      /* line 82, client/style/style.scss */
+      body.page-main .teacher .table-content {
+        left: 29%;
+        top: 6em; } }
 
-/* line 28, client/style/style.scss */
+/* line 91, client/style/style.scss */
 .bg-logo {
   position: fixed;
   top: 0;
@@ -10117,42 +10169,46 @@ body {
   right: 0;
   opacity: 0.1;
   z-index: -1; }
-  /* line 36, client/style/style.scss */
+  /* line 99, client/style/style.scss */
   .bg-logo svg {
     position: absolute;
     right: -150px;
     bottom: -150px; }
-    /* line 40, client/style/style.scss */
+    /* line 103, client/style/style.scss */
     .bg-logo svg path {
       fill: black; }
 
-/* line 46, client/style/style.scss */
+/* line 109, client/style/style.scss */
 .exercise-panel {
   border-radius: 1.5em; }
-  /* line 48, client/style/style.scss */
+  /* line 111, client/style/style.scss */
   .exercise-panel .panel-body {
     padding: 3em; }
-    /* line 51, client/style/style.scss */
+    /* line 114, client/style/style.scss */
     .exercise-panel .panel-body .question {
-      margin-top: 3em;
-      font-size: 120%; }
-  /* line 56, client/style/style.scss */
+      margin-top: 2em; }
+  /* line 118, client/style/style.scss */
   .exercise-panel .panel-footer {
     border-bottom-right-radius: 1.5em;
     border-bottom-left-radius: 1.5em; }
 
-/* line 62, client/style/style.scss */
+/* line 124, client/style/style.scss */
 .label {
   padding-bottom: .2em; }
 
-/* line 67, client/style/style.scss */
+/* line 129, client/style/style.scss */
 .topic-panel .tag-list {
   margin-top: 1em; }
-  /* line 69, client/style/style.scss */
+  /* line 131, client/style/style.scss */
   .topic-panel .tag-list .label {
     text-overflow: ellipsis;
     max-width: 100%;
     display: inline-block;
     overflow: hidden; }
+
+/* line 140, client/style/style.scss */
+.btn-group.open .dropdown-submenu .dropdown-toggle {
+  box-shadow: none;
+  -webkit-box-shadow: none; }
 
 /*# sourceMappingURL=style.css.map */

@@ -143,7 +143,7 @@ class Session extends CI_model {
 			}
 		} else {
 
-			$message .= '</div><div class="alert alert-info text-center"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;<b>Szeretnél szintet ugrani?</b><br />Próbáld meg megoldani a feladatot segítség nélkül!</div><div class="small">Továbblépés <span id="time">10</span> másodperc múlva.<br />';
+			$message .= '</div><div class="alert alert-info text-center"><span class="fa fa-info-circle"></span>&nbsp;<b>Szeretnél szintet ugrani?</b><br />Próbáld meg megoldani a feladatot segítség nélkül!</div><div class="small">Továbblépés <span id="time">10</span> másodperc múlva.<br />';
 
 		}
 

@@ -6,6 +6,10 @@
 @import "libs/jquery-ui";
 @import "libs/bootstrap-modifications";
 
+html, body, body > .container {
+  height: 100%;
+}
+
 body {
   position: relative;
   background: #f0f0f0;
@@ -13,14 +17,73 @@ body {
     background-color: #11a8ff;
 
     .teacher {
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: url(../images/main-page-teacher.png) no-repeat bottom center;
-      -webkit-background-size: contain;
-      background-size: contain;
+      position: relative;
+      display: flex;
+      flex-flow: column;
+      height: 100%;
+      .top {
+        flex: 0 1 auto;
+        min-height: 1em;
+      }
+      .content {
+        flex: 1 1 auto;
+        .bg {
+          background: url(../images/main-page-teacher.png) no-repeat bottom center;
+          -webkit-background-size: contain;
+          background-size: contain;
+          width: 100%;
+          padding-top: 61.68%;
+          margin-bottom: -1px;
+        }
+      }
+      .bottom {
+        flex: 1 1 auto;
+        background: url(../images/main-page-teacher_bottom.png) repeat-y bottom center;
+        background-size: contain;
+        height: 100%;
+      }
+
+      .exercises {
+        margin-top: 2em;
+        margin-bottom: 2em;
+        p {
+          margin: 1em 0;
+        }
+      }
+      .table-content {
+        .site-description {
+          background: white;
+          padding: 1em;
+          border-radius: .5em;
+        }
+      }
+    }
+
+    @media (min-width: $screen-sm-min) {
+      .teacher {
+        .top {
+          min-height: 2em;
+        }
+        .table-content {
+          position: absolute;
+          left: 24%;
+          top: 4em;
+          color: #fff;
+          .site-description {
+            background: transparent;
+            padding: 0;
+          }
+        }
+      }
+    }
+
+    @media (min-width: $screen-md-min) {
+      .teacher {
+        .table-content {
+          left: 29%;
+          top: 6em;
+        }
+      }
     }
   }
 }
@@ -49,8 +112,7 @@ body {
     padding: 3em;
 
     .question {
-      margin-top: 3em;
-      font-size: 120%;
+      margin-top: 2em;
     }
   }
   .panel-footer {
@@ -59,18 +121,23 @@ body {
   }
 }
 
-.label{
+.label {
   padding-bottom: .2em;
 }
 
-.topic-panel{
-  .tag-list{
+.topic-panel {
+  .tag-list {
     margin-top: 1em;
-    .label{
+    .label {
       text-overflow: ellipsis;
       max-width: 100%;
       display: inline-block;
       overflow: hidden;
     }
   }
+}
+
+.btn-group.open .dropdown-submenu .dropdown-toggle {
+  box-shadow: none;
+  -webkit-box-shadow: none;
 }

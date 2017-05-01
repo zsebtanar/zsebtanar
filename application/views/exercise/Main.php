@@ -25,30 +25,30 @@
                                     case 'int':
                                     case 'single_list':
                                         if (isset($labels)) {
-                                            $this->load->view('Input/Default', array('labels' => $labels));
+                                            $this->load->view('exercise/input/Default', array('labels' => $labels));
                                         } else {
-                                            $this->load->view('Input/Default');
+                                            $this->load->view('exercise/input/Default');
                                         }
                                         break;
                                     case 'multi':
-                                        $this->load->view('Input/Multi', array('options' => $options));
+                                        $this->load->view('exercise/input/Multi', array('options' => $options));
                                         break;
                                     case 'array':
                                     case 'list':
-                                        $this->load->view('Input/Array', array('labels' => $labels));
+                                        $this->load->view('exercise/input/Array', array('labels' => $labels));
                                         break;
                                     case 'coordinate':
                                     case 'coordinatelist':
-                                        $this->load->view('Input/Coordinate', array('labels' => $labels));
+                                        $this->load->view('exercise/input/Coordinate', array('labels' => $labels));
                                         break;
                                     case 'fraction':
-                                        $this->load->view('Input/Fraction');
+                                        $this->load->view('exercise/input/Fraction');
                                         break;
                                     case 'range':
-                                        $this->load->view('Input/Range');
+                                        $this->load->view('exercise/input/Range');
                                         break;
                                     case 'quiz':
-                                        $this->load->view('Input/Quiz',
+                                        $this->load->view('exercise/input/Quiz',
                                             array('options' => $options,
                                                 'width' => $width,
                                                 'align' => $align));
@@ -88,14 +88,11 @@
                         <p><?php
 
                             if (isset($youtube)) { ?>
-
                                 <a data-toggle="collapse" data-target="#videoCollapse"
                                    class="btn btn-warning pull-left collapse-button">
-                                    <span class="glyphicon glyphicon-play"></span>&nbsp;Videó megoldás
+                                    <span class="fa fa-play"></span>&nbsp;Videó megoldás
                                 </a>
-
                                 <?php
-
                             } ?>
 
                         </p><?php
@@ -136,7 +133,7 @@
                         </div>
                         <a data-toggle="collapse" data-target="#videoCollapse"
                            class="btn btn-default text-center collapse-button">
-                            <span class="glyphicon glyphicon-remove"></span>&nbsp;Bezár
+                            <span class="fa fa-remove"></span>&nbsp;Bezár
                         </a>
                     </div>
                     </div><?php
@@ -221,12 +218,12 @@
                 var hints_left = hints_all - hints_used
                 if (hints_all > 1) {
                   $('#hints').html('<ul class="pager pager-bottom"></ul>')
-                  $('#hints').children().append('<li class="prev_hint small"><a onclick="gethint(event,' + hint_current + ',\'prev\')"><span class="glyphicon glyphicon-chevron-left"></span></a></li>')
+                  $('#hints').children().append('<li class="prev_hint small"><a onclick="gethint(event,' + hint_current + ',\'prev\')"><span class="fa fa-chevron-left"></span></a></li>')
                   if (hint_current == 1) {
                     $('.prev_hint').attr('class', 'small disabled')
                   }
                   $('#hints').children().append('<li class="small"><b>' + hint_current + '/' + hints_all + '</b></li>')
-                  $('#hints').children().append('<li class="next_hint small"><a onclick="gethint(event,' + hint_current + ',\'next\')"><span class="glyphicon glyphicon-chevron-right"></span></a></li>')
+                  $('#hints').children().append('<li class="next_hint small"><a onclick="gethint(event,' + hint_current + ',\'next\')"><span class="fa fa-chevron-right"></span></a></li>')
                   if (hint_current >= hints_all) {
                     $('.next_hint').attr('class', 'small disabled')
                   }
@@ -267,7 +264,7 @@
             // Exercise not finished
             if (data['status'] == 'NOT_DONE') {
 
-              $('#message').html('<div class="alert alert-warning"><strong><span class=\"glyphicon glyphicon-remove\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>')
+              $('#message').html('<div class="alert alert-warning"><strong><span class=\"fa fa-remove\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>')
               MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'message'])
               $('#loader').html('<br />')
               return
@@ -293,11 +290,11 @@
             // Exercise finished
             switch (data['status']) {
               case 'CORRECT':
-                $('#message').replaceWith('<div class="alert alert-success"><strong><span class=\"glyphicon glyphicon-ok\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>')
+                $('#message').replaceWith('<div class="alert alert-success"><strong><span class=\"fa fa-ok\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>')
                 $('#progress_bar').css('width', data['progress']['value'] + '%').attr('aria-valuenow', data['progress']['value'])
                 progress_bar_class = $('#progress_bar').attr('class').replace(/(progress-bar-)\w*/, '$1' + data['progress']['style'])
                 $('#progress_bar').attr('class', progress_bar_class)
-                $('#next_button').replaceWith('<a id="next_button" class="btn btn-primary btn-lg pull-right" href="' + data['link_next'] + '">Tovább&nbsp;<span class="glyphicon glyphicon-chevron-right"></span></button>')
+                $('#next_button').replaceWith('<a id="next_button" class="btn btn-primary btn-lg pull-right" href="' + data['link_next'] + '">Tovább&nbsp;<span class="fa fa-chevron-right"></span></button>')
                 // Update results
                 $('.trophies').text(data['results']['trophies'])
                 $('.shields').text(data['results']['shields'])
@@ -316,8 +313,8 @@
                   $('#exercise_hints').replaceWith('<div class="alert alert-warning text-left">' + data['hints'] + '</div>')
                   MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'hint'])
                 }
-                $('#message').replaceWith('<div class="alert alert-danger"><strong><span class=\"glyphicon glyphicon-remove\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>')
-                $('#next_button').replaceWith('<a id="next_button" class="btn btn-lg btn-primary pull-right" href=\'<?php echo base_url() . $classlabel . '/' . $subtopiclabel . '/' . $exerciselabel;?>\">Újra&nbsp;<span class=\"glyphicon glyphicon-refresh\"></span></button>")
+                $('#message').replaceWith('<div class="alert alert-danger"><strong><span class=\"fa fa-remove\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>')
+                $('#next_button').replaceWith('<a id="next_button" class="btn btn-lg btn-primary pull-right" href=\'<?php echo base_url() . $classlabel . '/' . $subtopiclabel . '/' . $exerciselabel;?>\">Újra&nbsp;<span class=\"fa fa-refresh\"></span></button>")
                 var keys = []
                 for (var k in data.submessages) keys.push(k);
                 if (keys.length > 0) {
@@ -325,13 +322,13 @@
                   for (var i = keys.length - 1; i >= 0; i--) {
                     var submessage = data.submessages[i]
                     if (submessage == 'FILLED_CORRECT') {
-                      $('#input' + i).before('<span class=\"glyphicon glyphicon-ok alert-success2\"></span>&nbsp;')
+                      $('#input' + i).before('<span class=\"fa fa-ok alert-success2\"></span>&nbsp;')
                     } else if (submessage == 'FILLED_WRONG') {
-                      $('#input' + i).before('<span class=\"glyphicon glyphicon-remove alert-danger2\"></span>&nbsp;')
+                      $('#input' + i).before('<span class=\"fa fa-remove alert-danger2\"></span>&nbsp;')
                     } else if (submessage == 'EMPTY_WRONG') {
-                      $('#input' + i).before('<span class=\"glyphicon glyphicon-ok alert-warning2\"></span>&nbsp;')
+                      $('#input' + i).before('<span class=\"fa fa-ok alert-warning2\"></span>&nbsp;')
                     } else {
-                      $('#input' + i).before('<span class=\"glyphicon glyphicon-ok alert-info2\"></span>&nbsp;')
+                      $('#input' + i).before('<span class=\"fa fa-ok alert-info2\"></span>&nbsp;')
                     }
                   }
                 }
