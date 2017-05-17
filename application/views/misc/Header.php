@@ -40,11 +40,13 @@
 </script>
 
 <script type="text/javascript"
-	src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_SVG">
+	src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_SVG">
 </script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/svg_mathjax.js"></script>
 <script type="text/javascript">
-	new Svg_MathJax().install();
+	setTimeout(function () {
+		new Svg_MathJax().install();
+    }, 1000)
 </script>
 
 <!-- <script type="text/javascript" src="http://localhost/MathJax-master/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->

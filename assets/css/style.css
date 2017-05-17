@@ -9728,40 +9728,42 @@ div.navbar-header > a {
 /* line 79, client/style/libs/bootstrap-modifications.scss */
 .subtopic-title {
   font-size: 300%;
-  padding: 40px 0px 100px; }
+  padding: 40px 0 100px;
+  -ms-word-wrap: break-word;
+  word-wrap: break-word; }
 
-/* line 84, client/style/libs/bootstrap-modifications.scss */
+/* line 86, client/style/libs/bootstrap-modifications.scss */
 #submit_exercise {
   padding: 10px; }
 
-/* line 88, client/style/libs/bootstrap-modifications.scss */
+/* line 90, client/style/libs/bootstrap-modifications.scss */
 #exercise_form {
   padding: 20px; }
 
-/* line 92, client/style/libs/bootstrap-modifications.scss */
+/* line 94, client/style/libs/bootstrap-modifications.scss */
 .exercise_button {
   padding: 10px 10px 100px; }
 
-/* line 96, client/style/libs/bootstrap-modifications.scss */
+/* line 98, client/style/libs/bootstrap-modifications.scss */
 .panel-heading-sm {
   height: 30px;
   padding: 0px 0px 0px 10px; }
 
-/* line 100, client/style/libs/bootstrap-modifications.scss */
+/* line 102, client/style/libs/bootstrap-modifications.scss */
 .panel-heading-title {
   color: black; }
 
-/* line 104, client/style/libs/bootstrap-modifications.scss */
+/* line 106, client/style/libs/bootstrap-modifications.scss */
 a.panel-heading-title:hover, a.panel-heading-title:visited, a.panel-heading-title:focus {
   text-decoration: none; }
 
-/* line 108, client/style/libs/bootstrap-modifications.scss */
+/* line 110, client/style/libs/bootstrap-modifications.scss */
 .btn-exercise-start {
   height: 30px;
   padding: 5px 10px;
   margin-left: 5px; }
 
-/* line 114, client/style/libs/bootstrap-modifications.scss */
+/* line 116, client/style/libs/bootstrap-modifications.scss */
 .hint_progress a {
   border: none; }
 
@@ -9769,7 +9771,7 @@ a.panel-heading-title:hover, a.panel-heading-title:visited, a.panel-heading-titl
   display: list-item;
   text-align: -webkit-match-parent;
 }*/
-/* line 122, client/style/libs/bootstrap-modifications.scss */
+/* line 124, client/style/libs/bootstrap-modifications.scss */
 li.dropdown-menu-li > a {
   display: block;
   padding: 3px 10px;
@@ -9781,93 +9783,93 @@ li.dropdown-menu-li > a {
   border: 0;
   border-radius: 0; }
 
-/* line 134, client/style/libs/bootstrap-modifications.scss */
+/* line 136, client/style/libs/bootstrap-modifications.scss */
 .pager > li > a, .pager li > span {
   border: none; }
 
-/* line 138, client/style/libs/bootstrap-modifications.scss */
+/* line 140, client/style/libs/bootstrap-modifications.scss */
 .pager-bottom > li {
   padding: 5px 10px; }
 
-/* line 142, client/style/libs/bootstrap-modifications.scss */
+/* line 144, client/style/libs/bootstrap-modifications.scss */
 .prev_hint > a, .next_hint > a {
   border: 1px solid #ddd  !important; }
 
-/* line 146, client/style/libs/bootstrap-modifications.scss */
+/* line 148, client/style/libs/bootstrap-modifications.scss */
 .prev_link > a, .next_link > a {
   border: 1px solid #ddd  !important; }
 
-/* line 150, client/style/libs/bootstrap-modifications.scss */
+/* line 152, client/style/libs/bootstrap-modifications.scss */
 .btn-details {
   margin: 10px; }
 
-/* line 154, client/style/libs/bootstrap-modifications.scss */
+/* line 156, client/style/libs/bootstrap-modifications.scss */
 div[id^='hint_details'] {
   margin-top: 30px; }
 
-/* line 158, client/style/libs/bootstrap-modifications.scss */
+/* line 160, client/style/libs/bootstrap-modifications.scss */
 #latest_exercises {
   margin-top: 40px; }
 
-/* line 162, client/style/libs/bootstrap-modifications.scss */
+/* line 164, client/style/libs/bootstrap-modifications.scss */
 .form-control-inline {
   display: inline; }
 
-/* line 166, client/style/libs/bootstrap-modifications.scss */
+/* line 168, client/style/libs/bootstrap-modifications.scss */
 .hidden {
   display: none; }
 
-/* line 170, client/style/libs/bootstrap-modifications.scss */
+/* line 172, client/style/libs/bootstrap-modifications.scss */
 .alert-success2 {
   color: #3c763d; }
 
-/* line 174, client/style/libs/bootstrap-modifications.scss */
+/* line 176, client/style/libs/bootstrap-modifications.scss */
 .alert-danger2 {
   color: #a94442; }
 
-/* line 177, client/style/libs/bootstrap-modifications.scss */
+/* line 179, client/style/libs/bootstrap-modifications.scss */
 .alert-warning2 {
   color: #f0ad4e; }
 
-/* line 180, client/style/libs/bootstrap-modifications.scss */
+/* line 182, client/style/libs/bootstrap-modifications.scss */
 .alert-info2 {
   color: #ffffff; }
 
-/* line 183, client/style/libs/bootstrap-modifications.scss */
+/* line 185, client/style/libs/bootstrap-modifications.scss */
 .btn-space-big {
   margin: 40px; }
 
-/* line 187, client/style/libs/bootstrap-modifications.scss */
+/* line 189, client/style/libs/bootstrap-modifications.scss */
 .btn-space {
   margin: 5px 0px; }
 
-/* line 191, client/style/libs/bootstrap-modifications.scss */
+/* line 193, client/style/libs/bootstrap-modifications.scss */
 .class-label {
   font-size: 800%;
   margin-top: -40px; }
 
-/* line 196, client/style/libs/bootstrap-modifications.scss */
+/* line 198, client/style/libs/bootstrap-modifications.scss */
 .exercise-label {
   font-size: 400%;
   margin-top: 0;
   padding-top: 0; }
 
-/* line 202, client/style/libs/bootstrap-modifications.scss */
+/* line 204, client/style/libs/bootstrap-modifications.scss */
 .exercises-all {
   margin-top: 100px; }
 
-/* line 206, client/style/libs/bootstrap-modifications.scss */
+/* line 208, client/style/libs/bootstrap-modifications.scss */
 .lg {
   font-size: 120%; }
 
 /* Sticky footer styles
 -------------------------------------------------- */
-/* line 212, client/style/libs/bootstrap-modifications.scss */
+/* line 214, client/style/libs/bootstrap-modifications.scss */
 html {
   position: relative;
   min-height: 100%; }
 
-/* line 216, client/style/libs/bootstrap-modifications.scss */
+/* line 218, client/style/libs/bootstrap-modifications.scss */
 .footer {
   position: absolute;
   bottom: 0;
@@ -9877,34 +9879,34 @@ html {
   background-color: #f5f5f5;
   text-align: center; }
 
-/* line 225, client/style/libs/bootstrap-modifications.scss */
+/* line 227, client/style/libs/bootstrap-modifications.scss */
 .footer > a > img {
   margin: 10px 0px; }
 
-/* line 229, client/style/libs/bootstrap-modifications.scss */
+/* line 231, client/style/libs/bootstrap-modifications.scss */
 #send_explanation {
   margin-top: -35px;
   padding-bottom: 20px; }
 
-/* line 234, client/style/libs/bootstrap-modifications.scss */
+/* line 236, client/style/libs/bootstrap-modifications.scss */
 #final_exercises {
   padding-top: 10px; }
 
-/* line 238, client/style/libs/bootstrap-modifications.scss */
+/* line 240, client/style/libs/bootstrap-modifications.scss */
 .videoplayer {
   margin-bottom: 10px; }
 
-/* line 241, client/style/libs/bootstrap-modifications.scss */
+/* line 243, client/style/libs/bootstrap-modifications.scss */
 input.ui-autocomplete-loading {
   background: #fff url("../images/loader.gif") right center no-repeat !important; }
 
 @media (min-width: 768px) {
-  /* line 246, client/style/libs/bootstrap-modifications.scss */
+  /* line 248, client/style/libs/bootstrap-modifications.scss */
   .navbar > .container .navbar-brand,
   .navbar > .container-fluid .navbar-brand {
     margin-left: 0px; } }
 
-/* line 252, client/style/libs/bootstrap-modifications.scss */
+/* line 254, client/style/libs/bootstrap-modifications.scss */
 .dropdown-header {
   padding: 3px 10px;
   font-size: 11px;
@@ -9913,90 +9915,90 @@ input.ui-autocomplete-loading {
   text-decoration: none; }
 
 @media (max-width: 767px) {
-  /* line 261, client/style/libs/bootstrap-modifications.scss */
+  /* line 263, client/style/libs/bootstrap-modifications.scss */
   .navbar-nav .open .dropdown-menu .dropdown-header {
     padding: 3px 10px; }
-  /* line 264, client/style/libs/bootstrap-modifications.scss */
+  /* line 266, client/style/libs/bootstrap-modifications.scss */
   .navbar-submenuitem {
     padding: 3px 20px; } }
 
-/* line 268, client/style/libs/bootstrap-modifications.scss */
+/* line 270, client/style/libs/bootstrap-modifications.scss */
 .navbar-label {
   font-size: 100%; }
 
-/* line 271, client/style/libs/bootstrap-modifications.scss */
+/* line 273, client/style/libs/bootstrap-modifications.scss */
 .navbar-inverse .navbar-nav > li > a.navbar-primary, .navbar-inverse .navbar-nav > li > a.navbar-primary:hover, .navbar-inverse .navbar-nav > li > a.navbar-primary:focus {
   color: #fff;
   background-image: linear-gradient(to bottom, #d9534f 0%, #c12e2a 100%);
   border-color: #b92c28;
   border: 1px solid transparent; }
 
-/* line 278, client/style/libs/bootstrap-modifications.scss */
+/* line 280, client/style/libs/bootstrap-modifications.scss */
 .navbar-inverse .navbar-nav > .open > a.navbar-primary, .navbar-inverse .navbar-nav > .open > a.navbar-primary:hover, .navbar-inverse .navbar-nav > .open > a.navbar-primary:focus {
   color: #fff;
   background-image: linear-gradient(to bottom, #d9534f 0%, #c12e2a 100%);
   border-color: #b92c28;
   border: 1px solid transparent; }
 
-/* line 284, client/style/libs/bootstrap-modifications.scss */
+/* line 286, client/style/libs/bootstrap-modifications.scss */
 .footer {
   position: absolute;
   margin-bottom: 30px; }
 
 @media (min-width: 992px) {
-  /* line 289, client/style/libs/bootstrap-modifications.scss */
+  /* line 291, client/style/libs/bootstrap-modifications.scss */
   .exercise-label {
     font-size: 600%;
     font-weight: normal; } }
 
-/* line 294, client/style/libs/bootstrap-modifications.scss */
+/* line 296, client/style/libs/bootstrap-modifications.scss */
 .btn-space {
   margin: 20px; }
 
-/* line 297, client/style/libs/bootstrap-modifications.scss */
+/* line 299, client/style/libs/bootstrap-modifications.scss */
 .star {
   padding-bottom: 3px; }
 
-/* line 300, client/style/libs/bootstrap-modifications.scss */
+/* line 302, client/style/libs/bootstrap-modifications.scss */
 .star-last {
   margin-right: 3px; }
 
 @media (max-width: 830px) {
-  /* line 304, client/style/libs/bootstrap-modifications.scss */
+  /* line 306, client/style/libs/bootstrap-modifications.scss */
   .navbar-header {
     float: none; }
-  /* line 307, client/style/libs/bootstrap-modifications.scss */
+  /* line 309, client/style/libs/bootstrap-modifications.scss */
   .navbar-left, .navbar-right {
     float: none !important; }
-  /* line 310, client/style/libs/bootstrap-modifications.scss */
+  /* line 312, client/style/libs/bootstrap-modifications.scss */
   .navbar-toggle {
     display: block; }
-  /* line 313, client/style/libs/bootstrap-modifications.scss */
+  /* line 315, client/style/libs/bootstrap-modifications.scss */
   .navbar-collapse {
     border-top: 1px solid transparent;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1); }
-  /* line 317, client/style/libs/bootstrap-modifications.scss */
+  /* line 319, client/style/libs/bootstrap-modifications.scss */
   .navbar-fixed-top {
     top: 0;
     border-width: 0 0 1px; }
-  /* line 321, client/style/libs/bootstrap-modifications.scss */
+  /* line 323, client/style/libs/bootstrap-modifications.scss */
   .navbar-collapse.collapse {
     display: none !important; }
-  /* line 324, client/style/libs/bootstrap-modifications.scss */
+  /* line 326, client/style/libs/bootstrap-modifications.scss */
   .navbar-nav {
     float: none !important;
     margin-top: 7.5px; }
-  /* line 328, client/style/libs/bootstrap-modifications.scss */
+  /* line 330, client/style/libs/bootstrap-modifications.scss */
   .navbar-nav > li {
     float: none; }
-  /* line 331, client/style/libs/bootstrap-modifications.scss */
+  /* line 333, client/style/libs/bootstrap-modifications.scss */
   .navbar-nav > li > a {
     padding-top: 10px;
     padding-bottom: 10px; }
-  /* line 335, client/style/libs/bootstrap-modifications.scss */
+  /* line 337, client/style/libs/bootstrap-modifications.scss */
   .collapse.in {
     display: block !important; }
-  /* line 338, client/style/libs/bootstrap-modifications.scss */
+  /* line 340, client/style/libs/bootstrap-modifications.scss */
   .navbar-nav .open .dropdown-menu {
     position: static;
     float: none;
@@ -10006,48 +10008,48 @@ input.ui-autocomplete-loading {
     border: 0;
     -webkit-box-shadow: none;
     box-shadow: none; }
-  /* line 348, client/style/libs/bootstrap-modifications.scss */
+  /* line 350, client/style/libs/bootstrap-modifications.scss */
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
     color: #9d9d9d; }
-  /* line 351, client/style/libs/bootstrap-modifications.scss */
+  /* line 353, client/style/libs/bootstrap-modifications.scss */
   .navbar-nav .open .dropdown-menu > li > a {
     line-height: 20px; }
-  /* line 354, client/style/libs/bootstrap-modifications.scss */
+  /* line 356, client/style/libs/bootstrap-modifications.scss */
   .navbar-nav .open .dropdown-menu > li > a, .navbar-nav .open .dropdown-menu .dropdown-header {
     padding: 5px 15px 5px 25px; }
-  /* line 357, client/style/libs/bootstrap-modifications.scss */
+  /* line 359, client/style/libs/bootstrap-modifications.scss */
   .navbar-right {
     padding-right: 0px; }
-  /* line 360, client/style/libs/bootstrap-modifications.scss */
+  /* line 362, client/style/libs/bootstrap-modifications.scss */
   .navbar-collapse.in {
     overflow-y: auto; }
-  /* line 363, client/style/libs/bootstrap-modifications.scss */
+  /* line 365, client/style/libs/bootstrap-modifications.scss */
   .navbar-collapse.collapse {
     overflow-y: auto; } }
 
 @media (min-width: 760px) {
-  /* line 368, client/style/libs/bootstrap-modifications.scss */
+  /* line 370, client/style/libs/bootstrap-modifications.scss */
   .navbar-collapse.in {
     overflow-y: auto; }
-  /* line 371, client/style/libs/bootstrap-modifications.scss */
+  /* line 373, client/style/libs/bootstrap-modifications.scss */
   .navbar-collapse.collapse {
     overflow-x: hidden !important; } }
 
 @media (min-width: 830px) {
-  /* line 376, client/style/libs/bootstrap-modifications.scss */
+  /* line 378, client/style/libs/bootstrap-modifications.scss */
   .navbar-collapse.collapse {
     overflow: visible !important; } }
 
-/* line 380, client/style/libs/bootstrap-modifications.scss */
+/* line 382, client/style/libs/bootstrap-modifications.scss */
 .breadcumb-title, .search-title, .navbar-logo {
   display: none; }
 
 @media (min-width: 500px) {
-  /* line 384, client/style/libs/bootstrap-modifications.scss */
+  /* line 386, client/style/libs/bootstrap-modifications.scss */
   .breadcumb-title, .search-title, .navbar-logo {
     display: inline; } }
 
-/* line 388, client/style/libs/bootstrap-modifications.scss */
+/* line 390, client/style/libs/bootstrap-modifications.scss */
 .pager-danger li > a,
 .pager-danger li > a:hover,
 .pager-danger li > a:focus {
@@ -10055,14 +10057,14 @@ input.ui-autocomplete-loading {
   border-color: #ebccd1;
   background-color: #f2dede; }
 
-/* line 395, client/style/libs/bootstrap-modifications.scss */
+/* line 397, client/style/libs/bootstrap-modifications.scss */
 .pager-danger li > ul > li > a,
 .pager-danger li > ul > li > a:hover,
 .pager-danger li > ul > li > a:focus {
   background-color: #e8e8e8;
   color: #262626; }
 
-/* line 401, client/style/libs/bootstrap-modifications.scss */
+/* line 403, client/style/libs/bootstrap-modifications.scss */
 .pager-success li > a,
 .pager-success li > a:hover,
 .pager-success li > a:focus {
@@ -10070,7 +10072,7 @@ input.ui-autocomplete-loading {
   background-color: #dff0d8;
   border-color: #d6e9c6; }
 
-/* line 408, client/style/libs/bootstrap-modifications.scss */
+/* line 410, client/style/libs/bootstrap-modifications.scss */
 .pager-success li > ul > li > a,
 .pager-success li > ul > li > a:hover,
 .pager-success li > ul > li > a:focus {
@@ -10078,7 +10080,7 @@ input.ui-autocomplete-loading {
   color: #262626; }
 
 /*Autocomplete search*/
-/* line 416, client/style/libs/bootstrap-modifications.scss */
+/* line 418, client/style/libs/bootstrap-modifications.scss */
 .ui-autocomplete {
   max-height: 200px;
   overflow-y: auto;
@@ -10086,7 +10088,7 @@ input.ui-autocomplete-loading {
   overflow-x: hidden; }
 
 /* IE 6 doesn't support max-height we use height instead, but this forces the menu to always be this tall */
-/* line 423, client/style/libs/bootstrap-modifications.scss */
+/* line 425, client/style/libs/bootstrap-modifications.scss */
 * html .ui-autocomplete {
   height: 200px; }
 

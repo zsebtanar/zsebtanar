@@ -78,7 +78,9 @@ div.navbar-header>a{
 
 .subtopic-title {
   font-size: 300%;
-  padding: 40px 0px 100px;
+  padding: 40px 0 100px;
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
 }
 
 #submit_exercise {

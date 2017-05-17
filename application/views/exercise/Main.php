@@ -4,7 +4,7 @@
         $this->load->view('exercise/BreadCrumb', $breadcrumb);
         ?>
     </div>
-    <div class="col-sm-10 col-sm-offset-1">
+    <div class="col-sm-12 col-md-10 col-md-offset-1">
         <div class="panel exercise-panel panel-default">
             <div class="panel-body">
                 <div class="col-xs-12">
@@ -184,7 +184,7 @@
         var hash = $('[name="hash"]').attr('value')
         $.ajax({
           type: 'GET',
-          url: '<?php echo base_url();?>action/unsetexercise/" + hash
+          url: '<?php echo base_url();?>action/unsetexercise/' + hash
         })
         return true
       }
@@ -207,34 +207,41 @@
           $('#loader').html('Kis türelmet...&nbsp;<img src="<?php echo base_url();?>assets/images/loader.gif" />')
           $.ajax({
             type: 'GET',
-            url: '<?php echo base_url();?>action/gethint/" + hash + ' / ' + id.toString() + ' / ' + type.toString(),
+            url: '<?php echo base_url();?>action/gethint/' + hash + '/' + id.toString() + '/' + type.toString(),
             success: function (data) {
-              if (data != 'null') {
+              if (data) {
+                var $hints = $('#hints');
                 $('#message').html('')
-                var data = jQuery.parseJSON(data)
+                data = jQuery.parseJSON(data)
                 var hint_current = Number(data['hint_current'])
                 var hints_all = Number(data['hints_all'])
                 var hints_used = Number(data['hints_used'])
                 var hints_left = hints_all - hints_used
                 if (hints_all > 1) {
-                  $('#hints').html('<ul class="pager pager-bottom"></ul>')
-                  $('#hints').children().append('<li class="prev_hint small"><a onclick="gethint(event,' + hint_current + ',\'prev\')"><span class="fa fa-chevron-left"></span></a></li>')
-                  if (hint_current == 1) {
+                  $hints.html('<ul class="pager pager-bottom"></ul>')
+                  $hints.children().append('<li class="prev_hint small"><a onclick="gethint(event,' + hint_current + ',\'prev\')"><span class="fa fa-chevron-left"></span></a></li>')
+                  if (hint_current === 1) {
                     $('.prev_hint').attr('class', 'small disabled')
                   }
-                  $('#hints').children().append('<li class="small"><b>' + hint_current + '/' + hints_all + '</b></li>')
-                  $('#hints').children().append('<li class="next_hint small"><a onclick="gethint(event,' + hint_current + ',\'next\')"><span class="fa fa-chevron-right"></span></a></li>')
+                  $hints.children().append('<li class="small"><b>' + hint_current + '/' + hints_all + '</b></li>')
+                  $hints.children().append('<li class="next_hint small"><a onclick="gethint(event,' + hint_current + ',\'next\')"><span class="fa fa-chevron-right"></span></a></li>')
                   if (hint_current >= hints_all) {
                     $('.next_hint').attr('class', 'small disabled')
                   }
                 }
 
-                if (data['hints'] != '') {
-                  $('#hints').append('<p>' + data['hints'] + '</p>')
-                  new Svg_MathJax().typeset('hints')
-                  MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'hints'])
+                if (data['hints']) {
+                  var newHint = $('<div class="fade"><p>' + data['hints'] + '</p></div>');
+                  $hints
+                    .append(newHint)
+
+                  //new Svg_MathJax().typeset(newHint.get(0))
+                  MathJax.Hub.Queue(['Typeset', MathJax.Hub, newHint.get(0)], function(){
+                    newHint.addClass('in')
+                  })
+
                   $('#hints_left').html('(' + hints_left.toString() + ' segítség maradt.)')
-                  if (hints_left == 0) {
+                  if (hints_left === 0) {
                     $('#hint_button').attr('class', 'btn btn-danger pull-right disabled')
                   }
                 }
@@ -254,7 +261,7 @@
         event.preventDefault()
         $.ajax({
           type: 'GET',
-          url: '<?php echo base_url();?>action/checkanswer",
+          url: '<?php echo base_url();?>action/checkanswer',
           data: {
             answer: JSON.stringify(queryString)
           },
@@ -262,7 +269,7 @@
           success: function (data) {
 
             // Exercise not finished
-            if (data['status'] == 'NOT_DONE') {
+            if (data['status'] === 'NOT_DONE') {
 
               $('#message').html('<div class="alert alert-warning"><strong><span class=\"fa fa-remove\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>')
               MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'message'])
@@ -283,7 +290,7 @@
             }
 
             // Disable hint button
-            if (data['status'] == 'CORRECT') {
+            if (data['status'] === 'CORRECT') {
               $('#hint_button').attr('class', 'btn btn-danger pull-right disabled')
             }
 
@@ -309,12 +316,12 @@
                 }, (seconds + 1) * 1000)
                 break
               case 'WRONG':
-                if (data['hints'] != null) {
+                if (data['hints']) {
                   $('#exercise_hints').replaceWith('<div class="alert alert-warning text-left">' + data['hints'] + '</div>')
                   MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'hint'])
                 }
                 $('#message').replaceWith('<div class="alert alert-danger"><strong><span class=\"fa fa-remove\"></span></strong>&nbsp;&nbsp;' + data['message'] + '</div>')
-                $('#next_button').replaceWith('<a id="next_button" class="btn btn-lg btn-primary pull-right" href=\'<?php echo base_url() . $classlabel . '/' . $subtopiclabel . '/' . $exerciselabel;?>\">Újra&nbsp;<span class=\"fa fa-refresh\"></span></button>")
+                $('#next_button').replaceWith('<a id="next_button" class="btn btn-lg btn-primary pull-right" href="<?php echo base_url() . $classlabel . '/' . $subtopiclabel . '/' . $exerciselabel;?>">Újra&nbsp;<span class="fa fa-refresh"></span></a>')
                 var keys = []
                 for (var k in data.submessages) keys.push(k);
                 if (keys.length > 0) {
