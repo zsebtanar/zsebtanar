@@ -31,7 +31,7 @@ class Osztok {
 			'solution'	=> $solution,
 			'hints'		=> $hints,
 			'type'		=> 'single_list',
-			'separator' => '*'
+			'separator'	=> ';'
 		);
 	}
 
