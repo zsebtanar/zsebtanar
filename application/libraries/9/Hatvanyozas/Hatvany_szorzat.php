@@ -29,7 +29,7 @@ class Hatvany_szorzat {
 			$exp2 	= rand(10,10);
 		}
 
-		$question = 'Mennyi az $x$ értéke az alábbi kifejezésben?$$'.$base.'^'.$exp1.'\cdot'.$base.'^'.$exp2.'='.$base.'^x$$';
+		$question = 'Mennyi az $x$ értéke az alábbi kifejezésben?$$'.$base.'^{'.$exp1.'}\cdot'.$base.'^{'.$exp2.'}='.$base.'^x$$';
 		$correct = $exp1 + $exp2;
 		$solution = '$'.$correct.'$';
 
