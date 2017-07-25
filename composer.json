@@ -1,0 +1,13 @@
+{
+    "require": {
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.0",
+		"facebook/webdriver": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "tests": ""
+        }
+    }
+}
