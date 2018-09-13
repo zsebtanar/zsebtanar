@@ -74,7 +74,7 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-	'dsn'	=> '',
+	'dsn'	=> empty(getenv('JAWSDB_URL')) ? '' : getenv('JAWSDB_URL'),
 	'hostname' => '127.0.0.1',
 
 	'username' => empty(getenv('MYSQL_USER')) ? 'root' : getenv('MYSQL_USER'),
