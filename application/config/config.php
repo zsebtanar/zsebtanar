@@ -26,7 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 // PATH TO PROJECT FOLDER
 $devUrl = 'http://localhost' . (empty(getenv('DEV_BASE_URL')) ? '/zsebtanar/' : getenv('DEV_BASE_URL'));
-$config['base_url'] = empty(getenv('SERVER_ADDR')) ? $devUrl : getenv('SERVER_ADDR');
+$config['base_url'] = empty(getenv('BASE_URL')) ? $devUrl : getenv('BASE_URL');
 
 /*
 |--------------------------------------------------------------------------
