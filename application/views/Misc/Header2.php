@@ -13,10 +13,8 @@
 </title>
 
 <!-- Bootstrap CSS -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css">
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.css"> -->
-<link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.css">
-<!-- <link rel="stylesheet" href="<?php // echo base_url();?>assets/css/bootstrap-theme.css"> -->
 <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap_mod.css">
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:400,300,700&amp;subset=latin,latin-ext">
 
@@ -25,15 +23,12 @@
 <link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui.css">
 
 <!-- JQuery JS -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.js"></script> -->
-<!-- <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script> -->
-<script src="<?php echo base_url();?>assets/js/jquery.js"></script>
-<script src="<?php echo base_url();?>assets/js/jquery-ui.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
 
 
 <!-- Bootstrap JS -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> -->
-<script src="<?php echo base_url();?>assets/js/bootstrap.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
 <!-- MathJax JS -->
 <script type="text/x-mathjax-config">
@@ -57,5 +52,5 @@
 	new Svg_MathJax().install();
 </script>
 
-<script type="text/javascript" src="//localhost/MathJax-master/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<!-- <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script type="text/javascript" src="//localhost/MathJax-master/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
