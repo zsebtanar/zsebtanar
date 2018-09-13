@@ -15,12 +15,10 @@
 </title>
 
 <!-- Bootstrap CSS -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"> -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.css"> -->
-<link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.css">
-<link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap-theme.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.css">
 <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap_mod.css">
-<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&amp;subset=latin,latin-ext">
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:400,300,700&amp;subset=latin,latin-ext">
 
 <!-- JQuery CSS -->
 <link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui.css">
@@ -30,8 +28,9 @@
 <script src="<?php echo base_url();?>assets/js/jquery-ui.js"></script>
 
 <!-- Bootstrap JS -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> -->
-<script src="<?php echo base_url();?>assets/js/bootstrap.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_SVG"></script>
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 <!-- MathJax JS -->
 <script type="text/x-mathjax-config">
@@ -47,17 +46,11 @@
   });
 </script>
 
-<script type="text/javascript"
-	src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_SVG">
-</script>
+
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/svg_mathjax.js"></script>
 <script type="text/javascript">
 	new Svg_MathJax().install();
 </script>
-
-<!-- <script type="text/javascript" src="http://localhost/MathJax-master/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
-<!-- <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
-
 
 <script type="text/javascript">
 
